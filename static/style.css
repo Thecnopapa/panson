@@ -1,0 +1,91 @@
+/* Add styles here */
+
+
+
+
+/* Estils generals per als enllaços */
+.main_slideshow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/static/media/MH0A5184.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  
+}
+
+.title{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100%;
+    font-size: 200%;
+    color: rgba(240, 248, 255, 0.8);
+}
+
+.navigation {
+    position: fixed;
+    bottom: 0%;
+    left: 0%;
+    display: flex;
+    justify-content: left;
+    align-items: end;   
+}
+
+.navigation a {
+    text-decoration: none;
+    color: black;
+    transition: color 0.3s ease;
+}
+
+.dropbtn, .dropdown-btn {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: bolder;
+    border: none;
+    transition: color 0.3s ease;
+    transition: background-color 0.3s ease;
+}
+.dropdown-btn{
+    min-width: 100%;
+    justify-content: left;
+    text-align: left;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    transform: translateY(-100%);
+    transition: display 0.3s ease;
+    max-width: fit-content;
+}
+
+
+
+.dropdown:hover .dropdown-content {
+    display: inline-block;transition: display 0.3s ease;
+}
+
+/* Change color of dropdown links on hover */
+
+/* Show the dropdown menu on hover */
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover {
+    .dropbtn  {background-color: rgba(0,0,0,0.5);
+    }
+}
+.dropdown-btn:hover {background-color: rgba(0,0,0,0.5);
+    color: white;
+}
+
+.dropdown:hover {
+    .dropbtn, a {color: white;
+    }
+}
+
+
