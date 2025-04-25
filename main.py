@@ -34,14 +34,11 @@ def index():
 
 @app.route("/collecions")
 def collecions():
-    #doc_ref = db.collection("collecions").document("serpentina")
-
-    #print(doc_ref.get().to_dict())
-    #doc_ref.set({"first": "Ada", "last": "Lovelace", "born": 1815})
-
-    return test()
-    return send_file('src/collecions.html')
-
+    built = ""
+    cols = get_collecions()
+    for col in cols:
+      built += render_template('collecions.html', id = col["id"])
+    return built
 def main():
     app.run(port=int(os.environ.get('PORT', 80)))
 
