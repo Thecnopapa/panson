@@ -8,6 +8,10 @@ app = Flask(__name__)
 def index():
     return send_file('src/index.html')
 
+@app.route("/collecions")
+def collecions():
+    return send_file('src/collecions.html')
+
 def main():
     app.run(port=int(os.environ.get('PORT', 80)))
 
