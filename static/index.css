@@ -33,10 +33,13 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-size: 5vw;
+    font-size: max(5vw, 5vh);
     color: rgba(240, 248, 255, 0.9);
     margin: auto;
 }
 
-
+@media screen and (orientation: portrait) {
+    .title{
+    }
+}
 
