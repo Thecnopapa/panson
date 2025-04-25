@@ -1,0 +1,30 @@
+
+
+
+
+
+
+.fons_collecio{
+    height: 100vh;
+    align-content: center;
+    justify-items: center;
+    width: 99dvw;
+    height: 100dvh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.descripcio {
+    text-align: center;
+    font-size: 1rem;
+    position: relative;
+}
+.title {
+    font-size: 5vw;
+    position: relative;
+
+}
+.content {
+    position: relative;
+}

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PANSON: Col·leccions</title>
+    <link href='static/style.css' rel='stylesheet'>
+    <link href='static/collecions.css' rel='stylesheet'>
+</head>
+
+
+{% for name, description  in data %}
+    <div class="content" >
+    <div class="fons_collecio" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/collecions%2F{{ name }}.jpg?alt=media')">
+        {% if name %}
+            <div class = "title">
+                <h1>{{ name }}</h1>
+            </div>
+        {% endif %}
+        {% if description %}
+            <div class = "descripcio">
+                {{ description }}
+            </div>
+        {% endif %}
+    </div>
+    </div>
+{% endfor %}

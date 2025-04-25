@@ -1,0 +1,42 @@
+/* Add styles here */
+
+
+body {
+    padding: 0 0;
+    margin: 0 0;
+}
+/* Estils generals per als enllaços */
+.content {
+    position: fixed;
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    align-content: center;
+
+
+}
+.main_slideshow {
+    background-image: url('/static/media/MH0A5184.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    z-index:-1;
+    background-position: center;
+
+
+}
+
+.title{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 5vw;
+    color: rgba(240, 248, 255, 0.9);
+    margin: auto;
+}
+
+
+

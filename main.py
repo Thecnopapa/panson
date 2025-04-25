@@ -1,44 +1,63 @@
 import os
 import json
-from flask import Flask, send_file
+
+import flask
+from flask import Flask, send_file, render_template
 import requests
 app = Flask(__name__)
 base_url = "https://firestore.googleapis.com/v1/"
 cols_path = base_url + "projects/panson/databases/productes/documents/collecions"
 
 
-def get_col_data(col):
-    url = base_url + col
+def get_col_data(path):
+    url = base_url + path
+    print("Getting data from url: ")
     print(url)
-    response = json.loads(requests.get(url).text)
-    print(response)
-    return response
+    data = json.loads(requests.get(url).text)
+    name = url.split("/")[-1]
+    description = ""
+    if "fields" in data:
+        print(data["fields"])
+        description = data["fields"]["descripcio"]["stringValue"]
+    return name, description
 
-def test():
 
-    response = json.loads(requests.get(cols_path).text)
-    print(response)
-    col_list = []
-    for col in response["documents"]:
+def get_collections():
+    print("Getting all collections:")
+    print(cols_path)
+    all_cols = json.loads(requests.get(cols_path).text)["documents"]
+    print(all_cols)
+    print("")
+    data=[]
+    for col in all_cols:
         print(col)
-        col_list.append(get_col_data(col["name"]))
-
-    return col_list
-
-
+        col_path = col["name"]
+        print(col_path)
+        name, description = get_col_data(col_path)
+        print(name, description)
+        data.append((name,description))
+    html = render_template("collecio.html", data=data)
+    #print(html)
+    return html
 
 
 @app.route("/")
 def index():
-    return send_file('src/index.html')
+    print(send_file('templates/index.html').mimetype)
+    return render_template('index.html') + render_template( "navigation.html")
+
+@app.route("/navigation")
+def navigation():
+    return render_template('navigation.html')
 
 @app.route("/collecions")
-def collecions():
-    built = ""
-    cols = get_collecions()
-    for col in cols:
-      built += render_template('collecions.html', id = col["id"])
-    return built
+def collections():
+    html = get_collections()
+    return html + render_template( "navigation.html")
+
+
+
+
 def main():
     app.run(port=int(os.environ.get('PORT', 80)))
 

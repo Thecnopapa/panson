@@ -1,37 +1,18 @@
-/* Add styles here */
 
-
-
-
-/* Estils generals per als enllaços */
-.main_slideshow {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-image: url('/static/media/MH0A5184.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-  
-}
-
-.title{
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    height: 100%;
-    font-size: 200%;
-    color: rgba(240, 248, 255, 0.8);
+body {
+    padding: 0 0;
+    margin: 0 0;
 }
 
 .navigation {
     position: fixed;
     bottom: 0%;
     left: 0%;
+    width: 100dvw;
     display: flex;
     justify-content: left;
-    align-items: end;   
+    align-items: end;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .navigation a {
@@ -41,7 +22,7 @@
 }
 
 .dropbtn, .dropdown-btn {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0);
     color: black;
     padding: 16px;
     font-size: 16px;
@@ -51,6 +32,7 @@
     transition: background-color 0.3s ease;
 }
 .dropdown-btn{
+    background-color: rgba(255, 255, 255, 0.8);
     min-width: 100%;
     justify-content: left;
     text-align: left;
@@ -84,8 +66,13 @@
 }
 
 .dropdown:hover {
-    .dropbtn, a {color: white;
+    .dropbtn, .navigation a {color: white;
     }
 }
 
 
+@media screen and (orientation: portrait) {
+    .navigation {
+        justify-content: center
+    }
+}
