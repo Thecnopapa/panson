@@ -9,7 +9,7 @@ body {
     bottom: 0;
     left: 0;
     width: 100dvw;
-    height: fit-content;
+    height: min-content;
     display: flex;
     justify-content: left;
     align-items: end;
@@ -18,7 +18,7 @@ body {
 
 .navigation-left {
     display: flex;
-    width: max(40%, min-content);
+    width: max(40dvh, min-content);
     justify-content: space-evenly;
     height: fit-content;
     left: 0;
@@ -42,7 +42,6 @@ body {
     font-size: 2.5dvh;
     font-weight: bolder;
     border: none;
-    border-radius: 1dvh;
     transition: color 0.3s ease;
     transition: background-color 0.3s ease;
 }
@@ -52,30 +51,37 @@ body {
     width: 100%;
     justify-content: left;
     text-align: left;
-    margin: .dvh;
+    margin: 0dvh;
+    position: relative;
+    top: 0;
 }
 
+.dropdown{
+display: block;
+    width: min-content;
+    position: sticky;
+
+}
 .dropdown-content {
     display: none;
     position: absolute;
-    transform: translateY(-100%);
+    bottom: 0;
+    transform: translateY(-17dvh);
     transition: display 0.3s ease;
+    height: 0;
     min-width: 0;
     max-width: min-content;
+    background-color: orange;
+
 
 }
 
 
 
 .dropdown:hover .dropdown-content {
-    display: inline-block;transition: display 0.3s ease;
+    display: block;transition: display 0.3s ease;
 }
 
-/* Change color of dropdown links on hover */
-
-/* Show the dropdown menu on hover */
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover {
     .dropbtn  {background-color: rgba(0,0,0,0.5);
     }

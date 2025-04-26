@@ -7,12 +7,12 @@
     <link href='/static/index.css' rel='stylesheet'>
     <link href='/static/productes.css' rel='stylesheet'>
 </head>
-
+<button class="back" onclick="history.back()"> &lt; Col·leccions</button>
 
 {% for data in all_data %}
     <div class="content">
-        <button class="back" onclick="history.back()"> &lt; Col·leccions</button>
-        <div class="foto_producte" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/collecions%2F{{ data["id"] }}.jpg?alt=media')"></div>
+
+        <div class="foto_producte" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/collecions%2F{{ data["collecio"] }}.jpg?alt=media')"></div>
         <div class="detalls">
         {% if "nom" in data %}
             <div class = "titol_producte">
