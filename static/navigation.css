@@ -68,8 +68,8 @@ body {
     font-size: 2.5dvh;
     font-weight: bolder;
     border: none;
-    transition: color 0.3s ease;
-    transition: background-color 0.3s ease;
+    transition: 0.3s ease;
+
 }
 
 

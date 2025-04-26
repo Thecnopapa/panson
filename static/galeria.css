@@ -6,7 +6,7 @@
 
 .content {
     display: block;
-    width: 100dvw;
+    width: 100%;
     position: absolute;
     align-content: start;
 
@@ -43,12 +43,13 @@
 
 .galeria {
     position: relative;
-    display: inline-flex;
+    display: flex;
     top: 0;
     height: max-content;
     width: 100%;
     flex-wrap: wrap;
-    margin-bottom: 10dvh;
+    padding-bottom: 10dvh;
+    justify-content: center;
 }
 .spacer{
     position: relative;
@@ -58,8 +59,8 @@
 }
 .producte{
     background-color: rgba(255, 255, 255, 0.8);
-    min-width: 20dvw;
-    max-width: 100dvw;
+    min-width: 20%;
+    max-width: 40%;
     width: 40dvh;
     height: 60dvh;
     position: relative;
@@ -67,6 +68,7 @@
     margin: 1dvh;
     user-select: none;
     align-content: start;
+    padding-bottom: 3dvh;
 
 }
 @media screen and (orientation: landscape) {
@@ -90,6 +92,9 @@
     display: none;
     font-size: 2dvh;
     padding-right: 5%;
+    margin-bottom: 5%;
+    flex-wrap: wrap;
+    overflow-y: hidden;
 
 }
 .imatge{
@@ -136,14 +141,13 @@
 
 
 
-
-
-
 @media screen and (orientation: portrait) {
     .galeria {
         justify-content: center;
     }
     .producte{
+        min-width:  80dvw;
+        max-width:  80dvw;
         width: 80dvw;
         user-select: none;
     }
