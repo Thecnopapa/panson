@@ -67,7 +67,7 @@ def read_data_type(value):
 
 
 def get_products_by_attribute(attribute, value):
-    print("Getting all collections in {}:".format(col))
+    print("Getting all products in with {} == {}:".format(attribute, value))
     all_products = json.loads(requests.get(prods_path).text)["documents"]
     all_data = []
     for prod in all_products:
