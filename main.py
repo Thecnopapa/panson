@@ -113,13 +113,18 @@ def get_products_by_attribute(attribute = None, value = None, origin = "/", temp
 
 class Localization():
     def __init__(self, lan):
-        self.loc = json.loads(open("localization.json").read())[lan]
+        loc_json = json.loads(open("localization.json").read())
+        self.all_langs = (lang for lang in loc_json.keys())
+        self.loc = loc_json[lan]
 
     def __getattr__(self, item):
         return self.loc[item.replace("_", "-")]
 
     def __getitem__(self, item):
         return self.loc[item]
+    @staticmethod
+    def upper(string ):
+        return string.upper()
 
 
 
@@ -129,10 +134,15 @@ class Localization():
 def redirect_to_cat():
     return redirect("/cat/")
 
+
+
+
 @app.route("/<lan>/")
 def index(lan):
     loc = Localization(lan)
     return render_template('index.html', loc = loc) + render_template("navigation.html", origin="hide", loc = loc)
+
+
 
 @app.route("/<lan>/navigation")
 def navigation(lan):

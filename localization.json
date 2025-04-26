@@ -1,6 +1,9 @@
 {
   "cat": {
     "lan": "cat",
+    "lan-upper": "CAT",
+
+
     "nav-inici": "INICI",
     "nav-peces": "PECES",
     "nav-peces-uniques": "PECES UNIQUES",
@@ -25,6 +28,9 @@
   },
   "en": {
     "lan": "en",
+    "lan-upper": "EN",
+
+
     "nav-inici": "HOME",
     "nav-peces": "PIECES",
     "nav-peces-uniques": "UNIQUE PIECES",

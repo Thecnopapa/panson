@@ -34,10 +34,10 @@ body {
     bottom: 0;
     left: 0;
     width: 100dvw;
-    height: min-content;
+    height: 6dvh;
     display: flex;
-    justify-content: left;
-    align-items: end;
+    justify-content: right;
+    align-items: center;
     background-color: rgba(255, 255, 255, 0.8);
 }
 
@@ -49,9 +49,14 @@ body {
     height: fit-content;
     left: 0;
     bottom: 0;
-    position: relative;
+    position: fixed;
 }
-
+.navigation-right {
+    display: flex;
+    height: 100%;
+    width: fit-content;
+    margin-right: 3dvw;
+}
 
 .navigation a {
     text-decoration: none;
@@ -128,6 +133,16 @@ display: block;
 .dropdown:hover {
     .dropbtn, .navigation a {color: white;
     }
+}
+
+
+.language{
+    align-content: center;
+    padding: 1dvh;
+    cursor: pointer;
+}
+.language:hover {
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 

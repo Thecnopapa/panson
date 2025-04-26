@@ -30,4 +30,17 @@
             <button class="dropbtn" onclick="location.href='https://www.instagram.com/panson.joieria/'; location.target='_blank'"> {{ loc.nav_projecte }}</button>
         </div>
     </div>
+    <div class = "navigation-right">
+        {% for lang in loc.all_langs %}
+            {% if lang == loc.lan_upper %}
+                <div class="language" style="font-weight: bolder" onclick="location.href='/{{ lang }}/'">
+                    {{ loc.upper(lang) }}
+                </div>
+            {% else %}
+                <div class="language" onclick="location.href='/{{ lang }}/'">
+                    {{ loc.upper(lang) }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
 </div>
