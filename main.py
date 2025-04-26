@@ -10,6 +10,15 @@ cols_path = base_url + "projects/panson/databases/productes/documents/collecions
 prods_path = base_url + "projects/panson/databases/productes/documents/productes"
 
 
+
+
+
+
+
+
+
+
+
 def get_col_data(path):
     url = base_url + path
     print("Getting collection data from url: ")
@@ -66,7 +75,7 @@ def read_data_type(value):
         return value[list(value.keys())[0]]
 
 
-def get_products_by_attribute(attribute, value, origin = "/"):
+def get_products_by_attribute(attribute, value, origin = "/", template="producte.html", **kwargs):
     print("Getting all products in with {} == {}:".format(attribute, value))
     all_products = json.loads(requests.get(prods_path).text)["documents"]
     all_data = []
@@ -75,17 +84,19 @@ def get_products_by_attribute(attribute, value, origin = "/"):
         data = get_product_data(product_path)
         print(data)
         if attribute in data:
-          if data[attribute] == value:
             data["id"] = product_path.split("/")[-1]
-            all_data.append(data)
+            if data[attribute] == value:
+                all_data.append(data)
     print(all_data)
     if len(all_data) == 0:
         return ("No hi han peces en aquesta collecio encara<br><br>"
                 "<button onclick=\"location.href='/collecions'\">Tornar enrere</button>")
 
-    html = render_template("producte.html", all_data=all_data, origin=origin)
+    html = render_template(template, all_data=all_data, origin=origin, **kwargs)
     # print(html)
     return html
+
+
 
 
 
@@ -101,30 +112,36 @@ def get_products_by_attribute(attribute, value, origin = "/"):
 @app.route("/")
 def index():
     print(send_file('templates/index.html').mimetype)
-    return render_template('index.html') + render_template( "navigation.html")
+    return render_template('index.html') + render_template("navigation.html")
 
 @app.route("/navigation")
 def navigation():
-    return render_template('navigation.html')
+    return render_template("navigation.html")
 
 @app.route("/collecions")
 def collections():
     html = get_collections()
-    return html + render_template( "navigation.html")
+    return html + render_template("navigation.html")
 
 @app.route("/collecions/<col>")
 def productes_per_col(col):
-    html = get_products_by_attribute("collecio", col, origin = "/collecions")
+    html = get_products_by_attribute("collecio", col, template="galeria.html", titol=col.capitalize(), subtitol="Colleccio")
     if html:
-        return html + render_template( "navigation.html")
+        return html + render_template("navigation.html", origin = "/collecions")
 
 
 @app.route("/peces_uniques")
 def peces_uniques():
-    html = get_products_by_attribute("unica", True, origin = "/")
+    html = get_products_by_attribute("unica", True, )
     if html:
-        return html + render_template( "navigation.html")
+        return html + render_template("navigation.html",  origin = "/")
 
+
+@app.route("/collecions/<col>/<id>")
+def mostart_peca(col, id):
+    html = get_products_by_attribute("id", id,)
+    if html:
+        return html + render_template("navigation.html",  origin = "/collecions/{}".format(col))
 
 def main():
     app.run(port=int(os.environ.get('PORT', 80)))

@@ -1,5 +1,12 @@
 <!DOCTYPE html>
-<link href='/static/navigation.css' rel='stylesheet'>
+
+
+{% if origin %}
+    <button class="back" onclick="location.href='{{ origin }}'"> &lt; Enrere</button>
+{% else %}
+    <button class="back" onclick="history.back()"> &lt; Enrere</button>
+{% endif %}
+
 
 <div class = "navigation">
     <div class = "navigation-left" id="nav-left">

@@ -1,6 +1,7 @@
 .content {
     display: flex;
     width: 100dvw;
+    position: relative;
 }
 .foto_producte {
     position: relative;
@@ -12,7 +13,7 @@
     position: relative;
     top: 1dvh;
     left: 3dvw;
-    font-size: max(3dvw, 3dvh);
+    font-size: 5dvh;
 }
 .detalls{
     scroll-behavior: smooth;
@@ -25,14 +26,14 @@
 
 }
 .descripcio_producte {
-    font-size: max(1.5dvw, 1.5dvh);
+    font-size:  3dvh;
     position: relative;
     left: 3dvw;
     width: 60%;
 }
 .detalls_generals{
     width: 60%;
-    font-size: max(1dvw, 1dvh);
+    font-size: 2dvh;
     position: relative;
     line-height: 200%;
     top: 5vh;
@@ -40,31 +41,10 @@
 }
 .small-icon {
     position: relative;
-    height: max(1dvw, 1dvh);
+    height: 2dvh;
     top: 0.2dvh;
 }
-.back {
-    position: fixed;
-    top: 0dvh;
-    left: 0dvh;
-    z-index: 1;
-    height: fit-content;
-    color: black;
-    padding:  1dvh 1dvw;
-    font-size: 2.5dvh;
-    font-weight: bolder;
-    background-color: rgba(255, 255, 255, 0.5);
-    min-width: max-content;
-    text-align: center;
-    align-content: center;
-    border: transparent;
-}
 
-.back:hover {
-    background-color: rgba(0,0,0,0.5);
-    color: white;
-
-}
 
 @media screen and (orientation: portrait) {
     .content {
@@ -79,6 +59,21 @@
 
     .detalls {
         width: 100dvw;
+    }
+}
+
+@media screen and (orientation: portrait) {
+    .descripcio_producte {
+        font-size: 3dvw;
+    }
+    .detalls_generals {
+        font-size: 2dvw;
+    }
+    .titol_producte {
+        font-size: 5dvw;
+    }
+    .small-icon {
+        height: 2dvw;
     }
 }
 

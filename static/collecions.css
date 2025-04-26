@@ -17,7 +17,7 @@
 
 .descripcio {
     text-align: center;
-    font-size: 1rem;
+    font-size: 2dvh;
     position: relative;
 }
 .title {
@@ -26,4 +26,10 @@
 }
 .content {
     position: relative;
+}
+
+@media screen and (orientation: portrait) {
+    .subtitle{
+        font-size: 2dvw;
+    }
 }
