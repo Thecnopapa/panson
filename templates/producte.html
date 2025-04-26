@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PANSON: Productes</title>
+    {% if len == 1 %}
+        <title>PANSON: {{ all_data[0]["nom"] }}</title>
+    {% else %}
+        <title>PANSON: {{ loc.pro_productes }}</title>
+    {% endif %}
     <link href='/static/navigation.css' rel='stylesheet'>
     <link href='/static/index.css' rel='stylesheet'>
     <link href='/static/productes.css' rel='stylesheet'>
 </head>
-{% if origin %}
-    <button class="back" onclick="location.href='{{ origin }}'"> &lt; Enrere</button>
 
-{% else %}
-    <button class="back" onclick="history.back()"> &lt; Enrere</button>
-{% endif %}
 {% for data in all_data %}
     <div class="content">
         {% if data["imatges"] %}
@@ -37,9 +36,9 @@
         {% endif %}
 
         <div class = "detalls_generals">
-            Ho fabricarem especialment per a tu un cop hagis fet la teva comanda. Enviament en 21 dies laborables<br><br>
-            <img class="small-icon" src="/static/media/shield.svg" alt="garantia"> 1 any de garantia <br>
-            <img class="small-icon" src="/static/media/reload.svg" alt="devolucions"> 30 dies per fer canvis i devolucions<br>
+            {{ loc["pro-missatge"] }}<br><br>
+            <img class="small-icon" src="/static/media/shield.svg" alt="garantia">&nbsp;{{ loc["pro-garantia"] }} <br>
+            <img class="small-icon" src="/static/media/reload.svg" alt="devolucions">&nbsp;{{ loc["pro-devolucio"] }}<br>
             </div>
         </div>
     </div>

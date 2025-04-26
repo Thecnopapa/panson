@@ -3,31 +3,31 @@
 
 {% if origin %}
     {% if origin != "hide" %}
-        <button class="back" onclick="location.href='{{ origin }}'"> &lt; Enrere</button>
+        <button class="back" onclick="location.href='/{{ loc.lan }}/{{ origin }}'"> &lt; {{ loc.nav_enrere }}</button>
     {% endif %}
 {% else %}
-    <button class="back" onclick="history.back()"> &lt; Enrere</button>
+    <button class="back" onclick="history.back()"> &lt; {{ loc.nav_enrere }}</button>
 {% endif %}
 
 
 <div class = "navigation">
     <div class = "navigation-left" id="nav-left">
         <div class="dropdown">
-            <button class="dropbtn" onclick="location.href='/'">INICI</button>
+            <button class="dropbtn" onclick="location.href='/{{ loc.lan }}/'">{{ loc.nav_inici }}</button>
         </div>
         <div class="dropdown">
             <div class="dropdown-content">
-                <button class = "dropdown-btn" onclick="location.href='/productes'">TOTES LES PECES</button>
-                <button class = "dropdown-btn" onclick="location.href='/peces_uniques'">PECES ÚNIQUES</button>
-                <button class = "dropdown-btn" onclick="location.href='/collecions'">COL·LECCIONS</button>
+                <button class = "dropdown-btn" onclick="location.href='/{{ loc.lan }}/productes'">{{ loc.nav_productes }}</button>
+                <button class = "dropdown-btn" onclick="location.href='/{{ loc.lan }}/peces_uniques'">{{ loc.nav_peces_uniques }}</button>
+                <button class = "dropdown-btn" onclick="location.href='/{{ loc.lan }}/collecions'">{{ loc.nav_collecions }}</button>
             </div>
-            <button class="dropbtn"> PECES </button>
+            <button class="dropbtn"> {{ loc.nav_peces }} </button>
         </div>
         <div class="dropdown">
-            <button class="dropbtn">CONTACTE</button>
+            <button class="dropbtn">{{ loc.nav_contacte }}</button>
         </div>
         <div class="dropdown">
-            <button class="dropbtn" onclick="location.href='https://www.instagram.com/panson.joieria/'; location.target='_blank'"> PROJECTE</button>
+            <button class="dropbtn" onclick="location.href='https://www.instagram.com/panson.joieria/'; location.target='_blank'"> {{ loc.nav_projecte }}</button>
         </div>
     </div>
 </div>

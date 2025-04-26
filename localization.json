@@ -1,0 +1,48 @@
+{
+  "cat": {
+    "lan": "cat",
+    "nav-inici": "INICI",
+    "nav-peces": "PECES",
+    "nav-peces-uniques": "PECES UNIQUES",
+    "nav-collecions": "COL·LECCIONS",
+    "nav-contacte": "CONTACTE",
+    "nav-projecte": "PROJECTE",
+    "nav-productes": "PRODUCTES",
+    "nav-enrere": "Enrere",
+
+    "col-collecions": "Col·leccions",
+
+    "gal-totes": "Totes les peces",
+    "gal-collecio" : "Col·lecio",
+
+
+    "pro-productes": "Productes",
+    "pro-garantia": "1 any de garantia",
+    "pro-devolucio": "30 dies per fer canvis i devolucions",
+    "pro-missatge": "Ho fabricarem especialment per a tu un cop hagis fet la teva comanda. Enviament en 21 dies laborables."
+
+
+  },
+  "en": {
+    "lan": "en",
+    "nav-inici": "HOME",
+    "nav-peces": "PIECES",
+    "nav-peces-uniques": "UNIQUE PIECES",
+    "nav-collecions": "COLLECTIONS",
+    "nav-contacte": "CONTACT",
+    "nav-projecte": "PROJECT",
+    "nav-productes": "PRODUCTS",
+    "nav-enrere": "Back",
+
+    "col-collecions": "Collections",
+
+    "gal-totes": "All the pieces",
+    "gal-collecio" : "Collection",
+
+
+    "pro-productes": "Products",
+    "pro-garantia": "1 rear of guarantee",
+    "pro-devolucio": "30 days for changes and returns",
+    "pro-missatge": "We will produce it specially for you once you place your order. Sent within 21 working days."
+  }
+}

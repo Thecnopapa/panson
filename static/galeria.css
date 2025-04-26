@@ -36,6 +36,7 @@
 }
 .title{
     font-size: 10dvh;
+    cursor: default;
 }
 .subtitle{
     font-size: 2dvh;
@@ -50,6 +51,7 @@
     flex-wrap: wrap;
     padding-bottom: 10dvh;
     justify-content: center;
+    overflow-y: hidden;
 }
 .spacer{
     position: relative;

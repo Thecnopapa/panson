@@ -2,7 +2,7 @@ import os
 import json
 
 import flask
-from flask import Flask, send_file, render_template
+from flask import Flask, send_file, render_template, redirect
 import requests
 app = Flask(__name__)
 base_url = "https://firestore.googleapis.com/v1/"
@@ -36,14 +36,14 @@ def get_col_data(path):
     return id, name, description
 
 
-def get_collections():
+def get_collections(loc):
     print("Getting all collections:")
     all_cols = json.loads(requests.get(cols_path).text)["documents"]
     data=[]
     for col in all_cols:
         col_path = col["name"]
         data.append(get_col_data(col_path))
-    html = render_template("collecio.html", data=data)
+    html = render_template("collecio.html", data=data, loc=loc)
     #print(html)
     return html
 
@@ -101,7 +101,7 @@ def get_products_by_attribute(attribute = None, value = None, origin = "/", temp
         return ("No hi han peces en aquesta collecio encara<br><br>"
                 "<button onclick=\"location.href='/collecions'\">Tornar enrere</button>")
 
-    html = render_template(template, all_data=all_data, origin=origin, **kwargs)
+    html = render_template(template, all_data=all_data, origin=origin, len = len(all_data), **kwargs)
     # print(html)
     return html
 
@@ -111,52 +111,69 @@ def get_products_by_attribute(attribute = None, value = None, origin = "/", temp
 
 
 
+class Localization():
+    def __init__(self, lan):
+        self.loc = json.loads(open("localization.json").read())[lan]
 
+    def __getattr__(self, item):
+        return self.loc[item.replace("_", "-")]
 
+    def __getitem__(self, item):
+        return self.loc[item]
 
 
 
 
 
 @app.route("/")
-def index():
-    print(send_file('templates/index.html').mimetype)
-    return render_template('index.html') + render_template("navigation.html", origin="hide")
+def redirect_to_cat():
+    return redirect("/cat/")
 
-@app.route("/navigation")
-def navigation():
-    return render_template("navigation.html")
+@app.route("/<lan>/")
+def index(lan):
+    loc = Localization(lan)
+    return render_template('index.html', loc = loc) + render_template("navigation.html", origin="hide", loc = loc)
 
-@app.route("/collecions")
-def collections():
-    html = get_collections()
-    return html + render_template("navigation.html")
+@app.route("/<lan>/navigation")
+def navigation(lan):
+    loc = Localization(lan)
+    return render_template("navigation.html", loc=loc)
 
-@app.route("/collecions/<col>")
-def productes_per_col(col):
-    html = get_products_by_attribute("collecio", col, template="galeria.html", titol=col.capitalize(), subtitol="Colleccio")
+@app.route("/<lan>/collecions")
+def collections(lan):
+    loc = Localization(lan)
+    html = get_collections(loc=loc)
+    return html + render_template("navigation.html", loc = loc)
+
+@app.route("/<lan>/collecions/<col>")
+def productes_per_col(lan, col):
+    loc = Localization(lan)
+    html = get_products_by_attribute("collecio", col, template="galeria.html", titol=col.capitalize(), subtitol=loc.gal_collecio, loc=loc)
     if html:
-        return html + render_template("navigation.html", origin = "/collecions")
+        return html + render_template("navigation.html", origin = None, loc = loc)
 
 
-@app.route("/peces_uniques")
-def peces_uniques():
-    html = get_products_by_attribute("unica", True, )
+@app.route("/<lan>/peces_uniques")
+def peces_uniques(lan):
+    loc = Localization(lan)
+    html = get_products_by_attribute("unica", True, loc = loc )
     if html:
-        return html + render_template("navigation.html",  origin = "/")
+        return html + render_template("navigation.html",  origin = None, loc = loc)
 
 
-@app.route("/productes/<id>")
-def mostrar_peca(id):
-    html = get_products_by_attribute("id", id, first_only=True)
+@app.route("/<lan>/productes/<id>")
+def mostrar_peca(lan, id):
+    loc = Localization(lan)
+    html = get_products_by_attribute("id", id, first_only=True, loc = loc)
     if html:
-        return html + render_template("navigation.html", origin = None)
+        return html + render_template("navigation.html", origin = None, loc = loc)
 
-@app.route("/productes")
-def mostrar_tot():
-    html = get_products_by_attribute(template="galeria.html", titol="Totes les peces", subtitol="PANSON")
+@app.route("/<lan>/productes")
+def mostrar_tot(lan):
+    loc = Localization(lan)
+    html = get_products_by_attribute(template="galeria.html", titol=loc.gal_totes, subtitol="PANSON", loc=loc)
     if html:
-        return html + render_template("navigation.html", origin = "/")
+        return html + render_template("navigation.html", origin = None, loc = loc)
 
 def main():
     app.run(port=int(os.environ.get('PORT', 80)))

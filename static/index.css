@@ -31,13 +31,15 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-size: 5dvh;
+    font-size: 10dvh;
+    font-weight: bold;
     color: rgba(240, 248, 255, 0.9);
     margin: auto;
     width: fit-content;
+    user-select: none;
 }
 .title:hover{
-    cursor: pointer;
+    cursor: default;
 }
 
 @media screen and (orientation: portrait) {
