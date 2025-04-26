@@ -4,16 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PANSON: Col·leccions</title>
-    <link href='static/style.css' rel='stylesheet'>
-    <link href='static/collecions.css' rel='stylesheet'>
+    <link href='/static/index.css' rel='stylesheet'>
+    <link href='/static/collecions.css' rel='stylesheet'>
 </head>
 
 
-{% for name, description  in data %}
+{% for id, name, description  in data %}
     <div class="content" >
-    <div class="fons_collecio" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/collecions%2F{{ name }}.jpg?alt=media')">
+    <div class="fons_collecio" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/collecions%2F{{ id }}.jpg?alt=media')">
         {% if name %}
-            <div class = "title">
+            <div class = "title" onclick="location.href='/collecions/{{ id }}'">
                 <h1>{{ name }}</h1>
             </div>
         {% endif %}

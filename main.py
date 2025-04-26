@@ -7,38 +7,94 @@ import requests
 app = Flask(__name__)
 base_url = "https://firestore.googleapis.com/v1/"
 cols_path = base_url + "projects/panson/databases/productes/documents/collecions"
+prods_path = base_url + "projects/panson/databases/productes/documents/productes"
 
 
 def get_col_data(path):
     url = base_url + path
-    print("Getting data from url: ")
+    print("Getting collection data from url: ")
     print(url)
     data = json.loads(requests.get(url).text)
-    name = url.split("/")[-1]
     description = ""
+    name = ""
+    id = url.split("/")[-1]
     if "fields" in data:
         print(data["fields"])
-        description = data["fields"]["descripcio"]["stringValue"]
-    return name, description
+        if "nom" in data["fields"]:
+            name = data["fields"]["nom"]["stringValue"]
+        if "descripcio" in data["fields"]:
+            description = data["fields"]["descripcio"]["stringValue"]
+    return id, name, description
 
 
 def get_collections():
     print("Getting all collections:")
-    print(cols_path)
     all_cols = json.loads(requests.get(cols_path).text)["documents"]
-    print(all_cols)
-    print("")
     data=[]
     for col in all_cols:
-        print(col)
         col_path = col["name"]
-        print(col_path)
-        name, description = get_col_data(col_path)
-        print(name, description)
-        data.append((name,description))
+        data.append(get_col_data(col_path))
     html = render_template("collecio.html", data=data)
     #print(html)
     return html
+
+def get_product_data(path):
+    url = base_url + path
+    print("Getting product data from url: ")
+    print(url)
+    raw_data = json.loads(requests.get(url).text)
+    print(raw_data)
+    fields = raw_data["fields"]
+    data = {}
+    for key, value in fields.items():
+        data[key] = read_data_type(value)
+    return data
+
+def read_data_type(value):
+    if list(value.keys())[0] == "stringValue":
+        return value["stringValue"]
+    elif list(value.keys())[0] == "integerValue":
+        return int(value["integerValue"])
+    elif list(value.keys())[0] == "booleanValue":
+        return bool(value["booleanValue"])
+    elif list(value.keys())[0] == "mapValue":
+        r = {}
+        for key, value in value["mapValue"]["fields"].items():
+            r[key] = read_data_type(value)
+        return r
+    else:
+        return value[list(value.keys())[0]]
+
+
+def get_products_by_col(col):
+    print("Getting all collections in {}:".format(col))
+    all_products = json.loads(requests.get(prods_path).text)["documents"]
+    all_data = []
+    for prod in all_products:
+        product_path = prod["name"]
+        data = get_product_data(product_path)
+        print(data)
+        if data["collecio"] == col:
+            data["id"] = product_path.split("/")[-1]
+            all_data.append(data)
+    print(all_data)
+    if len(all_data) == 0:
+        return ("No hi han peces en aquesta collecio encara<br><br>"
+                "<button onclick=\"location.href='/collecions'\">Tornar enrere</button>")
+
+    html = render_template("producte.html", all_data=all_data)
+    # print(html)
+    return html
+
+
+
+
+
+
+
+
+
+
 
 
 @app.route("/")
@@ -55,7 +111,11 @@ def collections():
     html = get_collections()
     return html + render_template( "navigation.html")
 
-
+@app.route("/collecions/<col>")
+def productes_per_col(col):
+    html = get_products_by_col(col)
+    if html:
+        return html + render_template( "navigation.html")
 
 
 def main():

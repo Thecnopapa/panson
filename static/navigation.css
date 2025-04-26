@@ -6,13 +6,26 @@ body {
 
 .navigation {
     position: fixed;
-    bottom: 0%;
-    left: 0%;
+    bottom: 0;
+    left: 0;
     width: 100dvw;
+    height: fit-content;
     display: flex;
     justify-content: left;
     align-items: end;
     background-color: rgba(255, 255, 255, 0.8);
+}
+
+.navigation-left {
+    display: flex;
+    width: max(40%, min-content);
+    justify-content: space-evenly;
+    height: fit-content;
+    left: 0;
+    bottom: 0;
+    position: relative;
+
+
 }
 
 .navigation a {
@@ -23,19 +36,23 @@ body {
 
 .dropbtn, .dropdown-btn {
     background-color: rgba(255, 255, 255, 0);
+    height: fit-content;
     color: black;
-    padding: 16px;
-    font-size: 16px;
+    padding:  1.5dvh 1.5dvw;
+    font-size: 2.5dvh;
     font-weight: bolder;
     border: none;
+    border-radius: 1dvh;
     transition: color 0.3s ease;
     transition: background-color 0.3s ease;
 }
 .dropdown-btn{
     background-color: rgba(255, 255, 255, 0.8);
-    min-width: 100%;
+    min-width: max-content;
+    width: 100%;
     justify-content: left;
     text-align: left;
+    margin: .dvh;
 }
 
 .dropdown-content {
@@ -43,7 +60,9 @@ body {
     position: absolute;
     transform: translateY(-100%);
     transition: display 0.3s ease;
-    max-width: fit-content;
+    min-width: 0;
+    max-width: min-content;
+
 }
 
 
@@ -73,6 +92,9 @@ body {
 
 @media screen and (orientation: portrait) {
     .navigation {
-        justify-content: center
+        justify-content: center;
+    }
+    .navigation-left {
+        width: 100dvw;
     }
 }

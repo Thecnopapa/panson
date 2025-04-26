@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PANSON: Productes</title>
+    <link href='/static/index.css' rel='stylesheet'>
+    <link href='/static/productes.css' rel='stylesheet'>
+</head>
+
+
+{% for data in all_data %}
+    <div class="content">
+        <button class="back" onclick="history.back()"> &lt; Col·leccions</button>
+        <div class="foto_producte" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/collecions%2F{{ data["id"] }}.jpg?alt=media')"></div>
+        <div class="detalls">
+        {% if "nom" in data %}
+            <div class = "titol_producte">
+                <h1>{{ data["nom"] }}</h1>
+            </div>
+        {% endif %}
+        {% if data["descripcio"] %}
+            {% autoescape false %}
+            <div class = "descripcio_producte">
+                {{ data["descripcio"]}}
+            </div>
+            {% endautoescape %}
+        {% endif %}
+
+        <div class = "detalls_generals">
+            Ho fabricarem especialment per a tu un cop hagis fet la teva comanda. Enviament en 21 dies laborables<br><br>
+            <img class="small-icon" src="/static/media/shield.svg" alt="garantia"> 1 any de garantia <br>
+            <img class="small-icon" src="/static/media/reload.svg" alt="devolucions"> 30 dies per fer canvis i devolucions<br>
+            </div>
+        </div>
+    </div>
+
+{% endfor %}

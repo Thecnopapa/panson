@@ -1,0 +1,41 @@
+.content {
+    display: flex;
+}
+.foto_producte {
+    background-color: red;
+    position: relative;
+    width: 40dvw;
+}
+.titol_producte {
+    position: relative;
+    top: 1dvh;
+    left: 3dvw;
+    font-size: max(3dvw, 3dvh);
+}
+.detalls{
+
+}
+.descripcio_producte {
+    font-size: max(1.5dvw, 1.5dvh);
+    position: relative;
+    left: 3dvw;
+    width: 60%;
+}
+.detalls_generals{
+    font-size: max(1dvw, 1dvh);
+    position: relative;
+    line-height: 200%;
+    top: 5vh;
+    left: 3vw;
+}
+.small-icon {
+    position: relative;
+    height: max(1dvw, 1dvh);
+    top: 0.2dvh;
+}
+.back {
+    position: fixed;
+    top: 1dvh;
+    left: 1dvh;
+    z-index: 1;
+}
