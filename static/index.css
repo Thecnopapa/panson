@@ -15,19 +15,19 @@ body {
 
 
 }
-.main_slideshow {
-    background-image: url('/static/media/MH0A5184.jpg');
+
+
+.first_slide{
+    background-image: url('/static/media/first_image.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
-    width: 100vw;
-    position: absolute;
-    top: 0;
-    z-index:-1;
     background-position: center;
-
-
+    width: 100%;
+    height: 100%;
 }
+
+
+
 
 .title{
     justify-content: center;

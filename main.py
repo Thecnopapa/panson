@@ -66,7 +66,7 @@ def read_data_type(value):
         return value[list(value.keys())[0]]
 
 
-def get_products_by_attribute(attribute, value):
+def get_products_by_attribute(attribute, value, origin = "/"):
     print("Getting all products in with {} == {}:".format(attribute, value))
     all_products = json.loads(requests.get(prods_path).text)["documents"]
     all_data = []
@@ -83,7 +83,7 @@ def get_products_by_attribute(attribute, value):
         return ("No hi han peces en aquesta collecio encara<br><br>"
                 "<button onclick=\"location.href='/collecions'\">Tornar enrere</button>")
 
-    html = render_template("producte.html", all_data=all_data)
+    html = render_template("producte.html", all_data=all_data, origin=origin)
     # print(html)
     return html
 
@@ -114,14 +114,14 @@ def collections():
 
 @app.route("/collecions/<col>")
 def productes_per_col(col):
-    html = get_products_by_attribute("collecio", col)
+    html = get_products_by_attribute("collecio", col, origin = "/collecions")
     if html:
         return html + render_template( "navigation.html")
 
 
 @app.route("/peces_uniques")
 def peces_uniques():
-    html = get_products_by_attribute("unica", True)
+    html = get_products_by_attribute("unica", True, origin = "/")
     if html:
         return html + render_template( "navigation.html")
 

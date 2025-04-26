@@ -7,8 +7,12 @@
     <link href='/static/index.css' rel='stylesheet'>
     <link href='/static/productes.css' rel='stylesheet'>
 </head>
-<button class="back" onclick="history.back()"> &lt; Col·leccions</button>
+{% if origin %}
+    <button class="back" onclick="location.href='{{ origin }}'"> &lt; Enrere</button>
 
+{% else %}
+    <button class="back" onclick="history.back()"> &lt; Enrere</button>
+{% endif %}
 {% for data in all_data %}
     <div class="content">
 

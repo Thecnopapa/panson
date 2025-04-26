@@ -8,12 +8,23 @@
     <link rel="icon" type="image/x-icon" href="static/media/favicon.png">
     <link href='/static/index.css' rel='stylesheet'>
     <script defer type="text/javascript" src="static/main.js"></script>
+    <link href='/static/slideshow.css' rel='stylesheet'>
+    <script defer type="text/javascript" src="static/slideshow.js"></script>
 
 </head>
 
 <body>
     <div class="content">
-        <div class = "main_slideshow"></div>
+        <div class = "slideshow">
+            <div class="slide">
+                <div class="first_slide"></div>
+            </div>
+            {% for slide in slides %}
+                <div class="slide">
+                    <img class="slide" src="{{ slide["url"] }}" alt="{{ slide["alt"] }}">
+                </div>
+            {% endfor %}
+        </div>
         <div class = "title">
           <h1>PANSON</h1>
         </div>

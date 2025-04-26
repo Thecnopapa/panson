@@ -45,10 +45,27 @@
 }
 .back {
     position: fixed;
-    top: 1dvh;
-    left: 1dvh;
+    top: 0dvh;
+    left: 0dvh;
     z-index: 1;
+    height: fit-content;
+    color: black;
+    padding:  1dvh 1dvw;
+    font-size: 2.5dvh;
+    font-weight: bolder;
+    background-color: rgba(255, 255, 255, 0.5);
+    min-width: max-content;
+    text-align: center;
+    align-content: center;
+    border: transparent;
 }
+
+.back:hover {
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+
+}
+
 @media screen and (orientation: portrait) {
     .content {
         display: block;
@@ -64,3 +81,4 @@
         width: 100dvw;
     }
 }
+
