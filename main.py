@@ -66,7 +66,7 @@ def read_data_type(value):
         return value[list(value.keys())[0]]
 
 
-def get_products_by_col(col):
+def get_products_by_attribute(attribute, value):
     print("Getting all collections in {}:".format(col))
     all_products = json.loads(requests.get(prods_path).text)["documents"]
     all_data = []
@@ -74,7 +74,8 @@ def get_products_by_col(col):
         product_path = prod["name"]
         data = get_product_data(product_path)
         print(data)
-        if data["collecio"] == col:
+        if attribute in data:
+          if data[attribute] == value:
             data["id"] = product_path.split("/")[-1]
             all_data.append(data)
     print(all_data)
@@ -113,7 +114,14 @@ def collections():
 
 @app.route("/collecions/<col>")
 def productes_per_col(col):
-    html = get_products_by_col(col)
+    html = get_products_by_attribute("collecio", col)
+    if html:
+        return html + render_template( "navigation.html")
+
+
+@app.route("/peces_uniques")
+def peces_uniques():
+    html = get_products_by_attribute("unica", True)
     if html:
         return html + render_template( "navigation.html")
 
