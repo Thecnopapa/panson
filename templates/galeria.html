@@ -25,10 +25,12 @@
                     <div class="imatge"></div>
                 {% endif %}
                 <div class="detalls">
-                    <div class="nom">{{ data["nom"] }}</div>
-                    <div class="subtiol">{{ data["subtitol"] }}</div>
+                    <div class="nom">{{ data["nom"] }}&nbsp;</div>
+                    <div class="subtiol">{{ data["subtitol"] }}&nbsp;</div>
                     {% if data["preu"] %}
                         <div class="preu">{{ data["preu"] }} €</div>
+                    {% else %}
+                        <div class="preu">&nbsp;</div>
                     {% endif %}
                     <div class="descripcio">{{ data["descripcio"] }}</div>
                 </div>

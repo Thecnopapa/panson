@@ -24,8 +24,9 @@
         <div class="detalls">
         {% if "nom" in data %}
             <div class = "titol_producte">
-                <h1>{{ data["nom"] }}</h1>
+                {{ data["nom"] }}
             </div>
+            <br>
         {% endif %}
         {% if data["descripcio"] %}
             {% autoescape false %}

@@ -80,7 +80,7 @@ def read_data_type(value):
         return value[list(value.keys())[0]]
 
 
-def get_products_by_attribute(attribute, value, origin = "/", template="producte.html", first_only=False, **kwargs):
+def get_products_by_attribute(attribute = None, value = None, origin = "/", template="producte.html", first_only=False, **kwargs):
     print("Getting all products in with {} == {}:".format(attribute, value))
     all_products = json.loads(requests.get(prods_path).text)["documents"]
     all_data = []
@@ -88,13 +88,14 @@ def get_products_by_attribute(attribute, value, origin = "/", template="producte
         product_path = prod["name"]
         data = get_product_data(product_path)
         print(data)
-
         data["id"] = product_path.split("/")[-1]
-        if attribute in data:
-            if data[attribute] == value:
+        if attribute in data or attribute is None:
+            if attribute is None or data[attribute] == value :
                 if not "preu" in data and "material" in data:
                     data["preu"] = min([int(material["preu"]) for material in data["material"].values()])
                 all_data.append(data)
+                if first_only:
+                    break
     print(all_data)
     if len(all_data) == 0:
         return ("No hi han peces en aquesta collecio encara<br><br>"
@@ -120,7 +121,7 @@ def get_products_by_attribute(attribute, value, origin = "/", template="producte
 @app.route("/")
 def index():
     print(send_file('templates/index.html').mimetype)
-    return render_template('index.html') + render_template("navigation.html")
+    return render_template('index.html') + render_template("navigation.html", origin="hide")
 
 @app.route("/navigation")
 def navigation():
@@ -150,6 +151,12 @@ def mostrar_peca(id):
     html = get_products_by_attribute("id", id, first_only=True)
     if html:
         return html + render_template("navigation.html", origin = None)
+
+@app.route("/productes")
+def mostrar_tot():
+    html = get_products_by_attribute(template="galeria.html", titol="Totes les peces", subtitol="PANSON")
+    if html:
+        return html + render_template("navigation.html", origin = "/")
 
 def main():
     app.run(port=int(os.environ.get('PORT', 80)))

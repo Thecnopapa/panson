@@ -13,7 +13,7 @@
     position: relative;
     top: 1dvh;
     left: 3dvw;
-    font-size: 5dvh;
+    font-size: 8dvh;
 }
 .detalls{
     scroll-behavior: smooth;
@@ -64,13 +64,13 @@
 
 @media screen and (orientation: portrait) {
     .descripcio_producte {
-        font-size: 3dvw;
+        font-size: 4dvw;
     }
     .detalls_generals {
-        font-size: 2dvw;
+        font-size: 3dvw;
     }
     .titol_producte {
-        font-size: 5dvw;
+        font-size: 8dvw;
     }
     .small-icon {
         height: 2dvw;

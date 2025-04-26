@@ -2,7 +2,9 @@
 
 
 {% if origin %}
-    <button class="back" onclick="location.href='{{ origin }}'"> &lt; Enrere</button>
+    {% if origin != "hide" %}
+        <button class="back" onclick="location.href='{{ origin }}'"> &lt; Enrere</button>
+    {% endif %}
 {% else %}
     <button class="back" onclick="history.back()"> &lt; Enrere</button>
 {% endif %}
@@ -15,6 +17,7 @@
         </div>
         <div class="dropdown">
             <div class="dropdown-content">
+                <button class = "dropdown-btn" onclick="location.href='/productes'">TOTES LES PECES</button>
                 <button class = "dropdown-btn" onclick="location.href='/peces_uniques'">PECES ÚNIQUES</button>
                 <button class = "dropdown-btn" onclick="location.href='/collecions'">COL·LECCIONS</button>
             </div>
