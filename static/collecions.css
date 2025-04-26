@@ -1,11 +1,9 @@
 
 
 
-
-
-
 .fons_collecio{
-    height: 100vh;
+    position: relative;
+    height: 100dvh;
     align-content: center;
     justify-items: center;
     width: 100%;
@@ -22,11 +20,18 @@
 }
 .title {
     position: relative;
+    width: fit-content;
 
 }
 .content {
     position: relative;
+    width: 100%;
 }
+
+.title:hover {
+    cursor: pointer;
+}
+
 
 @media screen and (orientation: portrait) {
     .subtitle{

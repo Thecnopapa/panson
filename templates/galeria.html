@@ -18,10 +18,22 @@
     <div class="spacer"></div>
     <div class="galeria">
         {% for data in all_data %}
-           <div class="producte">
-
+           <div class="producte" onclick="location.href='/productes/{{ data["id"] }}'">
+                {% if data["imatges"] %}
+                    <div class="imatge"><img src='https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ data["imatges"][0] }}?alt=media'></div>
+                {% else %}
+                    <div class="imatge"></div>
+                {% endif %}
+                <div class="detalls">
+                    <div class="nom">{{ data["nom"] }}</div>
+                    <div class="subtiol">{{ data["subtitol"] }}</div>
+                    {% if data["preu"] %}
+                        <div class="preu">{{ data["preu"] }} €</div>
+                    {% endif %}
+                    <div class="descripcio">{{ data["descripcio"] }}</div>
+                </div>
            </div>
-    {% endfor %}
+        {% endfor %}
     </div>
 
 </div>

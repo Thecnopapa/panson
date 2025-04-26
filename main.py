@@ -71,11 +71,16 @@ def read_data_type(value):
         for key, value in value["mapValue"]["fields"].items():
             r[key] = read_data_type(value)
         return r
+    elif list(value.keys())[0] == "arrayValue":
+        r = []
+        for value in value["arrayValue"]["values"]:
+            r.append(read_data_type(value))
+        return r
     else:
         return value[list(value.keys())[0]]
 
 
-def get_products_by_attribute(attribute, value, origin = "/", template="producte.html", **kwargs):
+def get_products_by_attribute(attribute, value, origin = "/", template="producte.html", first_only=False, **kwargs):
     print("Getting all products in with {} == {}:".format(attribute, value))
     all_products = json.loads(requests.get(prods_path).text)["documents"]
     all_data = []
@@ -83,9 +88,12 @@ def get_products_by_attribute(attribute, value, origin = "/", template="producte
         product_path = prod["name"]
         data = get_product_data(product_path)
         print(data)
+
+        data["id"] = product_path.split("/")[-1]
         if attribute in data:
-            data["id"] = product_path.split("/")[-1]
             if data[attribute] == value:
+                if not "preu" in data and "material" in data:
+                    data["preu"] = min([int(material["preu"]) for material in data["material"].values()])
                 all_data.append(data)
     print(all_data)
     if len(all_data) == 0:
@@ -137,11 +145,11 @@ def peces_uniques():
         return html + render_template("navigation.html",  origin = "/")
 
 
-@app.route("/collecions/<col>/<id>")
-def mostart_peca(col, id):
-    html = get_products_by_attribute("id", id,)
+@app.route("/productes/<id>")
+def mostrar_peca(id):
+    html = get_products_by_attribute("id", id, first_only=True)
     if html:
-        return html + render_template("navigation.html",  origin = "/collecions/{}".format(col))
+        return html + render_template("navigation.html", origin = None)
 
 def main():
     app.run(port=int(os.environ.get('PORT', 80)))
