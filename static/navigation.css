@@ -45,13 +45,11 @@ body {
 
 .navigation-left {
     display: flex;
-    width: max(50dvh);
-    justify-content: space-evenly;
+    width: 50dvh;
     left: 0;
     bottom: 0;
     position: fixed;
     height: fit-content;
-    align-items: center;
     transition: 0.3s ease;
     flex-wrap: wrap;
 }
@@ -75,12 +73,13 @@ body {
     font-weight: bolder;
     border: none;
     user-select: none;
+
 }
 
 .dropbtn {
     background-color: rgba(255, 255, 255, 0);
     height: 6dvh;
-
+margin: auto;
     transition: 0.3s ease;
 
 }
@@ -177,6 +176,7 @@ display: block;
     .navigation-left {
         width: 100dvw;
         background-color: rgba(255, 255, 255, 0.8);
+        justify-content: center;
     }
     .navigation-right {
         position: fixed;
@@ -184,7 +184,5 @@ display: block;
         right: 0;
 
     }
-    .navigation-left{
-        font-size-adjust: 50%;
-    }
+
 }

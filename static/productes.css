@@ -12,42 +12,48 @@ body {
 }
 .foto_producte {
     position: relative;
-    width: 40%;
+    min-width: 40dvw;
+    width: 40dvw;
     background-position: center;
     background-size: cover;
 }
 .titol_producte {
     position: relative;
-    top: 5dvh;
     font-size: 10dvh;
     margin-bottom: 3dvh;
     height: max-content;
 }
 .detalls{
+    display: flex;
+    flex-direction: column;
     scroll-behavior: smooth;
-    height: 100%;
-    width: 60%;
+    width: 60dvw;
     position: relative;
     overflow-y: auto;
     overflow-x: hidden;
-    margin-left: 3dvw;
+    padding-left: 3dvw;
+    justify-content: start;
+    padding-top: 5vh;
+    padding-bottom: 6vh;
+    padding-right: 5vh;
+
 
 }
 .descripcio_producte {
     font-size:  2.5dvh;
     position: relative;
     height: fit-content;
-    top: 5dvh;
     width: 80%;
+    margin-bottom: 5dvh;
 }
 .detalls_generals{
-    height: max-content;
+    margin-top: auto ;
     font-size: 2dvh;
     line-height: 200%;
-    position: absolute;
-    bottom: 10dvh;
+    position: relative;
     width: 60%;
-    padding-bottom: 6dvh;
+
+
 
 }
 .small-icon {
@@ -65,15 +71,30 @@ body {
 
 .opcions {
     position: relative;
+    top: 1dvh;
     background-color: #ffa100;
-    width: 100%;
+    width: 60%;
+    height: max-content;
 }
 .material{
     width: 100%;
 }
 
 
+@media screen and (orientation: landscape) {
+    .navigation-left {
+        width: 40dvw;
+        justify-content: space-evenly;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 0;
+        margin: 0;
 
+
+    }
+    .navigation {
+        background-color: rgba(255, 255, 255, 0);
+    }
+}
 
 
 @media screen and (orientation: portrait) {
@@ -91,11 +112,11 @@ body {
     }
 
     .detalls {
-        width: 100%;
+        width: 80%;
         min-height: 40dvh;
         height: max-content;
         padding-bottom: 6dvh;
-        padding-left: 1dvw;
+        padding-left: 10%;
         padding-right: 5dvw;
         overflow-x: unset;
         overflow-y: unset;
@@ -103,29 +124,26 @@ body {
 
     .descripcio_producte {
         font-size: 3dvh;
-        width: 80%;
+        width: 100%;
         height: max-content;
         min-height: max-content;
     }
 
     .detalls_generals {
-
         height: max-content;
         font-size: 2dvh;
         position: relative;
         top: 15dvh;
-        width: fit-content;
-        padding-right: 5dvw ;
+        width: 100%;;
         margin-bottom: 6dvh;
-    }
-    .titol_producte {
-        font-size: 8dvh;
     }
     .small-icon {
         display: inline-flex;
         height: 2dvh;
-
-
     }
+    .titol_producte {
+        font-size: 8dvh;
+    }
+
 }
 
