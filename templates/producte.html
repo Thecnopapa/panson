@@ -34,6 +34,14 @@
             </div>
             {% endautoescape %}
         {% endif %}
+        {% if data["material" %}
+            {% for material in data["material"] %}
+                <div class="material">
+                    {{ material }}
+                </div>
+            {% endfor %}
+
+        {% endif %}
 
         <div class = "detalls_generals">
             {{ loc["pro-missatge"] }}<br><br>
