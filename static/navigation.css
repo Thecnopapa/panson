@@ -21,6 +21,7 @@ body {
     text-align: center;
     align-content: center;
     border: transparent;
+    user-select: none;
 }
 
 .back:hover {
@@ -71,6 +72,7 @@ body {
     font-size: 2.5dvh;
     font-weight: bolder;
     border: none;
+    user-select: none;
 }
 
 .dropbtn {
@@ -154,6 +156,7 @@ display: block;
     min-width: 4dvh;
     text-align: center;
     font-size: 2dvh;
+    user-select: none;
 }
 .language:hover {
     background-color: rgba(0, 0, 0, 0.3);
