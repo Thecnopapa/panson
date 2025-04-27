@@ -22,7 +22,9 @@
     "pro-productes": "Productes",
     "pro-garantia": "1 any de garantia",
     "pro-devolucio": "30 dies per fer canvis i devolucions",
-    "pro-missatge": "Ho fabricarem especialment per a tu un cop hagis fet la teva comanda. Enviament en 21 dies laborables."
+    "pro-missatge": "Ho fabricarem especialment per a tu un cop hagis fet la teva comanda. Enviament en 21 dies laborables.",
+
+    "con-contacte" : "Contacte"
 
 
   },
@@ -49,6 +51,8 @@
     "pro-productes": "Products",
     "pro-garantia": "1 rear of guarantee",
     "pro-devolucio": "30 days for changes and returns",
-    "pro-missatge": "We will produce it specially for you once you place your order. Sent within 21 working days."
+    "pro-missatge": "We will produce it specially for you once you place your order. Sent within 21 working days.",
+
+    "con-contacte" : "Contact"
   }
 }

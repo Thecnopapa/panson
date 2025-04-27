@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 
-
 {% if origin %}
     {% if origin != "hide" %}
         <button class="back" onclick="location.href='/{{ loc.lan }}/{{ origin }}'"> &lt; {{ loc.nav_enrere }}</button>
@@ -24,7 +23,7 @@
             <button class="dropbtn"> {{ loc.nav_peces }} </button>
         </div>
         <div class="dropdown">
-            <button class="dropbtn">{{ loc.nav_contacte }}</button>
+            <button class="dropbtn" onclick="location.href='/{{ loc.lan }}/contacte'">{{ loc.nav_contacte }}</button>
         </div>
         <div class="dropdown">
             <button class="dropbtn" onclick="location.href='https://www.instagram.com/panson.joieria/'; location.target='_blank'"> {{ loc.nav_projecte }}</button>

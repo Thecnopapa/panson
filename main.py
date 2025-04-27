@@ -113,15 +113,21 @@ def get_products_by_attribute(attribute = None, value = None, origin = "/", temp
 
 class Localization():
     def __init__(self, lan):
-        loc_json = json.loads(open("localization.json").read())
-        self.all_langs = (lang for lang in loc_json.keys())
-        self.loc = loc_json[lan]
+        self.loc_json = json.loads(open("localization.json").read())
+        self.all_langs = (lang for lang in self.loc_json.keys())
+        self.loc = self.loc_json[lan]
 
     def __getattr__(self, item):
-        return self.loc[item.replace("_", "-")]
+        try:
+            return self.loc[item.replace("_", "-")]
+        except KeyError:
+            return self.loc_json["cat"][item.replace("_", "-")]
 
     def __getitem__(self, item):
         return self.loc[item]
+
+
+
     @staticmethod
     def upper(string ):
         return string.upper()
@@ -184,6 +190,18 @@ def mostrar_tot(lan):
     html = get_products_by_attribute(template="galeria.html", titol=loc.gal_totes, subtitol="PANSON", loc=loc)
     if html:
         return html + render_template("navigation.html", origin = None, loc = loc)
+
+
+@app.route("/<lan>/contacte")
+def contatce(lan):
+    loc = Localization(lan)
+    html = render_template("contacte.html", loc=loc)
+    return html + render_template("navigation.html", origin = None, loc = loc)
+
+
+
+
+
 
 def main():
     app.run(port=int(os.environ.get('PORT', 80)))

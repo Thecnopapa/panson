@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/static/media/favicon.png">
     {% if len == 1 %}
         <title>PANSON: {{ all_data[0]["nom"] }}</title>
     {% else %}
@@ -25,7 +26,6 @@
             <div class = "titol_producte">
                 {{ data["nom"] }}
             </div>
-            <br>
         {% endif %}
         {% if data["descripcio"] %}
             {% autoescape false %}
