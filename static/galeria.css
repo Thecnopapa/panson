@@ -27,14 +27,14 @@
 
 }
 
-.subtitle, .title{
+.subtitle, .titol-galeria{
     margin: 0;
     color: black;
     display: flex;
     height: fit-content;
 
 }
-.title{
+.titol-galeria{
     font-size: 10dvh;
     cursor: default;
 }
@@ -153,11 +153,11 @@
         width: 80dvw;
         user-select: none;
     }
-    .title{
-        font-size: 10dvw;
+    .titol-galeria{
+        font-size: 10dvh;
     }
     .subtitle{
-        font-size: 2dvw;
+        font-size: 2dvh;
     }
 
 

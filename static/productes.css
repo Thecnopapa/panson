@@ -1,7 +1,14 @@
+
+body {
+    width: 100%;
+    height: max-content;
+}
 .content {
     display: flex;
     width: 100%;
     position: relative;
+    height: 100dvh;
+
 }
 .foto_producte {
     position: relative;
@@ -15,6 +22,7 @@
     left: 3dvw;
     font-size: 10dvh;
     margin-bottom: 3dvh;
+    height: max-content;
 }
 .detalls{
     scroll-behavior: smooth;
@@ -25,13 +33,14 @@
     overflow-x: hidden;
 
 
+
 }
 .descripcio_producte {
-    font-size:  3dvh;
+    font-size:  2.5dvh;
     position: relative;
     left: 3dvw;
     top: 5dvh;
-    width: 60%;
+    width: 80%;
 }
 .detalls_generals{
     left: 3dvw;
@@ -53,33 +62,49 @@
     .content {
         display: block;
         align-content: start;
-        height: 100dvh;
+        height: fit-content;
+        margin-bottom: 6dvh;
+        padding-bottom: 6dvh;
     }
+
     .foto_producte {
         width: 100dvw;
         height: 50dvh;
     }
 
     .detalls {
-        width: 100dvw;
+        width: 100%;
+        min-height: 40dvh;
         height: max-content;
         padding-bottom: 6dvh;
+        padding-left: 1dvw;
+        padding-right: 5dvw;
+        overflow-x: unset;
+        overflow-y: unset;
     }
 
     .descripcio_producte {
         font-size: 3dvh;
+        width: 80%;
+        height: max-content;
+        min-height: max-content;
     }
+
     .detalls_generals {
+
+        height: max-content;
         font-size: 2dvh;
         position: relative;
         top: 15dvh;
-        width: 100%;
+        width: fit-content;
+        padding-right: 5dvw ;
+        margin-bottom: 6dvh;
     }
     .titol_producte {
         font-size: 8dvh;
     }
     .small-icon {
-        height: 3dvh;
+        height: 2dvh;
     }
 }
 

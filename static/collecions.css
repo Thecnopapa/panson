@@ -2,6 +2,7 @@
 body {
     padding: 0;
     margin: 0;
+    width: 100%;
 }
 
 .fons_collecio{
@@ -21,9 +22,18 @@ body {
     font-size: 2dvh;
     position: relative;
 }
-.title {
+.titol-collecio {
     position: relative;
     width: fit-content;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 5dvh;
+    font-weight: bold;
+    color: rgba(240, 248, 255, 0.9);
+    height: 20dvh;
+    user-select: none;
+    margin: 5dvh;
 
 }
 .content {
