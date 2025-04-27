@@ -25,13 +25,18 @@
     "pro-devolucio": "30 dies per fer canvis i devolucions",
     "pro-missatge": "Ho fabricarem especialment per a tu un cop hagis fet la teva comanda. Enviament en 21 dies laborables.",
     "pro-materials-disponibles": "Disponible en els seguents materials:",
+    "pro-variacions-disponibles": "Disponible amb les seguents variacions:",
 
     "con-contacte" : "Contacte",
 
 
 
     "mat-plata": "Plata",
-    "mat-or": "Or"
+    "mat-or": "Or",
+
+
+    "var-xapat": "Xapat (or)",
+    "var-no-xapat": "Sense xapar (or)"
 
   },
   "en": {
@@ -60,7 +65,17 @@
     "pro-devolucio": "30 days for changes and returns.",
     "pro-missatge": "We will produce it specially for you once you place your order. Sent within 21 working days.",
 
-    "con-contacte" : "Contact"
+    "con-contacte" : "Contact",
+
+
+
+    "mat-plata": "Silver",
+    "mat-or": "Gold",
+
+
+    "var-xapat": "Plated (gold)",
+    "var-no-xapat": "Without plating (gold)"
+
   },
 
 

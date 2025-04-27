@@ -11,7 +11,7 @@
     {% endif %}
     <link href='/static/styles/navigation.css' rel='stylesheet'>
     <link href='/static/styles/index.css' rel='stylesheet'>
-    <link href='/static/styles/producte.css' rel='stylesheet'>
+    <link href='/static/styles/producte.css?version=51' rel='stylesheet'>
 </head>
 
 {% for data in all_data %}
@@ -22,35 +22,52 @@
             <div class="foto_producte"></div>
         {%  endif %}
         <div class="detalls">
-        {% if "nom" in data %}
-            <div class = "titol_producte">
-                {{ data["nom"] }}
+            {% if "nom" in data %}
+                <div class = "titol_producte">
+                    {{ data["nom"] }}
+                </div>
+            {% endif %}
+            {% if data["descripcio"] %}
+                {% autoescape false %}
+                <div class = "descripcio_producte">
+                    {{ data["descripcio"]}}
+                </div>
+                {% endautoescape %}
+            {% endif %}
+            <div class="opcions">
+                {% if data["material"] %}
+                    <div class="titol-materials">{{ loc.pro_materials_disponibles }}</div>
+                    <div class = "materials">
+                        {% for mat in data["mats"] %}
+                            {% if  material == mat %}
+                                <button class="material-boto" id="selected-material" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+mat }}'">{{ loc["mat-"+mat] }}</button>
+                            {%  else %}
+                                <button class="material-boto" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+mat }}'">{{ loc["mat-"+mat] }}</button>
+                            {%  endif %}
+                        {% endfor %}
+                    </div>
+                    {% if data["vars"] %}
+                        <div class="titol-variacions">{{ loc.pro_variacions_disponibles }}</div>
+                        <div class="variacions">
+                        {% for var, info in data["vars"] %}
+                            {% if  var == variacio %}
+                                <div class="variacio"  onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+material+"/"+var }}'"><span class="variacio-cercle" id="selected-var-cercle" ></span><div class="variacio-text" id="selected-var-text"> {{ loc["var-"+var] }} </div>
+                            {% else %}
+                                <div class="variacio" onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+material+"/"+var }}'"><span class="variacio-cercle" ></span><div class="variacio-text"> {{ loc["var-"+var] }} </div>
+                            {% endif %}
+                            {% if "preu" in info %}
+                                <div class="variacio-preu">{{ info.preu }} &#8364; </div>
+                            {% endif %}
+                                </div>
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endif %}
             </div>
-        {% endif %}
-        {% if data["descripcio"] %}
-            {% autoescape false %}
-            <div class = "descripcio_producte">
-                {{ data["descripcio"]}}
-            </div>
-            {% endautoescape %}
-        {% endif %}
-        {% if data["material"] %}
-            <div class="titol-opcions">{{ loc.pro_materials_disponibles }}</div>
-            <div class = "opcions">
-                {% for mat in data["mats"] %}
-                    {% if  material == mat %}
-                        <button class="material-boto" id="selected-material" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+mat }}'">{{ loc["mat-"+mat] }}</button>
-                    {%  else %}
-                        <button class="material-boto" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+mat }}'">{{ loc["mat-"+mat] }}</button>
-                    {%  endif %}
-                {% endfor %}
-            </div>
-        {% endif %}
-
-        <div class = "detalls_generals">
-            {{ loc["pro-missatge"] }}<br><br>
-            <img class="small-icon" src="/static/media/shield.svg" alt="garantia">{{ loc["pro-garantia"] }} <br>
-            <img class="small-icon" src="/static/media/reload.svg" alt="devolucions">{{ loc["pro-devolucio"] }}<br>
+            <div class = "detalls_generals">
+                {{ loc["pro-missatge"] }}<br><br>
+                <img class="small-icon" src="/static/media/shield.svg" alt="garantia">{{ loc["pro-garantia"] }} <br>
+                <img class="small-icon" src="/static/media/reload.svg" alt="devolucions">{{ loc["pro-devolucio"] }}<br>
             </div>
         </div>
     </div>

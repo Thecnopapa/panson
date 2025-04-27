@@ -81,7 +81,7 @@ def read_data_type(value):
         return value[list(value.keys())[0]]
 
 
-def get_products_by_attribute(attribute = None, value = None, origin = "/", template="producte.html", first_only=False, lan="cat",material="", **kwargs):
+def get_products_by_attribute(attribute = None, value = None, origin = "/", template="producte.html", first_only=False, lan="cat",material="", variacio="", **kwargs):
     print("Getting all products in with {} == {}:".format(attribute, value))
     all_products = json.loads(requests.get(prods_path).text)["documents"]
     all_data = []
@@ -101,10 +101,10 @@ def get_products_by_attribute(attribute = None, value = None, origin = "/", temp
                         print("Material:", m)
                         mats.append(m)
                         for variacions in variacions.values():
-                            for variacio, info in variacions.items():
+                            for v, info in variacions.items():
                                 if material == m:
-                                    vars.append((variacio, info))
-                                print("Variacio:", variacio, info)
+                                    vars.append((v, info))
+                                print("Variacio:", v, info)
                                 if "preu" in info:
                                     preus.append(info["preu"])
 
@@ -120,9 +120,14 @@ def get_products_by_attribute(attribute = None, value = None, origin = "/", temp
 
                 if len(mats) > 0:
                     data["mats"] = sorted(mats,reverse=True)
-                    print("#########",data["mats"])
                 else:
                     data["mats"] = None
+
+                if len(vars) > 0:
+                    data["vars"] = sorted(vars,reverse=True)
+                    print("#########",data["vars"])
+                else:
+                    data["varas"] = None
 
                 if "descripcio" in data:
                     try:
@@ -146,7 +151,7 @@ def get_products_by_attribute(attribute = None, value = None, origin = "/", temp
         return ("No hi han peces en aquesta collecio encara<br><br>"
                 "<button onclick=\"location.href='/collecions'\">Tornar enrere</button>")
 
-    html = render_template(template, all_data=all_data, origin=origin, len = len(all_data), material=material, **kwargs)
+    html = render_template(template, all_data=all_data, origin=origin, len = len(all_data), material=material, variacio=variacio, **kwargs)
     # print(html)
     return html
 
@@ -222,10 +227,21 @@ def peces_uniques(lan):
     if html:
         return html + render_template("navigation.html",  origin = None, loc = loc)
 
-@app.route("/<lan>/productes")
-def mostrar_tot(lan):
+
+
+@app.route("/<lan>/productes/<id>/<material>/<variacio>")
+def mostrar_peca_material_variacio(lan, id, material, variacio):
     loc = Localization(lan)
-    html = get_products_by_attribute(template="galeria.html", titol=loc.gal_totes, subtitol="PANSON", loc=loc)
+    print("VARIACIO:", variacio)
+    html = get_products_by_attribute("id", id, first_only=True, loc = loc, material = material, variacio = variacio)
+    if html:
+        return html + render_template("navigation.html", origin = None, loc = loc)
+
+
+@app.route("/<lan>/productes/<id>/<material>")
+def mostrar_peca_material(lan, id, material):
+    loc = Localization(lan)
+    html = get_products_by_attribute("id", id, first_only=True, loc = loc, material = material)
     if html:
         return html + render_template("navigation.html", origin = None, loc = loc)
 
@@ -237,12 +253,17 @@ def mostrar_peca(lan, id):
     if html:
         return html + render_template("navigation.html", origin = None, loc = loc)
 
-@app.route("/<lan>/productes/<id>/<material>")
-def mostrar_peca_material(lan, id, material):
+
+@app.route("/<lan>/productes")
+def mostrar_tot(lan):
     loc = Localization(lan)
-    html = get_products_by_attribute("id", id, first_only=True, loc = loc, material = material)
+    html = get_products_by_attribute(template="galeria.html", titol=loc.gal_totes, subtitol="PANSON", loc=loc)
     if html:
         return html + render_template("navigation.html", origin = None, loc = loc)
+
+
+
+
 
 
 
