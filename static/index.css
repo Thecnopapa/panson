@@ -1,5 +1,9 @@
 /* Add styles here */
 
+@font-face {
+  font-family: myFont;
+  src: url('/static/font.ttf');
+}
 
 body {
     padding: 0 0;
