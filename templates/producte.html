@@ -9,9 +9,9 @@
     {% else %}
         <title>PANSON: {{ loc.pro_productes }}</title>
     {% endif %}
-    <link href='/static/navigation.css' rel='stylesheet'>
-    <link href='/static/index.css' rel='stylesheet'>
-    <link href='/static/productes.css' rel='stylesheet'>
+    <link href='/static/styles/navigation.css' rel='stylesheet'>
+    <link href='/static/styles/index.css' rel='stylesheet'>
+    <link href='/static/styles/producte.css' rel='stylesheet'>
 </head>
 
 {% for data in all_data %}
@@ -37,7 +37,7 @@
         {% if data["material"] %}
             <div class = "opcions">
                 {% for material in data["material"] %}
-                    <div class="material">
+                    <div class="material-boto">
                         {{ material }}
                     </div>
                 {% endfor %}
