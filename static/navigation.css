@@ -44,12 +44,14 @@ body {
 
 .navigation-left {
     display: flex;
-    width: max(40dvh, min-content);
+    width: max(50dvh);
     justify-content: space-evenly;
-    height: fit-content;
     left: 0;
     bottom: 0;
     position: fixed;
+    height: 6dvh;
+    align-items: center;
+    transition: 0.3s ease;
 }
 .navigation-right {
     display: flex;
@@ -58,25 +60,22 @@ body {
     margin-right: 3dvw;
 }
 
-.navigation a {
-    text-decoration: none;
-    color: black;
-    transition: color 0.3s ease;
-}
 
 
 .dropbtn, .dropdown-btn {
-    background-color: rgba(255, 255, 255, 0);
-    height: fit-content;
-    color: black;
-    padding:  1.5dvh 1.5dvw;
+     color: black;
     font-size: 2.5dvh;
     font-weight: bolder;
     border: none;
+}
+
+.dropbtn {
+    background-color: rgba(255, 255, 255, 0);
+    height: 6dvh;
+
     transition: 0.3s ease;
 
 }
-
 
 .dropdown-btn{
     background-color: rgba(255, 255, 255, 0.8);
@@ -84,9 +83,11 @@ body {
     width: 100%;
     justify-content: left;
     text-align: left;
-    margin: 0dvh;
     position: relative;
     top: 0;
+    height: 6dvh;
+    font-size: 2.5dvh;
+
 }
 
 
@@ -94,6 +95,10 @@ body {
 display: block;
     width: min-content;
     position: sticky;
+    margin: 0;
+    padding: 0;
+    height: min-content;
+
 }
 
 
@@ -101,12 +106,14 @@ display: block;
     display: none;
     position: absolute;
     bottom: 0;
-    transform: translateY(-17dvh);
+    transform: translateY(-18dvh);
     transition: display 0.3s ease;
     height: 0;
     min-width: 0;
     max-width: min-content;
     background-color: orange;
+    margin-bottom: 6dvh;
+
 }
 
 
@@ -125,7 +132,7 @@ display: block;
 
 
 
-.dropdown-btn:hover {background-color: rgba(0,0,0,0.5);
+.dropdown-btn:hover {background-color: rgba(0,0,0,0.2);
     color: white;
 }
 
@@ -143,6 +150,9 @@ display: block;
 }
 .language:hover {
     background-color: rgba(0, 0, 0, 0.3);
+}
+#current{
+    font-weight: bolder;
 }
 
 

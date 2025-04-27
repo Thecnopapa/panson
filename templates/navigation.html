@@ -32,8 +32,8 @@
     </div>
     <div class = "navigation-right">
         {% for lang in loc.all_langs %}
-            {% if lang == loc.lan_upper %}
-                <div class="language" style="font-weight: bolder" onclick="location.href='/{{ lang }}/'">
+            {% if lang == loc.lan %}
+                <div class="language" id="current" onclick="location.href='/{{ lang }}/'">
                     {{ loc.upper(lang) }}
                 </div>
             {% else %}
