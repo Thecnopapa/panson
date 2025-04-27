@@ -29,10 +29,10 @@
                     <div class="nom">{{ data["nom"] }}&nbsp;</div>
                     <div class="subtiol">{{ data["subtitol"] }}&nbsp;</div>
 
-                    {% if data["colors"] %}
+                    {% if data["mats"] %}
                         <div class="colors">
-                        {% for color in data["colors"] %}
-                            <span class="cercle" style="background-color: {{ loc.colors[color] }}"></span>
+                        {% for mat in data["mats"] %}
+                            <span class="cercle" style="background-color: {{ loc.colors[mat] }}"></span>
                         {% endfor %}
                         </div>
                     {% endif %}

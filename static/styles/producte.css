@@ -51,7 +51,7 @@ body {
     font-size: 2dvh;
     line-height: 200%;
     position: relative;
-    width: 60%;
+    width: 80%;
 
 
 
@@ -68,24 +68,32 @@ body {
 
 }
 
-
+.titol-opcions {
+    font-size: 2dvh;
+    padding-bottom: 1dvh;
+}
 .opcions {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    align-content: center;
+    align-content: flex-start;
     position: relative;
-    background-color: silver;
-    width: 60%;
+    width: 80%;
     height: max-content;
+
 }
 .material-boto{
-    background-color: #00ff8c;
+    font-size: 2dvh;
     width: fit-content;
-    padding: 1dvh 2dvw;
-    margin: 0 1dvh;
+    padding: 0.5dvh 1dvh 0.5dvh 1dvh;
+    margin-right: 1dvh;
     border: 1px solid rgba(0, 0, 0, 1);
     border-radius: 10px;
+}
+#selected-material{
+    border: 2.5px solid rgba(0, 0, 0, 1);
+
+
 }
 
 

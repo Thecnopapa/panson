@@ -35,11 +35,14 @@
             {% endautoescape %}
         {% endif %}
         {% if data["material"] %}
+            <div class="titol-opcions">{{ loc.pro_materials_disponibles }}</div>
             <div class = "opcions">
-                {% for material in data["material"] %}
-                    <div class="material-boto">
-                        {{ material }}
-                    </div>
+                {% for mat in data["mats"] %}
+                    {% if  material == mat %}
+                        <button class="material-boto" id="selected-material" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+mat }}'">{{ loc["mat-"+mat] }}</button>
+                    {%  else %}
+                        <button class="material-boto" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+mat }}'">{{ loc["mat-"+mat] }}</button>
+                    {%  endif %}
                 {% endfor %}
             </div>
         {% endif %}

@@ -24,9 +24,14 @@
     "pro-garantia": "1 any de garantia",
     "pro-devolucio": "30 dies per fer canvis i devolucions",
     "pro-missatge": "Ho fabricarem especialment per a tu un cop hagis fet la teva comanda. Enviament en 21 dies laborables.",
+    "pro-materials-disponibles": "Disponible en els seguents materials:",
 
-    "con-contacte" : "Contacte"
+    "con-contacte" : "Contacte",
 
+
+
+    "mat-plata": "Plata",
+    "mat-or": "Or"
 
   },
   "en": {

@@ -81,7 +81,7 @@ def read_data_type(value):
         return value[list(value.keys())[0]]
 
 
-def get_products_by_attribute(attribute = None, value = None, origin = "/", template="producte.html", first_only=False, lan="cat", **kwargs):
+def get_products_by_attribute(attribute = None, value = None, origin = "/", template="producte.html", first_only=False, lan="cat",material="", **kwargs):
     print("Getting all products in with {} == {}:".format(attribute, value))
     all_products = json.loads(requests.get(prods_path).text)["documents"]
     all_data = []
@@ -94,16 +94,20 @@ def get_products_by_attribute(attribute = None, value = None, origin = "/", temp
         if attribute in data or attribute is None:
             if attribute is None or data[attribute] == value :
                 preus = []
-                colors = []
+                vars = []
+                mats = []
                 if "material" in data:
-                    for material, variacions in data["material"].items():
-                        print("Material:", material)
-                        colors.append(material)
+                    for m, variacions in data["material"].items():
+                        print("Material:", m)
+                        mats.append(m)
                         for variacions in variacions.values():
                             for variacio, info in variacions.items():
+                                if material == m:
+                                    vars.append((variacio, info))
                                 print("Variacio:", variacio, info)
                                 if "preu" in info:
                                     preus.append(info["preu"])
+
                 if len(preus) == 0:
                     data["preu"] = None
                     data["desde"] = None
@@ -114,10 +118,11 @@ def get_products_by_attribute(attribute = None, value = None, origin = "/", temp
                     data["preu"] = min(preus)
                     data["desde"] = True
 
-                if len(colors) > 0:
-                    data["colors"] = colors
+                if len(mats) > 0:
+                    data["mats"] = sorted(mats,reverse=True)
+                    print("#########",data["mats"])
                 else:
-                    data["colors"] = None
+                    data["mats"] = None
 
                 if "descripcio" in data:
                     try:
@@ -141,7 +146,7 @@ def get_products_by_attribute(attribute = None, value = None, origin = "/", temp
         return ("No hi han peces en aquesta collecio encara<br><br>"
                 "<button onclick=\"location.href='/collecions'\">Tornar enrere</button>")
 
-    html = render_template(template, all_data=all_data, origin=origin, len = len(all_data), **kwargs)
+    html = render_template(template, all_data=all_data, origin=origin, len = len(all_data), material=material, **kwargs)
     # print(html)
     return html
 
@@ -217,6 +222,13 @@ def peces_uniques(lan):
     if html:
         return html + render_template("navigation.html",  origin = None, loc = loc)
 
+@app.route("/<lan>/productes")
+def mostrar_tot(lan):
+    loc = Localization(lan)
+    html = get_products_by_attribute(template="galeria.html", titol=loc.gal_totes, subtitol="PANSON", loc=loc)
+    if html:
+        return html + render_template("navigation.html", origin = None, loc = loc)
+
 
 @app.route("/<lan>/productes/<id>")
 def mostrar_peca(lan, id):
@@ -225,12 +237,14 @@ def mostrar_peca(lan, id):
     if html:
         return html + render_template("navigation.html", origin = None, loc = loc)
 
-@app.route("/<lan>/productes")
-def mostrar_tot(lan):
+@app.route("/<lan>/productes/<id>/<material>")
+def mostrar_peca_material(lan, id, material):
     loc = Localization(lan)
-    html = get_products_by_attribute(template="galeria.html", titol=loc.gal_totes, subtitol="PANSON", loc=loc)
+    html = get_products_by_attribute("id", id, first_only=True, loc = loc, material = material)
     if html:
         return html + render_template("navigation.html", origin = None, loc = loc)
+
+
 
 
 @app.route("/<lan>/contacte")
