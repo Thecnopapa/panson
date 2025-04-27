@@ -12,14 +12,13 @@ body {
 }
 .foto_producte {
     position: relative;
-    width: 40dvw;
+    width: 40%;
     background-position: center;
     background-size: cover;
 }
 .titol_producte {
     position: relative;
     top: 5dvh;
-    left: 3dvw;
     font-size: 10dvh;
     margin-bottom: 3dvh;
     height: max-content;
@@ -31,31 +30,50 @@ body {
     position: relative;
     overflow-y: auto;
     overflow-x: hidden;
-
-
+    margin-left: 3dvw;
 
 }
 .descripcio_producte {
     font-size:  2.5dvh;
     position: relative;
-    left: 3dvw;
+    height: fit-content;
     top: 5dvh;
     width: 80%;
 }
 .detalls_generals{
-    left: 3dvw;
+    height: max-content;
     font-size: 2dvh;
     line-height: 200%;
     position: absolute;
     bottom: 10dvh;
     width: 60%;
+    padding-bottom: 6dvh;
 
 }
 .small-icon {
     position: relative;
+    display: inline-block;
+    align-content: center;
+    text-align: center;
+    vertical-align: center;
+    margin-right: 1dvh;
     height: 2dvh;
     top: 0.2dvh;
+
 }
+
+
+.opcions {
+    position: relative;
+    background-color: #ffa100;
+    width: 100%;
+}
+.material{
+    width: 100%;
+}
+
+
+
 
 
 @media screen and (orientation: portrait) {
@@ -104,7 +122,10 @@ body {
         font-size: 8dvh;
     }
     .small-icon {
+        display: inline-flex;
         height: 2dvh;
+
+
     }
 }
 

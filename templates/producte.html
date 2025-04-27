@@ -35,18 +35,19 @@
             {% endautoescape %}
         {% endif %}
         {% if data["material"] %}
-            {% for material in data["material"] %}
-                <div class="material">
-                    {{ material }}
-                </div>
-            {% endfor %}
-
+            <div class = "opcions">
+                {% for material in data["material"] %}
+                    <div class="material">
+                        {{ material }}
+                    </div>
+                {% endfor %}
+            </div>
         {% endif %}
 
         <div class = "detalls_generals">
             {{ loc["pro-missatge"] }}<br><br>
-            <img class="small-icon" src="/static/media/shield.svg" alt="garantia">&nbsp;{{ loc["pro-garantia"] }} <br>
-            <img class="small-icon" src="/static/media/reload.svg" alt="devolucions">&nbsp;{{ loc["pro-devolucio"] }}<br>
+            <img class="small-icon" src="/static/media/shield.svg" alt="garantia">{{ loc["pro-garantia"] }} <br>
+            <img class="small-icon" src="/static/media/reload.svg" alt="devolucions">{{ loc["pro-devolucio"] }}<br>
             </div>
         </div>
     </div>
