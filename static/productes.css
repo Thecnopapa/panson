@@ -70,15 +70,25 @@ body {
 
 
 .opcions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: center;
     position: relative;
-    top: 1dvh;
-    background-color: #ffa100;
+    background-color: silver;
     width: 60%;
     height: max-content;
 }
 .material{
-    width: 100%;
+    background-color: #00ff8c;
+    width: fit-content;
+    padding: 1dvh 2dvw;
+    margin: 0 1dvh;
+    border: 1px solid rgba(0, 0, 0, 1);
+    border-radius: 10px;
 }
+
+
 
 
 @media screen and (orientation: landscape) {

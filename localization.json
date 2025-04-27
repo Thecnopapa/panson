@@ -17,6 +17,7 @@
 
     "gal-totes": "Totes les peces",
     "gal-collecio" : "Col·lecio",
+    "gal-desde": "Desde",
 
 
     "pro-productes": "Productes",
@@ -46,13 +47,20 @@
 
     "gal-totes": "All the pieces",
     "gal-collecio" : "Collection",
+    "gal-desde": "From",
 
 
     "pro-productes": "Products",
-    "pro-garantia": "1 rear of guarantee",
-    "pro-devolucio": "30 days for changes and returns",
+    "pro-garantia": "1 year of guarantee.",
+    "pro-devolucio": "30 days for changes and returns.",
     "pro-missatge": "We will produce it specially for you once you place your order. Sent within 21 working days.",
 
     "con-contacte" : "Contact"
+  },
+
+
+  "colors": {
+    "plata": "silver",
+    "or": "gold"
   }
 }

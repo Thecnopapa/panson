@@ -74,30 +74,23 @@
     padding-bottom: 3dvh;
 
 }
-@media screen and (orientation: landscape) {
-    .producte:hover {
-        cursor: pointer;
-        background-color: rgba(0, 0, 0, 0.1);
-        transition: background-color 0.3s;
 
-        .imatge {
-            height: 60%;
-            transition: 0.3s ease;
-        }
-
-        .descripcio {
-            display: flex;
-            transition: display ease 0.3s;
-        }
-    }
-}
 .descripcio{
+    height: 20dvh;
     display: none;
     font-size: 2dvh;
     padding-right: 5%;
-    margin-bottom: 5%;
-    flex-wrap: wrap;
-    overflow-y: hidden;
+    padding-bottom: 5%;
+    white-space: pre-wrap;
+    text-wrap: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+
+
+
+
+
 
 }
 .imatge{
@@ -126,6 +119,7 @@
     font-size: 3dvh;
     font-weight: bold;
     user-select: inherit;
+    max-width: 60%;
 }
 .subtiol{
     font-size: 2dvh;
@@ -133,16 +127,60 @@
 }
 
 .preu{
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
     padding-right: 5%;
     font-size: 3dvh;
     user-select: inherit;
+}
+.desde {
+    font-size: 2dvh;
+    padding-right: 1dvh;
+}
+.colors{
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    width: fit-content;
+    max-width: 40%;
+    top: 80%;
+    right: 0;
+    padding-right: 2%;
+}
+.cercle {
+    display: block;
+    height: 2dvh;
+    width: 2dvh;
+    background-color: #bbb;
+    border-radius: 50%;
+    margin: 0 0.5dvh;
+    border: 0.2dvh solid black;
 
 }
 
 
+@media screen and (orientation: landscape) {
+    .producte:hover {
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s;
 
+        .imatge {
+            height: 60%;
+            transition: 0.3s ease;
+        }
+        .colors{
+            top: 60%;
+            transition: 0.3s ease;
+        }
 
+        .descripcio {
+            display: block;
+            transition: display ease 0.3s;
+        }
+    }
+}
 
 @media screen and (orientation: portrait) {
     .galeria {

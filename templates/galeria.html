@@ -28,8 +28,22 @@
                 <div class="detalls">
                     <div class="nom">{{ data["nom"] }}&nbsp;</div>
                     <div class="subtiol">{{ data["subtitol"] }}&nbsp;</div>
+
+                    {% if data["colors"] %}
+                        <div class="colors">
+                        {% for color in data["colors"] %}
+                            <span class="cercle" style="background-color: {{ loc.colors[color] }}"></span>
+                        {% endfor %}
+                        </div>
+                    {% endif %}
                     {% if data["preu"] %}
-                        <div class="preu">{{ data["preu"] }} €</div>
+                        <div class="preu">
+                            {% if data["desde"] %}
+                                <div class="desde">{{ loc.gal_desde }}</div>
+                            {% else %}
+                                <div class="desde">&nbsp;</div>
+                            {% endif %}
+                            {{ data["preu"] }} €</div>
                     {% else %}
                         <div class="preu">&nbsp;</div>
                     {% endif %}

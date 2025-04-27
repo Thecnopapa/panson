@@ -1,5 +1,6 @@
 import os
 import json
+from idlelib.editor import darwin
 
 import flask
 from flask import Flask, send_file, render_template, redirect
@@ -52,7 +53,7 @@ def get_product_data(path):
     print("Getting product data from url: ")
     print(url)
     raw_data = json.loads(requests.get(url).text)
-    print(raw_data)
+    #print(raw_data)
     fields = raw_data["fields"]
     data = {}
     for key, value in fields.items():
@@ -80,23 +81,62 @@ def read_data_type(value):
         return value[list(value.keys())[0]]
 
 
-def get_products_by_attribute(attribute = None, value = None, origin = "/", template="producte.html", first_only=False, **kwargs):
+def get_products_by_attribute(attribute = None, value = None, origin = "/", template="producte.html", first_only=False, lan="cat", **kwargs):
     print("Getting all products in with {} == {}:".format(attribute, value))
     all_products = json.loads(requests.get(prods_path).text)["documents"]
     all_data = []
     for prod in all_products:
         product_path = prod["name"]
         data = get_product_data(product_path)
-        print(data)
         data["id"] = product_path.split("/")[-1]
+        print("Producte:", data["id"])
+        #[print("{}: {}".format(key, value)) for key, value in data.items()]
         if attribute in data or attribute is None:
             if attribute is None or data[attribute] == value :
-                if not "preu" in data and "material" in data:
-                    data["preu"] = min([int(material["preu"]) for material in data["material"].values()])
+                preus = []
+                colors = []
+                if "material" in data:
+                    for material, variacions in data["material"].items():
+                        print("Material:", material)
+                        colors.append(material)
+                        for variacions in variacions.values():
+                            for variacio, info in variacions.items():
+                                print("Variacio:", variacio, info)
+                                if "preu" in info:
+                                    preus.append(info["preu"])
+                if len(preus) == 0:
+                    data["preu"] = None
+                    data["desde"] = None
+                elif len(preus) == 1:
+                    data["preu"] = preus[0]
+                    data["desde"] = None
+                else:
+                    data["preu"] = min(preus)
+                    data["desde"] = True
+
+                if len(colors) > 0:
+                    data["colors"] = colors
+                else:
+                    data["colors"] = None
+
+                if "descripcio" in data:
+                    try:
+                        data["descripcio"] = data["descripcio"][lan]
+                    except:
+                        try:
+                            data["descripcio"] = data["descripcio"]["cat"]
+                        except:
+                            data["descripcio"] = data["descripcio"]
+
+
+
+
+
+
                 all_data.append(data)
                 if first_only:
                     break
-    print(all_data)
+    #print(all_data)
     if len(all_data) == 0:
         return ("No hi han peces en aquesta collecio encara<br><br>"
                 "<button onclick=\"location.href='/collecions'\">Tornar enrere</button>")
@@ -114,7 +154,8 @@ def get_products_by_attribute(attribute = None, value = None, origin = "/", temp
 class Localization():
     def __init__(self, lan):
         self.loc_json = json.loads(open("localization.json").read())
-        self.all_langs = (lang for lang in self.loc_json.keys())
+        self.all_langs = (lang for lang in self.loc_json.keys() if lang != "colors")
+        self.colors = self.loc_json["colors"]
         self.loc = self.loc_json[lan]
 
     def __getattr__(self, item):
