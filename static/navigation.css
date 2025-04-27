@@ -53,7 +53,9 @@ body {
     height: fit-content;
     align-items: center;
     transition: 0.3s ease;
+    flex-wrap: wrap;
 }
+
 .navigation-right {
     position: fixed;
     right: 0;
@@ -169,9 +171,12 @@ display: block;
 @media screen and (orientation: portrait) {
     .navigation {
         justify-content: center;
+        background-color: rgba(255, 255, 255, 0);
     }
+
     .navigation-left {
         width: 100dvw;
+        background-color: rgba(255, 255, 255, 0.8);
     }
     .navigation-right {
         position: fixed;
