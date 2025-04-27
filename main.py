@@ -17,9 +17,6 @@ prods_path = base_url + "projects/panson/databases/productes/documents/productes
 
 
 
-
-
-
 def get_col_data(path):
     url = base_url + path
     print("Getting collection data from url: ")
@@ -191,7 +188,10 @@ class Localization():
 def redirect_to_cat():
     return redirect("/cat/")
 
-
+@app.route("/static/<path:path>", defaults={"lan": "cat"})
+@app.route("/<lan>/static/<path:path>")
+def get_static(lan, path):
+    return redirect("/static/"+path)
 
 
 @app.route("/<lan>/")

@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="/static/media/favicon.png">
+
     {% if len == 1 %}
         <title>PANSON: {{ all_data[0]["nom"] }}</title>
     {% else %}
         <title>PANSON: {{ loc.pro_productes }}</title>
     {% endif %}
-    <link href='/static/styles/navigation.css' rel='stylesheet'>
-    <link href='/static/styles/index.css' rel='stylesheet'>
-    <link href='/static/styles/producte.css?version=51' rel='stylesheet'>
+    <link href='/static/navigation.css' rel='stylesheet'>
+    <link href='/static/index.css' rel='stylesheet'>
+    <link href='/static/producte.css' rel='stylesheet'>
 </head>
 
 {% for data in all_data %}
