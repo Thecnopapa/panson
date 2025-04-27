@@ -88,6 +88,7 @@ body {
     width: fit-content;
     padding: 0.5dvh 1dvh 0.5dvh 1dvh;
     margin-right: 1dvh;
+    margin-top: 1dvh;
     border: 0.2dvh solid rgba(0, 0, 0, 1);
     border-radius: 1.2dvh;
     transition: 0.3s ease

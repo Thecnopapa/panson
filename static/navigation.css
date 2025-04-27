@@ -52,6 +52,7 @@ body {
     height: fit-content;
     transition: 0.3s ease;
     flex-wrap: wrap;
+    padding-left: 1dvh;
 }
 
 .navigation-right {
