@@ -14,6 +14,7 @@
 .capcal{
     position: fixed;
     display: flex;
+    flex-wrap: wrap  ;
     top: 0;
     left: 0;
     width: 100%;
@@ -35,7 +36,7 @@
 
 }
 .titol-galeria{
-    font-size: 10dvh;
+    font-size: 5dvh;
     cursor: default;
 }
 .subtitle{
@@ -153,10 +154,23 @@
         width: 80dvw;
         user-select: none;
     }
+    .capcal{
+
+        flex-direction: column;
+        justify-content: flex-end;
+        align-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
     .titol-galeria{
-        font-size: 10dvh;
+
+        padding-top: 1dvh;
+        font-size: 5dvh;
+        text-align: center ;
     }
     .subtitle{
+        padding-top: 1dvh;
         font-size: 2dvh;
     }
 
