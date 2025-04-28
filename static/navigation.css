@@ -45,7 +45,7 @@ body {
 
 .navigation-left {
     display: flex;
-    width: 50dvh;
+    width: 60dvh;
     left: 0;
     bottom: 0;
     position: fixed;
@@ -80,8 +80,9 @@ body {
 .dropbtn {
     background-color: rgba(255, 255, 255, 0);
     height: 6dvh;
-margin: auto;
+    margin: auto;
     transition: 0.3s ease;
+    padding: 0 2dvh;
 
 }
 
