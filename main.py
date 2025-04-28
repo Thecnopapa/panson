@@ -12,6 +12,27 @@ prods_path = base_url + "projects/panson/databases/productes/documents/productes
 
 
 
+def read_data_type(value):
+    if list(value.keys())[0] == "stringValue":
+        return value["stringValue"]
+    elif list(value.keys())[0] == "integerValue":
+        return int(value["integerValue"])
+    elif list(value.keys())[0] == "booleanValue":
+        return bool(value["booleanValue"])
+    elif list(value.keys())[0] == "mapValue":
+        r = {}
+        for key, value in value["mapValue"]["fields"].items():
+            r[key] = read_data_type(value)
+        return r
+    elif list(value.keys())[0] == "arrayValue":
+        r = []
+        for value in value["arrayValue"]["values"]:
+            r.append(read_data_type(value))
+        return r
+    else:
+        return value[list(value.keys())[0]]
+
+
 class Localization():
     def __init__(self, lan):
         self.lan = lan
@@ -40,8 +61,47 @@ class Localization():
         else:
             return self
 
-global loc
-loc = Localization("cat")
+
+class Variacions():
+    def __init__(self, materials):
+        self.materials = materials
+        self.noms_materials = materials.keys()
+
+    def obtenir_variacions(self, material):
+        variacio = self.materials[material]["variacions"]
+        return ((variacio, info) for variacio, info in variacio.items())
+
+
+class Producte():
+    def __init__(self, loc, id, data):
+        lan = loc.lan
+        _lan = "-" + lan
+        self.id = id
+        for attr in data:
+            self.__setattr__(attr, data[attr])
+        for attr in ("nom", "descripcio", "subtitol"):
+            try:
+                self.__setattr__(attr, data[attr + _lan])
+            except:
+                try:
+                    self.__setattr__(attr, data[attr + "-cat"])
+                except:
+                    self.nom = data[attr]
+        self.variacions = Variacions(data["material"])
+
+
+class Productes():
+    def __init__(self, lan):
+        self.lan = lan
+        self.all_productes = json.loads(requests.get(prods_path).text)["documents"]
+        self.productes = sorted(producte for producte in self.all_productes)
+
+    def __iter__(self):
+        for producte in self.productes:
+            yield producte
+
+    def update(self, lan):
+        self.__init__(lan)
 
 
 def carregar_totes_collecions(loc):
@@ -49,7 +109,7 @@ def carregar_totes_collecions(loc):
     try:
         all_cols = json.loads(requests.get(cols_path).text)["documents"]
     except:
-        return "Could not read collection data at: <br> "+ cols_path
+        return "Could not read collection data at: <br><a href={}>{}</a>".format(cols_path, cols_path)
     html = ""
     all_data = []
     for col in all_cols:
@@ -76,8 +136,29 @@ def carregar_totes_collecions(loc):
 
 
 
-def carregar_galeria():
-    pass
+
+
+
+
+def carregar_galeria(loc, filtres:dict[str, str] = {}):
+    sprint("Carregant llista de productes")
+    print1("Filtres:", filtres)
+    html = ""
+    try:
+        all_products = json.loads(requests.get(prods_path).text)["documents"]
+    except:
+        return "Could not read product data at: <br><a href={}>{}</a>".format(prods_path, prods_path)
+
+    for product in all_products:
+        pass
+
+
+    return html + render_template("navigation.html", loc = loc)
+
+
+def dades_generals_producte(producte)
+
+
 
 
 def get_product_data(path):
@@ -91,28 +172,6 @@ def get_product_data(path):
     for key, value in fields.items():
         data[key] = read_data_type(value)
     return data
-
-def read_data_type(value):
-    if list(value.keys())[0] == "stringValue":
-        return value["stringValue"]
-    elif list(value.keys())[0] == "integerValue":
-        return int(value["integerValue"])
-    elif list(value.keys())[0] == "booleanValue":
-        return bool(value["booleanValue"])
-    elif list(value.keys())[0] == "mapValue":
-        r = {}
-        for key, value in value["mapValue"]["fields"].items():
-            r[key] = read_data_type(value)
-        return r
-    elif list(value.keys())[0] == "arrayValue":
-        r = []
-        for value in value["arrayValue"]["values"]:
-            r.append(read_data_type(value))
-        return r
-    else:
-        return value[list(value.keys())[0]]
-
-
 
 def get_product_data(product):
     product_path = product["name"]
@@ -169,6 +228,10 @@ def get_product_data(product):
 
 
 
+
+
+
+
 def get_products_by_attribute(attributes = [], values = [], origin = "/", template="producte.html", first_only=False, lan="cat",material="", variacio="", **kwargs):
     print("Getting all products in with {} == {}:".format(attributes, values))
     all_products = json.loads(requests.get(prods_path).text)["documents"]
@@ -195,7 +258,8 @@ def get_products_by_attribute(attributes = [], values = [], origin = "/", templa
 
 
 
-
+loc = Localization("cat")
+productes = Productes(loc)
 
 @app.route("/")
 def redirect_to_cat():
@@ -210,8 +274,11 @@ def get_static(lan, path):
 
 @app.route("/<lan>/")
 def index(lan):
+    if lan == "favicon.ico":
+        return redirect("/static/media/favicon.ico")
     loc.update(lan)
     return render_template('index.html', loc = loc) + render_template("navigation.html", origin="hide", loc = loc)
+
 
 
 
@@ -231,9 +298,7 @@ def productes_per_col(lan, col):
 @app.route("/<lan>/peces_uniques")
 def peces_uniques(lan):
     loc.update(lan)
-    html = get_products_by_attribute("unica", True, loc = loc )
-    if html:
-        return html + render_template("navigation.html",  origin = None, loc = loc)
+    return carregar_galeria(loc)
 
 
 
