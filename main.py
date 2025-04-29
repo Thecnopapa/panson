@@ -284,6 +284,7 @@ def mostrar_peca_material(lan, id, material):
 @app.route("/<lan>/productes/<id>")
 def mostrar_peca(lan, id):
     loc.update(lan)
+    productes.update(loc)
     html = render_template("producte.html", producte=productes.get_single(id), loc = loc)
     if html:
         return html + render_template("navigation.html", origin = None, loc = loc)
