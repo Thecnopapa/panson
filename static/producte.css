@@ -184,14 +184,13 @@ body {
 
 
 
-@media screen and (orientation: landscape) {
+@media screen and (orientation: landscape) and (orientation: portrait) {
     .navigation-left {
         width: 40dvw;
         justify-content: space-evenly;
-        background-color: rgba(255, 255, 255, 0.8);
+        background-color: rgba(0, 0, 0, 0.2);
         padding: 0;
         margin: 0;
-
 
     }
     .navigation {

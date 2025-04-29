@@ -37,7 +37,7 @@ class Localization():
     def __init__(self, lan):
         self.lan = lan
         self.loc_json = json.loads(open("localization.json").read())
-        self.all_langs = (lang for lang in self.loc_json.keys() if lang != "colors")
+        self.all_langs = [lang for lang in self.loc_json.keys() if lang != "colors"]
         self.colors = self.loc_json["colors"]
         self.loc = self.loc_json[lan]
 
@@ -84,6 +84,8 @@ class Producte():
 
         self.unica = False
         self.descripcio = "Descripcio"
+        self.imatges = []
+        self.collecio = None
 
         print1("Producte:", self.id)
         print2(raw_data["fields"])
@@ -100,6 +102,7 @@ class Producte():
 
     def __getitem__(self, item):
         return self.__getattribute__(item)
+
 
 
 
@@ -127,7 +130,16 @@ class Productes():
         return [dict(producte.__dict__) for producte in self.productes ]
 
     def filtrats(self, **filtres):
-        pass
+        filtrats = []
+        for producte in self.productes:
+            for arg, values in filtres.items():
+                if type(values) is not list:
+                    values = [values]
+                for value in values:
+                    if producte.__getattribute__(arg) == value:
+                        filtrats.append(producte)
+                        break
+        return filtrats
 
     def get_single(self, id):
         for producte in self.productes:
@@ -228,7 +240,7 @@ def collections(lan):
 @app.route("/<lan>/collecions/<col>")
 def productes_per_col(lan, col):
     loc.update(lan)
-    html = get_products_by_attribute("collecio", col, template="galeria.html", titol=col.capitalize(), subtitol=loc.gal_collecio, loc=loc)
+    html = render_template("galeria.html",productes = productes.filtrats(collecio=col), titol=col.capitalize(), subtitol=loc.gal_collecio, loc=loc)
     if html:
         return html + render_template("navigation.html", origin = None, loc = loc)
 
@@ -262,7 +274,7 @@ def mostrar_peca_material(lan, id, material):
 @app.route("/<lan>/productes/<id>")
 def mostrar_peca(lan, id):
     loc.update(lan)
-    html = render_template("producte.html", producte=productes.get_single(id), loc = loc)
+    html = render_template("producte.html", producte=[productes.get_single(id)], loc = loc)
     if html:
         return html + render_template("navigation.html", origin = None, loc = loc)
 
