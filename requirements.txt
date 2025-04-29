@@ -7,3 +7,4 @@ google-cloud-storage
 # App
 flask
 gunicorn
+firebase
