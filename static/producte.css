@@ -251,6 +251,8 @@ body {
     .titol_producte {
         font-size: 8dvh;
     }
-
+    .back {
+        display: none;
+    }
 }
 
