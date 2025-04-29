@@ -16,15 +16,24 @@
 
 {% for data in all_data %}
     <div class="content">
-        {% if data["imatges"] %}
-            <div class="foto_producte" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ data["imatges"][0] }}?alt=media')"></div>
-        {%  else %}
-            <div class="foto_producte"></div>
-        {%  endif %}
+    <div class="fotos">
+        {% for n in [1,2,3,4] %}
+            {% if data["imatges"] %}
+                <div class="foto_producte" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ data["imatges"][0] }}?alt=media')"></div>
+            {%  else %}
+                <div class="foto_producte"></div>
+            {%  endif %}
+        {% endfor %}
+    </div>
         <div class="detalls">
             {% if "nom" in data %}
                 <div class = "titol_producte">
                     {{ data["nom"] }}
+                </div>
+            {% endif %}
+            {% if "tipus" in data %}
+                <div class = "tipus_producte">
+                    {{ data["tipus"] }}
                 </div>
             {% endif %}
             {% if data["descripcio"] %}

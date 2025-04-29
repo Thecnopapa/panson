@@ -16,7 +16,7 @@
     <div class="fons_collecio" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/collecions%2F{{ id }}.jpg?alt=media')">
         {% if name %}
             <div class = "titol-collecio" onclick="location.href='/{{ loc.lan }}/collecions/{{ id }}'">
-                <h1>{{ name }}</h1>
+                {{ name }}
             </div>
         {% endif %}
         {% if description %}
