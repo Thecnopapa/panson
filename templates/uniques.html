@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/static/media/favicon.ico">
+    <title>PANSON: {{ loc.uni_titol_curt }}</title>
+    <link href='/static/navigation.css' rel='stylesheet'>
+    <link href='/static/index.css' rel='stylesheet'>
+    <link href='/static/uniques.css' rel='stylesheet'>
+</head>
+
+
+
+{% for producte in productes %}
+    <div class="content" >
+
+        {% if producte.imatges %}
+            <div class="fons_collecio" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media')">
+        {%  endif %}
+            <div class = "titol-collecio" onclick="location.href='/{{ loc.lan }}/productes/{{ producte.id }}'">{{ producte.nom }}</div>
+            <div class = "descripcio">{{ producte.descripcio }}</div>
+        </div>
+    </div>
+{% endfor %}

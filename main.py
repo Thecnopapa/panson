@@ -73,28 +73,47 @@ class Variacions():
 
 
 class Producte():
-    def __init__(self, loc, id, data):
-        lan = loc.lan
-        _lan = "-" + lan
-        self.id = id
-        for attr in data:
-            self.__setattr__(attr, data[attr])
-        for attr in ("nom", "descripcio", "subtitol"):
-            try:
-                self.__setattr__(attr, data[attr + _lan])
-            except:
-                try:
-                    self.__setattr__(attr, data[attr + "-cat"])
-                except:
-                    self.nom = data[attr]
-        self.variacions = Variacions(data["material"])
+    def __init__(self, loc, raw_data):
+        print(raw_data["name"])
+        self.loc = loc
+        self.raw_data = raw_data
+        self.id = raw_data["name"].split("/")[-1]
+        self.nom = self.id
+        self.lan = loc.lan
+        self._lan = "-" + self.lan
+
+        self.unica = False
+        self.descripcio = "Descripcio"
+
+        print1("Producte:", self.id)
+        print2(raw_data["fields"])
+        [print3(key, read_data_type(value)) for key, value in raw_data["fields"].items()]
+        self.data = {key: read_data_type(value) for key, value in raw_data["fields"].items()}
+        print(self.data)
+        for key, value in self.data.items():
+            self.__setattr__(key, value)
+
+        if "material" in self.__dict__:
+            self.variacions = Variacions(self.data["material"])
+
+
+
+    def __getitem__(self, item):
+        return self.__getattribute__(item)
+
+
+
 
 
 class Productes():
     def __init__(self, lan):
+        sprint("Carregant llista de productes")
         self.lan = lan
         self.all_productes = json.loads(requests.get(prods_path).text)["documents"]
-        self.productes = [producte for producte in self.all_productes]
+        #[print(p, "\n") for p in self.all_productes]
+
+        self.productes = [Producte(lan,raw_data) for raw_data in self.all_productes]
+        #[print(p, "\n") for p in self.productes]
 
     def __iter__(self):
         for producte in self.productes:
@@ -102,6 +121,13 @@ class Productes():
 
     def update(self, lan):
         self.__init__(lan)
+
+    def uniques(self):
+        print("Unique productes:")
+        return [dict(producte.__dict__) for producte in self.productes ]
+
+    def filtrats(self, **filtres):
+        pass
 
 
 def carregar_totes_collecions(loc):
@@ -125,7 +151,6 @@ def carregar_totes_collecions(loc):
                 nom = read_data_type(data["fields"]["nom-" + loc.lan])
             elif "nom" in data["fields"]:
                 nom = read_data_type(data["fields"]["nom"])
-
             if "descripcio" + loc.lan in data["fields"]:
                 descripcio = read_data_type(data["fields"]["descripcio" + loc.lan])
             elif "descripcio" in data["fields"]:
@@ -160,98 +185,6 @@ def carregar_galeria(loc, filtres:dict[str, str] = {}):
 def dades_generals_producte(producte):
     pass
 
-
-
-
-def get_product_data(path):
-    url = base_url + path
-    print("Getting product data from url: ")
-    print(url)
-    raw_data = json.loads(requests.get(url).text)
-    #print(raw_data)
-    fields = raw_data["fields"]
-    data = {}
-    for key, value in fields.items():
-        data[key] = read_data_type(value)
-    return data
-
-def get_product_data(product):
-    product_path = product["name"]
-    data = get_product_data(product_path)
-    data["id"] = product_path.split("/")[-1]
-    print("Producte:", data["id"])
-    # [print("{}: {}".format(key, value)) for key, value in data.items()]
-    preus = []
-    vars = []
-    mats = []
-    if "material" in data:
-        for m, variacions in data["material"].items():
-            print("Material:", m)
-            mats.append(m)
-            for variacions in variacions.values():
-                for v, info in variacions.items():
-                    if material == m:
-                        vars.append((v, info))
-                    print("Variacio:", v, info)
-                    if "preu" in info:
-                        preus.append(info["preu"])
-
-    if len(preus) == 0:
-        data["preu"] = None
-        data["desde"] = None
-    elif len(preus) == 1:
-        data["preu"] = preus[0]
-        data["desde"] = None
-    else:
-        data["preu"] = min(preus)
-        data["desde"] = True
-
-    if len(mats) > 0:
-        data["mats"] = sorted(mats, reverse=True)
-    else:
-        data["mats"] = None
-
-    if len(vars) > 0:
-        data["vars"] = sorted(vars, reverse=True)
-        print("#########", data["vars"])
-    else:
-        data["varas"] = None
-
-    if "descripcio" in data:
-        try:
-            data["descripcio"] = data["descripcio"][lan]
-        except:
-            try:
-                data["descripcio"] = data["descripcio"]["cat"]
-            except:
-                data["descripcio"] = data["descripcio"]
-
-    return data
-
-
-
-
-
-
-
-def get_products_by_attribute(attributes = [], values = [], origin = "/", template="producte.html", first_only=False, lan="cat",material="", variacio="", **kwargs):
-    print("Getting all products in with {} == {}:".format(attributes, values))
-    all_products = json.loads(requests.get(prods_path).text)["documents"]
-    all_data = []
-    for prod in all_products:
-        data = get_product_data(prod)
-        for attribute, value in zip(attributes, values):
-            if attribute in data or attribute is None:
-                if attribute is None or data[attribute] == value:
-                    all_data.append(prod)
-        if first_only:
-            break
-    if len(all_data) == 0:
-        return ("No hi han peces en aquesta collecio encara<br><br>"
-                "<button onclick=\"location.href='/collecions'\">Tornar enrere</button>")
-    html = render_template(template, all_data=all_data, origin=origin, len = len(all_data), material=material, variacio=variacio, **kwargs)
-    # print(html)
-    return html
 
 
 
@@ -300,7 +233,9 @@ def productes_per_col(lan, col):
 @app.route("/<lan>/peces_uniques")
 def peces_uniques(lan):
     loc.update(lan)
-    return carregar_galeria(loc)
+    html = render_template("uniques.html", productes=productes.uniques(), loc = loc, )
+
+    return html + render_template("navigation.html", origin = None, loc = loc)
 
 
 

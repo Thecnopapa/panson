@@ -10,8 +10,8 @@
     <link href='/static/collecio.css' rel='stylesheet'>
 </head>
 
-
-{% for id, name, description  in data %}
+{{ data }}
+{% for id, name, description in data %}
     <div class="content" >
     <div class="fons_collecio" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/collecions%2F{{ id }}.jpg?alt=media')">
         {% if name %}
