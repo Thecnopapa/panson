@@ -41,9 +41,9 @@
                     <div class = "materials">
                         {% for mat in producte.mats %}
                             {% if  material == mat %}
-                                <button class="material-boto" id="selected-material" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+mat }}'">{{ loc["mat-"+mat] }}</button>
+                                <button class="material-boto" id="selected-material" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"/"+mat }}'">{{ loc["mat-"+mat] }}</button>
                             {%  else %}
-                                <button class="material-boto" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+mat }}'">{{ loc["mat-"+mat] }}</button>
+                                <button class="material-boto" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"/"+mat }}'">{{ loc["mat-"+mat] }}</button>
                             {%  endif %}
                         {% endfor %}
                     </div>

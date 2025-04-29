@@ -14,12 +14,10 @@
 {% endif %}
 
 <div class="content-galeria">
-
     <div class="capcal">
         <div class="titol-galeria">{{ titol }}</div>
         <div class="subtitle">/ {{ subtitol }}</div>
     </div>
-
     <div class="spacer"></div>
     <div class="galeria">
         {% for producte in productes %}
@@ -27,7 +25,7 @@
                <div class="imatge"><img src='https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media'></div>
                 <div class="detalls-galeria">
                     <div class="nom">{{ producte.nom }}&nbsp;</div>
-                    <div class="subtiol">{{ producte.tipus }}&nbsp;</div>
+                    <div class="subtiol">{{ loc["tip-"+producte.tipus] }}&nbsp;</div>
                     {% if producte.mats %}
                         <div class="colors">
                         {% for mat in producte.mats %}

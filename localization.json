@@ -16,14 +16,15 @@
     "col-collecions": "Col·leccions",
     "col-subtitiol": "COL·LECCIÓ",
 
+
     "uni-titol-curt": "Peces Uniques",
 
 
     "gal-subtitol": "PANSON",
     "gal-totes": "Totes les peces",
-    "gal-collecio" : "Col·lecio",
+    "gal-collecio" : "COL·LECCIÓ",
     "gal-desde": "Desde",
-
+    "gal-peces-uniques": "Peces Uniques",
 
 
     "pro-productes": "Productes",
@@ -32,6 +33,7 @@
     "pro-missatge": "Ho fabricarem especialment per a tu un cop hagis fet la teva comanda. Enviament en 21 dies laborables.",
     "pro-materials-disponibles": "Disponible en els seguents materials:",
     "pro-variacions-disponibles": "Disponible amb les seguents variacions:",
+
 
     "con-contacte" : "Contacte",
 
@@ -42,7 +44,12 @@
 
 
     "var-xapat": "Xapat (or)",
-    "var-no-xapat": "Sense xapat"
+    "var-no-xapat": "Sense xapat",
+
+
+    "tip-anell": "Anell",
+    "tip-penjoll": "Penjoll",
+    "tip-arracades": "Arracades"
 
   },
   "en": {
@@ -57,26 +64,32 @@
     "nav-contacte": "CONTACT",
     "nav-projecte": "PROJECT",
     "nav-productes": "PRODUCTS",
-    "nav-enrere": "Back",
+    "nav-enrere": "--",
+
 
     "col-collecions": "Collections",
+    "col-subtitiol": "COLLECTION",
 
+
+    "uni-titol-curt": "Unique Pieces",
+
+
+    "gal-subtitol": "PANSON",
     "gal-totes": "All the pieces",
-    "gal-collecio" : "Collection",
+    "gal-collecio" : "COLLECTION",
     "gal-desde": "From",
+    "gal-peces-uniques": "Unique Pieces",
 
 
     "pro-productes": "Products",
     "pro-garantia": "1 year of guarantee.",
     "pro-devolucio": "30 days for changes and returns.",
     "pro-missatge": "We will produce it specially for you once you place your order. Sent within 21 working days.",
+    "pro-materials-disponibles": "Available in the following materials",
+    "pro-variacions-disponibles": "Available in the following variations:",
+
 
     "con-contacte" : "Contact",
-
-
-    "tip-anell": "Anell",
-    "tip-penjoll": "Penjoll",
-    "tip-arracades": "Arracades",
 
 
     "mat-plata": "Silver",
@@ -84,7 +97,12 @@
 
 
     "var-xapat": "Plated (gold)",
-    "var-no-xapat": "Without plating"
+    "var-no-xapat": "Without plating",
+
+
+    "tip-anell": "Ring",
+    "tip-penjoll": "Necklace",
+    "tip-arracades": "Earrings"
 
   },
 

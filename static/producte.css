@@ -256,11 +256,11 @@ body {
 }
 
 .content-galeria {
-    position: relative !important;
+    position: relative;
 }
 .capcal {
-    position: relative !important;
+    position: relative;
 }
 .spacer {
-    display: none !important;
+    display: none;
 }

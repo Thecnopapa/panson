@@ -54,8 +54,8 @@ class Localization():
     def upper(string ):
         return string.upper()
 
-    def update(self, lan):
-        if self.lan != lan:
+    def update(self, lan, force = True):
+        if self.lan != lan or force:
             self.__init__(lan)
             global productes
             productes.update(self)
@@ -78,7 +78,7 @@ class Variacions():
 class Producte():
     def __init__(self, loc, raw_data):
         #print(raw_data["name"])
-
+        self.loc = loc
         self.raw_data = raw_data
         self.id = raw_data["name"].split("/")[-1]
         self.nom = self.id
@@ -89,6 +89,7 @@ class Producte():
         self.descripcio = "Descripcio"
         self.imatges = []
         self.collecio = None
+        self.subtitol = "SUBTITOL"
 
         print1("Producte:", self.id)
         #print2(raw_data["fields"])
@@ -104,9 +105,12 @@ class Producte():
                 print(self._lan)
                 print(attr, ":", attr+self._lan in self.__dict__.keys())
                 self.__setattr__(attr, self.__dict__[attr+self._lan])
+        if self.unica:
+            self.collecio = loc.gal_peces_uniques
 
         if "material" in self.__dict__:
             self.variacions = Variacions(self.data["material"])
+            self.mats = self.variacions.noms_materials
 
 
 
@@ -250,7 +254,7 @@ def collections(lan):
 @app.route("/<lan>/collecions/<col>")
 def productes_per_col(lan, col):
     loc.update(lan)
-    html = render_template("galeria.html",productes = productes.filtrats(collecio=col), titol=col.capitalize(), subtitol=loc.gal_collecio, loc=loc)
+    html = render_template("galeria.html",productes = productes.filtrats(collecio=col), titol=col.capitalize(), subtitol=loc.col_subtitiol, loc=loc)
     if html:
         return html + render_template("navigation.html", origin = "hide", loc = loc)
 
@@ -286,8 +290,10 @@ def mostrar_peca(lan, id):
     loc.update(lan)
     productes.update(loc)
     producte = productes.get_single(id)
-    html = render_template("producte.html", producte=producte, loc = loc, no_head=True, )
-    html += render_template("galeria.html", productes=productes.filtrats(collecio=producte.collecio), titol=producte.collecio.capitalize(), subtitol=loc.gal_collecio,  loc=loc)
+    print(loc.gal_collecio)
+    html = render_template("producte.html", producte=producte, loc = loc)
+    html += render_template("galeria.html", productes=productes.filtrats(collecio=producte.collecio),
+                            titol=producte.collecio.capitalize(), subtitol=loc.gal_collecio,  no_head=True,  loc=loc)
 
     if html:
         return html + render_template("navigation.html", origin = None, loc = loc)
