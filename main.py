@@ -94,7 +94,7 @@ class Productes():
     def __init__(self, lan):
         self.lan = lan
         self.all_productes = json.loads(requests.get(prods_path).text)["documents"]
-        self.productes = sorted(producte for producte in self.all_productes)
+        self.productes = [producte for producte in self.all_productes]
 
     def __iter__(self):
         for producte in self.productes:
@@ -125,10 +125,11 @@ def carregar_totes_collecions(loc):
                 nom = read_data_type(data["fields"]["nom-" + loc.lan])
             elif "nom" in data["fields"]:
                 nom = read_data_type(data["fields"]["nom"])
+
             if "descripcio" + loc.lan in data["fields"]:
-                descripcio = read_data_type(["fields"]["descripcio" + loc.lan])
+                descripcio = read_data_type(data["fields"]["descripcio" + loc.lan])
             elif "descripcio" in data["fields"]:
-                descripcio = read_data_type(["fields"]["descripcio"])
+                descripcio = read_data_type(data["fields"]["descripcio"])
         all_data.append((id, nom, descripcio))
     html += render_template("collecions.html", data=all_data, loc=loc)
     html += render_template("navigation.html", loc = loc)
@@ -156,7 +157,8 @@ def carregar_galeria(loc, filtres:dict[str, str] = {}):
     return html + render_template("navigation.html", loc = loc)
 
 
-def dades_generals_producte(producte)
+def dades_generals_producte(producte):
+    pass
 
 
 
