@@ -36,6 +36,7 @@
 
 }
 .titol-galeria{
+    font-weight: bold;
     font-size: 5dvh;
     cursor: default;
 }
@@ -106,7 +107,7 @@
     object-position: center;
     width: 100%;
     height: 100%;
-    border-radius: 15px;
+    border-radius: 0px;
     user-select: inherit;
 }
 .detalls{
