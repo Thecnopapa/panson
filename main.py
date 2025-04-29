@@ -143,7 +143,6 @@ def carregar_totes_collecions(loc):
         url = base_url + col_path
         print1("URL:", url)
         data = json.loads(requests.get(url).text)
-        descripcio = ""
         nom = ""
         id = url.split("/")[-1]
         if "fields" in data:
@@ -151,11 +150,7 @@ def carregar_totes_collecions(loc):
                 nom = read_data_type(data["fields"]["nom-" + loc.lan])
             elif "nom" in data["fields"]:
                 nom = read_data_type(data["fields"]["nom"])
-            if "descripcio" + loc.lan in data["fields"]:
-                descripcio = read_data_type(data["fields"]["descripcio" + loc.lan])
-            elif "descripcio" in data["fields"]:
-                descripcio = read_data_type(data["fields"]["descripcio"])
-        all_data.append((id, nom, descripcio))
+        all_data.append((id, nom))
     html += render_template("collecions.html", data=all_data, loc=loc)
     html += render_template("navigation.html", loc = loc)
     return html

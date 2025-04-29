@@ -4,10 +4,14 @@ body {
     margin: 0;
     width: 100%;
 }
+.content {
+    height: 90dvh;
+
+}
 
 .fons_collecio{
     position: relative;
-    height: 100dvh;
+    height: 100%;
     align-content: center;
     justify-items: center;
     width: 100%;
@@ -21,8 +25,10 @@ body {
     text-align: center;
     font-size: 2dvh;
     position: relative;
+    color: #FFFFFF;
 }
 .titol-collecio {
+    display: flex;
     position: relative;
     width: fit-content;
     justify-content: center;
@@ -33,7 +39,8 @@ body {
     color: rgba(240, 248, 255, 0.9);
     height: 20dvh;
     user-select: none;
-    margin: 5dvh;
+    margin: 0 5dvh 0 5dvh;
+
 
 }
 .content {
