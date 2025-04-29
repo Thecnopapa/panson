@@ -129,6 +129,14 @@ class Productes():
     def filtrats(self, **filtres):
         pass
 
+    def get_single(self, id):
+        for producte in self.productes:
+            if producte.id == id:
+                return producte
+
+    def get_all(self):
+        return self.productes
+
 
 def carregar_totes_collecions(loc):
     sprint("Carregant collecions")
@@ -254,7 +262,7 @@ def mostrar_peca_material(lan, id, material):
 @app.route("/<lan>/productes/<id>")
 def mostrar_peca(lan, id):
     loc.update(lan)
-    html = get_products_by_attribute("id", id, first_only=True, loc = loc)
+    html = render_template("producte.html", producte=productes.get_single(id), loc = loc)
     if html:
         return html + render_template("navigation.html", origin = None, loc = loc)
 
@@ -262,7 +270,7 @@ def mostrar_peca(lan, id):
 @app.route("/<lan>/productes")
 def mostrar_tot(lan):
     loc.update(lan)
-    html = get_products_by_attribute(template="galeria.html", titol=loc.gal_totes, subtitol="PANSON", loc=loc)
+    html = render_template("galeria.html", productes = productes.get_all(), titol=loc.gal_totes, subtitol=loc.gal_subtitol, loc=loc)
     if html:
         return html + render_template("navigation.html", origin = None, loc = loc)
 

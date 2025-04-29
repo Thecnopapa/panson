@@ -18,27 +18,22 @@
     </div>
     <div class="spacer"></div>
     <div class="galeria">
-        {% for data in all_data %}
-           <div class="producte" onclick="location.href='/{{ loc.lan }}/productes/{{ data["id"] }}'">
-                {% if data["imatges"] %}
-                    <div class="imatge"><img src='https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ data["imatges"][0] }}?alt=media'></div>
-                {% else %}
-                    <div class="imatge"></div>
-                {% endif %}
+        {% for producte in productes %}
+           <div class="producte" onclick="location.href='/{{ loc.lan }}/productes/{{ producte.id }}'">
+               <div class="imatge"><img src='https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media'></div>
                 <div class="detalls">
-                    <div class="nom">{{ data["nom"] }}&nbsp;</div>
-                    <div class="subtiol">{{ data["subtitol"] }}&nbsp;</div>
-
-                    {% if data["mats"] %}
+                    <div class="nom">{{ producte.nom }}&nbsp;</div>
+                    <div class="subtiol">{{ producte.tipus }}&nbsp;</div>
+                    {% if producte.mats %}
                         <div class="colors">
-                        {% for mat in data["mats"] %}
+                        {% for mat in producte.mats %}
                             <span class="cercle" style="background-color: {{ loc.colors[mat] }}"></span>
                         {% endfor %}
                         </div>
                     {% endif %}
-                    {% if data["preu"] %}
+                    {% if producte.preu %}
                         <div class="preu">
-                            {% if data["desde"] %}
+                            {% if producte.desde %}
                                 <div class="desde">{{ loc.gal_desde }}</div>
                             {% else %}
                                 <div class="desde">&nbsp;</div>
@@ -48,7 +43,7 @@
                         <div class="preu">&nbsp;</div>
                     {% endif %}
                     {% autoescape false %}
-                        <div class="descripcio">{{ data["descripcio"] }}</div>
+                        <div class="descripcio">{{ producte.descripcio }}</div>
                     {% endautoescape %}
                 </div>
            </div>
