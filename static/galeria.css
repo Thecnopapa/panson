@@ -4,7 +4,7 @@
 }
 
 
-.content {
+.content-galeria {
     display: block;
     width: 100%;
     position: absolute;
@@ -109,7 +109,7 @@
     border-radius: 0px;
     user-select: inherit;
 }
-.detalls{
+.detalls-galeria{
     max-height: 100%;
     width: 100%;
     padding: 1dvh;

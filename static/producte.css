@@ -3,12 +3,11 @@ body {
     width: 100%;
     height: max-content;
 }
-.content {
+.content-producte {
     display: flex;
     width: 100%;
     position: relative;
-    height: 100dvh;
-
+    height: fit-content;
 }
 
 .fotos{
@@ -201,7 +200,7 @@ body {
 
 @media screen and (orientation: portrait) {
 
-    .content {
+    .content-producte {
         display: block;
         align-content: start;
         height: fit-content;
@@ -256,3 +255,12 @@ body {
     }
 }
 
+.content-galeria {
+    position: relative !important;
+}
+.capcal {
+    position: relative !important;
+}
+.spacer {
+    display: none !important;
+}

@@ -1,27 +1,31 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="/static/media/favicon.ico">
-    <title>PANSON: {{ titol }}</title>
-    <link href='/static/navigation.css' rel='stylesheet'>
-    <link href='/static/index.css' rel='stylesheet'>
-    <link href='/static/galeria.css' rel='stylesheet'>
-</head>
 
+{% if not no_head %}
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/x-icon" href="/static/media/favicon.ico">
+        <title>PANSON: {{ titol }}</title>
+        <link href='/static/navigation.css' rel='stylesheet'>
+        <link href='/static/index.css' rel='stylesheet'>
+        <link href='/static/galeria.css' rel='stylesheet'>
+    </head>
+{% endif %}
 
-<div class="content">
+<div class="content-galeria">
+
     <div class="capcal">
         <div class="titol-galeria">{{ titol }}</div>
         <div class="subtitle">/ {{ subtitol }}</div>
     </div>
+
     <div class="spacer"></div>
     <div class="galeria">
         {% for producte in productes %}
            <div class="producte" onclick="location.href='/{{ loc.lan }}/productes/{{ producte.id }}'">
                <div class="imatge"><img src='https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media'></div>
-                <div class="detalls">
+                <div class="detalls-galeria">
                     <div class="nom">{{ producte.nom }}&nbsp;</div>
                     <div class="subtiol">{{ producte.tipus }}&nbsp;</div>
                     {% if producte.mats %}

@@ -285,7 +285,10 @@ def mostrar_peca_material(lan, id, material):
 def mostrar_peca(lan, id):
     loc.update(lan)
     productes.update(loc)
-    html = render_template("producte.html", producte=productes.get_single(id), loc = loc)
+    producte = productes.get_single(id)
+    html = render_template("producte.html", producte=producte, loc = loc, no_head=True, )
+    html += render_template("galeria.html", productes=productes.filtrats(collecio=producte.collecio), titol=producte.collecio.capitalize(), subtitol=loc.gal_collecio,  loc=loc)
+
     if html:
         return html + render_template("navigation.html", origin = None, loc = loc)
 

@@ -11,11 +11,13 @@
     {% endif %}
     <link href='/static/navigation.css' rel='stylesheet'>
     <link href='/static/index.css' rel='stylesheet'>
+    <link href='/static/galeria.css' rel='stylesheet'>
     <link href='/static/producte.css' rel='stylesheet'>
+
 </head>
 
 
-<div class="content">
+<div class="content-producte">
     <div class="fotos">
         {% for imatge in producte.imatges %}
             <div class="foto_producte" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media')"></div>
