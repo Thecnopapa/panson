@@ -242,7 +242,7 @@ def productes_per_col(lan, col):
     loc.update(lan)
     html = render_template("galeria.html",productes = productes.filtrats(collecio=col), titol=col.capitalize(), subtitol=loc.gal_collecio, loc=loc)
     if html:
-        return html + render_template("navigation.html", origin = None, loc = loc)
+        return html + render_template("navigation.html", origin = "hide", loc = loc)
 
 
 @app.route("/<lan>/peces_uniques")
@@ -250,7 +250,7 @@ def peces_uniques(lan):
     loc.update(lan)
     html = render_template("uniques.html", productes=productes.uniques(), loc = loc, )
 
-    return html + render_template("navigation.html", origin = None, loc = loc)
+    return html + render_template("navigation.html", origin = "hide", loc = loc)
 
 
 
@@ -284,7 +284,7 @@ def mostrar_tot(lan):
     loc.update(lan)
     html = render_template("galeria.html", productes = productes.get_all(), titol=loc.gal_totes, subtitol=loc.gal_subtitol, loc=loc)
     if html:
-        return html + render_template("navigation.html", origin = None, loc = loc)
+        return html + render_template("navigation.html", origin = "hide", loc = loc)
 
 
 
