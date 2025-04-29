@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="/static/media/favicon.ico">
     {% if len == 1 %}
-        <title>PANSON: {{ all_data[0]["nom"] }}</title>
+        <title>PANSON: {{ producte.nom }}</title>
     {% else %}
         <title>PANSON: {{ loc.pro_productes }}</title>
     {% endif %}
@@ -14,40 +14,30 @@
     <link href='/static/producte.css' rel='stylesheet'>
 </head>
 
-{% for data in all_data %}
-    <div class="content">
+
+<div class="content">
     <div class="fotos">
-        {% for n in [1,2,3,4] %}
-            {% if data["imatges"] %}
-                <div class="foto_producte" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ data["imatges"][0] }}?alt=media')"></div>
-            {%  else %}
-                <div class="foto_producte"></div>
-            {%  endif %}
+        {% for imatge in producte.imatges %}
+            <div class="foto_producte" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media')"></div>
         {% endfor %}
     </div>
         <div class="detalls">
-            {% if "nom" in data %}
-                <div class = "titol_producte">
-                    {{ data["nom"] }}
-                </div>
-            {% endif %}
-            {% if "tipus" in data %}
-                <div class = "tipus_producte">
-                    {{ data["tipus"] }}
-                </div>
-            {% endif %}
-            {% if data["descripcio"] %}
-                {% autoescape false %}
+            <div class = "titol_producte">
+                {{ producte.nom }}
+            </div>
+            <div class = "tipus_producte">
+                {{ producte.tipus }}
+            </div>
+            {% autoescape false %}
                 <div class = "descripcio_producte">
-                    {{ data["descripcio"]}}
+                    {{ producte.descripcio}}
                 </div>
-                {% endautoescape %}
-            {% endif %}
+            {% endautoescape %}
             <div class="opcions">
-                {% if data["material"] %}
+                {% if producte.material %}
                     <div class="titol-materials">{{ loc.pro_materials_disponibles }}</div>
                     <div class = "materials">
-                        {% for mat in data["mats"] %}
+                        {% for mat in producte.mats %}
                             {% if  material == mat %}
                                 <button class="material-boto" id="selected-material" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+mat }}'">{{ loc["mat-"+mat] }}</button>
                             {%  else %}
@@ -55,10 +45,10 @@
                             {%  endif %}
                         {% endfor %}
                     </div>
-                    {% if data["vars"] %}
+                    {% if producte.vars %}
                         <div class="titol-variacions">{{ loc.pro_variacions_disponibles }}</div>
                         <div class="variacions">
-                        {% for var, info in data["vars"] %}
+                        {% for var, info in producte.vars %}
                             {% if  var == variacio %}
                                 <div class="variacio"  onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+material+"/"+var }}'"><span class="variacio-cercle" id="selected-var-cercle" ></span><div class="variacio-text" id="selected-var-text"> {{ loc["var-"+var] }} </div>
                             {% else %}
@@ -74,10 +64,10 @@
                 {% endif %}
             </div>
             <div class = "detalls_generals">
-                {{ loc["pro-missatge"] }}<br><br>
-                <img class="small-icon" src="/static/media/shield.svg" alt="garantia">{{ loc["pro-garantia"] }} <br>
-                <img class="small-icon" src="/static/media/reload.svg" alt="devolucions">{{ loc["pro-devolucio"] }}<br>
+                {{ loc.pro_missatge }}<br><br>
+                <img class="small-icon" src="/static/media/shield.svg" alt="garantia">{{ loc.pro_garantia }} <br>
+                <img class="small-icon" src="/static/media/reload.svg" alt="devolucions">{{ loc.pro_devolucio }}<br>
             </div>
         </div>
     </div>
-{% endfor %}
+

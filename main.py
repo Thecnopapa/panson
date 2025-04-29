@@ -57,6 +57,9 @@ class Localization():
     def update(self, lan):
         if self.lan != lan:
             self.__init__(lan)
+            global productes
+            productes.update(self)
+
             return self
         else:
             return self
@@ -74,8 +77,8 @@ class Variacions():
 
 class Producte():
     def __init__(self, loc, raw_data):
-        print(raw_data["name"])
-        self.loc = loc
+        #print(raw_data["name"])
+
         self.raw_data = raw_data
         self.id = raw_data["name"].split("/")[-1]
         self.nom = self.id
@@ -88,12 +91,19 @@ class Producte():
         self.collecio = None
 
         print1("Producte:", self.id)
-        print2(raw_data["fields"])
-        [print3(key, read_data_type(value)) for key, value in raw_data["fields"].items()]
+        #print2(raw_data["fields"])
+        [print2(key, read_data_type(value)) for key, value in raw_data["fields"].items()]
         self.data = {key: read_data_type(value) for key, value in raw_data["fields"].items()}
-        print(self.data)
+        #print(self.data)
+        print(self._lan)
         for key, value in self.data.items():
             self.__setattr__(key, value)
+
+        for attr in self.__dict__.keys():
+            if attr+self._lan in self.__dict__.keys():
+                print(self._lan)
+                print(attr, ":", attr+self._lan in self.__dict__.keys())
+                self.__setattr__(attr, self.__dict__[attr+self._lan])
 
         if "material" in self.__dict__:
             self.variacions = Variacions(self.data["material"])
@@ -109,21 +119,21 @@ class Producte():
 
 
 class Productes():
-    def __init__(self, lan):
+    def __init__(self, loc):
         sprint("Carregant llista de productes")
-        self.lan = lan
+        self.lan = loc.lan
         self.all_productes = json.loads(requests.get(prods_path).text)["documents"]
         #[print(p, "\n") for p in self.all_productes]
 
-        self.productes = [Producte(lan,raw_data) for raw_data in self.all_productes]
+        self.productes = [Producte(loc,raw_data) for raw_data in self.all_productes]
         #[print(p, "\n") for p in self.productes]
 
     def __iter__(self):
         for producte in self.productes:
             yield producte
 
-    def update(self, lan):
-        self.__init__(lan)
+    def update(self, loc):
+        self.__init__(loc)
 
     def uniques(self):
         print("Unique productes:")
@@ -274,7 +284,7 @@ def mostrar_peca_material(lan, id, material):
 @app.route("/<lan>/productes/<id>")
 def mostrar_peca(lan, id):
     loc.update(lan)
-    html = render_template("producte.html", producte=[productes.get_single(id)], loc = loc)
+    html = render_template("producte.html", producte=productes.get_single(id), loc = loc)
     if html:
         return html + render_template("navigation.html", origin = None, loc = loc)
 
