@@ -173,37 +173,6 @@ display: block;
     font-weight: bolder;
 }
 
-.cart {
-    display: flex;
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    width: min-content;
-    height: 6dvh;
-    align-items: center;
-    margin-right: 3dvh;
-    cursor: pointer;
-    z-index: 10;
-}
-.shopping-cart {
-    position: relative;
-    display: block;
-    align-content: center;
-    text-align: center;
-    vertical-align: center;
-    height: 4dvh;
-    width: 4dvh;
-    top: 0.2dvh;
-    z-index: 10;
-}
-.shopping-cart:hover {
-    transition: 0.3s ease;
-    transform: rotate(360deg);
-}
-
-
-
-
 
 @media screen and (orientation: portrait) {
     .navigation {

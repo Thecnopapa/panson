@@ -86,10 +86,7 @@ body {
     margin-right: 1dvh;
     height: 2dvh;
     top: 0.2dvh;
-}
-.small-icon:hover {
-    transition: 0.3s ease;
-    transform: rotate(360deg);
+
 }
 
 .titol-materials, .titol-variacions {
