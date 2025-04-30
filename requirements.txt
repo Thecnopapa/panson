@@ -2,9 +2,11 @@
 pip
 autopep8
 google-cloud-storage
+google-cloud-firestore
+
 
 
 # App
 flask
 gunicorn
-firebase
+
