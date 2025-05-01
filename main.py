@@ -181,9 +181,11 @@ class Admin():
         self.logged_in = False
         self.username = None
 
+
     def get_admins(self):
-        from secure.admin import admin_list
-        return admin_list
+        admins = json.loads(open("secure/admins.json").read())["admins"]
+        print(admins)
+        return admins
 
     def restore_login(self, resp=None):
         print("Restoring login session")
