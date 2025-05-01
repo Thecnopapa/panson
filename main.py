@@ -3,7 +3,7 @@ import json
 
 from utilities import *
 import flask
-from flask import Flask, send_file, render_template, redirect
+from flask import Flask, send_file, render_template, redirect, request
 import requests
 app = Flask(__name__)
 base_url = "https://firestore.googleapis.com/v1/"
@@ -215,11 +215,25 @@ def dades_generals_producte(producte):
     pass
 
 
+def check_login():
+    global logged_in
+    admin_list = {"iain": "patata"}
+    user = request.form["user"]
+    password = request.form["password"]
+    if user in admin_list.keys():
+        if password == admin_list[user]:
+            logged_in = True
+            return True
+        else:
+            logged_im = False
+            return False
+    else:
+        logged_in = False
+        return False
 
 
 
-
-
+logged_in = False
 
 
 loc = Localization("cat")
@@ -232,12 +246,26 @@ def redirect_to_cat():
 
 @app.route("/admin")
 def admin_redirect_login():
-    return redirect("/admin/login")
+    check_login()
+    if logged_in:
+        return render_template("admin.html")
+    else:
+        return redirect("/admin/login")
 
 
 @app.route("/admin/login")
-def admin_login():
+def admin_login()
     return render_template("admin_login.html")
+
+@app.post("/admin/login_attempt")
+def try_login():
+    success = check_login()
+    if success:
+        pass
+    else:
+        pass
+
+
 
 
 @app.route("/static/<path:path>", defaults={"lan": "cat"})
