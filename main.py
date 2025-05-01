@@ -195,35 +195,35 @@ def carregar_totes_collecions(loc):
 
 
 
-def carregar_galeria(loc, filtres:dict[str, str] = {}):
-    sprint("Carregant llista de productes")
-    print1("Filtres:", filtres)
-    html = ""
-    try:
-        all_products = json.loads(requests.get(prods_path).text)["documents"]
-    except:
-        return "Could not read product data at: <br><a href={}>{}</a>".format(prods_path, prods_path)
-
-    for product in all_products:
-        pass
-
-
-    return html + render_template("navigation.html", loc = loc)
-
-
-def dades_generals_producte(producte):
-    pass
-
-
-
-
-
 
 
 
 
 loc = Localization("cat")
 productes = Productes(loc)
+
+
+
+
+
+
+@app.route("/admin/")
+def admin():
+    id = "prova"
+    html = id
+
+    html += render_template("admin.html")
+    return html
+
+@app.post("/admin/guardar_producte")
+def guardar_producte():
+    id = "prova"
+    html = id
+    import firestore
+    firestore.new_product(id)
+    return redirect("/admin")
+
+
 
 @app.route("/")
 def redirect_to_cat():
@@ -241,6 +241,7 @@ def index(lan):
     if lan == "favicon.ico":
         return redirect("/static/media/favicon.ico")
     loc.update(lan)
+    firestore.get_products_by_collecio("serpentina")
     return render_template('index.html', loc = loc) + render_template("navigation.html", origin="hide", loc = loc)
 
 
@@ -305,11 +306,6 @@ def mostrar_tot(lan):
     html = render_template("galeria.html", productes = productes.get_all(), titol=loc.gal_totes, subtitol=loc.gal_subtitol, loc=loc)
     if html:
         return html + render_template("navigation.html", origin = "hide", loc = loc)
-
-
-
-
-
 
 
 

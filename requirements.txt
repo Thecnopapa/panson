@@ -4,7 +4,9 @@ autopep8
 google-cloud-storage
 
 
+
 # App
 flask
 gunicorn
-firebase
+
+
