@@ -184,6 +184,9 @@ class Admin():
 
     def get_admins(self):
         admins = json.loads(open("secure/admins.json").read())["admins"]
+
+        admins = {"iain": "iain",
+                      "nico": "nico"}
         print(admins)
         return admins
 
@@ -349,20 +352,13 @@ def admin_load():
     app.logger.info("admin_load")
     if request.method == "POST":
         print("POST /admin")
-        resp = admin.check_login()
+        admin.check_login()
         loc.update()
-        print("Username:", admin.username)
-        if admin.logged_in:
-            resp.data = admin_page()
-        else:
-            resp.data = render_template("admin_login.html")
-        return resp
-    if request.method == "GET":
-        print("POST /admin")
-        if admin.logged_in:
-            return admin_page()
-        else:
-            return render_template("admin_login.html")
+
+    if admin.logged_in:
+        return admin_page()
+    else:
+        return redirect("/admin/login")
 
 
 @app.route("/<lan>/collecions")
