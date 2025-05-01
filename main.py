@@ -1,9 +1,10 @@
 import os
 import json
+from enum import global_str
 
 from utilities import *
 import flask
-from flask import Flask, send_file, render_template, redirect, request
+from flask import Flask, send_file, render_template, redirect, request, make_response
 import requests
 app = Flask(__name__)
 base_url = "https://firestore.googleapis.com/v1/"
@@ -40,6 +41,7 @@ class Localization():
         self.all_langs = [lang for lang in self.loc_json.keys() if lang != "colors"]
         self.colors = self.loc_json["colors"]
         self.loc = self.loc_json[lan]
+        self.admin = logged_in
 
     def __getattr__(self, item):
         try:
@@ -54,7 +56,10 @@ class Localization():
     def upper(string ):
         return string.upper()
 
-    def update(self, lan, force = True):
+    def update(self, lan=None, force = True):
+        restore_login()
+        if lan is None:
+            lan = self.lan
         if self.lan != lan or force:
             self.__init__(lan)
             global productes
@@ -90,6 +95,7 @@ class Producte():
         self.imatges = []
         self.collecio = None
         self.subtitol = "SUBTITOL"
+        self.tipus = "altres"
 
         print1("Producte:", self.id)
         #print2(raw_data["fields"])
@@ -208,70 +214,100 @@ def carregar_galeria(loc, filtres:dict[str, str] = {}):
         pass
 
 
-    return html + render_template("navigation.html", loc = loc)
+    return html + render_template("navigation.html", origin="hide", loc = loc)
 
 
 def dades_generals_producte(producte):
     pass
 
 
-def check_login():
+
+def check_login(username=None, password=None):
+    print("Logging in..")
     global logged_in
-    admin_list = {"iain": "patata"}
-    user = request.form["user"]
-    password = request.form["password"]
-    if user in admin_list.keys():
-        if password == admin_list[user]:
-            logged_in = True
-            return True
+    from secure.admin import admin_list
+    if not(username and password):
+        try:
+            username = request.form["user"]
+            password = request.form["password"]
+        except:
+            print("Login failed")
+            logout()
+            return
+    if username in admin_list.keys():
+        if password == admin_list[username]:
+            login()
         else:
-            logged_im = False
-            return False
+            logout()
     else:
-        logged_in = False
-        return False
+        logout()
+
+
+    resp = save_login(username, password)
+    return resp
+
+
+def save_login(username, password, resp=None):
+    if resp is None:
+        resp = make_response()
+    try:
+        resp.set_cookie("username", username)
+        resp.set_cookie("password", password)
+    except:
+        pass
+    return resp
+
+def login():
+    global logged_in
+    logged_in = True
+    print("Logged in")
+
+def logout():
+    global logged_in
+    logged_in = False
+    print("Logged out")
+
+
+
+
+
+
+def admin_page():
+    global loc
+    html = render_template("admin.html", user = request.cookies.get('username'))
+    return html + render_template("navigation.html", loc = loc, logout = True)
 
 
 
 logged_in = False
 
+def restore_login():
+    global logged_in
+    user = request.cookies.get('username')
+    password = request.cookies.get('password')
+    check_login(user, password)
+
+
+
+
 
 loc = Localization("cat")
 productes = Productes(loc)
+
+
+
 
 @app.route("/")
 def redirect_to_cat():
     loc.update("cat")
     return redirect("/cat/")
 
-@app.route("/admin")
-def admin_redirect_login():
-    check_login()
-    if logged_in:
-        return render_template("admin.html")
-    else:
-        return redirect("/admin/login")
-
-
-@app.route("/admin/login")
-def admin_login()
-    return render_template("admin_login.html")
-
-@app.post("/admin/login_attempt")
-def try_login():
-    success = check_login()
-    if success:
-        pass
-    else:
-        pass
-
-
-
 
 @app.route("/static/<path:path>", defaults={"lan": "cat"})
 @app.route("/<lan>/static/<path:path>")
 def get_static(lan, path):
     return redirect("/static/"+path)
+
 
 
 @app.route("/<lan>/")
@@ -281,7 +317,35 @@ def index(lan):
     loc.update(lan)
     return render_template('index.html', loc = loc) + render_template("navigation.html", origin="hide", loc = loc)
 
+@app.route("/<lan>/admin/")
+def admin_redirect(lan):
+    return redirect("/admin/")
+@app.route("/admin/login/")
+def admin_login():
+    return render_template("admin_login.html")
 
+@app.route("/admin/logout/")
+def admin_logout():
+    resp = redirect("/"+loc.lan)
+    resp = save_login("None","None", resp)
+    loc.update()
+
+    return resp
+@app.route("/admin/", methods=["GET", "POST"])
+def admin_load():
+    if request.method == "POST":
+        print("POST /admin")
+        resp = check_login()
+        if logged_in:
+            resp.data = admin_page()
+        else:
+            resp.data = render_template("admin_login.html")
+        return resp
+    if request.method == "GET":
+        if logged_in:
+            return admin_page()
+        else:
+            return render_template("admin_login.html")
 
 
 @app.route("/<lan>/collecions")

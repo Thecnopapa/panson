@@ -30,6 +30,12 @@
         </div>
     </div>
     <div class = "navigation-right">
+    {% if loc.admin %}
+    <div class="language" onclick="location.href='/admin/'">ADMIN</div>
+    {% endif %}
+    {% if logout %}
+    <div class="language" onclick="location.href='/admin/logout'">Tancar Sessio</div>
+    {% endif %}
         {% for lang in loc.all_langs %}
             {% if lang == loc.lan %}
                 <div class="language" id="current" onclick="location.href='/{{ lang }}/'">
