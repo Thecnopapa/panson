@@ -183,7 +183,7 @@ class Admin():
 
 
     def get_admins(self):
-        admins = json.loads(open("secure/admins.json").read())["admins"]
+        #admins = json.loads(open("secure/admins.json").read())["admins"]
 
         admins = {"iain": "iain",
                       "nico": "nico"}
@@ -295,7 +295,7 @@ def decrypt(string):
 
 def admin_page():
     global loc
-    html = render_template("admin.html", user = admin.username, loc = loc)
+    html = render_template("admin.html", user = admin.username, productes=productes, loc = loc)
     return html + render_template("navigation.html", loc = loc, logout = True)
 
 
@@ -338,6 +338,10 @@ def index(lan):
 @app.route("/<lan>/admin/")
 def admin_redirect(lan):
     return redirect("/admin/")
+
+@app.route("/<lan>/admin/login")
+def admin_redirect_login(lan):
+    return redirect("/admin/login")
 @app.route("/admin/login/")
 def admin_login():
     return render_template("admin_login.html") + render_template("navigation.html", origin="hide", loc = loc)
@@ -349,11 +353,10 @@ def admin_logout():
     return resp
 @app.route("/admin/", methods=["GET", "POST"])
 def admin_load():
-    app.logger.info("admin_load")
+    loc.update()
     if request.method == "POST":
         print("POST /admin")
         admin.check_login()
-        loc.update()
 
     if admin.logged_in:
         return admin_page()

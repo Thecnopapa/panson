@@ -11,5 +11,24 @@
 </head>
 
 
-<h1>Admin</h1>
-Usuari: {{ user }}
+
+
+<div class="content">
+    <h1>Admin</h1>
+    Usuari: {{ user }}
+    <div class="productes">
+        {% for producte in productes %}
+            <form action="/admin/update" method="post" class="producte">
+                <div class="producte-titol">{{ producte.nom }}</div>
+                <div class="producte-id" >{{ producte.id }}</div>
+                Tipus:<input type=text name=tipus id=tipus value="{{ producte.tipus }}" >
+                Nom:<input type=text name=nom id=nom value="{{ producte.nom }}" >
+                Subtitol:<input type=text name=subtitol id=subtitol value="{{ producte.subtitol }}" >
+                Descripcio:<textarea  name=descripcio id=descripcio >{{ producte.descripcio }}</textarea>
+
+
+            </form>
+        {% endfor %}
+
+    </div>
+</div>

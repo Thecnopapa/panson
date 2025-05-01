@@ -6,3 +6,51 @@ form {
 input {
     margin: 0 1dvh;
 }
+body {
+    width: 100dvh;
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    padding: 10%;
+    overflow: scroll;
+    width: 80%;
+    height: 80dvh;
+    background: rgba(255, 255, 255, 0.1);
+}
+.productes {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+
+}
+.producte {
+    display: flex;
+    flex-direction: column;
+    margin-top: 3dvh;
+    background-color: rgba(136, 136, 136, 0.2);
+    padding: 1%;
+
+}
+.producte-titol {
+    font-size: 3dvh;
+}
+.producte-id {
+    font-size: 2dvh;
+    margin-bottom: 2dvh;
+
+}
+#descripcio{
+    padding-bottom: 3dvh;
+    font-size: 2dvh;
+    margin: 1% 1% 2% 1%;
+    max-width: 98%;
+    min-width: 98%;
+    height: fit-content;
+}
+input {
+    font-size: 2dvh;
+
+    margin: 1dvh 1dvh 2dvh 1dvh;
+}
