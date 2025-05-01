@@ -230,6 +230,16 @@ def redirect_to_cat():
     loc.update("cat")
     return redirect("/cat/")
 
+@app.route("/admin")
+def admin_redirect_login():
+    return redirect("/admin/login")
+
+
+@app.route("/admin/login")
+def admin_login():
+    return render_template("admin_login.html")
+
+
 @app.route("/static/<path:path>", defaults={"lan": "cat"})
 @app.route("/<lan>/static/<path:path>")
 def get_static(lan, path):
