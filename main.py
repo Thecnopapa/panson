@@ -190,9 +190,7 @@ class Admin():
         user = request.cookies.get('username')
         password = request.cookies.get('password')
         self.check_login(user, password, resp)
-        if user is "None":
-            user = None
-        return user
+        return admin.username
 
     def check_login(self, username=None, password=None, resp=None):
         print("Checking login", username, password)
@@ -280,6 +278,10 @@ def carregar_galeria(loc, filtres:dict[str, str] = {}):
 
 
 
+def encrypt(string):
+    return string.encode()
+def decrypt(string):
+    return string.decode()
 
 
 
@@ -320,6 +322,7 @@ def get_static(lan, path):
 
 
 
+
 @app.route("/<lan>/")
 def index(lan):
     if lan == "favicon.ico":
@@ -332,7 +335,7 @@ def admin_redirect(lan):
     return redirect("/admin/")
 @app.route("/admin/login/")
 def admin_login():
-    return render_template("admin_login.html")
+    return render_template("admin_login.html") + render_template("navigation.html", origin="hide", loc = loc)
 
 @app.route("/admin/logout/")
 def admin_logout():
@@ -341,6 +344,7 @@ def admin_logout():
     return resp
 @app.route("/admin/", methods=["GET", "POST"])
 def admin_load():
+    app.logger.info("admin_load")
     if request.method == "POST":
         print("POST /admin")
         resp = admin.check_login()
