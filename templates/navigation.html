@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class = "navigation-right">
-    {% if loc.admin %}
+    {% if loc.logged_in %}
     <div class="language" onclick="location.href='/admin/'">ADMIN</div>
     {% endif %}
     {% if logout %}

@@ -41,7 +41,11 @@ class Localization():
         self.all_langs = [lang for lang in self.loc_json.keys() if lang != "colors"]
         self.colors = self.loc_json["colors"]
         self.loc = self.loc_json[lan]
-        self.admin = logged_in
+        try:
+            self.logged_in = admin.logged_in
+        except:
+            self.logged_in = False
+
 
     def __getattr__(self, item):
         try:
@@ -57,7 +61,8 @@ class Localization():
         return string.upper()
 
     def update(self, lan=None, force = True):
-        restore_login()
+        global admin
+        admin.restore_login()
         if lan is None:
             lan = self.lan
         if self.lan != lan or force:
@@ -99,17 +104,17 @@ class Producte():
 
         print1("Producte:", self.id)
         #print2(raw_data["fields"])
-        [print2(key, read_data_type(value)) for key, value in raw_data["fields"].items()]
+        #[print2(key, read_data_type(value)) for key, value in raw_data["fields"].items()]
         self.data = {key: read_data_type(value) for key, value in raw_data["fields"].items()}
         #print(self.data)
-        print(self._lan)
+        #print(self._lan)
         for key, value in self.data.items():
             self.__setattr__(key, value)
 
         for attr in self.__dict__.keys():
             if attr+self._lan in self.__dict__.keys():
-                print(self._lan)
-                print(attr, ":", attr+self._lan in self.__dict__.keys())
+                #print(self._lan)
+                #print(attr, ":", attr+self._lan in self.__dict__.keys())
                 self.__setattr__(attr, self.__dict__[attr+self._lan])
         if self.unica:
             self.collecio = loc.gal_peces_uniques
@@ -170,6 +175,62 @@ class Productes():
         return self.productes
 
 
+class Admin():
+    def __init__(self):
+        print("Admin setup")
+        self.logged_in = False
+        self.username = None
+
+    def get_admins(self):
+        from secure.admin import admin_list
+        return admin_list
+
+    def restore_login(self, resp=None):
+        print("Restoring login session")
+        user = request.cookies.get('username')
+        password = request.cookies.get('password')
+        self.check_login(user, password, resp)
+        if user is "None":
+            user = None
+        return user
+
+    def check_login(self, username=None, password=None, resp=None):
+        print("Checking login", username, password)
+        if username is None and password is None:
+            try:
+                username = request.form["user"]
+                password = request.form["password"]
+            except:
+                print("Login failed")
+                return self.logout(resp)
+        if username in self.get_admins().keys():
+            if password == self.get_admins()[username]:
+                return self.login(username, password, resp)
+        return make_response()
+
+    def save_login(self, username, password, resp=None):
+        print("Saving login")
+        if resp is None:
+            resp = make_response()
+        try:
+            resp.set_cookie("username", username)
+            resp.set_cookie("password", password)
+        except:
+            pass
+        self.username = username
+        return resp
+
+    def login(self, username, password, resp=None):
+        print("Logging in user")
+        self.logged_in = True
+        return self.save_login(username, password, resp)
+
+    def logout(self, resp=None):
+        print("Logging out")
+        self.logged_in = False
+        return self.save_login("None", "None", resp)
+
+
 def carregar_totes_collecions(loc):
     sprint("Carregant collecions")
     try:
@@ -217,55 +278,8 @@ def carregar_galeria(loc, filtres:dict[str, str] = {}):
     return html + render_template("navigation.html", origin="hide", loc = loc)
 
 
-def dades_generals_producte(producte):
-    pass
 
 
-
-def check_login(username=None, password=None):
-    print("Logging in..")
-    global logged_in
-    from secure.admin import admin_list
-    if not(username and password):
-        try:
-            username = request.form["user"]
-            password = request.form["password"]
-        except:
-            print("Login failed")
-            logout()
-            return
-    if username in admin_list.keys():
-        if password == admin_list[username]:
-            login()
-        else:
-            logout()
-    else:
-        logout()
-
-
-    resp = save_login(username, password)
-    return resp
-
-
-def save_login(username, password, resp=None):
-    if resp is None:
-        resp = make_response()
-    try:
-        resp.set_cookie("username", username)
-        resp.set_cookie("password", password)
-    except:
-        pass
-    return resp
-
-def login():
-    global logged_in
-    logged_in = True
-    print("Logged in")
-
-def logout():
-    global logged_in
-    logged_in = False
-    print("Logged out")
 
 
 
@@ -274,18 +288,14 @@ def logout():
 
 def admin_page():
     global loc
-    html = render_template("admin.html", user = request.cookies.get('username'))
+    html = render_template("admin.html", user = admin.username, loc = loc)
     return html + render_template("navigation.html", loc = loc, logout = True)
 
 
 
-logged_in = False
 
-def restore_login():
-    global logged_in
-    user = request.cookies.get('username')
-    password = request.cookies.get('password')
-    check_login(user, password)
+
+
 
 
 
@@ -293,7 +303,7 @@ def restore_login():
 
 loc = Localization("cat")
 productes = Productes(loc)
-
+admin = Admin()
 
 
 
@@ -327,22 +337,23 @@ def admin_login():
 @app.route("/admin/logout/")
 def admin_logout():
     resp = redirect("/"+loc.lan)
-    resp = save_login("None","None", resp)
-    loc.update()
-
+    resp = admin.logout(resp)
     return resp
 @app.route("/admin/", methods=["GET", "POST"])
 def admin_load():
     if request.method == "POST":
         print("POST /admin")
-        resp = check_login()
-        if logged_in:
+        resp = admin.check_login()
+        loc.update()
+        print("Username:", admin.username)
+        if admin.logged_in:
             resp.data = admin_page()
         else:
             resp.data = render_template("admin_login.html")
         return resp
     if request.method == "GET":
-        if logged_in:
+        print("POST /admin")
+        if admin.logged_in:
             return admin_page()
         else:
             return render_template("admin_login.html")
@@ -392,7 +403,7 @@ def mostrar_peca(lan, id):
     loc.update(lan)
     productes.update(loc)
     producte = productes.get_single(id)
-    print(loc.gal_collecio)
+    #print(loc.gal_collecio)
     html = render_template("producte.html", producte=producte, loc = loc)
     html += render_template("galeria.html", productes=productes.filtrats(collecio=producte.collecio),
                             titol=producte.collecio.capitalize(), subtitol=loc.gal_collecio,  no_head=True,  loc=loc)
