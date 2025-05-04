@@ -143,6 +143,9 @@
     display: flex;
     flex-wrap: wrap;
     width: fit-content;
+    height: 3dvh;
+    align-items: center;
+    justify-content: space-between;
     max-width: 40%;
     top: 80%;
     right: 0;
@@ -156,8 +159,9 @@
     border-radius: 50%;
     margin: 0 0.5dvh;
     border: 0.2dvh solid black;
-
 }
+
+
 
 
 @media screen and (orientation: landscape) {
@@ -179,7 +183,13 @@
             display: block;
             transition: display ease 0.3s;
         }
+
     }
+    .cercle:hover {
+    border: 0.4dvh solid black;
+        margin: 0 0.3dvh;
+
+}
 }
 
 @media screen and (orientation: portrait) {

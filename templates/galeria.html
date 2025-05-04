@@ -29,7 +29,7 @@
                     {% if producte.mats %}
                         <div class="colors">
                         {% for mat in producte.mats %}
-                            <span class="cercle" style="background-color: {{ loc.colors[mat] }}"></span>
+                            <span class="cercle"  onclick="event.stopPropagation(location.href='/{{ loc.lan }}/productes/{{ producte.id }}/{{ mat }}')" style="background-color: {{ loc.colors[mat] }}"></span>
                         {% endfor %}
                         </div>
                     {% endif %}
