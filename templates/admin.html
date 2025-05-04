@@ -21,10 +21,14 @@
             <form action="/admin/update/{{ producte.id }}" method="post" class="producte">
                 <div class="producte-titol">{{ producte.nom }}</div>
                 <div class="producte-id" >{{ producte.id }}</div>
-                Tipus:<input type="text" name="tipus" id="tipus" value="{{ producte.tipus }}" >
-                Nom:<input type="text" name="nom" id="nom" value="{{ producte.nom }}" >
-                Subtitol:<input type="text" name="subtitol" id="subtitol" value="{{ producte.subtitol }}" >
-                Descripcio:<textarea  name="descripcio" id="descripcio" >{{ producte.descripcio }}</textarea>
+                Tipus:<select name="text:tipus" id="tipus" value="{{ producte.tipus }}">
+                    {% for tipus in loc.tipus %}
+                        <option value="{{ tipus }}" {{ "selected=selected" if tipus == producte.tipus }}>{{ tipus }}</option>
+                    {% endfor %}
+                    </select>
+                Nom:<input type="text" name="text:nom" id="nom" value="{{ producte.nom }}" >
+                Subtitol:<input type="text" name="text:subtitol" id="subtitol" value="{{ producte.subtitol }}" >
+                Descripcio:<textarea  name="text:descripcio" id="descripcio" >{{ producte.descripcio }}</textarea>
                 <input type="submit" value="Actualitzar" name="update" class="button">
 
 

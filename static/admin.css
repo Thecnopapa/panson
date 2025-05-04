@@ -49,7 +49,7 @@ body {
     min-width: 98%;
     height: fit-content;
 }
-input {
+input, option ,select, textarea {
     font-size: 2dvh;
 
     margin: 1dvh 1dvh 2dvh 1dvh;

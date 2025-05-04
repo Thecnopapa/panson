@@ -110,5 +110,11 @@
   "colors": {
     "plata": "silver",
     "or": "gold"
+  },
+
+  "tipus": {
+    "penjoll": "",
+    "anell": "",
+    "arracades": ""
   }
 }

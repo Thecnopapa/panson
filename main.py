@@ -39,8 +39,9 @@ class Localization():
     def __init__(self, lan):
         self.lan = lan
         self.loc_json = json.loads(open("localization.json").read())
-        self.all_langs = [lang for lang in self.loc_json.keys() if lang != "colors"]
+        self.all_langs = [lang for lang in self.loc_json.keys() if not lang in ["colors", "tipus"]]
         self.colors = self.loc_json["colors"]
+        self.tipus = self.loc_json["tipus"].keys()
         self.loc = self.loc_json[lan]
         try:
             self.logged_in = admin.logged_in
@@ -340,8 +341,6 @@ def get_static(lan, path):
     return redirect("/static/"+path)
 
 
-
-
 @app.route("/<lan>/")
 def index(lan):
     if lan == "favicon.ico":
@@ -373,6 +372,13 @@ def admin_load():
     loc.update()
     #print(resp)
     return resp
+
+
+@app.post("/admin/update/<id>")
+def update_product(id):
+    firebase.update_firebase(id)
+    loc.update()
+    return (redirect("/admin"))
 
 
 

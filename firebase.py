@@ -4,18 +4,29 @@ import os, sys
 try:
     import firebase_admin
     from firebase_admin import credentials, firestore
-    print(os.getcwd())
-    print(os.listdir(os.getcwd()))
-    print("/")
-    print(os.listdir("/"))
-    print("./")
-    print(os.listdir("./"))
-
     cred = credentials.Certificate(os.environ.get('FIREBASE_CREDENTIALS'))
     app = firebase_admin.initialize_app(cred)
     db = firestore.client(app, database_id="productes")
+    productes = db.collection("productes")
 
     sprint("Firebase initialized")
 except Exception as e:
     sprint("Error importing Firebase:")
     print(e)
+
+
+def update_firebase(id):
+    sprint("Updating product: {}".format(id))
+    print(request.form)
+    data = {}
+    for key, value in request.form.items():
+        if ":" in key:
+            data_type = key.split(":")[0]
+            db_key = key.split(":")[1]
+            if data_type == "text":
+                data[db_key] = value
+    print(data)
+    productes.document(id).set(data, merge=True)
+
+
+
