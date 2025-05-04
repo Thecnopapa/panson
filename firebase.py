@@ -11,7 +11,7 @@ try:
     print("./")
     print(os.listdir("./"))
 
-    cred = credentials.Certificate(".secure-panson-791122483313.json")
+    cred = credentials.Certificate(os.environ.get('FIREBASE_CREDENTIALS'))
     app = firebase_admin.initialize_app(cred)
     db = firestore.client(app, database_id="productes")
 
