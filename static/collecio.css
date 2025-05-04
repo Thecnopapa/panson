@@ -40,9 +40,13 @@ body {
     height: 20dvh;
     user-select: none;
     margin: 0 5dvh 0 5dvh;
-
-
+    cursor: pointer;
 }
+.titol-collecio:hover {
+    transition: color 0.3s ease;
+    color: rgba(0, 0, 0, 0.9);
+}
+
 .content {
     position: relative;
     width: 100%;
@@ -50,9 +54,6 @@ body {
     margin: 0;
 }
 
-.title:hover {
-    cursor: pointer;
-}
 
 
 @media screen and (orientation: portrait) {

@@ -5,7 +5,7 @@
         <button class="back" onclick="location.href='/{{ loc.lan }}/{{ origin }}'"> &lt; {{ loc.nav_enrere }}</button>
     {% endif %}
 {% else %}
-    <button class="back" onclick="history.back()"> &lt; {{ loc.nav_enrere }}</button>
+    <button class="back" onclick="history.back()"><img class="back-arrow" src="/static/media/arrow.svg" alt="{{ loc.nav_enrere }}"> </button>
 {% endif %}
 
 

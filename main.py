@@ -6,12 +6,12 @@ from utilities import *
 import flask
 from flask import Flask, send_file, render_template, redirect, request, make_response
 import requests
-import firebase
+import firebase, firestore
 app = Flask(__name__)
 base_url = "https://firestore.googleapis.com/v1/"
 cols_path = base_url + "projects/panson/databases/productes/documents/collecions"
 prods_path = base_url + "projects/panson/databases/productes/documents/productes"
-
+storage_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/{}%2F{}?alt=media"
 
 
 def read_data_type(value):
@@ -78,7 +78,7 @@ class Localization():
 class Variacions():
     def __init__(self, materials):
         self.materials = materials
-        self.noms_materials = materials.keys()
+        self.noms_materials = sorted(materials.keys())
 
     def obtenir_variacions(self, material):
         variacio = self.materials[material]["variacions"]
@@ -346,13 +346,18 @@ def index(lan):
     if lan == "favicon.ico":
         return redirect("/static/media/favicon.ico")
     loc.update(lan)
-    return render_template('index.html', loc = loc) + render_template("navigation.html", origin="hide", loc = loc)
+
+    slides = firestore.list_blobs("portada")
+    print("###########")
+    print(slides)
+    slide_list = [[slide, storage_url.format("portada", slide.split("/")[-1])] for slide in slides if slide.split("/")[-1] != ""]
+    return render_template('index.html', loc = loc, slides= slide_list) + render_template("navigation.html", origin="hide", loc = loc)
 
 @app.route("/<lan>/admin/")
 def admin_redirect(lan):
     return redirect("/admin/")
 
-@app.route("/<lan>/admin/login")
+@app.route("/<lan>/admin/login/")
 def admin_redirect_login(lan):
     return redirect("/admin/login")
 @app.route("/admin/login/")
@@ -374,20 +379,20 @@ def admin_load():
     return resp
 
 
-@app.post("/admin/update/<id>")
+@app.post("/admin/update/<id>/")
 def update_product(id):
     firebase.update_firebase(id)
     loc.update()
-    return (redirect("/admin"))
+    return (redirect("/admin/"))
 
 
 
-@app.route("/<lan>/collecions")
+@app.route("/<lan>/collecions/")
 def collections(lan):
     loc.update(lan)
     return carregar_totes_collecions(loc)
 
-@app.route("/<lan>/collecions/<col>")
+@app.route("/<lan>/collecions/<col>/")
 def productes_per_col(lan, col):
     loc.update(lan)
     html = render_template("galeria.html",productes = productes.filtrats(collecio=col), titol=col.capitalize(), subtitol=loc.col_subtitiol, loc=loc)
@@ -395,7 +400,7 @@ def productes_per_col(lan, col):
         return html + render_template("navigation.html", origin = "hide", loc = loc)
 
 
-@app.route("/<lan>/peces_uniques")
+@app.route("/<lan>/peces_uniques/")
 def peces_uniques(lan):
     loc.update(lan)
     html = render_template("uniques.html", productes=productes.uniques(), loc = loc, )
@@ -404,30 +409,23 @@ def peces_uniques(lan):
 
 
 
-@app.route("/<lan>/productes/<id>/<material>/<variacio>")
+
+
+@app.route("/<lan>/productes/<id>/<material>/<variacio>/")
 def mostrar_peca_material_variacio(lan, id, material, variacio):
-    loc.update(lan)
-    print("VARIACIO:", variacio)
-    html = get_products_by_attribute("id", id, first_only=True, loc = loc, material = material, variacio = variacio)
-    if html:
-        return html + render_template("navigation.html", origin = None, loc = loc)
+    return mostrar_peca(productes, loc, id, material, variacio)
 
-
-@app.route("/<lan>/productes/<id>/<material>")
+@app.route("/<lan>/productes/<id>/<material>/")
 def mostrar_peca_material(lan, id, material):
-    loc.update(lan)
-    html = get_products_by_attribute("id", id, first_only=True, loc = loc, material = material)
-    if html:
-        return html + render_template("navigation.html", origin = None, loc = loc)
+    return mostrar_peca(lan, id, material)
 
-
-@app.route("/<lan>/productes/<id>")
-def mostrar_peca(lan, id):
+@app.route("/<lan>/productes/<id>/")
+def mostrar_peca(lan, id, material=None, variacio=None):
     loc.update(lan)
     productes.update(loc)
     producte = productes.get_single(id)
     #print(loc.gal_collecio)
-    html = render_template("producte.html", producte=producte, loc = loc)
+    html = render_template("producte.html", producte=producte, loc = loc, material = material, variacio = variacio)
     html += render_template("galeria.html", productes=productes.filtrats(collecio=producte.collecio),
                             titol=producte.collecio.capitalize(), subtitol=loc.gal_collecio,  no_head=True,  loc=loc)
 
@@ -435,7 +433,7 @@ def mostrar_peca(lan, id):
         return html + render_template("navigation.html", origin = None, loc = loc)
 
 
-@app.route("/<lan>/productes")
+@app.route("/<lan>/productes/")
 def mostrar_tot(lan):
     loc.update(lan)
     html = render_template("galeria.html", productes = productes.get_all(), titol=loc.gal_totes, subtitol=loc.gal_subtitol, loc=loc)
@@ -449,7 +447,8 @@ def mostrar_tot(lan):
 
 
 
-@app.route("/<lan>/contacte")
+
+@app.route("/<lan>/contacte/")
 def contatce(lan):
     loc.update(lan)
     html = render_template("contacte.html", loc=loc)

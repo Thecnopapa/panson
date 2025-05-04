@@ -13,22 +13,29 @@ body {
     left: 0dvh;
     z-index: 1;
     height: fit-content;
+    width: fit-content;
     color: black;
     padding:  1dvh 1dvw;
     font-size: 2.5dvh;
     font-weight: bolder;
     background-color: rgba(255, 255, 255, 0.5);
-    min-width: max-content;
+
     text-align: center;
     align-content: center;
     border: transparent;
     user-select: none;
 }
+.back-arrow {
+    height: 4dvh;
+    width: 4dvh;
+    rotate: 180deg;
+
+}
 
 .back:hover {
-    background-color: rgba(0,0,0,0.2);
     color: white;
     cursor: pointer;
+
 }
 
 .navigation {
@@ -194,7 +201,7 @@ display: block;
     height: 4dvh;
     width: 4dvh;
     top: 0.2dvh;
-    z-index: 10;
+
 }
 .shopping-cart:hover {
     transition: 0.3s ease;

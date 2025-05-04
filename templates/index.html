@@ -6,23 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="/static/media/favicon.ico">
     <title>PANSON</title>
+
     <link href='/static/navigation.css' rel='stylesheet'>
-    <link href='/static/index.css' rel='stylesheet'>
-    <script defer type="text/javascript" src="/static/scripts/main.js"></script>
     <link href='/static/slideshow.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/static/scripts/slideshow.js"></script>
+    <link href='/static/index.css' rel='stylesheet'>
+    <script defer type="text/javascript" src="/static/scripts/main.js"></script>
+
 
 </head>
 
 <body>
     <div class="content">
         <div class = "slideshow">
-            <div class="slide">
+            <div class="slide-content">
                 <div class="first_slide"></div>
             </div>
-            {% for slide in slides %}
-                <div class="slide">
-                    <img class="slide" src="{{ slide["url"] }}" alt="{{ slide["alt"] }}">
+            {% for slide_name, slide_url in slides %}
+                <div class="slide-content">
+                    <div class="slide" style="background-image: url('{{ slide_url }}')"></div>>
                 </div>
             {% endfor %}
         </div>

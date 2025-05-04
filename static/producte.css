@@ -39,8 +39,21 @@ body {
 .tipus_producte {
     font-size: 5dvh;
     color: #808080;
-}
+    display: flex;
+    align-items: center
 
+}
+.punt-subtitol-producte {
+    margin: 0 1dvh;
+    color: #000000;
+}
+.subtitol-producte, .punt-subtitol-producte {
+    display: inline-flex;
+    width: fit-content;
+    font-size: 3dvh;
+    height: 100%;
+    align-items: end;
+}
 
 .detalls{
     display: flex;
@@ -52,9 +65,9 @@ body {
     overflow-x: hidden;
     padding-left: 3dvw;
     justify-content: start;
-    padding-top: 5vh;
-    padding-bottom: 6vh;
-    padding-right: 5vh;
+    padding-top: 5dvh;
+    padding-bottom: 6dvh;
+    padding-right: 5dvh;
 
 }
 
@@ -62,8 +75,9 @@ body {
     font-size:  2.5dvh;
     position: relative;
     height: fit-content;
-    width: 80%;
-    margin-bottom: 5dvh;
+    width: 100%;
+    margin-bottom: 2dvh;
+    margin-top: 2dvh;
 }
 
 
@@ -109,19 +123,22 @@ body {
 
 .material-boto {
     font-size: 2dvh;
-    width: fit-content;
+    width: 4dvh;
+    height: 4dvh;
     padding: 0.5dvh 1dvh 0.5dvh 1dvh;
     margin-right: 1dvh;
     margin-top: 1dvh;
     border: 0.2dvh solid rgba(0, 0, 0, 1);
-    border-radius: 1.2dvh;
+    border-radius: 50%;
     transition: 0.3s ease
 }
 .material-boto:hover{
-    background-color: rgb(255, 255, 255) !important;
+    /*background-color: rgba(255, 0, 234, 0) !important;*/
+    opacity: 20%;
+
 }
 #selected-material {
-    border: 0.5dvh solid rgba(0, 0, 0, 1);
+    border: 0.4dvh solid rgba(0, 0, 0, 1);
 }
 
 

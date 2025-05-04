@@ -34,7 +34,6 @@ body {
     height: 100vh;
     align-content: center;
 
-
 }
 
 
@@ -46,6 +45,14 @@ body {
     width: 100%;
     height: 100%;
 }
+.slide {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
 
 
 .title{

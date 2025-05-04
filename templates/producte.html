@@ -28,7 +28,11 @@
                 {{ producte.nom }}
             </div>
             <div class = "tipus_producte">
-                {{ producte.tipus }}
+                {{ loc["tip-"+ producte.tipus] }}
+                {% if producte.subtitol != "" %}
+                    <div class="punt-subtitol-producte">/</div>
+                    <div class="subtitol-producte"> {{ producte.subtitol }}</div>
+                {% endif %}
             </div>
             {% autoescape false %}
                 <div class = "descripcio_producte">
@@ -37,13 +41,12 @@
             {% endautoescape %}
             <div class="opcions">
                 {% if producte.material %}
-                    <div class="titol-materials">{{ loc.pro_materials_disponibles }}</div>
                     <div class = "materials">
                         {% for mat in producte.mats %}
                             {% if  material == mat %}
-                                <button class="material-boto" id="selected-material" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"/"+mat }}'">{{ loc["mat-"+mat] }}</button>
+                                <button class="material-boto" id="selected-material" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"/"+mat+"/" }}'"></button>
                             {%  else %}
-                                <button class="material-boto" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"/"+mat }}'">{{ loc["mat-"+mat] }}</button>
+                                <button class="material-boto" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"/"+mat+"/" }}'"></button>
                             {%  endif %}
                         {% endfor %}
                     </div>

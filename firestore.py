@@ -1,21 +1,35 @@
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
+from google.cloud import storage
+from utilities import *
+from google.oauth2 import service_account
+import json
 
-# Initialize Firebase Admin SDK (if not already initialized)
-# Replace 'path/to/your/serviceAccountKey.json' with the actual path
-cred = credentials.Certificate("path/to/your/serviceAccountKey.json")
-firebase_admin.initialize_app(cred)
 
-db = firestore.client()
-productes_ref = db.collection("productes")
 
-def get_products_by_collecio(collecio_value):
-    query = productes_ref.where("collecio", "==", collecio_value)
-    docs = query.stream()
+credentials = service_account.Credentials.from_service_account_file(
+    os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
+storage_client = storage.Client(credentials=credentials, project="panson")
+bucket = storage_client.bucket("panson.firebasestorage.app")
 
-    for doc in docs:
-        print(f"{doc.id} => {doc.to_dict()}")
 
-# Example usage: Get products where 'collecio' is 'winter2024'
-get_products_by_collecio("serpentina")
+sprint("Firestore initialized")
+
+
+
+def list_blobs(prefix = None ):
+    sprint("Lists all the blobs in the bucket")
+    bucket_name = "panson.firebasestorage.app"
+
+    print(storage_client)
+
+    # Note: Client.list_blobs requires at least package version 1.17.0.
+
+    print(bucket.__dict__)
+    blobs = bucket.list_blobs(prefix=prefix)
+    print(blobs.__dict__)
+
+    # Note: The call returns a response only when the iterator is consumed.
+    blob_list = []
+    for blob in blobs:
+        blob_list.append(blob.name)
+
+    return blob_list
