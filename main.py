@@ -6,6 +6,7 @@ from utilities import *
 import flask
 from flask import Flask, send_file, render_template, redirect, request, make_response
 import requests
+import firebase
 app = Flask(__name__)
 base_url = "https://firestore.googleapis.com/v1/"
 cols_path = base_url + "projects/panson/databases/productes/documents/collecions"
@@ -61,8 +62,6 @@ class Localization():
         return string.upper()
 
     def update(self, lan=None, force = True):
-        global admin
-        admin.restore_login()
         if lan is None:
             lan = self.lan
         if self.lan != lan or force:
@@ -102,7 +101,7 @@ class Producte():
         self.subtitol = "SUBTITOL"
         self.tipus = "altres"
 
-        print1("Producte:", self.id)
+        #print1("Producte:", self.id)
         #print2(raw_data["fields"])
         #[print2(key, read_data_type(value)) for key, value in raw_data["fields"].items()]
         self.data = {key: read_data_type(value) for key, value in raw_data["fields"].items()}
@@ -187,51 +186,66 @@ class Admin():
 
         admins = {"iain": "iain",
                       "nico": "nico"}
-        print(admins)
+        #print(admins)
         return admins
 
     def restore_login(self, resp=None):
         print("Restoring login session")
         user = request.cookies.get('username')
         password = request.cookies.get('password')
-        self.check_login(user, password, resp)
-        return admin.username
+        #self.check_login(user, password, resp)
+        return user, password
 
-    def check_login(self, username=None, password=None, resp=None):
-        print("Checking login", username, password)
+    def check_login(self, username=None, password=None, resp=None, from_form=False):
+
+        sprint("Checking login", username, password)
         if username is None and password is None:
-            try:
-                username = request.form["user"]
-                password = request.form["password"]
-            except:
-                print("Login failed")
-                return self.logout(resp)
+            if from_form:
+                try:
+                    print1("From form")
+                    username = request.form["user"]
+                    password = request.form["password"]
+                    print2(username, password)
+                except:
+                    print("Login failed")
+                    return self.logout()
+            else:
+                print1("Not from form")
+                username, password = self.restore_login()
+                print2(username, password)
         if username in self.get_admins().keys():
             if password == self.get_admins()[username]:
+                self.username = username
                 return self.login(username, password, resp)
-        return make_response()
+        else:
+            return self.logout()
+        #return make_response(redirect("/admin/login"))
 
     def save_login(self, username, password, resp=None):
-        print("Saving login")
+        print1("Saving login")
         if resp is None:
             resp = make_response()
         try:
             resp.set_cookie("username", username)
             resp.set_cookie("password", password)
         except:
-            pass
+            print("Filed to save cookies")
         self.username = username
         return resp
 
     def login(self, username, password, resp=None):
-        print("Logging in user")
+        print1("Logging in user")
         self.logged_in = True
+        if resp is None:
+            resp = make_response(admin_page())
         return self.save_login(username, password, resp)
 
     def logout(self, resp=None):
-        print("Logging out")
+        print1("Logging out")
         self.logged_in = False
-        return self.save_login("None", "None", resp)
+        if resp is None:
+            resp = redirect("/admin/login")
+        return self.save_login("None", "None", resp=resp)
 
 
 def carregar_totes_collecions(loc):
@@ -353,15 +367,13 @@ def admin_logout():
     return resp
 @app.route("/admin/", methods=["GET", "POST"])
 def admin_load():
+    #loc.update()
+    #resp = make_response(admin_page())
+    resp = admin.check_login( from_form=request.method == "POST")
     loc.update()
-    if request.method == "POST":
-        print("POST /admin")
-        admin.check_login()
+    #print(resp)
+    return resp
 
-    if admin.logged_in:
-        return admin_page()
-    else:
-        return redirect("/admin/login")
 
 
 @app.route("/<lan>/collecions")
