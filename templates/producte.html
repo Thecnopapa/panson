@@ -40,21 +40,41 @@
                 </div>
             {% endautoescape %}
             <div class="opcions">
+
                 {% if producte.material %}
                     <div class = "materials">
                         {% for mat in producte.mats %}
-                            {% if  material == mat %}
-                                <button class="material-boto" id="selected-material" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"/"+mat+"/" }}'"></button>
+                            {% if  opcions["material"] == mat %}
+                                <button class="material-boto" id="selected-material" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"?material={}&variacio={}&talla={}".format(mat, opcions["variacio"], opcions["talla"]) }}'"></button>
                             {%  else %}
-                                <button class="material-boto" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"/"+mat+"/" }}'"></button>
+                                <button class="material-boto" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"?material={}&variacio={}&talla={}".format(mat, opcions["variacio"], opcions["talla"]) }}'"></button>
                             {%  endif %}
                         {% endfor %}
                     </div>
+                    <div class = "talles">
+                    {% for talla in producte.talles %}
+                        {% if  opcions["talla"] == talla %}
+                            <div class="talla" id="selected-talla" >{{ talls }}</div>
+                        {%  elif talla == "totes" %}
+                            <input type="number" class="talla-unica"
+                                   min="0"
+                                   max="99"
+                                   step="1"
+                                   list="defaultSizes"
+                                   maxlength="2"
+                            >
+                        {%  else %}
+                            <div class="talla">{{ talla }}</div>
+                        {%  endif %}
+                    {% endfor %}
+                    </div>
+
+
                     {% if producte.vars %}
                         <div class="titol-variacions">{{ loc.pro_variacions_disponibles }}</div>
                         <div class="variacions">
                         {% for var, info in producte.vars %}
-                            {% if  var == variacio %}
+                            {% if  var == opcions["variacio"] %}
                                 <div class="variacio"  onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+material+"/"+var }}'"><span class="variacio-cercle" id="selected-var-cercle" ></span><div class="variacio-text" id="selected-var-text"> {{ loc["var-"+var] }} </div>
                             {% else %}
                                 <div class="variacio" onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+material+"/"+var }}'"><span class="variacio-cercle" ></span><div class="variacio-text"> {{ loc["var-"+var] }} </div>
@@ -75,4 +95,13 @@
             </div>
         </div>
     </div>
+
+
+<datalist id="defaultSizes">
+  <option value="10"></option>
+  <option value="12"></option>
+  <option value="14"></option>
+  <option value="16"></option>
+  <option value="18"></option>
+</datalist>
 

@@ -119,6 +119,7 @@ body {
     position: relative;
     width: 40%;
     height: max-content;
+    margin-bottom: 2dvh;
 }
 
 .material-boto {
@@ -199,6 +200,17 @@ body {
     margin-left: 3dvh;
 }
 
+.talles {
+    display: block;
+    width: 100%;
+
+}
+.talla-unica, .talla {
+    font-size: 2dvh;
+
+    height: 4dvh;
+    width: 8dvh;
+}
 
 
 
