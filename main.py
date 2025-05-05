@@ -385,7 +385,9 @@ def update_product(id):
     loc.update()
     return (redirect("/admin/"))
 
-
+@app.route("/google_pay/")
+def google_pay():
+    return render_template("google_pay.html")
 
 @app.route("/<lan>/collecions/")
 def collections(lan):
