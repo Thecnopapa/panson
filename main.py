@@ -7,7 +7,10 @@ import flask
 from flask import Flask, send_file, render_template, redirect, request, make_response
 import requests
 import firebase, firestore
+from whitenoise import WhiteNoise
 app = Flask(__name__)
+app.wsgi_app = WhiteNoise(app.wsgi_app, root="static/")
+app.wsgi_app.add_files("/node_modules")
 base_url = "https://firestore.googleapis.com/v1/"
 cols_path = base_url + "projects/panson/databases/productes/documents/collecions"
 prods_path = base_url + "projects/panson/databases/productes/documents/productes"
@@ -408,7 +411,10 @@ def peces_uniques(lan):
     return html + render_template("navigation.html", origin = "hide", loc = loc)
 
 
-
+@app.route("/node_modules/<path:path>")
+def get_node_module(path):
+    return ()
+    pass
 
 
 @app.route("/<lan>/productes/<id>/<material>/<variacio>/")

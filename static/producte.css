@@ -284,3 +284,13 @@ body {
 .spacer {
     display: none;
 }
+
+
+#pay_buttons {
+    width: 100%;
+    height: 10dvh;
+}
+#google-pay-button {
+    width: 100%;
+    height: 100%;
+}
