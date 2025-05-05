@@ -11,11 +11,17 @@ function showSlides() {
 
 
   }
-  slideIndex++;
-  slides[slideIndex].style.translate = "100%";
-  if (slideIndex > slides.length) {slideIndex = 1}
-  slides[slideIndex-1].style.zIndex = -1;
-  slides[slideIndex-1].style.translate = "0";
+
+
+  slides[slideIndex].style.zIndex = -1;
+  slides[slideIndex].style.translate = "0";
+  console.log(slideIndex, slides.length);
+  if (slideIndex+1 > slides.length-1) {slideIndex = 0; slides[0].style.translate = "100%";}
+  else {slides[slideIndex+1].style.translate = "100%"; slideIndex++;}
+
+
+
+
 
 
   setTimeout(showSlides, 5000); // Change image every 2 seconds
