@@ -8,7 +8,6 @@
         <link rel="icon" type="image/x-icon" href="/static/media/favicon.ico">
         <title>PANSON: {{ titol }}</title>
         <link href='/static/navigation.css' rel='stylesheet'>
-        <link href='/static/index.css' rel='stylesheet'>
         <link href='/static/galeria.css' rel='stylesheet'>
     </head>
 {% endif %}
@@ -25,11 +24,11 @@
                <div class="imatge"><img src='https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media'></div>
                 <div class="detalls-galeria">
                     <div class="nom">{{ producte.nom }}&nbsp;</div>
-                    <div class="subtiol">{{ loc["tip-"+producte.tipus] }}&nbsp;</div>
+                    <div class="subtiol">{{ producte.subtitol }}&nbsp;</div>
                     {% if producte.mats %}
                         <div class="colors">
                         {% for mat in producte.mats %}
-                            <span class="cercle"  onclick="event.stopPropagation(location.href='/{{ loc.lan }}/productes/{{ producte.id }}/{{ mat }}')" style="background-color: {{ loc.colors[mat] }}"></span>
+                            <span class="cercle"  onclick="event.stopPropagation(location.href='/{{ loc.lan }}/productes/{{ producte.id }}/?material={{ mat }}" style="background-color: {{ loc.colors[mat] }}"></span>
                         {% endfor %}
                         </div>
                     {% endif %}

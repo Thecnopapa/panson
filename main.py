@@ -358,7 +358,12 @@ def index(lan):
     print("###########")
     print(slides)
     slide_list = [[slide, storage_url.format("portada", slide.split("/")[-1])] for slide in slides if slide.split("/")[-1] != ""]
-    return render_template('index.html', loc = loc, slides= slide_list) + render_template("navigation.html", origin="hide", loc = loc)
+    html =  render_template('index.html', loc = loc, slides= slide_list)
+
+    html += render_template("galeria.html", productes=productes.get_all(),
+                            titol="COLLECCIO", subtitol="PANSON",  no_head=True,  loc=loc)
+    html += render_template("navigation.html", origin="hide", loc = loc)
+    return html
 
 @app.route("/<lan>/admin/")
 def admin_redirect(lan):

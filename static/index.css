@@ -1,39 +1,19 @@
-/* Add styles here */
-
-@font-face {
-  font-family: myFont;
-  src: url('/static/fonts/AlteHaasGroteskRegular.ttf');
-}
-
-* {
-    font-family: myFont;
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-*::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-* {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
 
 
-body {
-    padding: 0 0;
-    margin: 0 0;
-
-}
 /* Estils generals per als enllaços */
-.content {
-    position: fixed;
+.content-index {
+    position: absolute;
     display: block;
-    width: 100vw;
-    height: 100vh;
+    width: 100dvw;
+    height: 100dvh;
     align-content: center;
 
+}
+.capcal {
+    position: absolute;
+}
+.content-galeria{
+    top:100dvh;
 }
 
 
