@@ -15,7 +15,9 @@
 .content-galeria{
     top:100dvh;
 }
-
+body{
+    max-width: 100dvh;
+}
 
 .first_slide{
     background-image: url('/static/media/first_image.jpg');
