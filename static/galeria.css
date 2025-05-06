@@ -52,7 +52,7 @@
     width: 100%;
     flex-wrap: wrap;
     padding-bottom: 10dvh;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     overflow-y: hidden;
 }
 .spacer{
@@ -65,13 +65,13 @@
     background-color: rgba(255, 255, 255, 0.8);
     min-width: 20%;
     max-width: 40%;
-    width: 23dvw;
+    width: 23%;
     height: 60dvh;
     position: relative;
-    margin: 1dvh;
+    padding: 1% 1% 3dvh 1%;
     user-select: none;
     align-content: start;
-    padding-bottom: 3dvh;
+
 
 }
 
@@ -93,7 +93,7 @@
     position: relative;
     height: 80%;
     width: 100%;
-    max-height: 80%;
+    max-height: fit-content;
 }
 
 .imatge img{
