@@ -124,6 +124,13 @@ class Producte():
             self.mats = self.variacions.noms_materials
 
 
+        if "talles" in self.__dict__:
+            if self.talles == "totes":
+                self.talles = ["totes"]
+
+
+
+
 
     def __getitem__(self, item):
         return self.__getattribute__(item)
@@ -351,7 +358,12 @@ def index(lan):
     print("###########")
     print(slides)
     slide_list = [[slide, storage_url.format("portada", slide.split("/")[-1])] for slide in slides if slide.split("/")[-1] != ""]
-    return render_template('index.html', loc = loc, slides= slide_list) + render_template("navigation.html", origin="hide", loc = loc)
+    html =  render_template('index.html', loc = loc, slides= slide_list)
+
+    html += render_template("galeria.html", productes=productes.get_all(),
+                            titol="COLLECCIO", subtitol="PANSON",  no_head=True,  loc=loc)
+    html += render_template("navigation.html", origin="hide", loc = loc)
+    return html
 
 @app.route("/<lan>/admin/")
 def admin_redirect(lan):
@@ -411,21 +423,17 @@ def peces_uniques(lan):
 
 
 
-@app.route("/<lan>/productes/<id>/<material>/<variacio>/")
-def mostrar_peca_material_variacio(lan, id, material, variacio):
-    return mostrar_peca(productes, loc, id, material, variacio)
-
-@app.route("/<lan>/productes/<id>/<material>/")
-def mostrar_peca_material(lan, id, material):
-    return mostrar_peca(lan, id, material)
-
 @app.route("/<lan>/productes/<id>/")
-def mostrar_peca(lan, id, material=None, variacio=None):
+def mostrar_peca(lan, id):
     loc.update(lan)
     productes.update(loc)
     producte = productes.get_single(id)
-    #print(loc.gal_collecio)
-    html = render_template("producte.html", producte=producte, loc = loc, material = material, variacio = variacio)
+    opcions = {}
+    opcions["material"] = request.args.get("material")
+    opcions["variacio"] = request.args.get("variacio")
+    opcions["talla"] = request.args.get("talla")
+
+    html = render_template("producte.html", producte=producte, loc = loc, opcions = opcions)
     html += render_template("galeria.html", productes=productes.filtrats(collecio=producte.collecio),
                             titol=producte.collecio.capitalize(), subtitol=loc.gal_collecio,  no_head=True,  loc=loc)
 
