@@ -66,7 +66,7 @@
     min-width: 20%;
     max-width: 40%;
     width: 23%;
-    height: 60dvh;
+    height: fit-content;
     position: relative;
     padding: 1% 1% 3dvh 1%;
     user-select: none;
