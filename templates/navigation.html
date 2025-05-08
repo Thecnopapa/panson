@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 
-{% if origin %}
+{% if origin and False%}
     {% if origin != "hide" %}
         <button class="back" onclick="location.href='/{{ loc.lan }}/{{ origin }}'"> &lt; {{ loc.nav_enrere }}</button>
     {% endif %}
-{% else %}
+{% elif False %}
     <button class="back" onclick="history.back()"><img class="back-arrow" src="/static/media/arrow.svg" alt="{{ loc.nav_enrere }}"> </button>
 {% endif %}
 
 
 <div class = "navigation">
     <div class = "navigation-left" id="nav-left">
-        <button class="dropbtn" id="menu"> {{ loc.nav_peces }} </button>
+        <button class="dropbtn" id="menu-button"> {{ loc.nav_peces }} </button>
         <button class="menu-simple"><img class="icon-menu-simple" src="/static/media/menu.svg" alt="cart"><br> </button>
+        <div class="menu" id="menu"></div>
         <button class="dropbtn" id="contacte" onclick="location.href='/{{ loc.lan }}/contacte'">{{ loc.nav_contacte }}</button>
         <button class="dropbtn" id="projecte" onclick="location.href='https://www.instagram.com/panson.joieria/'; location.target='_blank'"> {{ loc.nav_projecte }}</button>
     </div>
 
-    <div class = "menu">
 
-
-    </div>
 
     <div class = "navigation-right">
     {% if loc.logged_in %}
@@ -40,8 +38,7 @@
                 </div>
             {% endif %}
         {% endfor %}
+    <div class = "cart"><img class="shopping-cart" src="/static/media/bag.svg" alt="cart"></div>
     </div>
-<div class = "cart">
-    <img class="shopping-cart" src="/static/media/bag.svg" alt="cart"><br>
-</div>
+
 </div>

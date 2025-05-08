@@ -92,7 +92,7 @@ body {
 .navigation-right {
     position: fixed;
     right: 0;
-    bottom: 0;
+    top: 0;
     display: flex;
     height: 6dvh;
     width: fit-content;
@@ -119,6 +119,7 @@ body {
     height: 6dvh;
     transition: 0.3s ease;
     padding: 0 2dvh;
+    cursor: pointer;
 
 }
 .menu-simple {
@@ -128,12 +129,20 @@ body {
 }
 
 
-.menu {
-    display: flex;
-    background-color: white;
-    position: relative;
+#menu {
+    display: none;
+    flex-direction: column;
+    background-color: rgba(0, 234, 255, 0.8);
+    position: fixed;
     width: 20%;
+    height: 80%;
+    left: 0;
+    bottom: 0;
 }
+
+#menu-button:hover ~ #menu {
+        display: flex;
+    }
 
 
 
@@ -143,8 +152,9 @@ body {
     cursor: pointer;
     min-width: 4dvh;
     text-align: center;
-    font-size: 2dvh;
+    font-size: 1.5dvh;
     user-select: none;
+    color: rgba(255, 255, 255, 0.8);
 
 }
 .language:hover {
@@ -156,13 +166,13 @@ body {
 
 .cart {
     display: flex;
-    position: fixed;
+    position: relative;
     right: 0;
     bottom: 0;
     width: min-content;
     height: 6dvh;
     align-items: center;
-    margin-right: 3dvh;
+    margin-right: 0;
     cursor: pointer;
     z-index: 10;
 }
@@ -174,7 +184,7 @@ body {
     vertical-align: center;
     height: 4dvh;
     width: 4dvh;
-    top: 0.2dvh;
+
 
 }
 .shopping-cart:hover {
@@ -208,7 +218,7 @@ body {
     .menu-simple {
         display: flex;
     }
-    #menu, #contacte, #projecte {
+    #menu-button, #contacte, #projecte {
         display: none;
     }
 
