@@ -8,6 +8,8 @@ function main() {
 main();
 
 let previousHeight = $(window).scrollTop()
+const onClickLink = document.getElementById('title').onclick
+console.log(onClickLink)
 
 $(window).scroll(function () {
   const title = document.getElementById('title');
@@ -19,9 +21,13 @@ $(window).scroll(function () {
         document.getElementById('title').style.transition = "height 0.3s ease";
         document.getElementById('title').style.position = "fixed";
         document.getElementById('title').style.top = "0";
+        document.getElementById('title').style.left = "40%" ;
         document.getElementById('title').style.height = "7dvh";
         document.getElementById('title').style.paddingBottom = "0";
         document.getElementById('title').style.paddingTop = "0";
+        document.getElementById('title').onclick = onClickLink;
+        document.getElementById('title').style.cursor = "pointer";
+        document.getElementById('title').style.width = "20dvw";
       }
   }
   else if (title.style.position == "fixed" && ($(window).scrollTop() < previousHeight)){
@@ -30,12 +36,14 @@ $(window).scroll(function () {
         previousHeight = $(window).scrollTop()
         document.getElementById('title').style.transition = "0.3s ease";
         document.getElementById('title').style.height = "20dvh";
-
         document.getElementById('title').style.top = "30dvh";
-
         document.getElementById('title').style.paddingBottom = "5dvh";
         document.getElementById('title').style.paddingTop = "5dvh";
         document.getElementById('title').style.position = "absolute";
+        document.getElementById('title').onclick = "";
+        document.getElementById('title').style.cursor = "default";
+        document.getElementById('title').style.width = "100%";
+        document.getElementById('title').style.left = "0" ;
       }
     }
 });

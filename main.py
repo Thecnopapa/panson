@@ -362,7 +362,7 @@ def index(lan):
 
     html += render_template("galeria.html", productes=productes.get_all(),
                             titol="COLLECCIO", subtitol="PANSON",  no_head=True,  loc=loc)
-    html += render_template("navigation.html", origin="hide", loc = loc)
+    html += render_template("navigation.html", origin="hide", loc = loc, hide_title=True)
     return html
 
 @app.route("/<lan>/admin/")

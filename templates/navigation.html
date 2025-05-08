@@ -17,9 +17,10 @@
         <button class="dropbtn" id="contacte" onclick="location.href='/{{ loc.lan }}/contacte'">{{ loc.nav_contacte }}</button>
         <button class="dropbtn" id="projecte" onclick="location.href='https://www.instagram.com/panson.joieria/'; location.target='_blank'"> {{ loc.nav_projecte }}</button>
     </div>
-
-
-
+    {% if hide_title %}
+    {% else %}
+        <div class = "title" id="title" onclick="location.href='/{{ loc.lan }}/'">
+    {% endif %}
     <div class = "navigation-right">
     {% if loc.logged_in %}
     <div class="language" onclick="location.href='/admin/'">ADMIN</div>
