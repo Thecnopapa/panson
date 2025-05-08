@@ -103,7 +103,7 @@ body {
 
 
 
-.dropbtn, .dropdown-btn {
+.dropbtn, .menu-simple {
     color: #ffffff;
     font-size: 1.55dvh;
     font-weight: bolder;
@@ -114,79 +114,27 @@ body {
 
 }
 
-.dropbtn {
+.dropbtn, .menu-simple {
     background-color: rgba(0, 0, 0, 0);
     height: 6dvh;
     transition: 0.3s ease;
     padding: 0 2dvh;
 
 }
-
-.dropdown-btn{
-    background-color: rgba(0, 0, 0, 0.2);
-    min-width: max-content;
-    width: 100%;
-    justify-content: left;
-    text-align: left;
-    position: relative;
-    top: 0;
-    height: 6dvh;
-    padding-left: 2dvh;
-
-
-}
-
-
-.dropdown{
-display: block;
-    width: min-content;
-    position: sticky;
-    margin: 0;
-    padding: 0;
-    height: max-content;
-
-}
-
-
-.dropdown-content {
+.menu-simple {
     display: none;
-    position: absolute;
-    bottom: 0;
-    transform: translateY(-18dvh);
-    transition: display 0.3s ease;
-    height: 0;
-    min-width: 0;
-    max-width: min-content;
-    background-color: orange;
-    margin-bottom: 6dvh;
-
+    flex-direction: row;
+    align-items: center;
 }
 
 
-.dropdown:hover .dropdown-content {
-    display: block;transition: display 0.3s ease;
+.menu {
+    display: flex;
+    background-color: white;
+    position: relative;
+    width: 20%;
 }
 
-
-.dropdown:hover {
-    .dropbtn  {
-    }
-}
-.dropbtn:hover, .dropdown-btn:hover {
-    cursor: pointer;
-}
-
-
-
-.dropdown-btn:hover {background-color: rgba(0,0,0,0.2);
-    color: #000000;
-}
-
-
-.dropdown:hover {
-    .dropbtn, .navigation a {color: #000000;
-    }
-}
 
 
 .language{
@@ -233,7 +181,21 @@ display: block;
     transition: 0.3s ease;
     transform: rotate(360deg);
 }
+.icon-menu-simple {
+    position: relative;
+    display: block;
+    align-content: center;
+    text-align: center;
+    vertical-align: center;
+    height: 4dvh;
+    width: 4dvh;
 
+
+}
+.icon-menu-simple:hover {
+    transition: 0.3s ease;
+    transform: rotate(360deg);
+}
 
 
 
@@ -243,12 +205,18 @@ display: block;
         justify-content: center;
         background-color: rgba(255, 255, 255, 0);
     }
+    .menu-simple {
+        display: flex;
+    }
+    #menu, #contacte, #projecte {
+        display: none;
+    }
 
     .navigation-left {
-        display: none;
+        display: flex;
         width: 100dvw;
         background-color: rgba(0, 0, 0, 0.2);
-        justify-content: center;
+        justify-content: flex-start;
     }
     .navigation-right {
         display: none;

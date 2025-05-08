@@ -11,10 +11,9 @@ let previousHeight = $(window).scrollTop()
 
 $(window).scroll(function () {
   const title = document.getElementById('title');
-
-  console.log($(window).scrollTop() ,$(title).offset().top, $(window).scrollTop() >= $(title).offset().top );
+  console.log($(window).scrollTop() ,$(title).offset().top, $(window).scrollTop() >= $(title).offset().top);
   if (title.style.position == "absolute" && ($(window).scrollTop() >= previousHeight)) {
-      if ($(window).scrollTop() >= $(title).offset().top ) {
+      if ($(window).scrollTop() >= $(title).offset().top) {
         console.log($(title).offset().top, previousHeight);
         previousHeight = $(window).scrollTop()
         document.getElementById('title').style.transition = "height 0.3s ease";

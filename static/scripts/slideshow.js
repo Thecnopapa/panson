@@ -4,20 +4,36 @@ showSlides();
 function showSlides() {
   let i;
   let slides = document.getElementsByClassName("slide-content");
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.translate = "-100%";
-    slides[i].style.zIndex = -10;
 
-
+  console.log(slideIndex, slides.length - 1);
+  if (slideIndex == 0) {
+    slides[slides.length - 2].style.display = "none";
+    slides[slides.length - 1].style.zIndex = "-10";
+    slides[slides.length - 1].style.translate = "-100%";
+  } else if (slideIndex == 1){
+    slides[slides.length - 1].style.display = "none";
+    slides[slides.length - 1].style.zIndex = "-10";
+    slides[slideIndex - 1].style.translate = "-100%";
 
   }
+  else {
+    slides[slideIndex - 2].style.display = "none";
+    slides[slideIndex - 1].style.translate = "-100%";
+  }
 
-
-  slides[slideIndex].style.zIndex = -1;
   slides[slideIndex].style.translate = "0";
-  console.log(slideIndex, slides.length);
-  if (slideIndex+1 > slides.length-1) {slideIndex = 0; slides[0].style.translate = "100%";}
-  else {slides[slideIndex+1].style.translate = "100%"; slideIndex++;}
+  slides[slideIndex].style.zIndex = "-1";
+
+
+  if (slideIndex + 1 > slides.length - 1) {
+    slides[0].style.translate = "100%";
+    slides[0].style.display = "block";
+    slideIndex = 0;
+  }
+  else {
+    slides[slideIndex+1].style.translate = "100%";
+    slides[slideIndex+1].style.display = "block";
+    slideIndex++;}
 
 
 

@@ -11,24 +11,17 @@
 
 <div class = "navigation">
     <div class = "navigation-left" id="nav-left">
-        <div class="dropdown">
-            <button class="dropbtn" onclick="location.href='/{{ loc.lan }}/'">{{ loc.nav_inici }}</button>
-        </div>
-        <div class="dropdown">
-            <div class="dropdown-content">
-                <button class = "dropdown-btn" onclick="location.href='/{{ loc.lan }}/productes'">{{ loc.nav_productes }}</button>
-                <button class = "dropdown-btn" onclick="location.href='/{{ loc.lan }}/peces_uniques'">{{ loc.nav_peces_uniques }}</button>
-                <button class = "dropdown-btn" onclick="location.href='/{{ loc.lan }}/collecions'">{{ loc.nav_collecions }}</button>
-            </div>
-            <button class="dropbtn"> {{ loc.nav_peces }} </button>
-        </div>
-        <div class="dropdown">
-            <button class="dropbtn" onclick="location.href='/{{ loc.lan }}/contacte'">{{ loc.nav_contacte }}</button>
-        </div>
-        <div class="dropdown">
-            <button class="dropbtn" onclick="location.href='https://www.instagram.com/panson.joieria/'; location.target='_blank'"> {{ loc.nav_projecte }}</button>
-        </div>
+        <button class="dropbtn" id="menu"> {{ loc.nav_peces }} </button>
+        <button class="menu-simple"><img class="icon-menu-simple" src="/static/media/menu.svg" alt="cart"><br> </button>
+        <button class="dropbtn" id="contacte" onclick="location.href='/{{ loc.lan }}/contacte'">{{ loc.nav_contacte }}</button>
+        <button class="dropbtn" id="projecte" onclick="location.href='https://www.instagram.com/panson.joieria/'; location.target='_blank'"> {{ loc.nav_projecte }}</button>
     </div>
+
+    <div class = "menu">
+
+
+    </div>
+
     <div class = "navigation-right">
     {% if loc.logged_in %}
     <div class="language" onclick="location.href='/admin/'">ADMIN</div>
