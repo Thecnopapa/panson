@@ -6,15 +6,25 @@ function main() {
 }
 
 main();
-
+let windowHeight = window.innerHeight
 let previousHeight = $(window).scrollTop()
+let maxScroll = windowHeight * 0.35
 const onClickLink = document.getElementById('title').onclick
 console.log(onClickLink)
+const title = document.getElementById('title');
+
 
 $(window).scroll(function () {
-  const title = document.getElementById('title');
-  console.log($(window).scrollTop() ,$(title).offset().top, $(window).scrollTop() >= $(title).offset().top);
-  if (title.style.position == "absolute" && ($(window).scrollTop() >= previousHeight)) {
+  let scroll = $(window).scrollTop()
+  console.log(scroll);
+  if (title.style.position == "absolute"){
+
+
+
+  }
+
+
+  if (title.style.position == "absolute" && ($(window).scrollTop() >= previousHeight ) && false) {
       if ($(window).scrollTop() >= $(title).offset().top) {
         console.log($(title).offset().top, previousHeight);
         previousHeight = $(window).scrollTop()
@@ -30,7 +40,7 @@ $(window).scroll(function () {
         document.getElementById('title').style.width = "20dvw";
       }
   }
-  else if (title.style.position == "fixed" && ($(window).scrollTop() < previousHeight)){
+  else if (title.style.position == "fixed" && ($(window).scrollTop() < previousHeight)&& false){
       if ($(window).scrollTop() <= window.innerHeight / 2 ) {
         console.log($(title).offset().top, previousHeight);
         previousHeight = $(window).scrollTop()
@@ -42,8 +52,8 @@ $(window).scroll(function () {
         document.getElementById('title').style.position = "absolute";
         document.getElementById('title').onclick = "";
         document.getElementById('title').style.cursor = "default";
-        document.getElementById('title').style.width = "100%";
-        document.getElementById('title').style.left = "0" ;
+        document.getElementById('title').style.width = "60%";
+        document.getElementById('title').style.left = "20%" ;
       }
     }
 });

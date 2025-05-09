@@ -146,13 +146,23 @@ class Productes():
         self.lan = loc.lan
         self.all_productes = json.loads(requests.get(prods_path).text)["documents"]
         #[print(p, "\n") for p in self.all_productes]
-
+        self.collecions = self.obtenir_collecions()
         self.productes = [Producte(loc,raw_data) for raw_data in self.all_productes]
         #[print(p, "\n") for p in self.productes]
 
     def __iter__(self):
         for producte in self.productes:
             yield producte
+
+    def obtenir_collecions(self):
+        all_cols = json.loads(requests.get(cols_path).text)["documents"]
+        print(all_cols)
+        col_names = []
+        for col in all_cols:
+            print(col)
+            col_names.append(read_data_type(col["fields"]["nom"]))
+        print(col_names)
+        return col_names
 
     def update(self, loc):
         self.__init__(loc)
@@ -362,7 +372,7 @@ def index(lan):
 
     html += render_template("galeria.html", productes=productes.get_all(),
                             titol="COLLECCIO", subtitol="PANSON",  no_head=True,  loc=loc)
-    html += render_template("navigation.html", origin="hide", loc = loc, hide_title=True)
+    html += render_template("navigation.html", origin="hide", loc = loc, hide_title=True, productes=productes)
     return html
 
 @app.route("/<lan>/admin/")

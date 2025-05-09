@@ -11,11 +11,25 @@
 
 <div class = "navigation">
     <div class = "navigation-left" id="nav-left">
-        <button class="dropbtn" id="menu-button"> {{ loc.nav_peces }} </button>
-        <button class="menu-simple"><img class="icon-menu-simple" src="/static/media/menu.svg" alt="cart"><br> </button>
-        <div class="menu" id="menu"></div>
+        <button class="dropbtn" id="menu-button"> {{ loc.nav_botiga }} </button>
+        <button class="menu-simple" id="menu-button-simple"><img class="icon-menu-simple" src="/static/media/menu.svg" alt="cart"><br> </button>
+        <div class="menu" id="menu" onclick="event.stopPropagation()">
+            <button class="menu-page" id="contacte-menu" onclick="location.href='/{{ loc.lan }}/contacte'">{{ loc.nav_contacte }}</button>
+            <button class="menu-page" id="projecte-menu" onclick="location.href='/{{ loc.lan }}/projecte'"> {{ loc.nav_projecte }}</button>
+            <div class="submenu" id="collecions-menu">
+                <div class="titol-submenu">{{ loc.nav_collecions }}</div>
+            {% if productes %}
+                {% for col in productes.collecions %}
+                    <div class="item-submenu">- {{ col }}</div>
+                {% endfor %}
+            {% endif %}
+            </div>
+            <div class="submenu" id="peces-menu">
+                <div class="titol-submenu">{{ loc.nav_peces }}</div>
+            </div>
+        </div>
         <button class="dropbtn" id="contacte" onclick="location.href='/{{ loc.lan }}/contacte'">{{ loc.nav_contacte }}</button>
-        <button class="dropbtn" id="projecte" onclick="location.href='https://www.instagram.com/panson.joieria/'; location.target='_blank'"> {{ loc.nav_projecte }}</button>
+        <button class="dropbtn" id="projecte" onclick="location.href='/{{ loc.lan }}/projecte'"> {{ loc.nav_projecte }}</button>
     </div>
     {% if hide_title %}
     {% else %}

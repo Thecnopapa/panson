@@ -5,9 +5,10 @@
 
 
     "nav-inici": "INICI",
-    "nav-peces": "BOTIGA",
+    "nav-peces": "Productes",
+    "nav-botiga": "BOTIGA",
     "nav-peces-uniques": "PECES UNIQUES",
-    "nav-collecions": "COL·LECCIONS",
+    "nav-collecions": "Col·lecions",
     "nav-contacte": "CONTACTE",
     "nav-projecte": "PROJECTE",
     "nav-productes": "PRODUCTES",
@@ -58,9 +59,10 @@
 
 
     "nav-inici": "HOME",
-    "nav-peces": "SHOP",
+    "nav-peces": "Products",
+    "nav-botiga": "SHOP",
     "nav-peces-uniques": "UNIQUE PIECES",
-    "nav-collecions": "COLLECTIONS",
+    "nav-collecions": "Collections",
     "nav-contacte": "CONTACT",
     "nav-projecte": "PROJECT",
     "nav-productes": "PRODUCTS",

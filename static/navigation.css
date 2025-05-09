@@ -113,7 +113,6 @@ body {
     border: none;
     user-select: none;
     margin:  0 1dvh;
-    mix-blend-mode: difference;
 
 }
 
@@ -135,17 +134,30 @@ body {
 #menu {
     display: none;
     flex-direction: column;
-    background-color: rgba(0, 234, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.9);
     position: fixed;
     width: 20%;
-    height: 80%;
+    height: 94dvh;
     left: 0;
     bottom: 0;
+    z-index: 10;
+    margin-top: 6dvh;
 }
 
 #menu-button:hover ~ #menu {
         display: flex;
     }
+#menu-button-simple:hover ~ #menu {
+        display: flex;
+    }
+#menu:hover {
+    display: flex;
+}
+
+#contacte-menu, #projecte-menu {
+    display: none;
+}
+
 
 .title{
     background-image: url('/static/media/logo-complet-blanc.png');
@@ -230,7 +242,14 @@ body {
     transform: rotate(360deg);
 }
 
-
+.titol-submenu {
+    font-size: 3dvh;
+    padding-left: 1dvh;
+}
+.item-submenu {
+    font-size: 2dvh;
+    padding-left: 2dvh;
+}
 
 
 @media screen and (orientation: portrait) {
@@ -241,9 +260,16 @@ body {
     .menu-simple {
         display: flex;
     }
-    #menu-button, #contacte, #projecte {
+    .dropbtn {
         display: none;
     }
+    #contacte-menu, #projecte-menu {
+        display: inline-block;
+    }
+    #menu {
+        width: 80%;
+    }
+
 
     .navigation-left {
         display: flex;
