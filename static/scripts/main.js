@@ -20,8 +20,10 @@ $(window).scroll(function () {
   if (scroll >= maxScroll){
     let scroll = maxScroll;
     title.onclick = onClickLink;
+    title.style.cursor = "pointer";
   } else {
     title.onclick = "";
+    title.style.cursor = "default";
   }
   console.log(scroll, scroll/maxScroll);
   title.style.top = String(35-(35*scroll/maxScroll)).concat("dvh");
