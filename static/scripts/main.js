@@ -17,11 +17,10 @@ const title = document.getElementById('title');
 $(window).scroll(function () {
   let scroll = $(window).scrollTop()
   console.log(scroll);
-  if (title.style.position == "absolute"){
-
-
-
+  if (scroll >= maxScroll){
+    let scroll = maxScroll
   }
+  title.style.height = concatenate(String(7+(13*scroll/maxScroll)),  "dvh")
 
 
   if (title.style.position == "absolute" && ($(window).scrollTop() >= previousHeight ) && false) {
