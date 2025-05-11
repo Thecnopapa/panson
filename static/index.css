@@ -60,7 +60,6 @@ body{
     top:35dvh;
     left: 20%;
     z-index: 5;
-    transition: height 0.3s ease-out;
 }
 
 .title:hover{
