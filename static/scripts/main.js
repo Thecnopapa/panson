@@ -18,7 +18,7 @@ $(window).scroll(function () {
   let scroll = $(window).scrollTop()
   
   if (scroll >= maxScroll){
-    let scroll = maxScroll;
+    scroll = maxScroll;
     title.onclick = onClickLink;
     title.style.cursor = "pointer";
   } else {
