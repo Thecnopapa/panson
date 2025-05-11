@@ -248,6 +248,10 @@ body {
     padding-bottom: 1dvh;
     padding-top: 2dvh;
 }
+.titol-submenu:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
 .item-submenu {
     font-size: 2dvh;
     padding-left: 2dvh;

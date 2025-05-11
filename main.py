@@ -329,9 +329,18 @@ def decrypt(string):
 def admin_page():
     global loc
     html = render_template("admin.html", user = admin.username, productes=productes, loc = loc)
-    return html + render_template("navigation.html", loc = loc, logout = True)
+    return html + navigation(is_admin=True)
 
 
+def navigation(html = "", title = True, back = False, is_admin = False):
+    global loc
+    global admin
+    if back:
+        origin = None
+    else:
+        origin = "hide"
+    html += render_template("navigation.html", origin=origin, loc = loc, hide_title=not title, productes=productes, logout = is_admin)
+    return html
 
 
 
@@ -373,7 +382,7 @@ def index(lan):
 
     html += render_template("galeria.html", productes=productes.get_all(),
                             titol="COLLECCIO", subtitol="PANSON",  no_head=True,  loc=loc)
-    html += render_template("navigation.html", origin="hide", loc = loc, hide_title=True, productes=productes)
+    html += navigation(title=False)
     return html
 
 @app.route("/<lan>/admin/")
@@ -385,7 +394,7 @@ def admin_redirect_login(lan):
     return redirect("/admin/login")
 @app.route("/admin/login/")
 def admin_login():
-    return render_template("admin_login.html") + render_template("navigation.html", origin="hide", loc = loc)
+    return render_template("admin_login.html") + navigation()
 
 @app.route("/admin/logout/")
 def admin_logout():
@@ -420,7 +429,7 @@ def productes_per_col(lan, col):
     loc.update(lan)
     html = render_template("galeria.html",productes = productes.filtrats(collecio=col), titol=col.capitalize(), subtitol=loc.col_subtitiol, loc=loc)
     if html:
-        return html + render_template("navigation.html", origin = "hide", loc = loc)
+        return html + navigation()
 
 
 @app.route("/<lan>/peces_uniques/")
@@ -428,7 +437,7 @@ def peces_uniques(lan):
     loc.update(lan)
     html = render_template("uniques.html", productes=productes.uniques(), loc = loc, )
 
-    return html + render_template("navigation.html", origin = "hide", loc = loc)
+    return html + navigation()
 
 
 
@@ -449,7 +458,7 @@ def mostrar_peca(lan, id):
                             titol=producte.collecio.capitalize(), subtitol=loc.gal_collecio,  no_head=True,  loc=loc)
 
     if html:
-        return html + render_template("navigation.html", origin = None, loc = loc)
+        return html + navigation()
 
 
 @app.route("/<lan>/productes/")
@@ -457,7 +466,7 @@ def mostrar_tot(lan):
     loc.update(lan)
     html = render_template("galeria.html", productes = productes.get_all(), titol=loc.gal_totes, subtitol=loc.gal_subtitol, loc=loc)
     if html:
-        return html + render_template("navigation.html", origin = "hide", loc = loc)
+        return html + navigation()
 
 
 

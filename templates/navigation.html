@@ -17,7 +17,7 @@
             <button class="menu-page" id="contacte-menu" onclick="location.href='/{{ loc.lan }}/contacte'">{{ loc.nav_contacte }}</button>
             <button class="menu-page" id="projecte-menu" onclick="location.href='/{{ loc.lan }}/projecte'"> {{ loc.nav_projecte }}</button>
             <div class="submenu" id="collecions-menu">
-                <div class="titol-submenu">{{ loc.nav_collecions }}</div>
+                <div class="titol-submenu" onclick="location.href='/{{ loc.lan }}/collecions'">{{ loc.nav_collecions }}</div>
                 {% if productes %}
                     {% for col in productes.collecions %}
                         <div class="item-submenu"  onclick="location.href='/{{ loc.lan }}/productes'">- {{ col }}</div>
@@ -25,7 +25,7 @@
                 {% endif %}
             </div>
             <div class="submenu" id="peces-menu">
-                <div class="titol-submenu">{{ loc.nav_peces }}</div>
+                <div class="titol-submenu" onclick="location.href='/{{ loc.lan }}/productes'">{{ loc.nav_peces }}</div>
                 {% if productes %}
                     {% for tipus in productes.tipus %}
                         <div class="item-submenu"  onclick="location.href='/{{ loc.lan }}/productes'">- {{ loc["tip-"+tipus+"-plural"]}}</div>
