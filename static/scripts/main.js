@@ -8,7 +8,7 @@ function main() {
 main();
 let windowHeight = window.innerHeight
 let previousHeight = $(window).scrollTop()
-let maxScroll = windowHeight * 0.35
+const maxScroll = windowHeight * 0.35
 const onClickLink = document.getElementById('title').onclick
 console.log(onClickLink)
 const title = document.getElementById('title');
@@ -16,16 +16,17 @@ const title = document.getElementById('title');
 
 $(window).scroll(function () {
   let scroll = $(window).scrollTop()
-  console.log(scroll);
+  
   if (scroll >= maxScroll){
     let scroll = maxScroll;
-    title.style.position = "fixed";
-    title.style.left = "40dvw";
+    title.onclick = onClickLink;
   } else {
-    title.style.position = "absolute";
-    title.style.left = "20dvw";
+    title.onclick = "";
   }
+  console.log(scroll, scroll/maxScroll);
+  title.style.top = String(35-(35*scroll/maxScroll)).concat("dvh");
   title.style.height = String(20-(13*scroll/maxScroll)).concat("dvh");
+  title.style.left = String(40 - (20*scroll/maxScroll)).concat("dvw");
   title.style.width = String(60 - (40*scroll/maxScroll)).concat("dvw");
   title.style.paddingBottom = String(5 - (5*scroll/maxScroll)).concat("dvh");
   title.style.paddingTop = String(5 - (5*scroll/maxScroll)).concat("dvh");
