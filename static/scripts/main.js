@@ -20,7 +20,7 @@ $(window).scroll(function () {
   if (scroll >= maxScroll){
     let scroll = maxScroll
   }
-  title.style.height = concatenate(String(7+(13*scroll/maxScroll)),  "dvh")
+  title.style.height = String(7+(13*scroll/maxScroll)).concat("dvh")
 
 
   if (title.style.position == "absolute" && ($(window).scrollTop() >= previousHeight ) && false) {
