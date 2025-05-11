@@ -245,11 +245,14 @@ body {
 .titol-submenu {
     font-size: 3dvh;
     padding-left: 1dvh;
+    padding-bottom: 1dvh;
+    padding-top: 2dvh;
 }
 .item-submenu {
     font-size: 2dvh;
     padding-left: 2dvh;
     cursor: pointer;
+    padding-bottom: 1dvh;
 }
 .item-submenu:hover {
     text-decoration: underline;

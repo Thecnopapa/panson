@@ -20,7 +20,7 @@
                 <div class="titol-submenu">{{ loc.nav_collecions }}</div>
                 {% if productes %}
                     {% for col in productes.collecions %}
-                        <div class="item-submenu"  onclick="location.href='/{{ loc.lan }}/galeria'">- {{ col }}</div>
+                        <div class="item-submenu"  onclick="location.href='/{{ loc.lan }}/productes'">- {{ col }}</div>
                     {% endfor %}
                 {% endif %}
             </div>
@@ -28,7 +28,7 @@
                 <div class="titol-submenu">{{ loc.nav_peces }}</div>
                 {% if productes %}
                     {% for tipus in productes.tipus %}
-                        <div class="item-submenu"  onclick="location.href='/{{ loc.lan }}/galeria'">- {{ loc["tip-"+tipus+"-plural"]}}</div>
+                        <div class="item-submenu"  onclick="location.href='/{{ loc.lan }}/productes'">- {{ loc["tip-"+tipus+"-plural"]}}</div>
                     {% endfor %}
                 {% endif %}
             </div>
