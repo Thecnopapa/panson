@@ -55,7 +55,7 @@ body{
     height: 20dvh;
     user-select: none;
     padding: 5dvh 5dvh 5dvh 0dvh;
-    position: absolute;
+    position: fixed;
     width: 60%;
     top:35dvh;
     left: 20%;
