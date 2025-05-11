@@ -148,6 +148,7 @@ class Productes():
         #[print(p, "\n") for p in self.all_productes]
         self.collecions = self.obtenir_collecions()
         self.productes = [Producte(loc,raw_data) for raw_data in self.all_productes]
+        self.tipus = set([prod.tipus for prod in self.productes])
         #[print(p, "\n") for p in self.productes]
 
     def __iter__(self):

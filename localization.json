@@ -50,7 +50,12 @@
     "tip-altres": "altres",
     "tip-anell": "Anell",
     "tip-penjoll": "Penjoll",
-    "tip-arracades": "Arracades"
+    "tip-arracades": "Arracades",
+
+    "tip-altres-plural": "altres",
+    "tip-anell-plural": "Anells",
+    "tip-penjoll-plural": "Penjolls",
+    "tip-arracades-plural": "Arracades"
 
   },
   "en": {
@@ -104,7 +109,12 @@
 
     "tip-anell": "Ring",
     "tip-penjoll": "Necklace",
-    "tip-arracades": "Earrings"
+    "tip-arracades": "Earrings",
+
+
+    "tip-anell-plural": "Rings",
+    "tip-penjoll-plural": "Necklaces",
+    "tip-arracades-plural": "Earrings"
 
   },
 

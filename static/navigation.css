@@ -249,6 +249,11 @@ body {
 .item-submenu {
     font-size: 2dvh;
     padding-left: 2dvh;
+    cursor: pointer;
+}
+.item-submenu:hover {
+    text-decoration: underline;
+
 }
 
 

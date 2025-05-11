@@ -18,14 +18,19 @@
             <button class="menu-page" id="projecte-menu" onclick="location.href='/{{ loc.lan }}/projecte'"> {{ loc.nav_projecte }}</button>
             <div class="submenu" id="collecions-menu">
                 <div class="titol-submenu">{{ loc.nav_collecions }}</div>
-            {% if productes %}
-                {% for col in productes.collecions %}
-                    <div class="item-submenu">- {{ col }}</div>
-                {% endfor %}
-            {% endif %}
+                {% if productes %}
+                    {% for col in productes.collecions %}
+                        <div class="item-submenu"  onclick="location.href='/{{ loc.lan }}/galeria'">- {{ col }}</div>
+                    {% endfor %}
+                {% endif %}
             </div>
             <div class="submenu" id="peces-menu">
                 <div class="titol-submenu">{{ loc.nav_peces }}</div>
+                {% if productes %}
+                    {% for tipus in productes.tipus %}
+                        <div class="item-submenu"  onclick="location.href='/{{ loc.lan }}/galeria'">- {{ loc["tip-"+tipus+"-plural"]}}</div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
         <button class="dropbtn" id="contacte" onclick="location.href='/{{ loc.lan }}/contacte'">{{ loc.nav_contacte }}</button>
