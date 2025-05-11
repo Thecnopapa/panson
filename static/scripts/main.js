@@ -18,9 +18,17 @@ $(window).scroll(function () {
   let scroll = $(window).scrollTop()
   console.log(scroll);
   if (scroll >= maxScroll){
-    let scroll = maxScroll
+    let scroll = maxScroll;
+    title.style.position = "fixed";
+    title.style.left = "40dvw";
+  } else {
+    title.style.position = "absolute";
+    title.style.left = "20dvw";
   }
-  title.style.height = String(20-(13*scroll/maxScroll)).concat("dvh")
+  title.style.height = String(20-(13*scroll/maxScroll)).concat("dvh");
+  title.style.width = String(60 - (40*scroll/maxScroll)).concat("dvw");
+  title.style.paddingBottom = String(5 - (5*scroll/maxScroll)).concat("dvh");
+  title.style.paddingTop = String(5 - (5*scroll/maxScroll)).concat("dvh");
 
 
   if (title.style.position == "absolute" && ($(window).scrollTop() >= previousHeight ) && false) {
