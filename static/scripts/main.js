@@ -51,7 +51,7 @@ function updateScroll() {
         lanButtons[0].style.color = "white";
         lanButtons[1].style.color = "white";
         cartButton.src = "/static/media/bag.svg";
-        title.style.backgroundImage = "/static/media/bag.svg";
+        title.style.backgroundImage = "url(\"/static/media/logo-complet-blanc.png\")";
     }
 
 };
