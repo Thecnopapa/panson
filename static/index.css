@@ -54,7 +54,7 @@ body{
     color: rgba(240, 248, 255, 0.9);
     height: 20dvh;
     user-select: none;
-    padding: 5dvh 5dvh 5dvh 0dvh;
+    padding: 5dvh 0dvh 5dvh 0dvh;
     position: fixed;
     width: 60%;
     top:35dvh;
