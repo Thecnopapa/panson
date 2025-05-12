@@ -17,14 +17,15 @@
     flex-wrap: wrap  ;
     top: 0;
     left: 0;
-    width: 100%;
-    justify-content: center;
+    width: 94%;
+    justify-content: left;
     align-items: end;
     align-content: end;
     z-index: 1;
     height: 15dvh;
     background-color: rgba(255, 255, 255, 0.8);
     padding-bottom: 3dvh;
+    padding: 3dvh;
 
 }
 
@@ -105,7 +106,8 @@
     width: 23%;
     height: fit-content;
     position: relative;
-    padding: 1% 1% 3dvh 1%;
+    padding: 1% 0% 3dvh 0%;
+    margin: 0 1% 0 1%;
     user-select: none;
     align-content: start;
 
@@ -116,7 +118,7 @@
     height: 20dvh;
     display: none;
     font-size: 2dvh;
-    padding-right: 5%;
+    padding-right: 0%;
     padding-bottom: 5%;
     white-space: pre-wrap;
     text-wrap: wrap;
@@ -145,17 +147,17 @@
 .detalls-galeria{
     max-height: 100%;
     width: 100%;
-    padding: 1dvh;
+    padding-top: 1dvh;
     user-select: inherit;
 }
 .nom{
-    font-size: 3dvh;
-    font-weight: bold;
+    font-size: 2dvh;
+
     user-select: inherit;
     max-width: 60%;
 }
 .subtiol{
-    font-size: 2dvh;
+    font-size: 1.5dvh;
     user-select: inherit;
 }
 
@@ -182,16 +184,16 @@
     max-width: 40%;
     top: 25dvw;
     right: 0;
-    padding-right: 2%;
+    padding-right: 0;
 }
 .cercle {
     display: block;
-    height: 2dvh;
-    width: 2dvh;
+    height: 1.5dvh;
+    width: 1.5dvh;
     background-color: #bbb;
     border-radius: 50%;
-    margin: 0 0.5dvh;
-    border: 0.2dvh solid black;
+    margin: 0 0dvh;
+    cursor: pointer;
 }
 
 
@@ -219,8 +221,7 @@
 
     }*/
     .cercle:hover {
-    border: 0.4dvh solid black;
-        margin: 0 0.3dvh;
+
 }
 }
 

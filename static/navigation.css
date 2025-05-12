@@ -74,7 +74,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.2);
     z-index: 2;
 }
 
@@ -99,7 +98,7 @@ body {
     display: flex;
     height: 6dvh;
     width: fit-content;
-    padding-right: 3dvw;
+    padding-right: 2dvw;
     z-index: 200;
 
 }
@@ -107,12 +106,13 @@ body {
 
 
 .dropbtn, .menu-simple {
-    color: #ffffff;
+    color: #000000;
     font-size: 1.55dvh;
     font-weight: bolder;
     border: none;
     user-select: none;
     margin:  0 1dvh;
+    z-index: 6;
 
 }
 
@@ -134,14 +134,14 @@ body {
 #menu {
     display: none;
     flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgb(255, 255, 255);
     position: fixed;
     width: 20%;
-    height: 94dvh;
+    height: 100dvh;
     left: 0;
-    bottom: 0;
-    z-index: 10;
-    margin-top: 6dvh;
+    top: 0;
+    z-index: 5;
+    padding-top: 6dvh;
 }
 
 #menu-button:hover ~ #menu {
@@ -160,7 +160,7 @@ body {
 
 
 .title{
-    background-image: url('/static/media/logo-complet-blanc.png');
+    background-image: url('/static/media/logo-complet.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -196,7 +196,6 @@ body {
     background-color: rgba(0, 0, 0, 0.3);
 }
 #current{
-    font-weight: bolder;
 }
 
 .cart {
@@ -207,9 +206,10 @@ body {
     width: min-content;
     height: 6dvh;
     align-items: center;
-    margin-right: 0;
+    margin-left: 1dvw;
     cursor: pointer;
     z-index: 10;
+
 }
 .shopping-cart {
     position: relative;
@@ -217,14 +217,14 @@ body {
     align-content: center;
     text-align: center;
     vertical-align: center;
-    height: 4dvh;
-    width: 4dvh;
+    height: 2.8dvh;
+    width: 2.8dvh;
+    padding-bottom: 0.5dvh;
 
 
 }
 .shopping-cart:hover {
     transition: 0.3s ease;
-    transform: rotate(360deg);
 }
 .icon-menu-simple {
     position: relative;
@@ -243,10 +243,11 @@ body {
 }
 
 .titol-submenu {
-    font-size: 3dvh;
+    font-size: 2dvh;
     padding-left: 1dvh;
     padding-bottom: 1dvh;
     padding-top: 2dvh;
+    text-underline-offset: 0.5dvh;
 }
 .titol-submenu:hover {
     text-decoration: underline;
@@ -257,6 +258,7 @@ body {
     padding-left: 2dvh;
     cursor: pointer;
     padding-bottom: 1dvh;
+    text-underline-offset: 0.5dvh;
 }
 .item-submenu:hover {
     text-decoration: underline;
