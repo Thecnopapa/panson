@@ -381,7 +381,7 @@ def index(lan):
     html =  render_template('index.html', loc = loc, slides= slide_list)
 
     html += render_template("galeria.html", productes=productes.get_all(),
-                            titol="COLLECCIO", subtitol="PANSON",  no_head=True,  loc=loc)
+                            titol=loc.ind_titol_galeria, subtitol=None,  no_head=True,  loc=loc)
     html += navigation(title=False)
     return html
 
