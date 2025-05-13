@@ -1,18 +1,10 @@
 
-function main() {
-  console.log("Hello, World!");
-
-
-}
-
-main();
 let windowHeight = window.innerHeight
 const maxScroll = windowHeight * 0.35
 const onClickLink = document.getElementById('title').onclick
 const navButtons = document.getElementsByClassName('dropbtn');
 const lanButtons = document.getElementsByClassName('language');
 const cartButton = document.getElementsByClassName('shopping-cart');
-console.log(onClickLink)
 const title = document.getElementById('title');
 
 
@@ -31,7 +23,6 @@ function updateScroll() {
     } else {
         title.style.cursor = "default";
     }
-    console.log(scroll, scroll / maxScroll);
     title.style.top = String(35 - (35 * scroll / maxScroll)).concat("dvh");
     title.style.height = String(20 - (13 * scroll / maxScroll)).concat("dvh");
     title.style.left = String(20 + (20 * scroll / maxScroll)).concat("dvw");
@@ -46,7 +37,7 @@ function updateScroll() {
         navButtons[2].style.color = "black";
         lanButtons[0].style.color = "black";
         lanButtons[1].style.color = "black";
-        cartButton.src = "/static/media/bag-black.svg";
+        cartButton[0].src = "/static/media/bag-black.svg";
         title.style.backgroundImage = "url(\"/static/media/logo-complet.png\")";
     } else {
         navButtons[0].style.color = "white";
@@ -54,7 +45,7 @@ function updateScroll() {
         navButtons[2].style.color = "white";
         lanButtons[0].style.color = "white";
         lanButtons[1].style.color = "white";
-        cartButton.src = "/static/media/bag.svg";
+        cartButton[0].src = "/static/media/bag.svg";
         title.style.backgroundImage = "url(\"/static/media/logo-complet-blanc.png\")";
     }
 

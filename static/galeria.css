@@ -17,7 +17,7 @@
     flex-wrap: wrap  ;
     top: 0;
     left: 0;
-    width: 94%;
+    width: 98%;
     justify-content: left;
     align-items: end;
     align-content: end;
@@ -25,7 +25,8 @@
     height: 15dvh;
     background-color: rgba(255, 255, 255, 0.8);
     padding-bottom: 3dvh;
-    padding: 3dvh;
+    padding-left: 1%;
+    padding-right: 1%;
 
 }
 
@@ -35,10 +36,14 @@
     flex-direction: row;
     position: absolute;
     right: 0;
-    margin-right: 3dvh;
+    margin-right: 1%;
     z-index: 2;
 }
 
+.boto-filtres {
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+}
 .desplegable-filtres {
     background-color: rgba(0, 234, 255, 0.8);
     height: 10dvh;
@@ -97,7 +102,7 @@
     position: relative;
     top: 0;
     width: 100%;
-    height: 20dvh;
+    height: 18dvh;
 }
 .producte{
     background-color: rgba(255, 255, 255, 0.8);
@@ -192,7 +197,7 @@
     width: 1.5dvh;
     background-color: #bbb;
     border-radius: 50%;
-    margin: 0 0dvh;
+    margin: 0 0.2dvh;
     cursor: pointer;
 }
 
