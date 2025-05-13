@@ -16,15 +16,19 @@ console.log(onClickLink)
 const title = document.getElementById('title');
 
 
+function scrollToTop() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
+
 function updateScroll() {
     let scroll = $(window).scrollTop()
 
     if (scroll >= maxScroll) {
         scroll = maxScroll;
-        title.onclick = onClickLink;
         title.style.cursor = "pointer";
     } else {
-        title.onclick = "";
         title.style.cursor = "default";
     }
     console.log(scroll, scroll / maxScroll);
