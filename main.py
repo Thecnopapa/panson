@@ -480,10 +480,14 @@ def mostrar_tot(lan):
 def contatce(lan):
     loc.update(lan)
     html = render_template("contacte.html", loc=loc)
-    return html + render_template("navigation.html", origin = None, loc = loc)
+    return html + navigation()
 
 
-
+@app.route("/<lan>/carret/")
+def carret(lan):
+    loc.update(lan)
+    html = render_template("carret.html", loc =loc, carret = carret)
+    return html + navigation()
 
 
 
