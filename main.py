@@ -228,6 +228,7 @@ class Carret():
                     self.preferits = json.loads(favourites_str)
                 except:
                     pass
+        self.save_cart()
 
 
     def generate_items(self):
