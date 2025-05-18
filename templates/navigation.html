@@ -39,7 +39,7 @@
     </div>
     {% if hide_title %}
     {% else %}
-        <div class = "title" id="title" onclick="location.href='/{{ loc.lan }}/'">
+        <div class = "title" id="title" onclick="location.href='/{{ loc.lan }}/'"></div>
     {% endif %}
     <div class = "navigation-right">
     {% if loc.logged_in %}
@@ -59,7 +59,7 @@
                 </div>
             {% endif %}
         {% endfor %}
-    <div class = "cart"><img class="shopping-cart" src="/static/media/bag-black.svg" alt="cart"></div>
+    <div class = "cart" onclick="location.href='/{{ loc.lan }}/carret/'"><img class="shopping-cart" src="/static/media/bag-black.svg" alt="cart"></div>
     </div>
 
 </div>

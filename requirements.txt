@@ -8,7 +8,7 @@ google-cloud-storage
 # App
 flask~=3.1.0
 gunicorn
-
+unidecode
 
 
 requests~=2.32.3

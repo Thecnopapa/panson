@@ -40,7 +40,6 @@
                 </div>
             {% endautoescape %}
             <div class="opcions">
-
                 {% if producte.material %}
                     <div class = "materials">
                         {% for mat in producte.mats %}
@@ -75,9 +74,9 @@
                         <div class="variacions">
                         {% for var, info in producte.vars %}
                             {% if  var == opcions["variacio"] %}
-                                <div class="variacio"  onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+material+"/"+var }}'"><span class="variacio-cercle" id="selected-var-cercle" ></span><div class="variacio-text" id="selected-var-text"> {{ loc["var-"+var] }} </div>
+                                <div class="variacio"  onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+material+"/"+var}}'"><span class="variacio-cercle" id="selected-var-cercle" ></span><div class="variacio-text" id="selected-var-text"> {{ loc["var-"+var] }} </div>
                             {% else %}
-                                <div class="variacio" onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+material+"/"+var }}'"><span class="variacio-cercle" ></span><div class="variacio-text"> {{ loc["var-"+var] }} </div>
+                                <div class="variacio" onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+material+"/"+var}}'"><span class="variacio-cercle" ></span><div class="variacio-text"> {{ loc["var-"+var] }} </div>
                             {% endif %}
                             {% if "preu" in info %}
                                 <div class="variacio-preu">{{ info.preu }} &#8364; </div>
@@ -88,6 +87,10 @@
                     {% endif %}
                 {% endif %}
             </div>
+                <form class="comprar" action="{{ opcions }}/afegir_al_carret/" method="POST">
+                    <input class="afegir_carret" type="submit" value="AFEGIR AL CARRET">
+
+                </form>
             <div class = "detalls_generals">
                 {{ loc.pro_missatge }}<br><br>
                 <img class="small-icon" src="/static/media/shield.svg" alt="garantia">{{ loc.pro_garantia }} <br>

@@ -128,15 +128,8 @@ class Producte():
             if self.talles == "totes":
                 self.talles = ["totes"]
 
-
-
-
-
     def __getitem__(self, item):
         return self.__getattribute__(item)
-
-
-
 
 
 
@@ -192,6 +185,27 @@ class Productes():
     def get_all(self):
         return self.productes
 
+
+class Carret():
+    def __init__(self):
+        self.preferits = []
+        self.carret = []
+        self.items = []
+
+
+    def restore_from_cookies(self):
+        pass
+
+    def generate_items(self):
+        pass
+
+    def add_producte_carret(self, id, quantitat = 1, opcions_seleccionades={}):
+        producte = productes.get_single(id)
+        new_producte = {"producte":producte,
+                            "quantitat":quantitat,}
+        for key, value in opcions_seleccionades.items():
+            new_producte[key] = value
+        self.carret.append(new_producte)
 
 class Admin():
     def __init__(self):
@@ -353,6 +367,7 @@ def navigation(html = "", title = True, back = False, is_admin = False):
 loc = Localization("cat")
 productes = Productes(loc)
 admin = Admin()
+carret = Carret()
 
 
 
@@ -475,7 +490,11 @@ def mostrar_tot(lan):
 
 
 
-
+@app.route("/<lan>/projecte/")
+def projecte(lan):
+    loc.update(lan)
+    html = render_template("projecte.html", loc=loc)
+    return html + navigation()
 @app.route("/<lan>/contacte/")
 def contatce(lan):
     loc.update(lan)
@@ -484,12 +503,32 @@ def contatce(lan):
 
 
 @app.route("/<lan>/carret/")
-def carret(lan):
+def veure_carret(lan):
     loc.update(lan)
     html = render_template("carret.html", loc =loc, carret = carret)
     return html + navigation()
 
+@app.post("/<lan>/productes/<id>/<opcions>/afegir_al_carret/")
+def afegir_al_carret(lan, id, opcions):
+    print(id)
+    opcions_dict = string_to_dict(opcions)
+    print(opcions_dict)
+    print(carret)
+    carret.add_producte_carret(id, opcions_dict)
 
+    opcions_url = "&".join([(key+"="+value) for key, value in opcions_dict.items()])
+    return redirect("/"+lan+"/productes/"+id+"/?"+opcions_url)
+
+
+def string_to_dict(string):
+    keys= []
+    values = []
+    items = string.split(",")
+    keys.extend([clean_string(item.split(":")[0],allow=[]) for item in items])
+    values.extend([clean_string(item.split(":")[1],allow=[]) for item in items])
+    new_dict = dict(zip(keys, values))
+    [print("key:", key, "value:",value) for key, value in new_dict.items()]
+    return new_dict
 
 def main():
     app.run(port=int(os.environ.get('PORT', 80)))
