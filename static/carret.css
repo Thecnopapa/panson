@@ -1,0 +1,29 @@
+
+
+
+
+.content-carret {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.title-carret {
+    top: 10dvh;
+    position: relative;
+    padding-bottom: 10vh;
+}
+
+.llista-carret {
+    position: relative;
+    top:10dvh;
+}
+.producte-carret {
+    position: relative;
+    width: 60dvw;
+    margin-bottom: 10vh;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 2dvh;
+
+}

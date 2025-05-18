@@ -12,12 +12,21 @@
 
 
 <div class="content-carret">
-CARRET
-    {% for item in carret.carret %}
-        <div class="producte-carret">
-            {{ item.producte.nom }}
-        </div>
-    {% endfor %}
+    <div class="title-carret">CARRET</div>
+    <div class="llista-carret">
+        {% for item in carret.carret %}
+            <div class="producte-carret">
+                <div class="producte-carret-nom">NOM: {{ item.producte.nom }}</div>
+                <div class="producte-carret-id">ID: {{ item.producte.id }}</div>
+                <div class="producte-carret-quantitat">QUANTITAT: {{ item.quantitat }}</div>
+                <div class="producte-carret-material">MATERIAL: {{ item.material}}</div>
+                <div class="producte-carret-variacio">VARIACIO: {{ item.variacio}}</div>
+                <div class="producte-carret-color">COLOR: {{ item.color }}</div>
+                <div class="producte-carret-preu">PREU: {{ item.preu }}</div>
 
 
+
+            </div>
+        {% endfor %}
+    </div>
 </div>

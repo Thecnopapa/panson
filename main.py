@@ -1,6 +1,7 @@
 import os
 import json
-from enum import global_str
+
+from google.api_core.gapic_v1 import method
 
 from utilities import *
 import flask
@@ -150,12 +151,12 @@ class Productes():
 
     def obtenir_collecions(self):
         all_cols = json.loads(requests.get(cols_path).text)["documents"]
-        print(all_cols)
+        #print(all_cols)
         col_names = []
         for col in all_cols:
-            print(col)
+            #print(col)
             col_names.append(read_data_type(col["fields"]["nom"]))
-        print(col_names)
+        #print(col_names)
         return col_names
 
     def update(self, loc):
@@ -197,15 +198,28 @@ class Carret():
         pass
 
     def generate_items(self):
-        pass
+        self.items = []
 
-    def add_producte_carret(self, id, quantitat = 1, opcions_seleccionades={}):
+    def add_producte_carret(self, id, opcions_seleccionades={},resp=None,quantitat = 1,):
         producte = productes.get_single(id)
         new_producte = {"producte":producte,
-                            "quantitat":quantitat,}
+                        "quantitat":quantitat,}
         for key, value in opcions_seleccionades.items():
             new_producte[key] = value
         self.carret.append(new_producte)
+        self.generate_items()
+        return self.save_cart(resp)
+
+    def save_cart(self, resp=None):
+        if resp is None:
+            resp = make_response()
+        try:
+            resp.set_cookie("cart", str(self.items))
+            resp.set_cookie("favourites", str(self.preferits))
+        except:
+            print("Filed to save cookies")
+        return resp
+
 
 class Admin():
     def __init__(self):
@@ -459,14 +473,15 @@ def peces_uniques(lan):
 
 
 @app.route("/<lan>/productes/<id>/")
-def mostrar_peca(lan, id):
+def mostrar_peca(lan, id, opcions=None):
     loc.update(lan)
     productes.update(loc)
     producte = productes.get_single(id)
-    opcions = {}
-    opcions["material"] = request.args.get("material")
-    opcions["variacio"] = request.args.get("variacio")
-    opcions["talla"] = request.args.get("talla")
+    if opcions is None:
+        opcions = {}
+        opcions["material"] = request.args.get("material")
+        opcions["variacio"] = request.args.get("variacio")
+        opcions["talla"] = request.args.get("talla")
 
     html = render_template("producte.html", producte=producte, loc = loc, opcions = opcions)
     html += render_template("galeria.html", productes=productes.filtrats(collecio=producte.collecio),
@@ -508,27 +523,29 @@ def veure_carret(lan):
     html = render_template("carret.html", loc =loc, carret = carret)
     return html + navigation()
 
-@app.post("/<lan>/productes/<id>/<opcions>/afegir_al_carret/")
+@app.post("/<lan>/productes/<id>/<opcions>/afegir_al_carret")
 def afegir_al_carret(lan, id, opcions):
-    print(id)
     opcions_dict = string_to_dict(opcions)
-    print(opcions_dict)
-    print(carret)
-    carret.add_producte_carret(id, opcions_dict)
+    opcions_url = "&".join([(key + "=" + value) for key, value in opcions_dict.items()])
+    if request.method == "POST":
+        resp = redirect("/{}/productes/{}/?{}".format(lan, id, opcions))
+        print(resp)
+        resp = carret.add_producte_carret(id, opcions_dict, resp=resp)
+        print(resp)
+        return resp
 
-    opcions_url = "&".join([(key+"="+value) for key, value in opcions_dict.items()])
-    return redirect("/"+lan+"/productes/"+id+"/?"+opcions_url)
 
 
-def string_to_dict(string):
-    keys= []
-    values = []
-    items = string.split(",")
-    keys.extend([clean_string(item.split(":")[0],allow=[]) for item in items])
-    values.extend([clean_string(item.split(":")[1],allow=[]) for item in items])
-    new_dict = dict(zip(keys, values))
-    [print("key:", key, "value:",value) for key, value in new_dict.items()]
-    return new_dict
+
+
+
+
+
+
+
+
+
+
 
 def main():
     app.run(port=int(os.environ.get('PORT', 80)))

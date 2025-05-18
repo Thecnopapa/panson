@@ -283,9 +283,12 @@ def KeepInterpreter():
         print(h)
         # now what?
 
-
-if __name__ == "__main__":
-    progress = ThinkingBar()
-    while True:
-        progress.add(show_time=True)
-        time.sleep(0.1)
+def string_to_dict(string):
+    keys= []
+    values = []
+    items = string.split(",")
+    keys.extend([clean_string(item.split(":")[0],allow=[]) for item in items])
+    values.extend([clean_string(item.split(":")[1],allow=[]) for item in items])
+    new_dict = dict(zip(keys, values))
+    [print("key:", key, "value:",value) for key, value in new_dict.items()]
+    return new_dict
