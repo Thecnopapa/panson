@@ -193,6 +193,11 @@ def clean_list(strings:list, delimiter=" ", format="float", allow=["."]):
                         c = False
                     elif c == "True":
                         c = True
+                elif format == "string":
+                    if c == "None":
+                        c = None
+                    else:
+                        c = str(c)
                 cleaned.append(c)
     return cleaned
 
@@ -283,12 +288,12 @@ def KeepInterpreter():
         print(h)
         # now what?
 
-def string_to_dict(string):
+def string_to_dict(string, allow=["-", "_"]):
     keys= []
     values = []
     items = string.split(",")
-    keys.extend([clean_string(item.split(":")[0],allow=[]) for item in items])
-    values.extend([clean_string(item.split(":")[1],allow=[]) for item in items])
+    keys.extend([clean_string(item.split(":")[0],allow=allow) for item in items])
+    values.extend([clean_string(item.split(":")[1],allow=allow) for item in items])
     new_dict = dict(zip(keys, values))
     [print("key:", key, "value:",value) for key, value in new_dict.items()]
     return new_dict

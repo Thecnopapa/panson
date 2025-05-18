@@ -161,6 +161,8 @@ class Productes():
 
     def update(self, loc):
         self.__init__(loc)
+        global carret
+        carret.update()
 
     def uniques(self):
         print("Unique productes:")
@@ -191,12 +193,42 @@ class Carret():
     def __init__(self):
         self.preferits = []
         self.carret = {}
+        self.item_list = []
         self.items = []
         self.n_items = 0
 
 
     def restore_from_cookies(self):
-        pass
+        cart_str = request.cookies.get("cart")
+        favourites_str = request.cookies.get("favourites")
+        print(cart_str)
+        print(favourites_str)
+
+        if cart_str is not None:
+            if len(cart_str) > 2:
+                try:
+                    self.carret = {}
+                    for c in json.loads(cart_str):
+                        op = c[2].split("&")[1:]
+                        op = {o.split(":")[0]:o.split(":")[1] for o in op}
+                        opcions = {}
+                        for key, value in op.items():
+                            try:
+                                opcions[key] = int(value)
+                            except:
+                                opcions[key] = str(value)
+                        self.add_producte_carret(id=c[0], opcions_seleccionades=opcions, quantitat=c[1], save_cart=False)
+
+                except:
+                    pass
+        if favourites_str is not None:
+            if len(favourites_str) > 2:
+                try:
+                    #self.preferits.extend(clean_list(favourites_str, delimiter=",", allow=["_", "-" ,":"], format="str"))
+                    self.preferits = json.loads(favourites_str)
+                except:
+                    pass
+
 
     def generate_items(self):
         self.items = []
@@ -222,20 +254,25 @@ class Carret():
 
     def count_items(self):
         if len(self.carret) != 0:
-            [print(item) for item in self.carret.values()]
-            print("qty", [item["quantity"] for item in self.carret.values()])
-            print("sum", sum([item["quantity"] for item in self.carret.values()]))
             self.n_items = sum([item["quantity"] for item in self.carret.values()])
         else:
             self.n_items = 0
         return self.n_items
 
+    def get_simple_list(self):
+        l = []
+        for item in self.carret.values():
+            l.append((item["producte"].id, item["quantity"], item["id2"]))
+        return l
 
     def update(self):
+        self.restore_from_cookies()
         self.generate_items()
         self.count_items()
+        self.item_list = self.get_simple_list()
 
-    def add_producte_carret(self, id, opcions_seleccionades={},resp=None,quantitat = 1,):
+
+    def add_producte_carret(self, id, opcions_seleccionades={},resp=None,quantitat = 1, save_cart=True):
         producte = productes.get_single(id)
         new_producte = {"producte":producte,
                         "quantity":quantitat,}
@@ -249,15 +286,16 @@ class Carret():
             self.carret[id2]["quantity"] += quantitat
         else:
             self.carret[id2] = new_producte
-        self.update()
-        return self.save_cart(resp)
+        if save_cart:
+            self.update()
+            return self.save_cart(resp)
 
     def save_cart(self, resp=None):
         if resp is None:
             resp = make_response()
         try:
-            resp.set_cookie("cart", str(self.items))
-            resp.set_cookie("favourites", str(self.preferits))
+            resp.set_cookie("cart", json.dumps(self.item_list))
+            resp.set_cookie("favourites", json.dumps(self.preferits))
         except:
             print("Filed to save cookies")
         return resp
@@ -440,6 +478,9 @@ def redirect_to_cat():
     loc.update("cat")
     return redirect("/cat/")
 
+@app.route("/blank")
+def return_blank():
+    return carret.__dict__
 
 @app.route("/static/<path:path>", defaults={"lan": "cat"})
 @app.route("/<lan>/static/<path:path>")
@@ -490,7 +531,7 @@ def admin_load():
     return resp
 
 
-@app.post("/admin/update/<id>/")
+@app.route("/admin/update/<id>", methods=["GET", "POST"])
 def update_product(id):
     firebase.update_firebase(id)
     loc.update()
@@ -567,7 +608,7 @@ def veure_carret(lan):
 
 @app.post("/<lan>/productes/<id>/<opcions>/afegir_al_carret")
 def afegir_al_carret(lan, id, opcions):
-    opcions_dict = string_to_dict(opcions)
+    opcions_dict = string_to_dict(opcions, allow = ["_", "-" ,":"])
     #opcions_url = "&".join([(key + "=" + value) for key, value in opcions_dict.items()])
     if request.method == "POST":
         resp = redirect("/{}/productes/{}/?{}".format(lan, id, opcions))
@@ -578,7 +619,7 @@ def afegir_al_carret(lan, id, opcions):
 
 @app.post("/<lan>/carret/id2/eliminar_del_carret")
 def eliminar_del_carret(lan, id2, opcions):
-    opcions_dict = string_to_dict(opcions)
+    opcions_dict = string_to_dict(opcions, allow = ["_", "-" ,":"])
     #opcions_url = "&".join([(key + "=" + value) for key, value in opcions_dict.items()])
     if request.method == "POST":
         resp = redirect("/{}/carret/".format(lan))
