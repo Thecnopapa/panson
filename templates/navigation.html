@@ -62,7 +62,7 @@
     <div class = "cart" onclick="location.href='/{{ loc.lan }}/carret/'">
         <img class="shopping-cart" src="/static/media/bag-black.svg" alt="cart">
         {% if n_carret %}
-            <div class="cercle-carret">{{ n_carret }}</div>
+            <div class="cercle-carret">{{ n_carret if n_carret > 0 }}</div>
         {% endif %}
 
 

@@ -202,12 +202,15 @@ class Carret():
         self.items = []
 
     def count_items(self):
-        for item in self.carret.values():
-            print(item)
-            try:
-                self.n_items += item.quantity
-            except:
-                self.n_items += 1
+        if len(self.carret) != 0:
+            [print(item) for item in self.carret.values()]
+            print("qty", [item["quantity"] for item in self.carret.values()])
+            print("sum", sum([item["quantity"] for item in self.carret.values()]))
+            self.n_items = sum([item["quantity"] for item in self.carret.values()])
+        else:
+            self.n_items = 0
+        return self.n_items
+
 
     def update(self):
         self.generate_items()
@@ -220,10 +223,11 @@ class Carret():
         id2 = producte.id
         for key, value in sorted(opcions_seleccionades.items(), key=lambda item: item[0]):
             new_producte[key] = value
-            id2 += "_{}".format(value)
+            id2 += "&{}:{}".format(key,value)
         new_producte["id2"] = id2
         if id2 in self.carret.keys():
-            self.carret[id2].quantity += quantitat
+            print(self.carret[id2])
+            self.carret[id2]["quantity"] += quantitat
         else:
             self.carret[id2] = new_producte
         self.update()
@@ -387,7 +391,13 @@ def navigation(html = "", title = True, back = False, is_admin = False):
         origin = None
     else:
         origin = "hide"
-    html += render_template("navigation.html", origin=origin, loc = loc, hide_title=not title, productes=productes, logout = is_admin, n_carret = None)
+
+    carret.count_items()
+    n_carret = carret.n_items
+    print("N_items:", n_carret)
+
+
+    html += render_template("navigation.html", origin=origin, loc = loc, hide_title=not title, productes=productes, logout = is_admin, n_carret = n_carret)
     print(carret.carret)
     return html
 
