@@ -226,6 +226,22 @@ body {
 .shopping-cart:hover {
     transition: 0.3s ease;
 }
+
+.cercle-carret {
+    height: 1.5dvh;
+    width: 1.5dvh;
+    position: absolute;
+    right: 0;
+    top: 3dvh;
+    background-color: rgb(0, 0, 0);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5dvh;
+}
+
 .icon-menu-simple {
     position: relative;
     display: block;
