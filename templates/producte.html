@@ -39,7 +39,7 @@
                     {{ producte.descripcio}}
                 </div>
             {% endautoescape %}
-            <form class="opcions">
+            <form class="opcions" action="{{ opcions }}/afegir_al_carret" method="POST">
                 {% if producte.material %}
                     <div class = "materials">
                         {% for mat in producte.mats %}

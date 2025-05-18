@@ -203,7 +203,11 @@ class Carret():
 
     def count_items(self):
         for item in self.carret.values():
-            self.n_items += item.quantity
+            print(item)
+            try:
+                self.n_items += item.quantity
+            except:
+                self.n_items += 1
 
     def update(self):
         self.generate_items()
@@ -212,14 +216,14 @@ class Carret():
     def add_producte_carret(self, id, opcions_seleccionades={},resp=None,quantitat = 1,):
         producte = productes.get_single(id)
         new_producte = {"producte":producte,
-                        "quantitat":quantitat,}
+                        "quantity":quantitat,}
         id2 = producte.id
         for key, value in sorted(opcions_seleccionades.items(), key=lambda item: item[0]):
             new_producte[key] = value
             id2 += "_{}".format(value)
         new_producte["id2"] = id2
         if id2 in self.carret.keys():
-            self.carret[id2]["quantitat"] += quantitat
+            self.carret[id2].quantity += quantitat
         else:
             self.carret[id2] = new_producte
         self.update()
@@ -384,6 +388,7 @@ def navigation(html = "", title = True, back = False, is_admin = False):
     else:
         origin = "hide"
     html += render_template("navigation.html", origin=origin, loc = loc, hide_title=not title, productes=productes, logout = is_admin, n_carret = None)
+    print(carret.carret)
     return html
 
 
@@ -493,12 +498,19 @@ def mostrar_peca(lan, id, opcions=None):
     loc.update(lan)
     productes.update(loc)
     producte = productes.get_single(id)
+    print(opcions)
+    print(len(request.args))
     if opcions is None:
+
         opcions = {}
         opcions["material"] = request.args.get("material")
         opcions["variacio"] = request.args.get("variacio")
         opcions["talla"] = request.args.get("talla")
 
+        opcions_url = "?"+"&".join([key + "=" + str(value) for key, value in opcions.items()])
+        print(opcions_url)
+        if len(request.args) == 0:
+            return redirect("/"+loc.lan+"/productes/"+id+"/"+opcions_url)
     html = render_template("producte.html", producte=producte, loc = loc, opcions = opcions)
     html += render_template("galeria.html", productes=productes.filtrats(collecio=producte.collecio),
                             titol=producte.collecio.capitalize(),  no_head=True,  loc=loc)
@@ -516,21 +528,6 @@ def mostrar_tot(lan):
 
 
 
-
-
-
-
-
-@app.route("/<lan>/projecte/")
-def projecte(lan):
-    loc.update(lan)
-    html = render_template("projecte.html", loc=loc)
-    return html + navigation()
-@app.route("/<lan>/contacte/")
-def contatce(lan):
-    loc.update(lan)
-    html = render_template("contacte.html", loc=loc)
-    return html + navigation()
 
 
 @app.route("/<lan>/carret/")
@@ -564,6 +561,19 @@ def eliminar_del_carret(lan, id2, opcions):
 
 
 
+
+
+
+@app.route("/<lan>/projecte/")
+def projecte(lan):
+    loc.update(lan)
+    html = render_template("projecte.html", loc=loc)
+    return html + navigation()
+@app.route("/<lan>/contacte/")
+def contatce(lan):
+    loc.update(lan)
+    html = render_template("contacte.html", loc=loc)
+    return html + navigation()
 
 
 
