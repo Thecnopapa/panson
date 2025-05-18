@@ -229,8 +229,27 @@ class Carret():
                     self.preferits = json.loads(favourites_str)
                 except:
                     pass
-        self.save_cart()
         self.restored = True
+
+
+    def move_to_favorites(self, resp=None):
+        print("Moving to favourites")
+        for item in self.carret.values():
+            print(item)
+            if item["producte"].id not in self.preferits:
+                self.preferits.append(item["producte"].id)
+        self.carret = {}
+        self.n_items = 0
+        self.item_list = []
+        return self.update(save=True, resp=resp)
+
+
+
+    def empty_cart(self,resp=None):
+        self.carret = {}
+        self.n_items = 0
+        self.item_list = []
+        self.update(save=True ,resp=resp)
 
 
     def generate_items(self):
@@ -268,13 +287,18 @@ class Carret():
             l.append((item["producte"].id, item["quantity"], item["id2"]))
         return l
 
-    def update(self):
+    def update(self, save=False, resp=None, restore=False):
         print("Updating carret...")
-        if not self.restored:
+        if not self.restored or restore:
             self.restore_from_cookies()
         self.generate_items()
         self.count_items()
         self.item_list = self.get_simple_list()
+        if save:
+            if resp is None:
+                resp = make_response()
+            resp = self.save_cart(resp=resp)
+        return resp
 
 
     def add_producte_carret(self, id, opcions_seleccionades={},resp=None,quantitat = 1, save_cart=True):
@@ -298,8 +322,11 @@ class Carret():
     def save_cart(self, resp=None):
         print("Saving cart")
         print(self.item_list)
+        print(self.preferits)
         if resp is None:
             resp = make_response()
+        elif type(resp) is str:
+            resp = make_response(resp)
         try:
             resp.set_cookie("cart", json.dumps(self.item_list))
             resp.set_cookie("favourites", json.dumps(self.preferits))
@@ -644,6 +671,22 @@ def checkout(lan):
     from payments import stripe_checkout
     return stripe_checkout(items, loc=loc)
 
+
+@app.route("/<lan>/carret/checkout/success/")
+def stripe_success(lan):
+    loc.update(lan)
+    html = render_template("success.html", loc=loc)
+    html += navigation()
+    resp = carret.move_to_favorites(resp=html)
+    return resp
+
+
+@app.route("/<lan>/carret/checkout/cancel/")
+def stripe_cancel(lan):
+    loc.update(lan)
+    html = render_template("cancel.html", loc=loc)
+    html += navigation()
+    return html
 
 
 

@@ -14,3 +14,4 @@ stripe
 
 requests~=2.32.3
 firebase-admin~=6.8.0
+

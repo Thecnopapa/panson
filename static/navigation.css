@@ -28,6 +28,8 @@ body {
     width: 100dvw;+-
     display: flex;
     flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
 }
 
