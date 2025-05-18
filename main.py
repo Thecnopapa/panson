@@ -200,6 +200,25 @@ class Carret():
 
     def generate_items(self):
         self.items = []
+        for id, product in self.carret.items():
+            i = {
+                "price_data": {
+                    "currency": "eur",
+
+                    "unit_amount":100,
+                    "product_data": {
+                        "name": product["producte"].id,
+                        #"description": "Talla: {} / Material: {} / Color: {}".format(product["talla"], product["material"], product["color"]),
+                        "metadata": product,
+                    }
+                },
+                "quantity": product["quantity"],
+                "adjustable_quantity": {
+                    "enabled": True,
+                }
+            }
+            self.items.append(i)
+
 
     def count_items(self):
         if len(self.carret) != 0:
@@ -568,8 +587,14 @@ def eliminar_del_carret(lan, id2, opcions):
 
 
 
+@app.route("/<lan>/carret/checkout/")
+def checkout(lan):
+    loc.update(lan)
+    carret.update()
+    items = carret.items
 
-
+    from payments import stripe_checkout
+    return stripe_checkout(items, loc=loc)
 
 
 

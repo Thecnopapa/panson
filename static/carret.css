@@ -25,5 +25,8 @@
     margin-bottom: 10vh;
     background-color: rgba(0, 0, 0, 0.2);
     padding: 2dvh;
-
+}
+.footer-carret {
+    position: relative;
+    margin-top: 10dvh;
 }

@@ -9,6 +9,7 @@ google-cloud-storage
 flask~=3.1.0
 gunicorn
 unidecode
+stripe
 
 
 requests~=2.32.3

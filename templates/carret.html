@@ -26,9 +26,16 @@
                 <div class="producte-carret-preu">PREU: {{ item.preu }}</div>
 
 
-
             </div>
         {% endfor %}
     </div>
+
+<div class="footer-carret">
+    {% if carret.n_items != 0 %}
+        <button class="checkout-button" onclick="location.href='/{{ loc.lan }}/carret/checkout/'">CHECKOUT</button>
+    {% endif %}
 </div>
-{{ carret }}
+</div>
+
+
+
