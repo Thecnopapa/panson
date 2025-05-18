@@ -1,7 +1,6 @@
 import os
 import json
 
-from google.api_core.gapic_v1 import method
 
 from utilities import *
 import flask
@@ -196,9 +195,11 @@ class Carret():
         self.item_list = []
         self.items = []
         self.n_items = 0
+        self.restored = False
 
 
     def restore_from_cookies(self):
+        print("Restoring carret from cookies")
         cart_str = request.cookies.get("cart")
         favourites_str = request.cookies.get("favourites")
         print(cart_str)
@@ -229,6 +230,7 @@ class Carret():
                 except:
                     pass
         self.save_cart()
+        self.restored = True
 
 
     def generate_items(self):
@@ -267,13 +269,16 @@ class Carret():
         return l
 
     def update(self):
-        self.restore_from_cookies()
+        print("Updating carret...")
+        if not self.restored:
+            self.restore_from_cookies()
         self.generate_items()
         self.count_items()
         self.item_list = self.get_simple_list()
 
 
     def add_producte_carret(self, id, opcions_seleccionades={},resp=None,quantitat = 1, save_cart=True):
+        print("adding producte", save_cart)
         producte = productes.get_single(id)
         new_producte = {"producte":producte,
                         "quantity":quantitat,}
@@ -288,10 +293,11 @@ class Carret():
         else:
             self.carret[id2] = new_producte
         if save_cart:
-            self.update()
             return self.save_cart(resp)
 
     def save_cart(self, resp=None):
+        print("Saving cart")
+        print(self.item_list)
         if resp is None:
             resp = make_response()
         try:
