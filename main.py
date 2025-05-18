@@ -190,8 +190,9 @@ class Productes():
 class Carret():
     def __init__(self):
         self.preferits = []
-        self.carret = []
+        self.carret = {}
         self.items = []
+        self.n_items = 0
 
 
     def restore_from_cookies(self):
@@ -200,14 +201,28 @@ class Carret():
     def generate_items(self):
         self.items = []
 
+    def count_items(self):
+        for item in self.carret.values():
+            self.n_items += item.quantity
+
+    def update(self):
+        self.generate_items()
+        self.count_items()
+
     def add_producte_carret(self, id, opcions_seleccionades={},resp=None,quantitat = 1,):
         producte = productes.get_single(id)
         new_producte = {"producte":producte,
                         "quantitat":quantitat,}
-        for key, value in opcions_seleccionades.items():
+        id2 = producte.id
+        for key, value in sorted(opcions_seleccionades.items(), key=lambda item: item[0]):
             new_producte[key] = value
-        self.carret.append(new_producte)
-        self.generate_items()
+            id2 += "_{}".format(value)
+        new_producte["id2"] = id2
+        if id2 in self.carret.keys():
+            self.carret[id2]["quantitat"] += quantitat
+        else:
+            self.carret[id2] = new_producte
+        self.update()
         return self.save_cart(resp)
 
     def save_cart(self, resp=None):
@@ -363,11 +378,12 @@ def admin_page():
 def navigation(html = "", title = True, back = False, is_admin = False):
     global loc
     global admin
+    global carret
     if back:
         origin = None
     else:
         origin = "hide"
-    html += render_template("navigation.html", origin=origin, loc = loc, hide_title=not title, productes=productes, logout = is_admin)
+    html += render_template("navigation.html", origin=origin, loc = loc, hide_title=not title, productes=productes, logout = is_admin, n_carret = None)
     return html
 
 
@@ -526,17 +542,22 @@ def veure_carret(lan):
 @app.post("/<lan>/productes/<id>/<opcions>/afegir_al_carret")
 def afegir_al_carret(lan, id, opcions):
     opcions_dict = string_to_dict(opcions)
-    opcions_url = "&".join([(key + "=" + value) for key, value in opcions_dict.items()])
+    #opcions_url = "&".join([(key + "=" + value) for key, value in opcions_dict.items()])
     if request.method == "POST":
         resp = redirect("/{}/productes/{}/?{}".format(lan, id, opcions))
-        print(resp)
         resp = carret.add_producte_carret(id, opcions_dict, resp=resp)
-        print(resp)
         return resp
 
 
 
-
+@app.post("/<lan>/carret/id2/eliminar_del_carret")
+def eliminar_del_carret(lan, id2, opcions):
+    opcions_dict = string_to_dict(opcions)
+    #opcions_url = "&".join([(key + "=" + value) for key, value in opcions_dict.items()])
+    if request.method == "POST":
+        resp = redirect("/{}/carret/".format(lan))
+        resp = carret.remove_producte_carret(id2, opcions_dict, resp=resp)
+        return resp
 
 
 

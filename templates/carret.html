@@ -14,11 +14,12 @@
 <div class="content-carret">
     <div class="title-carret">CARRET</div>
     <div class="llista-carret">
-        {% for item in carret.carret %}
+        {% for item in carret.carret.values() %}
             <div class="producte-carret">
                 <div class="producte-carret-nom">NOM: {{ item.producte.nom }}</div>
-                <div class="producte-carret-id">ID: {{ item.producte.id }}</div>
+                <div class="producte-carret-id">ID: {{ item.id2 }}</div>
                 <div class="producte-carret-quantitat">QUANTITAT: {{ item.quantitat }}</div>
+                <div class="producte-carret-talls">Talla: {{ item.talla }}</div>
                 <div class="producte-carret-material">MATERIAL: {{ item.material}}</div>
                 <div class="producte-carret-variacio">VARIACIO: {{ item.variacio}}</div>
                 <div class="producte-carret-color">COLOR: {{ item.color }}</div>
