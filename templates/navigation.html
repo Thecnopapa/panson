@@ -14,8 +14,8 @@
         <button class="dropbtn" id="menu-button"> {{ loc.nav_botiga }} </button>
         <button class="menu-simple" id="menu-button-simple"><img class="icon-menu-simple" src="/static/media/menu.svg" alt="cart"><br> </button>
         <div class="menu" id="menu" onclick="event.stopPropagation()">
-            <button class="menu-page" id="projecte-menu" onclick="location.href='/{{ loc.lan }}/projecte'"> {{ loc.nav_projecte }}</button>
             <button class="menu-page" id="contacte-menu" onclick="location.href='/{{ loc.lan }}/contacte'">{{ loc.nav_contacte }}</button>
+            <button class="menu-page" id="projecte-menu" onclick="location.href='/{{ loc.lan }}/projecte'"> {{ loc.nav_projecte }}</button>
             <div class="submenu" id="collecions-menu">
                 <div class="titol-submenu" onclick="location.href='/{{ loc.lan }}/collecions'">{{ loc.nav_collecions }}</div>
                 {% if productes %}
@@ -33,8 +33,9 @@
                 {% endif %}
             </div>
         </div>
-        <button class="dropbtn" id="contacte" onclick="location.href='/{{ loc.lan }}/contacte'">{{ loc.nav_contacte }}</button>
+
         <button class="dropbtn" id="projecte" onclick="location.href='/{{ loc.lan }}/projecte'"> {{ loc.nav_projecte }}</button>
+        <button class="dropbtn" id="contacte" onclick="location.href='/{{ loc.lan }}/contacte'">{{ loc.nav_contacte }}</button>
     </div>
     {% if hide_title %}
     {% else %}
@@ -58,7 +59,7 @@
                 </div>
             {% endif %}
         {% endfor %}
-    <div class = "cart"><img class="shopping-cart" src="/static/media/bag.svg" alt="cart"></div>
+    <div class = "cart"><img class="shopping-cart" src="/static/media/bag-black.svg" alt="cart"></div>
     </div>
 
 </div>

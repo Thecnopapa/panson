@@ -289,7 +289,7 @@ def carregar_totes_collecions(loc):
                 nom = read_data_type(data["fields"]["nom"])
         all_data.append((id, nom))
     html += render_template("collecions.html", data=all_data, loc=loc)
-    html += render_template("navigation.html", loc = loc)
+    html += navigation()
     return html
 
 
@@ -381,7 +381,7 @@ def index(lan):
     html =  render_template('index.html', loc = loc, slides= slide_list)
 
     html += render_template("galeria.html", productes=productes.get_all(),
-                            titol=loc.ind_titol_galeria, subtitol=None,  no_head=True,  loc=loc)
+                            titol=loc.ind_titol_galeria,  no_head=True,  loc=loc)
     html += navigation(title=False)
     return html
 
@@ -427,7 +427,7 @@ def collections(lan):
 @app.route("/<lan>/collecions/<col>/")
 def productes_per_col(lan, col):
     loc.update(lan)
-    html = render_template("galeria.html",productes = productes.filtrats(collecio=col), titol=col.capitalize(), subtitol=loc.col_subtitiol, loc=loc)
+    html = render_template("galeria.html",productes = productes.filtrats(collecio=col), titol=col.capitalize(), loc=loc)
     if html:
         return html + navigation()
 
@@ -455,7 +455,7 @@ def mostrar_peca(lan, id):
 
     html = render_template("producte.html", producte=producte, loc = loc, opcions = opcions)
     html += render_template("galeria.html", productes=productes.filtrats(collecio=producte.collecio),
-                            titol=producte.collecio.capitalize(), subtitol=loc.gal_collecio,  no_head=True,  loc=loc)
+                            titol=producte.collecio.capitalize(),  no_head=True,  loc=loc)
 
     if html:
         return html + navigation()
@@ -464,7 +464,7 @@ def mostrar_peca(lan, id):
 @app.route("/<lan>/productes/")
 def mostrar_tot(lan):
     loc.update(lan)
-    html = render_template("galeria.html", productes = productes.get_all(), titol=loc.gal_totes, subtitol=loc.gal_subtitol, loc=loc)
+    html = render_template("galeria.html", productes = productes.get_all(), titol=loc.gal_totes, loc=loc)
     if html:
         return html + navigation()
 
