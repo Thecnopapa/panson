@@ -139,9 +139,12 @@ class Opcions:
     def calcular_preu(self, material = None, variacio = None, color = None):
         p = 0
         incomplet = False
+        print(material, variacio, color)
+        print(type(material), type(variacio), type(color))
         if material is None:
             if self.opcions["materials"] is not None:
                 incomplet = True
+                print([material["preu"] for material in self.opcions["materials"].values()])
                 p += min([material["preu"] for material in self.opcions["materials"].values()])
         else: 
             p += self.opcions["materials"][material]["preu"]
@@ -156,11 +159,12 @@ class Opcions:
             for v in variacio:
                 p += self.opcions["variacions"][v]["preu"]
 
-        if color is not None:
+        if color is None:
             if self.opcions["colors"] is not None:
                 incomplet = True
                 p += min([color["preu"] for color in self.opcions["colors"].values()]) * self.opcions["n_colors"]
         else:
+            print(color, type(color))
             if type(color) is str:
                 color = [color]
             for c in color:
@@ -295,15 +299,19 @@ class Carret():
                     for c in json.loads(cart_str):
                         op = c[2].split("&")[1:]
                         op = {o.split(":")[0]:o.split(":")[1] for o in op}
+
                         opcions = dict(color = None,
                                        material = None,
                                        talla = None,
                                        variacio = None,)
                         for key, value in op.items():
-                            try:
-                                opcions[key] = int(value)
-                            except:
-                                opcions[key] = str(value)
+                            if value == "None":
+                                opcions[key] = None
+                            else:
+                                try:
+                                    opcions[key] = int(value)
+                                except:
+                                    opcions[key] = str(value)
                         self.add_producte_carret(id=c[0], opcions_seleccionades=opcions, quantitat=c[1], save_cart=False)
 
                 except:
@@ -345,6 +353,7 @@ class Carret():
             price = product["producte"].calcular_preu(material=product["material"],
                                                       variacio=product["variacio"],
                                                       color=product["color"])[0]*100
+            description = " / ".join(["{}: {}".format(d, product[d]) for d in ["talla", "material", "color", "variacio"]])
             i = {
                 "price_data": {
                     "currency": "eur",
@@ -352,7 +361,7 @@ class Carret():
                     "unit_amount": price,
                     "product_data": {
                         "name": product["producte"].id,
-                        #"description": "Talla: {} / Material: {} / Color: {}".format(product["talla"], product["material"], product["color"]),
+                        "description": description,
                         "metadata": product,
                     }
                 },
@@ -398,6 +407,8 @@ class Carret():
                         "quantity":quantitat,}
         id2 = producte.id
         for key, value in sorted(opcions_seleccionades.items(), key=lambda item: item[0]):
+            if value == "None":
+                value = None
             new_producte[key] = value
             id2 += "&{}:{}".format(key,value)
         new_producte["id2"] = id2
@@ -700,6 +711,7 @@ def mostrar_peca(lan, id, opcions=None):
         opcions["material"] = request.args.get("material")
         opcions["variacio"] = request.args.get("variacio")
         opcions["talla"] = request.args.get("talla")
+        opcions["color"] = request.args.get("color")
 
         opcions_url = "?"+"&".join([key + "=" + str(value) for key, value in opcions.items()])
         print(opcions_url)
