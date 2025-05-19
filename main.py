@@ -75,6 +75,96 @@ class Localization():
             return self
 
 
+
+class Opcions:
+    def __init__(self, opcions_raw):
+        opcions= dict(talles = None,
+                      totes_les_talles = False,
+                      materials = None,
+                      variacions = None,
+                      vars_exclusivament = False,
+                      colors = None,
+                      n_colors = 1)
+        if "talles" in opcions_raw:
+            ts = {}
+            for key, value in opcions_raw["talles"].items():
+                if key == "totes":
+                    opcions["totes_les_talles"] = value
+                else:
+                    ts[key] = value
+            opcions["talles"] = ts
+        if "materials" in opcions_raw:
+            materials = opcions_raw["materials"]
+        if "variacions" in opcions_raw:
+            vs = {}
+            for key, value in opcions_raw["variacions"].items():
+                if key == "exclusivament":
+                    opcions["vars_exclusivament"] = value
+                else:
+                    if "preu" not in value:
+                        value["preu"] = 0
+                    vs[key] = value
+            opcions["variacions"] = vs
+        if "colors" in opcions_raw:
+            cols = []
+            for key, value in opcions_raw["colors"].items():
+                if key == "n_colors":
+                    opcions["n_colors"] = value
+                else:
+                    if "preu" not in value:
+                        value["preu"] = 0
+                    cols[key] = value
+            opcions["colors"] = cols
+        self.opcions = opcions
+        self.calcular_preu_minim()
+
+    def calcular_preu_mimim(self):
+        p = 0
+        if self.opcions["materials"] is not None:
+            p += min([material["preu"] for material in self.opcions["materials"]])
+        if self.opcions["variacions"] is not None and self.opcions["vars_exclusivament"]:
+            p += min([variacio["preu"] for variacio in self.opcions["variaciions"]])
+        if self.opcions["colors"] is not None:
+            p += min([color["preu"] for color in self.opcions["colors"]]) * self.opcions["n_colors"]
+        self.preu_min = p
+
+    def calcular_preu(material = None, variacio = None, color = None):
+        p = 0
+        incomplet = False
+        if material is None:
+            if self.opcions["materials"] is not None:
+                incomplet = True
+                p += min([material["preu"] for material in self.opcions["materials"]])
+        else: 
+            p += self.opcions["materials"][material]["preu"]
+
+        if variacio is None:
+            if self.opcions["variacions"] is not None:
+                incomplet = True
+                p += min([variacio["preu"] for variacio in self.opcions["variacions"]])
+        else:
+            if type(variacio) is str:
+                variacio = [variacio]
+            for v in variacio:
+                p += self.opcions["variacions"][v]["preu"]
+
+        if color is not None:
+            if self.opcions["colors"] is not None:
+                incomplet = True
+                p += min([color["preu"] for color in self.opcions["colors"]]) * self.opcions["n_colors"]
+        else:
+            if type(color) is str:
+                color = [color]
+            for c in color:
+                p += self.opcions["colors"[c]["preu"]
+        return p, incomplet
+
+
+
+
+
+        
+
 class Variacions():
     def __init__(self, materials):
         self.materials = materials
