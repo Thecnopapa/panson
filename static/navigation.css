@@ -287,7 +287,6 @@ body {
 @media screen and (orientation: portrait) {
     .navigation {
         justify-content: center;
-        background-color: rgba(255, 255, 255, 0);
     }
     .menu-simple {
         display: flex;
@@ -306,14 +305,11 @@ body {
     .navigation-left {
         display: flex;
         width: 100dvw;
-        background-color: rgba(0, 0, 0, 0.2);
         justify-content: flex-start;
     }
-    .navigation-right {
+    .language {
         display: none;
-        position: fixed;
-        top: 0;
-        right: 0;
+
 
     }
 
