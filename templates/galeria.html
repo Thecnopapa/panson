@@ -33,21 +33,21 @@
                 <div class="detalls-galeria">
                     <div class="nom">{{ producte.nom }}&nbsp;</div>
                     <div class="subtiol">{{ producte.subtitol }}&nbsp;</div>
-                    {% if producte.mats %}
+                    {% if producte.opcions.materials %}
                         <div class="colors">
-                        {% for mat in producte.mats %}
+                        {% for mat in producte.opcions.materials %}
                             <span class="cercle"  onclick="event.stopPropagation(location.href='/{{ loc.lan }}/productes/{{ producte.id }}/?material={{ mat }}" style="background-color: {{ loc.colors[mat] }}"></span>
                         {% endfor %}
                         </div>
                     {% endif %}
-                    {% if producte.preu %}
+                    {% if producte.preu_minim %}
                         <div class="preu">
-                            {% if producte.desde %}
+                            {% if producte.preu_minim %}
                                 <div class="desde">{{ loc.gal_desde }}</div>
                             {% else %}
                                 <div class="desde">&nbsp;</div>
                             {% endif %}
-                            {{ data["preu"] }} &#8364; </div>
+                            {{ producte.preu_minim }} &#8364; </div>
                     {% else %}
                         <div class="preu">&nbsp;</div>
                     {% endif %}
