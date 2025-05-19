@@ -139,7 +139,7 @@ body {
     background-color: rgb(255, 255, 255);
     position: fixed;
     width: 20%;
-    height: 100dvh;
+    height: 94dvh;
     left: 0;
     top: 0;
     z-index: 5;
@@ -149,6 +149,7 @@ body {
 #menu-button:hover ~ #menu {
         display: flex;
     }
+
 #menu-button-simple:hover ~ #menu {
         display: flex;
     }
@@ -156,8 +157,18 @@ body {
     display: flex;
 }
 
+#contacte-menu {
+    margin-top:auto;
+}
+
 #contacte-menu, #projecte-menu {
     display: none;
+    align-items: flex-start;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    border-top: black solid 1px;
+    height: 5dvh;
+    align-items: center;
 }
 
 
@@ -294,7 +305,7 @@ body {
         display: none;
     }
     #contacte-menu, #projecte-menu {
-        display: inline-block;
+        display: flex;
     }
     #menu {
         width: 80%;
