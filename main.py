@@ -255,13 +255,16 @@ class Productes():
         return [dict(producte.__dict__) for producte in self.productes ]
 
     def filtrats(self, **filtres):
+        print("Filtrant:", filtres)
+        if len(filtres) == 0:
+            return self.get_all()
         filtrats = []
         for producte in self.productes:
             for arg, values in filtres.items():
                 if type(values) is not list:
                     values = [values]
                 for value in values:
-                    if producte.__getattribute__(arg) == value:
+                    if producte.__getattribute__(arg) == value.lower():
                         filtrats.append(producte)
                         break
         return filtrats
@@ -728,7 +731,10 @@ def mostrar_peca(lan, id, opcions=None):
 @app.route("/<lan>/productes/")
 def mostrar_tot(lan):
     loc.update(lan)
-    html = render_template("galeria.html", productes = productes.get_all(), titol=loc.gal_totes, loc=loc)
+    print("ARGS:")
+    print(request.args)
+
+    html = render_template("galeria.html", productes = productes.filtrats(**request.args), titol=loc.gal_totes, loc=loc)
     if html:
         return html + navigation()
 
