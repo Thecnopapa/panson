@@ -44,9 +44,9 @@
                     <div class = "materials">
                         {% for mat in producte.mats %}
                             {% if  opcions["material"] == mat %}
-                                <button class="material-boto" id="selected-material" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"?material={}&variacio={}&talla={}".format(mat, opcions["variacio"], opcions["talla"]) }}'"></button>
+                                <button class="material-boto" id="selected-material" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"?material={}&variacio={}&talla={}&color={}".format(mat, opcions["variacio"], opcions["talla"], opcions["color"]) }}'"></button>
                             {%  else %}
-                                <button class="material-boto" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"?material={}&variacio={}&talla={}".format(mat, opcions["variacio"], opcions["talla"]) }}'"></button>
+                                <button class="material-boto" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"?material={}&variacio={}&talla={}&color={}".format(mat, opcions["variacio"], opcions["talla"], opcions["color"]) }}'"></button>
                             {%  endif %}
                         {% endfor %}
                     </div>

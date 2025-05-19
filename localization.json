@@ -124,7 +124,13 @@
 
   "colors": {
     "plata": "silver",
-    "or": "gold"
+    "or": "gold",
+    "verd": "green",
+    "blau": "blue",
+    "taronja": "orange",
+    "vermell": "red",
+    "blanc": "lightgray",
+    "groc": "yellow"
   },
 
   "tipus": {

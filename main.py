@@ -115,7 +115,7 @@ class Opcions:
             opcions["variacions"] = vs
         if "colors" in opcions_raw:
             cols = {}
-            for key, value in opcions_raw["colors"].items():
+            for key, value in sorted(opcions_raw["colors"].items(),key= lambda x: x[0]):
                 if key == "n_colors":
                     opcions["n_colors"] = value
                 else:
@@ -295,7 +295,10 @@ class Carret():
                     for c in json.loads(cart_str):
                         op = c[2].split("&")[1:]
                         op = {o.split(":")[0]:o.split(":")[1] for o in op}
-                        opcions = {}
+                        opcions = dict(color = None,
+                                       material = None,
+                                       talla = None,
+                                       variacio = None,)
                         for key, value in op.items():
                             try:
                                 opcions[key] = int(value)
@@ -338,11 +341,15 @@ class Carret():
     def generate_items(self):
         self.items = []
         for id, product in self.carret.items():
+            print(product)
+            price = product["producte"].calcular_preu(material=product["material"],
+                                                      variacio=product["variacio"],
+                                                      color=product["color"])[0]*100
             i = {
                 "price_data": {
                     "currency": "eur",
 
-                    "unit_amount":100,
+                    "unit_amount": price,
                     "product_data": {
                         "name": product["producte"].id,
                         #"description": "Talla: {} / Material: {} / Color: {}".format(product["talla"], product["material"], product["color"]),
