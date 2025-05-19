@@ -82,7 +82,7 @@ body {
 
 .navigation-left {
     display: flex;
-    width: 60dvh;
+    width: fit-content;
     left: 0;
     top: 0;
     position: fixed;
