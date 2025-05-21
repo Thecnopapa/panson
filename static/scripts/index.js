@@ -51,7 +51,7 @@ function updateScroll() {
         navButtons[2].style.color = "white";
         lanButtons[0].style.color = "white";
         lanButtons[1].style.color = "white";
-	if (cart_circle.length != 0){
+	if (cartCircle.length != 0){
         	cartCircle[0].style.color = "black";
         	cartCircle[0].style.backgroundColor = "white";
 	}
