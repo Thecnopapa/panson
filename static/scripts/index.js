@@ -38,8 +38,10 @@ function updateScroll() {
         navButtons[2].style.color = "black";
         lanButtons[0].style.color = "black";
         lanButtons[1].style.color = "black";
-        cartCircle[0].style.color = "white";
-        cartCircle[0].style.backgroundColor = "black";
+	if (cartCircle.length != 0) {
+        	cartCircle[0].style.color = "white";
+        	cartCircle[0].style.backgroundColor = "black";
+	}
         cartButton[0].src = "/static/media/bag-black.svg";
         menuButton[0].src = "/static/media/menu-black.svg";
         title.style.backgroundImage = "url(\"/static/media/logo-complet.png\")";
@@ -49,8 +51,10 @@ function updateScroll() {
         navButtons[2].style.color = "white";
         lanButtons[0].style.color = "white";
         lanButtons[1].style.color = "white";
-        cartCircle[0].style.color = "black";
-        cartCircle[0].style.backgroundColor = "white";
+	if (cart_circle.length != 0){
+        	cartCircle[0].style.color = "black";
+        	cartCircle[0].style.backgroundColor = "white";
+	}
         cartButton[0].src = "/static/media/bag.svg";
         menuButton[0].src = "/static/media/menu-white.svg";
         title.style.backgroundImage = "url(\"/static/media/logo-complet-blanc.png\")";
