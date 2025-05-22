@@ -35,7 +35,6 @@ function updateScroll() {
         navButtons[0].style.color = "black";
         navButtons[1].style.color = "black";
         navButtons[2].style.color = "black";
-        navButtons[2].style.color = "black";
         lanButtons[0].style.color = "black";
         lanButtons[1].style.color = "black";
 	if (cartCircle.length != 0) {
@@ -45,10 +44,14 @@ function updateScroll() {
         cartButton[0].src = "/static/media/bag-black.svg";
         menuButton[0].src = "/static/media/menu-black.svg";
         title.style.backgroundImage = "url(\"/static/media/logo-complet.png\")";
+        title.style.zIndex = 10;
     } else {
-        navButtons[0].style.color = "white";
-        navButtons[1].style.color = "white";
-        navButtons[2].style.color = "white";
+        if (!(menu.classList.contains('open'))) {
+            navButtons[0].style.color = "white";
+            navButtons[1].style.color = "white";
+            navButtons[2].style.color = "white";
+            menuButton[0].src = "/static/media/menu-white.svg";
+        }
         lanButtons[0].style.color = "white";
         lanButtons[1].style.color = "white";
 	if (cartCircle.length != 0){
@@ -56,8 +59,9 @@ function updateScroll() {
         	cartCircle[0].style.backgroundColor = "white";
 	}
         cartButton[0].src = "/static/media/bag.svg";
-        menuButton[0].src = "/static/media/menu-white.svg";
+
         title.style.backgroundImage = "url(\"/static/media/logo-complet-blanc.png\")";
+        title.style.zIndex = 4;
     }
 
 };

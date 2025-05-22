@@ -134,26 +134,23 @@ body {
 
 
 #menu {
-    display: none;
+    display: flex;
     flex-direction: column;
     background-color: rgb(255, 255, 255);
     position: fixed;
-    width: 20%;
+    width: 0;
     height: 94dvh;
     left: 0;
     top: 0;
     z-index: 5;
     padding-top: 6dvh;
+    transition: width 0.5s ease;
 }
 
-#menu-button:hover ~ #menu {
-        display: flex;
-    }
-
-#menu-button-simple:hover ~ #menu {
-        display: flex;
-    }
-#menu:hover {
+.open {
+    width: 100%;
+}
+.shown {
     display: flex;
 }
 
@@ -169,6 +166,7 @@ body {
     border-top: black solid 1px;
     height: 5dvh;
     align-items: center;
+    font-size: 1.5dvh;
 }
 
 
@@ -265,12 +263,15 @@ body {
 
 
 }
-.icon-menu-simple:hover {
+.icon-menu-simple .open {
     transition: 0.3s ease;
-    transform: rotate(360deg);
+    transform: rotate(90deg);
 }
-
+. submenu {
+    display: none;
+}
 .titol-submenu {
+    display: block;
     font-size: 2dvh;
     padding-left: 1dvh;
     padding-bottom: 1dvh;
@@ -282,11 +283,13 @@ body {
     cursor: pointer;
 }
 .item-submenu {
+    display: block;
     font-size: 2dvh;
     padding-left: 2dvh;
     cursor: pointer;
     padding-bottom: 1dvh;
     text-underline-offset: 0.5dvh;
+    transition: display 1s ease;
 }
 .item-submenu:hover {
     text-decoration: underline;
@@ -298,17 +301,12 @@ body {
     .navigation {
         justify-content: center;
     }
-    .menu-simple {
-        display: flex;
-    }
+
     .dropbtn {
         display: none;
     }
-    #contacte-menu, #projecte-menu {
+    .menu-simple {
         display: flex;
-    }
-    #menu {
-        width: 80%;
     }
 
 
@@ -319,8 +317,6 @@ body {
     }
     .language {
         display: none;
-
-
     }
 
 }

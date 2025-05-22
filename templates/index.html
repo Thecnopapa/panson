@@ -8,6 +8,8 @@
     <title>PANSON</title>
     <script src="/static/scripts/jquery.js"></script>
     <link href='/static/navigation.css' rel='stylesheet'>
+    <script defer type="text/javascript" src="/static/scripts/navigation.js"></script>
+
     <link href='/static/slideshow.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/static/scripts/slideshow.js"></script>
     <link href='/static/galeria.css' rel='stylesheet'>
@@ -20,9 +22,6 @@
 <body>
     <div class="content-index">
         <div class = "slideshow">
-            <div class="slide-content">
-                <div class="first_slide"></div>
-            </div>
             {% for slide_name, slide_url in slides %}
                 <div class="slide-content">
                     <div class="slide" style="background-image: url('{{ slide_url }}')"></div>
