@@ -5,8 +5,8 @@ const botoMenu = document.getElementById('menu-button');
 const botoProjecte = document.getElementById('projecte');
 const botoContacte = document.getElementById('contacte');
 const botoMenuSimple = document.getElementsByClassName('icon-menu-simple')[0];
-const collecionsMenu = document.getElementById("collecions-menu");
-const pecesMenu = document.getElementById('peces-menu');
+const collecionsMenu = document.getElementById("contacte-menu");
+const pecesMenu = document.getElementById('projecte-menu');
 const menuContent = document.getElementsByClassName('menuConetnt');
 let c
 for (c in menuContent) {
