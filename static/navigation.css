@@ -147,12 +147,7 @@ body {
     transition: width 0.5s ease;
 }
 
-.open {
-    width: 100%;
-}
-.shown {
-    display: flex;
-}
+
 
 #contacte-menu {
     margin-top:auto;
@@ -270,8 +265,10 @@ body {
 . submenu {
     display: none;
 }
+
+
 .titol-submenu {
-    display: block;
+    display: none;
     font-size: 2dvh;
     padding-left: 1dvh;
     padding-bottom: 1dvh;
@@ -283,7 +280,7 @@ body {
     cursor: pointer;
 }
 .item-submenu {
-    display: block;
+    display: none;
     font-size: 2dvh;
     padding-left: 2dvh;
     cursor: pointer;
@@ -295,7 +292,9 @@ body {
     text-decoration: underline;
 
 }
-
+.shown {
+    display: block;
+}
 
 @media screen and (orientation: portrait) {
     .navigation {

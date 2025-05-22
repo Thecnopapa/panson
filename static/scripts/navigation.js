@@ -7,14 +7,15 @@ const botoContacte = document.getElementById('contacte');
 const botoMenuSimple = document.getElementsByClassName('icon-menu-simple')[0];
 const collecionsMenu = document.getElementById("contacte-menu");
 const pecesMenu = document.getElementById('projecte-menu');
-const menuContent = document.getElementsByClassName('menuConetnt');
-let c
-for (c in menuContent) {
-    c.addEventListener('mouseover', openMenu())
+const menuContent = document.getElementsByClassName('menu-content');
+
+for(var i = 0; i < menuContent.length; i++) {
+    menuContent[i].addEventListener('mouseover', openMenu())
 }
 
 
 menu.style.width = "0px";
+closeMenu();
 function openMenu(event) {
 
     console.log('open menu');
@@ -34,7 +35,9 @@ function openMenu(event) {
     }catch(e){}
     collecionsMenu.style.display = "block";
     pecesMenu.style.display = "block";
-
+    for(var i = 0; i < menuContent.length; i++) {
+        menuContent[i].classList.add('shown');
+    }
 }
 
 
@@ -51,6 +54,9 @@ function closeMenu() {
     } catch (error) {}
     collecionsMenu.style.display = "none";
     pecesMenu.style.display = "none";
+    for(var i = 0; i < menuContent.length; i++) {
+        menuContent[i].classList.remove('shown');
+    }
 
 
 }
