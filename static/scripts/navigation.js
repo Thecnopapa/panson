@@ -5,8 +5,8 @@ const botoMenu = document.getElementById('menu-button');
 const botoProjecte = document.getElementById('projecte');
 const botoContacte = document.getElementById('contacte');
 const botoMenuSimple = document.getElementsByClassName('icon-menu-simple')[0];
-const collecionsMenu = document.getElementById("contacte-menu");
-const pecesMenu = document.getElementById('projecte-menu');
+const contacteMenu = document.getElementById("contacte-menu");
+const projecteMenu = document.getElementById('projecte-menu');
 const menuContent = document.getElementsByClassName('menu-content');
 
 for(var i = 0; i < menuContent.length; i++) {
@@ -21,6 +21,8 @@ function openMenu(event) {
     console.log('open menu');
     if(window.innerHeight > window.innerWidth){
        menu.style.width = "80%";
+       contacteMenu.style.display = "block";
+        projecteMenu.style.display = "block";
 }
     else {
         menu.style.width = String(navLeft.offsetWidth) + "px";
@@ -33,8 +35,7 @@ function openMenu(event) {
         menu.classList.add('open');
         botoMenuSimple.classList.add('open');
     }catch(e){}
-    collecionsMenu.style.display = "block";
-    pecesMenu.style.display = "block";
+
     for(var i = 0; i < menuContent.length; i++) {
         menuContent[i].classList.add('shown');
     }
@@ -52,8 +53,8 @@ function closeMenu() {
         menu.classList.remove('open');
         botoMenuSimple.classList.remove('open');
     } catch (error) {}
-    collecionsMenu.style.display = "none";
-    pecesMenu.style.display = "none";
+    contacteMenu.style.display = "none";
+    projecteMenu.style.display = "none";
     for(var i = 0; i < menuContent.length; i++) {
         menuContent[i].classList.remove('shown');
     }
