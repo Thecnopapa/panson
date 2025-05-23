@@ -145,6 +145,7 @@ body {
     z-index: 5;
     padding-top: 6dvh;
     transition: width 0.5s ease;
+    box-shadow: 10px 10px 8px rgba(136, 136, 136, 0.5);
 }
 
 
