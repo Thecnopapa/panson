@@ -58,9 +58,8 @@ function closeMenu() {
     projecteMenu.style.display = "none";
     for(var i = 0; i < menuContent.length; i++) {
         menuContent[i].classList.remove('shown');
-memuOpen = false;
     }
-
+menuOpen = false;
 
 };
 
