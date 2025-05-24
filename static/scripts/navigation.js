@@ -1,4 +1,4 @@
-let menuOpen = False;
+let menuOpen = false;
 const menu = document.getElementById('menu');
 const navLeft = document.getElementById('nav-left');
 const botoMenu = document.getElementById('menu-button');
