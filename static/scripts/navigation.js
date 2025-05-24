@@ -64,7 +64,7 @@ memuOpen = False;
 
 }
 
-Function switchMenu(){
+function switchMenu(){
   if (menuOpen){
     closeMenu();
   } else {
