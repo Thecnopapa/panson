@@ -335,5 +335,7 @@ body {
     .language {
         display: none;
     }
-
+.request-cookies{
+    width: 100%;
+}
 }
