@@ -70,6 +70,7 @@ class Localization():
             global productes
             productes.update(self)
 
+
             return self
         else:
             return self
@@ -582,6 +583,7 @@ def navigation(html = "", title = True, back = False, is_admin = False):
     global loc
     global admin
     global carret
+    global cookies
     if back:
         origin = None
     else:
@@ -592,13 +594,26 @@ def navigation(html = "", title = True, back = False, is_admin = False):
     print("N_items:", n_carret)
 
 
-    html += render_template("navigation.html", origin=origin, loc = loc, hide_title=not title, productes=productes, logout = is_admin, n_carret = n_carret)
+    html += render_template("navigation.html", origin=origin, loc = loc, hide_title=not title,
+                            productes=productes, logout = is_admin, n_carret = n_carret, ask_cookies=not cookies.accepted)
     print(carret.carret)
     return html
 
 
 
+class Cookies:
+    def __init__(self):
+        self.accepted = False
 
+    def check_accepted(self):
+        self.accepted = bool(request.cookies.get('accepted_cookies'))
+        return self.accepted
+
+
+    def set_accepted(self, resp, value=True):
+        resp.set_cookie("accepted_cookies", str(value))
+        self.accepted = value
+        return resp
 
 
 
@@ -608,7 +623,7 @@ loc = Localization("cat")
 productes = Productes(loc)
 admin = Admin()
 carret = Carret()
-
+cookies = Cookies()
 
 
 @app.route("/")
@@ -808,6 +823,15 @@ def contatce(lan):
     loc.update(lan)
     html = render_template("contacte.html", loc=loc)
     return html + navigation()
+
+
+
+@app.route("/<path>/acceptar_cookies")
+def acceptar_cookies(path):
+    resp = redirect("/{}/".format(path))
+    resp = cookies.set_accepted(resp)
+    return resp
+
 
 
 

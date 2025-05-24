@@ -33,7 +33,9 @@ body {
 
 }
 
-
+.request-cookies{
+    background-color: #fff;
+}
 
 .back {
     display: flex;

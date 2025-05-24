@@ -13,6 +13,9 @@
 
 
 <div class = "navigation">
+    {% if request_cookies %}
+    <div class="request-cookies">Aquesta web fa servir cookies<button class="accept-cookies" onclick="location.href='/{{ loc.lan }}/acceptar_cookies'">d'acord</button></div>
+    {% endif %}
     <div class = "navigation-left" id="nav-left">
         <button class="dropbtn" id="menu-button" onmouseover="openMenu()"> {{ loc.nav_botiga }} </button>
         <button class="menu-simple" id="menu-button-simple" onclick="switchMenu()"><img class="icon-menu-simple" src="/static/media/menu-black.svg" alt="cart"><br> </button>
@@ -68,8 +71,6 @@
         {% if n_carret %}
             <div class="cercle-carret">{{ n_carret if n_carret > 0 }}</div>
         {% endif %}
-
-
         </div>
     </div>
 
