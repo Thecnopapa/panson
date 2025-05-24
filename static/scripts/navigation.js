@@ -1,4 +1,4 @@
-
+let menuOpen = False;
 const menu = document.getElementById('menu');
 const navLeft = document.getElementById('nav-left');
 const botoMenu = document.getElementById('menu-button');
@@ -10,7 +10,7 @@ const projecteMenu = document.getElementById('projecte-menu');
 const menuContent = document.getElementsByClassName('menu-content');
 
 for(var i = 0; i < menuContent.length; i++) {
-    menuContent[i].addEventListener('mouseover', openMenu())
+    menuContent[i].addEventListener('mouseover', openMenu());
 }
 
 
@@ -39,6 +39,7 @@ function openMenu(event) {
     for(var i = 0; i < menuContent.length; i++) {
         menuContent[i].classList.add('shown');
     }
+menuOpen = True;
 }
 
 
@@ -57,7 +58,17 @@ function closeMenu() {
     projecteMenu.style.display = "none";
     for(var i = 0; i < menuContent.length; i++) {
         menuContent[i].classList.remove('shown');
+memuOpen = False;
     }
 
 
 }
+
+Function switchMenu(){
+  if (menuOpen){
+    menuClose();
+  } else {
+    menuOpen();
+  }
+}
+
