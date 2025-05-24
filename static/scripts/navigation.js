@@ -39,7 +39,7 @@ function openMenu(event) {
     for(var i = 0; i < menuContent.length; i++) {
         menuContent[i].classList.add('shown');
     }
-menuOpen = True;
+menuOpen = true;
 };
 
 
@@ -58,7 +58,7 @@ function closeMenu() {
     projecteMenu.style.display = "none";
     for(var i = 0; i < menuContent.length; i++) {
         menuContent[i].classList.remove('shown');
-memuOpen = False;
+memuOpen = false;
     }
 
 
