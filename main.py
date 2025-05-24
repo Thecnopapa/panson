@@ -69,6 +69,8 @@ class Localization():
             self.__init__(lan)
             global productes
             productes.update(self)
+            global cookies
+            cookies.check_accepted()
 
 
             return self
@@ -606,7 +608,7 @@ class Cookies:
         self.accepted = False
 
     def check_accepted(self):
-        self.accepted = bool(request.cookies.get('accepted_cookies'))
+        self.accepted = request.cookies.get('accepted_cookies') == "True"
         return self.accepted
 
 
