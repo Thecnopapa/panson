@@ -66,9 +66,9 @@ memuOpen = False;
 
 Function switchMenu(){
   if (menuOpen){
-    menuClose();
+    closeMenu();
   } else {
-    menuOpen();
+    openMenu();
   }
 }
 
