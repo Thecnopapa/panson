@@ -31,10 +31,25 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
+
 }
 
 .request-cookies{
+    display: flex;
     background-color: #fff;
+    position: fixed;
+    bottom: 2dvh;
+    font-size: 2dvh;
+    height: 3vh;
+    align-items: center;
+    border-radius: 0.5dvh;
+    padding: 1dvh;
+    width: 30%;
+    justify-content: center;
+    z-index: 99;
+}
+.accept-cookies {
+    margin-left: 1dvh;
 }
 
 .back {
