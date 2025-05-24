@@ -40,7 +40,7 @@ function openMenu(event) {
         menuContent[i].classList.add('shown');
     }
 menuOpen = True;
-}
+};
 
 
 
@@ -62,7 +62,7 @@ memuOpen = False;
     }
 
 
-}
+};
 
 function switchMenu(){
   if (menuOpen){
