@@ -107,6 +107,7 @@ body {
     transition: 0.3s ease;
     flex-wrap: wrap;
     padding-left: 1dvh;
+    padding-right: 1dvh;
     justify-content: flex-start;
 }
 
