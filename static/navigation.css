@@ -161,7 +161,7 @@ body {
     top: 0;
     z-index: 5;
     padding-top: 6dvh;
-    transition: width 0.5s ease;
+    transition: width 1s ease;
     box-shadow: 10px 0px 8px rgba(136, 136, 136, 0.8);
 }
 
@@ -173,7 +173,6 @@ body {
 
 #contacte-menu, #projecte-menu {
     display: none;
-    align-items: flex-start;
     background-color: rgba(0, 0, 0, 0);
     border: none;
     border-top: black solid 1px;
@@ -284,27 +283,32 @@ body {
     display: none;
 }
 
+.titol-submenu, .item-submenu {
+    transition: color 0.5s ease;
+}
 
 .titol-submenu {
     display: none;
+    color: rgba(0, 0, 0, 0);
     font-size: 2dvh;
     padding-left: 1dvh;
     padding-bottom: 1dvh;
     padding-top: 2dvh;
     text-underline-offset: 0.5dvh;
 }
+
 .titol-submenu:hover {
     text-decoration: underline;
     cursor: pointer;
 }
 .item-submenu {
     display: none;
+    color: rgba(0, 0, 0, 0);
     font-size: 2dvh;
     padding-left: 2dvh;
     cursor: pointer;
     padding-bottom: 1dvh;
     text-underline-offset: 0.5dvh;
-    transition: display 1s ease;
 }
 .item-submenu:hover {
     text-decoration: underline;
@@ -312,6 +316,7 @@ body {
 }
 .shown {
     display: block;
+
 }
 
 @media screen and (orientation: portrait) {

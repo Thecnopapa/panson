@@ -19,7 +19,7 @@
     <div class = "navigation-left" id="nav-left">
         <button class="dropbtn" id="menu-button" onmouseover="openMenu()"> {{ loc.nav_botiga }} </button>
         <button class="menu-simple" id="menu-button-simple" onclick="switchMenu()"><img class="icon-menu-simple" src="/static/media/menu-black.svg" alt="cart"><br> </button>
-        <div class="menu" id="menu" onmouseover="openMenu()" onmouseout="closeMenu()">
+        <div class="menu" id="menu" onmouseover="openMenu()" onmouseleave="closeMenu()">
 
             <div class="submenu menu-content" id="collecions-menu">
                 <div class="titol-submenu menu-content" onclick="location.href='/{{ loc.lan }}/collecions'">{{ loc.nav_collecions }}</div>

@@ -35,14 +35,24 @@ function openMenu(event) {
         menu.classList.add('open');
         botoMenuSimple.classList.add('open');
     }catch(e){}
-
     for(var i = 0; i < menuContent.length; i++) {
         menuContent[i].classList.add('shown');
-    }
-menuOpen = true;
+        console.log("SHOWN")
+        }
+     setTimeout(showMenuContent, 300);
+    menuOpen = true;
+
 };
 
 
+function showMenuContent() {
+    console.log(menu.offsetWidth >= navLeft.offsetWidth/3, !(menuContent[0].style.color == "black"))
+    if (menu.offsetWidth >= navLeft.offsetWidth/3 && !(menuContent[0].style.color == "black")) {
+    for(var i = 0; i < menuContent.length; i++) {
+    menuContent[i].style.color = "black";
+    console.log("SHOWN")
+    }}
+}
 
 function closeMenu() {
     console.log('close menu');
@@ -58,6 +68,9 @@ function closeMenu() {
     projecteMenu.style.display = "none";
     for(var i = 0; i < menuContent.length; i++) {
         menuContent[i].classList.remove('shown');
+        menuContent[i].style.color = "rgba(0,0,0,0)";
+
+
     }
 menuOpen = false;
 
