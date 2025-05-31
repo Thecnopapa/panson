@@ -33,7 +33,7 @@
                         <option value="{{ collecio.lower() }}" {{ "selected=selected" if collecio.lower() == producte.collecio }}>{{ collecio }}</option>
                     {% endfor %}
                     </select>
-                Unica:<input type="checkbox" name="bool:unica" id="unica" {{ "checked=\"checked\"" if producte.unica }} />
+                Unica:<input type="checkbox" name="bool:unica" id="unica" {{ "checked=\"checked\"" if producte.unica }} >
 
 
                 Subtitol:<input type="text" name="text:subtitol" id="subtitol" value="{{ producte.subtitol }}" >
@@ -41,7 +41,9 @@
                 Fotos:
                 <div class="fotos">
                     {% for imatge in producte.imatges %}
-                        <div class="foto_producte" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media')"></div>
+                        <div class="foto_producte" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media')">
+
+                        </div>
                     {% endfor %}
                 </div>
                 <input type="submit" value="Actualitzar" name="update" class="button">
