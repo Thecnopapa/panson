@@ -296,6 +296,7 @@ body {
     padding-bottom: 1dvh;
     padding-top: 2dvh;
     text-underline-offset: 0.5dvh;
+    min-width: max-content;
 }
 
 .titol-submenu:hover {
@@ -310,6 +311,7 @@ body {
     cursor: pointer;
     padding-bottom: 1dvh;
     text-underline-offset: 0.5dvh;
+    min-width: max-content;
 }
 .item-submenu:hover {
     text-decoration: underline;

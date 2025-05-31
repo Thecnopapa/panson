@@ -29,6 +29,8 @@ def update_firebase(id):
             db_key = key.split(":")[1]
             if data_type == "text":
                 data[db_key] = value
+            if data_type == "bool":
+                data[db_key] = True if value in ["true", "on", True ,"1", 1, "True"] else False
     print(data)
     productes.document(id).set(data, merge=True)
 

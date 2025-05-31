@@ -27,8 +27,23 @@
                     {% endfor %}
                     </select>
                 Nom:<input type="text" name="text:nom" id="nom" value="{{ producte.nom }}" >
+                Colleccio:<select name="text:collecio" id="collecio" value="{{ producte.collecio }}">
+                    <option value="None" {{ "selected=selected" if "collecio" not in producte.__dict__ }}>Cap</option>
+                    {% for collecio in productes.collecions %}
+                        <option value="{{ collecio.lower() }}" {{ "selected=selected" if collecio.lower() == producte.collecio }}>{{ collecio }}</option>
+                    {% endfor %}
+                    </select>
+                Unica:<input type="checkbox" name="bool:unica" id="unica" {{ "checked=\"checked\"" if producte.unica }} />
+
+
                 Subtitol:<input type="text" name="text:subtitol" id="subtitol" value="{{ producte.subtitol }}" >
                 Descripcio:<textarea  name="text:descripcio" id="descripcio" >{{ producte.descripcio }}</textarea>
+                Fotos:
+                <div class="fotos">
+                    {% for imatge in producte.imatges %}
+                        <div class="foto_producte" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media')"></div>
+                    {% endfor %}
+                </div>
                 <input type="submit" value="Actualitzar" name="update" class="button">
 
 

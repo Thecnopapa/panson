@@ -7,7 +7,7 @@ input {
     margin: 0 1dvh;
 }
 body {
-    width: 100dvh;
+    width: 100dvw;
 }
 .content {
     display: flex;
@@ -15,7 +15,7 @@ body {
     padding: 10%;
     overflow: scroll;
     width: 80%;
-    height: 80dvh;
+
     background: rgba(255, 255, 255, 0.1);
 }
 .productes {
@@ -31,6 +31,7 @@ body {
     margin-top: 3dvh;
     background-color: rgba(136, 136, 136, 0.2);
     padding: 1%;
+    align-items: flex-start;
 
 }
 .producte-titol {
@@ -51,6 +52,22 @@ body {
 }
 input, option ,select, textarea {
     font-size: 2dvh;
-
+    width: max-content;
     margin: 1dvh 1dvh 2dvh 1dvh;
+}
+#unica {
+    display: inline-block;
+}
+.fotos {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap;
+}
+
+.foto_producte {
+    width: 30dvh;
+    height: 30dvh;
+    background-position: center;
+    background-size: cover;
 }
