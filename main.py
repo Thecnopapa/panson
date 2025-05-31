@@ -207,7 +207,7 @@ class Producte():
                 #print(attr, ":", attr+self._lan in self.__dict__.keys())
                 self.__setattr__(attr, self.__dict__[attr+self._lan])
         if self.unica:
-            self.collecio = loc.gal_peces_uniques
+            self.collecio = "uniques"
 
         if "opcions" in self.__dict__:
             self.opcions = Opcions(self.opcions)
@@ -707,7 +707,7 @@ def productes_per_col(lan, col):
         return html + navigation()
 
 
-@app.route("/<lan>/peces_uniques/")
+@app.route("/<lan>/productes/peces_uniques/")
 def peces_uniques(lan):
     loc.update(lan)
     html = render_template("uniques.html", productes=productes.uniques(), loc = loc, )

@@ -13,7 +13,7 @@
 
 
 
-{% for producte in productes %}
+{% for producte in productes if producte.collecio == "uniques" %}
     <div class="content" >
 
         {% if producte.imatges %}

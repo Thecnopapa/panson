@@ -24,6 +24,7 @@
             <div class="submenu menu-content" id="collecions-menu">
                 <div class="titol-submenu menu-content" onclick="location.href='/{{ loc.lan }}/collecions'">{{ loc.nav_collecions }}</div>
                 {% if productes %}
+                    <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/productes/peces_uniques/'">{{ loc.nav_peces_uniques }}</div>
                     {% for col in productes.collecions %}
                         <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/productes/?collecio={{ col }}'">{{ col }}</div>
                     {% endfor %}
