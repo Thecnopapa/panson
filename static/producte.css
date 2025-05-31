@@ -12,9 +12,14 @@ body {
 
 .fotos{
     display: flex;
-    width: 80dvw;
+    width: 50dvw;
+    height: 100dvh;
+    max-height: 100dvh;
     min-width: 40dvw;
-    padding-top: 6dvh;
+    overflow: hidden;
+    overflow-scrolling: touch;
+    overflow-y: scroll;
+    padding-top: 0dvh;
     flex-wrap: wrap;
     justify-content: space-between;
 
@@ -24,8 +29,8 @@ body {
 
 .foto_producte {
     position: relative;
-    width: 49.5%;
-    height: 90dvh;
+    width: 100%;
+    height: 95dvh;
     background-position: center;
     background-size: cover;
     margin-bottom: 1dvh;
@@ -243,13 +248,20 @@ body {
         padding-bottom: 6dvh;
     }
     .fotos{
-        width: 90%;
-        margin-left:5% ;
-        margin-right:5% ;
+        width: 100%;
+        margin-left:0% ;
+        margin-right:0% ;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        overflow-y: scroll;
+        max-width: 100%;
+        max-height: 100dvw;
+        overflow-x: scroll;
     }
     .foto_producte {
-        width: 100%;
-        height: 50dvh;
+        width: 100dvw;
+        height: 100dvw;
+        min-width: 100dvw;
     }
 
     .detalls {
