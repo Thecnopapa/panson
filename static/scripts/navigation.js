@@ -16,7 +16,9 @@ for(var i = 0; i < menuContent.length; i++) {
 
 menu.style.width = "0px";
 closeMenu();
-function openMenu(event) {
+
+
+function openMenu() {
 
     console.log('open menu');
     if(window.innerHeight > window.innerWidth){
@@ -39,19 +41,27 @@ function openMenu(event) {
         menuContent[i].classList.add('shown');
         console.log("SHOWN")
         }
-     setTimeout(showMenuContent, 300);
     menuOpen = true;
+    setTimeout(showMenuContent, 300);
+
 
 };
 
 
 function showMenuContent() {
-    console.log(menu.offsetWidth >= navLeft.offsetWidth/3, !(menuContent[0].style.color == "black"))
-    if (menu.offsetWidth >= navLeft.offsetWidth/3 && !(menuContent[0].style.color == "black")) {
-    for(var i = 0; i < menuContent.length; i++) {
-    menuContent[i].style.color = "black";
-    console.log("SHOWN")
-    }}
+    if (menuOpen){
+        console.log(menu.offsetWidth >= navLeft.offsetWidth / 3, !(menuContent[0].style.color == "black"))
+        if (menu.offsetWidth >= navLeft.offsetWidth / 2) {
+            if (!(menuContent[0].style.color == "black")) {
+                for (var i = 0; i < menuContent.length; i++) {
+                    menuContent[i].style.color = "black";
+                    console.log("PAINTED")
+                }
+            }
+        } else {
+            setTimeout(showMenuContent, 100);
+        }
+    }
 }
 
 function closeMenu() {
@@ -59,6 +69,11 @@ function closeMenu() {
     menu.style.width = "0px";
     window.scrollTo(window.scrollX, window.scrollY - 1);
     window.scrollTo(window.scrollX, window.scrollY + 1);
+    for(var i = 0; i < menuContent.length; i++) {
+        menuContent[i].classList.remove('shown');
+        menuContent[i].style.color = "rgba(0,0,0,0)";
+
+    }
 
     try {
         menu.classList.remove('open');
@@ -66,12 +81,7 @@ function closeMenu() {
     } catch (error) {}
     contacteMenu.style.display = "none";
     projecteMenu.style.display = "none";
-    for(var i = 0; i < menuContent.length; i++) {
-        menuContent[i].classList.remove('shown');
-        menuContent[i].style.color = "rgba(0,0,0,0)";
 
-
-    }
 menuOpen = false;
 
 };
