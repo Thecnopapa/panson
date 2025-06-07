@@ -1,14 +1,14 @@
 import os
 import json
-
+from urllib.request import parse_http_list
 
 from utilities import *
 import flask
-from flask import Flask, send_file, render_template, redirect, request, make_response
+from flask import Flask, send_file, render_template, redirect, request, make_response, url_for
 import requests
 import firebase, firestore
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = "/uploads"
+app.config['UPLOAD_FOLDER'] = "./uploads"
 base_url = "https://firestore.googleapis.com/v1/"
 cols_path = base_url + "projects/panson/databases/productes/documents/collecions"
 prods_path = base_url + "projects/panson/databases/productes/documents/productes"
@@ -629,6 +629,8 @@ carret = Carret()
 cookies = Cookies()
 
 
+
+
 @app.route("/")
 def redirect_to_cat():
     loc.update("cat")
@@ -689,7 +691,7 @@ def admin_load():
 
 @app.route("/admin/update/<id>", methods=["GET", "POST"])
 def update_product(id):
-    firebase.update_firebase(id)
+    firebase.update_firebase(id, productes.get_single(id))
     loc.update()
     return (redirect("/admin/"))
 
@@ -835,10 +837,7 @@ def acceptar_cookies(path):
     resp = cookies.set_accepted(resp)
     return resp
 
-@app.route("/<path>/test")
-def test(path):
-    from firestore import list_blobs
-    return list_blobs("productes/")
+
 
 
 

@@ -1,7 +1,11 @@
+import os.path
+
 from google.cloud import storage
 from utilities import *
 from google.oauth2 import service_account
 import json
+from flask import request
+from werkzeug.utils import secure_filename
 
 try:
     '''SCOPES = ['https://www.googleapis.com/auth/sqlservice.admin']
@@ -58,8 +62,26 @@ def list_blobs(prefix = None ):
     except:
        return []
 
-def upload_image(path, folder, name):
-    new_blob = bucket.blob(folder+"/"+name)
-    blob = new_blob.upload_from_filename(path)
+
+def load_files(folder= "./uploads", name="file"):
+    if request.method == "POST":
+        files =  request.files.getlist(name)
+        paths = {}
+        for file in files:
+            filename = secure_filename(file.filename)
+            print(filename)
+            os.makedirs(folder, exist_ok=True)
+            path = os.path.join(folder, file.filename)
+            print(os.path.abspath(path))
+            file.save(path)
+            paths[filename] = os.path.abspath(path)
+        return paths
+
+
+def upload_images(path_dict, folder="productes"):
+    for fname, path in path_dict.items():
+        new_blob = bucket.blob(folder+"/"+fname)
+        new_blob.upload_from_filename(path)
+    return list(path_dict.keys())
 
 

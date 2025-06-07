@@ -18,7 +18,7 @@
     Usuari: {{ user }}
     <div class="productes">
         {% for producte in productes %}
-            <form action="/admin/update/{{ producte.id }}" method="post" class="producte">
+            <form action="/admin/update/{{ producte.id }}" method="post" class="producte" enctype="multipart/form-data">
                 <div class="producte-titol">{{ producte.nom }}</div>
                 <div class="producte-id" >{{ producte.id }}</div>
                 Tipus:<select name="text:tipus" id="tipus" value="{{ producte.tipus }}">
@@ -46,8 +46,7 @@
                         </div>
                     {% endfor %}
                 </div>
-                <input type="file" id="noves_imatges" name="file" accept="image/*|video/*">
-            <input type=file name=file>
+                <input type="file" id="noves_imatges" name="file" accept="image/*|video/*" multiple>
                 <input type="submit" value="Actualitzar" name="update" class="button">
 
 

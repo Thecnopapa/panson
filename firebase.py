@@ -20,28 +20,18 @@ except Exception as e:
     print(e)
 
 
-from firestore import upload_image
+from firestore import load_files, upload_images
 
-def update_firebase(id):
+def update_firebase(id, producte):
     sprint("Updating product: {}".format(id))
     print(request.form)
+    paths = load_files()
+    uploaded_images = upload_images(paths, "productes")
     data = {}
+    data["imatges"] = producte.imatges + uploaded_images
     for key, value in request.form.items():
-        if key == "file":
-            print("IMG:", value)
-            print(os.listdir("./"))
-            #upload_image(value, "test", value)
-            print(request.__dict__)
-            if "file" in request.files:
-                print("FILE:", request.files["file"])
-                print(request.files["file"])
-            else:
-                print("FILES:", request.files)
-                #for file in request.file["file"]:
 
-
-
-        elif ":" in key:
+        if ":" in key:
             data_type = key.split(":")[0]
             db_key = key.split(":")[1]
             if data_type == "text":
