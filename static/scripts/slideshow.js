@@ -18,6 +18,7 @@ function showSlides() {
   }
   else {
     slides[slideIndex - 2].style.display = "none";
+    slides[slideIndex - 1].style.zIndex = "-10";
     slides[slideIndex - 1].style.translate = "-100%";
   }
 
