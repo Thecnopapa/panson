@@ -8,6 +8,7 @@ from flask import Flask, send_file, render_template, redirect, request, make_res
 import requests
 import firebase, firestore
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = "/uploads"
 base_url = "https://firestore.googleapis.com/v1/"
 cols_path = base_url + "projects/panson/databases/productes/documents/collecions"
 prods_path = base_url + "projects/panson/databases/productes/documents/productes"
@@ -834,7 +835,10 @@ def acceptar_cookies(path):
     resp = cookies.set_accepted(resp)
     return resp
 
-
+@app.route("/<path>/test")
+def test(path):
+    from firestore import list_blobs
+    return list_blobs("productes/")
 
 
 

@@ -58,3 +58,8 @@ def list_blobs(prefix = None ):
     except:
        return []
 
+def upload_image(path, folder, name):
+    new_blob = bucket.blob(folder+"/"+name)
+    blob = new_blob.upload_from_filename(path)
+
+
