@@ -29,6 +29,10 @@ def read_data_type(value):
         return r
     elif list(value.keys())[0] == "arrayValue":
         r = []
+        if len(value["arrayValue"]) == 0:
+            return r
+        print("#", value["arrayValue"])
+        print("##", value["arrayValue"]["values"])
         for value in value["arrayValue"]["values"]:
             r.append(read_data_type(value))
         return r

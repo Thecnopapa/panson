@@ -6,12 +6,13 @@ google-cloud-storage
 
 
 # App
-flask~=3.1.0
+flask
 gunicorn
 unidecode
 stripe
 
 
-requests~=2.32.3
-firebase-admin~=6.8.0
+requests
+firebase-admin
 
+werkzeug
