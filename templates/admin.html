@@ -7,6 +7,8 @@
     <title>PANSON: Admin</title>
     <link href='/static/navigation.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/static/scripts/navigation.js"></script>
+    <script defer type="text/javascript" src="/static/scripts/admin.js"></script>
+
     <link href='/static/admin.css' rel='stylesheet'>
 </head>
 
@@ -42,7 +44,7 @@
                 <div class="fotos">
                     {% for imatge in producte.imatges %}
                         <div class="foto_producte" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media')">
-
+                        <input type="text" name="img_list" id="img_list" value="{{ imatge }}">
                         </div>
                     {% endfor %}
                 </div>
