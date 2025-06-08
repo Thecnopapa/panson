@@ -760,12 +760,17 @@ def mostrar_peca(lan, id, opcions=None):
     print(opcions)
     print(len(request.args))
     if opcions is None:
-
         opcions = {}
         opcions["material"] = request.args.get("material")
         opcions["variacio"] = request.args.get("variacio")
         opcions["talla"] = request.args.get("talla")
         opcions["color"] = request.args.get("color")
+        print("##", opcions["color"])
+        if opcions["color"] is not None:
+            if opcions["color"][0] == "[":
+                opcions["color"] = opcions["color"].replace("[", "").replace("]", "").split("-")
+                print(">> ", opcions["color"])
+
 
         opcions_url = "?"+"&".join([key + "=" + str(value) for key, value in opcions.items()])
         print(opcions_url)

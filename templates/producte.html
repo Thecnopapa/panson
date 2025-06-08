@@ -56,9 +56,9 @@
                         <br>
                         Color {{ n+1 }}:
                         <select name="str:color" class="color-selector">
-                            <option value="" selected="selected" ></option>
+                            <option value="" {{ "selected=\"selected\"" if opcions["color"] == "None" }} ></option>
                             {% for color in producte.opcions.colors %}
-                                <option value="{{ color }}"> {{ color }}</option>
+                                    <option value="{{ color }}" {{ "selected=\"selected\"" if color == opcions.color[n] }}> {{ color }}</option>
                             {% endfor %}
                         </select>
                     {% endfor %}
