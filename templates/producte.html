@@ -10,7 +10,10 @@
         <title>PANSON: {{ loc.pro_productes }}</title>
     {% endif %}
     <link href='/static/navigation.css' rel='stylesheet'>
+    <script src="/static/scripts/jquery.js"></script>
+
     <script defer type="text/javascript" src="/static/scripts/navigation.js"></script>
+    <script defer type="text/javascript" src="/static/scripts/producte.js"></script>
     <link href='/static/galeria.css' rel='stylesheet'>
     <link href='/static/producte.css' rel='stylesheet'>
 
@@ -39,25 +42,24 @@
                     {{ producte.descripcio}}
                 </div>
             {% endautoescape %}
-            <form class="opcions" action="{{ opcions }}/afegir_al_carret" method="POST">
+        <button type="button" onclick="updatePage()">Reload</button>
+            <form class="opcions" id="submit-form" action="{{ opcions }}/afegir_al_carret" method="POST">
 
             {% if producte.opcions %}
                 {{ opcions }}
                 <br><br>
 
 
-
                 {% if producte.opcions.colors %}
-                    {{ producte.opcions.colors }}
                     <br>
                     {% for n in range(producte.opcions.n_colors) %}
                         <br>
                         Color {{ n+1 }}:
-                        <select name="color_{{ n }}">
-                        <option value="" selected="selected"></option>
-                        {% for color in producte.opcions.colors %}
-                            <option value="{{ color }}"> {{ color }}</option>
-                        {% endfor %}
+                        <select name="str:color" class="color-selector">
+                            <option value="" selected="selected" ></option>
+                            {% for color in producte.opcions.colors %}
+                                <option value="{{ color }}"> {{ color }}</option>
+                            {% endfor %}
                         </select>
                     {% endfor %}
 
