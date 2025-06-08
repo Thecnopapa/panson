@@ -191,6 +191,8 @@ class Producte():
         self.collecio = None
         self.subtitol = "SUBTITOL"
         self.tipus = "altres"
+        self.esborrat = False
+        self.amagat = False
 
         if empty:
             self.id = raw_data
@@ -238,9 +240,11 @@ class Productes():
         #[print(p, "\n") for p in self.all_productes]
         self.collecions = self.obtenir_collecions()
         self.productes = [Producte(loc,raw_data) for raw_data in self.all_productes]
+        self.taken_ids = [p.id for p in self.productes]
+        self.productes = [p for p in self.productes if not p.esborrat]
         self.tipus = set([prod.tipus for prod in self.productes])
         #[print(p, "\n") for p in self.productes]
-        self.nou_producte = Producte(loc, empty=True, raw_data="producte_{}".format(len(self.productes)))
+        self.nou_producte = Producte(loc, empty=True, raw_data="nou_producte".format(len(self.productes)))
 
     def __iter__(self):
         for producte in self.productes:
@@ -701,7 +705,13 @@ def admin_load():
 
 @app.route("/admin/update/<id>", methods=["GET", "POST"])
 def update_product(id):
-    firebase.update_firebase(id, productes.get_single(id))
+    firebase.update_firebase(id, productes.get_single(id), taken_ids=productes.taken_ids)
+    loc.update()
+    return (redirect("/admin/"))
+
+@app.route("/admin/delete/<id>", methods=["GET", "POST"])
+def delete_product(id):
+    firebase.delete_firebase(id)
     loc.update()
     return (redirect("/admin/"))
 

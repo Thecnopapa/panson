@@ -8,12 +8,14 @@ input {
 }
 body {
     width: 100dvw;
+    height: fit-content;
 }
 .content {
     display: flex;
     flex-direction: column;
     padding: 10%;
-    height: 100vh;
+    height: 80dvh;
+    max-height: 80dvh;
 
     width: 80%;
     overflow-y: scroll;
@@ -29,6 +31,7 @@ body {
 
 
 
+
 }
 .producte {
     display: flex;
@@ -38,6 +41,10 @@ body {
     padding: 1%;
     align-items: flex-start;
 
+}
+.delete {
+    background-color: red;
+    color: white;
 }
 .producte-titol {
     font-size: 3dvh;

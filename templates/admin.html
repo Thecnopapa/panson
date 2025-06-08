@@ -21,11 +21,14 @@
     <div class="productes">
         {% for producte in productes + productes.nou_producte %}
             <form action="/admin/update/{{ producte.id }}" method="post" class="producte" enctype="multipart/form-data">
-                <div class="producte-titol">{{ producte.nom }} {{ "(Nou producte)" if producte.nou_producte }}</div>
+
                 {% if producte.nou_producte %}
+                    <div class="producte-titol">{{ "(Nou producte)"}}</div>
                     <span> ID:<input type="text" name="text:id" id="id" value="{{ producte.id }}" >No es podra cambiar mes tard!</span>
                 {% else %}
+                    <div class="producte-titol">{{ producte.nom }} {{ "(Nou producte)" if producte.nou_producte }}</div>
                     <div class="producte-id" >{{ producte.id }}</div>
+                    <button type="button" class="delete" onclick="location.href='/admin/delete/{{ producte.id }}'">Esborrar</button>
                 {% endif %}
                 Tipus:<select name="text:tipus" id="tipus" value="{{ producte.tipus }}">
                     {% for tipus in loc.tipus %}
