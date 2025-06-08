@@ -7,6 +7,8 @@
     <title>PANSON: Admin</title>
     <link href='/static/navigation.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/static/scripts/navigation.js"></script>
+    <script defer type="text/javascript" src="/static/scripts/admin.js"></script>
+
     <link href='/static/admin.css' rel='stylesheet'>
 </head>
 
@@ -17,10 +19,14 @@
     <h1>Admin</h1>
     Usuari: {{ user }}
     <div class="productes">
-        {% for producte in productes %}
+        {% for producte in productes + productes.nou_producte %}
             <form action="/admin/update/{{ producte.id }}" method="post" class="producte" enctype="multipart/form-data">
-                <div class="producte-titol">{{ producte.nom }}</div>
-                <div class="producte-id" >{{ producte.id }}</div>
+                <div class="producte-titol">{{ producte.nom }} {{ "(Nou producte)" if producte.nou_producte }}</div>
+                {% if producte.nou_producte %}
+                    <span> ID:<input type="text" name="text:id" id="id" value="{{ producte.id }}" >No es podra cambiar mes tard!</span>
+                {% else %}
+                    <div class="producte-id" >{{ producte.id }}</div>
+                {% endif %}
                 Tipus:<select name="text:tipus" id="tipus" value="{{ producte.tipus }}">
                     {% for tipus in loc.tipus %}
                         <option value="{{ tipus }}" {{ "selected=selected" if tipus == producte.tipus }}>{{ tipus }}</option>
@@ -42,7 +48,7 @@
                 <div class="fotos">
                     {% for imatge in producte.imatges %}
                         <div class="foto_producte" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media')">
-
+                        <input type="text" name="img_list" id="img_list" value="{{ imatge }}">
                         </div>
                     {% endfor %}
                 </div>

@@ -1,5 +1,6 @@
 import os.path
 
+from firebase_admin.project_management import list_ios_apps
 from google.cloud import storage
 from utilities import *
 from google.oauth2 import service_account
@@ -46,30 +47,40 @@ def list_blobs(prefix = None ):
     try:
         sprint("Lists all the blobs in the bucket")
 
-        print(storage_client)
+        #print(storage_client)
 
         # Note: Client.list_blobs requires at least package version 1.17.0.
 
-        print(bucket.__dict__)
+        #print(bucket.__dict__)
         blobs = bucket.list_blobs(prefix=prefix)
-        print(blobs.__dict__)
+        #print(blobs.__dict__)
 
         # Note: The call returns a response only when the iterator is consumed.
         blob_list = []
         for blob in blobs:
             blob_list.append(blob.name)
+            print1(blob.name)
         return blob_list
     except:
        return []
 
 
-def load_files(folder= "./uploads", name="file"):
+def load_files(folder= "./uploads", name="file", target_folder= "productes"):
+    sprint("loading files")
     if request.method == "POST":
         files =  request.files.getlist(name)
         paths = {}
+        if len(files) == 0:
+            return paths
         for file in files:
+
             filename = secure_filename(file.filename)
             print(filename)
+            if filename == "":
+                continue
+
+            if target_folder + "/" + filename in list_blobs(target_folder):
+                filename = filename.split(".")[0] + "_copia." + filename.split(".")[1]
             os.makedirs(folder, exist_ok=True)
             path = os.path.join(folder, file.filename)
             print(os.path.abspath(path))
@@ -79,7 +90,10 @@ def load_files(folder= "./uploads", name="file"):
 
 
 def upload_images(path_dict, folder="productes"):
+    sprint("Uploading images")
     for fname, path in path_dict.items():
+        if folder+"/"+fname in list_blobs(folder):
+            fname = fname.split(".")[0] +"_copia."+os.path.splitext(fname)[1]
         new_blob = bucket.blob(folder+"/"+fname)
         new_blob.upload_from_filename(path)
     return list(path_dict.keys())

@@ -181,15 +181,10 @@ class Opcions:
 
 
 class Producte():
-    def __init__(self, loc, raw_data):
+    def __init__(self, loc, raw_data, empty = False):
         #print(raw_data["name"])
         self.loc = loc
-        self.raw_data = raw_data
-        self.id = raw_data["name"].split("/")[-1]
-        self.nom = self.id
-        self.lan = loc.lan
-        self._lan = "-" + self.lan
-
+        self.nou_producte = empty
         self.unica = False
         self.descripcio = "Descripcio"
         self.imatges = []
@@ -197,12 +192,19 @@ class Producte():
         self.subtitol = "SUBTITOL"
         self.tipus = "altres"
 
-        #print1("Producte:", self.id)
-        #print2(raw_data["fields"])
-        #[print2(key, read_data_type(value)) for key, value in raw_data["fields"].items()]
-        self.data = {key: read_data_type(value) for key, value in raw_data["fields"].items()}
-        #print(self.data)
-        #print(self._lan)
+        if empty:
+            self.id = raw_data
+            self.data = {}
+        else:
+
+            self.raw_data = raw_data
+            self.id = raw_data["name"].split("/")[-1]
+
+            self.data = {key: read_data_type(value) for key, value in raw_data["fields"].items()}
+
+        self.nom = self.id
+        self.lan = loc.lan
+        self._lan = "-" + self.lan
         for key, value in self.data.items():
             self.__setattr__(key, value)
 
@@ -216,7 +218,7 @@ class Producte():
 
         if "opcions" in self.__dict__:
             self.opcions = Opcions(self.opcions)
-        self.preu_minim = self.opcions.preu_minim
+            self.preu_minim = self.opcions.preu_minim
 
 
     def calcular_preu(self, material = None, variacio = None, color = None):
@@ -238,6 +240,7 @@ class Productes():
         self.productes = [Producte(loc,raw_data) for raw_data in self.all_productes]
         self.tipus = set([prod.tipus for prod in self.productes])
         #[print(p, "\n") for p in self.productes]
+        self.nou_producte = Producte(loc, empty=True, raw_data="producte_{}".format(len(self.productes)))
 
     def __iter__(self):
         for producte in self.productes:
@@ -284,6 +287,9 @@ class Productes():
 
     def get_all(self):
         return self.productes
+
+    def __add__(self, other):
+        return self.productes +[other]
 
 
 class Carret():
