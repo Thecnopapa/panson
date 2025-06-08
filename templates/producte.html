@@ -67,9 +67,12 @@
                         {% endfor %}
                             <br>
                         {% endif %}
-                    <input class="afegir_carret" type="submit" value="AFEGIR AL CARRET"></span>
+                    <input class="afegir_carret" type="submit" value="AFEGIR AL CARRET">
+                <div class="preu-final"> {{ "Desde " if producte.calcular_preu(**opcions)[1] }} {{ producte.calcular_preu(**opcions)[0] }} &#8364;</div>
+                </span>
 
             {% endif %}
+
                 {% if producte.material %}
                     <div class = "materials">
                         {% for mat in producte.mats %}

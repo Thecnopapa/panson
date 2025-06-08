@@ -149,8 +149,14 @@ class Opcions:
             p += min([color["preu"] for color in self.opcions["colors"].values()]) * self.opcions["n_colors"]
         return p
 
-    def calcular_preu(self, material = None, variacio = None, color = None):
+    def calcular_preu(self, material = None, variacio = None, color = None, **kwargs):
         p = 0
+        if material == "None":
+            material = None
+        if variacio == "None":
+            variacio = None
+        if color == "None":
+            color = None
         incomplet = False
         print(material, variacio, color)
         print(type(material), type(variacio), type(color))
@@ -228,8 +234,8 @@ class Producte():
             self.preu_minim = self.opcions.preu_minim
 
 
-    def calcular_preu(self, material = None, variacio = None, color = None):
-        return self.opcions.calcular_preu(material, variacio, color)
+    def calcular_preu(self, material = None, variacio = None, color = None, **kwargs):
+        return self.opcions.calcular_preu(material, variacio, color, **kwargs)
 
 
     def __getitem__(self, item):
