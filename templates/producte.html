@@ -43,10 +43,32 @@
 
             {% if producte.opcions %}
                 {{ opcions }}
-                {{ producte.opcions.__dict__ }}
+                <br><br>
+
+
+
+                {% if producte.opcions.colors %}
+                    {{ producte.opcions.colors }}
+                    <br>
+                    {% for n in range(producte.opcions.n_colors) %}
+                        <br>
+                        Color {{ n+1 }}:
+                        <select name="color_{{ n }}">
+                        <option value="" selected="selected"></option>
+                        {% for color in producte.opcions.colors %}
+                            <option value="{{ color }}"> {{ color }}</option>
+                        {% endfor %}
+                        </select>
+                    {% endfor %}
+
+                {% endif %}
+
+
+
                 <br>
                 <span>
-                    {% if producte.opcions.totes_les_talles or loc.len(producte.opcions.talles) == 0%}
+
+                    {% if producte.opcions.totes_les_talles or not producte.opcions.talles %}
                         Talla:
                         <input type="number" name="number:talla" class="talla-unica"
                                    min="0"
