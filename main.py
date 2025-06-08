@@ -853,7 +853,7 @@ def contatce(lan):
 
 @app.route("/<path>/acceptar_cookies")
 def acceptar_cookies(path):
-    resp = redirect("/{}/".format(path))
+    resp = redirect(request.url)
     resp = cookies.set_accepted(resp)
     return resp
 
