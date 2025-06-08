@@ -67,6 +67,10 @@ class Localization():
     def upper(string ):
         return string.upper()
 
+    @staticmethod
+    def len(i):
+        return len(i)
+
     def update(self, lan=None, force = True):
         if lan is None:
             lan = self.lan
@@ -108,6 +112,7 @@ class Opcions:
                     opcions["totes_les_talles"] = value
                 else:
                     ts[key] = value
+            ts = {k:v for k,v in sorted(ts.items(), key=lambda t: t[0])}
             opcions["talles"] = ts
         if "materials" in opcions_raw:
             opcions["materials"] = opcions_raw["materials"]

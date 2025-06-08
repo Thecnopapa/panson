@@ -40,32 +40,45 @@
                 </div>
             {% endautoescape %}
             <form class="opcions" action="{{ opcions }}/afegir_al_carret" method="POST">
-                {% if producte.material %}
-                    <div class = "materials">
-                        {% for mat in producte.mats %}
-                            {% if  opcions["material"] == mat %}
-                                <button class="material-boto" id="selected-material" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"?material={}&variacio={}&talla={}&color={}".format(mat, opcions["variacio"], opcions["talla"], opcions["color"]) }}'"></button>
-                            {%  else %}
-                                <button class="material-boto" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"?material={}&variacio={}&talla={}&color={}".format(mat, opcions["variacio"], opcions["talla"], opcions["color"]) }}'"></button>
-                            {%  endif %}
-                        {% endfor %}
-                    </div>
-                    <div class = "talles">
-                    {% for talla in producte.talles %}
-                        {% if  opcions["talla"] == talla %}
-                            <div class="talla" id="selected-talla" >{{ talls }}</div>
-                        {%  elif talla == "totes" %}
-                            <input type="number" class="talla-unica"
+
+            {% if producte.opcions %}
+                {{ opcions }}
+                {{ producte.opcions.__dict__ }}
+                <br>
+                <span>
+                    {% if producte.opcions.totes_les_talles or loc.len(producte.opcions.talles) == 0%}
+                        Talla:
+                        <input type="number" name="number:talla" class="talla-unica"
                                    min="0"
                                    max="99"
                                    step="1"
                                    list="defaultSizes"
                                    maxlength="2"
+                                   {{"value={}".format(opcions.talla) if opcions.talla != "None" }}
                             >
-                        {%  else %}
-                            <div class="talla">{{ talla }}</div>
-                        {%  endif %}
-                    {% endfor %}
+                        {% else %}
+                        Talles disponibles:
+                        {% for talla in producte.opcions.talles %}
+                            {% if  opcions["talla"] == talla %}
+                                <button type="button" class="talla" id="selected-talla" >{{ talla }}</button>
+                            {%  else %}
+                                <button type="button" class="talla" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"?material={}&variacio={}&talla={}&color={}".format(opcions["material"], opcions["variacio"], talla, opcions["color"]) }}'">{{ talla }} </button>
+                            {%  endif %}
+                        {% endfor %}
+                            <br>
+                        {% endif %}
+                    <input class="afegir_carret" type="submit" value="AFEGIR AL CARRET"></span>
+
+            {% endif %}
+                {% if producte.material %}
+                    <div class = "materials">
+                        {% for mat in producte.mats %}
+                            {% if  opcions["material"] == mat %}
+                                <input class="material-boto" id="selected-material" name="int:talla" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"?material={}&variacio={}&talla={}&color={}".format(mat, opcions["variacio"], opcions["talla"], opcions["color"]) }}'"></input>
+                            {%  else %}
+                                <button class="material-boto" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"?material={}&variacio={}&talla={}&color={}".format(mat, opcions["variacio"], opcions["talla"], opcions["color"]) }}'"></button>
+                            {%  endif %}
+                        {% endfor %}
                     </div>
 
 
@@ -88,8 +101,6 @@
                         {% endif %}
                 {% endif %}
 
-
-                    <input class="afegir_carret" type="submit" value="AFEGIR AL CARRET">
             </form>
 
             <div class = "detalls_generals">

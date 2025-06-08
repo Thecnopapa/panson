@@ -215,9 +215,11 @@ body {
 }
 .talla-unica, .talla {
     font-size: 2dvh;
-
     height: 4dvh;
     width: 8dvh;
+}
+#selected-talla {
+    border: 0.5dvh solid rgba(0, 0, 0, 1);
 }
 
 
