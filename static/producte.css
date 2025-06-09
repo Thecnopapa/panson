@@ -228,6 +228,7 @@ body {
     }
     .fotos{
         width: 100%;
+        height: 100dvw;
         margin-left:0% ;
         margin-right:0% ;
         flex-wrap: nowrap;
@@ -235,6 +236,8 @@ body {
         overflow-y: hidden;
         max-width: 100%;
         overflow-x: scroll;
+        -ms-overflow-style: scrollbar;  /* IE and Edge */
+        scrollbar-width: thin;  /* Firefox */
     }
     .foto_producte {
         width: 100dvw;
