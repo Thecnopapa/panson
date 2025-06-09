@@ -1,6 +1,5 @@
 import os
 import json
-from urllib.request import parse_http_list
 
 from utilities import *
 import flask
@@ -71,6 +70,18 @@ class Localization():
     def len(i):
         return len(i)
 
+    @staticmethod
+    def str(s):
+        return str(s)
+
+    @staticmethod
+    def type(s):
+        return type(s)
+
+    @staticmethod
+    def strip(s):
+        return s.strip()
+
     def update(self, lan=None, force = True):
         if lan is None:
             lan = self.lan
@@ -125,6 +136,7 @@ class Opcions:
                     if "preu" not in value:
                         value["preu"] = 0
                     vs[key] = value
+            vs = {k: v for k, v in sorted(vs.items(), key=lambda t: t[0])}
             opcions["variacions"] = vs
         if "colors" in opcions_raw:
             cols = {}
@@ -135,6 +147,7 @@ class Opcions:
                     if "preu" not in value:
                         value["preu"] = 0
                     cols[key] = value
+            cols = {k: v for k, v in sorted(cols.items(), key=lambda t: t[0])}
             opcions["colors"] = cols
         return opcions
 
@@ -151,21 +164,23 @@ class Opcions:
 
     def calcular_preu(self, material = None, variacio = None, color = None, **kwargs):
         p = 0
-        if material == "None":
+        nones = [None, "None", "none", "null", "[]", ""]
+        if material in nones:
             material = None
-        if variacio == "None":
+        if variacio in nones:
             variacio = None
-        if color == "None":
+        if color in nones:
             color = None
         incomplet = False
-        print(material, variacio, color)
-        print(type(material), type(variacio), type(color))
+        #print(material, variacio, color)
+        #print(type(material), type(variacio), type(color))
+
         if material is None:
             if self.opcions["materials"] is not None:
-                incomplet = True
+                #incomplet = True
                 print([material["preu"] for material in self.opcions["materials"].values()])
                 p += min([material["preu"] for material in self.opcions["materials"].values()])
-        else: 
+        else:
             p += self.opcions["materials"][material]["preu"]
 
         if variacio is None:
@@ -187,7 +202,12 @@ class Opcions:
             if type(color) is str:
                 color = [color]
             for c in color:
-                p += self.opcions["colors"][c]["preu"]
+                print("#", c)
+                print(c == "None" , c == "")
+                if c == "None" or c == "":
+                    p += min([color["preu"] for color in self.opcions["colors"].values()])
+                else:
+                    p += self.opcions["colors"][c]["preu"]
         return p, incomplet
 
 
@@ -394,7 +414,6 @@ class Carret():
                     "product_data": {
                         "name": product["producte"].id,
                         "description": description,
-                        "metadata": product,
                     }
                 },
                 "quantity": product["quantity"],
@@ -449,6 +468,7 @@ class Carret():
             self.carret[id2]["quantity"] += quantitat
         else:
             self.carret[id2] = new_producte
+        self.carret[id2]["preu"] = producte.calcular_preu(**opcions_seleccionades)
         if save_cart:
             return self.save_cart(resp)
 
@@ -760,17 +780,7 @@ def mostrar_peca(lan, id, opcions=None):
     print(opcions)
     print(len(request.args))
     if opcions is None:
-        opcions = {}
-        opcions["material"] = request.args.get("material")
-        opcions["variacio"] = request.args.get("variacio")
-        opcions["talla"] = request.args.get("talla")
-        opcions["color"] = request.args.get("color")
-        print("##", opcions["color"])
-        if opcions["color"] is not None:
-            if opcions["color"][0] == "[":
-                opcions["color"] = opcions["color"].replace("[", "").replace("]", "").split("-")
-                print(">> ", opcions["color"])
-
+        opcions = get_opcions()
 
         opcions_url = "?"+"&".join([key + "=" + str(value) for key, value in opcions.items()])
         print(opcions_url)
@@ -783,6 +793,18 @@ def mostrar_peca(lan, id, opcions=None):
     if html:
         return html + navigation()
 
+def get_opcions():
+    opcions = {}
+    opcions["material"] = request.args.get("material")
+    opcions["variacio"] = request.args.get("variacio")
+    opcions["talla"] = request.args.get("talla")
+    opcions["color"] = request.args.get("color")
+    if opcions["color"] is not None:
+        if opcions["color"][0] == "[":
+            opcions["color"] = opcions["color"].replace("[", "").replace("]", "").split("-")
+        if len(opcions["color"]) == 0:
+            opcions["color"] = "None"
+    return opcions
 
 @app.route("/<lan>/productes/")
 def mostrar_tot(lan):
@@ -804,13 +826,16 @@ def veure_carret(lan):
     html = render_template("carret.html", loc =loc, carret = carret)
     return html + navigation()
 
-@app.post("/<lan>/productes/<id>/<opcions>/afegir_al_carret")
-def afegir_al_carret(lan, id, opcions):
-    opcions_dict = string_to_dict(opcions, allow = ["_", "-" ,":"])
+@app.post("/<lan>/productes/<id>/afegir_al_carret/")
+def afegir_al_carret(lan, id):
+    print("ARGS:")
+    print(request.args)
+    opcions = get_opcions()
+    print(opcions)
     #opcions_url = "&".join([(key + "=" + value) for key, value in opcions_dict.items()])
     if request.method == "POST":
         resp = redirect("/{}/productes/{}/?{}".format(lan, id, opcions))
-        resp = carret.add_producte_carret(id, opcions_dict, resp=resp)
+        resp = carret.add_producte_carret(id, opcions, resp=resp)
         return resp
 
 

@@ -42,12 +42,24 @@
                     {{ producte.descripcio}}
                 </div>
             {% endautoescape %}
-        <button type="button" onclick="updatePage()">Reload</button>
-            <form class="opcions" id="submit-form" action="{{ opcions }}/afegir_al_carret" method="POST">
+            <form class="opcions" id="submit-form" >
 
             {% if producte.opcions %}
-                {{ opcions }}
                 <br><br>
+
+                {% if producte.opcions.variacions %}
+                    <br>
+                    <fieldset  name="str:variacio" class="variacions" >
+                        <legend>Seleciona una variacio</legend>
+                        {% for variacio in producte.opcions.variacions %}
+                        <div>
+                            <input type="radio"  name="str:variacio" class="variacio" value="{{ variacio }}" {{ "checked" if variacio == opcions.variacio }}  onchange="updatePage(this)"/>
+                            <label>{{ variacio }}</label>
+                        </div>
+                        {% endfor %}
+                        </fieldset>
+
+                {% endif %}
 
 
                 {% if producte.opcions.colors %}
@@ -55,14 +67,13 @@
                     {% for n in range(producte.opcions.n_colors) %}
                         <br>
                         Color {{ n+1 }}:
-                        <select name="str:color" class="color-selector">
+                        <select name="str:color" class="color-selector" onchange="updatePage()">
                             <option value="" {{ "selected=\"selected\"" if opcions["color"] == "None" }} ></option>
                             {% for color in producte.opcions.colors %}
                                     <option value="{{ color }}" {{ "selected=\"selected\"" if color == opcions.color[n] }}> {{ color }}</option>
                             {% endfor %}
                         </select>
                     {% endfor %}
-
                 {% endif %}
 
 
@@ -83,50 +94,21 @@
                         {% else %}
                         Talles disponibles:
                         {% for talla in producte.opcions.talles %}
-                            {% if  opcions["talla"] == talla %}
-                                <button type="button" class="talla" id="selected-talla" >{{ talla }}</button>
+                            {% if  opcions["talla"].strip() == loc.str(talla) %}
+                                <button type="button" class="talla" id="selected-talla" onclick="updatePage(this)" >{{ talla }}</button>
                             {%  else %}
-                                <button type="button" class="talla" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"?material={}&variacio={}&talla={}&color={}".format(opcions["material"], opcions["variacio"], talla, opcions["color"]) }}'">{{ talla }} </button>
+                                <button type="button" class="talla" onclick="updatePage(this)">{{ talla }} </button>
                             {%  endif %}
                         {% endfor %}
                             <br>
                         {% endif %}
-                    <input class="afegir_carret" type="submit" value="AFEGIR AL CARRET">
+                    <input class="afegir_carret" type="button" value="AFEGIR AL CARRET" onclick="submitToCart()">
                 <div class="preu-final"> {{ "Desde " if producte.calcular_preu(**opcions)[1] }} {{ producte.calcular_preu(**opcions)[0] }} &#8364;</div>
                 </span>
 
             {% endif %}
 
-                {% if producte.material %}
-                    <div class = "materials">
-                        {% for mat in producte.mats %}
-                            {% if  opcions["material"] == mat %}
-                                <input class="material-boto" id="selected-material" name="int:talla" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"?material={}&variacio={}&talla={}&color={}".format(mat, opcions["variacio"], opcions["talla"], opcions["color"]) }}'"></input>
-                            {%  else %}
-                                <button class="material-boto" style="background-color: {{ loc.colors[mat] }};" onclick="location.href='{{ "/"+loc.lan+"/productes/"+producte.id+"?material={}&variacio={}&talla={}&color={}".format(mat, opcions["variacio"], opcions["talla"], opcions["color"]) }}'"></button>
-                            {%  endif %}
-                        {% endfor %}
-                    </div>
 
-
-                    {% if producte.vars %}
-                        <div class="titol-variacions">{{ loc.pro_variacions_disponibles }}</div>
-                        <div class="variacions">
-                            {% for var, info in producte.vars %}
-                                {% if  var == opcions["variacio"] %}
-                                    <div class="variacio"  onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+material+"/"+var}}'"><span class="variacio-cercle" id="selected-var-cercle" ></span><div class="variacio-text" id="selected-var-text"> {{ loc["var-"+var] }} </div>
-                                {% else %}
-                                    <div class="variacio" onclick="location.href='{{ "/"+loc.lan+"/productes/"+data.id+"/"+material+"/"+var}}'"><span class="variacio-cercle" ></span><div class="variacio-text"> {{ loc["var-"+var] }} </div>
-                                {% endif %}
-                                {% if "preu" in info %}
-                                    <div class="variacio-preu">{{ info.preu }} &#8364; </div>
-                                {% endif %}
-                                    </div>
-                            {% endfor %}
-                        </div>
-                        </div>
-                        {% endif %}
-                {% endif %}
 
             </form>
 
