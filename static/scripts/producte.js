@@ -1,10 +1,12 @@
 
+let oldUrl = new URL(window.location.href)
+window.scrollTo({top: Number(oldUrl.searchParams.get("scroll")), behavior: 'smooth'})
 
 
 let form = document.getElementById('submit-form');
 let sizeSelector = document.getElementsByClassName("talla-unica")
 let sizeButtons = document.getElementsByClassName("talla")
-let oldUrl = new URL(window.location.href)
+
 console.log(oldUrl)
 
 console.log(form)
@@ -52,7 +54,7 @@ console.log(trigger)
     let newLink = linkBase + "?" + materialLink +"&"+ variacioLink +"&"+ tallaLink +"&"+ colorLink
     console.log(newLink)
     if (refresh) {
-        location.href = newLink
+        location.href = newLink + "&scroll="+ String($(window).scrollTop())
     }
 return newLink
 }
