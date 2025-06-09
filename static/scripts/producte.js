@@ -3,7 +3,7 @@ let oldUrl = new URL(window.location.href)
 window.scrollTo({top: Number(oldUrl.searchParams.get("scroll")), behavior: 'smooth'})
 
 
-let form = document.getElementById('submit-form');
+let form = document.getElementById('form');
 let sizeSelector = document.getElementsByClassName("talla-unica")
 let sizeButtons = document.getElementsByClassName("talla")
 
@@ -60,13 +60,13 @@ return newLink
 }
 
 function submitToCart () {
-    let url = updatePage(null, false)
-    let urlParts = url.split("?")
+    let newLink = updatePage(null, false)
+    let urlParts = newLink.split("?")
     console.log(urlParts)
     let cartLink = urlParts[0]+"afegir_al_carret/?" + urlParts[1]
     console.log(cartLink)
     fetch(cartLink, {method: "POST"})
-    if (false) {
-        location.href = newLink
+    if (true) {
+        window.location.href=newLink
     }
 }
