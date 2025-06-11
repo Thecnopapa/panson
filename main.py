@@ -82,6 +82,10 @@ class Localization():
     def strip(s):
         return s.strip()
 
+    @staticmethod
+    def enumerate(l):
+        return enumerate(l)
+
     def update(self, lan=None, force = True):
         if lan is None:
             lan = self.lan

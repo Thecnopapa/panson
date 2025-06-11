@@ -33,15 +33,16 @@
             <div class="submenu menu-content" id="peces-menu" onclick="showDropdown(this)">
                 <div class="titol-submenu menu-content">{{ loc.nav_peces_uniques }}
                     <span><img class="plus item-submenu" src="/static/media/plus.svg"><img class="minus item-submenu" src="/static/media/minus.svg"></span></div>
-                {% for prod in productes.uniques() %}
+                {% for prod in productes.uniques()[:-1] %}
                         <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/productes/peces_uniques#{{ prod.id }}'">{{ prod.nom }}</div>
                     {% endfor %}
+                <div class="item-submenu menu-content last-submenu"  onclick="location.href='/{{ loc.lan }}/productes/peces_uniques#{{ productes.uniques()[-1].id }}'">{{ productes.uniques()[-1].nom }}</div>
             </div>
             <div class="submenu menu-content" id="peces-menu" onclick="showDropdown(this)">
                 <div class="titol-submenu menu-content" onclick="location.href='/{{ loc.lan }}/productes/">{{ loc.nav_peces }}</div>
                 {% if productes %}
                     {% for tipus in productes.tipus %}
-                        <div class="titol-submenu menu-content no-line"  onclick="location.href='/{{ loc.lan }}/productes/?tipus={{ tipus }}'">{{ loc["tip-"+tipus+"-plural"]}}</div>
+                        <div class="titol-submenu menu-content no-line less-padding"  onclick="location.href='/{{ loc.lan }}/productes/?tipus={{ tipus }}'">{{ loc["tip-"+tipus+"-plural"]}}</div>
                     {% endfor %}
                 {% endif %}
             </div>

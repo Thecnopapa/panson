@@ -107,7 +107,7 @@ body {
     transition: 0.3s ease;
     flex-wrap: wrap;
     padding-left: 1dvh;
-    padding-right: 1dvh;
+    padding-right: 2dvh;
     justify-content: flex-start;
 }
 
@@ -176,7 +176,6 @@ body {
 
     height: fit-content;
     align-items: center;
-    padding-bottom: 2dvh;
 }
 
 
@@ -278,8 +277,8 @@ body {
     transition: 0.3s ease;
     transform: rotate(90deg);
 }
-. submenu {
-    display: none;
+.submenu {
+
 }
 
 .titol-submenu, .item-submenu {
@@ -295,15 +294,13 @@ body {
     margin-left: 1dvh;
     margin-right: 1dvh;
     padding-bottom: 1dvh;
-    padding-top: 2dvh;
+    padding-top: 1dvh;
     text-underline-offset: 0.5dvh;
-    min-width: max-content;
     border: none;
     border-top: black solid 1px;
     width: 95%;
 }
-.no-line { border-top:none; }
-.menutop { margin-top: 6dvh;}
+
 .titol-submenu:hover {
     text-decoration: underline;
     cursor: pointer;
@@ -347,12 +344,17 @@ body {
 .plus, .minus {
     height: 2dvh;
     width: 2dvh;
+    padding: 0;
 }
 .plus {display: inline-block}
 .plus.dropdown-show {display: none;}
 .minus {display: none}
 .minus.dropdown-show {display: inline-block;}
 
+.no-line { border-top:none; }
+.menutop { margin-top: 6dvh;}
+.last-submenu{padding-bottom: 1.5dvh}
+.less-padding { padding-top: 0.5dvh; padding-bottom: 0.5dvh }
 
 @media screen and (orientation: portrait) {
     .navigation {
