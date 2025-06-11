@@ -43,7 +43,6 @@ function openMenu() {
             menuContent[i].setAttribute("onclick", "showDropdown(this)");
         }
         console.log("SHOWN")
-
         }
     menuOpen = true;
     setTimeout(showMenuContent, 300);
@@ -98,6 +97,10 @@ function closeMenu() {
     for(var i = 0; i < hideContent.length; i++) {
         hideContent[i].classList.remove('shown');
         hideContent[i].classList.remove('dropdown-show');
+        if (hideContent[i].classList.contains('submenu')) {
+            hideContent[i].setAttribute("onclick", "showDropdown(this)");
+        }
+
 
     }
 

@@ -293,6 +293,7 @@ body {
     color: rgba(0, 0, 0, 0);
     font-size: 2dvh;
     margin-left: 1dvh;
+    margin-right: 1dvh;
     padding-bottom: 1dvh;
     padding-top: 2dvh;
     text-underline-offset: 0.5dvh;
@@ -300,7 +301,6 @@ body {
     border: none;
     border-top: black solid 1px;
     width: 95%;
-    left:5%;
 }
 .no-line { border-top:none;}
 
@@ -314,6 +314,8 @@ body {
 
 .titol-submenu {
     color: rgba(0, 0, 0, 0);
+    justify-content: space-between;
+
 }
 
 .item-submenu {
@@ -330,7 +332,7 @@ body {
 
 }
 .shown {
-    display: block;
+    display: flex;
 
 }
 .dropdown-show {
@@ -340,8 +342,18 @@ body {
 
 #contacte-menu, #projecte-menu {
         display: none;
-
     }
+
+.plus, .minus {
+    height: 2dvh;
+    width: 2dvh;
+}
+.plus {display: inline-block}
+.plus.dropdown-show {display: none;}
+.minus {display: none}
+.minus.dropdown-show {display: inline-block;}
+
+
 @media screen and (orientation: portrait) {
     .navigation {
         justify-content: center;

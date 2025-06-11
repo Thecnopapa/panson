@@ -22,7 +22,8 @@
         <div class="menu" id="menu" onmouseover="openMenu()" onmouseleave="closeMenu()">
 
             <div class="submenu menu-content " id="collecions-menu" onclick="showDropdown(this)" >
-                <div class="titol-submenu menu-content no-line">{{ loc.nav_collecions }}</div>
+                <div class="titol-submenu menu-content no-line">{{ loc.nav_collecions }}
+                <span><img class="plus item-submenu" src="/static/media/plus.svg"><img class="minus item-submenu" src="/static/media/minus.svg"></span></div>
                 {% if productes %}
                     {% for col in productes.collecions %}
                         <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/productes/?collecio={{ col }}'">{{ col }}</div>
@@ -30,13 +31,15 @@
                 {% endif %}
             </div>
             <div class="submenu menu-content" id="peces-menu" onclick="showDropdown(this)">
-                <div class="titol-submenu menu-content">{{ loc.nav_peces_uniques }}</div>
+                <div class="titol-submenu menu-content">{{ loc.nav_peces_uniques }}
+                    <span><img class="plus item-submenu" src="/static/media/plus.svg"><img class="minus item-submenu" src="/static/media/minus.svg"></span></div>
                 {% for prod in productes.uniques() %}
                         <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/productes/{{ prod.id }}'">{{ prod.nom }}</div>
                     {% endfor %}
             </div>
             <div class="submenu menu-content" id="peces-menu" onclick="showDropdown(this)">
-                <div class="titol-submenu menu-content">{{ loc.nav_peces }}</div>
+                <div class="titol-submenu menu-content">{{ loc.nav_peces }}
+                <span><img class="plus item-submenu" src="/static/media/plus.svg"><img class="minus item-submenu" src="/static/media/minus.svg"></span></div>
                 {% if productes %}
                     {% for tipus in productes.tipus %}
                         <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/productes/?tipus={{ tipus }}'">{{ loc["tip-"+tipus+"-plural"]}}</div>
