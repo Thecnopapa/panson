@@ -157,11 +157,11 @@ body {
     background-color: rgb(255, 255, 255);
     position: fixed;
     width: 0;
-    height: 94dvh;
+    height: 100%;
     left: 0;
     top: 0;
     z-index: 5;
-    padding-top: 6dvh;
+    padding-top: 0;
     transition: width 1s ease;
     box-shadow: 0.2px 0px 8px rgb(115, 115, 115);
 }
@@ -302,8 +302,8 @@ body {
     border-top: black solid 1px;
     width: 95%;
 }
-.no-line { border-top:none;}
-
+.no-line { border-top:none; }
+.menutop { margin-top: 6dvh;}
 .titol-submenu:hover {
     text-decoration: underline;
     cursor: pointer;

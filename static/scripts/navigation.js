@@ -19,7 +19,7 @@ closeMenu();
 
 
 function openMenu() {
-
+    if (menuOpen) {return}
     console.log('open menu');
     if(window.innerHeight > window.innerWidth){
        menu.style.width = "80%";
@@ -98,7 +98,7 @@ function closeMenu() {
         hideContent[i].classList.remove('shown');
         hideContent[i].classList.remove('dropdown-show');
         if (hideContent[i].classList.contains('submenu')) {
-            hideContent[i].setAttribute("onclick", "showDropdown(this)");
+            hideDropdown(hideContent[i]);
         }
 
 

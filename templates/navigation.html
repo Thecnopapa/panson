@@ -21,7 +21,7 @@
         <button class="menu-simple" id="menu-button-simple" onclick="switchMenu()"><img class="icon-menu-simple" src="/static/media/menu-black.svg" alt="cart"><br> </button>
         <div class="menu" id="menu" onmouseover="openMenu()" onmouseleave="closeMenu()">
 
-            <div class="submenu menu-content " id="collecions-menu" onclick="showDropdown(this)" >
+            <div class="submenu menu-content menutop " id="collecions-menu" onclick="showDropdown(this)" >
                 <div class="titol-submenu menu-content no-line">{{ loc.nav_collecions }}
                 <span><img class="plus item-submenu" src="/static/media/plus.svg"><img class="minus item-submenu" src="/static/media/minus.svg"></span></div>
                 {% if productes %}
@@ -38,11 +38,10 @@
                     {% endfor %}
             </div>
             <div class="submenu menu-content" id="peces-menu" onclick="showDropdown(this)">
-                <div class="titol-submenu menu-content">{{ loc.nav_peces }}
-                <span><img class="plus item-submenu" src="/static/media/plus.svg"><img class="minus item-submenu" src="/static/media/minus.svg"></span></div>
+                <div class="titol-submenu menu-content" onclick="location.href='/{{ loc.lan }}/productes/">{{ loc.nav_peces }}</div>
                 {% if productes %}
                     {% for tipus in productes.tipus %}
-                        <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/productes/?tipus={{ tipus }}'">{{ loc["tip-"+tipus+"-plural"]}}</div>
+                        <div class="titol-submenu menu-content no-line"  onclick="location.href='/{{ loc.lan }}/productes/?tipus={{ tipus }}'">{{ loc["tip-"+tipus+"-plural"]}}</div>
                     {% endfor %}
                 {% endif %}
             </div>
