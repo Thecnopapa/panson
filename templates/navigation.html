@@ -21,25 +21,30 @@
         <button class="menu-simple" id="menu-button-simple" onclick="switchMenu()"><img class="icon-menu-simple" src="/static/media/menu-black.svg" alt="cart"><br> </button>
         <div class="menu" id="menu" onmouseover="openMenu()" onmouseleave="closeMenu()">
 
-            <div class="submenu menu-content" id="collecions-menu">
-                <div class="titol-submenu menu-content" onclick="location.href='/{{ loc.lan }}/collecions'">{{ loc.nav_collecions }}</div>
+            <div class="submenu menu-content " id="collecions-menu" onclick="showDropdown(this)" >
+                <div class="titol-submenu menu-content no-line">{{ loc.nav_collecions }}</div>
                 {% if productes %}
-                    <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/productes/peces_uniques/'">{{ loc.nav_peces_uniques }}</div>
                     {% for col in productes.collecions %}
                         <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/productes/?collecio={{ col }}'">{{ col }}</div>
                     {% endfor %}
                 {% endif %}
             </div>
-            <div class="submenu menu-content" id="peces-menu">
-                <div class="titol-submenu menu-content" onclick="location.href='/{{ loc.lan }}/productes'">{{ loc.nav_peces }}</div>
+            <div class="submenu menu-content" id="peces-menu" onclick="showDropdown(this)">
+                <div class="titol-submenu menu-content">{{ loc.nav_peces_uniques }}</div>
+                {% for prod in productes.uniques() %}
+                        <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/productes/{{ prod.id }}'">{{ prod.nom }}</div>
+                    {% endfor %}
+            </div>
+            <div class="submenu menu-content" id="peces-menu" onclick="showDropdown(this)">
+                <div class="titol-submenu menu-content">{{ loc.nav_peces }}</div>
                 {% if productes %}
                     {% for tipus in productes.tipus %}
                         <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/productes/?tipus={{ tipus }}'">{{ loc["tip-"+tipus+"-plural"]}}</div>
                     {% endfor %}
                 {% endif %}
             </div>
-            <button class="menu-page" id="contacte-menu" onclick="location.href='/{{ loc.lan }}/contacte'">{{ loc.nav_contacte }}</button>
-            <button class="menu-page" id="projecte-menu" onclick="location.href='/{{ loc.lan }}/projecte'"> {{ loc.nav_projecte }}</button>
+            <div class="titol-submenu menu-content" id="projecte-menu" onclick="location.href='/{{ loc.lan }}/projecte'">{{ loc.nav_projecte_mobil }}</div>
+            <div class="titol-submenu menu-content" id="contacte-menu" onclick="location.href='/{{ loc.lan }}/contacte'">{{ loc.nav_contacte_mobil }}</div>
         </div>
 
         <button class="dropbtn" id="projecte" onclick="location.href='/{{ loc.lan }}/projecte'"> {{ loc.nav_projecte }}</button>

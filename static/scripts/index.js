@@ -25,9 +25,18 @@ function updateScroll() {
         title.style.cursor = "default";
     }
     title.style.top = String(35 - (35 * scroll / maxScroll)).concat("dvh");
-    title.style.height = String(20 - (13 * scroll / maxScroll)).concat("dvh");
-    title.style.left = String(20 + (20 * scroll / maxScroll)).concat("dvw");
-    title.style.width = String(60 - (40 * scroll / maxScroll)).concat("dvw");
+
+    if (window.innerHeight > window.innerWidth){
+        title.style.height = String(20 - (14 * scroll / maxScroll)).concat("dvh");
+        title.style.width = String(60 - (0 * scroll / maxScroll)).concat("dvw");
+        title.style.left = String(20 + (0 * scroll / maxScroll)).concat("dvw");
+    }else {
+        title.style.height = String(20 - (13 * scroll / maxScroll)).concat("dvh");
+        title.style.width = String(60 - (40 * scroll / maxScroll)).concat("dvw");
+        title.style.left = String(20 + (20 * scroll / maxScroll)).concat("dvw");
+    }
+
+
     title.style.paddingBottom = String(5 - (5 * scroll / maxScroll)).concat("dvh");
     title.style.paddingTop = String(5 - (5 * scroll / maxScroll)).concat("dvh");
 

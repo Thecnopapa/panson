@@ -163,24 +163,22 @@ body {
     z-index: 5;
     padding-top: 6dvh;
     transition: width 1s ease;
-    box-shadow: 10px 0px 8px rgba(165, 165, 165, 0.5);
+    box-shadow: 0.2px 0px 8px rgb(115, 115, 115);
 }
 
 
 
-#contacte-menu {
-    margin-top:auto;
-}
+
 
 #contacte-menu, #projecte-menu {
     display: none;
     background-color: rgba(0, 0, 0, 0);
-    border: none;
-    border-top: black solid 1px;
-    height: 5dvh;
+
+    height: fit-content;
     align-items: center;
-    font-size: 1.5dvh;
+    padding-bottom: 2dvh;
 }
+
 
 
 .title{
@@ -271,8 +269,8 @@ body {
     align-content: center;
     text-align: center;
     vertical-align: center;
-    height: 4dvh;
-    width: 4dvh;
+    height: 2.5dvh;
+    width: 2.5dvh;
 
 
 }
@@ -287,25 +285,39 @@ body {
 .titol-submenu, .item-submenu {
     transition: color 0.5s ease;
 }
-
+.menu-content {
+    user-select: none;
+}
 .titol-submenu {
     display: none;
     color: rgba(0, 0, 0, 0);
     font-size: 2dvh;
-    padding-left: 1dvh;
+    margin-left: 1dvh;
     padding-bottom: 1dvh;
     padding-top: 2dvh;
     text-underline-offset: 0.5dvh;
     min-width: max-content;
+    border: none;
+    border-top: black solid 1px;
+    width: 95%;
+    left:5%;
 }
+.no-line { border-top:none;}
 
 .titol-submenu:hover {
     text-decoration: underline;
     cursor: pointer;
+
 }
+
+
+
+.titol-submenu {
+    color: rgba(0, 0, 0, 0);
+}
+
 .item-submenu {
     display: none;
-    color: rgba(0, 0, 0, 0);
     font-size: 2dvh;
     padding-left: 2dvh;
     cursor: pointer;
@@ -321,7 +333,15 @@ body {
     display: block;
 
 }
+.dropdown-show {
+    display: block;
+}
 
+
+#contacte-menu, #projecte-menu {
+        display: none;
+
+    }
 @media screen and (orientation: portrait) {
     .navigation {
         justify-content: center;
@@ -332,6 +352,11 @@ body {
     }
     .menu-simple {
         display: flex;
+        padding: 0;
+    }
+    .title{
+        display: flex;
+
     }
 
 

@@ -7,7 +7,7 @@ const botoContacte = document.getElementById('contacte');
 const botoMenuSimple = document.getElementsByClassName('icon-menu-simple')[0];
 const contacteMenu = document.getElementById("contacte-menu");
 const projecteMenu = document.getElementById('projecte-menu');
-const menuContent = document.getElementsByClassName('menu-content');
+const menuContent = document.getElementsByClassName('titol-submenu');
 
 for(var i = 0; i < menuContent.length; i++) {
     menuContent[i].addEventListener('mouseover', openMenu());
@@ -39,13 +39,34 @@ function openMenu() {
     }catch(e){}
     for(var i = 0; i < menuContent.length; i++) {
         menuContent[i].classList.add('shown');
+        if (menuContent[i].classList.contains('submenu')) {
+            menuContent[i].setAttribute("onclick", "showDropdown(this)");
+        }
         console.log("SHOWN")
+
         }
     menuOpen = true;
     setTimeout(showMenuContent, 300);
 
 
 };
+
+function showDropdown (submenu) {
+    let submenuContent = submenu.getElementsByClassName('item-submenu');
+    submenu.setAttribute("onclick", "hideDropdown(this)");
+    for (let i = 0; i < submenuContent.length; i++) {
+        submenuContent[i].classList.add('dropdown-show');
+    }
+
+}
+function hideDropdown (submenu) {
+    let submenuContent = submenu.getElementsByClassName('item-submenu');
+    submenu.setAttribute("onclick", "showDropdown(this)");
+    for (let i = 0; i < submenuContent.length; i++) {
+        submenuContent[i].classList.remove('dropdown-show');
+    }
+}
+
 
 
 function showMenuContent() {
@@ -70,8 +91,13 @@ function closeMenu() {
     window.scrollTo(window.scrollX, window.scrollY - 1);
     window.scrollTo(window.scrollX, window.scrollY + 1);
     for(var i = 0; i < menuContent.length; i++) {
-        menuContent[i].classList.remove('shown');
         menuContent[i].style.color = "rgba(0,0,0,0)";
+    }
+
+    let hideContent = document.getElementsByClassName('menu-content');
+    for(var i = 0; i < hideContent.length; i++) {
+        hideContent[i].classList.remove('shown');
+        hideContent[i].classList.remove('dropdown-show');
 
     }
 

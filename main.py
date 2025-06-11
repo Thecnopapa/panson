@@ -297,8 +297,7 @@ class Productes():
         carret.update()
 
     def uniques(self):
-        print("Unique productes:")
-        return [dict(producte.__dict__) for producte in self.productes ]
+        return [dict(producte.__dict__) for producte in self.productes if producte.unica ]
 
     def filtrats(self, **filtres):
         print("Filtrant:", filtres)
