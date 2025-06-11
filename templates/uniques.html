@@ -17,7 +17,7 @@
     <div class="content" >
 
         {% if producte.imatges %}
-            <div class="fons_collecio" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media')">
+            <div class="fons_collecio" id="{{ producte.id }}" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media')">
         {%  endif %}
             <div class = "titol-collecio" onclick="location.href='/{{ loc.lan }}/productes/{{ producte.id }}'">{{ producte.nom }}</div>
             <div class = "descripcio">{{ producte.subtitol }}</div>
