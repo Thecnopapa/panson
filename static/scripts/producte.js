@@ -6,6 +6,7 @@ window.scrollTo({top: Number(oldUrl.searchParams.get("scroll")), behavior: 'smoo
 let form = document.getElementById('form');
 let sizeSelector = document.getElementsByClassName("talla-unica")
 let sizeButtons = document.getElementsByClassName("talla")
+let requiredInput = document.getElementsByClassName("required")
 
 console.log(oldUrl)
 
@@ -59,14 +60,22 @@ console.log(trigger)
 return newLink
 }
 
-function submitToCart () {
-    let newLink = updatePage(null, false)
-    let urlParts = newLink.split("?")
-    console.log(urlParts)
-    let cartLink = urlParts[0]+"afegir_al_carret/?" + urlParts[1]
-    console.log(cartLink)
-    fetch(cartLink, {method: "POST"})
-    if (true) {
-        window.location.href=newLink
+function submitToCart (notSubmittable) {
+    if (notSubmittable == "True") {
+        console.log("missing info")
+        for (let i = 0; i < requiredInput.length; i++) {
+            requiredInput[i].style.color = "red"
+        }
+    }
+    else {
+        let newLink = updatePage(null, false)
+        let urlParts = newLink.split("?")
+        console.log(urlParts)
+        let cartLink = urlParts[0]+"afegir_al_carret/?" + urlParts[1]
+        console.log(cartLink)
+        fetch(cartLink, {method: "POST"})
+        if (true) {
+            window.location.href=newLink
+        }
     }
 }
