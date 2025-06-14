@@ -6,6 +6,7 @@ const cart = document.getElementById("carret")
 closeCart()
 
 function openCart(){
+    closeMenu()
     console.log("Opening Cart")
     cart.style.display = "flex";
     for (let i = 0; i < cartItems.length; i++) {
