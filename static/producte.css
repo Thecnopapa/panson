@@ -196,10 +196,27 @@ body {
 #selected-talla {
     border: 0.5dvh solid rgba(0, 0, 0, 1);
 }
-
+.opcions {
+        font-size: 2.5dvh;
+    }
+    .color-selector{
+        font-size: 2.5dvh;
+    }
+    .color-opcion {
+        font-size: 2.5dvh;
+    }
 .preu-final {
     display: inline-block;
+    font-size: 3dvh;
 }
+.afegir_carret{
+    font-size: 2dvh;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    text-decoration: underline;
+    text-underline-offset: 0.5dvh;
+}
+
 
 
 @media screen and (orientation: landscape) and (orientation: portrait) {
@@ -261,6 +278,8 @@ body {
         width: 100%;
         height: max-content;
         min-height: max-content;
+        text-align: justify;
+        text-justify: auto;
     }
 
     .detalls_generals {
@@ -282,6 +301,7 @@ body {
         display: none;
     }
 }
+
 
 .content-galeria {
     position: relative;
