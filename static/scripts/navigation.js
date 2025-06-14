@@ -37,9 +37,9 @@ for(var i = 0; i < menuContent.length; i++) {
 menu.style.width = "0px";
 closeMenu();
 
-
 function openMenu() {
     if (menuOpen) {return}
+    closeCart()
     console.log('open menu');
     if(window.innerHeight > window.innerWidth){
        menu.style.width = "80%";
@@ -105,7 +105,6 @@ function showMenuContent() {
 }
 
 function closeMenu() {
-    closeCart()
     console.log('close menu');
     menu.style.width = "0px";
     window.scrollTo(window.scrollX, window.scrollY - 1);
