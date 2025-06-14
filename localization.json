@@ -39,6 +39,9 @@
     "pro-materials-disponibles": "Disponible en els seguents materials:",
     "pro-variacions-disponibles": "Disponible amb les seguents variacions:",
 
+    "car-checkout": "PAGAMENT",
+    "car-carret": "CARRET",
+    "car-tancar": "Tancar",
 
     "con-contacte" : "Contacte",
 
@@ -102,6 +105,9 @@
     "pro-materials-disponibles": "Available in the following materials",
     "pro-variacions-disponibles": "Available in the following variations:",
 
+    "car-checkout": "CHECKOUT",
+    "car-carret": "CART",
+    "car-tancar": "Close",
 
     "con-contacte" : "Contact",
 

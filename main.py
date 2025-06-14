@@ -52,7 +52,6 @@ class Localization():
         except:
             self.logged_in = False
 
-
     def __getattr__(self, item):
         try:
             return self.loc[item.replace("_", "-")]
@@ -86,20 +85,24 @@ class Localization():
     def enumerate(l):
         return enumerate(l)
 
+    @staticmethod
+    def str_to_list(str, delimiter = ","):
+        return str_to_list(str, delimiter)
+
     def update(self, lan=None, force = True):
-        if lan is None:
-            lan = self.lan
-        if self.lan != lan or force:
-            self.__init__(lan)
-            global productes
-            productes.update(self)
-            global cookies
-            cookies.check_accepted()
+            if lan is None:
+                lan = self.lan
+            if self.lan != lan or force:
+                self.__init__(lan)
+                global productes
+                productes.update(self)
+                global cookies
+                cookies.check_accepted()
 
 
-            return self
-        else:
-            return self
+                return self
+            else:
+                return self
 
 
 
@@ -203,14 +206,18 @@ class Opcions:
                 p += min([color["preu"] for color in self.opcions["colors"].values()]) * self.opcions["n_colors"]
         else:
             print(color, type(color))
+            if "[" in color:
+                color = str_to_list(color)
             if type(color) is str:
                 color = [color]
             for c in color:
+                c = c.replace("\'", "")
                 print("#", c)
                 print(c == "None" , c == "")
                 if c == "None" or c == "":
                     p += min([color["preu"] for color in self.opcions["colors"].values()])
                 else:
+                    print(self.opcions["colors"])
                     p += self.opcions["colors"][c]["preu"]
         return p, incomplet
 
@@ -461,8 +468,12 @@ class Carret():
                         "quantity":quantitat,}
         id2 = producte.id
         for key, value in sorted(opcions_seleccionades.items(), key=lambda item: item[0]):
+            if value is not None:
+                if "[" in value:
+                    value = str_to_list(value)
             if value == "None":
                 value = None
+
             new_producte[key] = value
             id2 += "&{}:{}".format(key,value)
         new_producte["id2"] = id2
@@ -646,7 +657,7 @@ def navigation(html = "", title = True, back = False, is_admin = False):
 
 
     html += render_template("navigation.html", origin=origin, loc = loc, hide_title=not title,
-                            productes=productes, logout = is_admin, n_carret = n_carret, ask_cookies=not cookies.accepted)
+                            productes=productes, logout = is_admin, n_carret = n_carret, carret = carret, ask_cookies=not cookies.accepted)
     print(carret.carret)
     return html
 
@@ -776,19 +787,16 @@ def peces_uniques(lan):
 
 
 @app.route("/<lan>/productes/<id>/")
-def mostrar_peca(lan, id, opcions=None):
+def mostrar_peca(lan, id):
     loc.update(lan)
     productes.update(loc)
     producte = productes.get_single(id)
-    print(opcions)
-    print(len(request.args))
-    if opcions is None:
-        opcions = get_opcions()
 
-        opcions_url = "?"+"&".join([key + "=" + str(value) for key, value in opcions.items()])
-        print(opcions_url)
-        if len(request.args) == 0:
-            return redirect("/"+loc.lan+"/productes/"+id+"/"+opcions_url)
+    print(len(request.args))
+    opcions = get_opcions()
+    opcions_url = "?"+"&".join([key + "=" + str(value) for key, value in opcions.items()])
+    print(opcions_url)
+
     html = render_template("producte.html", producte=producte, loc = loc, opcions = opcions)
     html += render_template("galeria.html", productes=productes.filtrats(collecio=producte.collecio),
                             titol=producte.collecio.capitalize(),  no_head=True,  loc=loc)
@@ -808,6 +816,12 @@ def get_opcions():
         if len(opcions["color"]) == 0:
             opcions["color"] = "None"
     return opcions
+
+def str_to_list(string, delimiter=","):
+    if type(string) is list:
+        return string
+    ls = string.replace("[", "").replace("]", "").split(delimiter)
+    return [l.replace("\'", "").strip() for l in ls]
 
 @app.route("/<lan>/productes/")
 def mostrar_tot(lan):
@@ -829,7 +843,7 @@ def veure_carret(lan):
     html = render_template("carret.html", loc =loc, carret = carret)
     return html + navigation()
 
-@app.post("/<lan>/productes/<id>/afegir_al_carret/")
+@app.route("/<lan>/productes/<id>/afegir_al_carret/", methods=["POST", "GET"])
 def afegir_al_carret(lan, id):
     print("ARGS:")
     print(request.args)
@@ -837,6 +851,10 @@ def afegir_al_carret(lan, id):
     print(opcions)
     #opcions_url = "&".join([(key + "=" + value) for key, value in opcions_dict.items()])
     if request.method == "POST":
+        resp = redirect("/{}/productes/{}/?{}".format(lan, id, opcions))
+        resp = carret.add_producte_carret(id, opcions, resp=resp)
+        return resp
+    if request.method == "GET":
         resp = redirect("/{}/productes/{}/?{}".format(lan, id, opcions))
         resp = carret.add_producte_carret(id, opcions, resp=resp)
         return resp
@@ -897,7 +915,7 @@ def contatce(lan):
 
 @app.route("/<path>/acceptar_cookies")
 def acceptar_cookies(path):
-    resp = redirect(path)
+    resp = redirect("/"+path)
     resp = cookies.set_accepted(resp)
     return resp
 

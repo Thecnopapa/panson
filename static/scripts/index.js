@@ -4,8 +4,7 @@ const maxScroll = windowHeight * 0.35
 const onClickLink = document.getElementById('title').onclick
 const navButtons = document.getElementsByClassName('dropbtn');
 const lanButtons = document.getElementsByClassName('language');
-const cartButton = document.getElementsByClassName('shopping-cart');
-const cartCircle = document.getElementsByClassName('cercle-carret');
+
 const menuButton = document.getElementsByClassName('icon-menu-simple');
 const title = document.getElementById('title');
 
@@ -50,7 +49,7 @@ function updateScroll() {
         	cartCircle[0].style.color = "white";
         	cartCircle[0].style.backgroundColor = "black";
 	}
-        cartButton[0].src = "/static/media/bag-black.svg";
+        cartIcon[0].src = "/static/media/bag-black.svg";
         menuButton[0].src = "/static/media/menu-black.svg";
         title.style.backgroundImage = "url(\"/static/media/logo-complet.png\")";
         title.style.zIndex = 10;
@@ -67,7 +66,7 @@ function updateScroll() {
         	cartCircle[0].style.color = "black";
         	cartCircle[0].style.backgroundColor = "white";
 	}
-        cartButton[0].src = "/static/media/bag.svg";
+        cartIcon[0].src = "/static/media/bag.svg";
 
         title.style.backgroundImage = "url(\"/static/media/logo-complet-blanc.png\")";
         title.style.zIndex = 4;

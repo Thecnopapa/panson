@@ -2,11 +2,6 @@ import shutil
 import time
 import os
 
-try:
-    from Globals import vars
-    globals_loaded = True
-except:
-    globals_loaded = False
 
 def tprint(*strings, head=10, style="#", end="\n", sep=" "):  # Print section title
     width = shutil.get_terminal_size()[0] -2
@@ -21,9 +16,6 @@ def eprint(*strings, head=10, style = "^", sep=" "):  # Print end of section
 
 def sprint(*strings,**kwargs): # Print Subtitle
     str_strings = map(str, strings)
-    if globals_loaded and "quiet" in vars:
-        if vars.quiet:
-            return
     print("\n #", " ".join(str_strings),**kwargs)
 
 def print1(*strings, space=2, **kwargs): # Print with 1 indent
@@ -35,9 +27,7 @@ def print1(*strings, space=2, **kwargs): # Print with 1 indent
         else:
             str_strings.append(str(string))
     #str_strings = map(str, strings)
-    if globals_loaded and "quiet" in vars:
-        if vars.quiet:
-            return
+
     print("{}> {}".format(" " * space, " ".join(str_strings)), **kwargs)
 
 def print2(*strings, **kwargs): # Print with 2 indents
@@ -77,11 +67,6 @@ def get_digits(string, allow=("."), integer = False):
             print(''.join(e for e in unidecode(str(string)) if e.isdigit() or e in allow))
 
         return None
-def unpickle(path):
-    import pickle
-    with open(path, "rb") as f:
-        return pickle.load(f)
-
 
 def add_front_0(string, digits=2, zero = "0"):
     ret = ""
@@ -156,21 +141,6 @@ class ProgressBar:
             except:
                 pass
 
-def ring_bell(times = 1, interval=0.2):
-    try:
-        from Globals import vars
-        if vars.quiet:
-            return
-    except:
-        pass
-    import sys
-    import time
-    for i in range(times):
-        sys.stdout.write('\a')
-        sys.stdout.flush()
-        time.sleep(interval)
-
-
 
 
 
@@ -203,71 +173,6 @@ def clean_list(strings:list, delimiter=" ", format="float", allow=["."]):
 
 
 
-class ThinkingBar(ProgressBar):
-    def __init__(self, style="=", length = 10):
-        super().__init__(style=style)
-        self.tick = 0
-        self.length = length
-
-    def update(self, end="\r", info = ""):
-        self.current = 0
-        start = self.tick
-        percentage = "|{}".format(info)
-        blank1 = "|" + " "*start
-        bar = "{}>".format(self.style * self.length)
-        leftover = self.width - len(blank1) - len(bar)- len(percentage)
-        if leftover >= 0:
-            blank2 =  " "* leftover
-            print("{}{}{}{}".format(blank1, bar, blank2, percentage), end=end)
-        else:
-            bar1 = "|" + bar[leftover:]
-            bar2 = bar[:leftover]
-            blank = " "*(self.width - len(bar1) - len(bar2)- len(percentage))
-            print("{}{}{}{}".format(bar1, blank, bar2, percentage), end=end)
-        self.tick += 1
-        if leftover < -self.length:
-            self.tick = 0
-
-
-#### In development ###
-def start_blinking():
-    global blinking_thread
-    #from threading import Th
-    #blinking_thread = Thread
-
-class BlinkingBar(ThinkingBar):
-    from threading import Thread
-    thread = None
-    def __init__(self,side="right", style="o", length = 10):
-
-        super().__init__(style=style, length=length)
-        self.side = side
-        self.direction = "right"
-        self.length += len(style)
-
-    def update(self, end="\r", info = ""):
-
-        if self.direction == "right":
-            self.tick += 1
-        else:
-            self.tick -= 1
-        if self.tick <= 0:
-            self.direction = "right"
-        if self.tick >= self.length:
-            self.direction = "left"
-### In development ###
-
-def enable_garbage_collector():
-    import gc
-    gc.enable()
-
-def collect_garbage():
-    import gc
-    before = len(gc.get_objects())
-    gc.collect()
-    after = len(gc.get_objects())
-    print("Collected {} objects".format(after - before))
-
 def sort_dict(x, as_list = False, ascendant = False):
     if x is None:
         return None
@@ -276,17 +181,6 @@ def sort_dict(x, as_list = False, ascendant = False):
     else:
         return {k: v for k, v in sorted(x.items(), key=lambda item: item[1], reverse=not ascendant)}
 
-def KeepInterpreter():
-    class HaltException(Exception): pass
-    try:
-        # script goes here
-
-        # when you want to stop,
-        raise HaltException("Somebody stop me!")
-
-    except HaltException as h:
-        print(h)
-        # now what?
 
 def string_to_dict(string, allow=["-", "_"]):
     keys= []

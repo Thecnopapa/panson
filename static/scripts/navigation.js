@@ -1,3 +1,23 @@
+const cartIcon = document.getElementsByClassName('shopping-cart');
+const cartCircle = document.getElementsByClassName('cercle-carret');
+
+function dynamicallyLoadScript(url) {
+    var script = document.createElement("script");  // create a script DOM node
+    script.src = url;  // set its src to the provided URL
+    document.head.appendChild(script);  // add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
+}
+function dynamicallyLoadCSS(url) {
+    var css = document.createElement("link");  // create a script DOM node
+    css.href = url;  // set its src to the provided URL
+    css.rel = "stylesheet";
+    document.head.appendChild(css);  // add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
+}
+
+dynamicallyLoadScript("/static/scripts/cart.js")
+dynamicallyLoadCSS("/static/carret.css")
+
+
+
 let menuOpen = false;
 const menu = document.getElementById('menu');
 const navLeft = document.getElementById('nav-left');

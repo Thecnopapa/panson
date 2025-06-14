@@ -1,33 +1,143 @@
 
 
+.is-carret {
+    font-size: 1.5dvh;
+    color: black;
+    z-index: 20;
+}
+
+@media screen and (orientation: portrait) {
+
+}
 
 
 .content-carret {
+    position: fixed;
     height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-
+    width: 30dvw;
+    right: 0;
+    top: 0;
+    background-color: white;
+    max-height: 100dvh;
+    scroll-behavior: smooth;
+    overflow-y: scroll;
+    -ms-overflow-style: unset;
+    scrollbar-width: unset;
+    box-shadow: -0.2px 0px 8px rgb(115, 115, 115);
+}
+#close-carret {
+    position: absolute;
+    font-size: 2vh;
+    top: 2dvh;
+    right: 2dvh;
+    text-decoration: underline;
+    text-underline-offset: 0.5dvh;
+    cursor: pointer;
 }
 .title-carret {
-    top: 10dvh;
+    font-size: 3dvh;
+    padding-top: 2dvh;
     position: relative;
-    padding-bottom: 10vh;
+    padding-bottom: 2dvh;
+
 }
 
 .llista-carret {
+    display: flex;
+    flex-direction: column;
     position: relative;
-    top:10dvh;
+    top:5dvh;
+    width: 100%;
+    left: 0;
+    align-items: center
 }
 .producte-carret {
     position: relative;
-    width: 60dvw;
-    margin-bottom: 10vh;
-    background-color: rgba(0, 0, 0, 0.2);
-    padding: 2dvh;
+    width: 28dvw;
+    margin-bottom: 2dvh;
+    background-color: rgba(0, 0, 0, 0);
+    padding-left: 2dvw;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center
 }
+.producte-foto {
+    position: relative;
+    height: 10dvw;
+    width:10dvw;
+    background-size: contain;
+    background-position: center;
+}
+.detalls-carret {
+    position: relative;
+    padding-left: 1dvw;
+
+}
+
 .footer-carret {
     position: relative;
     margin-top: 10dvh;
+}
+.producte-carret-nom {
+    font-size: 3vh;
+}
+
+.producte-carret-color{
+    display: flex;
+    flex-direction: row;
+}
+.producte-carret-cercle {
+    display: block;
+    height: 1.5dvh;
+    width: 1.5dvh;
+    background-color: #bbb;
+    border-radius: 50%;
+    margin: 0 0.2dvh;
+    border-color: #000000;
+    border-width: 0.2dvh;
+}
+.checkout-button{
+    font-size: 2.5dvh;
+}
+
+
+
+@media screen and (orientation: portrait) {
+    #close-carret {
+        position: relative;
+        padding: 0;
+        top: 1dvh;
+        right: 0;
+    }
+    #carret {
+        width: fit-content;
+        max-width: 80vw;
+    }
+    .llista-carret {
+
+    }
+    .producte-carret{
+        width: fit-content;
+        max-width: 74dvw;
+    }
+    .producte-foto {
+        width: 30dvw;
+        height: 30dvw;;
+    }
+    .detalls-carret {
+        padding-left: 2dvw;
+        padding-right: 2dvw;
+    }
+}
+
+.is-carret :not(.open) {
+    display: none;
+}
+
+.hide {
+    display: none
 }

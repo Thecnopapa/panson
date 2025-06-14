@@ -3,6 +3,7 @@
 
 
 
+
 {% if origin and False%}
     {% if origin != "hide" %}
         <button class="back" onclick="location.href='/{{ loc.lan }}/{{ origin }}'"> &lt; {{ loc.nav_enrere }}</button>
@@ -11,11 +12,10 @@
     <button class="back" onclick="history.back()"><img class="back-arrow" src="/static/media/arrow.svg" alt="{{ loc.nav_enrere }}"> </button>
 {% endif %}
 
-
-<div class = "navigation">
-    {% if ask_cookies %}
-    <div class="request-cookies">Aquesta web fa servir cookies<button class="accept-cookies" onclick="location.href='/{{ loc.lan }}/acceptar_cookies'">d'acord</button></div>
+{% if ask_cookies %}
+        <div class="request-cookies">Aquesta web fa servir cookies<button class="accept-cookies" onclick="location.href='/{{ loc.lan }}/acceptar_cookies'">d'acord</button></div>
     {% endif %}
+<div class = "navigation">
     <div class = "navigation-left" id="nav-left">
         <button class="dropbtn" id="menu-button" onmouseover="openMenu()"> {{ loc.nav_botiga }} </button>
         <button class="menu-simple" id="menu-button-simple" onclick="switchMenu()"><img class="icon-menu-simple" src="/static/media/menu-black.svg" alt="cart"><br> </button>
@@ -39,7 +39,7 @@
                 <div class="item-submenu menu-content last-submenu"  onclick="location.href='/{{ loc.lan }}/productes/peces_uniques#{{ productes.uniques()[-1].id }}'">{{ productes.uniques()[-1].nom }}</div>
             </div>
             <div class="submenu menu-content" id="peces-menu" onclick="showDropdown(this)">
-                <div class="titol-submenu menu-content" onclick="location.href='/{{ loc.lan }}/productes/">{{ loc.nav_peces }}</div>
+                <div class="titol-submenu menu-content" onclick="location.href='/{{ loc.lan }}/productes/'">{{ loc.nav_peces }}</div>
                 {% if productes %}
                     {% for tipus in productes.tipus %}
                         <div class="titol-submenu menu-content no-line less-padding"  onclick="location.href='/{{ loc.lan }}/productes/?tipus={{ tipus }}'">{{ loc["tip-"+tipus+"-plural"]}}</div>
@@ -75,12 +75,50 @@
                 </div>
             {% endif %}
         {% endfor %}
-    <div class = "cart" onclick="location.href='/{{ loc.lan }}/carret/'">
+    <div class = "cart" id="cart-button" onclick="openCart()">
         <img class="shopping-cart" src="/static/media/bag-black.svg" alt="cart">
         {% if n_carret %}
             <div class="cercle-carret">{{ n_carret if n_carret > 0 }}</div>
         {% endif %}
         </div>
     </div>
-
 </div>
+<div class="content-carret is-carret" id="carret">
+
+    <div class="title-carret is-carret">CARRET</div>
+<div class="is-carret" id="close-carret" onclick="closeCart()">Tancar</div>
+    <div class="llista-carret is-carret">
+        {% for item in carret.carret.values() %}
+            <div class="producte-carret is-carret">
+            {% if loc.len(item.producte.imatges) > 0 %}
+                <div class="producte-foto is-carret" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ item.producte.imatges[0] }}?alt=media')"></div>
+            {% endif %}
+                <div class="detalls-carret is-carret">
+                    <div class="producte-carret-nom is-carret">{{ item.producte.nom }}</div>
+                    <div class="producte-carret-id is-carret hide">ID: {{ item.id2 }}</div>
+                    <div class="producte-carret-quantitat is-carret">QUANTITAT: {{ item.quantity }}</div>
+                    <div class="producte-carret-talla is-carret {{ "hide" if item.talla == "null" }}">TALLA: {{ item.talla }}</div>
+                    <div class="producte-carret-material is-carret hide">MATERIAL: {{ item.material}}</div>
+                    <div class="producte-carret-variacio is-carret {{ "hide" if item.variacio == "null" }}">VARIACIO: {{ item.variacio}}</div>
+                    <div class="producte-carret-color is-carret {{ "hide" if item.color == "null" }}">COLOR:
+                        <div class="producte-carret-color is-carret">
+                        {% for col in loc.str_to_list(item.color) %}
+                            <span class="producte-carret-cercle is-carret" style="background-color: {{ loc.colors[col] }}"></span>
+                        {% endfor %}
+                        </div>
+                    </div>
+                    <div class="producte-carret-preu is-carret">PREU: {{ item.preu[0] }} &#8364;</div>
+                </div>
+
+
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="footer-carret is-carret">
+        {% if carret.n_items != 0 %}
+            <button class="checkout-button is-carret" onclick="location.href='/{{ loc.lan }}/carret/checkout/'">
+                {{ loc.car_checkout }}</button>
+        {% endif %}
+    </div>
+
