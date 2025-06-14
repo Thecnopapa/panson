@@ -105,6 +105,7 @@ function showMenuContent() {
 }
 
 function closeMenu() {
+    closeCart()
     console.log('close menu');
     menu.style.width = "0px";
     window.scrollTo(window.scrollX, window.scrollY - 1);
