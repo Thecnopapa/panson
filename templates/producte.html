@@ -49,7 +49,7 @@
 
                 {% if producte.opcions.variacions %}
                     <br>
-                    <fieldset  name="str:variacio" class="variacions" >
+                    <fieldset  name="str:variacio" class="variacions required" >
                         <legend>Seleciona una variacio</legend>
                         {% for variacio in producte.opcions.variacions %}
                         <div>
@@ -68,7 +68,7 @@
                     {% for n in range(producte.opcions.n_colors) %}
                         <br>
                         Color {{ n+1 }}:
-                        <select name="str:color" class="color-selector" onchange="updatePage()">
+                        <select name="str:color" class="color-selector required" onchange="updatePage()">
                             <option class="color-option" value="" {{ "selected=\"selected\"" if opcions["color"] == "None" }} ></option>
                             {% for color in producte.opcions.colors %}
                                     <option class="color-option" value="{{ color }}" {{ "selected=\"selected\"" if color == opcions.color[n] }}> {{ color }}</option>
@@ -81,7 +81,7 @@
                 <span>
                     {% if producte.opcions.totes_les_talles %}
                         Talla:
-                        <input class="" type="number" name="number:talla" class="talla-unica"
+                        <input type="number" name="number:talla" class="talla talla-unica required"
                                    min="0"
                                    max="99"
                                    step="1"
@@ -92,10 +92,14 @@
                     {% elif producte.opcions.talles %}
                         Talles disponibles:
                         {% for talla in producte.opcions.talles %}
-                            {% if  opcions["talla"].strip() == loc.str(talla) %}
-                                <button type="button" class="talla" id="selected-talla" onclick="updatePage(this)" >{{ talla }}</button>
+                            {% if opcions["talla"] %}
+                                {% if  opcions["talla"].strip() == loc.str(talla) %}
+                                    <button type="button" class="talla" id="selected-talla" onclick="updatePage(this)" >{{ talla }}</button>
+                                {%  else %}
+                                    <button type="button" class="talla" onclick="updatePage(this)">{{ talla }} </button>
+                                {%  endif %}
                             {%  else %}
-                                <button type="button" class="talla" onclick="updatePage(this)">{{ talla }} </button>
+                                    <button type="button" class="talla" onclick="updatePage(this)">{{ talla }} </button>
                             {%  endif %}
                         {% endfor %}
                             <br>
