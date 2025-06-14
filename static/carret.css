@@ -115,6 +115,7 @@
     }
     #carret {
         width: fit-content;
+        min-width: 30dvw;
         max-width: 80vw;
     }
     .llista-carret {
