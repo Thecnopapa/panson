@@ -52,7 +52,7 @@
     top:5dvh;
     width: 100%;
     left: 0;
-    align-items: center
+    align-items: flex-start;
 }
 .producte-carret {
     position: relative;
