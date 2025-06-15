@@ -3,18 +3,28 @@ import json
 
 from utilities import *
 import flask
-from flask import Flask, send_file, render_template, redirect, request, make_response, url_for
+from flask import Flask, send_file, render_template, redirect, request, make_response, url_for, session
 import requests
 import firebase, firestore
+from werkzeug.middleware.proxy_fix import ProxyFix
+
+
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = "./uploads"
+app.config['APPLICATION_ROOT'] = '/'
 app.config['PREFERRED_URL_SCHEME'] = 'https'
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
+
 base_url = "https://firestore.googleapis.com/v1/"
 cols_path = base_url + "projects/panson/databases/productes/documents/collecions"
 prods_path = base_url + "projects/panson/databases/productes/documents/productes"
 storage_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/{}%2F{}?alt=media"
 
-
+class Session():
+    @staticmethod
+    def __getattr__(key):
+        return session.__getitem__(key)
+s = Session()
 
 def read_data_type(value):
     if list(value.keys())[0] == "stringValue":

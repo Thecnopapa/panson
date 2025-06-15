@@ -12,9 +12,20 @@ function dynamicallyLoadCSS(url) {
     css.rel = "stylesheet";
     document.head.appendChild(css);  // add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
 }
+function addFavicon() {
+    var fav = document.createElement("link");  // create a script DOM node
+    fav.href = ("/static/media/favicon.ico");  // set its src to the provided URL
+    fav.rel = "icon";
+    fav.type = "image/x-icon"
+    document.head.appendChild(fav);  // add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
+}
 
 dynamicallyLoadScript("/static/scripts/cart.js")
 dynamicallyLoadCSS("/static/carret.css")
+if (true) {
+    addFavicon()
+}
+
 
 
 
