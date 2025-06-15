@@ -245,6 +245,7 @@ class Producte():
         self.tipus = "altres"
         self.esborrat = False
         self.amagat = False
+        self.opcions=[]
 
         if empty:
             self.id = raw_data
