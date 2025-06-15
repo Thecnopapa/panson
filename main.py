@@ -8,10 +8,12 @@ import requests
 import firebase, firestore
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = "./uploads"
+app.config['PREFERRED_URL_SCHEME'] = 'https'
 base_url = "https://firestore.googleapis.com/v1/"
 cols_path = base_url + "projects/panson/databases/productes/documents/collecions"
 prods_path = base_url + "projects/panson/databases/productes/documents/productes"
 storage_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/{}%2F{}?alt=media"
+
 
 
 def read_data_type(value):
@@ -703,6 +705,8 @@ def return_blank():
 @app.route("/<lan>/static/<path:path>")
 def get_static(lan, path):
     return redirect("/static/"+path)
+
+
 
 
 @app.route("/<lan>/")
