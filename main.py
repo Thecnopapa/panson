@@ -638,28 +638,23 @@ def decrypt(string):
 
 
 def admin_page():
-    global loc
-    html = render_template("admin.html", user = admin.username, productes=productes, loc = loc)
+    html = render_template("admin.html", user = s.admin.username, productes=s.productes, loc = s.loc)
     return html + navigation(is_admin=True)
 
 
 def navigation(html = "", title = True, back = False, is_admin = False):
-    global loc
-    global admin
-    global carret
-    global cookies
     if back:
         origin = None
     else:
         origin = "hide"
 
-    carret.count_items()
-    n_carret = carret.n_items
+    s.carret.count_items()
+    n_carret = s.carret.n_items
     print("N_items:", n_carret)
 
 
-    html += render_template("navigation.html", origin=origin, loc = loc, hide_title=not title,
-                            productes=productes, logout = is_admin, n_carret = n_carret, carret = carret, ask_cookies=not cookies.accepted)
+    html += render_template("navigation.html", origin=origin, loc = s.loc, hide_title=not title,
+                            productes=s.productes, logout = is_admin, n_carret = n_carret, carret = s.carret, ask_cookies=not cookies.accepted)
     print(carret.carret)
     return html
 
@@ -683,18 +678,18 @@ class Cookies:
 
 
 
-loc = Localization("cat")
-productes = Productes(loc)
-admin = Admin()
-carret = Carret()
-cookies = Cookies()
+s.loc = Localization("cat")
+s.productes = Productes(loc)
+s.admin = Admin()
+s.carret = Carret()
+s.cookies = Cookies()
 
 
 
 
 @app.route("/")
 def redirect_to_cat():
-    loc.update("cat")
+    s.loc.update("cat")
     return redirect("/cat/")
 
 @app.route("/blank")
@@ -713,7 +708,7 @@ def get_static(lan, path):
 def index(lan):
     if lan == "favicon.ico":
         return redirect("/static/media/favicon.ico")
-    loc.update(lan)
+    s.loc.update(lan)
 
     slides = firestore.list_blobs("portada")
     print("###########")
@@ -744,10 +739,10 @@ def admin_logout():
     return resp
 @app.route("/admin/", methods=["GET", "POST"])
 def admin_load():
-    #loc.update()
+    #s.loc.update()
     #resp = make_response(admin_page())
     resp = admin.check_login( from_form=request.method == "POST")
-    loc.update()
+    s.loc.update()
     #print(resp)
     return resp
 
@@ -755,25 +750,25 @@ def admin_load():
 @app.route("/admin/update/<id>", methods=["GET", "POST"])
 def update_product(id):
     firebase.update_firebase(id, productes.get_single(id), taken_ids=productes.taken_ids)
-    loc.update()
+    s.loc.update()
     return (redirect("/admin/"))
 
 @app.route("/admin/delete/<id>", methods=["GET", "POST"])
 def delete_product(id):
     firebase.delete_firebase(id)
-    loc.update()
+    s.loc.update()
     return (redirect("/admin/"))
 
 
 
 @app.route("/<lan>/collecions/")
 def collections(lan):
-    loc.update(lan)
+    s.loc.update(lan)
     return carregar_totes_collecions(loc)
 
 @app.route("/<lan>/collecions/<col>/")
 def productes_per_col(lan, col):
-    loc.update(lan)
+    s.loc.update(lan)
     html = render_template("galeria.html",productes = productes.filtrats(collecio=col), titol=col.capitalize(), loc=loc)
     if html:
         return html + navigation()
@@ -781,7 +776,7 @@ def productes_per_col(lan, col):
 
 @app.route("/<lan>/productes/peces_uniques/")
 def peces_uniques(lan):
-    loc.update(lan)
+    s.loc.update(lan)
     html = render_template("uniques.html", productes=productes.uniques(), loc = loc, )
 
     return html + navigation()
@@ -792,7 +787,7 @@ def peces_uniques(lan):
 
 @app.route("/<lan>/productes/<id>/")
 def mostrar_peca(lan, id):
-    loc.update(lan)
+    s.loc.update(lan)
     productes.update(loc)
     producte = productes.get_single(id)
 
@@ -829,7 +824,7 @@ def str_to_list(string, delimiter=","):
 
 @app.route("/<lan>/productes/")
 def mostrar_tot(lan):
-    loc.update(lan)
+    s.loc.update(lan)
     print("ARGS:")
     print(request.args)
 
@@ -843,7 +838,7 @@ def mostrar_tot(lan):
 
 @app.route("/<lan>/carret/")
 def veure_carret(lan):
-    loc.update(lan)
+    s.loc.update(lan)
     html = render_template("carret.html", loc =loc, carret = carret)
     return html + navigation()
 
@@ -878,7 +873,7 @@ def eliminar_del_carret(lan, id2, opcions):
 
 @app.route("/<lan>/carret/checkout/")
 def checkout(lan):
-    loc.update(lan)
+    s.loc.update(lan)
     carret.update()
     items = carret.items
 
@@ -888,7 +883,7 @@ def checkout(lan):
 
 @app.route("/<lan>/carret/checkout/success/")
 def stripe_success(lan):
-    loc.update(lan)
+    s.loc.update(lan)
     html = render_template("success.html", loc=loc)
     html += navigation()
     resp = carret.move_to_favorites(resp=html)
@@ -897,7 +892,7 @@ def stripe_success(lan):
 
 @app.route("/<lan>/carret/checkout/cancel/")
 def stripe_cancel(lan):
-    loc.update(lan)
+    s.loc.update(lan)
     html = render_template("cancel.html", loc=loc)
     html += navigation()
     return html
@@ -906,12 +901,12 @@ def stripe_cancel(lan):
 
 @app.route("/<lan>/projecte/")
 def projecte(lan):
-    loc.update(lan)
+    s.loc.update(lan)
     html = render_template("projecte.html", loc=loc)
     return html + navigation()
 @app.route("/<lan>/contacte/")
 def contatce(lan):
-    loc.update(lan)
+    s.loc.update(lan)
     html = render_template("contacte.html", loc=loc)
     return html + navigation()
 
