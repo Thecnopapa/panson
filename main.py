@@ -701,7 +701,7 @@ def redirect_to_cat():
 
 @app.route("/blank")
 def return_blank():
-    return s.carret.__dict__
+    return str(s.carret.__dict__)
 
 @app.route("/static/<path:path>", defaults={"lan": "cat"})
 @app.route("/<lan>/static/<path:path>")

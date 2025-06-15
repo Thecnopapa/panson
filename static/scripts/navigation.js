@@ -22,7 +22,7 @@ function addFavicon() {
 
 dynamicallyLoadScript("/static/scripts/cart.js")
 dynamicallyLoadCSS("/static/carret.css")
-if (true) {
+if (false) {
     addFavicon()
 }
 

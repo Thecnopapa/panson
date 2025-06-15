@@ -12,7 +12,7 @@ try:
         app = firebase_admin.initialize_app()
 
     db = firestore.client(app, database_id="productes")
-    productes = db.collection("productes")
+    prods = db.collection("productes")
 
     sprint("Firebase initialized")
 except Exception as e:
@@ -44,7 +44,6 @@ def update_firebase(id, producte, taken_ids):
                 data[db_key] = True if value in ["true", "on", True ,"1", 1, "True"] else False
     data["imatges"] = data["imatges"] + uploaded_images
     print(data)
-    global productes
     n = 1
     new_id = id
     while new_id in taken_ids:
@@ -52,11 +51,11 @@ def update_firebase(id, producte, taken_ids):
         n+=1
     id = new_id
     data["id"] = id
-    productes.document(id).set(data, merge=True)
+    prods.document(id).set(data, merge=True)
 
 def delete_firebase(id):
     sprint("Deleting product: {}".format(id))
-    productes.document(id).set({"esborrat": True}, merge=True)
+    prods.document(id).set({"esborrat": True}, merge=True)
 
 
 
