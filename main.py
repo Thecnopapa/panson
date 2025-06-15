@@ -60,7 +60,7 @@ class Localization():
         self.tipus = self.loc_json["tipus"].keys()
         self.loc = self.loc_json[lan]
         try:
-            self.logged_in = admin.logged_in
+            self.logged_in = s.admin.logged_in
         except:
             self.logged_in = False
 
@@ -102,19 +102,17 @@ class Localization():
         return str_to_list(str, delimiter)
 
     def update(self, lan=None, force = True):
-            if lan is None:
-                lan = self.lan
-            if self.lan != lan or force:
-                self.__init__(lan)
-                global productes
-                productes.update(self)
-                global cookies
-                cookies.check_accepted()
+        if lan is None:
+            lan = self.lan
+        if self.lan != lan or force:
+            self.__init__(lan)
+            s.productes.update(self)
+            s.cookies.check_accepted()
 
 
-                return self
-            else:
-                return self
+            return self
+        else:
+            return self
 
 
 
@@ -316,8 +314,7 @@ class Productes():
 
     def update(self, loc):
         self.__init__(loc)
-        global carret
-        carret.update()
+        s.carret.update()
 
     def uniques(self):
         return [dict(producte.__dict__) for producte in self.productes if producte.unica ]
@@ -664,8 +661,8 @@ def navigation(html = "", title = True, back = False, is_admin = False):
 
 
     html += render_template("navigation.html", origin=origin, loc = s.loc, hide_title=not title,
-                            productes=s.productes, logout = is_admin, n_carret = n_carret, carret = s.carret, ask_cookies=not cookies.accepted)
-    print(carret.carret)
+                            productes=s.productes, logout = is_admin, n_carret = n_carret, carret = s.carret, ask_cookies=not s.cookies.accepted)
+    print(s.carret.carret)
     return html
 
 
@@ -689,7 +686,7 @@ class Cookies:
 
 
 s.loc = Localization("cat")
-s.productes = Productes(loc)
+s.productes = Productes(s.loc)
 s.admin = Admin()
 s.carret = Carret()
 s.cookies = Cookies()
@@ -704,7 +701,7 @@ def redirect_to_cat():
 
 @app.route("/blank")
 def return_blank():
-    return carret.__dict__
+    return s.carret.__dict__
 
 @app.route("/static/<path:path>", defaults={"lan": "cat"})
 @app.route("/<lan>/static/<path:path>")
@@ -724,10 +721,10 @@ def index(lan):
     print("###########")
     print(slides)
     slide_list = [[slide, storage_url.format("portada", slide.split("/")[-1])] for slide in slides if slide.split("/")[-1] != ""]
-    html =  render_template('index.html', loc = loc, slides= slide_list)
+    html =  render_template('index.html', loc = s.loc, slides= slide_list)
 
-    html += render_template("galeria.html", productes=productes.get_all(),
-                            titol=loc.ind_titol_galeria,  no_head=True,  loc=loc)
+    html += render_template("galeria.html", productes=s.productes.get_all(),
+                            titol=s.loc.ind_titol_galeria,  no_head=True,  loc=s.loc)
     html += navigation(title=False)
     return html
 
@@ -744,14 +741,14 @@ def admin_login():
 
 @app.route("/admin/logout/")
 def admin_logout():
-    resp = redirect("/"+loc.lan)
-    resp = admin.logout(resp)
+    resp = redirect("/"+s.loc.lan)
+    resp = s.admin.logout(resp)
     return resp
 @app.route("/admin/", methods=["GET", "POST"])
 def admin_load():
     #s.loc.update()
     #resp = make_response(admin_page())
-    resp = admin.check_login( from_form=request.method == "POST")
+    resp = s.admin.check_login( from_form=request.method == "POST")
     s.loc.update()
     #print(resp)
     return resp
@@ -759,7 +756,7 @@ def admin_load():
 
 @app.route("/admin/update/<id>", methods=["GET", "POST"])
 def update_product(id):
-    firebase.update_firebase(id, productes.get_single(id), taken_ids=productes.taken_ids)
+    firebase.update_firebase(id, s.productes.get_single(id), taken_ids=s.productes.taken_ids)
     s.loc.update()
     return (redirect("/admin/"))
 
@@ -774,12 +771,12 @@ def delete_product(id):
 @app.route("/<lan>/collecions/")
 def collections(lan):
     s.loc.update(lan)
-    return carregar_totes_collecions(loc)
+    return carregar_totes_collecions(s.loc)
 
 @app.route("/<lan>/collecions/<col>/")
 def productes_per_col(lan, col):
     s.loc.update(lan)
-    html = render_template("galeria.html",productes = productes.filtrats(collecio=col), titol=col.capitalize(), loc=loc)
+    html = render_template("galeria.html",productes = s.productes.filtrats(collecio=col), titol=col.capitalize(), loc=s.loc)
     if html:
         return html + navigation()
 
@@ -787,7 +784,7 @@ def productes_per_col(lan, col):
 @app.route("/<lan>/productes/peces_uniques/")
 def peces_uniques(lan):
     s.loc.update(lan)
-    html = render_template("uniques.html", productes=productes.uniques(), loc = loc, )
+    html = render_template("uniques.html", productes=s.productes.uniques(), loc = s.loc, )
 
     return html + navigation()
 
@@ -798,17 +795,17 @@ def peces_uniques(lan):
 @app.route("/<lan>/productes/<id>/")
 def mostrar_peca(lan, id):
     s.loc.update(lan)
-    productes.update(loc)
-    producte = productes.get_single(id)
+    s.productes.update(s.loc)
+    producte = s.productes.get_single(id)
 
     print(len(request.args))
     opcions = get_opcions()
     opcions_url = "?"+"&".join([key + "=" + str(value) for key, value in opcions.items()])
     print(opcions_url)
 
-    html = render_template("producte.html", producte=producte, loc = loc, opcions = opcions)
-    html += render_template("galeria.html", productes=productes.filtrats(collecio=producte.collecio),
-                            titol=producte.collecio.capitalize(),  no_head=True,  loc=loc)
+    html = render_template("producte.html", producte=producte, loc = s.loc, opcions = opcions)
+    html += render_template("galeria.html", productes=s.productes.filtrats(collecio=producte.collecio),
+                            titol=producte.collecio.capitalize(),  no_head=True,  loc=s.loc)
 
     if html:
         return html + navigation()
@@ -838,7 +835,7 @@ def mostrar_tot(lan):
     print("ARGS:")
     print(request.args)
 
-    html = render_template("galeria.html", productes = productes.filtrats(**request.args), titol=loc.gal_totes, loc=loc)
+    html = render_template("galeria.html", productes = s.productes.filtrats(**request.args), titol=s.loc.gal_totes, loc=s.loc)
     if html:
         return html + navigation()
 
@@ -849,7 +846,7 @@ def mostrar_tot(lan):
 @app.route("/<lan>/carret/")
 def veure_carret(lan):
     s.loc.update(lan)
-    html = render_template("carret.html", loc =loc, carret = carret)
+    html = render_template("carret.html", loc =s.loc, carret = s.carret)
     return html + navigation()
 
 @app.route("/<lan>/productes/<id>/afegir_al_carret/", methods=["POST", "GET"])
@@ -861,11 +858,11 @@ def afegir_al_carret(lan, id):
     #opcions_url = "&".join([(key + "=" + value) for key, value in opcions_dict.items()])
     if request.method == "POST":
         resp = redirect("/{}/productes/{}/?{}".format(lan, id, opcions))
-        resp = carret.add_producte_carret(id, opcions, resp=resp)
+        resp = s.carret.add_producte_carret(id, opcions, resp=resp)
         return resp
     if request.method == "GET":
         resp = redirect("/{}/productes/{}/?{}".format(lan, id, opcions))
-        resp = carret.add_producte_carret(id, opcions, resp=resp)
+        resp = s.carret.add_producte_carret(id, opcions, resp=resp)
         return resp
 
 
@@ -876,7 +873,7 @@ def eliminar_del_carret(lan, id2, opcions):
     #opcions_url = "&".join([(key + "=" + value) for key, value in opcions_dict.items()])
     if request.method == "POST":
         resp = redirect("/{}/carret/".format(lan))
-        resp = carret.remove_producte_carret(id2, opcions_dict, resp=resp)
+        resp = s.carret.remove_producte_carret(id2, opcions_dict, resp=resp)
         return resp
 
 
@@ -884,26 +881,26 @@ def eliminar_del_carret(lan, id2, opcions):
 @app.route("/<lan>/carret/checkout/")
 def checkout(lan):
     s.loc.update(lan)
-    carret.update()
-    items = carret.items
+    s.carret.update()
+    items = s.carret.items
 
     from payments import stripe_checkout
-    return stripe_checkout(items, loc=loc)
+    return stripe_checkout(items, loc=s.loc)
 
 
 @app.route("/<lan>/carret/checkout/success/")
 def stripe_success(lan):
     s.loc.update(lan)
-    html = render_template("success.html", loc=loc)
+    html = render_template("success.html", loc=s.loc)
     html += navigation()
-    resp = carret.move_to_favorites(resp=html)
+    resp = s.carret.move_to_favorites(resp=html)
     return resp
 
 
 @app.route("/<lan>/carret/checkout/cancel/")
 def stripe_cancel(lan):
     s.loc.update(lan)
-    html = render_template("cancel.html", loc=loc)
+    html = render_template("cancel.html", loc=s.loc)
     html += navigation()
     return html
 
@@ -912,12 +909,12 @@ def stripe_cancel(lan):
 @app.route("/<lan>/projecte/")
 def projecte(lan):
     s.loc.update(lan)
-    html = render_template("projecte.html", loc=loc)
+    html = render_template("projecte.html", loc=s.loc)
     return html + navigation()
 @app.route("/<lan>/contacte/")
 def contatce(lan):
     s.loc.update(lan)
-    html = render_template("contacte.html", loc=loc)
+    html = render_template("contacte.html", loc=s.loc)
     return html + navigation()
 
 
@@ -925,7 +922,7 @@ def contatce(lan):
 @app.route("/<path>/acceptar_cookies")
 def acceptar_cookies(path):
     resp = redirect("/"+path)
-    resp = cookies.set_accepted(resp)
+    resp = s.cookies.set_accepted(resp)
     return resp
 
 
