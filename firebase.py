@@ -22,7 +22,7 @@ except Exception as e:
 
 from firestore import load_files, upload_images
 
-def update_firebase(id, producte, taken_ids):
+def update_firebase(id, new, taken_ids):
     sprint("Updating product: {}".format(id))
     #print(request.form)
     paths = load_files(target_folder="productes")
@@ -44,12 +44,13 @@ def update_firebase(id, producte, taken_ids):
                 data[db_key] = True if value in ["true", "on", True ,"1", 1, "True"] else False
     data["imatges"] = data["imatges"] + uploaded_images
     print(data)
-    n = 1
-    new_id = id
-    while new_id in taken_ids:
-        new_id = id+"_{}".format(n)
-        n+=1
-    id = new_id
+    if new:
+        n = 1
+        new_id = id
+        while new_id in taken_ids:
+            new_id = id+"_{}".format(n)
+            n+=1
+        id = new_id
     data["id"] = id
     prods.document(id).set(data, merge=True)
 

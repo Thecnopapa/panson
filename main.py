@@ -757,7 +757,7 @@ def admin_load():
 
 @app.route("/admin/update/<id>", methods=["GET", "POST"])
 def update_product(id):
-    firebase.update_firebase(id, s.productes.get_single(id), taken_ids=s.productes.taken_ids)
+    firebase.update_firebase(id, s.productes.get_single(id).nou_producte, taken_ids=s.productes.taken_ids)
     s.loc.update()
     return (redirect("/admin/"))
 
