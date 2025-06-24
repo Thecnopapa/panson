@@ -713,8 +713,8 @@ def get_static(lan, path):
 
 
 @app.route("/<lan>/")
-def index(lan):
-    if lan == "favicon.ico":
+def index(lan, favicon = False):
+    if lan == "favicon.ico" and favicon:
         return redirect("/static/media/favicon.ico")
     s.loc.update(lan)
 
