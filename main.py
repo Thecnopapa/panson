@@ -714,8 +714,11 @@ def get_static(lan, path):
 
 @app.route("/<lan>/")
 def index(lan, favicon = False):
-    if lan == "favicon.ico" and favicon:
-        return redirect("/static/media/favicon.ico")
+    if lan == "favicon.ico":
+        if favicon:
+            return redirect("/static/media/favicon.ico")
+        else:
+            return None
     s.loc.update(lan)
 
     slides = firestore.list_blobs("portada")
