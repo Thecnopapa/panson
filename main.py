@@ -721,7 +721,7 @@ def index(lan, favicon = False):
             return ""
     if lan == "robots.txt":
         return redirect("/static/robots.txt")
-    if lan == "sitemap.xml":
+    if lan == "sitemap":
         with open("static/sitemap.xml") as f:
             sitemap = f.read()
         return sitemap 
