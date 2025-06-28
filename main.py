@@ -723,8 +723,8 @@ def index(lan, favicon = False):
         return redirect("/static/robots.txt")
     if lan == "sitemap.xml":
         with open("static/sitemap.xml") as f:
-            s = f.read()
-        return s
+            sitemap = f.read()
+        return sitemap 
 
     s.loc.update(lan)
 
