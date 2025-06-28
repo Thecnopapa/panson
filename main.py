@@ -721,6 +721,8 @@ def index(lan, favicon = False):
             return None
     if lan == "robots.txt":
         return redirect("/static/robots.txt")
+    if lan == "sitemap.xml":
+        return redirect("/static/sitemap.xml")
 
     s.loc.update(lan)
 
