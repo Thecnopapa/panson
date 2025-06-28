@@ -719,6 +719,9 @@ def index(lan, favicon = False):
             return redirect("/static/media/favicon.ico")
         else:
             return None
+    if lan == "robots.txt":
+        return redirect("/static/robots.txt")
+
     s.loc.update(lan)
 
     slides = firestore.list_blobs("portada")
