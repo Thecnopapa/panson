@@ -718,7 +718,7 @@ def index(lan, favicon = False):
         if favicon:
             return redirect("/static/media/favicon.ico")
         else:
-            return None
+            return ""
     if lan == "robots.txt":
         return redirect("/static/robots.txt")
     if lan == "sitemap.xml":
