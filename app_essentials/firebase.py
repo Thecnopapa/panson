@@ -26,8 +26,8 @@ def get_products():
     raw = prods.where(filter=FieldFilter("esborrat", "==", False, )).stream()
     ps = [p.to_dict() for p in raw]
 
-    for p, r in zip(prods, raw):
-        p["_id"] = str(raw["id"])
+    for p, r in zip(ps, raw):
+        p["_id"] = str(r["id"])
     return ps
 
 def get_user_data(id):

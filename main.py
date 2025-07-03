@@ -26,17 +26,12 @@ storage_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorag
 # GLOBALS SETUP
 from app_essentials.localisation import loc
 from app_essentials.session import session
+from app_essentials.products import products
 
 
 @app.route("/blank")
 def return_blank():
-    from app_essentials.firebase import get_products
-    raw = get_products()
-    prods = [p.to_dict() for p in raw]
-
-    for p, r in zip(prods, raw):
-        p["_id"] = str(raw["id"])
-    return prods
+    return str(products)
 
 
 

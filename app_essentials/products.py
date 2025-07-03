@@ -7,14 +7,18 @@ class Product(object):
         for key, value in data.items():
             setattr(self, key, value)
 
+    def __repr__(self):
+        return "<br>".join(["&nbsp&nbsp> Producte:", *["&nbsp&nbsp&nbsp> {}".format(k) for k in self.__dict__.keys()]])
 
 
 class Products:
     def __init__(self, products):
-        self.products = products
+        self.products = [Product(p) for p in products]
 
     def update(self, products):
         self.__init__(products)
+    def __repr__(self):
+        return "<br>".join(["Productes:", *[str(p) for p in self.products]])
 
 products =Products(get_products())
 
