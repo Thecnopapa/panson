@@ -14,6 +14,7 @@ app.config['UPLOAD_FOLDER'] = "./uploads"
 app.config['APPLICATION_ROOT'] = '/'
 app.config['PREFERRED_URL_SCHEME'] = 'https'
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 base_url = "https://firestore.googleapis.com/v1/"
 cols_path = base_url + "projects/panson/databases/productes/documents/collecions"
@@ -25,13 +26,19 @@ storage_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorag
 
 # GLOBALS SETUP
 from app_essentials.localisation import loc
-from app_essentials.session import session
+from app_essentials.session import session, get_updated_session
 from app_essentials.products import products
+from app_essentials.firebase import get_user_data
 
 
 @app.route("/blank")
 def return_blank():
-    return str(products)
+    session["id"] = "11111"
+    r =  get_updated_session()
+    return str(r)
+@app.route("/blank2")
+def return_blank2():
+    return session["id"]
 
 
 

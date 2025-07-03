@@ -31,7 +31,11 @@ def get_products():
     return ps
 
 def get_user_data(id):
-    return usuaris.document(id).get()
+    r = usuaris.document(id).get().to_dict()
+    if r is None:
+        print("No such user")
+        new_id = usuaris.document(id).set({})
+        return usuaris.document(id).get().to_dict()
 
 
 
