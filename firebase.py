@@ -13,11 +13,18 @@ try:
 
     db = firestore.client(app, database_id="productes")
     prods = db.collection("productes")
+    usuaris = db.collection("usuaris")
 
     sprint("Firebase initialized")
 except Exception as e:
     sprint("Error importing Firebase:")
     print(e)
+
+
+
+def get_user_data(id):
+    return
+
 
 
 from firestore import load_files, upload_images
