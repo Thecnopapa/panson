@@ -28,6 +28,15 @@ from app_essentials.localisation import loc
 from app_essentials.session import session
 
 
+@app.route("/blank")
+def return_blank():
+    from app_essentials.firebase import get_products
+    raw = get_products()
+    prods = [p.to_dict() for p in raw]
+
+    for p, r in zip(prods, raw):
+        p["_id"] = str(raw["id"])
+    return prods
 
 
 
@@ -36,18 +45,13 @@ from app_essentials.session import session
 
 
 
-
-
+'''
 @app.route("/")
 def redirect_to_cat():
     s.loc.update("cat")
     return redirect("/cat/")
 
-@app.route("/blank")
-def return_blank():
-    from app_essentials.firebase import get_user_data
-    print(get_user_data("SuuT8m5Ej538OxvCQn8y").to_dict())
-    return get_user_data("SuuT8m5Ej538OxvCQn8y").to_dict()
+
 
 @app.route("/static/<path:path>", defaults={"lan": "cat"})
 @app.route("/<lan>/static/<path:path>")
@@ -280,7 +284,7 @@ def acceptar_cookies(path):
 
 
 
-
+'''
 def main():
     app.run(port=int(os.environ.get('PORT', 80)))
 

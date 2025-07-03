@@ -1,14 +1,22 @@
 
-
+from app_essentials.firebase import get_products
 
 class Product(object):
     def __init__(self, data):
         self.data = data
+        for key, value in data.items():
+            setattr(self, key, value)
 
 
 
+class Products:
+    def __init__(self, products):
+        self.products = products
 
+    def update(self, products):
+        self.__init__(products)
 
+products =Products(get_products())
 
 
 

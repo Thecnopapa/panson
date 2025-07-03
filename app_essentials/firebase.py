@@ -23,14 +23,19 @@ except Exception as e:
 
 
 def get_products():
-    prods.where(filter=FieldFilter("esborrat", "!=", True)).stream()
+    raw = prods.where(filter=FieldFilter("esborrat", "==", False, )).stream()
+    ps = [p.to_dict() for p in raw]
+
+    for p, r in zip(prods, raw):
+        p["_id"] = str(raw["id"])
+    return ps
 
 def get_user_data(id):
     return usuaris.document(id).get()
 
 
 
-from firestore import load_files, upload_images
+from app_essentials.firestore import load_files, upload_images
 
 def update_firebase(id, new, taken_ids):
     sprint("Updating product: {}".format(id))
