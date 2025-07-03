@@ -41,6 +41,30 @@ def str_to_list(string, delimiter=","):
 utils = Utils()
 
 
+def read_data_type(value):
+    if list(value.keys())[0] == "stringValue":
+        return value["stringValue"]
+    elif list(value.keys())[0] == "integerValue":
+        return int(value["integerValue"])
+    elif list(value.keys())[0] == "booleanValue":
+        return bool(value["booleanValue"])
+    elif list(value.keys())[0] == "mapValue":
+        r = {}
+        for key, value in value["mapValue"]["fields"].items():
+            r[key] = read_data_type(value)
+        return r
+    elif list(value.keys())[0] == "arrayValue":
+        r = []
+        if len(value["arrayValue"]) == 0:
+            return r
+        print("#", value["arrayValue"])
+        print("##", value["arrayValue"]["values"])
+        for value in value["arrayValue"]["values"]:
+            r.append(read_data_type(value))
+        return r
+    else:
+        return value[list(value.keys())[0]]
+
 
 
 

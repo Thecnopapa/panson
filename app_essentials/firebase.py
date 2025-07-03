@@ -4,6 +4,7 @@ from werkzeug.utils import secure_filename
 import os, sys
 try:
     import firebase_admin
+    from google.cloud.firestore import FieldFilter
     from firebase_admin import credentials, firestore
     if "FIREBASE_CREDENTIALS" in os.environ:
         cred = credentials.Certificate(os.environ.get('FIREBASE_CREDENTIALS'))
@@ -21,6 +22,8 @@ except Exception as e:
     print(e)
 
 
+def get_products():
+    prods.where(filter=FieldFilter("esborrat", "!=", True)).stream()
 
 def get_user_data(id):
     return usuaris.document(id).get()

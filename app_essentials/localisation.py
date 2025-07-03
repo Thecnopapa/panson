@@ -1,14 +1,13 @@
-
 import json
 
 
-class Localisation():
+class Localisation:
     def __init__(self):
 
-        self.loc_json = json.loads(open("localization.json").read())
+        self.loc_json = json.loads(open("../localization.json").read())
         self.all_langs = [lang for lang in self.loc_json.keys() if not lang in ["colors", "tipus"]]
-        self.colors = self.loc_json["colors"]
-        self.tipus = self.loc_json["tipus"].keys()
+        self.colours = self.loc_json["colors"]
+        self.types = self.loc_json["tipus"].keys()
 
     def localise(self, lan, item):
         try:
