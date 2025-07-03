@@ -23,7 +23,7 @@ except Exception as e:
 
 
 def get_user_data(id):
-    return
+    return usuaris.document(id).get()
 
 
 

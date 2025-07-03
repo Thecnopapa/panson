@@ -1,7 +1,9 @@
+# ESSENTIAL IMPORTS
 import os
 import json
-
 from utilities import *
+
+# FLASK IMPORTS
 import flask
 from flask import Flask, send_file, render_template, redirect, request, make_response, url_for, session
 import requests
@@ -9,6 +11,9 @@ import firebase, firestore
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 
+
+
+### START APP CONFIG ###################################################################################################
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = "./uploads"
 app.config['APPLICATION_ROOT'] = '/'
@@ -19,6 +24,21 @@ base_url = "https://firestore.googleapis.com/v1/"
 cols_path = base_url + "projects/panson/databases/productes/documents/collecions"
 prods_path = base_url + "projects/panson/databases/productes/documents/productes"
 storage_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/{}%2F{}?alt=media"
+
+### END APP CONFIG #####################################################################################################
+
+# GLOBALS SETUP
+from localisation import loc
+
+
+
+
+
+
+
+
+
+
 
 class Session():
     @staticmethod
@@ -50,69 +70,6 @@ def read_data_type(value):
     else:
         return value[list(value.keys())[0]]
 
-
-class Localization():
-    def __init__(self, lan):
-        self.lan = lan
-        self.loc_json = json.loads(open("localization.json").read())
-        self.all_langs = [lang for lang in self.loc_json.keys() if not lang in ["colors", "tipus"]]
-        self.colors = self.loc_json["colors"]
-        self.tipus = self.loc_json["tipus"].keys()
-        self.loc = self.loc_json[lan]
-        try:
-            self.logged_in = s.admin.logged_in
-        except:
-            self.logged_in = False
-
-    def __getattr__(self, item):
-        try:
-            return self.loc[item.replace("_", "-")]
-        except KeyError:
-            return self.loc_json["cat"][item.replace("_", "-")]
-
-    def __getitem__(self, item):
-        return self.loc[item]
-
-    @staticmethod
-    def upper(string ):
-        return string.upper()
-
-    @staticmethod
-    def len(i):
-        return len(i)
-
-    @staticmethod
-    def str(s):
-        return str(s)
-
-    @staticmethod
-    def type(s):
-        return type(s)
-
-    @staticmethod
-    def strip(s):
-        return s.strip()
-
-    @staticmethod
-    def enumerate(l):
-        return enumerate(l)
-
-    @staticmethod
-    def str_to_list(str, delimiter = ","):
-        return str_to_list(str, delimiter)
-
-    def update(self, lan=None, force = True):
-        if lan is None:
-            lan = self.lan
-        if self.lan != lan or force:
-            self.__init__(lan)
-            s.productes.update(self)
-            s.cookies.check_accepted()
-
-
-            return self
-        else:
-            return self
 
 
 
@@ -702,7 +659,9 @@ def redirect_to_cat():
 
 @app.route("/blank")
 def return_blank():
-    return str(s.carret.__dict__)
+    from firebase import get_user_data
+    print(get_user_data("SuuT8m5Ej538OxvCQn8y").to_dict())
+    return get_user_data("SuuT8m5Ej538OxvCQn8y").to_dict()
 
 @app.route("/static/<path:path>", defaults={"lan": "cat"})
 @app.route("/<lan>/static/<path:path>")
@@ -724,7 +683,7 @@ def index(lan, favicon = False):
     if lan == "sitemap":
         with open("static/sitemap.xml") as f:
             sitemap = f.read()
-        return sitemap 
+        return sitemap
 
     s.loc.update(lan)
 
@@ -834,11 +793,7 @@ def get_opcions():
             opcions["color"] = "None"
     return opcions
 
-def str_to_list(string, delimiter=","):
-    if type(string) is list:
-        return string
-    ls = string.replace("[", "").replace("]", "").split(delimiter)
-    return [l.replace("\'", "").strip() for l in ls]
+
 
 @app.route("/<lan>/productes/")
 def mostrar_tot(lan):
