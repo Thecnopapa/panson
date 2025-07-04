@@ -2,6 +2,11 @@ from app_essentials.firebase import firebaseObject
 
 
 class User(firebaseObject):
+    def __init__(self, data, id):
+        self.carret = {}
+        self.preferits = []
+        self.is_admin = False
+        super().__init__(data, id)
     pass
 
 

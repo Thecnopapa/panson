@@ -10,11 +10,17 @@ class Localisation:
         self.colours = self.loc_json["colors"]
         self.types = self.loc_json["tipus"].keys()
 
-    def loc(self,item):
+    def __getattr__(self, item):
         try:
             return self.loc_json[self.lan][item.replace("_", "-")]
         except KeyError:
             return self.loc_json["cat"][item.replace("_", "-")]
+
+    def __getitem__(self, item):
+        try:
+            return self.loc_json[self.lan][item]
+        except KeyError:
+            return self.loc_json["cat"][item]
 
     def update(self, lan="cat"):
         self.__init__(lan)

@@ -26,18 +26,16 @@ storage_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorag
 
 # GLOBALS SETUP
 from app_essentials.localisation import Localisation
-from app_essentials.session import session, get_updated_session
+from app_essentials.session import session
 from app_essentials.products import Products
 from app_essentials.firebase import get_user_data
 from app_essentials.firestore import list_blobs
-from app_essentials.html_builder import template
+from app_essentials.html_builder import template, navigation
 
 
 @app.route("/blank")
 def return_blank():
-    session["id"] = "11111"
-    r =  get_updated_session()
-    return str(r)
+    return
 @app.route("/blank2")
 def return_blank2():
     return Products().__html__()
@@ -69,8 +67,7 @@ def index(lan, favicon = False):
     slide_list = [[slide, storage_url.format("portada", slide.split("/")[-1])] for slide in slides if
                   slide.split("/")[-1] != ""]
 
-    html = template(template="index", slides= slide_list)
-    productes = Products(lan)
+    html = template(templates=["index", "galeria"], slides= slide_list)
     return html
 
     html =  render_template('index.html', loc = s.loc, slides= slide_list)

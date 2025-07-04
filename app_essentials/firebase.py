@@ -15,6 +15,7 @@ try:
     db = firestore.client(app, database_id="productes")
     prods = db.collection("productes")
     usuaris = db.collection("usuaris")
+    collections = db.collection("collecions")
 
     sprint("Firebase initialized")
 except Exception as e:
@@ -23,10 +24,11 @@ except Exception as e:
 
 
 class firebaseObject(object):
-    def __init__(self, data):
+    def __init__(self,data, id = None):
         self.data = data
         for key, value in data.items():
             setattr(self, key, value)
+        self._id = id
 
     def __repr__(self):
         return "\n".join(["> {}:".format(self.__class__.__name__), *["    > {} ({}): {}".format(k,type(v).__name__, v) for k,v in self.__dict__.items() if k != "data"]])+"\n"
@@ -35,19 +37,18 @@ class firebaseObject(object):
         return "<br>".join(["&nbsp&nbsp> {}:".format(self.__class__.__name__), *["&nbsp&nbsp&nbsp> {} ({}): {}".format(k,type(v).__name__, v) for k,v in self.__dict__.items()  if k != "data"]])+"<br>"
 
 
-    def get_attribute(self, attribute):
-        try:
-            return getattr(self, attribute)
-        except AttributeError:
-            return None
-
 def get_products():
     raw = prods.where(filter=FieldFilter("esborrat", "==", False, )).stream()
-    ps = [p.to_dict() for p in raw]
-
-    for p, r in zip(ps, raw):
-        p["_id"] = str(r["id"])
+    #print([p.id for p in raw])
+    #print([p.to_dict() for p in raw])
+    ps = {p.id:p.to_dict() for p in raw}
+    #print([p for p in ps.items()])
     return ps
+
+def get_cols():
+    raw = collections.where(filter=FieldFilter("activa", "==", True, )).stream()
+    cols = [col.to_dict() for col in raw]
+    return cols
 
 def get_user_data(id):
     r = usuaris.document(id).get().to_dict()

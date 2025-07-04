@@ -1,31 +1,39 @@
+import jinja2
 from flask import render_template
 
 from app_essentials import products
 from app_essentials.localisation import Localisation
 from app_essentials.products import Products
+from app_essentials.utils import Utils
+from app_essentials.session import get_current_user
 
 
 def add_navigation(html="", **kwargs):
     kwargs["loc"] = kwargs.get("loc", Localisation(kwargs.get("lan", "cat")))
     kwargs["productes"] =Products(lan=kwargs.get("lan", "cat"))
+    kwargs["user"] = get_current_user()
+
+    print(kwargs["productes"].__dict__)
+    html += render_template("navigation.html", utils=Utils(), **kwargs)
+    return html, kwargs
 
 
-    print(kwargs["productes"])
-    html += render_template("navigation.html", **kwargs)
-    return html
 
 
-
-
-def template(html="", template=None, navigation=True, **kwargs):
-    loc = kwargs.get("loc", Localisation(kwargs.get("lan", "cat")))
-    kwargs["loc"] = loc
-
-
-    if template is not None:
-        html+= render_template(template+".html", **kwargs)
+def template(html="", templates=None, navigation=True, **kwargs):
     if navigation:
-        html = add_navigation(html, **kwargs)
+        nav_html, kwargs = add_navigation(html, **kwargs)
+        html += nav_html
+    else:
+        _, kwargs = add_navigation(html, **kwargs)
+
+
+    if templates is not None:
+        if type(templates) is str:
+            templates = [templates]
+        for template in templates:
+            html+= render_template(template+".html", utils=Utils(), **kwargs)
+
     return html
 
 

@@ -1,9 +1,9 @@
 
-from app_essentials.firebase import get_products, firebaseObject
+from app_essentials.firebase import get_products, firebaseObject, get_cols
 
 
 class Product(firebaseObject):
-    def __init__(self, data):
+    def __init__(self, data, id):
         self.data = {}
         self.unica = False
         self.esborrat = False
@@ -12,27 +12,58 @@ class Product(firebaseObject):
         self.subtitol = ""
         self.imatges = []
         self.nom = ""
-        self._id = None
+
         self.tipus = None
         self.opcions={}
-        super().__init__(data)
+        super().__init__(data, id)
+
+
     pass
 
 
 
 class Products():
     def __init__(self, lan="cat"):
-        self.products = [Product(p) for p in get_products()]
+        self.products = {id:Product(data, id) for id, data in get_products().items()}
+        self.col_names = [c["nom"] for c in get_cols()]
     def __repr__(self):
-        return "\n".join(["Products:", *[repr(p) for p in self.products]])
+        return "\n".join(["Products:", *[repr(p) for p in self]])
     def __html__(self):
-        return "<br>".join(["Products:".format(self.__class__.__name__), *[p.__html__() for p in self.products]])
+        return "<br>".join(["Products:".format(self.__class__.__name__), *[p.__html__() for p in self]])
 
 
+    def __iter__(self):
+        for producte in self.get_all():
+            yield producte
 
     def uniques(self):
-        print([p for p in self.products if p.unica])
-        return [p for p in self.products if p.unica]
+        print("PRODS: ", [product._id for product in self])
+        print("UNIQUES: ", [product._id for product in self if product.unica])
+        return [product for product in self if product.unica]
+
+    def get_all(self):
+        return list(self.products.values())
+
+    def filter(self, **filters):
+        print("Filtrant:", filters)
+        if len(filters) == 0:
+            return self.get_all()
+        filtered = []
+        for product in self:
+            for key, values in filters.items():
+                if type(values) is not list:
+                    values = [values]
+                for value in values:
+                    if product.__getattribute__(key).lower() == value.lower():
+                        filtered.append(product)
+                        break
+        return filtered
+
+    def get_single(self, id):
+        for producte in self.productes:
+            if producte.id == id:
+                return producte
+
 
 
 

@@ -25,7 +25,7 @@
                 <div class="titol-submenu menu-content no-line">{{ loc.nav_collecions }}
                 <span><img class="plus item-submenu" src="/static/media/plus.svg"><img class="minus item-submenu" src="/static/media/minus.svg"></span></div>
                 {% if productes %}
-                    {% for col in productes.collecions %}
+                    {% for col in productes.col_names %}
                         <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/productes/?collecio={{ col }}'">{{ col }}</div>
                     {% endfor %}
                 {% endif %}
@@ -58,7 +58,7 @@
         <div class = "title" id="title" onclick="location.href='/{{ loc.lan }}/'"></div>
     {% endif %}
     <div class = "navigation-right">
-    {% if loc.logged_in %}
+    {% if user.is_admin %}
     <div class="language" onclick="location.href='/admin/'">ADMIN</div>
     {% endif %}
     {% if logout %}
@@ -67,11 +67,11 @@
         {% for lang in loc.all_langs %}
             {% if lang == loc.lan %}
                 <div class="language" id="current" onclick="location.href='/{{ lang }}/'">
-                    {{ loc.upper(lang) }}
+                    {{ utils.upper(lang) }}
                 </div>
             {% else %}
                 <div class="language" onclick="location.href='/{{ lang }}/'">
-                    {{ loc.upper(lang) }}
+                    {{ utils.upper(lang) }}
                 </div>
             {% endif %}
         {% endfor %}
@@ -88,7 +88,7 @@
     <div class="title-carret is-carret">CARRET</div>
 <div class="is-carret" id="close-carret" onclick="closeCart()">Tancar</div>
     <div class="llista-carret is-carret">
-        {% for item in carret.carret.values() %}
+        {% for item in user.carret.values() %}
             <div class="producte-carret is-carret">
             {% if loc.len(item.producte.imatges) > 0 %}
                 <div class="producte-foto is-carret" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ item.producte.imatges[0] }}?alt=media')"></div>
@@ -116,7 +116,7 @@
     </div>
 
     <div class="footer-carret is-carret">
-        {% if carret.n_items != 0 %}
+        {% if user.carret.n_items != 0 %}
             <button class="checkout-button is-carret" onclick="location.href='/{{ loc.lan }}/carret/checkout/'">
                 {{ loc.car_checkout }}</button>
         {% endif %}
