@@ -31,11 +31,11 @@
            <div class="producte" onclick="location.href='/{{ loc.lan }}/productes/{{ producte.id }}'">
                <div class="imatge"><img src='https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media'></div>
                 <div class="detalls-galeria">
-                    <div class="nom">{{ producte.nom }}&nbsp;/&nbsp;{{ producte.preu_minim }}&#8364;</div>
+                    <div class="nom">{{ producte.nom }}&nbsp;/&nbsp;{{ producte.calcular_preu_minim() }}&#8364;</div>
                     <div class="subtiol">{{ producte.subtitol }}&nbsp;</div>
-                    {% if producte.opcions.colors %}
+                    {% if producte.opcions["colors"] %}
                         <div class="colors">
-                        {% for col in producte.opcions.colors %}
+                        {% for col in producte.opcions["colors"] %}
                             <span class="cercle"  onclick="event.stopPropagation(location.href='/{{ loc.lan }}/productes/{{ producte.id }}/?color={{ col }}" style="background-color: {{ loc.colours[col] }}"></span>
                         {% endfor %}
                         </div>

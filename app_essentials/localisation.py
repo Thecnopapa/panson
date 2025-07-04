@@ -14,7 +14,10 @@ class Localisation:
         try:
             return self.loc_json[self.lan][item.replace("_", "-")]
         except KeyError:
-            return self.loc_json["cat"][item.replace("_", "-")]
+            try:
+                return self.loc_json["cat"][item.replace("_", "-")]
+            except KeyError:
+                return item
 
     def __getitem__(self, item):
         try:

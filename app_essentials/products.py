@@ -18,15 +18,17 @@ class Product(firebaseObject):
         super().__init__(data, id)
 
 
+
     def calcular_preu_minim(self):
         p = 0
         if "materials" in self.opcions:
             print(self.opcions["materials"].values())
             p += min([material["preu"] for material in self.opcions["materials"].values()])
         if "variacions" in self.opcions and self.opcions.get("vars_exclusivament", False):
-            p += min([variacio["preu"] for variacio in self.opcions["variaciions"].values()])
+            p += min([variacio["preu"] for variacio in self.opcions["variacions"].values()])
         if "colors" in self.opcions:
-            p += min([color["preu"] for color in self.opcions["colors"].values()]) * self.opcions["n_colors"]
+            print(self.opcions["colors"].keys())
+            p += min([data["preu"] for color, data in self.opcions["colors"].items()]) * self.opcions.get("n_colors",1)
         return p
 
     def calcular_preu(self, material = None, variacio = None, color = None, **kwargs):
@@ -39,46 +41,48 @@ class Product(firebaseObject):
         if color in nones:
             color = None
         incomplet = False
-        #print(material, variacio, color)
-        #print(type(material), type(variacio), type(color))
+        print(material, variacio, color)
+        print(type(material), type(variacio), type(color))
 
-        if material in self.opcions:
-            if self.opcions["materials"] is not None:
+        if material is None:
+            if "materials" in self.opcions:
                 #incomplet = True
                 print([material["preu"] for material in self.opcions["materials"].values()])
                 p += min([material["preu"] for material in self.opcions["materials"].values()])
-            else:
-                p += self.opcions["materials"][material]["preu"]
+        else:
+            p += self.opcions["materials"][material]["preu"]
 
-        if variacio in self.opcions:
-            if self.opcions["variacions"] is not None:
+        if variacio is None:
+            if "variacions" in self.opcions:
                 incomplet = True
                 p += min([variacio["preu"] for variacio in self.opcions["variacions"].values()])
-            else:
-                if type(variacio) is str:
-                    variacio = [variacio]
-                for v in variacio:
-                    p += self.opcions["variacions"][v]["preu"]
+        else:
+            if type(variacio) is str:
+                variacio = [variacio]
+            for v in variacio:
+                p += self.opcions["variacions"][v]["preu"]
 
-        if color in self.opcions:
-            if self.opcions["colors"] is not None:
+        if color is None:
+            if "color" in self.opcions:
                 incomplet = True
-                p += min([color["preu"] for color in self.opcions["colors"].values()]) * self.opcions["n_colors"]
-            else:
-                print(color, type(color))
-                if "[" in color:
-                    color = str_to_list(color)
-                if type(color) is str:
-                    color = [color]
-                for c in color:
-                    c = c.replace("\'", "")
-                    print("#", c)
-                    print(c == "None" , c == "")
-                    if c == "None" or c == "":
-                        p += min([color["preu"] for color in self.opcions["colors"].values()])
-                    else:
-                        print(self.opcions["colors"])
-                        p += self.opcions["colors"][c]["preu"]
+                p += min([data["preu"] for color,data in self.opcions["colors"].items()])* self.opcions.get("n_colors",1)
+        else:
+            print(color, type(color))
+            if "[" in color:
+                color = str_to_list(color)
+            if type(color) is str:
+                color = [color]
+            for c in color:
+                if color != "n_colors":
+                    continue
+                c = c.replace("\'", "")
+                print("#", c)
+                print(c == "None" , c == "")
+                if c == "None" or c == "":
+                    p += min([data["preu"] for color, data in self.opcions["colors"].items()])
+                else:
+                    print(self.opcions["colors"], c)
+                    p += self.opcions["colors"][c]["preu"]
         return p, incomplet
 
 

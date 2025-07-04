@@ -43,14 +43,14 @@
             {% endautoescape %}
             <div class="opcions" id="form" >
 
-            {% if producte.opcions %}
-                {% if producte.opcions["variacions"] %}
+            {% if "opcions" in producte.__dict__ %}
+                {% if "variacions" in producte.opcions %}
                     <br>
                     <fieldset  name="str:variacio" class="variacions required" >
                         <legend>Seleciona una variacio</legend>
                         {% for variacio in producte.opcions["variacions"] %}
                         <div>
-                            <input type="radio"  name="str:variacio" class="variacio" value="{{ variacio }}" {{ "checked" if variacio == opcions.variacio }}  onchange="updatePage(this)"/>
+                            <input type="radio"  name="str:variacio" class="variacio" value="{{ variacio }}" {{ "checked" if variacio == opcions["variacio"] }}  onchange="updatePage(this)"/>
                             <label>{{ variacio }}</label>
                         </div>
                         {% endfor %}
@@ -62,13 +62,13 @@
                 {% if producte.opcions["colors"] %}
                     <span class="required">
                     <br>
-                    {% for n in range(len(producte.opcions["colors"])) %}
+                    {% for n in range(producte.opcions.get("n_colors", 1)) %}
                         <br>
                         Color {{ n+1 }}:
                         <select name="str:color" class="color-selector" onchange="updatePage()">
                             <option class="color-option" value="" {{ "selected=\"selected\"" if opcions["color"] == "None" }} ></option>
-                            {% for color in producte.opcions.colors %}
-                                    <option class="color-option" value="{{ color }}" {{ "selected=\"selected\"" if color == opcions.color[n] }}> {{ color }}</option>
+                            {% for color in producte.opcions["colors"] %}
+                                    <option class="color-option" value="{{ color }}" {{ "selected=\"selected\"" if color == opcions["color"][n] }}> {{ color }}</option>
                             {% endfor %}
                         </select>
                     {% endfor %}
@@ -78,7 +78,7 @@
 
                 <span>
 
-                {% if producte.opcions.totes_les_talles %}
+                {% if producte.opcions.get("totes_les_talles", False) %}
                     <br>
                     <span class="required">
                     Talla:
@@ -88,13 +88,13 @@
                                step="1"
                                list="defaultSizes"
                                maxlength="2"
-                               {{"value={}".format(opcions.talla) if opcions.talla != "None" }}
+                               {{"value={}".format(opcions["talla"]) if opcions["talla"] != "None" }}
                         >
-                    {% elif producte.opcions.talles %}
+                    {% elif producte.opcions["talles"] %}
                         <br>
                         <span class="required">
                         Talles disponibles:
-                        {% for talla in producte.opcions.talles %}
+                        {% for talla in producte.opcions["talles"] %}
                             {% if opcions["talla"] %}
                                 {% if  opcions["talla"].strip() == loc.str(talla) %}
                                     <button type="button" class="talla" id="selected-talla" onclick="updatePage(this)" >{{ talla }}</button>
