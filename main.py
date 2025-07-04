@@ -42,13 +42,16 @@ def return_blank2():
 
 
 
-
+@app.route("/static/<path:path>", defaults={"lan": "cat"})
+@app.route("/<lan>/static/<path:path>")
+def get_static(lan, path):
+    return redirect("/static/"+path)
 @app.route("/")
 def redirect_to_cat():
     return redirect("/cat/")
 
 @app.route("/<lan>/")
-def index(lan, favicon = False):
+def index(lan, favicon = True):
     # Special urls #######################################
     if lan == "favicon.ico":
         if favicon:
@@ -70,12 +73,6 @@ def index(lan, favicon = False):
     html = template(templates=["index", "galeria"], slides= slide_list, titol_galeria="ind_titol_galeria", hide_title=True, title=False)
     return html
 
-    html =  render_template('index.html', loc = s.loc, slides= slide_list)
-
-    html += render_template("galeria.html", productes=s.productes.get_all(),
-                            titol_galeria=s.loc.ind_titol_galeria,  no_head=True,  loc=s.loc)
-    html += navigation(title=False)
-    return html
 
 '''
 
@@ -83,10 +80,7 @@ def index(lan, favicon = False):
 
 
 
-@app.route("/static/<path:path>", defaults={"lan": "cat"})
-@app.route("/<lan>/static/<path:path>")
-def get_static(lan, path):
-    return redirect("/static/"+path)
+
 
 
 
