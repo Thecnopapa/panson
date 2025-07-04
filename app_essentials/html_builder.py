@@ -69,3 +69,22 @@ def carregar_galeria(loc, filtres:dict[str, str] = {}):
 
     return html + render_template("navigation.html", origin="hide", loc = loc)
 
+
+def add_navigation(html="", **kwargs):
+
+
+
+    htnl += render_template("navigation.html", **kwargs)
+    return html
+
+
+
+
+def template(html="", template=None, navigation=True, **kwargs):
+    if template is not None:
+        html+= render_template(template+".html", **kwargs)
+    if navigation:
+        html = add_navigation(html, **kwargs)
+    return html
+
+
