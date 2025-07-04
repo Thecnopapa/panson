@@ -35,7 +35,7 @@
                     {% endfor %}
                     </select>
                 Nom:<input type="text" name="text:nom" id="nom" value="{{ producte.nom }}" >
-                Colleccio:<select name="text:collecio" id="collecio" value="{{ producte.collecio }}">
+                Collecio:<select name="text:collecio" id="collecio" value="{{ producte.collecio }}">
                     <option value="None" {{ "selected=selected" if "collecio" not in producte.__dict__ }}>Cap</option>
                     {% for collecio in productes.collecions %}
                         <option value="{{ collecio.lower() }}" {{ "selected=selected" if collecio.lower() == producte.collecio }}>{{ collecio }}</option>

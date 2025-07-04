@@ -7,7 +7,7 @@ class Product(firebaseObject):
         self.data = {}
         self.unica = False
         self.esborrat = False
-        self.colleccio = "None"
+        self.collecio = "None"
         self.descripcio = ""
         self.subtitol = ""
         self.imatges = []
@@ -59,7 +59,7 @@ class Products():
                     values = [values]
                 for value in values:
                     value = str(value).lower()
-                    print(product.__getattribute__(key), key, value)
+                    #print(product.__getattribute__(key), key, value)
                     if str(product.__getattribute__(key)).lower() == value:
                         approval += 1
                         break

@@ -86,25 +86,48 @@ def mostrar_tot(lan):
     html = template(lan=lan,templates="galeria", filters = request.args, titol="gal_totes")
     return html
 
-@app.route("/<lan>/productes/peces_uniques/")
+@app.route("/<lan>/peces_uniques/")
 def peces_uniques(lan):
     html = template(lan=lan, templates="uniques", filters={"unica":"True"}, titol="gal_totes")
     return html
 
+@app.route("/<lan>/productes/<id>/")
+def mostrar_peca(lan, id):
+
+    producte = Products(lan=lan).filter({"_id":id})[0]
+
+    print(len(request.args))
+    opcions = get_opcions()
+    opcions_url = "?"+"&".join([key + "=" + str(value) for key, value in opcions.items()])
+    print(opcions_url)
+    html = template(lan=lan, templates=["producte", "galeria"], producte=producte, opcions=opcions, filters={"collecio":producte.collecio})
+    html = render_template("producte.html", producte=producte, loc = s.loc, opcions = opcions)
+    html += render_template("galeria.html", productes=s.productes.filtrats(collecio=producte.collecio), no_head=True,  loc=s.loc)
+    #titol=producte.collecio.capitalize()
+    if html:
+        return html + navigation()
 
 
 
 
 
-
+def get_opcions():
+    opcions = {}
+    opcions["material"] = request.args.get("material")
+    opcions["variacio"] = request.args.get("variacio")
+    opcions["talla"] = request.args.get("talla")
+    opcions["color"] = request.args.get("color")
+    if opcions["color"] is not None:
+        if opcions["color"][0] == "[":
+            opcions["color"] = opcions["color"].replace("[", "").replace("]", "").split("-")
+        if len(opcions["color"]) == 0:
+            opcions["color"] = "None"
+    return opcions
 
 
 
 
 '''
-
-
-
 
 
 
@@ -158,37 +181,6 @@ def delete_product(id):
 
 
 
-
-@app.route("/<lan>/productes/<id>/")
-def mostrar_peca(lan, id):
-    s.loc.update(lan)
-    s.productes.update(s.loc)
-    producte = s.productes.get_single(id)
-
-    print(len(request.args))
-    opcions = get_opcions()
-    opcions_url = "?"+"&".join([key + "=" + str(value) for key, value in opcions.items()])
-    print(opcions_url)
-
-    html = render_template("producte.html", producte=producte, loc = s.loc, opcions = opcions)
-    html += render_template("galeria.html", productes=s.productes.filtrats(collecio=producte.collecio),
-                            titol=producte.collecio.capitalize(),  no_head=True,  loc=s.loc)
-
-    if html:
-        return html + navigation()
-
-def get_opcions():
-    opcions = {}
-    opcions["material"] = request.args.get("material")
-    opcions["variacio"] = request.args.get("variacio")
-    opcions["talla"] = request.args.get("talla")
-    opcions["color"] = request.args.get("color")
-    if opcions["color"] is not None:
-        if opcions["color"][0] == "[":
-            opcions["color"] = opcions["color"].replace("[", "").replace("]", "").split("-")
-        if len(opcions["color"]) == 0:
-            opcions["color"] = "None"
-    return opcions
 
 
 
