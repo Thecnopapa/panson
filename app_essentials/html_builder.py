@@ -1,3 +1,41 @@
+from flask import render_template
+
+from app_essentials import products
+from app_essentials.localisation import Localisation
+from app_essentials.products import Products
+
+
+def add_navigation(html="", **kwargs):
+    kwargs["loc"] = kwargs.get("loc", Localisation(kwargs.get("lan", "cat")))
+    kwargs["productes"] =Products(lan=kwargs.get("lan", "cat"))
+
+
+    print(kwargs["productes"])
+    html += render_template("navigation.html", **kwargs)
+    return html
+
+
+
+
+def template(html="", template=None, navigation=True, **kwargs):
+    loc = kwargs.get("loc", Localisation(kwargs.get("lan", "cat")))
+    kwargs["loc"] = loc
+
+
+    if template is not None:
+        html+= render_template(template+".html", **kwargs)
+    if navigation:
+        html = add_navigation(html, **kwargs)
+    return html
+
+
+
+
+
+
+
+
+
 
 def admin_page():
     html = render_template("admin.html", user = s.admin.username, productes=s.productes, loc = s.loc)
@@ -68,23 +106,4 @@ def carregar_galeria(loc, filtres:dict[str, str] = {}):
 
 
     return html + render_template("navigation.html", origin="hide", loc = loc)
-
-
-def add_navigation(html="", **kwargs):
-
-
-
-    htnl += render_template("navigation.html", **kwargs)
-    return html
-
-
-
-
-def template(html="", template=None, navigation=True, **kwargs):
-    if template is not None:
-        html+= render_template(template+".html", **kwargs)
-    if navigation:
-        html = add_navigation(html, **kwargs)
-    return html
-
 

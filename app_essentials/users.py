@@ -1,4 +1,8 @@
+from app_essentials.firebase import firebaseObject
 
+
+class User(firebaseObject):
+    pass
 
 
 class Carret():

@@ -1,26 +1,38 @@
 
-from app_essentials.firebase import get_products
+from app_essentials.firebase import get_products, firebaseObject
 
-class Product(object):
+
+class Product(firebaseObject):
     def __init__(self, data):
-        self.data = data
-        for key, value in data.items():
-            setattr(self, key, value)
+        self.data = {}
+        self.unica = False
+        self.esborrat = False
+        self.colleccio = "None"
+        self.descripcio = ""
+        self.subtitol = ""
+        self.imatges = []
+        self.nom = ""
+        self._id = None
+        self.tipus = None
+        self.opcions={}
+        super().__init__(data)
+    pass
 
+
+
+class Products():
+    def __init__(self, lan="cat"):
+        self.products = [Product(p) for p in get_products()]
     def __repr__(self):
-        return "<br>".join(["&nbsp&nbsp> Producte:", *["&nbsp&nbsp&nbsp> {}".format(k) for k in self.__dict__.keys()]])
+        return "\n".join(["Products:", *[repr(p) for p in self.products]])
+    def __html__(self):
+        return "<br>".join(["Products:".format(self.__class__.__name__), *[p.__html__() for p in self.products]])
 
 
-class Products:
-    def __init__(self, products):
-        self.products = [Product(p) for p in products]
 
-    def update(self, products):
-        self.__init__(products)
-    def __repr__(self):
-        return "<br>".join(["Productes:", *[str(p) for p in self.products]])
-
-products =Products(get_products())
+    def uniques(self):
+        print([p for p in self.products if p.unica])
+        return [p for p in self.products if p.unica]
 
 
 

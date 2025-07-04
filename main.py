@@ -25,10 +25,12 @@ storage_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorag
 
 
 # GLOBALS SETUP
-from app_essentials.localisation import loc
+from app_essentials.localisation import Localisation
 from app_essentials.session import session, get_updated_session
-from app_essentials.products import products
+from app_essentials.products import Products
 from app_essentials.firebase import get_user_data
+from app_essentials.firestore import list_blobs
+from app_essentials.html_builder import template
 
 
 @app.route("/blank")
@@ -38,33 +40,18 @@ def return_blank():
     return str(r)
 @app.route("/blank2")
 def return_blank2():
-    return session["id"]
+    return Products().__html__()
 
 
 
 
-
-
-
-
-'''
 @app.route("/")
 def redirect_to_cat():
-    s.loc.update("cat")
     return redirect("/cat/")
-
-
-
-@app.route("/static/<path:path>", defaults={"lan": "cat"})
-@app.route("/<lan>/static/<path:path>")
-def get_static(lan, path):
-    return redirect("/static/"+path)
-
-
-
 
 @app.route("/<lan>/")
 def index(lan, favicon = False):
+    # Special urls #######################################
     if lan == "favicon.ico":
         if favicon:
             return redirect("/static/media/favicon.ico")
@@ -76,19 +63,38 @@ def index(lan, favicon = False):
         with open("static/sitemap.xml") as f:
             sitemap = f.read()
         return sitemap
+    ######################################################
+    # TODO: Revisit firebase access
+    slides = list_blobs("portada")
+    slide_list = [[slide, storage_url.format("portada", slide.split("/")[-1])] for slide in slides if
+                  slide.split("/")[-1] != ""]
 
-    s.loc.update(lan)
+    html = template(template="index", slides= slide_list)
+    productes = Products(lan)
+    return html
 
-    slides = firestore.list_blobs("portada")
-    print("###########")
-    print(slides)
-    slide_list = [[slide, storage_url.format("portada", slide.split("/")[-1])] for slide in slides if slide.split("/")[-1] != ""]
     html =  render_template('index.html', loc = s.loc, slides= slide_list)
 
     html += render_template("galeria.html", productes=s.productes.get_all(),
                             titol=s.loc.ind_titol_galeria,  no_head=True,  loc=s.loc)
     html += navigation(title=False)
     return html
+
+'''
+
+    
+
+
+
+@app.route("/static/<path:path>", defaults={"lan": "cat"})
+@app.route("/<lan>/static/<path:path>")
+def get_static(lan, path):
+    return redirect("/static/"+path)
+
+
+
+
+
 
 @app.route("/<lan>/admin/")
 def admin_redirect(lan):

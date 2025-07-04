@@ -158,7 +158,7 @@ def get_products_by_attribute(attributes = [], values = [], origin = "/", templa
 
 class Localization():
     def __init__(self, lan):
-        self.loc_json = json.loads(open("localization.json").read())
+        self.loc_json = json.loads(open("static/localization.json").read())
         self.all_langs = (lang for lang in self.loc_json.keys() if lang != "colors")
         self.colors = self.loc_json["colors"]
         self.loc = self.loc_json[lan]

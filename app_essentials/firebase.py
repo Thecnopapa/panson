@@ -22,6 +22,25 @@ except Exception as e:
     print(e)
 
 
+class firebaseObject(object):
+    def __init__(self, data):
+        self.data = data
+        for key, value in data.items():
+            setattr(self, key, value)
+
+    def __repr__(self):
+        return "\n".join(["> {}:".format(self.__class__.__name__), *["    > {} ({}): {}".format(k,type(v).__name__, v) for k,v in self.__dict__.items() if k != "data"]])+"\n"
+
+    def __html__(self):
+        return "<br>".join(["&nbsp&nbsp> {}:".format(self.__class__.__name__), *["&nbsp&nbsp&nbsp> {} ({}): {}".format(k,type(v).__name__, v) for k,v in self.__dict__.items()  if k != "data"]])+"<br>"
+
+
+    def get_attribute(self, attribute):
+        try:
+            return getattr(self, attribute)
+        except AttributeError:
+            return None
+
 def get_products():
     raw = prods.where(filter=FieldFilter("esborrat", "==", False, )).stream()
     ps = [p.to_dict() for p in raw]
@@ -35,7 +54,7 @@ def get_user_data(id):
     if r is None:
         print("No such user")
         new_id = usuaris.document(id).set({})
-        return usuaris.document(id).get().to_dict()
+    return usuaris.document(id).get().to_dict()
 
 
 
