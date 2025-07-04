@@ -67,13 +67,13 @@ def index(lan, favicon = False):
     slide_list = [[slide, storage_url.format("portada", slide.split("/")[-1])] for slide in slides if
                   slide.split("/")[-1] != ""]
 
-    html = template(templates=["index", "galeria"], slides= slide_list)
+    html = template(templates=["index", "galeria"], slides= slide_list, titol_galeria="ind_titol_galeria", hide_title=True, title=False)
     return html
 
     html =  render_template('index.html', loc = s.loc, slides= slide_list)
 
     html += render_template("galeria.html", productes=s.productes.get_all(),
-                            titol=s.loc.ind_titol_galeria,  no_head=True,  loc=s.loc)
+                            titol_galeria=s.loc.ind_titol_galeria,  no_head=True,  loc=s.loc)
     html += navigation(title=False)
     return html
 

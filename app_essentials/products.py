@@ -37,8 +37,6 @@ class Products():
             yield producte
 
     def uniques(self):
-        print("PRODS: ", [product._id for product in self])
-        print("UNIQUES: ", [product._id for product in self if product.unica])
         return [product for product in self if product.unica]
 
     def get_all(self):

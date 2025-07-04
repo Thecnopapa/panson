@@ -14,7 +14,7 @@
 
 <div class="content-galeria">
     <div class="capcal">
-        <div class="titol-galeria">{{ titol }}</div>
+        <div class="titol-galeria">{{ loc[titol_galeria] }}</div>
         <div class="subtitle">{{ "/"+subtitol if subtitol }}</div>
         <div class="filtres">
             <button class="boto-filtres">Filtrar</button>
@@ -36,7 +36,7 @@
                     {% if producte.opcions.colors %}
                         <div class="colors">
                         {% for col in producte.opcions.colors %}
-                            <span class="cercle"  onclick="event.stopPropagation(location.href='/{{ loc.lan }}/productes/{{ producte.id }}/?color={{ col }}" style="background-color: {{ loc.colors[col] }}"></span>
+                            <span class="cercle"  onclick="event.stopPropagation(location.href='/{{ loc.lan }}/productes/{{ producte.id }}/?color={{ col }}" style="background-color: {{ loc.colours[col] }}"></span>
                         {% endfor %}
                         </div>
                     {% endif %}
