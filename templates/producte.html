@@ -44,11 +44,11 @@
             <div class="opcions" id="form" >
 
             {% if producte.opcions %}
-                {% if producte.opcions.variacions %}
+                {% if producte.opcions["variacions"] %}
                     <br>
                     <fieldset  name="str:variacio" class="variacions required" >
                         <legend>Seleciona una variacio</legend>
-                        {% for variacio in producte.opcions.variacions %}
+                        {% for variacio in producte.opcions["variacions"] %}
                         <div>
                             <input type="radio"  name="str:variacio" class="variacio" value="{{ variacio }}" {{ "checked" if variacio == opcions.variacio }}  onchange="updatePage(this)"/>
                             <label>{{ variacio }}</label>
@@ -59,10 +59,10 @@
                 {% endif %}
 
 
-                {% if producte.opcions.colors %}
+                {% if producte.opcions["colors"] %}
                     <span class="required">
                     <br>
-                    {% for n in range(producte.opcions.n_colors) %}
+                    {% for n in range(len(producte.opcions["colors"])) %}
                         <br>
                         Color {{ n+1 }}:
                         <select name="str:color" class="color-selector" onchange="updatePage()">

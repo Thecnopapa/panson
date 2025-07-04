@@ -100,12 +100,15 @@ def mostrar_peca(lan, id):
     opcions = get_opcions()
     opcions_url = "?"+"&".join([key + "=" + str(value) for key, value in opcions.items()])
     print(opcions_url)
-    html = template(lan=lan, templates=["producte", "galeria"], producte=producte, opcions=opcions, filters={"collecio":producte.collecio})
-    html = render_template("producte.html", producte=producte, loc = s.loc, opcions = opcions)
-    html += render_template("galeria.html", productes=s.productes.filtrats(collecio=producte.collecio), no_head=True,  loc=s.loc)
+    if producte.unica:
+        titol_galeria = "pro-altres-uniques"
+    else:
+        titol_galeria = "pro-mateixa-col"
+    html = template(lan=lan, templates=["producte", "galeria"], producte=producte, opcions=opcions, filters={"collecio":producte.collecio} ,titol_galeria=titol_galeria)
+    #html = render_template("producte.html", producte=producte, loc = s.loc, opcions = opcions)
+    #html += render_template("galeria.html", productes=s.productes.filtrats(collecio=producte.collecio), no_head=True,  loc=s.loc)
     #titol=producte.collecio.capitalize()
-    if html:
-        return html + navigation()
+    return html
 
 
 
