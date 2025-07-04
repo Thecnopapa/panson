@@ -28,7 +28,7 @@ storage_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorag
 from app_essentials.localisation import Localisation
 from app_essentials.session import session
 from app_essentials.products import Products
-from app_essentials.firebase import get_user_data
+from app_essentials.firebase import get_user_data, get_cols
 from app_essentials.firestore import list_blobs
 from app_essentials.html_builder import template, navigation
 
@@ -73,6 +73,12 @@ def index(lan, favicon = True):
     html = template(templates=["index", "galeria"], slides= slide_list, titol_galeria="ind_titol_galeria", hide_title=True, title=False)
     return html
 
+@app.route("/<lan>/collecions/")
+def collections(lan):
+    cols = get_cols()
+    html = template(templates=["collecions"], cols=cols)
+    return html
+    return carregar_totes_collecions(s.loc)
 
 '''
 
@@ -127,10 +133,7 @@ def delete_product(id):
 
 
 
-@app.route("/<lan>/collecions/")
-def collections(lan):
-    s.loc.update(lan)
-    return carregar_totes_collecions(s.loc)
+
 
 @app.route("/<lan>/collecions/<col>/")
 def productes_per_col(lan, col):

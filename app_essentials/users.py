@@ -6,7 +6,9 @@ class User(firebaseObject):
         self.carret = {}
         self.preferits = []
         self.is_admin = False
+        self.accepted_cookies = False
         super().__init__(data, id)
+        self.n_carret = sum([item.quantity for item in self.carret.values()])
     pass
 
 

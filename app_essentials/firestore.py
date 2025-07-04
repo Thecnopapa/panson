@@ -45,7 +45,7 @@ except Exception as e:
 
 def list_blobs(prefix = None ):
     try:
-        sprint("Lists all the blobs in the bucket")
+        #sprint("Lists all the blobs in {}/".format(prefix))
 
         #print(storage_client)
 
@@ -59,7 +59,7 @@ def list_blobs(prefix = None ):
         blob_list = []
         for blob in blobs:
             blob_list.append(blob.name)
-            print1(blob.name)
+            #print1(blob.name)
         return blob_list
     except:
        return []

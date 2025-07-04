@@ -12,7 +12,7 @@
     <button class="back" onclick="history.back()"><img class="back-arrow" src="/static/media/arrow.svg" alt="{{ loc.nav_enrere }}"> </button>
 {% endif %}
 
-{% if ask_cookies %}
+{% if not user.accepted_cookies %}
         <div class="request-cookies">Aquesta web fa servir cookies<button class="accept-cookies" onclick="location.href='/{{ loc.lan }}/acceptar_cookies'">d'acord</button></div>
     {% endif %}
 <div class = "navigation">
@@ -77,8 +77,8 @@
         {% endfor %}
     <div class = "cart" id="cart-button" onclick="openCart()">
         <img class="shopping-cart" src="/static/media/bag-black.svg" alt="cart">
-        {% if n_carret %}
-            <div class="cercle-carret">{{ n_carret if n_carret > 0 }}</div>
+        {% if user.n_carret %}
+            <div class="cercle-carret">{{ user.n_carret if user.n_carret > 0 }}</div>
         {% endif %}
         </div>
     </div>

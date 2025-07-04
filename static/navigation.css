@@ -25,7 +25,7 @@
 body {
     padding: 0 0;
     margin: 0 0;
-    width: 100dvw;+-
+    width: 100dvw;
     display: flex;
     flex-direction: column;
     -webkit-font-smoothing: antialiased;
@@ -44,9 +44,10 @@ body {
     align-items: center;
     border-radius: 0.5dvh;
     padding: 1dvh;
-    width: 30%;
+    width: 40%;
     justify-content: center;
     z-index: 99;
+    left:29%;
 }
 .accept-cookies {
     margin-left: 1dvh;
@@ -383,6 +384,7 @@ body {
         display: none;
     }
 .request-cookies{
-    width: 100%;
+    width: 94%;
+    left: 2%;
 }
 }
