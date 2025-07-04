@@ -14,7 +14,7 @@
     <div class="content" >
     <div class="fons_collecio" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/collecions%2F{{ id }}.jpg?alt=media')">
         {% if col["nom"] %}
-            <div class = "titol-collecio" id="{{ id }}" onclick="location.href='/{{ loc.lan }}/collecions/{{ id }}'">
+            <div class = "titol-collecio" id="{{ id }}" onclick="location.href='/{{ loc.lan }}/productes?collecio={{ id }}'">
                 {{ col["nom"] }}
             </div>
         {% endif %}

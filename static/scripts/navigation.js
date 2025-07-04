@@ -26,7 +26,7 @@ if (false) {
     addFavicon()
 }
 
-function scrollTo(id) {
+function scrollOnLoad(id) {
     console.log("scrolling to " +id);
     target = document.getElementById(id);
     console.log("target is " +target);
