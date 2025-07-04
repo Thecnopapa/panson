@@ -25,7 +25,7 @@ class Product(firebaseObject):
 class Products():
     def __init__(self, lan="cat"):
         self.products = {id:Product(data, id) for id, data in get_products().items()}
-        self.col_names = [c["nom"] for c in get_cols()]
+        self.col_names = [c["nom"] for c in get_cols().values()]
     def __repr__(self):
         return "\n".join(["Products:", *[repr(p) for p in self]])
     def __html__(self):

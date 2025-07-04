@@ -47,7 +47,7 @@ def get_products():
 
 def get_cols():
     raw = collections.where(filter=FieldFilter("activa", "==", True, )).stream()
-    cols = [col.to_dict() for col in raw]
+    cols = {c.id:c.to_dict() for c in raw}
     return cols
 
 def get_user_data(id):

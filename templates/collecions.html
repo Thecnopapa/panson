@@ -10,12 +10,12 @@
 </head>
 
 
-{% for id, name in data %}
+{% for id, col in cols.items() %}
     <div class="content" >
     <div class="fons_collecio" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/collecions%2F{{ id }}.jpg?alt=media')">
-        {% if name %}
+        {% if col["nom"] %}
             <div class = "titol-collecio" onclick="location.href='/{{ loc.lan }}/collecions/{{ id }}'">
-                {{ name }}
+                {{ col["nom"] }}
             </div>
         {% endif %}
         <div class = "descripcio">
