@@ -121,4 +121,8 @@
                 {{ loc.car_checkout }}</button>
         {% endif %}
     </div>
+</div>
+{% if scroll_to %}
+    <body onload="scrollTo('{{ scroll_to }}')">
+{% endif %}
 

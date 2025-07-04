@@ -70,23 +70,41 @@ def index(lan, favicon = True):
     slide_list = [[slide, storage_url.format("portada", slide.split("/")[-1])] for slide in slides if
                   slide.split("/")[-1] != ""]
 
-    html = template(templates=["index", "galeria"], slides= slide_list, titol_galeria="ind_titol_galeria", hide_title=True, title=False)
+    html = template(lan=lan, templates=["index", "galeria"], slides= slide_list, titol_galeria="ind_titol_galeria", hide_title=True, title=False)
     return html
 
+@app.route("/<lan>/collecions/<col>/")
 @app.route("/<lan>/collecions/")
-def collections(lan):
+def collections(lan, col=None):
     cols = get_cols()
-    html = template(templates=["collecions"], cols=cols)
+    html = template(lan=lan, templates=["collecions"], cols=cols, scroll_to=col)
     return html
-    return carregar_totes_collecions(s.loc)
+
+
+@app.route("/<lan>/productes/")
+def mostrar_tot(lan):
+    s.loc.update(lan)
+    print("ARGS:")
+    print(request.args)
+
+    html = render_template("galeria.html", productes = s.productes.filtrats(**request.args), titol=s.loc.gal_totes, loc=s.loc)
+    if html:
+        return html + navigation()
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 '''
-
-    
-
-
-
-
 
 
 
@@ -135,12 +153,7 @@ def delete_product(id):
 
 
 
-@app.route("/<lan>/collecions/<col>/")
-def productes_per_col(lan, col):
-    s.loc.update(lan)
-    html = render_template("galeria.html",productes = s.productes.filtrats(collecio=col), titol=col.capitalize(), loc=s.loc)
-    if html:
-        return html + navigation()
+
 
 
 @app.route("/<lan>/productes/peces_uniques/")
@@ -186,16 +199,6 @@ def get_opcions():
     return opcions
 
 
-
-@app.route("/<lan>/productes/")
-def mostrar_tot(lan):
-    s.loc.update(lan)
-    print("ARGS:")
-    print(request.args)
-
-    html = render_template("galeria.html", productes = s.productes.filtrats(**request.args), titol=s.loc.gal_totes, loc=s.loc)
-    if html:
-        return html + navigation()
 
 
 

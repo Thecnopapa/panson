@@ -26,6 +26,13 @@ if (false) {
     addFavicon()
 }
 
+function scrollTo(id) {
+    console.log("scrolling to " +id);
+    target = document.getElementById(id);
+    console.log("target is " +target);
+    target.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
 
 
 
