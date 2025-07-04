@@ -12,7 +12,10 @@ from app_essentials.session import get_current_user
 
 def common_kwargs(**kwargs):
     kwargs["loc"] = kwargs.get("loc", Localisation(kwargs.get("lan", "cat")))
+    print(kwargs.get("filters", None))
     kwargs["productes"] = Products(lan=kwargs.get("lan", "cat"))
+    if "filters" in kwargs:
+        kwargs["productes_filtrats"] =kwargs["productes"].filter(kwargs.get("filters", None))
     kwargs["user"] = get_current_user()
     kwargs["utils"] = Utils()
     return kwargs
@@ -26,7 +29,7 @@ def template(html="", templates=None, navigation=True, **kwargs):
         if type(templates) is str:
             templates = [templates]
         for n, t in enumerate(templates):
-            print("Rendering template {}".format(t))
+            print("Rendering template: {}.html".format(t))
             html+= render_template(t+".html",no_head=n!=0, **kwargs)
 
     if navigation:

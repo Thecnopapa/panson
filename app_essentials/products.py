@@ -42,19 +42,31 @@ class Products():
     def get_all(self):
         return list(self.products.values())
 
-    def filter(self, **filters):
-        print("Filtrant:", filters)
+    def filter(self, filters, inclusive=False):
+        if filters is None:
+            return self.get_all()
         if len(filters) == 0:
             return self.get_all()
         filtered = []
+
         for product in self:
+            approval = 0
             for key, values in filters.items():
+                key = key.lower()
+                if key not in product.__dict__:
+                    break
                 if type(values) is not list:
                     values = [values]
                 for value in values:
-                    if product.__getattribute__(key).lower() == value.lower():
-                        filtered.append(product)
+                    value = str(value).lower()
+                    print(product.__getattribute__(key), key, value)
+                    if str(product.__getattribute__(key)).lower() == value:
+                        approval += 1
                         break
+            if inclusive and approval == 0 or approval != len(filters.keys()):
+                continue
+            filtered.append(product)
+
         return filtered
 
     def get_single(self, id):

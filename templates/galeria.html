@@ -27,7 +27,7 @@
     </div>
     <div class="spacer"></div>
     <div class="galeria">
-        {% for producte in productes %}
+        {% for producte in productes_filtrats %}
            <div class="producte" onclick="location.href='/{{ loc.lan }}/productes/{{ producte.id }}'">
                <div class="imatge"><img src='https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media'></div>
                 <div class="detalls-galeria">
