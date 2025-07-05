@@ -2,6 +2,9 @@
 pip
 autopep8
 google-cloud-storage
+google-cloud-firestore
+google-cloud-secret-manager
+
 
 
 
