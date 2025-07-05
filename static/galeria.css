@@ -17,31 +17,33 @@
     flex-wrap: wrap  ;
     top: 0;
     left: 0;
-    width: 98%;
+    width: 94%;
     justify-content: left;
     align-items: end;
     align-content: end;
     z-index: 1;
     height: 15dvh;
-    padding-bottom: 3dvh;
+    margin-bottom: 3dvh;
     padding-left: 1%;
     padding-right: 1%;
 
 }
 
 .filtres {
+    font-size: 1.5dvh;
     background-color: rgba(255, 255, 255, 0.8);
     display: flex;
     flex-direction: row;
     position: absolute;
     right: 0;
-    margin-right: 1%;
+    margin-right: 0;
     z-index: 2;
 }
 
 .boto-filtres {
     background-color: rgba(255, 255, 255, 0);
     border: none;
+    font-size: 1.5dvh;
 }
 .desplegable-filtres {
     background-color: rgba(0, 234, 255, 0.8);
@@ -84,6 +86,7 @@
 }
 .subtitle{
     font-size: 2dvh;
+    display: none;
 }
 
 .galeria {
@@ -91,7 +94,6 @@
     display: flex;
     top: 0;
     height: max-content;
-    width: 100%;
     flex-wrap: wrap;
     padding-bottom: 10dvh;
     justify-content: flex-start;
@@ -209,6 +211,7 @@
     left: 40dvw;
     height: 5dvh;
     background-color: rgba(255, 255, 255, 0);
+    border-width: 0.2dvh;
 }
 
 
@@ -251,18 +254,19 @@
         user-select: none;
     }
     .capcal{
-
+        width: 94%;
+        left: 3%;
         flex-direction: column;
         justify-content: flex-end;
-        align-content: center;
-        align-items: center;
+        align-content: flex-start;
+        align-items: flex-start;
         flex-wrap: nowrap;
     }
 
     .titol-galeria{
 
         padding-top: 1dvh;
-        font-size: 5dvh;
+        font-size: 3dvh;
         text-align: center ;
     }
     .subtitle{
