@@ -75,6 +75,8 @@
 .detalls-carret {
     position: relative;
     padding-left: 1dvw;
+    height: 100%;
+    width: 50%;
 
 }
 
@@ -89,6 +91,7 @@
 .producte-carret-color{
     display: flex;
     flex-direction: row;
+    align-items: center
 }
 .producte-carret-cercle {
     display: block;
@@ -100,10 +103,40 @@
     border-color: #000000;
     border-width: 0.2dvh;
 }
+.pro-pedra-gran{
+    height: 2dvh;
+    width: 2dvh;
+}
+
 .checkout-button{
     font-size: 2.5dvh;
 }
+.producte-carret-preu {
+    font-size: 2dvh;
+    position: absolute;
+    bottom: 0dvh;
+}
+.quantitats-carret {
+    position: absolute;
+    display: flex;
+    bottom: 0dvh;
+    right: 0dvw;
+    align-items: center
 
+
+}
+.producte-carret-quantitat{
+    font-size: 1.5dvh;
+    padding-right: 0.4dvh;
+    padding-left: 0.5dvh;
+}
+
+
+.carret-plus, .carret-minus {
+    height: 1.6dvh;
+    width: 1.6dvh;
+    padding: 0;
+}
 
 
 @media screen and (orientation: portrait) {

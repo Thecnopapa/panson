@@ -56,6 +56,7 @@ def get_products():
 def get_cols():
     raw = collections.where(filter=FieldFilter("activa", "==", True, )).stream()
     cols = {c.id:c.to_dict() for c in raw}
+    cols = dict(sorted(cols.items(), key=lambda col: col[1]["ordre"]))
     return cols
 
 def get_user_data(id):

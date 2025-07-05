@@ -1,5 +1,6 @@
 
 from app_essentials.firebase import get_products, firebaseObject, get_cols
+from app_essentials.utils import str_to_list
 
 
 class Product(firebaseObject):

@@ -64,7 +64,12 @@
                     <br>
                     {% for n in range(producte.opcions.get("n_colors", 1)) %}
                         <br>
-                        Color {{ n+1 }}:
+                        {% if producte.opcions.get("extra_colors", None) %}
+
+                            Color {{ loc[producte.opcions["extra_colors"][n]] }}:
+                        {% else %}
+                            Color {{ n+1 }}:
+                        {% endif %}
                         <select name="str:color" class="color-selector" onchange="updatePage()">
                             <option class="color-option" value="" {{ "selected=\"selected\"" if opcions["color"] == "None" }} ></option>
                             {% for color in producte.opcions["colors"] %}

@@ -40,6 +40,8 @@
     "pro-variacions-disponibles": "Disponible amb les seguents variacions:",
     "pro-mateixa-col": "De la mateixa col·lecció",
     "pro-altres-uniques": "Altres peces uniques",
+    "pro-pedra-gran": "Gran",
+    "pro-pedra-petita": "Petita",
 
     "car-checkout": "PAGAMENT",
     "car-carret": "CARRET",
@@ -108,6 +110,8 @@
     "pro-variacions-disponibles": "Available in the following variations:",
     "pro-mateixa-col": "From the same collection",
     "pro-altres-uniques": "Other unique pieces",
+    "pro-pedra-gran": "Large",
+    "pro-pedra-petita": "Small",
 
     "car-checkout": "CHECKOUT",
     "car-carret": "CART",

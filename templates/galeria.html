@@ -44,7 +44,7 @@
                 </div>
            </div>
         {% endfor %}
-    {% if max_gallery < utils.len(productes_filtrats) %}
+    {% if max_gallery  %}
         <button class="view-more" onclick="location.href='/{{ loc.lan }}/productes/'"> Veure mes</button>
     {% endif %}
     </div>

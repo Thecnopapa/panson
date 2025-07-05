@@ -96,18 +96,23 @@
                 <div class="detalls-carret is-carret">
                     <div class="producte-carret-nom is-carret">{{ item.producte.nom }}</div>
                     <div class="producte-carret-id is-carret hide">ID: {{ item.id2 }}</div>
-                    <div class="producte-carret-quantitat is-carret">QUANTITAT: {{ item.quantity }}</div>
+
                     <div class="producte-carret-talla is-carret {{ "hide" if item.talla == "null" }}">TALLA: {{ item.talla }}</div>
                     <div class="producte-carret-material is-carret hide">MATERIAL: {{ item.material}}</div>
                     <div class="producte-carret-variacio is-carret {{ "hide" if item.variacio == "null" }}">VARIACIO: {{ item.variacio}}</div>
-                    <div class="producte-carret-color is-carret {{ "hide" if item.color == "null" }}">COLOR:
+                    <div class="producte-carret-color is-carret {{ "hide" if item.color == "null" }}">
                         <div class="producte-carret-color is-carret">
-                        {% for col in utils.str_to_list(item["color"]) %}
-                            <span class="producte-carret-cercle is-carret" style="background-color: {{ loc.colours[col] }}"></span>
+                        {% for n, col in utils.enumerate(utils.str_to_list(item["color"])) %}
+                            <span class="producte-carret-cercle is-carret {{ item.producte.opcions.get("extra_colors", [])[n] }}" style="background-color: {{ loc.colours[col] }}"></span>
                         {% endfor %}
                         </div>
                     </div>
-                    <div class="producte-carret-preu is-carret">PREU: {{ item.preu[0]*item.quantity }}&#8364; ({{ item.preu[0] }}&#8364 x{{ item.quantity }})</div>
+                    <div class="producte-carret-preu is-carret">{{ item.preu[0]*item.quantity }}&#8364;</div>
+                    <div class="quantitats-carret is-carret">
+                        <img class="carret-minus add-item is-carret" src="/static/media/minus.svg">
+                        <div class="producte-carret-quantitat is-carret">{{ item.quantity }}</div>
+                        <img class="carret-plus delete-item is-carret" src="/static/media/plus.svg">
+                    </div>
                 </div>
 
 

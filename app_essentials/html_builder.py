@@ -33,6 +33,9 @@ def template(html="", templates=None, navigation=True, **kwargs):
 
     kwargs = common_kwargs(**kwargs)
 
+
+    if navigation:
+        html += render_template("navigation.html", **kwargs)
     if templates is not None:
         if type(templates) is str:
             templates = [templates]
@@ -40,8 +43,7 @@ def template(html="", templates=None, navigation=True, **kwargs):
             print("Rendering template: {}.html".format(t))
             html+= render_template(t+".html",no_head=n!=0, **kwargs)
 
-    if navigation:
-        html += render_template("navigation.html", **kwargs)
+
 
     return html
 
