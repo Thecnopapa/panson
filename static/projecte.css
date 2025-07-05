@@ -1,0 +1,11 @@
+.titol-projecte{
+    display: flex;
+    font-size: 5dvh;
+    text-align: center;
+    width: 100dvw;
+    height: 100dvh;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+
+}
