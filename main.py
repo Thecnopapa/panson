@@ -3,7 +3,7 @@ import json
 from utilities import *
 
 # WEB-RELATED IMPORTS
-from flask import Flask, render_template, redirect, request, make_response
+from flask import Flask, render_template, redirect, request, make_response, session
 import requests
 from werkzeug.middleware.proxy_fix import ProxyFix
 
@@ -32,6 +32,14 @@ from app_essentials.firebase import get_user_data, get_cols
 from app_essentials.firestore import list_blobs
 from app_essentials.html_builder import template, navigation
 from app_essentials.utils import get_opcions
+
+
+
+
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+
 
 
 @app.route("/blank")
@@ -80,7 +88,7 @@ def index(lan, favicon = True):
     slide_list = [[slide, storage_url.format("portada", slide.split("/")[-1])] for slide in slides if
                   slide.split("/")[-1] != ""]
 
-    html = template(lan=lan, templates=["index", "galeria"], slides= slide_list, titol_galeria="ind_titol_galeria", hide_title=True, title=False)
+    html = template(lan=lan, templates=["index", "galeria"], slides= slide_list, filters={}, titol_galeria="ind_titol_galeria", hide_title=True, title=False, max_gallery=8)
     return html
 
 

@@ -201,6 +201,13 @@
     margin: 0 0.2dvh;
     cursor: pointer;
 }
+.view-more {
+    position: absolute;
+    bottom: 5dvh;
+    font-size: 2dvh;
+    width: 20dvw;
+    left: 40dvw;
+}
 
 
 

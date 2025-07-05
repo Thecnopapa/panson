@@ -20,6 +20,7 @@ def common_kwargs(**kwargs):
     for k, v in kwargs["cart"].items():
         print(v)
         v["producte"] = kwargs["productes"].get_single(v["id"])
+    kwargs["max_gallery"] = kwargs.get("max_gallery", len(kwargs["productes_filtrats"]))
     print("##### USER ####")
     print(kwargs["user"])
     print("##### USER ####")

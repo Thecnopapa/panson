@@ -27,7 +27,7 @@
     </div>
     <div class="spacer"></div>
     <div class="galeria">
-        {% for producte in productes_filtrats %}
+        {% for producte in productes_filtrats[:max_gallery] %}
            <div class="producte" onclick="location.href='/{{ loc.lan }}/productes/{{ producte._id }}'">
                <div class="imatge"><img src='https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media'></div>
                 <div class="detalls-galeria">
@@ -40,12 +40,14 @@
                         {% endfor %}
                         </div>
                     {% endif %}
-                    {% autoescape false %}
                         <div class="descripcio">{{ producte.descripcio }}</div>
-                    {% endautoescape %}
                 </div>
            </div>
         {% endfor %}
+    {% if max_gallery < utils.len(productes_filtrats) %}
+        <button class="view-more" onclick="location.href='/{{ loc.lan }}/productes/'"> Veure mes</button>
+    {% endif %}
     </div>
+
 
 </div>

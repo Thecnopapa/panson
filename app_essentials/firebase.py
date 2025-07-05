@@ -2,6 +2,7 @@ from utilities import *
 from flask import request
 from werkzeug.utils import secure_filename
 import os, sys
+import datetime
 
 try:
     import firebase_admin
@@ -27,7 +28,7 @@ except Exception as e:
 class firebaseObject(object):
     bucket = None
     def __init__(self,data, id = None):
-        self.data = data
+        self._data = data
         for key, value in data.items():
             setattr(self, key, value)
         self._id = id
@@ -41,7 +42,8 @@ class firebaseObject(object):
     def update_db(self, bucket=None):
         if bucket is None:
             bucket = self.bucket
-        data = {k:v for k,v in self.__dict__.items() if k not in ["data", "_id"]}
+        data = {k:v for k,v in self.__dict__.items() if not k.startswith("_")}
+        data["_timestamp"] = datetime.datetime.utcnow().isoformat()
         print(data)
         print(db.collection(bucket).document(self._id).set(data))
 
