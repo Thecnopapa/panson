@@ -13,6 +13,10 @@ class Utils:
         return len(i)
 
     @staticmethod
+    def lower(string):
+        return string.lower()
+
+    @staticmethod
     def str(s):
         return str(s)
 

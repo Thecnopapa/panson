@@ -26,7 +26,7 @@
                 <span><img class="plus item-submenu" src="/static/media/plus.svg"><img class="minus item-submenu" src="/static/media/minus.svg"></span></div>
                 {% if productes %}
                     {% for col in productes.col_names %}
-                        <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/productes/?collecio={{ col }}'">{{ col }}</div>
+                        <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/collecions/#{{ utils.lower(col) }}'">{{ col }}</div>
                     {% endfor %}
                 {% endif %}
             </div>

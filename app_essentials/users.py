@@ -14,6 +14,9 @@ class User(firebaseObject):
         self.n_carret = sum([item["quantity"] for item in self.carret.values()])
         self.total_carret = sum([item["quantity"] * item["preu"][0] for item in self.carret.values()])
 
+    def move_to_favourites(self):
+        pass
+
     def add_producte_carret(self, id, opcions_seleccionades={}, quantitat = 1, delete=False):
         if not delete:
             print("Adding producte", id)
