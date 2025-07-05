@@ -12,11 +12,17 @@ from app_essentials.session import get_current_user
 
 def common_kwargs(**kwargs):
     kwargs["loc"] = kwargs.get("loc", Localisation(kwargs.get("lan", "cat")))
-    print(kwargs.get("filters", None))
     kwargs["productes"] = Products(lan=kwargs.get("lan", "cat"))
     if "filters" in kwargs:
         kwargs["productes_filtrats"] =kwargs["productes"].filter(kwargs.get("filters", None))
     kwargs["user"] = get_current_user()
+    kwargs["cart"] = kwargs["user"].carret
+    for k, v in kwargs["cart"].items():
+        print(v)
+        v["producte"] = kwargs["productes"].get_single(v["id"])
+    print("##### USER ####")
+    print(kwargs["user"])
+    print("##### USER ####")
     kwargs["utils"] = Utils()
     return kwargs
 

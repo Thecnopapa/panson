@@ -28,3 +28,4 @@ class Localisation:
     def update(self, lan="cat"):
         self.__init__(lan)
 
+

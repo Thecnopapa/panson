@@ -9,7 +9,8 @@ from app_essentials.firebase import get_user_data
 def get_current_user():
    if "session_id" not in session:
        session["session_id"] = str(uuid.uuid4())
-   return User(get_user_data(session["session_id"]), session["session_id"])
+   user = get_user_data(session["session_id"])
+   return user
 
 
 

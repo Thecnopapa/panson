@@ -88,9 +88,9 @@
     <div class="title-carret is-carret">CARRET</div>
 <div class="is-carret" id="close-carret" onclick="closeCart()">Tancar</div>
     <div class="llista-carret is-carret">
-        {% for item in user.carret.values() %}
+        {% for item in cart.values() %}
             <div class="producte-carret is-carret">
-            {% if loc.len(item.producte.imatges) > 0 %}
+            {% if utils.len(item.producte.imatges) > 0 %}
                 <div class="producte-foto is-carret" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ item.producte.imatges[0] }}?alt=media')"></div>
             {% endif %}
                 <div class="detalls-carret is-carret">
@@ -102,8 +102,8 @@
                     <div class="producte-carret-variacio is-carret {{ "hide" if item.variacio == "null" }}">VARIACIO: {{ item.variacio}}</div>
                     <div class="producte-carret-color is-carret {{ "hide" if item.color == "null" }}">COLOR:
                         <div class="producte-carret-color is-carret">
-                        {% for col in loc.str_to_list(item.color) %}
-                            <span class="producte-carret-cercle is-carret" style="background-color: {{ loc.colors[col] }}"></span>
+                        {% for col in utils.str_to_list(item["color"]) %}
+                            <span class="producte-carret-cercle is-carret" style="background-color: {{ loc.colours[col] }}"></span>
                         {% endfor %}
                         </div>
                     </div>

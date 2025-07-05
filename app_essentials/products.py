@@ -3,6 +3,7 @@ from app_essentials.firebase import get_products, firebaseObject, get_cols
 
 
 class Product(firebaseObject):
+    bucket = "productes"
     def __init__(self, data, id):
         self.data = {}
         self.unica = False
@@ -27,8 +28,8 @@ class Product(firebaseObject):
         if "variacions" in self.opcions and self.opcions.get("vars_exclusivament", False):
             p += min([variacio["preu"] for variacio in self.opcions["variacions"].values()])
         if "colors" in self.opcions:
-            print(self.opcions["colors"].keys())
-            p += min([data["preu"] for color, data in self.opcions["colors"].items()]) * self.opcions.get("n_colors",1)
+            print(self.opcions["colors"].values())
+            p += min([data["preu"] for color, data in self.opcions["colors"].items()]) * self.opcions.get("n_colors", 1)
         return p
 
     def calcular_preu(self, material = None, variacio = None, color = None, **kwargs):
@@ -136,8 +137,8 @@ class Products():
         return filtered
 
     def get_single(self, id):
-        for producte in self.productes:
-            if producte.id == id:
+        for producte in self:
+            if producte._id == id:
                 return producte
 
 

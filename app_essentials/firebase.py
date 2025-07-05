@@ -2,6 +2,7 @@ from utilities import *
 from flask import request
 from werkzeug.utils import secure_filename
 import os, sys
+
 try:
     import firebase_admin
     from google.cloud.firestore import FieldFilter
@@ -24,6 +25,7 @@ except Exception as e:
 
 
 class firebaseObject(object):
+    bucket = None
     def __init__(self,data, id = None):
         self.data = data
         for key, value in data.items():
@@ -36,13 +38,17 @@ class firebaseObject(object):
     def __html__(self):
         return "<br>".join(["&nbsp&nbsp> {}:".format(self.__class__.__name__), *["&nbsp&nbsp&nbsp> {} ({}): {}".format(k,type(v).__name__, v) for k,v in self.__dict__.items()  if k != "data"]])+"<br>"
 
+    def update_db(self, bucket=None):
+        if bucket is None:
+            bucket = self.bucket
+        data = {k:v for k,v in self.__dict__.items() if k not in ["data", "_id"]}
+        print(data)
+        print(db.collection(bucket).document(self._id).set(data))
+
 
 def get_products():
     raw = prods.where(filter=FieldFilter("esborrat", "==", False, )).stream()
-    #print([p.id for p in raw])
-    #print([p.to_dict() for p in raw])
     ps = {p.id:p.to_dict() for p in raw}
-    #print([p for p in ps.items()])
     return ps
 
 def get_cols():
@@ -51,11 +57,15 @@ def get_cols():
     return cols
 
 def get_user_data(id):
+    from app_essentials.users import User
     r = usuaris.document(id).get().to_dict()
     if r is None:
         print("No such user")
-        new_id = usuaris.document(id).set({})
-    return usuaris.document(id).get().to_dict()
+
+        new_user = User({}, id)
+        new_user.update_db()
+        return new_user
+    return User(usuaris.document(id).get().to_dict(),id)
 
 
 

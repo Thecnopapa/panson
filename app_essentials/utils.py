@@ -33,3 +33,18 @@ def str_to_list(string, delimiter=","):
         return string
     ls = string.replace("[", "").replace("]", "").split(delimiter)
     return [l.replace("\'", "").strip() for l in ls]
+
+
+def get_opcions():
+    from flask import request
+    opcions = {}
+    opcions["material"] = request.args.get("material")
+    opcions["variacio"] = request.args.get("variacio")
+    opcions["talla"] = request.args.get("talla")
+    opcions["color"] = request.args.get("color")
+    if opcions["color"] is not None:
+        if opcions["color"][0] == "[":
+            opcions["color"] = opcions["color"].replace("[", "").replace("]", "").split("-")
+        if len(opcions["color"]) == 0:
+            opcions["color"] = "None"
+    return opcions

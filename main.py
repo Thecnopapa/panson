@@ -26,11 +26,12 @@ storage_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorag
 
 # GLOBALS SETUP
 from app_essentials.localisation import Localisation
-from app_essentials.session import session
+from app_essentials.session import get_current_user
 from app_essentials.products import Products
 from app_essentials.firebase import get_user_data, get_cols
 from app_essentials.firestore import list_blobs
 from app_essentials.html_builder import template, navigation
+from app_essentials.utils import get_opcions
 
 
 @app.route("/blank")
@@ -111,18 +112,41 @@ def mostrar_peca(lan, id):
 
 
 
-def get_opcions():
-    opcions = {}
-    opcions["material"] = request.args.get("material")
-    opcions["variacio"] = request.args.get("variacio")
-    opcions["talla"] = request.args.get("talla")
-    opcions["color"] = request.args.get("color")
-    if opcions["color"] is not None:
-        if opcions["color"][0] == "[":
-            opcions["color"] = opcions["color"].replace("[", "").replace("]", "").split("-")
-        if len(opcions["color"]) == 0:
-            opcions["color"] = "None"
-    return opcions
+
+@app.route("/<lan>/productes/<id>/afegir_al_carret/", methods=["POST"])
+def afegir_al_carret(lan, id):
+    print("ARGS:")
+    print(request.args)
+    opcions = get_opcions()
+    print(opcions)
+    user = get_current_user()
+    user.add_producte_carret(id, opcions)
+    #opcions_url = "&".join([(key + "=" + value) for key, value in opcions_dict.items()])
+    resp = redirect("/{}/productes/{}/?{}".format(lan, id, opcions))
+    return resp
+
+
+
+@app.post("/<lan>/carret/id2/eliminar_del_carret")
+def eliminar_del_carret(lan, id2, opcions):
+    opcions_dict = string_to_dict(opcions, allow = ["_", "-" ,":"])
+    #opcions_url = "&".join([(key + "=" + value) for key, value in opcions_dict.items()])
+    if request.method == "POST":
+        resp = redirect("/{}/carret/".format(lan))
+        resp = s.carret.remove_producte_carret(id2, opcions_dict, resp=resp)
+        return resp
+
+@app.route("/<lan>/carret/")
+def veure_carret(lan):
+    html = template(lan=lan, templates="carret", carret=get_current_user().carret)
+    return html
+
+
+
+
+
+
+
 
 
 
@@ -174,52 +198,6 @@ def delete_product(id):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@app.route("/<lan>/carret/")
-def veure_carret(lan):
-    s.loc.update(lan)
-    html = render_template("carret.html", loc =s.loc, carret = s.carret)
-    return html + navigation()
-
-@app.route("/<lan>/productes/<id>/afegir_al_carret/", methods=["POST", "GET"])
-def afegir_al_carret(lan, id):
-    print("ARGS:")
-    print(request.args)
-    opcions = get_opcions()
-    print(opcions)
-    #opcions_url = "&".join([(key + "=" + value) for key, value in opcions_dict.items()])
-    if request.method == "POST":
-        resp = redirect("/{}/productes/{}/?{}".format(lan, id, opcions))
-        resp = s.carret.add_producte_carret(id, opcions, resp=resp)
-        return resp
-    if request.method == "GET":
-        resp = redirect("/{}/productes/{}/?{}".format(lan, id, opcions))
-        resp = s.carret.add_producte_carret(id, opcions, resp=resp)
-        return resp
-
-
-
-@app.post("/<lan>/carret/id2/eliminar_del_carret")
-def eliminar_del_carret(lan, id2, opcions):
-    opcions_dict = string_to_dict(opcions, allow = ["_", "-" ,":"])
-    #opcions_url = "&".join([(key + "=" + value) for key, value in opcions_dict.items()])
-    if request.method == "POST":
-        resp = redirect("/{}/carret/".format(lan))
-        resp = s.carret.remove_producte_carret(id2, opcions_dict, resp=resp)
-        return resp
 
 
 

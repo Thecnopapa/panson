@@ -1,15 +1,58 @@
 from app_essentials.firebase import firebaseObject
+from app_essentials.products import Products
+from app_essentials.utils import str_to_list
 
 
 class User(firebaseObject):
+    bucket = "usuaris"
     def __init__(self, data, id):
         self.carret = {}
         self.preferits = []
         self.is_admin = False
         self.accepted_cookies = False
         super().__init__(data, id)
-        self.n_carret = sum([item.quantity for item in self.carret.values()])
-    pass
+        self.n_carret = sum([item["quantity"] for item in self.carret.values()])
+
+    def add_producte_carret(self, id, opcions_seleccionades={}, quantitat = 1):
+        print("Adding producte", id)
+        producte = Products().get_single(id)
+        new_producte = {"id":producte._id,
+                        "quantity":quantitat,}
+        id2 = producte._id
+        for key, value in sorted(opcions_seleccionades.items(), key=lambda item: item[0]):
+            if value is not None:
+                if "[" in value:
+                    value = str_to_list(value)
+            if value == "None":
+                value = None
+            new_producte[key] = value
+            id2 += "&{}:{}".format(key,value)
+        new_producte["id2"] = id2
+        if id2 in self.carret.keys():
+            print(self.carret[id2])
+            self.carret[id2]["quantity"] += quantitat
+        else:
+            self.carret[id2] = new_producte
+        self.carret[id2]["preu"] = producte.calcular_preu(**opcions_seleccionades)
+        self.update_db()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 class Carret():
@@ -135,43 +178,3 @@ class Carret():
             resp = self.save_cart(resp=resp)
         return resp
 
-
-    def add_producte_carret(self, id, opcions_seleccionades={},resp=None,quantitat = 1, save_cart=True):
-        print("adding producte", save_cart)
-        producte = productes.get_single(id)
-        new_producte = {"producte":producte,
-                        "quantity":quantitat,}
-        id2 = producte.id
-        for key, value in sorted(opcions_seleccionades.items(), key=lambda item: item[0]):
-            if value is not None:
-                if "[" in value:
-                    value = str_to_list(value)
-            if value == "None":
-                value = None
-
-            new_producte[key] = value
-            id2 += "&{}:{}".format(key,value)
-        new_producte["id2"] = id2
-        if id2 in self.carret.keys():
-            print(self.carret[id2])
-            self.carret[id2]["quantity"] += quantitat
-        else:
-            self.carret[id2] = new_producte
-        self.carret[id2]["preu"] = producte.calcular_preu(**opcions_seleccionades)
-        if save_cart:
-            return self.save_cart(resp)
-
-    def save_cart(self, resp=None):
-        print("Saving cart")
-        print(self.item_list)
-        print(self.preferits)
-        if resp is None:
-            resp = make_response()
-        elif type(resp) is str:
-            resp = make_response(resp)
-        try:
-            resp.set_cookie("cart", json.dumps(self.item_list))
-            resp.set_cookie("favourites", json.dumps(self.preferits))
-        except:
-            print("Filed to save cookies")
-        return resp
