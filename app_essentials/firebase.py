@@ -4,25 +4,23 @@ from werkzeug.utils import secure_filename
 import os, sys
 import datetime
 
-try:
-    import firebase_admin
-    from google.cloud.firestore import FieldFilter
-    from firebase_admin import credentials, firestore
-    if "FIREBASE_CREDENTIALS" in os.environ:
-        cred = credentials.Certificate(os.environ.get('FIREBASE_CREDENTIALS'))
-        app = firebase_admin.initialize_app(cred)
-    else:
-        app = firebase_admin.initialize_app()
 
-    db = firestore.client(app, database_id="productes")
-    prods = db.collection("productes")
-    usuaris = db.collection("usuaris")
-    collections = db.collection("collecions")
+import firebase_admin
+from google.cloud.firestore import FieldFilter
+from firebase_admin import credentials, firestore
+if "FIREBASE_CREDENTIALS" in os.environ:
+    cred = credentials.Certificate(os.environ.get('FIREBASE_CREDENTIALS'))
+    app = firebase_admin.initialize_app(cred)
+else:
+    app = firebase_admin.initialize_app()
 
-    sprint("Firebase initialized")
-except Exception as e:
-    sprint("Error importing Firebase:")
-    print(e)
+db = firestore.client(app, database_id="productes")
+prods = db.collection("productes")
+usuaris = db.collection("usuaris")
+collections = db.collection("collecions")
+
+sprint("Firebase initialized")
+
 
 
 class firebaseObject(object):
