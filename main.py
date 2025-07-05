@@ -42,6 +42,15 @@ def return_blank2():
     return Products().__html__()
 
 
+@app.route("/<lan>/acceptar_cookies/")
+def acceptar_cookies(lan):
+    user = get_current_user()
+    user.accepted_cookies = True
+    user.update_db()
+    resp = redirect("/{}/".format(lan))
+    return resp
+
+
 
 @app.route("/static/<path:path>", defaults={"lan": "cat"})
 @app.route("/<lan>/static/<path:path>")
@@ -59,9 +68,9 @@ def index(lan, favicon = True):
             return redirect("/static/media/favicon.ico")
         else:
             return ""
-    if lan == "robots.txt":
+    elif lan == "robots.txt":
         return redirect("/static/robots.txt")
-    if lan == "sitemap":
+    elif lan == "sitemap":
         with open("static/sitemap.xml") as f:
             sitemap = f.read()
         return sitemap
@@ -169,8 +178,6 @@ def stripe_cancel(lan):
 
 
 
-
-
 '''
 
 
@@ -235,11 +242,6 @@ def contatce(lan):
 
 
 
-@app.route("/<path>/acceptar_cookies")
-def acceptar_cookies(path):
-    resp = redirect("/"+path)
-    resp = s.cookies.set_accepted(resp)
-    return resp
 
 
 
