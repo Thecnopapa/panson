@@ -180,6 +180,15 @@ def stripe_cancel(lan):
     html = template(lan=lan, templates="cancel")
     return html
 
+@app.route("/<lan>/projecte/")
+def projecte(lan):
+    html = template(lan=lan, templates="projecte")
+    return html
+@app.route("/<lan>/contacte/")
+def contatce(lan):
+    html = template(lan=lan, templates="contacte")
+    return html
+
 
 
 
@@ -228,25 +237,6 @@ def delete_product(id):
     s.loc.update()
     return (redirect("/admin/"))
 
-
-
-
-
-
-
-
-
-
-@app.route("/<lan>/projecte/")
-def projecte(lan):
-    s.loc.update(lan)
-    html = render_template("projecte.html", loc=s.loc)
-    return html + navigation()
-@app.route("/<lan>/contacte/")
-def contatce(lan):
-    s.loc.update(lan)
-    html = render_template("contacte.html", loc=s.loc)
-    return html + navigation()
 
 
 
