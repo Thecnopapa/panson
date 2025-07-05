@@ -115,13 +115,10 @@ def mostrar_peca(lan, id):
 
 @app.route("/<lan>/productes/<id>/afegir_al_carret/", methods=["POST"])
 def afegir_al_carret(lan, id):
-    print("ARGS:")
-    print(request.args)
     opcions = get_opcions()
-    print(opcions)
     user = get_current_user()
     user.add_producte_carret(id, opcions)
-    #opcions_url = "&".join([(key + "=" + value) for key, value in opcions_dict.items()])
+    return opcions
     resp = redirect("/{}/productes/{}/?{}".format(lan, id, opcions))
     return resp
 
@@ -135,6 +132,9 @@ def eliminar_del_carret(lan, id2, opcions):
         resp = redirect("/{}/carret/".format(lan))
         resp = s.carret.remove_producte_carret(id2, opcions_dict, resp=resp)
         return resp
+    opcions = get_opcions()
+    opcions_url = "?" + "&".join([key + "=" + str(value) for key, value in opcions.items()])
+    return redirect("/{}/productes/{}/".format(lan, id2.split("&")[0], opcions)) +opcions_url
 
 @app.route("/<lan>/carret/")
 def veure_carret(lan):
@@ -142,6 +142,29 @@ def veure_carret(lan):
     return html
 
 
+
+
+@app.route("/<lan>/carret/checkout/")
+def checkout(lan):
+    user = get_current_user()
+    items = user.generate_items()
+
+    from payments import stripe_checkout
+    return stripe_checkout(items, lan=lan)
+
+
+@app.route("/<lan>/carret/checkout/success/")
+def stripe_success(lan):
+    user = get_current_user()
+    user.move_to_favourites()
+    html = template(lan=lan, templates="success")
+    return html
+
+
+@app.route("/<lan>/carret/checkout/cancel/")
+def stripe_cancel(lan):
+    html = template(lan=lan, templates="cancel")
+    return html
 
 
 
@@ -199,33 +222,6 @@ def delete_product(id):
 
 
 
-
-
-@app.route("/<lan>/carret/checkout/")
-def checkout(lan):
-    s.loc.update(lan)
-    s.carret.update()
-    items = s.carret.items
-
-    from payments import stripe_checkout
-    return stripe_checkout(items, loc=s.loc)
-
-
-@app.route("/<lan>/carret/checkout/success/")
-def stripe_success(lan):
-    s.loc.update(lan)
-    html = render_template("success.html", loc=s.loc)
-    html += navigation()
-    resp = s.carret.move_to_favorites(resp=html)
-    return resp
-
-
-@app.route("/<lan>/carret/checkout/cancel/")
-def stripe_cancel(lan):
-    s.loc.update(lan)
-    html = render_template("cancel.html", loc=s.loc)
-    html += navigation()
-    return html
 
 
 

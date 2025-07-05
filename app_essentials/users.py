@@ -12,31 +12,66 @@ class User(firebaseObject):
         self.accepted_cookies = False
         super().__init__(data, id)
         self.n_carret = sum([item["quantity"] for item in self.carret.values()])
+        self.total_carret = sum([item["quantity"] * item["preu"][0] for item in self.carret.values()])
 
-    def add_producte_carret(self, id, opcions_seleccionades={}, quantitat = 1):
-        print("Adding producte", id)
-        producte = Products().get_single(id)
-        new_producte = {"id":producte._id,
-                        "quantity":quantitat,}
-        id2 = producte._id
-        for key, value in sorted(opcions_seleccionades.items(), key=lambda item: item[0]):
-            if value is not None:
-                if "[" in value:
-                    value = str_to_list(value)
-            if value == "None":
-                value = None
-            new_producte[key] = value
-            id2 += "&{}:{}".format(key,value)
-        new_producte["id2"] = id2
-        if id2 in self.carret.keys():
-            print(self.carret[id2])
-            self.carret[id2]["quantity"] += quantitat
+    def add_producte_carret(self, id, opcions_seleccionades={}, quantitat = 1, delete=False):
+        if not delete:
+            print("Adding producte", id)
+            producte = Products().get_single(id)
+            new_producte = {"id":producte._id,
+                            "quantity":quantitat,}
+            id2 = producte._id
+            for key, value in sorted(opcions_seleccionades.items(), key=lambda item: item[0]):
+                if value is not None:
+                    if "[" in value:
+                        value = str_to_list(value)
+                if value == "None":
+                    value = None
+                new_producte[key] = value
+                id2 += "&{}:{}".format(key,value)
+            new_producte["id2"] = id2
+            if id2 in self.carret.keys():
+                print(self.carret[id2])
+                self.carret[id2]["quantity"] += quantitat
+            else:
+                self.carret[id2] = new_producte
+            self.carret[id2]["preu"] = producte.calcular_preu(**opcions_seleccionades)
         else:
-            self.carret[id2] = new_producte
-        self.carret[id2]["preu"] = producte.calcular_preu(**opcions_seleccionades)
+            print("Deleting producte", id)
+            if self.carret[id]["quantity"] > 0:
+                self.carret[id]["quantity"] -= quantitat
+            else:
+                self.carret.pop(id)
+        self.n_carret = sum([item["quantity"] for item in self.carret.values()])
+        self.total_carret = sum([item["quantity"] *item["preu"][0] for item in self.carret.values()])
         self.update_db()
 
+    def generate_items(self):
+        items = []
+        for id, item in self.carret.items():
+            print(item)
+            product = Products().get_single(item["id"])
+            price = product.calcular_preu(material=product["material"],
+                                          variacio=product["variacio"],
+                                          color=product["color"])[0]*100
+            description = " / ".join(["{}: {}".format(d, item[d]) for d in ["talla", "material", "color", "variacio"]])
+            i = {
+                "price_data": {
+                    "currency": "eur",
 
+                    "unit_amount": price,
+                    "product_data": {
+                        "name": item["id"].id,
+                        "description": description,
+                    }
+                },
+                "quantity": product["quantity"],
+                "adjustable_quantity": {
+                    "enabled": True,
+                }
+            }
+            items.append(i)
+        return items
 
 
 

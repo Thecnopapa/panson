@@ -5,6 +5,10 @@ class Utils:
         return string.upper()
 
     @staticmethod
+    def sum(*i ):
+        return sum(*i)
+
+    @staticmethod
     def len(i):
         return len(i)
 

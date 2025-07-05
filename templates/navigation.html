@@ -107,7 +107,7 @@
                         {% endfor %}
                         </div>
                     </div>
-                    <div class="producte-carret-preu is-carret">PREU: {{ item.preu[0] }} &#8364;</div>
+                    <div class="producte-carret-preu is-carret">PREU: {{ item.preu[0]*item.quantity }}&#8364; ({{ item.preu[0] }}&#8364 x{{ item.quantity }})</div>
                 </div>
 
 
@@ -116,7 +116,8 @@
     </div>
 
     <div class="footer-carret is-carret">
-        {% if user.carret.n_items != 0 %}
+        {% if user.n_carret != 0 %}
+            <div class="total-cart is-carret">Total: {{ user.total_carret }}&#8364</div>
             <button class="checkout-button is-carret" onclick="location.href='/{{ loc.lan }}/carret/checkout/'">
                 {{ loc.car_checkout }}</button>
         {% endif %}
