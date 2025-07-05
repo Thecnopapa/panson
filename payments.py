@@ -12,7 +12,7 @@ else:
     print("{} not found in environ".format(stripe_key_name))
 
 
-def stripe_checkout(items, lan):
+def stripe_checkout(items, lan, origin=None):
     DOMAIN = request.url_root
     try:
         print(items)
@@ -26,8 +26,8 @@ def stripe_checkout(items, lan):
             #    },
             #],
             mode='payment',
-            success_url=DOMAIN + "{}/carret/checkout/success".format(lan),
-            cancel_url=DOMAIN + "{}/carret/checkout/cancel".format(lan),
+            success_url=DOMAIN + "{}/checkout/success".format(lan),
+            cancel_url=DOMAIN + "{}/checkout/cancel".format(lan),
         )
     except Exception as e:
         return str(e)

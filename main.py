@@ -125,16 +125,13 @@ def afegir_al_carret(lan, id):
 
 
 @app.post("/<lan>/carret/id2/eliminar_del_carret")
-def eliminar_del_carret(lan, id2, opcions):
-    opcions_dict = string_to_dict(opcions, allow = ["_", "-" ,":"])
-    #opcions_url = "&".join([(key + "=" + value) for key, value in opcions_dict.items()])
-    if request.method == "POST":
-        resp = redirect("/{}/carret/".format(lan))
-        resp = s.carret.remove_producte_carret(id2, opcions_dict, resp=resp)
-        return resp
+def eliminar_del_carret(lan, id2):
     opcions = get_opcions()
-    opcions_url = "?" + "&".join([key + "=" + str(value) for key, value in opcions.items()])
-    return redirect("/{}/productes/{}/".format(lan, id2.split("&")[0], opcions)) +opcions_url
+    user = get_current_user()
+    user.add_producte_carret(id2, delete=True)
+    return opcions
+    resp = redirect("/{}/productes/{}/?{}".format(lan, id, opcions))
+    return resp
 
 @app.route("/<lan>/carret/")
 def veure_carret(lan):
@@ -144,7 +141,7 @@ def veure_carret(lan):
 
 
 
-@app.route("/<lan>/carret/checkout/")
+@app.route("/<lan>/checkout/")
 def checkout(lan):
     user = get_current_user()
     items = user.generate_items()
@@ -153,7 +150,7 @@ def checkout(lan):
     return stripe_checkout(items, lan=lan)
 
 
-@app.route("/<lan>/carret/checkout/success/")
+@app.route("/<lan>/checkout/success/")
 def stripe_success(lan):
     user = get_current_user()
     user.move_to_favourites()
@@ -161,7 +158,7 @@ def stripe_success(lan):
     return html
 
 
-@app.route("/<lan>/carret/checkout/cancel/")
+@app.route("/<lan>/checkout/cancel/")
 def stripe_cancel(lan):
     html = template(lan=lan, templates="cancel")
     return html

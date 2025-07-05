@@ -118,7 +118,7 @@
     <div class="footer-carret is-carret">
         {% if user.n_carret != 0 %}
             <div class="total-cart is-carret">Total: {{ user.total_carret }}&#8364</div>
-            <button class="checkout-button is-carret" onclick="location.href='/{{ loc.lan }}/carret/checkout/'">
+            <button class="checkout-button is-carret" onclick="location.href='/{{ loc.lan }}/checkout/'">
                 {{ loc.car_checkout }}</button>
         {% endif %}
     </div>

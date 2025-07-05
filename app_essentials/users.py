@@ -51,9 +51,9 @@ class User(firebaseObject):
         for id, item in self.carret.items():
             print(item)
             product = Products().get_single(item["id"])
-            price = product.calcular_preu(material=product["material"],
-                                          variacio=product["variacio"],
-                                          color=product["color"])[0]*100
+            price = product.calcular_preu(material=item["material"],
+                                          variacio=item["variacio"],
+                                          color=item["color"])[0]*100
             description = " / ".join(["{}: {}".format(d, item[d]) for d in ["talla", "material", "color", "variacio"]])
             i = {
                 "price_data": {
@@ -61,11 +61,11 @@ class User(firebaseObject):
 
                     "unit_amount": price,
                     "product_data": {
-                        "name": item["id"].id,
+                        "name": item["id"],
                         "description": description,
                     }
                 },
-                "quantity": product["quantity"],
+                "quantity": item["quantity"],
                 "adjustable_quantity": {
                     "enabled": True,
                 }
