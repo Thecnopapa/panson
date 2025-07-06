@@ -75,12 +75,10 @@ def acceptar_cookies(lan):
 @app.route("/<lan>/static/<path:path>")
 def get_static(lan, path):
     return redirect("/static/"+path)
-@app.route("/")
-def redirect_to_cat():
-    return redirect("/cat/")
 
+@app.route("/")
 @app.route("/<lan>/")
-def index(lan, favicon = True):
+def index(lan ="cat", favicon = True):
     # Special urls #######################################
     if lan == "favicon.ico":
         if favicon:
