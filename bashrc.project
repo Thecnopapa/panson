@@ -1,0 +1,22 @@
+
+
+# add this to .bashrc
+# activate_command(){
+# FOLDER_PATH = "/..."
+#if [ -f $FOLDER_PATH/bashrc.project ]; then
+#    source $FOLDER_PATH/bashrc.project
+	
+#fi
+#}
+
+
+
+alias bashrc="vim ~/.bashrc"
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+
+
+alias top="echo -en \"\033]0;Top\a\" && top"
+
+alias please="sudo"
