@@ -26,7 +26,8 @@ app.config['PREFERRED_URL_SCHEME'] = 'https'
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
 
 #app.secret_key = bytes(str(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/flask_secret_key/versions/1"})), 'utf-8')
-app.secret_key = b"fwjfhuiwhefsxfsdf45637htsyoihf"
+app.secret_key = bytes(str(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/flask_secret_key/versions/1"}).payload.data.decode("UTF-8")), 'utf-8')
+
 base_url = "https://firestore.googleapis.com/v1/"
 cols_path = base_url + "projects/panson/databases/productes/documents/collecions"
 prods_path = base_url + "projects/panson/databases/productes/documents/productes"
