@@ -9,8 +9,9 @@
 #fi
 #}
 
-
-
+echo "Panson folder at $FOLDER_PATH"
+cd $FOLDER_PATH
+conda activate panson && echo "panson environment activated"
 alias bashrc="vim ~/.bashrc"
 alias ..="cd .."
 alias ...="cd ../.."
@@ -20,3 +21,15 @@ alias ....="cd ../../.."
 alias top="echo -en \"\033]0;Top\a\" && top"
 
 alias please="sudo"
+
+
+export FIREBASE_CREDENTIALS="secure/firebase_service_account.json"
+export FIRESTORE_CREDENTIALS="secure/firestore_service_account.json"
+
+test (){
+	flask --app main run
+}
+deploy (){
+	echo "deploy not configured"
+
+}

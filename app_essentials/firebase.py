@@ -29,6 +29,7 @@ _scopes = [
 #cred = credentials.ApplicationDefault()
 sprint("Initialising Firebase")
 print(os.listdir(os.getcwd()))
+print(os.listdir("secure"))
 try:
     cred = credentials.Certificate("secure/firebase_service_account_info.json")
     print1("Credentials loaded from secret")

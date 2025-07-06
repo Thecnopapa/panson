@@ -12,21 +12,28 @@ from google.oauth2 import service_account
 ### START APP CONFIG ###################################################################################################
 
 project_id = "panson"
-secret_client = secretmanager.SecretManagerServiceClient()
-os.makedirs("secure", exist_ok=True)
-with open("secure/firebase_service_account_info.json", "w") as f:
-    f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firebase_credentials/versions/1"}).payload.data.decode("UTF-8"))
-with open("secure/firestore_service_account_info.json", "w") as f:
-    f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firestore_credentials/versions/1"}).payload.data.decode("UTF-8"))
-
+try:
+    secret_client = secretmanager.SecretManagerServiceClient()
+    os.makedirs("secure", exist_ok=True)
+    with open("secure/firebase_service_account_info.json", "w") as f:
+        f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firebase_credentials/versions/1"}).payload.data.decode("UTF-8"))
+    with open("secure/firestore_service_account_info.json", "w") as f:
+        f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firestore_credentials/versions/1"}).payload.data.decode("UTF-8"))
+except:
+    print("Failed to read secrets")
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = "./uploads"
 app.config['APPLICATION_ROOT'] = '/'
 app.config['PREFERRED_URL_SCHEME'] = 'https'
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
 
+
 #app.secret_key = bytes(str(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/flask_secret_key/versions/1"})), 'utf-8')
-app.secret_key = bytes(str(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/flask_secret_key/versions/1"}).payload.data.decode("UTF-8")), 'utf-8')
+try:
+    app.secret_key = bytes(str(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/flask_secret_key/versions/1"}).payload.data.decode("UTF-8")), 'utf-8')
+except:
+    with open("secure/flask_key", "r") as f:
+        app.secret_key = bytes(str(f.read()), 'utf-8')
 
 base_url = "https://firestore.googleapis.com/v1/"
 cols_path = base_url + "projects/panson/databases/productes/documents/collecions"

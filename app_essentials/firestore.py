@@ -40,7 +40,7 @@ try:
         print1("Credentials loaded from secret")
     except:
         credentials = service_account.Credentials.from_service_account_file(
-            os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
+            os.environ.get('FIRESTORE_CREDENTIALS'))
         print1("Credentials loaded from environment")
 
     storage_client = storage.Client(credentials=credentials, project="panson")

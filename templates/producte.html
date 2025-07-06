@@ -99,7 +99,7 @@
                         Talles disponibles:
                         {% for talla in producte.opcions["talles"] %}
                             {% if opcions["talla"] %}
-                                {% if  opcions["talla"].strip() == loc.str(talla) %}
+                                {% if  opcions["talla"].strip() == utils.str(talla) %}
                                     <button type="button" class="talla" id="selected-talla" onclick="updatePage(this)" >{{ talla }}</button>
                                 {%  else %}
                                     <button type="button" class="talla" onclick="updatePage(this)">{{ talla }} </button>
