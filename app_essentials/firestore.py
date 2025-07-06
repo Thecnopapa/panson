@@ -29,15 +29,25 @@ try:
         #credentials = service_account.Credentials.from_service_account_file(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
 
     print(credentials)'''
+    #try:
+        #credentials = service_account.Credentials.from_service_account_file(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
+        #storage_client = storage.Client(credentials=credentials, project="panson")
+    # except:
+    #    storage_client = storage.Client(project="panson")
     try:
-        credentials = service_account.Credentials.from_service_account_file(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
-        storage_client = storage.Client(credentials=credentials, project="panson")
+        credentials = service_account.Credentials.from_service_account_file(
+            "secure/firestore_service_account_info.json")
+        print1("Credentials loaded from secret")
     except:
-        storage_client = storage.Client(project="panson")
+        credentials = service_account.Credentials.from_service_account_file(
+            os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
+        print1("Credentials loaded from environment")
+
+    storage_client = storage.Client(credentials=credentials, project="panson")
     bucket = storage_client.bucket("panson.firebasestorage.app")
 
 
-    sprint("Firestore initialized")
+    print1("Firestore initialized")
 except Exception as e:
     sprint("Error importing Firestore:")
     print(e)

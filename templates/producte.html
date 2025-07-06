@@ -36,11 +36,9 @@
                     <div class="subtitol-producte"> {{ producte.subtitol }}</div>
                 {% endif %}
             </div>
-            {% autoescape false %}
                 <div class = "descripcio_producte">
                     {{ producte.descripcio}}
                 </div>
-            {% endautoescape %}
             <div class="opcions" id="form" >
 
             {% if "opcions" in producte.__dict__ %}

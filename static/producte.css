@@ -280,6 +280,7 @@ body {
         min-height: max-content;
         text-align: justify;
         text-justify: auto;
+        white-space: pre-line;
     }
 
     .detalls_generals {

@@ -1,3 +1,4 @@
+from main import project_id
 from utilities import *
 from flask import request
 from werkzeug.utils import secure_filename
@@ -20,19 +21,28 @@ _scopes = [
 ]
 #print(os.environ.get('FIREBASE_CREDENTIALS'))
 #try:
-#    cred = credentials.Certificate(os.environ.get('FIREBASE_CREDENTIALS'))
+#    credentials.Certificate(os.environ.get('FIREBASE_CREDENTIALS'))
 #except:
 #    cred = service_account.Credentials.from_service_account_info(os.environ.get('FIREBASE_CREDENTIALS'), scopes=_scopes)
 #app = firebase_admin.initialize_app(cred)
 #else:
-app = firebase_admin.initialize_app()
+#cred = credentials.ApplicationDefault()
+sprint("Initialising Firebase")
+print(os.listdir(os.getcwd()))
+try:
+    cred = credentials.Certificate("secure/firebase_service_account_info.json")
+    print1("Credentials loaded from secret")
+except:
+    cred = credentials.Certificate(os.environ.get('FIREBASE_CREDENTIALS'))
+    print1("Credentials loaded from environment")
+app = firebase_admin.initialize_app(cred)
 # projects/746452924859/secrets/firestore_credentials
 db = firestore.client(app, database_id="productes")
 prods = db.collection("productes")
 usuaris = db.collection("usuaris")
 collections = db.collection("collecions")
 
-sprint("Firebase initialized")
+print1("Firebase initialized")
 
 
 

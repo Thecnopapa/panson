@@ -7,12 +7,17 @@ from flask import Flask, render_template, redirect, request, make_response, sess
 import requests
 from werkzeug.middleware.proxy_fix import ProxyFix
 from google.cloud import secretmanager
-
+from google.oauth2 import service_account
 
 ### START APP CONFIG ###################################################################################################
 
 project_id = "panson"
-#secret_client = secretmanager.SecretManagerServiceClient()
+secret_client = secretmanager.SecretManagerServiceClient()
+os.makedirs("secure", exist_ok=True)
+with open("secure/firebase_service_account_info.json", "w") as f:
+    f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firebase_credentials/versions/1"}).payload.data.decode("UTF-8"))
+with open("secure/firestore_service_account_info.json", "w") as f:
+    f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firestore_credentials/versions/1"}).payload.data.decode("UTF-8"))
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = "./uploads"
