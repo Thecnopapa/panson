@@ -38,6 +38,7 @@ class User(firebaseObject):
                 self.carret[id2]["quantity"] += quantitat
             else:
                 self.carret[id2] = new_producte
+                self.carret[id2]["checksum"] = hashlib.new("sha256").update(id2).hexdigest()
             self.carret[id2]["preu"] = producte.calcular_preu(**opcions_seleccionades)
         else:
             print("Deleting producte", id)

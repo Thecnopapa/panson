@@ -35,11 +35,11 @@ function closeCart(){
 
 
 function increaseItem(id){
-	console.log("Increasing 1:",id)
-	let urlParts = newLink.split("?")
-        let link = urlParts[0]+"afegir_un/"+ id
-	console.log(link)                               
-	fetch(link, {method: "GET"})
+	console.log(id);
+	let url = "https://"+window.location.host;
+        let link = url+"/afegir_un/"+ id;
+	console.log(link);                     
+	fetch(link, {method: "POST"});
 	
 
 }
