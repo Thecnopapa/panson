@@ -216,7 +216,7 @@ def admin(lan="cat"):
     user = get_current_user()
     if user.is_admin:
         if check_if_admin(user.username, user.password):
-            return template(lan=lan, templates="admin")
+            return template(lan=lan, templates="admin", user = user.username)
         else:
             return template(lan=lan, templates="login")
     else:
@@ -234,6 +234,12 @@ def login():
         user.is_admin = True
         user.update_db()
     return(redirect("/admin/"))
+
+
+@app.post("/admin/update/<id>")
+def update_product(id):
+    return str(request.form)
+
 
 
 '''

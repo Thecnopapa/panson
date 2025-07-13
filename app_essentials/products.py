@@ -5,7 +5,7 @@ from app_essentials.utils import str_to_list
 
 class Product(firebaseObject):
     bucket = "productes"
-    def __init__(self, data, id):
+    def __init__(self, data={}, id=None):
         self.data = {}
         self.unica = False
         self.esborrat = False
@@ -18,6 +18,8 @@ class Product(firebaseObject):
         self.tipus = None
         self.opcions={}
         super().__init__(data, id)
+        if self._id is None:
+            self.new = True
 
 
 
@@ -100,7 +102,8 @@ class Products():
     def __html__(self):
         return "<br>".join(["Products:".format(self.__class__.__name__), *[p.__html__() for p in self]])
 
-
+    def new(self):
+        return Product()
     def __iter__(self):
         for producte in self.get_all():
             yield producte
