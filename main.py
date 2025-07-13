@@ -47,10 +47,11 @@ storage_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorag
 from app_essentials.localisation import Localisation
 from app_essentials.session import get_current_user
 from app_essentials.products import Products
-from app_essentials.firebase import get_user_data, get_cols
+from app_essentials.firebase import get_user_data, get_cols, check_if_admin
 from app_essentials.firestore import list_blobs
 from app_essentials.html_builder import template, navigation
 from app_essentials.utils import get_opcions
+
 
 
 
@@ -209,23 +210,41 @@ def contatce(lan):
 
 
 
+@app.route("/<lan>/admin/")
+@app.route("/admin/")
+def admin(lan="cat"):
+    user = get_current_user()
+    if user.is_admin:
+        if check_if_admin(user.username, user.password):
+            return template(lan=lan, templates="admin")
+        else:
+            return template(lan=lan, templates="login")
+    else:
+        return template(lan=lan, templates="login")
 
+@app.post("/login")
+def login():
+    from app_essentials.firebase import check_if_admin
+    print(request.form["username"], request.form["password"])
+
+    if check_if_admin(request.form["username"], request.form["password"]):
+        user = get_current_user()
+        user.username = request.form["username"]
+        user.password = request.form["password"]
+        user.is_admin = True
+        user.update_db()
+    return(redirect("/admin/"))
 
 
 '''
 
-
-
-@app.route("/<lan>/admin/")
-def admin_redirect(lan):
-    return redirect("/admin/")
 
 @app.route("/<lan>/admin/login/")
 def admin_redirect_login(lan):
     return redirect("/admin/login")
 @app.route("/admin/login/")
 def admin_login():
-    return render_template("admin_login.html") + navigation()
+    return render_template("login.html") + navigation()
 
 @app.route("/admin/logout/")
 def admin_logout():

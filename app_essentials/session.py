@@ -1,6 +1,6 @@
 import uuid
 
-from flask import session as session
+from flask import session
 from app_essentials.users import User
 
 from app_essentials.firebase import get_user_data

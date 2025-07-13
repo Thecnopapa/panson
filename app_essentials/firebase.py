@@ -42,6 +42,7 @@ db = firestore.client(app, database_id="productes")
 prods = db.collection("productes")
 usuaris = db.collection("usuaris")
 collections = db.collection("collecions")
+admins = db.collection("admins")
 
 print1("Firebase initialized")
 
@@ -69,6 +70,13 @@ class firebaseObject(object):
         print(data)
         print(db.collection(bucket).document(self._id).set(data))
 
+def check_if_admin(username, password):
+    raw = admins.where(filter=FieldFilter("usuari", "==", username )).where(filter=FieldFilter("contrasenya", "==", password )).stream()
+    match = [a for a in raw]
+    if len(match) == 1:
+        return True
+    else:
+        return False
 
 def get_products():
     raw = prods.where(filter=FieldFilter("esborrat", "==", False, )).stream()
