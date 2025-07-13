@@ -48,16 +48,34 @@
                 Descripcio:<textarea  name="text:descripcio" id="descripcio" >{{ producte.descripcio }}</textarea>
                 Opcions: <br>
                 {{ producte.opcions }}
-                <br>
+                <br><br><br>
+                Materials:
+                <ul id="material_list">
                 {% if producte.opcions["materials"] %}
-                    Materials:<br>
-                    <ul id="material_list">
                     {% for n, (material, info) in utils.enumerate(producte.opcions["materials"].items()) %}
-                        <li><span><input type="text" name="text:material#{{ n }}" id="material" value="{{ material }}"> Preu <input type="number" name="number:material#{{ n }}:preu" id="material" value="{{ info["preu"] }}"></span></li>
-                        {% endfor %}
-                    <li><button id="new_material" type="button" onclick="addMaterial()">+</button></li>
-                    </ul>
+                        <li><span><input type="text" name="text:material#{{ n }}" class="material" value="{{ material }}"> Preu <input type="number" name="number:material#{{ n }}:preu" id="material" value="{{ info["preu"] }}"></span></li>
+                    {% endfor %}
                 {% endif %}
+                <li><button id="new_material" type="button" onclick="addMaterial(this)">+</button></li>
+                </ul>
+
+                Colors:<br>
+                <span>Numero de colors a triar: <input type="number" name="number:n_colors" id="n_colors" value="{{ producte.opcions["n_colors"] }}"></span>
+                <span id="extra_list">Extras:
+                    {% for n, extra in utils.enumerate(producte.opcions["extra_colors"]) %}
+                        <span><input type="text" name="text:extra_colors#{{ n }}" class="extra_colors" value="{{ extra }}"></span>
+                    {% endfor %}
+                    <button id="new_extra" type="button" onclick="addExtra(this)">+</button>
+                </span>
+                <ul id="colour_list">
+                {% if producte.opcions["colors"] %}
+                    {% for n, (color, info) in utils.enumerate(producte.opcions["colors"].items()) %}
+                        <li><span><input type="text" name="text:color#{{ n }}" id="color" value="{{ color }}"> Preu <input type="number" name="number:color#{{ n }}:preu" id="material" value="{{ info["preu"] }}"></span></li>
+                    {% endfor %}
+                {% endif %}
+                <li><button id="new_colour" type="button" onclick="addColour(this)">+</button></li>
+                </ul>
+
 
                 <br>
                 Fotos:
