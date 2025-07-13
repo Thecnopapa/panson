@@ -2,11 +2,11 @@
 
 # add this to .bashrc
 # activate_command(){
-# FOLDER_PATH = "/..."
-#if [ -f $FOLDER_PATH/bashrc.project ]; then
-#    source $FOLDER_PATH/bashrc.project
+#   FOLDER_PATH="/..."
+#   if [ -f $FOLDER_PATH/bashrc.project ]; then
+#       source $FOLDER_PATH/bashrc.project
 	
-#fi
+#   fi
 #}
 
 echo "Panson folder at $FOLDER_PATH"
@@ -27,9 +27,13 @@ export FIREBASE_CREDENTIALS="secure/firebase_service_account.json"
 export FIRESTORE_CREDENTIALS="secure/firestore_service_account.json"
 
 test (){
+    export FLASK_DEBUG=1
 	flask --app main run
 }
 deploy (){
-	echo "deploy not configured"
-
+	cd $FOLDER_PATH && gcloud run deploy --source .
 }
+latest () {
+    cd $FOLDER_PATH && gcloud run services update-traffic --to-latest
+}
+
