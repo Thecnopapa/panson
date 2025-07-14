@@ -70,7 +70,7 @@
                 <ul id="colour_list">
                 {% if producte.opcions["colors"] %}
                     {% for n, (color, info) in utils.enumerate(producte.opcions["colors"].items()) %}
-                        <li><span><input type="text" name="text:color#{{ n }}" id="color" value="{{ color }}"> Preu <input type="number" name="number:color#{{ n }}:preu" id="material" value="{{ info["preu"] }}"><button class="remove" type="button" onclick="this.parentElement.parentElement.remove()">x</button></span></li>
+                        <li><span><input type="text" name="text:color#{{ n }}" class="color" value="{{ color }}"> Preu <input type="number" name="number:color#{{ n }}:preu" class="material_preu" value="{{ info["preu"] }}"><button class="remove" type="button" onclick="this.parentElement.parentElement.remove()">x</button></span></li>
                     {% endfor %}
                 {% endif %}
                 <li><button id="new_colour" type="button" onclick="addColour(this)">+</button></li>
@@ -78,15 +78,24 @@
 
                 <h3>Talles</h3>
                 <span>Totes les talles: <input type="checkbox" name="bool:totes_talles" id="totes_talles" {{ "checked=\"checked\"" if producte.opcions["talles"] and producte.opcions["talles"]["totes"] }} ></span>
-                <span id="size_list">
+                <ul id="size_list">
                 {% if producte.opcions["talles"] %}
                     {% for n, (talla, info) in utils.enumerate(producte.opcions["talles"].items()) if talla != "totes" %}
-                        <span><input type="text" name="text:talla#{{ n }}" class="talla" value="{{ talla }}"><button class="remove" type="button" onclick="this.parentElement.remove()">x</button></span>
+                        <span><input type="text" name="text:talla#{{ n }}" class="talla" value="{{ talla }}"><input type="number" name="text:talla#{{ n }}:qty" class="talla_quantitat" value="{{ info }}"><button class="remove" type="button" onclick="this.parentElement.remove()">x</button></span>
                     {% endfor %}
                 {% endif %}
                 <button id="new_colour" type="button" onclick="addSize(this)">+</button>
-                </span>
+                </ul>
 
+                <h3>Variacions</h3>
+                <ul id="variation_list">
+                {% if producte.opcions["variacions"] %}
+                    {% for n, (variacio, info) in utils.enumerate(producte.opcions["variacions"].items()) %}
+                        <li><span><input type="text" name="text:variacio#{{ n }}" class="variacio" value="{{ variacio }}"> Preu <input type="number" name="number:variacio#{{ n }}:preu" class="variacio_preu" value="{{ info["preu"] }}"><button class="remove" type="button" onclick="this.parentElement.parentElement.remove()">x</button></span></li>
+                    {% endfor %}
+                {% endif %}
+                <li><button id="new_colour" type="button" onclick="addVariation(this)">+</button></li>
+                </ul>
 
 
 
