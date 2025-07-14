@@ -233,6 +233,15 @@ def login():
         user.update_db()
     return(redirect("/admin/"))
 
+@app.route("/admin/logout")
+def logout():
+    user = get_current_user()
+    user.username = None
+    user.password = None
+    user.is_admin = False
+    user.update_db()
+    return redirect("/")
+
 
 @app.post("/admin/update/<id>")
 def update_product(id, lan="cat"):
