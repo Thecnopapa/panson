@@ -29,9 +29,9 @@
                     <div class="producte-id" >{{ producte._id }}</div>
                     <span><button type="button" class="delete" onclick="location.href='/admin/delete/{{ producte._id }}'">Esborrar</button>
                         {% if producte.amagat %}
-                            <button type="button" class="hide_product" onclick="location.href='/admin/unhide/{{ producte._id }}'">Mostrar</button>
+                            <button type="button" class="unhide_product" onclick="location.href='/admin/unhide/{{ producte._id }}'">Mostrar</button>
                         {% else %}
-                            <button type="button" class="unhide_product" onclick="location.href='/admin/hide/{{ producte._id }}'">Amagar</button>
+                            <button type="button" class="hide_product" onclick="location.href='/admin/hide/{{ producte._id }}'">Amagar</button>
                         {% endif %}
                             </span>
 

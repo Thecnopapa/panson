@@ -12,10 +12,21 @@ from app_essentials.session import get_current_user
 
 def common_kwargs(**kwargs):
     kwargs["loc"] = kwargs.get("loc", Localisation(kwargs.get("lan", "cat")))
-    kwargs["productes"] = Products(lan=kwargs.get("lan", "cat"), filters={"esborrat":False})
+    kwargs["productes"] = Products(lan=kwargs.get("lan", "cat"))
+    kwargs["productes_filtrats"] = Products(lan=kwargs.get("lan", "cat"))
+    print(kwargs["productes_filtrats"].products.keys())
+    if not kwargs.get("esborrats", False):
+        kwargs["productes_filtrats"] = kwargs["productes_filtrats"].filter({"esborrat":False}, return_products=False)
+    print(kwargs["productes_filtrats"].products.keys())
+    if not kwargs.get("amagats", False):
+        kwargs["productes_filtrats"] = kwargs["productes_filtrats"].filter({"amagat": False}, return_products=False)
+    print(kwargs["productes_filtrats"].products.keys())
     if "filters" in kwargs:
-        kwargs["productes_filtrats"] =kwargs["productes"].filter(kwargs.get("filters", None))
-        kwargs["max_gallery"] = kwargs.get("max_gallery", len(kwargs["productes_filtrats"]))
+        print(kwargs["filters"])
+        kwargs["productes_filtrats"] =kwargs["productes_filtrats"].filter(kwargs.get("filters", None), return_products=False)
+    print(kwargs["productes_filtrats"].products.keys())
+    kwargs["productes_filtrats"] = kwargs["productes_filtrats"].get_all()
+    kwargs["max_gallery"] = kwargs.get("max_gallery", len(kwargs["productes_filtrats"]))
     kwargs["user"] = get_current_user()
     kwargs["cart"] = kwargs["user"].carret
     for k, v in kwargs["cart"].items():

@@ -124,15 +124,11 @@ class Products():
             return self.products
         return list(self.products.values())
 
-    def filter(self, filters, inclusive=False, as_dict=False):
+    def filter(self, filters, inclusive=False, as_dict=False, inplace=True, return_products=True):
         if filters is None:
-            return self.get_all(as_dict=as_dict)
-        if len(filters) == 0:
-            return self.get_all(as_dict=as_dict)
-        if as_dict:
-            filtered = {}
-        else:
-            filtered = []
+            filters = {}
+        filtered_dict = {}
+        filtered_list = []
 
         for product in self:
             approval = 0
@@ -150,12 +146,16 @@ class Products():
                         break
             if inclusive and approval == 0 or approval != len(filters.keys()):
                 continue
+            filtered_dict[product._id] = product
+            filtered_list.append(product)
+        if inplace:
+            self.products = filtered_dict
+        if return_products:
             if as_dict:
-                filtered[product._id] = product
+                return filtered_dict
             else:
-                filtered.append(product)
-            print("####", filtered)
-        return filtered
+                return filtered_list
+        else:return self
 
     def get_single(self, id):
         for producte in self:
