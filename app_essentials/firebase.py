@@ -70,6 +70,15 @@ class firebaseObject(object):
         print(data)
         print(db.collection(bucket).document(self._id).set(data))
 
+    def keys(self):
+        return list(self.__dict__.keys())
+
+    def __setitem__(self, key, value):
+        self.__setattr__(key, value)
+
+    def __getitem__(self, key):
+        return self.__getattribute__(key)
+
 def check_if_admin(username, password):
     raw = admins.where(filter=FieldFilter("usuari", "==", username )).where(filter=FieldFilter("contrasenya", "==", password )).stream()
     match = [a for a in raw]
@@ -99,6 +108,14 @@ def get_user_data(id):
         new_user.update_db()
         return new_user
     return User(usuaris.document(id).get().to_dict(),id)
+
+
+
+
+
+
+
+
 
 
 

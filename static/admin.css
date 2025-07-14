@@ -50,6 +50,10 @@ body {
     background-color: orange;
     color: black;
 }
+.unhide_product {
+    background-color: rgba(0, 128, 0, 0.42);
+    color: black;
+}
 .producte-titol {
     font-size: 3dvh;
 }

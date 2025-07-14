@@ -19,16 +19,21 @@
     {{ user }}
     <div class="productes">
         {% for producte in productes.get_all() + [productes.new()] %}
-            <form action="/admin/update/{{ producte._id }}" method="post" class="producte" enctype="multipart/form-data", target="_blank">
+            <form action="/admin/update/{{ producte._id }}" method="post" class="producte" enctype="multipart/form-data" target="_blank">
 
                 {% if producte.new %}
                     <div class="producte-titol" id="{{ producte._id }}">{{ "(Nou producte)"}}</div>
-                    <span> ID:<input type="text" name="text:id" id="id" value="{{ producte._id }}" >No es podra cambiar mes tard!</span>
+                    <span> ID:<input type="text" name="text:_id" id="id" value="{{ producte._id }}" >No es podra cambiar mes tard!</span>
                 {% else %}
                     <div class="producte-titol" id="{{ producte._id }}">{{ producte.nom }} {{ "(Amagat)" if producte.amagat }}</div>
                     <div class="producte-id" >{{ producte._id }}</div>
                     <span><button type="button" class="delete" onclick="location.href='/admin/delete/{{ producte._id }}'">Esborrar</button>
-                    <button type="button" class="hide_product" onclick="location.href='/admin/hide/{{ producte._id }}'">Amagar</button></span>
+                        {% if producte.amagat %}
+                            <button type="button" class="hide_product" onclick="location.href='/admin/unhide/{{ producte._id }}'">Mostrar</button>
+                        {% else %}
+                            <button type="button" class="unhide_product" onclick="location.href='/admin/hide/{{ producte._id }}'">Amagar</button>
+                        {% endif %}
+                            </span>
 
 
                 {% endif %}
@@ -40,7 +45,7 @@
                 <h4>Nom</h4><input type="text" name="text:nom" id="nom" value="{{ producte.nom }}" >
                 <h4>Collecio</h4><select name="text:collecio" id="collecio" value="{{ producte.collecio }}">
                     <option value="None" {{ "selected=selected" if "collecio" not in producte.__dict__ }}>Cap</option>
-                    {% for collecio in productes.collecions %}
+                    {% for collecio in productes.col_names %}
                         <option value="{{ collecio.lower() }}" {{ "selected=selected" if collecio.lower() == producte.collecio }}>{{ collecio }}</option>
                     {% endfor %}
                     </select>
@@ -56,24 +61,24 @@
                 <ul id="material_list">
                 {% if producte.opcions["materials"] %}
                     {% for n, (material, info) in utils.enumerate(producte.opcions["materials"].items()) %}
-                        <li><span><input type="text" name="text:material#{{ n }}" class="material" value="{{ material }}"> Preu <input type="number" name="number:material#{{ n }}:preu" id="material" value="{{ info["preu"] }}"><button class="remove" type="button" onclick="this.parentElement.parentElement.remove()">x</button></span></li>
+                        <li><span><input type="text" name="dict:op:materials#{{ n }}" class="material" value="{{ material }}"> Preu <input type="number" name="number:op:materials#{{ n }}:preu" id="material" value="{{ info["preu"] }}"><button class="remove" type="button" onclick="this.parentElement.parentElement.remove()">x</button></span></li>
                     {% endfor %}
                 {% endif %}
                 <li><button id="new_material" type="button" onclick="addMaterial(this)">+</button></li>
                 </ul>
 
                 <h3>Colors</h3>
-                <span>Numero de colors a triar: <input type="number" name="number:n_colors" id="n_colors" value="{{ producte.opcions["n_colors"] }}"></span>
+                <span>Numero de colors a triar: <input type="number" name="number:op:n_colors" id="n_colors" value="{{ producte.opcions["n_colors"] }}"></span>
                 <span id="extra_list">Extras:<br>
                     {% for n, extra in utils.enumerate(producte.opcions["extra_colors"]) %}
-                        <span><input type="text" name="text:extra_colors#{{ n }}" class="extra_colors" value="{{ extra }}"><button class="remove" type="button" onclick="this.parentElement.remove()">x</button></span>
+                        <span><input type="text" name="list:op:extra_colors#{{ n }}" class="extra_colors" value="{{ extra }}"><button class="remove" type="button" onclick="this.parentElement.remove()">x</button></span>
                     {% endfor %}
                     <button id="new_extra" type="button" onclick="addExtra(this)">+</button>
                 </span>
                 <ul id="colour_list">
                 {% if producte.opcions["colors"] %}
                     {% for n, (color, info) in utils.enumerate(producte.opcions["colors"].items()) %}
-                        <li><span><input type="text" name="text:color#{{ n }}" class="color" value="{{ color }}"> Preu <input type="number" name="number:color#{{ n }}:preu" class="material_preu" value="{{ info["preu"] }}"><button class="remove" type="button" onclick="this.parentElement.parentElement.remove()">x</button></span></li>
+                        <li><span><input type="text" name="dict:op:colors#{{ n }}" class="color" value="{{ color }}"> Preu <input type="number" name="number:op:colors#{{ n }}:preu" class="color_preu" value="{{ info["preu"] }}"><button class="remove" type="button" onclick="this.parentElement.parentElement.remove()">x</button></span></li>
                     {% endfor %}
                 {% endif %}
                 <li><button id="new_colour" type="button" onclick="addColour(this)">+</button></li>
@@ -84,7 +89,7 @@
                 <ul id="size_list">
                 {% if producte.opcions["talles"] %}
                     {% for n, (talla, info) in utils.enumerate(producte.opcions["talles"].items()) if talla != "totes" %}
-                        <span><input type="text" name="text:talla#{{ n }}" class="talla" value="{{ talla }}"><input type="number" name="text:talla#{{ n }}:qty" class="talla_quantitat" value="{{ info }}"><button class="remove" type="button" onclick="this.parentElement.remove()">x</button></span>
+                        <li><span><input type="text" name="dict:op:talles#{{ n }}" class="talla" value="{{ talla }}"><input type="number" name="number:op:talles#{{ n }}:qty" class="talla_quantitat" value="{{ info }}"><button class="remove" type="button" onclick="this.parentElement.remove()">x</button></span></li>
                     {% endfor %}
                 {% endif %}
                 <button id="new_colour" type="button" onclick="addSize(this)">+</button>
@@ -94,7 +99,7 @@
                 <ul id="variation_list">
                 {% if producte.opcions["variacions"] %}
                     {% for n, (variacio, info) in utils.enumerate(producte.opcions["variacions"].items()) %}
-                        <li><span><input type="text" name="text:variacio#{{ n }}" class="variacio" value="{{ variacio }}"> Preu <input type="number" name="number:variacio#{{ n }}:preu" class="variacio_preu" value="{{ info["preu"] }}"><button class="remove" type="button" onclick="this.parentElement.parentElement.remove()">x</button></span></li>
+                        <li><span><input type="text" name="dict:variacions#{{ n }}" class="variacio" value="{{ variacio }}"> Preu <input type="number" name="number:variacions#{{ n }}:preu" class="variacio_preu" value="{{ info["preu"] }}"><button class="remove" type="button" onclick="this.parentElement.parentElement.remove()">x</button></span></li>
                     {% endfor %}
                 {% endif %}
                 <li><button id="new_colour" type="button" onclick="addVariation(this)">+</button></li>
@@ -106,14 +111,15 @@
                 <br>
                 <h3>Fotos</h3>
                 <div class="fotos">
-                    {% for imatge in producte.imatges %}
+                    {% for n, imatge in utils.enumerate(producte.imatges) %}
                         <div class="foto_producte" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media')">
-                        <input type="text" name="img_list" id="img_list" value="{{ imatge }}">
+                        <input type="text" name="img:imatges#{{ n }}" class="img_list" value="{{ imatge }}">
                         </div>
                     {% endfor %}
                 </div>
-                <input type="file" id="noves_imatges" name="file" accept="image/*|video/*" multiple>
-                <input type="submit" value="Actualitzar" name="update" class="button">
+                <input type="button" id="upload_button" value="Afegir fotos" onclick="this.nextElementSibling.click();" />
+                <input type="file" style="display:none;" id="image_upload" name="image_upload" accept="image/*|video/*" multiple/>
+                <input type="submit" value="Actualitzar" class="button">
 
 
             </form>

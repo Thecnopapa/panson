@@ -46,10 +46,10 @@ storage_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorag
 # GLOBALS SETUP
 from app_essentials.localisation import Localisation
 from app_essentials.session import get_current_user
-from app_essentials.products import Products
+from app_essentials.products import Products, Product
 from app_essentials.firebase import get_user_data, get_cols, check_if_admin
-from app_essentials.firestore import list_blobs
-from app_essentials.html_builder import template, navigation
+from app_essentials.firestore import list_blobs, upload_images, load_files
+from app_essentials.html_builder import template
 from app_essentials.utils import get_opcions
 
 
@@ -213,14 +213,13 @@ def contatce(lan):
 @app.route("/<lan>/admin/")
 @app.route("/admin/")
 def admin(lan="cat"):
+    lan="cat"
     user = get_current_user()
-    if user.is_admin:
-        if check_if_admin(user.username, user.password):
-            return template(lan=lan, templates="admin", user = user.username)
-        else:
-            return template(lan=lan, templates="login")
+    if check_if_admin(user.username, user.password):
+        return template(lan=lan, templates="admin", user = user.username)
     else:
         return template(lan=lan, templates="login")
+
 
 @app.post("/login")
 def login():
@@ -237,8 +236,84 @@ def login():
 
 
 @app.post("/admin/update/<id>")
-def update_product(id):
-    return str(request.form)
+def update_product(id, lan="cat"):
+    user = get_current_user()
+
+    if check_if_admin(user.username, user.password):
+        uploads = load_files(target_folder="productes")
+        uploaded_images = upload_images(uploads, "productes")
+        if "text:id" in request.form:
+            id = request.form["text:id"]
+        product = Product(id=id)
+        for key, value in request.form.items():
+            value_type = key.split(":")[0]
+            okey = key
+            print(key, value)
+            if value.strip() in ["none", "", "None", "cap", "Cap"]:
+                value = None
+            if value_type == "bool":
+                value = True if value in ["true", "on", "True", True]else False
+            if value_type == "number":
+                if value is None:
+                    value = 0
+                else:
+                    value = int(value)
+            if value_type == "float":
+                if value is None:
+                    value = 0
+                else:
+                    value = float(value)
+            key = key.split(":")[1]
+            option = False
+            if key == "op":
+                option = True
+                key = okey.split(":")[2]
+            subkey = None
+            try:
+                if okey.split(":")[-1] != key:
+                    subkey = okey.split(":")[-1]
+            except:
+                pass
+            if "#" in key:
+                nkey = key
+                key = key.split("#")[0]
+            else:
+                nkey = key
+
+
+            if option:
+                target = product.opcions
+            else:
+                target = product
+            if key not in target.keys():
+                if value_type == "list":
+                    target[key] = []
+                elif value_type == "dict" and subkey is None:
+                    target[key] = {}
+                else:
+                    target[key] = value
+            print(subkey)
+            print(target.keys())
+            if type(target[key]) is list:
+                target[key].append(value)
+            elif type(target[key]) is dict:
+                if subkey is None:
+                    target[key][value] = {}
+                else:
+                    parentkey = [request.form[k] for k in request.form.keys() if nkey in k and ":" not in k.split("#")[1]]
+                    assert len(parentkey) == 1
+                    target[key][parentkey[0]][subkey] = value
+            else:
+                target[key] = value
+
+            print(key, value, value_type)
+        for image in uploaded_images:
+            product.imatges.append(image)
+        product.update_db()
+        return str(request.form) + "<br>" + product.__html__()
+    else:
+        return template(lan=lan, templates="login")
+
 
 
 
