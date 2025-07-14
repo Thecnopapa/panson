@@ -25,31 +25,31 @@
                     <div class="producte-titol">{{ "(Nou producte)"}}</div>
                     <span> ID:<input type="text" name="text:id" id="id" value="{{ producte._id }}" >No es podra cambiar mes tard!</span>
                 {% else %}
-                    <div class="producte-titol">{{ producte.nom }} {{ "(Nou producte)" if producte.nou_producte }}</div>
-                    <div class="producte-id" >{{ producte.id }}</div>
+                    <div class="producte-titol">{{ producte.nom }} {{ "(Nou producte)" if producte.new }}</div>
+                    <div class="producte-id" >{{ producte._id }}</div>
                     <button type="button" class="delete" onclick="location.href='/admin/delete/{{ producte._id }}'">Esborrar</button>
                 {% endif %}
-                Tipus:<select name="text:tipus" id="tipus" value="{{ producte.tipus }}">
+                <h4>Tipus</h4><select name="text:tipus" id="tipus" value="{{ producte.tipus }}">
                     {% for tipus in loc.types %}
                         <option value="{{ tipus }}" {{ "selected=selected" if tipus == producte.tipus }}>{{ tipus }}</option>
                     {% endfor %}
                     </select>
-                Nom:<input type="text" name="text:nom" id="nom" value="{{ producte.nom }}" >
-                Collecio:<select name="text:collecio" id="collecio" value="{{ producte.collecio }}">
+                <h4>Nom</h4><input type="text" name="text:nom" id="nom" value="{{ producte.nom }}" >
+                <h4>Collecio</h4><select name="text:collecio" id="collecio" value="{{ producte.collecio }}">
                     <option value="None" {{ "selected=selected" if "collecio" not in producte.__dict__ }}>Cap</option>
                     {% for collecio in productes.collecions %}
                         <option value="{{ collecio.lower() }}" {{ "selected=selected" if collecio.lower() == producte.collecio }}>{{ collecio }}</option>
                     {% endfor %}
                     </select>
-                Unica:<input type="checkbox" name="bool:unica" id="unica" {{ "checked=\"checked\"" if producte.unica }} >
+                <span><h4>Unica<input type="checkbox" name="bool:unica" id="unica" {{ "checked=\"checked\"" if producte.unica }} ></h4></span>
 
 
-                Subtitol:<input type="text" name="text:subtitol" id="subtitol" value="{{ producte.subtitol }}" >
-                Descripcio:<textarea  name="text:descripcio" id="descripcio" >{{ producte.descripcio }}</textarea>
+                <h4>Subtitol</h4><input type="text" name="text:subtitol" id="subtitol" value="{{ producte.subtitol }}" >
+                <h4>Descripcio</h4><textarea  name="text:descripcio" id="descripcio" >{{ producte.descripcio }}</textarea>
                 Opcions: <br>
                 {{ producte.opcions }}
                 <br><br><br>
-                Materials:
+                <h3>Materials</h3>
                 <ul id="material_list">
                 {% if producte.opcions["materials"] %}
                     {% for n, (material, info) in utils.enumerate(producte.opcions["materials"].items()) %}
@@ -59,9 +59,9 @@
                 <li><button id="new_material" type="button" onclick="addMaterial(this)">+</button></li>
                 </ul>
 
-                Colors:<br>
+                <h3>Colors</h3>
                 <span>Numero de colors a triar: <input type="number" name="number:n_colors" id="n_colors" value="{{ producte.opcions["n_colors"] }}"></span>
-                <span id="extra_list">Extras:
+                <span id="extra_list">Extras:<br>
                     {% for n, extra in utils.enumerate(producte.opcions["extra_colors"]) %}
                         <span><input type="text" name="text:extra_colors#{{ n }}" class="extra_colors" value="{{ extra }}"><button class="remove" type="button" onclick="this.parentElement.remove()">x</button></span>
                     {% endfor %}
@@ -76,9 +76,23 @@
                 <li><button id="new_colour" type="button" onclick="addColour(this)">+</button></li>
                 </ul>
 
+                <h3>Talles</h3>
+                <span>Totes les talles: <input type="checkbox" name="bool:totes_talles" id="totes_talles" {{ "checked=\"checked\"" if producte.opcions["talles"] and producte.opcions["talles"]["totes"] }} ></span>
+                <span id="size_list">
+                {% if producte.opcions["talles"] %}
+                    {% for n, (talla, info) in utils.enumerate(producte.opcions["talles"].items()) if talla != "totes" %}
+                        <span><input type="text" name="text:talla#{{ n }}" class="talla" value="{{ talla }}"><button class="remove" type="button" onclick="this.parentElement.remove()">x</button></span>
+                    {% endfor %}
+                {% endif %}
+                <button id="new_colour" type="button" onclick="addSize(this)">+</button>
+                </span>
+
+
+
+
 
                 <br>
-                Fotos:
+                <h3>Fotos</h3>
                 <div class="fotos">
                     {% for imatge in producte.imatges %}
                         <div class="foto_producte" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media')">

@@ -37,3 +37,14 @@ function addColour(button){
     targetList.lastElementChild.before(newItem);
 }
 
+function addSize(button) {
+    const targetList = button.parentElement;
+    const newItem = document.createElement("span");
+    const listLength = targetList.children.length - 1;
+    console.log(targetList.children);
+    console.log(targetList.children.length);
+    newItem.innerHTML = '<input type="text" name="text:talla#' + listLength + '" class="talla" value=""><button class="remove" type="button" onclick="this.parentElement.remove()">x</button>';
+    console.log("LAST:", targetList.lastElementChild);
+    console.log("NEW:", newItem);
+    targetList.lastElementChild.before(newItem);
+}
