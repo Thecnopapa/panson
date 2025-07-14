@@ -129,6 +129,8 @@
     position: absolute;
     right: 0;
     top: 0;
+    z-index: 30;
+    cursor: pointer;
 }
 
 .checkout-button{
@@ -186,7 +188,8 @@
 
     }
     .producte-carret-delete{
-    padding-right: 2dvh;
+        padding-right: 2dvh;
+
          }
 
     .producte-carret{

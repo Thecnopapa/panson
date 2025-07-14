@@ -48,9 +48,12 @@ class User(firebaseObject):
                 self.carret[id]["quantity"] -= quantitat
             else:
                 self.carret.pop(id)
-        self.n_carret = sum([item["quantity"] for item in self.carret.values()])
-        self.total_carret = sum([item["quantity"] *item["preu"][0] for item in self.carret.values()])
+        self.recalculate()
         self.update_db()
+
+    def recalculate(self):
+        self.n_carret = sum([item["quantity"] for item in self.carret.values()])
+        self.total_carret = sum([item["quantity"] * item["preu"][0] for item in self.carret.values()])
 
     def generate_items(self):
         items = []

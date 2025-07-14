@@ -77,9 +77,8 @@
         {% endfor %}
     <div class = "cart" id="cart-button" onclick="openCart()">
         <img class="shopping-cart" src="/static/media/bag-black.svg" alt="cart">
-        {% if user.n_carret %}
-            <div class="cercle-carret">{{ user.n_carret if user.n_carret > 0 }}</div>
-        {% endif %}
+        <div class="cercle-carret" id="cart-counter">{{ user.n_carret if user.n_carret > 0 }}</div>
+
         </div>
     </div>
 </div>
@@ -88,13 +87,13 @@
     <div class="title-carret is-carret">CARRET</div>
 <div class="is-carret" id="close-carret" onclick="closeCart()">Tancar</div>
     <div class="llista-carret is-carret">
-        {% for item in cart.values() if item.producte != None%}
-            <div class="producte-carret is-carret" id="{{ item["id2"] }}">
+        {% for n, item in utils.enumerate(cart.values()) if item.producte != None%}
+            <div class="producte-carret is-carret">
             {% if utils.len(item.producte.imatges) > 0 %}
                 <div class="producte-foto is-carret" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ item.producte.imatges[0] }}?alt=media')"></div>
             {% endif %}
                 <div class="detalls-carret is-carret">
-                    <div class="producte-carret-delete is-carret">X</div>
+                    <div class="producte-carret-delete is-carret" onclick="deleteItem(this.parentElement.parentElement, {{ n }})">X</div>
 
                     <div class="producte-carret-nom is-carret">{{ item.producte.nom }}</div>
                     <div class="producte-carret-id is-carret hide">ID: {{ item.id2 }}</div>
@@ -112,9 +111,9 @@
 		    {{ item}}
                     <div class="producte-carret-preu is-carret">{{ item.preu[0]*item.quantity }}&#8364;</div>
                     <div class="quantitats-carret is-carret">
-                        <img class="carret-minus add-item is-carret" src="/static/media/minus.svg">
+                        <img class="carret-minus add-item is-carret" src="/static/media/minus.svg" onclick="modifyItem(this.nextElementSibling, {{ n }}, 'decrease')" alt="decrease">
                         <div class="producte-carret-quantitat is-carret">{{ item.quantity }}</div>
-			<img class="carret-plus delete-item is-carret" src="/static/media/plus.svg" onclick="increaseItem({{item['id2']}})" alt="increase">
+			            <img class="carret-plus delete-item is-carret" src="/static/media/plus.svg" onclick="modifyItem(this.previousElementSibling,{{ n }}, 'increase')" alt="increase">
                     </div>
                 </div>
 

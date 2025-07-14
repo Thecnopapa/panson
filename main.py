@@ -155,6 +155,21 @@ def afegir_al_carret(lan, id):
     user.add_producte_carret(id, opcions)
     return opcions
 
+@app.post("/productes/carret/<pos>/<qty>")
+def alterar_carret(pos, qty):
+    user = get_current_user()
+    for n, (k, v) in enumerate(user.carret.items()):
+        if n == int(pos):
+            if int(qty) <= 0:
+                user.carret.pop(k)
+
+                break
+            v["quantity"] = int(qty)
+            break
+    user.recalculate()
+    user.update_db()
+    print(user.carret)
+    return ""
 
 
 

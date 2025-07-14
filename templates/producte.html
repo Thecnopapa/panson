@@ -46,7 +46,7 @@
 
                  {% if "materials" in producte.opcions %}
                     <br>
-                     {{ producte.opcions }}
+
                     <fieldset  name="text:material" class="materials {{ "hide" if utils.len(producte.opcions["materials"].keys()) == 1 }}" >
                         <legend>Seleciona un material</legend>
                         {% for n, (material, info) in utils.enumerate(producte.opcions["materials"].items()) %}
