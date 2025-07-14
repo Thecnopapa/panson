@@ -154,8 +154,7 @@ def afegir_al_carret(lan, id):
     user = get_current_user()
     user.add_producte_carret(id, opcions)
     return opcions
-    resp = redirect("/{}/productes/{}/?{}".format(lan, id, opcions))
-    return resp
+
 
 
 

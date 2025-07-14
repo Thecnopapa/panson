@@ -1,6 +1,7 @@
 from app_essentials.firebase import firebaseObject
 from app_essentials.products import Products
 from app_essentials.utils import str_to_list
+import hashlib
 
 
 class User(firebaseObject):
@@ -33,12 +34,13 @@ class User(firebaseObject):
                 new_producte[key] = value
                 id2 += "&{}:{}".format(key,value)
             new_producte["id2"] = id2
+            new_producte["bid2"] = bytes(id2)
             if id2 in self.carret.keys():
                 print(self.carret[id2])
                 self.carret[id2]["quantity"] += quantitat
             else:
                 self.carret[id2] = new_producte
-                self.carret[id2]["checksum"] = hashlib.new("sha256").update(id2).hexdigest()
+                #self.carret[id2]["checksum"] = hashlib.new("sha256").update(id2).hexdigest()
             self.carret[id2]["preu"] = producte.calcular_preu(**opcions_seleccionades)
         else:
             print("Deleting producte", id)

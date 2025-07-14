@@ -41,14 +41,30 @@
                 </div>
             <div class="opcions" id="form" >
 
+
             {% if "opcions" in producte.__dict__ %}
+
+                 {% if "materials" in producte.opcions %}
+                    <br>
+                    <fieldset  name="text:material" class="materials required" >
+                        <legend>Seleciona un material</legend>
+                        {% for n, (material, info) in utils.enumerate(producte.opcions["materials"].items()) %}
+                        <div>
+                            <input type="radio" price="{{ info["preu"] }}" class="material" value="{{ material }}" {{ "checked" if n==0 }}  onchange="updatePrice()"/>
+                            <label>{{ material }}</label>
+                        </div>
+                        {% endfor %}
+                    </fieldset>
+                    <br>
+                {% endif %}
+
                 {% if "variacions" in producte.opcions %}
                     <br>
-                    <fieldset  name="str:variacio" class="variacions required" >
+                    <fieldset  name="text:variacio" class="variacions required" >
                         <legend>Seleciona una variacio</legend>
-                        {% for variacio in producte.opcions["variacions"] %}
+                        {% for n, (variacio, info) in utils.enumerate(producte.opcions["variacions"].items()) %}
                         <div>
-                            <input type="radio"  name="str:variacio" class="variacio" value="{{ variacio }}" {{ "checked" if variacio == opcions["variacio"] }}  onchange="updatePage(this)"/>
+                            <input type="radio" price="{{ info["preu"] }}" class="variation variacio" value="{{ variacio }}" {{ "checked" if n == 0 }}  onchange="updatePrice()"/>
                             <label>{{ variacio }}</label>
                         </div>
                         {% endfor %}
@@ -58,7 +74,7 @@
 
 
                 {% if producte.opcions["colors"] %}
-                    <span class="required">
+                    <span class="colors_producte">
                     <br>
                     {% for n in range(producte.opcions.get("n_colors", 1)) %}
                         <br>
@@ -68,10 +84,10 @@
                         {% else %}
                             Color {{ n+1 }}:
                         {% endif %}
-                        <select name="str:color" class="color-selector" onchange="updatePage()">
+                        <select name="color" price="0" class="color-selector required" onchange="updatePrice()">
                             <option class="color-option" value="" {{ "selected=\"selected\"" if opcions["color"] == "None" }} ></option>
-                            {% for color in producte.opcions["colors"] %}
-                                    <option class="color-option" value="{{ color }}" {{ "selected=\"selected\"" if color == opcions["color"][n] }}> {{ color }}</option>
+                            {% for color, info in producte.opcions["colors"].items() %}
+                                    <option class="color-option" price="{{ info["preu"] }}" value="{{ price }}" {{ "selected=\"selected\"" if color == opcions["color"][n] }}> {{ color }}</option>
                             {% endfor %}
                         </select>
                     {% endfor %}
@@ -81,7 +97,7 @@
 
                 <span>
 
-                {% if producte.opcions.get("totes_les_talles", False) %}
+                {% if producte["totes_talles"] %}
                     <br>
                     <span class="required">
                     Talla:
@@ -97,23 +113,23 @@
                         <br>
                         <span class="required">
                         Talles disponibles:
-                        {% for talla in producte.opcions["talles"] %}
+                        {% for talla, info in producte.opcions["talles"].items() %}
                             {% if opcions["talla"] %}
                                 {% if  opcions["talla"].strip() == utils.str(talla) %}
-                                    <button type="button" class="talla" id="selected-talla" onclick="updatePage(this)" >{{ talla }}</button>
+                                    <button type="button" class="talla" id="selected-talla" >{{ talla }}</button>
                                 {%  else %}
-                                    <button type="button" class="talla" onclick="updatePage(this)">{{ talla }} </button>
+                                    <button type="button" class="talla" >{{ talla }} </button>
                                 {%  endif %}
                             {%  else %}
-                                    <button type="button" class="talla" onclick="updatePage(this)">{{ talla }} </button>
+                                    <button type="button" class="talla" ">{{ talla }} </button>
                             {%  endif %}
                         {% endfor %}
                             <br>
                     {% endif %}
                     <br>
                     </span>
-                    <input class="afegir_carret" type="button" value="AFEGIR AL CARRET" onclick="submitToCart('{{ producte.calcular_preu(**opcions)[1] }}')">
-                    <div class="preu-final"> {{ "Desde " if producte.calcular_preu(**opcions)[1] }} {{ producte.calcular_preu(**opcions)[0] }} &#8364;</div>
+                    <input class="afegir_carret" type="button" value="AFEGIR AL CARRET" onclick="submitToCart()">
+                    <div class="preu-final"> <span id="final_price"></span> &#8364;</div>
 
                 <br>
             {% endif %}
