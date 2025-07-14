@@ -316,3 +316,6 @@ body {
 .price-tag{
     display: none;
 }
+.hide {
+    display: none;
+}

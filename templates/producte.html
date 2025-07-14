@@ -46,7 +46,8 @@
 
                  {% if "materials" in producte.opcions %}
                     <br>
-                    <fieldset  name="text:material" class="materials required" >
+                     {{ producte.opcions }}
+                    <fieldset  name="text:material" class="materials {{ "hide" if utils.len(producte.opcions["materials"].keys()) == 1 }}" >
                         <legend>Seleciona un material</legend>
                         {% for n, (material, info) in utils.enumerate(producte.opcions["materials"].items()) %}
                         <div>
@@ -60,7 +61,7 @@
 
                 {% if "variacions" in producte.opcions %}
                     <br>
-                    <fieldset  name="text:variacio" class="variacions required" >
+                    <fieldset  name="text:variacio" class="variacions {{ "hide" if utils.len(producte.opcions["variacions"].keys()) == 1 }}" >
                         <legend>Seleciona una variacio</legend>
                         {% for n, (variacio, info) in utils.enumerate(producte.opcions["variacions"].items()) %}
                         <div>
@@ -84,7 +85,7 @@
                         {% else %}
                             Color {{ n+1 }}:
                         {% endif %}
-                        <select name="color" price="0" class="color-selector required" onchange="updatePrice()">
+                        <select name="color" price="0" class="color-selector" onchange="updatePrice()">
                             <option class="color-option" value="" {{ "selected=\"selected\"" if opcions["color"] == "None" }} ></option>
                             {% for color, info in producte.opcions["colors"].items() %}
                                     <option class="color-option" price="{{ info["preu"] }}" value="{{ price }}" {{ "selected=\"selected\"" if color == opcions["color"][n] }}> {{ color }}</option>
@@ -99,7 +100,7 @@
 
                 {% if producte["totes_talles"] %}
                     <br>
-                    <span class="required">
+                    <span class="talles_producte">
                     Talla:
                     <input type="number" name="number:talla" class="talla talla-unica "
                                min="0"
@@ -111,7 +112,7 @@
                         >
                     {% elif producte.opcions["talles"] %}
                         <br>
-                        <span class="required">
+                        <span class="talles_producte">
                         Talles disponibles:
                         {% for talla, info in producte.opcions["talles"].items() %}
                             {% if opcions["talla"] %}

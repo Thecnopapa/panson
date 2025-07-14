@@ -7,7 +7,7 @@ function addMaterial(button){
     const listLength = targetList.children.length -1;
     console.log(targetList.children);
     console.log(targetList.children.length);
-    newItem.innerHTML = '<span><input type="text" name="dict:op:materials#' +listLength + '"  class="material" value=""> Preu <input type="number" name="number:op:materials#$' +listLength + ':preu" id="material" value=""><button class="remove" type="button" onclick="this.parentElement.parentElement.remove()">x</button></span>'
+    newItem.innerHTML = '<span><input type="text" name="dict:op:materials#' +listLength + '"  class="material" value=""> Preu <input type="number" name="number:op:materials#' +listLength + ':preu" id="material" value=""><button class="remove" type="button" onclick="this.parentElement.parentElement.remove()">x</button></span>'
     console.log("LAST:", targetList.lastElementChild);
     console.log("NEW:",newItem);
     targetList.lastElementChild.before(newItem);

@@ -12,7 +12,7 @@ from app_essentials.session import get_current_user
 
 def common_kwargs(**kwargs):
     kwargs["loc"] = kwargs.get("loc", Localisation(kwargs.get("lan", "cat")))
-    kwargs["productes"] = Products(lan=kwargs.get("lan", "cat"))
+    kwargs["productes"] = Products(lan=kwargs.get("lan", "cat"), filters={"esborrat":False})
     if "filters" in kwargs:
         kwargs["productes_filtrats"] =kwargs["productes"].filter(kwargs.get("filters", None))
         kwargs["max_gallery"] = kwargs.get("max_gallery", len(kwargs["productes_filtrats"]))

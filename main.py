@@ -67,7 +67,7 @@ def return_blank():
     return
 @app.route("/blank2")
 def return_blank2():
-    return Products().__html__()
+    return Products(filters={"esborrat": False, "amagat":False}).__html__()
 
 
 @app.route("/<lan>/acceptar_cookies/")
@@ -106,7 +106,7 @@ def index(lan ="cat", favicon = True):
     slide_list = [[slide, storage_url.format("portada", slide.split("/")[-1])] for slide in slides if
                   slide.split("/")[-1] != ""]
 
-    html = template(lan=lan, templates=["index", "galeria"], slides= slide_list, filters={}, titol_galeria="ind_titol_galeria", hide_title=True, title=False, max_gallery=8)
+    html = template(lan=lan, templates=["index", "galeria"], slides= slide_list, filters={"amagat":False}, titol_galeria="ind_titol_galeria", hide_title=True, title=False, max_gallery=8)
     return html
 
 
@@ -239,8 +239,7 @@ def update_product(id, lan="cat"):
     user = get_current_user()
 
     if check_if_admin(user.username, user.password):
-        uploads = load_files(target_folder="productes")
-        uploaded_images = upload_images(uploads, "productes")
+
         if "text:id" in request.form:
             id = request.form["text:id"]
         product = Product(id=id)
@@ -300,18 +299,61 @@ def update_product(id, lan="cat"):
                     target[key][value] = {}
                 else:
                     parentkey = [request.form[k] for k in request.form.keys() if nkey in k and ":" not in k.split("#")[1]]
+                    print("PARENTKEY",parentkey)
+                    print("TARGETKEY",key)
+                    print("SUBKEY",subkey)
+                    print("NKEY", nkey)
+                    print("OKEY", okey)
                     assert len(parentkey) == 1
                     target[key][parentkey[0]][subkey] = value
             else:
                 target[key] = value
 
             print(key, value, value_type)
+        uploads = load_files(target_folder="productes")
+        uploaded_images = upload_images(uploads, "productes")
         for image in uploaded_images:
             product.imatges.append(image)
         product.update_db()
-        return str(request.form) + "<br>" + product.__html__()
+        return str(request.form) + "<br>" + str(uploads)+ "<br>" + str(uploaded_images)+ "<br>" + product.__html__()
     else:
         return template(lan=lan, templates="login")
+
+
+
+@app.route("/admin/hide/<id>")
+def hide_product(id):
+    user = get_current_user()
+    if check_if_admin(user.username, user.password):
+        product = Products(lan="cat").get_single(id=id)
+        product.amagat = True
+        product.update_db()
+    return redirect("/admin/")
+@app.route("/admin/unhide/<id>")
+def unhide_product(id):
+    user = get_current_user()
+    if check_if_admin(user.username, user.password):
+        product = Products(lan="cat").get_single(id=id)
+        product.amagat = False
+        product.update_db()
+    return redirect("/admin/")
+
+@app.route("/admin/delete/<id>")
+def delete_product(id):
+    user = get_current_user()
+    if check_if_admin(user.username, user.password):
+        product = Products(lan="cat").get_single(id=id)
+        product.esborrat = True
+        product.update_db()
+    return redirect("/admin/")
+@app.route("/admin/restore/<id>")
+def restore_product(id):
+    user = get_current_user()
+    if check_if_admin(user.username, user.password):
+        product = Products(lan="cat").get_single(id=id)
+        product.esborrat = False
+        product.update_db()
+    return redirect("/admin/")
 
 
 

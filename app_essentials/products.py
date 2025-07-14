@@ -95,10 +95,16 @@ class Product(firebaseObject):
 
 
 class Products():
-    def __init__(self, lan="cat"):
+    def __init__(self, lan="cat", filters=None):
         self.products = {id:Product(data, id) for id, data in get_products().items()}
+        if filters is not None:
+            self.products = self.filter(filters, as_dict=True)
+        self.setup()
+    def setup(self):
         self.col_names = [c["nom"] for c in get_cols().values()]
         self.tipus = sorted(set([c.tipus for c in self.products.values()]))
+
+
     def __repr__(self):
         return "\n".join(["Products:", *[repr(p) for p in self]])
     def __html__(self):
@@ -113,15 +119,20 @@ class Products():
     def uniques(self):
         return [product for product in self if product.unica]
 
-    def get_all(self):
+    def get_all(self, as_dict=False):
+        if as_dict:
+            return self.products
         return list(self.products.values())
 
-    def filter(self, filters, inclusive=False):
+    def filter(self, filters, inclusive=False, as_dict=False):
         if filters is None:
-            return self.get_all()
+            return self.get_all(as_dict=as_dict)
         if len(filters) == 0:
-            return self.get_all()
-        filtered = []
+            return self.get_all(as_dict=as_dict)
+        if as_dict:
+            filtered = {}
+        else:
+            filtered = []
 
         for product in self:
             approval = 0
@@ -139,8 +150,11 @@ class Products():
                         break
             if inclusive and approval == 0 or approval != len(filters.keys()):
                 continue
-            filtered.append(product)
-
+            if as_dict:
+                filtered[product._id] = product
+            else:
+                filtered.append(product)
+            print("####", filtered)
         return filtered
 
     def get_single(self, id):

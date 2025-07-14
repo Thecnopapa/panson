@@ -88,7 +88,7 @@
     <div class="title-carret is-carret">CARRET</div>
 <div class="is-carret" id="close-carret" onclick="closeCart()">Tancar</div>
     <div class="llista-carret is-carret">
-        {% for item in cart.values() %}
+        {% for item in cart.values() if item.producte != None%}
             <div class="producte-carret is-carret" id="{{ item["id2"] }}">
             {% if utils.len(item.producte.imatges) > 0 %}
                 <div class="producte-foto is-carret" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ item.producte.imatges[0] }}?alt=media')"></div>

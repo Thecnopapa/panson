@@ -81,7 +81,7 @@
                         <li><span><input type="text" name="dict:op:colors#{{ n }}" class="color" value="{{ color }}"> Preu <input type="number" name="number:op:colors#{{ n }}:preu" class="color_preu" value="{{ info["preu"] }}"><button class="remove" type="button" onclick="this.parentElement.parentElement.remove()">x</button></span></li>
                     {% endfor %}
                 {% endif %}
-                <li><button id="new_colour" type="button" onclick="addColour(this)">+</button></li>
+                <button id="new_colour" type="button" onclick="addColour(this)">+</button>
                 </ul>
 
                 <h3>Talles</h3>
@@ -118,7 +118,7 @@
                     {% endfor %}
                 </div>
                 <input type="button" id="upload_button" value="Afegir fotos" onclick="this.nextElementSibling.click();" />
-                <input type="file" style="display:none;" id="image_upload" name="image_upload" accept="image/*|video/*" multiple/>
+                <input type="file" style="display:none;" id="image_upload" name="file" accept="image/*|video/*" multiple/>
                 <input type="submit" value="Actualitzar" class="button">
 
 

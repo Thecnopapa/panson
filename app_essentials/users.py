@@ -57,6 +57,8 @@ class User(firebaseObject):
         for id, item in self.carret.items():
             print(item)
             product = Products().get_single(item["id"])
+            if product is None:
+                continue
             price = product.calcular_preu(material=item["material"],
                                           variacio=item["variacio"],
                                           color=item["color"])[0]*100
