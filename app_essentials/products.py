@@ -14,6 +14,7 @@ class Product(firebaseObject):
         self.subtitol = ""
         self.imatges = []
         self.nom = ""
+        self.amagat = False
 
         self.tipus = None
         self.opcions={}

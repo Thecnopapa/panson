@@ -46,6 +46,10 @@ body {
     background-color: red;
     color: white;
 }
+.hide_product {
+    background-color: orange;
+    color: black;
+}
 .producte-titol {
     font-size: 3dvh;
 }
