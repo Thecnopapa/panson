@@ -58,7 +58,7 @@ closeMenu();
 function openMenu() {
     if (menuOpen) {return}
     closeCart()
-    console.log('open menu');
+    console.log('Open menu');
     if(window.innerHeight > window.innerWidth){
        menu.style.width = "80%";
        contacteMenu.style.display = "block";
@@ -80,8 +80,7 @@ function openMenu() {
         if (menuContent[i].classList.contains('submenu')) {
             menuContent[i].setAttribute("onclick", "showDropdown(this)");
         }
-        console.log("SHOWN")
-        }
+    }
     menuOpen = true;
     setTimeout(showMenuContent, 300);
 
@@ -108,12 +107,10 @@ function hideDropdown (submenu) {
 
 function showMenuContent() {
     if (menuOpen){
-        console.log(menu.offsetWidth >= navLeft.offsetWidth / 3, !(menuContent[0].style.color == "black"))
         if (menu.offsetWidth >= navLeft.offsetWidth / 2) {
             if (!(menuContent[0].style.color == "black")) {
                 for (var i = 0; i < menuContent.length; i++) {
                     menuContent[i].style.color = "black";
-                    console.log("PAINTED")
                 }
             }
         } else {
@@ -123,7 +120,7 @@ function showMenuContent() {
 }
 
 function closeMenu() {
-    console.log('close menu');
+    console.log('Close menu');
     menu.style.width = "0px";
     window.scrollTo(window.scrollX, window.scrollY - 1);
     window.scrollTo(window.scrollX, window.scrollY + 1);

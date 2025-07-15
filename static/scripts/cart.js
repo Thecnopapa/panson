@@ -48,7 +48,6 @@ function deleteItem(productElement, pos){
 
 function modifyItem(counterElement, pos, mode){
     let oldQty = counterElement.innerHTML;
-	console.log(oldQty, pos);
     let newQty = Number(oldQty);
     if (mode == "increase"){
         newQty = Number(oldQty)+1;
@@ -71,6 +70,7 @@ function updateCartCounter(){
     const allCounters = document.getElementsByClassName('producte-carret-quantitat');
     const cartCounter = document.getElementById("cart-counter");
     const totalCart = document.getElementById("total-cart");
+    console.log("CART_COUNTER", cartCounter);
     let itemSum = 0;
     let priceSum = 0;
     for (let i = 0; i < allCounters.length; i++){

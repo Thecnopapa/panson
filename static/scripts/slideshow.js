@@ -5,7 +5,6 @@ function showSlides() {
   let i;
   let slides = document.getElementsByClassName("slide-content");
 
-  console.log(slideIndex, slides.length - 1);
   if (slideIndex == 0) {
     slides[slides.length - 2].style.display = "none";
     slides[slides.length - 1].style.zIndex = "-10";
@@ -35,10 +34,6 @@ function showSlides() {
     slides[slideIndex+1].style.translate = "100%";
     slides[slideIndex+1].style.display = "block";
     slideIndex++;}
-
-
-
-
 
 
   setTimeout(showSlides, 5000); // Change image every 2 seconds

@@ -20,7 +20,6 @@ updatePrice()
 
 
 function updatePage(trigger, refresh = true) {
-console.log(trigger)
     let linkBase = window.location.origin+window.location.pathname
     let material = oldUrl.searchParams.get("material")
     let variacio = oldUrl.searchParams.get("variacio")
@@ -69,29 +68,23 @@ function updatePrice(){
     let price = 0
 
     const variationList = document.getElementsByClassName("variation")
-    console.log(variationList)
     for (let i = 0; i < variationList.length; i++) {
         if (variationList[i].checked) {
             price += Number(variationList[i].attributes.price.value)
-            console.log(price)
         }
     }
 
     const materialList = document.getElementsByClassName("material")
-    console.log(materialList)
     for (let i = 0; i < materialList.length; i++) {
         if (materialList[i].checked) {
             price += Number(materialList[i].attributes.price.value)
-            console.log(price)
         }
     }
 
     const colorList = document.getElementsByClassName("color-selector")
-    console.log(colorList)
     for (let i = 0; i < colorList.length; i++) {
         if (colorList[i].options[colorList[i].selectedIndex].attributes.price) {
             price += Number(colorList[i].options[colorList[i].selectedIndex].attributes.price.value)
-            console.log(price)
         }
     }
     const priceTag = document.getElementById("final_price")
