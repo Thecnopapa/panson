@@ -23,7 +23,10 @@ def common_kwargs(**kwargs):
     #print(kwargs["productes_filtrats"].products.keys())
     if "filters" in kwargs:
         print(kwargs["filters"])
-        kwargs["productes_filtrats"] =kwargs["productes_filtrats"].filter(kwargs.get("filters", None), return_products=False)
+        kwargs["productes_filtrats"], kwargs["filters"] = kwargs["productes_filtrats"].filter(kwargs.get("filters", None),
+                                                                                              custom = True,
+                                                                                              return_products=False,
+                                                                                              return_new_filters=True)
     #print(kwargs["productes_filtrats"].products.keys())
     kwargs["productes_filtrats"] = kwargs["productes_filtrats"].get_all()
     kwargs["max_gallery"] = kwargs.get("max_gallery", len(kwargs["productes_filtrats"]))

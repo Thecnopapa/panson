@@ -124,38 +124,91 @@ class Products():
             return self.products
         return list(self.products.values())
 
-    def filter(self, filters, inclusive=False, as_dict=False, inplace=True, return_products=True):
+    def filter(self, filters, inclusive=False, as_dict=False, inplace=True, return_products=True, return_new_filters=False, custom = False):
         if filters is None:
             filters = {}
+        if len(filters) == 0:
+            keep_all = True
+        else:
+            keep_all = False
         filtered_dict = {}
         filtered_list = []
+        new_filters = {}
+        filters = filters.copy()
+        for key in filters.keys():
+            if type(filters[key]) is str:
+                filters[key] = filters[key].lower()
+            elif type(filters[key]) is list:
+                filters[key] = [s.lower() for s in filters[key]]
+            if "#" in key:
+                new_key = key.split("#")[0]
+                if new_key not in new_filters:
+                    new_filters[new_key] = [filters[key]]
+                else:
+                    new_filters[new_key].append(filters[key])
+            else:
+                new_filters[key] = filters[key]
 
+        print("CUSTOM FILTERING:", custom)
+        print(filters)
         for product in self:
-            approval = 0
-            for key, values in filters.items():
-                key = key.lower()
-                if key not in product.__dict__:
-                    break
-                if type(values) is not list:
-                    values = [values]
-                for value in values:
-                    value = str(value).lower()
-                    #print(product.__getattribute__(key), key, value)
-                    if str(product.__getattribute__(key)).lower() == value:
-                        approval += 1
-                        break
-            if inclusive and approval == 0 or approval != len(filters.keys()):
-                continue
-            filtered_dict[product._id] = product
-            filtered_list.append(product)
+            stays = False
+            if custom:
+                print(product.collecio, filters["collecio"])
+                if "collecio" in filters:
+                    if product.collecio in filters["collecio"]:
+                        print("Col OK")
+                        stays=True
+                print(product.unica, filters["unica"])
+                if "unica" in filters:
+                    if product.unica:
+                        print("Unica OK")
+                        stays = True
+                if not stays:
+                    continue
+                print("Col OK")
+                if "tipus" in filters:
+                    if product.tipus in filters["tipus"]:
+                        stays = True
+                    else:
+                        stays = False
+                        continue
+                if stays:
+                    filtered_dict[product._id] = product
+                    filtered_list.append(product)
+
+            else:
+                approval = 0
+                if not keep_all:
+                    for key, values in new_filters.items():
+                        key = key.lower()
+                        if key not in product.__dict__:
+                            break
+                        if type(values) is not list:
+                            values = [values]
+                        for value in values:
+                            value = str(value).lower()
+                            #print(product.__getattribute__(key), key, value)
+                            if str(product.__getattribute__(key)).lower() == value:
+                                approval += 1
+                                break
+                    if approval == 0 and inclusive or (not inclusive and approval != len(new_filters.keys())):
+                        continue
+                filtered_dict[product._id] = product
+                filtered_list.append(product)
         if inplace:
             self.products = filtered_dict
         if return_products:
             if as_dict:
-                return filtered_dict
+                r =  filtered_dict
             else:
-                return filtered_list
-        else:return self
+                r =  filtered_list
+        else:
+            r =  self
+        if return_new_filters:
+            return (r, new_filters)
+        else:
+            return r
 
     def get_single(self, id):
         for producte in self:
