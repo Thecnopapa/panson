@@ -111,7 +111,7 @@
                     <div class="producte-carret-preu is-carret">{{ item.preu[0]*item.quantity }}&#8364;</div>
                     <div class="quantitats-carret is-carret">
                         <img class="carret-minus add-item is-carret" src="/static/media/minus.svg" onclick="modifyItem(this.nextElementSibling, {{ n }}, 'decrease')" alt="decrease">
-                        <div class="producte-carret-quantitat is-carret">{{ item.quantity }}</div>
+                        <div class="producte-carret-quantitat is-carret" price="{{ item.preu[0] }}">{{ item.quantity }}</div>
 			            <img class="carret-plus delete-item is-carret" src="/static/media/plus.svg" onclick="modifyItem(this.previousElementSibling,{{ n }}, 'increase')" alt="increase">
                     </div>
                 </div>
@@ -123,8 +123,8 @@
 
     <div class="footer-carret is-carret">
         {% if user.n_carret != 0 %}
-            <div class="total-cart is-carret">Total: {{ user.total_carret }}&#8364</div>
-            <button class="checkout-button is-carret" onclick="location.href='/{{ loc.lan }}/checkout/'">
+            <div class="total-cart is-carret" id="total-cart">Total: {{ user.total_carret }}&#8364</div>
+            <button class="checkout-button is-carret"  onclick="location.href='/{{ loc.lan }}/checkout/'">
                 {{ loc.car_checkout }}</button>
         {% endif %}
     </div>

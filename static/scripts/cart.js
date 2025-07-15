@@ -70,14 +70,22 @@ function modifyItem(counterElement, pos, mode){
 function updateCartCounter(){
     const allCounters = document.getElementsByClassName('producte-carret-quantitat');
     const cartCounter = document.getElementById("cart-counter");
-    let sum = 0;
+    const totalCart = document.getElementById("total-cart");
+    let itemSum = 0;
+    let priceSum = 0;
     for (let i = 0; i < allCounters.length; i++){
-        sum += Number(allCounters[i].innerHTML);
+        itemSum += Number(allCounters[i].innerHTML);
+        const newPrice = Number(allCounters[i].innerHTML) * Number(allCounters[i].attributes.price.value);
+        priceSum += newPrice;
+        allCounters[i].parentElement.previousElementSibling.innerHTML = String(newPrice) + "&#8364;";
     }
-    cartCounter.innerHTML = sum;
-    if (sum <= 0){
+    totalCart.innerHTML = "Total: "+String(priceSum)+ "&#8364";
+    cartCounter.innerHTML = itemSum;
+    if (itemSum <= 0){
         cartCounter.style.display = "none";
+        totalCart.parentElement.style.display = "none";
     }else {
+        totalCart.parentElement.style.display = "flex";
         cartCounter.style.display = "flex";
     }
 }
