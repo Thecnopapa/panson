@@ -1,6 +1,7 @@
 .venv
 .*/*
 .*
+__*
 
 secure/
 uploads/
