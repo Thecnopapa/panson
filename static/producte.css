@@ -215,6 +215,7 @@ body {
     border: none;
     text-decoration: underline;
     text-underline-offset: 0.5dvh;
+    cursor: pointer;
 }
 
 

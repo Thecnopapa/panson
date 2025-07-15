@@ -26,15 +26,9 @@ class User(firebaseObject):
                             "quantity":quantitat,}
             id2 = producte._id
             for key, value in sorted(opcions_seleccionades.items(), key=lambda item: item[0]):
-                if value is not None:
-                    if "[" in value:
-                        value = str_to_list(value)
-                if value == "None":
-                    value = None
                 new_producte[key] = value
                 id2 += "&{}:{}".format(key,value)
             new_producte["id2"] = id2
-            new_producte["bid2"] = bytes(id2)
             if id2 in self.carret.keys():
                 print(self.carret[id2])
                 self.carret[id2]["quantity"] += quantitat

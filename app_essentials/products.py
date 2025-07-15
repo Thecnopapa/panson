@@ -18,7 +18,7 @@ class Product(firebaseObject):
 
         self.tipus = None
         self.opcions={}
-        self.totes_talles = True
+        self.totes_talles = False
         super().__init__(data, id)
         if self._id is None:
             self.new = True

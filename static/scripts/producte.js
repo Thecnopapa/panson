@@ -98,6 +98,12 @@ function updatePrice(){
     priceTag.innerHTML = price
 }
 
+function submitToCart () {
+    const theForm = document.getElementById("form")
+    console.log(theForm.submit());
+
+
+}
 
 
 function submitToCartOld (notSubmittable) {

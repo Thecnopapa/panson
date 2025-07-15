@@ -103,12 +103,11 @@
                     <div class="producte-carret-variacio is-carret {{ "hide" if item.variacio == "null" }}">VARIACIO: {{ item.variacio}}</div>
                     <div class="producte-carret-color is-carret {{ "hide" if item.color == "null" }}">
                         <div class="producte-carret-color is-carret">
-                        {% for n, col in utils.enumerate(utils.str_to_list(item["color"])) %}
+                        {% for n, col in utils.enumerate(item["color"]) %}
                             <span class="producte-carret-cercle is-carret {{ item.producte.opcions.get("extra_colors", [])[n] }}" style="background-color: {{ loc.colours[col] }}"></span>
                         {% endfor %}
                         </div>
                     </div>
-		    {{ item}}
                     <div class="producte-carret-preu is-carret">{{ item.preu[0]*item.quantity }}&#8364;</div>
                     <div class="quantitats-carret is-carret">
                         <img class="carret-minus add-item is-carret" src="/static/media/minus.svg" onclick="modifyItem(this.nextElementSibling, {{ n }}, 'decrease')" alt="decrease">

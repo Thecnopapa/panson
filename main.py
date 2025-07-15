@@ -147,13 +147,37 @@ def mostrar_peca(lan, id):
 
 
 
-
-@app.route("/<lan>/productes/<id>/afegir_al_carret/", methods=["POST"])
-def afegir_al_carret(lan, id):
-    opcions = get_opcions()
+@app.post("/<lan>/carret/add")
+def afegir_al_carret(lan):
     user = get_current_user()
-    user.add_producte_carret(id, opcions)
-    return opcions
+    material= None
+    variacio = None
+    colors = None
+    talla = None
+    print(request.form)
+    for k, v in request.form.items():
+        if "#" in k:
+            k = k.split("#")[0]
+        if k == "material":
+            material = v
+        elif k == "variacio":
+            variacio = v
+        elif k == "color":
+            if colors is None:
+                colors = [v]
+            else:
+                colors.append(v)
+        elif k == "talla":
+            talla = int(v)
+
+    opcions = {}
+    opcions["material"] = material
+    opcions["variacio"] = variacio
+    opcions["color"] = colors
+    opcions["talla"] = talla
+    user.add_producte_carret(id=request.form["id"], opcions_seleccionades=opcions)
+    #return "", 204
+    return redirect("/{}/productes/{}/".format(lan, request.form["id"]))
 
 @app.post("/productes/carret/<pos>/<qty>")
 def alterar_carret(pos, qty):
@@ -169,7 +193,7 @@ def alterar_carret(pos, qty):
     user.recalculate()
     user.update_db()
     print(user.carret)
-    return ""
+    return "", 204
 
 
 
@@ -267,14 +291,17 @@ def update_product(id, lan="cat"):
         if "text:id" in request.form:
             id = request.form["text:id"]
         product = Product(id=id)
-        for key, value in request.form.items():
+        for key, value in request.form.to_dict().items():
             value_type = key.split(":")[0]
             okey = key
             print(key, value)
             if value.strip() in ["none", "", "None", "cap", "Cap"]:
                 value = None
             if value_type == "bool":
-                value = True if value in ["true", "on", "True", True]else False
+                if value in ["true", "on", "True", True, None]:
+                    value = True
+                else:
+                    value = False
             if value_type == "number":
                 if value is None:
                     value = 0
@@ -339,7 +366,8 @@ def update_product(id, lan="cat"):
         for image in uploaded_images:
             product.imatges.append(image)
         product.update_db()
-        return str(request.form) + "<br>" + str(uploads)+ "<br>" + str(uploaded_images)+ "<br>" + product.__html__()
+        #return str(request.form) + "<br>" + str(uploads)+ "<br>" + str(uploaded_images)+ "<br>" + product.__html__()
+        return redirect("/admin/#"+product._id)
     else:
         return template(lan=lan, templates="login")
 
