@@ -74,7 +74,7 @@ def make_session_permanent():
 @app.route("/blank")
 def return_blank():
 
-    return [os.environ["stripe_key"]]
+    return [os.environ["STRIPE_SECRET"]]
 @app.route("/blank2")
 def return_blank2():
     return Products(filters={"esborrat": False, "amagat":False}).__html__()
