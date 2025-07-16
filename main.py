@@ -17,19 +17,22 @@ try:
     os.makedirs("secure", exist_ok=True)
     with open("secure/firebase_service_account_info.json", "w") as f:
         f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firebase_credentials/versions/1"}).payload.data.decode("UTF-8"))
-        os.environ["FIREBASE_CREDENTIALS"] = "secure/firebase_service_account_info.json"
     with open("secure/firestore_service_account_info.json", "w") as f:
         f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firestore_credentials/versions/1"}).payload.data.decode("UTF-8"))
-        os.environ["FIRESTORE_CREDENTIALS"] = "secure/firestore_service_account_info.json"
     with open("secure/stripe_key", "w") as f:
         f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/stripe_key_thecnopapa_test/versions/2"}).payload.data.decode("UTF-8"))
-        os.environ["STRIPE_KEY"] = "secure/stripe_key"
     with open("secure/flask_key", "w") as f:
         f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/flask_secret_key/versions/1"}).payload.data.decode("UTF-8"))
-        os.environ["FLASK_KEY"] = "secure/flask_key"
+
 
 except:
     print("Failed to read secrets")
+os.environ["FIREBASE_CREDENTIALS"] = "secure/firebase_service_account_info.json"
+os.environ["FIRESTORE_CREDENTIALS"] = "secure/firestore_service_account_info.json"
+os.environ["STRIPE_KEY"] = "secure/stripe_key"
+os.environ["FLASK_KEY"] = "secure/flask_key"
+with open(os.environ["STRIPE_KEY"], "r") as f:
+    os.environ["STRIPE_SECRET"] = f.read()
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = "./uploads"
 app.config['APPLICATION_ROOT'] = '/'
@@ -70,7 +73,8 @@ def make_session_permanent():
 
 @app.route("/blank")
 def return_blank():
-    return
+
+    return [os.environ["stripe_key"]]
 @app.route("/blank2")
 def return_blank2():
     return Products(filters={"esborrat": False, "amagat":False}).__html__()

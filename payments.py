@@ -5,11 +5,10 @@ from flask import request, redirect
 import stripe
 
 
-stripe_key_name = "STRIPE_KEY"
-if stripe_key_name in os.environ.keys():
-    stripe.api_key = os.environ[stripe_key_name]
-else:
-    print("{} not found in environ".format(stripe_key_name))
+try:
+    stripe.api_key = os.environ["STRIPE_SECRET"]
+except:
+    print("Stripe key could not be loaded")
 
 
 
