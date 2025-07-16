@@ -19,7 +19,7 @@ function addFavicon() {
     fav.type = "image/x-icon"
     document.head.appendChild(fav);  // add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
 }
-
+dynamicallyLoadCSS("/static/normalize.css")
 dynamicallyLoadScript("/static/scripts/cart.js")
 dynamicallyLoadCSS("/static/carret.css")
 if (false) {

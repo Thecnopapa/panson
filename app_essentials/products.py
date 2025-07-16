@@ -117,14 +117,14 @@ class Products():
             yield producte
 
     def uniques(self):
-        return [product for product in self if product.unica]
+        return self.filter({"unica":True, "amagat":False, "esborrat":False})
 
     def get_all(self, as_dict=False):
         if as_dict:
             return self.products
         return list(self.products.values())
 
-    def filter(self, filters, inclusive=False, as_dict=False, inplace=True, return_products=True, return_new_filters=False, custom = False):
+    def filter(self, filters, inclusive=False, as_dict=False, inplace=False, return_products=True, return_new_filters=False, custom = False):
         if filters is None:
             filters = {}
         if len(filters) == 0:
@@ -150,32 +150,31 @@ class Products():
                 new_filters[key] = filters[key]
 
         print("CUSTOM FILTERING:", custom)
-        print(filters)
+        print(new_filters)
         for product in self:
             stays = False
             if custom:
 
-                if "collecio" in filters:
-                    print(product.collecio, filters["collecio"])
-                    if product.collecio in filters["collecio"]:
+                if "collecio" in new_filters:
+                    print(product.collecio, new_filters["collecio"])
+                    if str(product.collecio) in new_filters["collecio"]:
                         print("Col OK")
                         stays=True
-
-                if "unica" in filters:
-                    print(product.unica, filters["unica"])
-                    if product.unica:
-                        print("Unica OK")
-                        stays = True
+                    elif "unica" in new_filters:
+                        print(product.unica, new_filters["unica"])
+                        if product.unica:
+                            print("Unica OK")
+                            stays = True
                 if not stays:
                     continue
                 print("Col OK")
-                if "tipus" in filters:
-                    if product.tipus in filters["tipus"]:
+                if "tipus" in new_filters:
+                    if str(product.tipus) in new_filters["tipus"]:
                         stays = True
                     else:
                         stays = False
                         continue
-                if stays:
+                if stays or keep_all:
                     filtered_dict[product._id] = product
                     filtered_list.append(product)
 

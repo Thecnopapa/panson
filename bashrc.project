@@ -23,9 +23,6 @@ alias top="echo -en \"\033]0;Top\a\" && top"
 alias please="sudo"
 
 
-export FIREBASE_CREDENTIALS="secure/firebase_service_account.json"
-export FIRESTORE_CREDENTIALS="secure/firestore_service_account.json"
-
 test (){
     export FLASK_DEBUG=1
 	flask --app main run

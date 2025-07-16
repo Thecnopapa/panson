@@ -16,7 +16,7 @@
     <div class="capcal">
         <div class="titol-galeria">{{ loc[titol_galeria] }}</div>
         <div class="subtitle">{{ "/"+subtitol if subtitol }}</div>
-        {% if not hide_filtres %}
+        {% if show_filtres %}
         <div class="filtres">
             <button class="boto-filtres">Filtrar</button>
             <div class="desplegable-filtres">
