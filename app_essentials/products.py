@@ -154,13 +154,15 @@ class Products():
         for product in self:
             stays = False
             if custom:
-                print(product.collecio, filters["collecio"])
+
                 if "collecio" in filters:
+                    print(product.collecio, filters["collecio"])
                     if product.collecio in filters["collecio"]:
                         print("Col OK")
                         stays=True
-                print(product.unica, filters["unica"])
+
                 if "unica" in filters:
+                    print(product.unica, filters["unica"])
                     if product.unica:
                         print("Unica OK")
                         stays = True
