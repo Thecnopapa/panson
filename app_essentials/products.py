@@ -165,7 +165,7 @@ class Products():
                         if product.unica:
                             print("Unica OK")
                             stays = True
-                if not stays:
+                if not stays and not keep_all:
                     continue
                 print("Col OK")
                 if "tipus" in new_filters:
