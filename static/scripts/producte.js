@@ -8,60 +8,10 @@ let sizeSelector = document.getElementsByClassName("talla-unica")
 let sizeButtons = document.getElementsByClassName("talla")
 let requiredInput = document.getElementsByClassName("required")
 
-console.log(oldUrl)
 
-console.log(form)
-
-console.log(sizeSelector)
-        console.log(sizeButtons)
 
 updatePrice()
 
-
-
-function updatePage(trigger, refresh = true) {
-    let linkBase = window.location.origin+window.location.pathname
-    let material = oldUrl.searchParams.get("material")
-    let variacio = oldUrl.searchParams.get("variacio")
-    let color = oldUrl.searchParams.get("color")
-    let talla = oldUrl.searchParams.get("talla")
-    let colorSelectors = form.querySelectorAll('select')
-
-    if (colorSelectors.length > 0) {
-        color = "["
-        for (let i = 0; i < colorSelectors.length; i++) {
-            let selector = colorSelectors[i]
-            color += selector.value
-            color += "-"
-            }
-        color = color.slice(0, -1) + "]"
-        }
-
-    if (sizeSelector.length > 0) {
-        talla = sizeSelector[0].value
-    }
-    if (trigger){
-        if (trigger.classList.contains("talla")) {
-            talla = trigger.textContent
-        }
-        if (trigger.classList.contains("variacio")) {
-            variacio = trigger.value
-        }
-    }
-
-
-
-    let materialLink = "material" + variacio
-    let variacioLink = "variacio=" + variacio
-    let colorLink = "color=" + color
-    let tallaLink = "talla=" + talla
-    let newLink = linkBase + "?" + materialLink +"&"+ variacioLink +"&"+ tallaLink +"&"+ colorLink
-    console.log(newLink)
-    if (refresh) {
-        location.href = newLink + "&scroll="+ String($(window).scrollTop())
-    }
-return newLink
-}
 
 
 function updatePrice(){
@@ -99,22 +49,42 @@ function submitToCart () {
 }
 
 
-function submitToCartOld (notSubmittable) {
-    if (notSubmittable == "True") {
-        console.log("missing info")
-        for (let i = 0; i < requiredInput.length; i++) {
-            requiredInput[i].style.color = "red"
-        }
+function showPopup(trigger, popupContent) {
+    popupContent.style.display = "block";
+    hideBackgound(popupContent);
+}
+
+
+function hidePopup(source, sourceElement) {
+    let popupContent = undefined
+    if (source == "cross") {
+        popupContent = sourceElement.parentElement;
+    } else if (source == "backdrop") {
+        popupContent = sourceElement.firstChild;
     }
-    else {
-        let newLink = updatePage(null, false)
-        let urlParts = newLink.split("?")
-        console.log(urlParts)
-        let cartLink = urlParts[0]+"afegir_al_carret/?" + urlParts[1]
-        console.log(cartLink)
-        fetch(cartLink, {method: "POST"})
-        if (true) {
-            window.location.href=newLink
-        }
-    }
+    popupContent.parentElement.before(popupContent);
+    popupContent.getElementsByClassName("cross")[0].remove();
+    popupContent.nextElementSibling.remove();
+    popupContent.style.display = "none";
+
+}
+
+function hideBackgound(popupContent) {
+    var translucidScreen = document.createElement("div");
+    translucidScreen.className = "translucid-screen";
+    translucidScreen.setAttribute("onclick","hidePopup('backdrop', this)")
+    popupContent.after(translucidScreen);
+    translucidScreen.appendChild(popupContent);
+    addPopupCross(popupContent);
+}
+function addPopupCross(popupContent) {
+    cross = document.createElement("button");
+    cross.innerHTML = "x";
+    cross.className = "cross";
+    cross.style.position = "absolute";
+    cross.style.right = "0";
+    cross.style.top = "0";
+    cross.type = "button";
+    cross.setAttribute("onclick","hidePopup('cross', this)")
+    popupContent.appendChild(cross);
 }

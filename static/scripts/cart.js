@@ -37,7 +37,6 @@ function closeCart(){
 
 
 function deleteItem(productElement, pos){
-    console.log(productElement);
     productElement.remove();
     let link = "/productes/carret/"+ pos+"/0";
 	console.log(link);
@@ -70,7 +69,6 @@ function updateCartCounter(){
     const allCounters = document.getElementsByClassName('producte-carret-quantitat');
     const cartCounter = document.getElementById("cart-counter");
     const totalCart = document.getElementById("total-cart");
-    console.log("CART_COUNTER", cartCounter);
     let itemSum = 0;
     let priceSum = 0;
     for (let i = 0; i < allCounters.length; i++){

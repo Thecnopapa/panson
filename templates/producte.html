@@ -141,8 +141,31 @@
 
             <div class = "detalls_generals">
                 {{ loc.pro_missatge }}<br><br>
-                <img class="small-icon" src="/static/media/shield.svg" alt="garantia">{{ loc.pro_garantia }} <br>
-                <img class="small-icon" src="/static/media/reload.svg" alt="devolucions">{{ loc.pro_devolucio }}<br>
+                <span class="clickable under-hover" onclick="showPopup(this, this.nextElementSibling)"><img class="small-icon" src="/static/media/shield.svg" alt="garantia">{{ loc.pro_garantia }}</span>
+                <div class="popup-info" id="popup-garantia" onclick="event.stopPropagation()">
+                    <h3>Garantia i reparacions</h3>
+                        <p>En cas que la peça presenti algun desperfecte a causa d’un defecte de fabricació, es podrà reparar totalment de franc.<br>
+                        Exemples de desperfectes coberts per la garantia:</p>
+                        <ul>
+                            <li>Trencament de la peça.</li>
+                            <li>Pèrdua d’una pedra o perla.</li>
+                        </ul>
+                        <p>Per tal de validar la garantia, caldrà adjuntar una fotografia del comprovant de compra on consti la data.<br>
+                        No es repararan peces que hagin patit un mal ús.<br>
+                        Per sol·licitar la reparació, envia un correu amb fotografies del desperfecte a: <a href="mailto:infopanson@gmail.com">infopanson@gmail.com</a>.<br>
+                        Els xapats en or no estan coberts per aquesta garantia, ja que la seva pèrdua és una conseqüència natural de l’ús i no un defecte de fabricació.<br>
+                        Si teniu qualsevol dubte, no dubteu a escriure’ns a <a href="mailto:infopanson@gmail.com">infopanson@gmail.com</a>. Estarem encantats d’ajudar-vos i resoldre totes les vostres consultes.</p></div>
+
+                <br>
+                <span class="clickable under-hover" onclick="showPopup(this, this.nextElementSibling)"><img class="small-icon" src="/static/media/reload.svg" alt="devolucions">{{ loc.pro_devolucio }}</span>
+                <div class="popup-info" id="popup-garantia" onclick="event.stopPropagation()">
+                    <h3>30 dies per a devolucions i canvis</h3>
+                    <p>Disposeu d’un termini de 30 dies des de la data de compra per fer devolucions o canvis.<br>
+                    Les despeses d’enviament aniran a càrrec del comprador.<br>
+                    Si teniu qualsevol dubte, no dubteu a escriure’ns a <a href="mailto:infopanson@gmail.com">infopanson@gmail.com</a>.<br>
+                    Estarem encantats d’ajudar-vos i resoldre totes les vostres consultes.</p></div>
+
+                <br>
             </div>
 
     </div>

@@ -218,6 +218,47 @@ body {
     cursor: pointer;
 }
 
+.popup-info {
+    display: none;
+    position: fixed;
+    z-index: 50;
+    border: black 0.2dvh solid;
+    max-width: 80%;
+    background-color: rgba(255, 255, 255, 100);
+    padding: 5%;
+
+
+
+}
+.translucid-screen{
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    height: 100dvh;
+    background-color: rgba(255, 255, 255, 0.8);
+    justify-content: center;
+    align-items: center;
+
+
+
+    z-index: 45;
+}
+
+
+.clickable{
+    cursor: pointer;
+}
+.under-hover:hover{
+    text-decoration: underline;
+    text-underline-offset: 0.5dvh;
+}
+
+
+
+
+
 
 
 @media screen and (orientation: landscape) and (orientation: portrait) {
