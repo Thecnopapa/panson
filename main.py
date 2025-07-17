@@ -144,7 +144,7 @@ def mostrar_tot(lan):
 
 @app.route("/<lan>/peces_uniques/")
 def peces_uniques(lan):
-    html = template(lan=lan, templates="uniques", filters={"unica":"True"}, titol="gal_totes")
+    html = template(lan=lan, templates="uniques", filters={"unica":True, "collecio":[]}, titol="gal_totes")
     return html
 
 @app.route("/<lan>/productes/<id>/")
