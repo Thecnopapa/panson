@@ -116,7 +116,7 @@ def index(lan ="cat", favicon = True):
     slide_list = [[slide, storage_url.format("portada", slide.split("/")[-1])] for slide in slides if
                   slide.split("/")[-1] != ""]
 
-    html = template(lan=lan, templates=["index", "galeria"], slides= slide_list, filters={"amagat":False}, titol_galeria="ind_titol_galeria", hide_title=True, title=False, max_gallery=8)
+    html = template(lan=lan, templates=["index", "galeria"], slides= slide_list, titol_galeria="ind_titol_galeria", hide_title=True, title=False, max_gallery=8)
     return html
 
 
@@ -125,6 +125,8 @@ def collections(lan):
     cols = get_cols()
     html = template(lan=lan, templates=["collecions"], cols=cols)
     return html
+
+
 
 
 @app.route("/<lan>/productes/")
@@ -419,7 +421,6 @@ def restore_product(id):
 
 
 
-
 '''
 
 
@@ -467,14 +468,14 @@ def delete_product(id):
 '''
 def start_ngrok():
     from pyngrok import ngrok
-
-    url = ngrok.connect(5000).public_url
+    url = ngrok.connect(5000, name="tunnel1", url="https://funny-constantly-peacock.ngrok-free.app").public_url
     print(' * Tunnel URL:', url)
 
-app.config["START_NGROK"] = os.environ.get('START_NGROK') is not None and os.environ.get('WERKZEUG_RUN_MAIN') is not 'true'
+app.config["START_NGROK"] = os.environ.get('START_NGROK') == "1" and os.environ.get('WERKZEUG_RUN_MAIN') != 'true'
 
 if app.config['START_NGROK']:
     start_ngrok()
+
 
 
 

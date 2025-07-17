@@ -154,7 +154,6 @@ class Products():
         for product in self:
             stays = False
             if custom:
-
                 if "collecio" in new_filters:
                     print(product.collecio, new_filters["collecio"])
                     if str(product.collecio) in new_filters["collecio"]:
