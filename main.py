@@ -466,7 +466,7 @@ def delete_product(id):
 
 '''
 def main():
-    app.run(port=int(os.environ.get('PORT', 80)))
+    app.run(port=4242, host="0.0.0.0", debug=False) # Not used if run from bash
 
 if __name__ == "__main__":
     main()
