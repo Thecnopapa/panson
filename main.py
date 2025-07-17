@@ -465,6 +465,20 @@ def delete_product(id):
 
 
 '''
+def start_ngrok():
+    from pyngrok import ngrok
+
+    url = ngrok.connect(5000).public_url
+    print(' * Tunnel URL:', url)
+
+app.config["START_NGROK"] = os.environ.get('START_NGROK') is not None and os.environ.get('WERKZEUG_RUN_MAIN') is not 'true'
+
+if app.config['START_NGROK']:
+    start_ngrok()
+
+
+
+
 def main():
     app.run(port=4242, host="0.0.0.0", debug=False) # Not used if run from bash
 

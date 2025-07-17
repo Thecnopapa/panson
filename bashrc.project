@@ -25,6 +25,7 @@ alias please="sudo"
 
 test (){
     export FLASK_DEBUG=0
+    export START_NGROK=1
 	flask --app main run --host="0.0.0.0" --port=5000
 }
 deploy (){
