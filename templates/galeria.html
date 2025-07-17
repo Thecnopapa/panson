@@ -27,16 +27,16 @@
                 <div class="filtre">
                     <div class="titol-filtre" id="filtre-colleccio">Colleccio</div>
                     {% for n, col in utils.enumerate(productes.col_names) %}
-                    <label><input type="checkbox" name="collecio#{{ n }}" id="collecio-{{ col }}" value="{{ col }}" {{ "checked" if "collecio" not in filters.keys() or utils.lower(col) in filters["collecio"]  }}/>{{ col }}</label><br>
+                    <label><input type="checkbox" name="collecio#{{ n }}" id="collecio-{{ col }}" value="{{ col }}" {{ "checked" if filters["collecio"] == "totes" or utils.lower(col) in filters["collecio"]  }}/>{{ col }}</label><br>
                     {% endfor %}
-                    <label><input type="checkbox" name="unica" id="collecio-unica" value="true" {{ "checked" if utils.len(filters) == 0 or filters["unica"] == "true"  }}/>Uniques</label><br>
+                    <label><input type="checkbox" name="unica" id="collecio-unica" value="true" {{ "checked" if filters["unica"] == "totes" or filters["unica"] == "true"  }}/>Uniques</label><br>
 
                 </div>
                 <br>
                 <div class="filtre">
                     <div class="titol-filtre" id="filtre-tipus">Tipus de peca</div>
                     {% for n, tipus in utils.enumerate(productes.tipus) %}
-                    <label><input type="checkbox" name="tipus#{{ n }}" id="tipus-{{ tipus }}" value="{{ tipus }}" {{ "checked" if "tipus" not in filters.keys() or utils.lower(tipus) in filters["tipus"]}}/>{{ tipus }}</label><br>
+                    <label><input type="checkbox" name="tipus#{{ n }}" id="tipus-{{ tipus }}" value="{{ tipus }}" {{ "checked" if filters["tipus"] == "totes" or utils.lower(tipus) in filters["tipus"]}}/>{{ tipus }}</label><br>
                     {% endfor %}
                 </div>
 

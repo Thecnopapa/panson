@@ -131,7 +131,15 @@ def collections(lan):
 
 @app.route("/<lan>/productes/")
 def mostrar_tot(lan):
-    html = template(lan=lan,templates="galeria", filters = request.args, titol="gal_totes", show_filtres=True)
+    filters = request.args.copy()
+    if not filters.get("collecio", False):
+        filters["collecio"] = "totes"
+    if not filters.get("unica", False):
+        filters["unica"] = "totes"
+    if not filters.get("tipus", False):
+        filters["tipus"] = "totes"
+
+    html = template(lan=lan,templates="galeria", filters = filters, titol="gal_totes", show_filtres=True)
     return html
 
 @app.route("/<lan>/peces_uniques/")

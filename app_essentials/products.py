@@ -156,22 +156,21 @@ class Products():
             if custom:
                 if "collecio" in new_filters:
                     print(product.collecio, new_filters["collecio"])
-                    if str(product.collecio) in new_filters["collecio"]:
+                    if str(product.collecio) in new_filters["collecio"] or new_filters["collecio"] == "totes" :
                         print("Col OK")
                         stays=True
                     elif "unica" in new_filters:
                         print(product.unica, new_filters["unica"])
-                        if product.unica:
+                        if product.unica or new_filters["unica"] == "totes":
                             print("Unica OK")
                             stays = True
                 if not stays and not keep_all:
                     continue
                 print("Col OK")
                 if "tipus" in new_filters:
-                    if str(product.tipus) in new_filters["tipus"]:
+                    if str(product.tipus) in new_filters["tipus"] or new_filters["tipus"] == "totes":
                         stays = True
                     else:
-                        stays = False
                         continue
                 if stays or keep_all:
                     filtered_dict[product._id] = product
