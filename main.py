@@ -150,17 +150,21 @@ def peces_uniques(lan):
 @app.route("/<lan>/productes/<id>/")
 def mostrar_peca(lan, id):
 
-    producte = Products(lan=lan).filter({"_id":id})[0]
+    producte = Products(lan=lan).get_single(id)
+    print(producte)
 
     print(len(request.args))
     opcions = get_opcions()
-    opcions_url = "?"+"&".join([key + "=" + str(value) for key, value in opcions.items()])
-    print(opcions_url)
+
+    filters = {"tipus":"totes"}
     if producte.unica:
         titol_galeria = "pro-altres-uniques"
+        filters["unica"] = True
+        filters["collecio"] = []
     else:
+        filters["collecio"] = producte.collecio
         titol_galeria = "pro-mateixa-col"
-    html = template(lan=lan, templates=["producte", "galeria"], producte=producte, opcions=opcions, filters={"collecio":producte.collecio} ,titol_galeria=titol_galeria)
+    html = template(lan=lan, templates=["producte", "galeria"], producte=producte, opcions=opcions, filters=filters ,titol_galeria=titol_galeria)
     return html
 
 
