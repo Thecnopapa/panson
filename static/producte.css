@@ -259,7 +259,11 @@ body {
     font-size: 2dvh;
     color: #ff0000;
 }
-
+.popup-cross {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
 
 
 

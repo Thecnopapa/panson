@@ -65,7 +65,7 @@ function hidePopup(source, sourceElement) {
         popupContent = sourceElement.firstChild;
     }
     popupContent.parentElement.before(popupContent);
-    popupContent.getElementsByClassName("cross")[0].remove();
+    popupContent.getElementsByClassName("popup-cross")[0].remove();
     popupContent.nextElementSibling.remove();
     popupContent.style.display = "none";
 
@@ -80,12 +80,10 @@ function hideBackgound(popupContent) {
     addPopupCross(popupContent);
 }
 function addPopupCross(popupContent) {
-    cross = document.createElement("button");
+    var cross = document.createElement("button");
+    cross.className = "popup-cross";
     cross.innerHTML = "x";
-    cross.className = "cross";
-    cross.style.position = "absolute";
-    cross.style.right = "0";
-    cross.style.top = "0";
+
     cross.type = "button";
     cross.setAttribute("onclick","hidePopup('cross', this)")
     popupContent.appendChild(cross);
