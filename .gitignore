@@ -2,6 +2,7 @@
 .*/*
 .*
 __*
+*/__*
 
 secure/
 uploads/
