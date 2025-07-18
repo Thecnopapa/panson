@@ -295,6 +295,9 @@ def contatce(lan):
 def admin(lan="cat"):
     lan="cat"
     user = get_current_user()
+    print(user.__dict__)
+    print("admin check")
+    print(user.username, user.password)
     if check_if_admin(user.username, user.password):
         return template(lan=lan, templates="admin", user = user.username, amagats=True)
     else:
@@ -303,6 +306,7 @@ def admin(lan="cat"):
 
 @app.post("/login")
 def login():
+    print("loging in...")
     from app_essentials.firebase import check_if_admin
     print(request.form["username"], request.form["password"])
 
@@ -312,6 +316,9 @@ def login():
         user.password = request.form["password"]
         user.is_admin = True
         user.update_db()
+        print("login succesfull")
+    else:
+        print("login failed")
     return(redirect("/admin/"))
 
 @app.route("/admin/logout")

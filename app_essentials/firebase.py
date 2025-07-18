@@ -77,7 +77,7 @@ class firebaseObject(object):
         return self.__getattribute__(key)
 
 def check_if_admin(username, password):
-    raw = admins.where(filter=FieldFilter("usuari", "==", username )).where(filter=FieldFilter("contrasenya", "==", password )).stream()
+    raw = admins.where(filter=FieldFilter("username", "==", username )).where(filter=FieldFilter("password", "==", password )).stream()
     match = [a for a in raw]
     if len(match) == 1:
         return True

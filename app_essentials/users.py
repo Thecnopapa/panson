@@ -11,9 +11,10 @@ class User(firebaseObject):
         self.preferits = []
         self.is_admin = False
         self.accepted_cookies = False
-        super().__init__(data, id)
         self.username = None
         self.password = None
+
+        super().__init__(data, id)
         self.n_carret = sum([item["quantity"] for item in self.carret.values()])
         self.total_carret = sum([item["quantity"] * item["preu"][0] for item in self.carret.values()])
 
