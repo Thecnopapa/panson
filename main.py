@@ -144,7 +144,7 @@ def mostrar_tot(lan):
 
 @app.route("/<lan>/peces_uniques/")
 def peces_uniques(lan):
-    html = template(lan=lan, templates="uniques", filters={"unica":True, "collecio":[]}, titol="gal_totes")
+    html = template(lan=lan, templates="uniques", filters={"unica":True, "collecio":[], "tipus":"totes"}, titol="gal_totes")
     return html
 
 @app.route("/<lan>/productes/<id>/")
@@ -192,8 +192,6 @@ def afegir_al_carret(lan):
             else:
                 colors.append(v)
         elif k == "talla":
-            if v is None or v == "":
-                return "talla", 204
             talla = int(v)
 
     opcions = {}
@@ -202,8 +200,7 @@ def afegir_al_carret(lan):
     opcions["color"] = colors
     opcions["talla"] = talla
     user.add_producte_carret(id=request.form["id"], opcions_seleccionades=opcions)
-    #print("Returning 205")
-    #return "", 205
+    #return "", 204
     return redirect("/{}/productes/{}/".format(lan, request.form["id"]))
 
 @app.post("/productes/carret/<pos>/<qty>")

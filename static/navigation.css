@@ -122,6 +122,7 @@ body {
     width: fit-content;
     padding-right: 2dvw;
     z-index: 200;
+    align-items: center;
 
 }
 
