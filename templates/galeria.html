@@ -21,9 +21,7 @@
             <button class="boto-filtres">Filtrar</button>
             <div class="desplegable-filtres">
                 <form method="GET" action="/{{ loc.lan }}/productes/">
-                    {{ filters.keys() }}
-                    {{ filters}}
-                    <div id="titol-filtres">Filtres</div>
+                    <div id="titol-filtres"><h3>Filtres</h3></div>
                 <div class="filtre">
                     <div class="titol-filtre" id="filtre-colleccio">Colleccio</div>
                     {% for n, col in utils.enumerate(productes.col_names) %}
