@@ -254,6 +254,11 @@ body {
     text-decoration: underline;
     text-underline-offset: 0.5dvh;
 }
+#missing-info{
+    display: none;
+    font-size: 2dvh;
+    color: #ff0000;
+}
 
 
 

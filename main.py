@@ -192,6 +192,8 @@ def afegir_al_carret(lan):
             else:
                 colors.append(v)
         elif k == "talla":
+            if v is None or v == "":
+                return "talla", 204
             talla = int(v)
 
     opcions = {}
@@ -200,7 +202,8 @@ def afegir_al_carret(lan):
     opcions["color"] = colors
     opcions["talla"] = talla
     user.add_producte_carret(id=request.form["id"], opcions_seleccionades=opcions)
-    #return "", 204
+    #print("Returning 205")
+    #return "", 205
     return redirect("/{}/productes/{}/".format(lan, request.form["id"]))
 
 @app.post("/productes/carret/<pos>/<qty>")

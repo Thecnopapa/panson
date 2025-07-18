@@ -1,50 +1,52 @@
 
-let oldUrl = new URL(window.location.href)
-window.scrollTo({top: Number(oldUrl.searchParams.get("scroll")), behavior: 'smooth'})
+let oldUrl = new URL(window.location.href);
+window.scrollTo({top: Number(oldUrl.searchParams.get("scroll")), behavior: 'smooth'});
 
 
 let form = document.getElementById('form');
-let sizeSelector = document.getElementsByClassName("talla-unica")
-let sizeButtons = document.getElementsByClassName("talla")
-let requiredInput = document.getElementsByClassName("required")
+let sizeSelector = document.getElementsByClassName("talla-unica");
+let sizeButtons = document.getElementsByClassName("talla");
+let requiredInput = document.getElementsByClassName("required");
 
 
 
-updatePrice()
+updatePrice();
 
 
 
 function updatePrice(){
     let price = 0
 
-    const variationList = document.getElementsByClassName("variation")
+    const variationList = document.getElementsByClassName("variation");
     for (let i = 0; i < variationList.length; i++) {
         if (variationList[i].checked) {
-            price += Number(variationList[i].attributes.price.value)
+            price += Number(variationList[i].attributes.price.value);
         }
     }
 
-    const materialList = document.getElementsByClassName("material")
+    const materialList = document.getElementsByClassName("material");
     for (let i = 0; i < materialList.length; i++) {
         if (materialList[i].checked) {
-            price += Number(materialList[i].attributes.price.value)
+            price += Number(materialList[i].attributes.price.value);
         }
     }
 
-    const colorList = document.getElementsByClassName("color-selector")
+    const colorList = document.getElementsByClassName("color-selector");
     for (let i = 0; i < colorList.length; i++) {
         if (colorList[i].options[colorList[i].selectedIndex].attributes.price) {
-            price += Number(colorList[i].options[colorList[i].selectedIndex].attributes.price.value)
+            price += Number(colorList[i].options[colorList[i].selectedIndex].attributes.price.value);
         }
     }
-    const priceTag = document.getElementById("final_price")
-    priceTag.innerHTML = price
+    const priceTag = document.getElementById("final_price");
+    priceTag.innerHTML = price;
 }
 
 function submitToCart () {
-    const theForm = document.getElementById("form")
-    console.log(theForm.submit());
-
+    const theForm = document.getElementById("form");
+    const missingInfo = document.getElementById("missing-info");
+    document.body.style.cursor = "progress";
+    theForm.submit();
+    setTimeout(function(){missingInfo.style.display = "block";document.body.style.cursor = "unset";}, 1000);
 
 }
 
