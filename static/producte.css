@@ -201,7 +201,7 @@ body {
     border: 0.5dvh solid rgba(0, 0, 0, 1);
 }
 .opcions {
-        font-size: 2.5dvh;
+        font-size: 2dvh;
     }
     .color-selector{
         font-size: 2.5dvh;
@@ -231,7 +231,27 @@ body {
     background-color: rgba(255, 255, 255, 100);
     padding: 5%;
 
+}
+.desplegable{
+    width: 100%;
+}
+.titol-desplegable {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: #e1e1e1;
+    padding: 2%;
 
+
+}
+.titol-desplegable > h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.info-desplegable {
+    display: none;
+}
+.arrow{
 
 }
 .translucid-screen{

@@ -50,6 +50,25 @@ function submitToCart () {
 
 }
 
+function showInfoDropdown(trigger, popupContent, arrow=undefined) {
+    popupContent.style.display = "block";
+    oldTrigger = String(trigger.attributes.onclick.value).split("(")[1];
+    trigger.setAttribute("onclick","hideInfoDropdown("+oldTrigger);
+    if (arrow) {
+        arrow.innerHTML = "-";
+    }
+
+}
+function hideInfoDropdown(trigger, popupContent, arrow=undefined) {
+    popupContent.style.display = "none";
+    oldTrigger = String(trigger.attributes.onclick.value).split("(")[1];
+    trigger.setAttribute("onclick","showInfoDropdown("+oldTrigger);
+    if (arrow) {
+        arrow.innerHTML = "+";
+    }
+}
+
+
 
 function showPopup(trigger, popupContent) {
     popupContent.style.display = "block";
@@ -71,13 +90,15 @@ function hidePopup(source, sourceElement) {
 
 }
 
-function hideBackgound(popupContent) {
+function hideBackgound(popupContent, cross=true) {
     var translucidScreen = document.createElement("div");
     translucidScreen.className = "translucid-screen";
     translucidScreen.setAttribute("onclick","hidePopup('backdrop', this)")
     popupContent.after(translucidScreen);
     translucidScreen.appendChild(popupContent);
-    addPopupCross(popupContent);
+    if (cross) {
+        addPopupCross(popupContent);
+    }
 }
 function addPopupCross(popupContent) {
     var cross = document.createElement("button");
