@@ -103,15 +103,27 @@
                     <br>
                     <span class="talles_producte">
                     Talla:
-                    <input type="number" name="talla" class="talla talla-unica " required
+                    <span><input type="number" name="talla" class="talla talla-unica " required
                                min="0"
                                max="99"
                                step="1"
                                list="defaultSizes"
                                maxlength="2"
                                {{"value={}".format(opcions["talla"]) if opcions["talla"] != "None" }}
-                        >
-                    <div><em>Descobreix la teva talla</em></div>
+                        ><em id="info-talles" class="clickable under-hover" onclick="showPopup(this, this.nextElementSibling)">Descobreix la teva talla</em>
+                        <div class="popup-info" id="popup-talles" onclick="event.stopPropagation()">
+                        <h3>Graella de talles internacional</h3>
+                            <p>És molt fàcil! A continuació t’expliquem pas a pas què has de fer:</p>
+                            <ol>
+                                <li><strong>Agafa un anell que et vagi bé</strong> i assegura’t que tant aquest com el que vols comprar siguin per al mateix dit i la mateixa mà (cada dit pot tenir una mida diferent). Millor si és fi i regular, com una aliança. L’important és que quedi ben recolzat sobre el paper.</li>
+                                <li><strong>Dibuixa la circumferència interior</strong> de l’anell sobre el paper i mesura el diàmetre. Recorda tenir en compte el gruix del llapis quan facis la marca.</li>
+                                <li><strong>Consulta la taula de talle</strong> que tens a continuació i busca la que correspongui al teu diàmetre.</li>
+                                <li><strong>Quan compris un anell a la botiga online</strong>, només caldrà que introdueixis aquest número.</li>
+                                <li><strong>Si reps l’anell i no et va bé</strong>, no et preocupis: te’l posaré a mida.</li>
+                            </ol>
+                        </div>
+                        </span>
+
                     {% elif producte.opcions["talles"] %}
                         <br>
                         <span class="talles_producte">
@@ -136,7 +148,7 @@
                     <div class="preu-final"> <span id="final_price"></span> &#8364;</div>
 
                 <br>
-                <div id="missing-info">Siusplau introdueix tots els detalls</div>
+                <div id="missing-info"><p>Siusplau introdueix tots els detalls</p></div>
                 <br><br><br>
             {% endif %}
             </span>
@@ -161,7 +173,7 @@
 
                 <br>
                 <span class="clickable under-hover" onclick="showPopup(this, this.nextElementSibling)"><img class="small-icon" src="/static/media/reload.svg" alt="devolucions">{{ loc.pro_devolucio }}</span>
-                <div class="popup-info" id="popup-garantia" onclick="event.stopPropagation()">
+                <div class="popup-info" id="popup-devolucions" onclick="event.stopPropagation()">
                     <h3>30 dies per a devolucions i canvis</h3>
                     <p>Disposeu d’un termini de 30 dies des de la data de compra per fer devolucions o canvis.<br>
                     Les despeses d’enviament aniran a càrrec del comprador.<br>

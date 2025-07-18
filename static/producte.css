@@ -193,6 +193,10 @@ body {
     height: 4dvh;
     width: 8dvh;
 }
+#info-talles{
+    padding-left: 1dvh;
+}
+
 #selected-talla {
     border: 0.5dvh solid rgba(0, 0, 0, 1);
 }
