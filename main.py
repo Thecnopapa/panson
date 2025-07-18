@@ -73,8 +73,10 @@ def make_session_permanent():
 
 @app.route("/blank")
 def return_blank():
+    from app_essentials.sheets import sheets
+    return sheets()
 
-    return ""
+
 @app.route("/blank2")
 def return_blank2():
     return Products(filters={"esborrat": False, "amagat":False}).__html__()
