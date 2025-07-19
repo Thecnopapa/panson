@@ -14,9 +14,9 @@
 
 {% for producte in productes_filtrats %}
     <div class="content" >
-	<div class="producte-gran">
+	<div class="producte-gran" id="{{ producte._id }}">
             {% if producte.imatges %}
-	    	<div class="fons_collecio" id="{{ producte._id }}" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media')">
+	    	<div class="fons_collecio" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media')">
 	    	</div>
             {%  endif %}
             <div class = "titol-collecio" onclick="location.href='/{{ loc.lan }}/productes/{{ producte._id }}'">
