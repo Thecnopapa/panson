@@ -178,7 +178,7 @@ def mostrar_peca(lan, id):
     else:
         filters["collecio"] = producte.collecio
         titol_galeria = "pro-mateixa-col"
-    html = template(lan=lan, templates=["producte2", "galeria"], producte=producte, opcions=opcions, filters=filters ,titol_galeria=titol_galeria)
+    html = template(lan=lan, templates=["producte2"], producte=producte, opcions=opcions, filters=filters ,titol_galeria=titol_galeria)
     return html
 
 
