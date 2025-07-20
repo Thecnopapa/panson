@@ -23,7 +23,7 @@
 
             <div class="submenu menu-content menutop " id="collecions-menu" onclick="showDropdown(this)" >
                 <div class="titol-submenu menu-content no-line">{{ loc.nav_collecions }}
-                <span><img class="plus item-submenu" src="/static/media/plus.svg"><img class="minus item-submenu" src="/static/media/minus.svg"></span></div>
+                <span><img class="plus menu-content" src="/static/media/plus.svg"><img class="minus menu-content" src="/static/media/minus.svg"></span></div>
                 {% if productes %}
                     {% for col in productes.col_names %}
                         <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/collecions/#{{ utils.lower(col) }}'">{{ col }}</div>
@@ -31,8 +31,7 @@
                 {% endif %}
             </div>
             <div class="submenu menu-content" id="peces-menu" onclick="showDropdown(this)">
-                <div class="titol-submenu menu-content">{{ loc.nav_peces_uniques }}
-                    <span><img class="plus item-submenu" src="/static/media/plus.svg"><img class="minus item-submenu" src="/static/media/minus.svg"></span></div>
+                <div class="titol-submenu menu-content">{{ loc.nav_peces_uniques }}<span><img class="plus menu-content" src="/static/media/plus.svg"><img class="minus menu-content" src="/static/media/minus.svg"></span></div>
                 {% for prod in productes.uniques()[:-1] %}
                         <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/peces_uniques#{{ prod._id }}'">{{ prod.nom }}</div>
                     {% endfor %}

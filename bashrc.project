@@ -12,6 +12,11 @@
 echo "Panson folder at $FOLDER_PATH"
 cd $FOLDER_PATH
 conda activate panson && echo "panson environment activated"
+echo -n "Current git branch: " && git rev-parse --abbrev-ref HEAD
+
+
+
+
 alias bashrc="vim ~/.bashrc"
 alias ..="cd .."
 alias ...="cd ../.."
