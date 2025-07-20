@@ -1,12 +1,8 @@
 
 let oldUrl = new URL(window.location.href);
 window.scrollTo({top: Number(oldUrl.searchParams.get("scroll")), behavior: 'smooth'});
-
-
 let form = document.getElementById('form');
-let sizeSelector = document.getElementsByClassName("talla-unica");
-let sizeButtons = document.getElementsByClassName("talla");
-let requiredInput = document.getElementsByClassName("required");
+
 
 
 
@@ -109,3 +105,74 @@ function addPopupCross(popupContent) {
     cross.setAttribute("onclick","hidePopup('cross', this)")
     popupContent.appendChild(cross);
 }
+
+
+
+
+function slideshowNext(slideshow){
+    slideshow.update(1);
+}
+function slideshowPrev(slideshow){
+    slideshow.update(-1);
+}
+
+
+class Slideshow{
+    constructor(container){
+        this.imageContainer = container;
+        this.imageContainer.addEventListener("nextImg", this.update(1))
+        this.imageContainer.addEventListener("previousImg", this.update(-1))
+        this.images = container.childList;
+        this.counter = 0;
+        this.n_images = this.images.length;
+        this.selectImages();
+        this.state = "still"
+    }
+
+    selectImages(){
+        if (this.counter === 0){
+            this.prevImg = this.images[-1];
+        }else{
+            this.prevImg = this.images[this.counter - 1];
+        }
+        this.currentImg = this.images[this.counter];
+        if (this.counter === this.n_images-1){
+            this.nextImg = this.images[0];
+        }else{
+            this.nextImg = this.images[this.counter + 1];
+        }
+
+    }
+
+    update(change){
+        if (this.state === "still"){
+            this.state = "active";
+            this.counter += Number(change);
+            if (this.counter >= this.n_images){
+                this.counter = 0;
+            }
+            if (this.counter <0){
+                this.counter = this.n_images-1;
+            }
+            this.selectImages()
+            this.displayImages()
+            this.state = "still"
+        }
+    }
+
+
+    displayImages(){
+        this.currentImg.style.transition = "left ease-in-out 0.4s";
+        this.prevImg.style.transition = "left ease-in-out 0.4s";
+        this.currentImg.style.left = "0";
+        this.prevImg.style.left = "-80dvw";
+        setTimeout(this.displayImages2, 400);
+    }
+    displayImages2(){
+        this.prevImg.style.transition = "";
+        this.prevImg.style.left = "80dvw";
+        this.nextImg.style.left = "80dvw";
+        this.nextImg.style.transition = "left ease-in-out 0.4s";
+    }
+}
+let productSlideshow = new Slideshow(document.getElementById("fotos-producte"));

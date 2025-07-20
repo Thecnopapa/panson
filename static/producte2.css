@@ -43,6 +43,10 @@ body {
     background-position: center;
     background-size: cover;
     transition: left ease-in-out 0.4s;
+    left: 80dvw;
+}
+.first_photo {
+    left: 0;
 }
 
 .slideshow-button{
