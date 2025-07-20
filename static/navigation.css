@@ -297,7 +297,6 @@ body {
 .menu-content {
     user-select: none;
     width: 100%;
-    background-color: yellow;
 }
 .titol-submenu {
     display: none;
@@ -311,7 +310,6 @@ body {
     border: none;
     border-top: black solid 1px;
     width: auto;
-    background-color: cyan;
 }
 
 .titol-submenu:hover {
@@ -337,7 +335,6 @@ body {
     padding-bottom: 1dvh;
     text-underline-offset: 0.5dvh;
     width: auto;
-    background-color: red;
 }
 .item-submenu:hover {
     text-decoration: underline;
