@@ -10,17 +10,16 @@ google-cloud-secret-manager
 
 
 # App
-flask=>2.2.5;
+flask
 gunicorn
 unidecode
 stripe
-jinja2=>3.1.3;
-idna=>3.7;
 
-requests=>2.31.0;
+
+requests
 firebase-admin
 
-werkzeug=>2.2.8;
+werkzeug
 pyngrok
 
-certifi=>2022.12.07;
+
