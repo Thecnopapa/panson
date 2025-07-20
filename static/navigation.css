@@ -100,7 +100,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2;
+    z-index: 50;
 }
 
 
@@ -140,7 +140,7 @@ body {
     border: none;
     user-select: none;
     margin:  0 1dvh;
-    z-index: 6;
+    z-index: 110;
 
 }
 
@@ -168,7 +168,7 @@ body {
     height: 100%;
     left: 0;
     top: 0;
-    z-index: 5;
+    z-index: 100;
     padding-top: 0;
     transition: width 1s ease;
     box-shadow: 0.2px 0px 8px rgb(115, 115, 115);
