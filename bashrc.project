@@ -28,6 +28,18 @@ alias top="echo -en \"\033]0;Top\a\" && top"
 alias please="sudo"
 
 
+
+push(){
+    GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    echo "pushing to branch: origin $GIT_BRANCH"
+    git push origin $GIT_BRANCH
+}
+
+commit(){
+    echo "git commit -a"
+    git commit -a
+}
+
 test (){
     if [[ "$*" == *"tunnel"* ]]; then
         export START_NGROK=1
