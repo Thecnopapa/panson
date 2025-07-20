@@ -12,20 +12,25 @@
     <script src="/static/scripts/jquery.js"></script>
 
     <script defer type="text/javascript" src="/static/scripts/navigation.js"></script>
-    <script defer type="text/javascript" src="/static/scripts/producte.js"></script>
+    <script defer type="text/javascript" src="/static/scripts/producte2.js"></script>
     <link href='/static/galeria.css' rel='stylesheet'>
-    <link href='/static/producte.css' rel='stylesheet'>
+    <link href='/static/producte2.css' rel='stylesheet'>
 
 </head>
 <body>
 <form action="/{{ lan }}/carret/add" method="post" enctype="multipart/form-data" id="form">
 <div class="content-producte">
-    <div class="fotos">
-        {% for imatge in producte.imatges %}
-            <div class="foto_producte" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media')"></div>
-        {% endfor %}
+    <div id="slideshow-producte">
+	    <div class="slideshow-left"></div>
+	    <div class="slideshow-right"></div>
+	    <div id="fotos-producte">
+        	{% for imatge in producte.imatges %}
+            	    <div class="foto_producte" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media')"></div>
+        	{% endfor %}
+	    </div>
+	    <div class="slideshow-progress"></div>
     </div>
-        <div class="detalls">
+        <div class="detalls" style="display:none;">
             <div class = "titol_producte">
                 {{ producte.nom }}
             </div>
