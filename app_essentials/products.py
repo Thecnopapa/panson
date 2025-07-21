@@ -22,6 +22,9 @@ class Product(firebaseObject):
         super().__init__(data, id)
         if self._id is None:
             self.new = True
+        self._imatges2 = self.imatges
+        if len(self.imatges) >1 and len(self.imatges)<4:
+            self._imatges2 *= 2
 
 
 

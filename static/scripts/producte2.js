@@ -128,8 +128,6 @@ class Slideshow{
         this.imageContainer = container;
         console.log(this.imageContainer);
 	console.log(this.imageContainer.children);
-        this.imageContainer.previousElementSibling.addEventListener("onclick", this.update(-1));
-        this.imageContainer.nextElementSibling.addEventListener("onclick", this.update(1));
         this.images = container.children;
         this.counter = 0;
         this.n_images = this.imageContainer.childElementCount;
