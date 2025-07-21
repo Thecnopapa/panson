@@ -21,13 +21,13 @@
 <form action="/{{ lan }}/carret/add" method="post" enctype="multipart/form-data" id="form">
 <div class="content-producte">
     <div id="slideshow-producte">
-	    <div class="slideshow-left slideshow-button"><</div>
+	    <div class="slideshow-left slideshow-button" onclick="slideshowPrev('producte')"><</div>
 	    <div id="fotos-producte">
         	{% for n, imatge in utils.enumerate(producte.imatges) %}
             	    <div class="foto_producte {{ "first_photo" if n==0 }}" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media')"></div>
         	{% endfor %}
 	    </div>
-        <div class="slideshow-right slideshow-button">></div>
+        <div class="slideshow-right slideshow-button" onclick="slideshowNext('producte')">></div>
 	    <div class="slideshow-progress"></div>
     </div>
 

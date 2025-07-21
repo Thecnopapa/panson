@@ -36,7 +36,7 @@ body {
 }
 
 .foto_producte {
-    position: relative;
+    position: absolute;
     width: 80dvw;
     min-width:80dvw;
     height: 100%;
@@ -44,6 +44,9 @@ body {
     background-size: cover;
     transition: left ease-in-out 0.4s;
     left: 80dvw;
+    z-index: 3;
+    
+    
 }
 .first_photo {
     left: 0;

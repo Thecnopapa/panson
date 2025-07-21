@@ -110,29 +110,39 @@ function addPopupCross(popupContent) {
 
 
 function slideshowNext(slideshow){
-    slideshow.update(1);
+	console.log("Next");
+	if (slideshow === "producte"){
+    productSlideshow.update(1);
+	}
 }
 function slideshowPrev(slideshow){
-    slideshow.update(-1);
+	console.log("Prev");
+	if (slideshow === "producte"){
+    productSlideshow.update(-1);
+	}
 }
 
 
 class Slideshow{
     constructor(container){
         this.imageContainer = container;
-        console.log(imageContainer);
-        this.imageContainer.previousElementSibling.addEventListener("click", this.update(-1));
-        this.imageContainer.nextElementSibling.addEventListener("click", this.update(1));
-        this.images = container.childList;
+        console.log(this.imageContainer);
+	console.log(this.imageContainer.children);
+        this.imageContainer.previousElementSibling.addEventListener("onclick", this.update(-1));
+        this.imageContainer.nextElementSibling.addEventListener("onclick", this.update(1));
+        this.images = container.children;
         this.counter = 0;
-        this.n_images = this.images.length;
-        this.selectImages();
-        this.state = "still"
+        this.n_images = this.imageContainer.childElementCount;
+        this.state = "still";
+	this.update(0);
     }
 
     selectImages(){
+	    console.log(this.counter + "/" + String(this.n_images-1));
         if (this.counter === 0){
-            this.prevImg = this.images[-1];
+		
+	    console.log("last img: " + this.imageContainer.lastElementChild);
+            this.prevImg = this.imageContainer.lastElementChild;
         }else{
             this.prevImg = this.images[this.counter - 1];
         }
@@ -142,38 +152,55 @@ class Slideshow{
         }else{
             this.nextImg = this.images[this.counter + 1];
         }
+	console.log(this.prevImg);
+	console.log(this.currentImg);
+	console.log(this.nextImg);
 
     }
 
     update(change){
         if (this.state === "still"){
+		console.log("Updating " + this.state);
             this.state = "active";
+		console.log(this.counter +"+"+change);
             this.counter += Number(change);
+		console.log(this.counter);
             if (this.counter >= this.n_images){
                 this.counter = 0;
             }
             if (this.counter <0){
                 this.counter = this.n_images-1;
             }
-            this.selectImages()
-            this.displayImages()
-            this.state = "still"
-        }
+            this.selectImages();
+            this.displayImages();
+        }else{console.log("slideshow active")}
     }
 
 
     displayImages(){
+	    console.log("displaying1");
+	    try{
+	this.currentImg.style.zIndex = "5";
         this.currentImg.style.transition = "left ease-in-out 0.4s";
         this.prevImg.style.transition = "left ease-in-out 0.4s";
         this.currentImg.style.left = "0";
         this.prevImg.style.left = "-80dvw";
-        setTimeout(this.displayImages2, 400);
+	    }catch(err){console.log(this.prevImg); console.log(this.currentImg);};
+        setTimeout(this.displayImages2, 400, this);
     }
-    displayImages2(){
-        this.prevImg.style.transition = "";
-        this.prevImg.style.left = "80dvw";
-        this.nextImg.style.left = "80dvw";
-        this.nextImg.style.transition = "left ease-in-out 0.4s";
+    displayImages2(t){
+	    console.log("displayong2");
+	    try {
+        t.prevImg.style.transition = "none";
+        t.prevImg.style.left = "80dvw";
+	t.prevImg.style.zIndex = "3";
+        t.nextImg.style.left = "80dvw";
+	t.nextImg.style.zIndex = "5";
+        t.nextImg.style.transition = "left ease-in-out 0.4s";
+	    }catch(err){console.log(err.message);console.log(t.prevImg); console.log(t.nextImg);};
+	console.log("state to still");
+	t.state = "still";
+	console.log(t.state);
     }
 }
 let productSlideshow = new Slideshow(document.getElementById("fotos-producte"));
