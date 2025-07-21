@@ -73,7 +73,7 @@ function showPopup(trigger, popupContent) {
 
 
 function hidePopup(source, sourceElement) {
-    let popupContent = undefined
+    let popupContent = undefined;
     if (source == "cross") {
         popupContent = sourceElement.parentElement;
     } else if (source == "backdrop") {
@@ -177,27 +177,25 @@ class Slideshow{
     }
 
 
-    displayImages(){
+    displayImages(mode){
 	    console.log("displaying1");
 	    try{
-	this.currentImg.style.zIndex = "5";
-        this.currentImg.style.transition = "left ease-in-out 0.4s";
-        this.prevImg.style.transition = "left ease-in-out 0.4s";
-        this.currentImg.style.left = "0";
-        this.prevImg.style.left = "-80dvw";
-	    }catch(err){console.log(this.prevImg); console.log(this.currentImg);};
+	for (let n = 0; n < this.n_images; n++) {
+		this.images[n].classList = "foto_producte"
+	}
+	this.currentImg.classList.add("current");
+	this.currentImg.classList.remove("previous");
+	this.currentImg.classList.remove("next");
+        this.prevImg.classList.add("previous");
+	this.prevImg.classList.remove("current");
+	this.nextImg.classList.add("next");
+	this.nextImg.classList.remove("current");
+	
+	    }catch(err){console.log(err.message);console.log(this.prevImg); console.log(this.currentImg);console.log(this.nextImg);};
         setTimeout(this.displayImages2, 400, this);
     }
     displayImages2(t){
 	    console.log("displayong2");
-	    try {
-        t.prevImg.style.transition = "none";
-        t.prevImg.style.left = "80dvw";
-	t.prevImg.style.zIndex = "3";
-        t.nextImg.style.left = "80dvw";
-	t.nextImg.style.zIndex = "5";
-        t.nextImg.style.transition = "left ease-in-out 0.4s";
-	    }catch(err){console.log(err.message);console.log(t.prevImg); console.log(t.nextImg);};
 	console.log("state to still");
 	t.state = "still";
 	console.log(t.state);

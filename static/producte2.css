@@ -42,14 +42,12 @@ body {
     height: 100%;
     background-position: center;
     background-size: cover;
-    transition: left ease-in-out 0.4s;
-    left: 80dvw;
-    z-index: 3;
-    
-    
-}
-.first_photo {
     left: 0;
+    z-index: 3;
+    transition:none;
+    display:none;
+    
+    
 }
 
 .slideshow-button{
@@ -57,6 +55,15 @@ body {
     background-color: cyan;
     font-size: x-large;
     z-index: 20;
+    border-radius:50%;
+    background-color: rgba(255,255,255,0.3);
+    width: 8dvh;
+    height: 8dvh;
+    display:flex;
+    text-align: center;
+    justify-content:center;
+    align-items:center;
+    justify-items:center;
 }
 
 .slideshow-left{
@@ -65,16 +72,22 @@ body {
 }
 .slideshow-right{
     right: 10%;
-
-
 }
-
-
-
-
-
-
-
+.previous, .current, .next{
+	transition: left ease-in-out 0.4s;
+	z-index:5;
+	display:flex;
+}
+.previous{
+	left:-80dvw;
+}
+.current{
+	left:0;
+	z-index:6;
+}
+.next{
+	left:80dvw;
+}
 
 
 
