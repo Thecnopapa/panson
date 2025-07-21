@@ -120,7 +120,7 @@ function slideshowPrev(slideshow){
 class Slideshow{
     constructor(container){
         this.imageContainer = container;
-        cosole
+        console.log(imageContainer);
         this.imageContainer.previousElementSibling.addEventListener("click", this.update(-1));
         this.imageContainer.nextElementSibling.addEventListener("click", this.update(1));
         this.images = container.childList;
