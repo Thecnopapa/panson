@@ -200,3 +200,19 @@ class Slideshow{
     }
 }
 let productSlideshow = new Slideshow(document.getElementById("fotos-producte"));
+
+
+
+function displayBuyOptions(trigger){
+	optionDiv = document.getElementById("buy-options");
+	optionDiv.style.display = "flex";
+	optionDiv.scrollIntoView({"behaviour": "smooth"});
+	trigger.style.display ="none";
+}
+function hideBuyOptions(){
+	optionDiv = document.getElementById("buy-options");
+	buyButton = document.getElementById("buy");
+	console.log(buyButton);
+	optionDiv.style.display = "none";
+	buyButton.style.display = "flex";
+}

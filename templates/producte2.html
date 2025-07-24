@@ -35,19 +35,25 @@
 </div>
 <div id="main-details">
 	<div id="main-left">
-    	    <div id="titol_producte">
+    	    <div id="titol_producte" onclick="scrollToDetails()">
 	    	{{ producte.nom }}
     	    </div>
 	    <div id="more-details">
 	        Més detalls
 	    </div>
 	</div>
-	<div id="main-right">
+	<div id="main-right" onclick="displayBuyOptions(this)">
 		<div id="buy">
 			Comprar
 		</div>
 	</div>
 </div>
+<div id="buy-options">
+	<button id="close-options" type="button" onclick="hideBuyOptions()">X</button>
+</div>
+<div id="all-details">
+</div>
+
 </form>
 
 

@@ -91,10 +91,11 @@ body {
 
 
 #main-details{
-	position:absolute;
+	position:relative;
 	bottom:0;
 	left:0;
-	height: fit-content;
+	height: auto;
+	max-height:17dvh;
 	width: 96%;
 	z-index:50;
 	background-color: rgba(255,255,255,0.5);
@@ -128,6 +129,24 @@ body {
 	justify-items:center;
 }
 
+#buy-options{
+	height:20dvh;
+	background-color: purple;
+	display:none;
+	width:100%
+
+}
+#all-details{
+	height:50dvh;
+	background-color: yellow;
+	display:none
+}
+
+#close-options{
+	position:relative;
+	top:0;
+	right:0;
+}
 
 
 
