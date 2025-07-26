@@ -28,6 +28,7 @@
     scrollbar-width: unset;
     box-shadow: -0.2px 0px 8px rgb(115, 115, 115);
     padding-bottom: 10dvh;
+    z-index: 100;
 
 }
 #close-carret {

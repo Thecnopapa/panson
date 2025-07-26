@@ -37,8 +37,17 @@ body {
     -moz-osx-font-smoothing: grayscale;
     align-content: center;
 
-
 }
+
+.clickable{
+    cursor: pointer;
+}
+.under-hover:hover{
+    text-decoration: underline;
+    text-underline-offset: 0.5dvh;
+}
+
+
 
 .request-cookies{
     display: flex;

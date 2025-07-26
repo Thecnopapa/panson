@@ -116,8 +116,6 @@ function slideshowPrev(slideshow){
 class Slideshow{
     constructor(container) {
         this.imageContainer = container;
-        console.log(this.imageContainer);
-	    console.log(this.imageContainer.children);
         this.images = container.children;
         this.counter = 0;
         this.n_images = this.imageContainer.childElementCount;
@@ -126,7 +124,6 @@ class Slideshow{
     }
 
     selectImages(){
-	    console.log(this.counter + "/" + String(this.n_images-1));
         if (this.counter === 0) {
             this.prevImg = this.imageContainer.lastElementChild;
         } else {
@@ -138,9 +135,6 @@ class Slideshow{
         } else {
             this.nextImg = this.images[this.counter + 1];
         }
-        console.log(this.prevImg);
-        console.log(this.currentImg);
-        console.log(this.nextImg);
     }
 
     update(change){
@@ -203,7 +197,6 @@ function displayBuyOptions(trigger){
 function hideBuyOptions(){
 	optionDiv = document.getElementById("buy-options");
 	buyButton = document.getElementById("buy");
-	console.log(buyButton);
 	optionDiv.style.display = "none";
 	buyButton.style.display = "flex";
 }
