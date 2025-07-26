@@ -47,7 +47,18 @@ body {
     text-underline-offset: 0.5dvh;
 }
 
-
+.black-button{
+    font-size: 2dvh;
+    background-color: #000000;
+    color: white;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+.checkout-button:hover {
+    background-color: #ffffff;
+    color: #000000;
+    transition: background-color 0.2s;
+}
 
 .request-cookies{
     display: flex;

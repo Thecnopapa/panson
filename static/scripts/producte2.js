@@ -200,3 +200,18 @@ function hideBuyOptions(){
 	optionDiv.style.display = "none";
 	buyButton.style.display = "flex";
 }
+
+function displayAllDetails(trigger){
+	optionDiv = document.getElementById("all-details");
+	optionDiv.style.display = "flex";
+	optionDiv.scrollIntoView({"behaviour": "smooth"});
+	trigger.innerHTML = "Menys detalls";
+    trigger.setAttribute("onclick","hideAllDetails(this)");
+}
+
+function hideAllDetails(trigger){
+	optionDiv = document.getElementById("all-details");
+	optionDiv.style.display = "none";
+	trigger.innerHTML = "Més detalls";
+    trigger.setAttribute("onclick","displayAllDetails(this)");
+}
