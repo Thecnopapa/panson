@@ -37,17 +37,17 @@ try:
     try:
         credentials = service_account.Credentials.from_service_account_file(
             "secure/firestore_service_account_info.json")
-        print1("Credentials loaded from secret")
+        print(" * Firestore credentials loaded (secret)")
     except:
         credentials = service_account.Credentials.from_service_account_file(
             os.environ.get('FIRESTORE_CREDENTIALS'))
-        print1("Credentials loaded from environment")
+        print(" * Firestore credentials loaded (local)")
 
     storage_client = storage.Client(credentials=credentials, project="panson")
     bucket = storage_client.bucket("panson.firebasestorage.app")
 
 
-    print1("Firestore initialized")
+    print1(" * Firestore initialized")
 except Exception as e:
     sprint("Error importing Firestore:")
     print(e)

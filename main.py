@@ -23,10 +23,9 @@ try:
         f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/stripe_key_thecnopapa_test/versions/2"}).payload.data.decode("UTF-8"))
     with open("secure/flask_key", "w") as f:
         f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/flask_secret_key/versions/1"}).payload.data.decode("UTF-8"))
-
-
+    print(" * Secret manager initialised")
 except:
-    print("Failed to read secrets")
+    print(" * Failed to initialise secret manager")
 os.environ["FIREBASE_CREDENTIALS"] = "secure/firebase_service_account_info.json"
 os.environ["FIRESTORE_CREDENTIALS"] = "secure/firestore_service_account_info.json"
 os.environ["STRIPE_KEY"] = "secure/stripe_key"
