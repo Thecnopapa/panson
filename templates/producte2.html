@@ -18,7 +18,7 @@
 
 </head>
 <body>
-<form action="/{{ lan }}/carret/add" method="post" enctype="multipart/form-data" id="form">
+
 <div class="content-producte">
     <div id="slideshow-producte">
 	    <div id="fotos-producte">
@@ -38,24 +38,42 @@
 </div>
 <div id="main-details">
 	<div id="main-left">
-    	    <div id="titol_producte" onclick="scrollToDetails()">
-	    	    {{ producte.nom }}
-    	    </div>
+    	    <div id="titol_producte" onclick="scrollToDetails()">{{ producte.nom }}</div>
 
 	</div>
     <div id="more-details" class="under-hover clickable" onclick="displayAllDetails(this)">Més detalls</div>
 	<div id="main-right">
-		<div id="buy" class="under-hover clickable black-button" onclick="displayBuyOptions(this)">
-			Comprar
-		</div>
+		<div id="buy" class="under-hover clickable black-button" onclick="displayBuyOptions(this)">Comprar</div>
 	</div>
 </div>
 <div id="buy-options">
+    <form action="/{{ lan }}/carret/add" method="post" enctype="multipart/form-data" id="form">
 	<button id="close-options" type="button" class="popup-cross" onclick="hideBuyOptions()">X</button>
+    </form>
 </div>
-<div id="all-details">
+<div id="all-details" style="display: none">
+    <div class="product-description">{{ producte.descripcio }}</div>
+    <div class="info">
+        <h3>Informació del producte</h3>
+        <ul>
+            <li>Material: Plata de llei 925</li>
+            <li>Pedra:</li>
+            <li>Xapat d’or de 3 micras</li>
+        </ul>
+        <p>Aquestes joies estan fetes artesanalment, per això poden presentar subtils variacions que les fan úniques i especials.</p>
+        <h3>Cura de la peça</h3>
+        <p>Per preservar-ne l’aspecte original, recomanem evitar el contacte amb líquids, com perfums, cremes o aigua. Si la peça de plata s’ennegreix amb l’ús, es pot netejar suaument amb bicarbonat per recuperar-ne la brillantor inicial.</p>
+        <h4> Nota sobre el xapat en or</h4>
+        <p>Si la peça està xapada en or, és important tenir en compte que amb el pas del temps i l’ús habitual, el xapat pot desgastar-se. En cas que això succeeixi, oferim la possibilitat de tornar-la a xapar per un cost de 20€. Si és necessari enviar la peça, les despeses d’enviament aniran a càrrec del client. Per més informació <a href="mailto:infopanson@gmail.com">infopanson@gmail.com</a></p>
+
+        <h3>Enviament</h3>
+        <p>Cada peça es fabrica artesanalment al nostre taller especialment per a tu, per això el temps de preparació és d’entre 15 i 21 dies laborables.<br>
+        El termini d’enviament pot variar en funció del país de destinació. Rebràs un correu electrònic amb el número de seguiment tan bon punt s’hagi enviat el paquet.</p>
+    </div>
+
+
 </div>
-</form>
+
 
 
 
@@ -63,7 +81,7 @@
         <div class = "titol_producte">
             {{ producte.nom }}
         </div>
-    <input value="{{ producte._id }}" name="id" style="display: none">
+
         <div class = "tipus_producte">
             {{ loc["tip-"+ producte.tipus] }}
             {% if producte.subtitol != "" %}
@@ -71,10 +89,7 @@
                 <div class="subtitol-producte"> {{ producte.subtitol }}</div>
             {% endif %}
         </div>
-            <div class = "descripcio_producte">
-                {{ producte.descripcio}}
-            </div>
-    <div id="desplegables">
+<div id="desplegables">
         <div class="desplegable">
             <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><h2 class="clickable under-hover">Mes detalls </h2><div class="arrow">+</div></div>
 
