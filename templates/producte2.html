@@ -39,11 +39,12 @@
 <div id="main-details">
 	<div id="main-left">
     	    <div id="titol_producte" onclick="scrollToDetails()">{{ producte.nom }}</div>
+        <div id="more-details" class="under-hover clickable" onclick="displayAllDetails(this)">Més detalls</div>
 
 	</div>
-    <div id="more-details" class="under-hover clickable" onclick="displayAllDetails(this)">Més detalls</div>
+
 	<div id="main-right">
-		<div id="buy" class="under-hover clickable black-button" onclick="displayBuyOptions(this)">Comprar</div>
+		<button id="buy" class="under-hover clickable black-button" onclick="displayBuyOptions(this)">Comprar</button>
 	</div>
 </div>
 <div id="buy-options">
