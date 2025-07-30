@@ -42,6 +42,37 @@
         <div id="more-details" class="under-hover clickable" onclick="displayAllDetails(this)">Més detalls</div>
 
 	</div>
+    <div id="all-details" style="display: none">
+        <div id="product-description" >{{ producte.descripcio }}</div>
+        <div class="info">
+            <div class="desplegable">
+                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><h3 class="clickable under-hover">Informació del producte</h3><div class="arrow">+</div></div>
+                <div class="info-desplegable">
+                    <ul>
+                        <li>Material: Plata de llei 925</li>
+                        <li>Pedra:</li>
+                        <li>Xapat d’or de 3 micras</li>
+                    </ul>
+                    <p>Aquestes joies estan fetes artesanalment, per això poden presentar subtils variacions que les fan úniques i especials.</p>
+                </div>
+            </div>
+            <div class="desplegable">
+                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><h3 class="clickable under-hover">Cura de la peça</h3><div class="arrow">+</div></div>
+                <div class="info-desplegable">
+                    <p>Per preservar-ne l’aspecte original, recomanem evitar el contacte amb líquids, com perfums, cremes o aigua. Si la peça de plata s’ennegreix amb l’ús, es pot netejar suaument amb bicarbonat per recuperar-ne la brillantor inicial.</p>
+                    <h4> Nota sobre el xapat en or</h4>
+                    <p>Si la peça està xapada en or, és important tenir en compte que amb el pas del temps i l’ús habitual, el xapat pot desgastar-se. En cas que això succeeixi, oferim la possibilitat de tornar-la a xapar per un cost de 20€. Si és necessari enviar la peça, les despeses d’enviament aniran a càrrec del client. Per més informació <a href="mailto:infopanson@gmail.com">infopanson@gmail.com</a></p>
+                </div>
+            </div>
+            <div class="desplegable">
+                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><h3 class="clickable under-hover">Enviament</h3><div class="arrow">+</div></div>
+                <div class="info-desplegable">
+                    <p>Cada peça es fabrica artesanalment al nostre taller especialment per a tu, per això el temps de preparació és d’entre 15 i 21 dies laborables.<br>
+                    El termini d’enviament pot variar en funció del país de destinació. Rebràs un correu electrònic amb el número de seguiment tan bon punt s’hagi enviat el paquet.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 	<div id="main-right">
 		<button id="buy" class="under-hover clickable black-button" onclick="displayBuyOptions(this)">Comprar</button>
@@ -52,217 +83,4 @@
 	<button id="close-options" type="button" class="popup-cross" onclick="hideBuyOptions()">X</button>
     </form>
 </div>
-<div id="all-details" style="display: none">
-    <div class="product-description">{{ producte.descripcio }}</div>
-    <div class="info">
-        <h3>Informació del producte</h3>
-        <ul>
-            <li>Material: Plata de llei 925</li>
-            <li>Pedra:</li>
-            <li>Xapat d’or de 3 micras</li>
-        </ul>
-        <p>Aquestes joies estan fetes artesanalment, per això poden presentar subtils variacions que les fan úniques i especials.</p>
-        <h3>Cura de la peça</h3>
-        <p>Per preservar-ne l’aspecte original, recomanem evitar el contacte amb líquids, com perfums, cremes o aigua. Si la peça de plata s’ennegreix amb l’ús, es pot netejar suaument amb bicarbonat per recuperar-ne la brillantor inicial.</p>
-        <h4> Nota sobre el xapat en or</h4>
-        <p>Si la peça està xapada en or, és important tenir en compte que amb el pas del temps i l’ús habitual, el xapat pot desgastar-se. En cas que això succeeixi, oferim la possibilitat de tornar-la a xapar per un cost de 20€. Si és necessari enviar la peça, les despeses d’enviament aniran a càrrec del client. Per més informació <a href="mailto:infopanson@gmail.com">infopanson@gmail.com</a></p>
-
-        <h3>Enviament</h3>
-        <p>Cada peça es fabrica artesanalment al nostre taller especialment per a tu, per això el temps de preparació és d’entre 15 i 21 dies laborables.<br>
-        El termini d’enviament pot variar en funció del país de destinació. Rebràs un correu electrònic amb el número de seguiment tan bon punt s’hagi enviat el paquet.</p>
-    </div>
-
-
-</div>
-
-
-
-
-    <div class="detalls" style="display:none;">
-        <div class = "titol_producte">
-            {{ producte.nom }}
-        </div>
-
-        <div class = "tipus_producte">
-            {{ loc["tip-"+ producte.tipus] }}
-            {% if producte.subtitol != "" %}
-                <div class="punt-subtitol-producte">/</div>
-                <div class="subtitol-producte"> {{ producte.subtitol }}</div>
-            {% endif %}
-        </div>
-<div id="desplegables">
-        <div class="desplegable">
-            <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><h2 class="clickable under-hover">Mes detalls </h2><div class="arrow">+</div></div>
-
-            <div class="info-desplegable">
-                <h3>Informació del producte</h3>
-                <ul>
-                    <li>Material: Plata de llei 925</li>
-                    <li>Pedra:</li>
-                    <li>Xapat d’or de 3 micras</li>
-                </ul>
-                <p>Aquestes joies estan fetes artesanalment, per això poden presentar subtils variacions que les fan úniques i especials.</p>
-                <h3>Cura de la peça</h3>
-                <p>Per preservar-ne l’aspecte original, recomanem evitar el contacte amb líquids, com perfums, cremes o aigua. Si la peça de plata s’ennegreix amb l’ús, es pot netejar suaument amb bicarbonat per recuperar-ne la brillantor inicial.</p>
-                <h4> Nota sobre el xapat en or</h4>
-                <p>Si la peça està xapada en or, és important tenir en compte que amb el pas del temps i l’ús habitual, el xapat pot desgastar-se. En cas que això succeeixi, oferim la possibilitat de tornar-la a xapar per un cost de 20€. Si és necessari enviar la peça, les despeses d’enviament aniran a càrrec del client. Per més informació <a href="mailto:infopanson@gmail.com">infopanson@gmail.com</a></p>
-
-                <h3>Enviament</h3>
-                <p>Cada peça es fabrica artesanalment al nostre taller especialment per a tu, per això el temps de preparació és d’entre 15 i 21 dies laborables.<br>
-                El termini d’enviament pot variar en funció del país de destinació. Rebràs un correu electrònic amb el número de seguiment tan bon punt s’hagi enviat el paquet.</p>
-            </div>
-        </div>
-    </div>
-        <div class="opcions" id="form" >
-        {% if "opcions" in producte.__dict__ %}
-
-             {% if "materials" in producte.opcions %}
-                <br>
-
-                <fieldset  name="text:material" class="materials {{ "hide" if utils.len(producte.opcions["materials"].keys()) == 1 }}" >
-                    <legend>Seleciona un material</legend>
-                    {% for n, (material, info) in utils.enumerate(producte.opcions["materials"].items()) %}
-                    <div>
-                        <input type="radio" name="material" price="{{ info["preu"] }}" class="material" value="{{ material }}" {{ "checked" if n==0 }}  onchange="updatePrice()"/>
-                        <label>{{ material }}</label>
-                    </div>
-                    {% endfor %}
-                </fieldset>
-                <br>
-            {% endif %}
-
-            {% if "variacions" in producte.opcions %}
-                <br>
-                <fieldset  name="text:variacio" class="variacions {{ "hide" if utils.len(producte.opcions["variacions"].keys()) == 1 }}" >
-                    <legend>Seleciona una variacio</legend>
-                    {% for n, (variacio, info) in utils.enumerate(producte.opcions["variacions"].items()) %}
-                    <div>
-                        <input type="radio" name="variacio" price="{{ info["preu"] }}" class="variation variacio" value="{{ variacio }}" {{ "checked" if n == 0 }}  onchange="updatePrice()"/>
-                        <label>{{ variacio }}</label>
-                    </div>
-                    {% endfor %}
-                </fieldset>
-                <br>
-            {% endif %}
-
-
-            {% if producte.opcions["colors"] %}
-                <span class="colors_producte">
-                <br>
-                {% for n in range(producte.opcions.get("n_colors", 1)) %}
-                    <br>
-                    {% if producte.opcions.get("extra_colors", None) %}
-
-                        Color {{ loc[producte.opcions["extra_colors"][n]] }}:
-                    {% else %}
-                        Color {{ n+1 }}:
-                    {% endif %}
-                    <select name="color" price="0" class="color-selector" onchange="updatePrice()">
-                        <option class="color-option" value="" {{ "selected=\"selected\"" if opcions["color"] == "None" }} ></option>
-                        {% for color, info in producte.opcions["colors"].items() %}
-                                <option class="color-option" price="{{ info["preu"] }}" value="{{ color }}" {{ "selected=\"selected\"" if color == opcions["color"][n] }}> {{ color }}</option>
-                        {% endfor %}
-                    </select>
-                {% endfor %}
-                </span>
-                <br>
-            {% endif %}
-
-            <span>
-
-            {% if producte["totes_talles"] or "totes" in producte.opcions.get("talles", {}) %}
-                <br>
-                <span class="talles_producte">
-                Talla:
-                <span><input type="number" name="talla" class="talla talla-unica " required
-                           min="0"
-                           max="99"
-                           step="1"
-                           list="defaultSizes"
-                           maxlength="2"
-                           {{"value={}".format(opcions["talla"]) if opcions["talla"] != "None" }}
-                    ><em id="info-talles" class="clickable under-hover" onclick="showPopup(this, this.nextElementSibling)">Descobreix la teva talla</em>
-                    <div class="popup-info" id="popup-talles" onclick="event.stopPropagation()">
-                    <h3>Graella de talles internacional</h3>
-                        <p>És molt fàcil! A continuació t’expliquem pas a pas què has de fer:</p>
-                        <ol>
-                            <li><strong>Agafa un anell que et vagi bé</strong> i assegura’t que tant aquest com el que vols comprar siguin per al mateix dit i la mateixa mà (cada dit pot tenir una mida diferent). Millor si és fi i regular, com una aliança. L’important és que quedi ben recolzat sobre el paper.</li>
-                            <li><strong>Dibuixa la circumferència interior</strong> de l’anell sobre el paper i mesura el diàmetre. Recorda tenir en compte el gruix del llapis quan facis la marca.</li>
-                            <li><strong>Consulta la taula de talle</strong> que tens a continuació i busca la que correspongui al teu diàmetre.</li>
-                            <li><strong>Quan compris un anell a la botiga online</strong>, només caldrà que introdueixis aquest número.</li>
-                            <li><strong>Si reps l’anell i no et va bé</strong>, no et preocupis: te’l posaré a mida.</li>
-                        </ol>
-                    </div>
-                    </span>
-
-                {% elif producte.opcions["talles"] %}
-                    <br>
-                    <span class="talles_producte">
-                    Talles disponibles: <br>
-
-                    {% for talla, info in producte.opcions["talles"].items() %}
-                        {% if opcions["talla"] %}
-                            {% if  opcions["talla"].strip() == utils.str(talla) %}
-                                <label class="talla-label"><input name="talla" type="radio" class="talla-radio" id="selected-talla" value="{{ talla }} ">{{ talla }}</label>
-                            {%  else %}
-                                <label class="talla-label"><input name="talla" type="radio" class="talla-radio" value="{{ talla }}" checked="checked">{{ talla }}</label>
-                            {%  endif %}
-                        {%  else %}
-                                <label class="talla-label"><input name="talla" type="radio" class="talla-radio" value="{{ talla }}">{{ talla }}</label>
-                        {%  endif %}
-                    {% endfor %}
-                        <br>
-                {% endif %}
-                <br>
-                </span>
-                <input class="afegir_carret" type="button" value="AFEGIR AL CARRET" onclick="submitToCart()">
-                <div class="preu-final"> <span id="final_price"></span> &#8364;</div>
-
-            <br>
-            <div id="missing-info"><p>Siusplau introdueix tots els detalls</p></div>
-            <br><br><br>
-        {% endif %}
-        </span>
-        </div>
-
-        <div class = "detalls_generals">
-            {{ loc.pro_missatge }}<br><br>
-            <span class="clickable under-hover" onclick="showPopup(this, this.nextElementSibling)"><img class="small-icon" src="/static/media/shield.svg" alt="garantia">{{ loc.pro_garantia }}</span>
-            <div class="popup-info" id="popup-garantia" onclick="event.stopPropagation()">
-                <h3>Garantia i reparacions</h3>
-                    <p>En cas que la peça presenti algun desperfecte a causa d’un defecte de fabricació, es podrà reparar totalment de franc.<br>
-                    Exemples de desperfectes coberts per la garantia:</p>
-                    <ul>
-                        <li>Trencament de la peça.</li>
-                        <li>Pèrdua d’una pedra o perla.</li>
-                    </ul>
-                    <p>Per tal de validar la garantia, caldrà adjuntar una fotografia del comprovant de compra on consti la data.<br>
-                    No es repararan peces que hagin patit un mal ús.<br>
-                    Per sol·licitar la reparació, envia un correu amb fotografies del desperfecte a: <a href="mailto:infopanson@gmail.com">infopanson@gmail.com</a>.<br>
-                    Els xapats en or no estan coberts per aquesta garantia, ja que la seva pèrdua és una conseqüència natural de l’ús i no un defecte de fabricació.<br>
-                    Si teniu qualsevol dubte, no dubteu a escriure’ns a <a href="mailto:infopanson@gmail.com">infopanson@gmail.com</a>. Estarem encantats d’ajudar-vos i resoldre totes les vostres consultes.</p></div>
-
-            <br>
-            <span class="clickable under-hover" onclick="showPopup(this, this.nextElementSibling)"><img class="small-icon" src="/static/media/reload.svg" alt="devolucions">{{ loc.pro_devolucio }}</span>
-            <div class="popup-info" id="popup-devolucions" onclick="event.stopPropagation()">
-                <h3>30 dies per a devolucions i canvis</h3>
-                <p>Disposeu d’un termini de 30 dies des de la data de compra per fer devolucions o canvis.<br>
-                Les despeses d’enviament aniran a càrrec del comprador.<br>
-                Si teniu qualsevol dubte, no dubteu a escriure’ns a <a href="mailto:infopanson@gmail.com">infopanson@gmail.com</a>.<br>
-                Estarem encantats d’ajudar-vos i resoldre totes les vostres consultes.</p></div>
-
-            <br>
-        </div>
-
-</div>
-
-</body>
-
-<datalist id="defaultSizes">
-  <option value="10"></option>
-  <option value="12"></option>
-  <option value="14"></option>
-  <option value="16"></option>
-  <option value="18"></option>
-</datalist>
 

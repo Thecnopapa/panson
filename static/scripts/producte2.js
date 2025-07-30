@@ -51,6 +51,7 @@ function showInfoDropdown(trigger, popupContent, arrow=undefined) {
     if (arrow) {
         arrow.innerHTML = "-";
     }
+    popupContent.scrollIntoView({behavior: "smooth"});
 
 }
 
@@ -198,7 +199,7 @@ function hideBuyOptions(){
 	optionDiv = document.getElementById("buy-options");
 	buyButton = document.getElementById("buy");
 	optionDiv.style.display = "none";
-	buyButton.style.display = "flex";
+	buyButton.style.display = "initial";
 }
 
 function displayAllDetails(trigger){
