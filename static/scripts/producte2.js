@@ -32,9 +32,12 @@ function updatePrice(){
         }
     }
     const priceTag = document.getElementById("final_price");
-    priceTag.innerHTML = price;
-}
+    try {
+        priceTag.innerHTML = price;
+    } catch (error) {}
 
+}
+console.log(1);
 function submitToCart () {
     const theForm = document.getElementById("form");
     const missingInfo = document.getElementById("missing-info");
@@ -65,7 +68,7 @@ function hideInfoDropdown(trigger, popupContent, arrow=undefined) {
 }
 
 function showPopup(trigger, popupContent) {
-    popupContent.style.display = "block";
+    popupContent.style.display = "flex";
     hideBackgound(popupContent);
 }
 
@@ -80,7 +83,6 @@ function hidePopup(source, sourceElement) {
     popupContent.getElementsByClassName("popup-cross")[0].remove();
     popupContent.nextElementSibling.remove();
     popupContent.style.display = "none";
-
 }
 
 function hideBackgound(popupContent, cross=true) {
@@ -111,8 +113,10 @@ function slideshowNext(slideshow){
 function slideshowPrev(slideshow){
 	if (slideshow === "producte"){
         productSlideshow.update(-1);
+        console.log("slideshowPrev");
 	}
 }
+
 
 class Slideshow{
     constructor(container) {
@@ -182,11 +186,7 @@ class Slideshow{
     }
 }
 
-let productSlideshow = undefined;
-let fotos = document.getElementById("fotos-producte");
-if (fotos.children.length > 1){
-    productSlideshow = new Slideshow(fotos);
-}
+
 
 function displayBuyOptions(trigger){
 	optionDiv = document.getElementById("buy-options");
@@ -216,3 +216,22 @@ function hideAllDetails(trigger){
 	trigger.innerHTML = "Més detalls";
     trigger.setAttribute("onclick","displayAllDetails(this)");
 }
+
+
+
+
+
+
+
+let productSlideshow = undefined;
+console.log( document.getElementById("fotos-producte"));
+let fotos = document.getElementById("fotos-producte");
+console.log(fotos.children.length > 1);
+if (fotos.children.length > 1){
+    productSlideshow = new Slideshow(fotos);
+}
+console.log(productSlideshow);
+
+
+
+
