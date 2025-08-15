@@ -83,6 +83,57 @@
 <div id="buy-options">
     <form action="/{{ lan }}/carret/add" method="post" enctype="multipart/form-data" id="form">
 	<button id="close-options" type="button" class="popup-cross" onclick="hideBuyOptions()">X</button>
+	{% if "variacions" in producte.opcions %}
+		<fieldset  name="text:variacio" class="variacions {{ "hide" if utils.len(producte.opcions["variacions"].keys()) == 1 }}" >
+			<legend>Seleciona una variacio</legend>
+			{% for n, (variacio, info) in utils.enumerate(producte.opcions["variacions"].items()) %}
+				<div>
+					<input type="radio" name="variacio" price="{{ info["preu"] }}" class="variation variacio" value="{{ variacio }}" {{ "checked" if n == 0 }}  onchange="updatePrice()"/>
+					<label>{{ variacio }}</label>
+				</div>
+			{% endfor %}
+		</fieldset>
+	{% endif %}
+
+
+	{% if producte.opcions.get("n_colors", 0) >0 %}
+		<fieldset class="colors_producte">
+			{% if producte.opcions.get("n_colors", 1) >1 %}
+				<legend>Colors</legend>
+			{% else %}
+				<legend>Color</legend>
+			{% endif %}
+			{% for n in range(producte.opcions.get("n_colors", 1)) %}
+				{% if producte.opcions.get("extra_colors", None) %}
+					{{ loc[producte.opcions["extra_colors"][n]] }}:
+				{% else %}
+					{{ n+1 }}:
+				{% endif %}
+				<select name="color" price="0" class="color-selector" onchange="updatePrice()">
+					<option class="color-option" value="" {{ "selected=\"selected\"" if opcions["color"] == "None" }} ></option>
+					{% for color, info in producte.opcions["colors"].items() %}
+					<option class="color-option" price="{{ info["preu"]}}" value="{{ color }}" {{ "selected=\"selected\"" if color == opcions["color"][n] }}> {{ color }}</option>
+					{% endfor %}
+				</select>
+				<br>
+			{% endfor %}
+		</fieldset>
+	{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+	<input class="afegir_carret" type="button" value="AFEGIR AL CARRET" onclick="submitToCart()">                                                                                                   <div class="preu-final"> <span id="final_price"></span> &#8364;</div>
+
+
     </form>
 </div>
 
