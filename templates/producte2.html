@@ -20,7 +20,11 @@
 <body>
 
 <div class="content-producte">
-    <div class="main-foto {{ "clickable" if utils.len(producte.imatges) >1  }}"  onclick="{{ 'showPopup(this, this.nextElementSibling)' if utils.len(producte.imatges) >1 }}" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media')"></div>
+    <div class="main-foto {{ "clickable" if utils.len(producte.imatges) >1  }}"  onclick="{{ 'showPopup(this, this.nextElementSibling, cross=false)' if utils.len(producte.imatges) >1 }}" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media')">
+	    {% if utils.len(producte.imatges) >1%}
+	    <div class=more-images>+{{utils.len(producte.imatges)-1}} imatges</div>
+	    {% endif %}
+    </div>
     <div class="popup-info" id="slideshow-producte" onclick="event.stopPropagation()">
 	    <div id="fotos-producte">
         	{% for n, imatge in utils.enumerate(producte._imatges2) %}

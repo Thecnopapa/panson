@@ -21,11 +21,20 @@ body {
 }
 
 .main-foto{
+	position:relative;
     display:flex;
 	width: 60dvw;
 	height: inherit;
     background-position: center;
     background-size: cover;
+}
+
+.more-images{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: fit-content;
+	padding: 0.5dvh;
 }
 
 #slideshow-producte {
@@ -97,6 +106,19 @@ body {
 .next{
 	left:80dvh;
 }
+
+.bubbles{
+	height:2dvh;
+	position: absolute;
+	z-index: 10;
+}
+.bubble{
+	border-radius: 50%;
+	height:2dvh;
+	width:2dvh;
+	background-color: black;
+}
+
 
 #main-details{
 	position:relative;

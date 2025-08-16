@@ -67,9 +67,9 @@ function hideInfoDropdown(trigger, popupContent, arrow=undefined) {
     }
 }
 
-function showPopup(trigger, popupContent) {
+function showPopup(trigger, popupContent, cross=true) {
     popupContent.style.display = "flex";
-    hideBackgound(popupContent);
+    hideBackgound(popupContent, cross=cross);
 }
 
 function hidePopup(source, sourceElement) {
@@ -80,7 +80,10 @@ function hidePopup(source, sourceElement) {
         popupContent = sourceElement.firstChild;
     }
     popupContent.parentElement.before(popupContent);
-    popupContent.getElementsByClassName("popup-cross")[0].remove();
+	try{
+		popupContent.getElementsByClassName("popup-cross")[0].remove();
+	} catch{};
+
     popupContent.nextElementSibling.remove();
     popupContent.style.display = "none";
 }
@@ -119,18 +122,33 @@ function slideshowPrev(slideshow){
 
 
 class Slideshow{
-    constructor(container) {
+    constructor(container, displayCounter=true) {
         this.imageContainer = container;
         this.images = container.children;
         this.counter = 0;
         this.n_images = this.imageContainer.childElementCount;
         this.state = "still";
 	    this.update(0);
+	this.displayCounter = displayCounter
+	this.lastImage =this.imageContainer.lastElementChild;
+	if (displayCounter){this.createCounter();}
     }
+	
+    createCounter(){
+	var bubbles = document.createElement("div");
+	    bubbles.classList.add("bubbles");
+	for (let i = 0; i < this.n_images; i++) {
+		var newBubble = document.createElement("span");
+		newBubble.classList.add("bubble");
+		bubbles.appendChild(newBubble);
+	}
+	this.imageContainer.appendChild(bubbles);
+    }
+
 
     selectImages(){
         if (this.counter === 0) {
-            this.prevImg = this.imageContainer.lastElementChild;
+            this.prevImg = this.lastImage;
         } else {
             this.prevImg = this.images[this.counter - 1];
         }
