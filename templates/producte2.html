@@ -83,8 +83,10 @@
 <div id="buy-options">
     <form action="/{{ lan }}/carret/add" method="post" enctype="multipart/form-data" id="form">
 	<button id="close-options" type="button" class="popup-cross" onclick="hideBuyOptions()">X</button>
+
+
 	{% if "variacions" in producte.opcions %}
-		<fieldset  name="text:variacio" class="variacions {{ "hide" if utils.len(producte.opcions["variacions"].keys()) == 1 }}" >
+		<fieldset  name="text:variacio" class="option-field variacions {{ "hide" if utils.len(producte.opcions["variacions"].keys()) == 1 }}" >
 			<legend>Seleciona una variacio</legend>
 			{% for n, (variacio, info) in utils.enumerate(producte.opcions["variacions"].items()) %}
 				<div>
@@ -97,7 +99,7 @@
 
 
 	{% if producte.opcions.get("n_colors", 0) >0 %}
-		<fieldset class="colors_producte">
+		<fieldset class="colors_producte option-field">
 			{% if producte.opcions.get("n_colors", 1) >1 %}
 				<legend>Colors</legend>
 			{% else %}

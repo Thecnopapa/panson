@@ -155,12 +155,14 @@ body {
 }
 
 #buy-options{
-    margin-top:5dvh;
+    margin-top:1dvh;
+    padding-top: 2dvh;
     position:relative;
 	height:20dvh;
 	background-color: purple;
 	display:none;
-	width:100%
+	width:100%;
+	
 
 }
 #all-details{
@@ -242,6 +244,13 @@ body {
     top: 0;
 }
 
+.option-field{
+	padding-bottom: 1dvh;
+	width: 30%;
+
+	
+}
+
 
 
 
@@ -296,6 +305,16 @@ body {
     }
     #main-right, #main-left {
         width: auto;
+    }
+    .buy-options{
+    	justify-content: center;
+	align-items: center;
+	justify-items: center;
+	align-content: center;
+	flex-direction: column;
+    }
+    .option-field{
+    	width: 80dvw;
     }
 
 }
