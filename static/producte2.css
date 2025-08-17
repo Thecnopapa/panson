@@ -54,7 +54,8 @@ body {
     width: inherit;
     height: inherit;
     overflow: hidden;
-    align-items: center
+    align-items: center;
+    justify-content: center;
 }
 
 .foto_producte {
@@ -108,11 +109,14 @@ body {
 }
 
 .bubbles{
+    display: flex;
 	height:2dvh;
 	position: absolute;
 	z-index: 10;
+    bottom:0;
 }
 .bubble{
+    display: flex;
 	border-radius: 50%;
 	height:2dvh;
 	width:2dvh;
@@ -176,17 +180,7 @@ body {
     cursor: pointer;
 }
 
-#buy-options{
-    margin-top:1dvh;
-    padding-top: 2dvh;
-    position:relative;
-	height:20dvh;
-	background-color: purple;
-	display:none;
-	width:100%;
-	
 
-}
 #all-details{
     position:relative;
 	height:fit-content;
@@ -235,8 +229,8 @@ body {
 .arrow{
 }
 
-
 .popup-info {
+    flex-direction: column;
     display: none;
     position: fixed;
     z-index: 50;
@@ -244,7 +238,6 @@ body {
     max-width: 80%;
     background-color: rgba(255, 255, 255, 100);
     padding: 2%;
-
 }
 
 
@@ -265,14 +258,39 @@ body {
     right: 0;
     top: 0;
 }
+#form{
+    height: fit-content;
+    display: none;
+    flex-direction: row;
+    width: 100%;
+    background-color: rgb(255, 143, 0);
+    position: relative;
+
+}
+
+#buy-options{
+    margin-top:1dvh;
+    padding-top: 2dvh;
+    position:relative;
+	background-color: purple;
+	display:flex;
+	width:100%;
+    flex-direction: row;
+    padding-bottom: 2dvh;
+}
 
 .option-field{
 	padding-bottom: 1dvh;
 	width: 30%;
-
-	
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
 }
 
+#missing-info{
+    display: none;
+}
 
 
 

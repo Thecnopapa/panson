@@ -207,14 +207,14 @@ class Slideshow{
 
 
 function displayBuyOptions(trigger){
-	optionDiv = document.getElementById("buy-options");
+	optionDiv = document.getElementById("form");
 	optionDiv.style.display = "flex";
 	optionDiv.scrollIntoView({"behaviour": "smooth"});
 	trigger.style.display ="none";
 }
 
 function hideBuyOptions(){
-	optionDiv = document.getElementById("buy-options");
+	optionDiv = document.getElementById("form");
 	buyButton = document.getElementById("buy");
 	optionDiv.style.display = "none";
 	buyButton.style.display = "initial";
