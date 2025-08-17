@@ -76,7 +76,7 @@ def return_blank():
     loc = Localisation2()
     print(loc.texts)
     print([p.id for p in loc.texts.stream()])
-    return "blank"
+    return loc.colours_plata
 
 
 @app.route("/blank2")

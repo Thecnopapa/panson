@@ -56,3 +56,7 @@ def get_opcions():
         if len(opcions["color"]) == 0:
             opcions["color"] = "None"
     return opcions
+
+def split_multiple(string, *delimiters):
+    import re
+    return re.split("|".join(delimiters), string)
