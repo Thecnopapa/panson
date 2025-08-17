@@ -130,10 +130,11 @@ class Slideshow{
         this.counter = 0;
         this.n_images = this.imageContainer.childElementCount;
         this.state = "still";
-	    this.update(0);
-	this.displayCounter = displayCounter
-	this.lastImage =this.imageContainer.lastElementChild;
-	if (displayCounter){this.createCounter();}
+
+        this.displayCounter = displayCounter
+        this.lastImage =this.imageContainer.lastElementChild;
+        if (displayCounter){this.createCounter();}
+        this.update(0);
     }
 	
     createCounter(){
@@ -142,11 +143,11 @@ class Slideshow{
 	for (let i = 0; i < this.n_images; i++) {
 		var newBubble = document.createElement("span");
 		newBubble.classList.add("bubble");
+        newBubble.setAttribute("onclick","productSlideshow.jumpTo("+String(i)+")");
 		bubbles.appendChild(newBubble);
 	}
 	this.imageContainer.appendChild(bubbles);
     this.bubbles = this.imageContainer.querySelectorAll('.bubble');
-    this.updateBubbles()
 
     }
     updateBubbles(){
@@ -172,6 +173,23 @@ class Slideshow{
         } else {
             this.nextImg = this.images[this.counter + 1];
         }
+    }
+
+    jumpTo(target, self=this){
+        console.log("Jumping to " + target);
+        target = Number(target);
+        console.log(self);
+        console.log(self.counter, target);
+        if (self.counter == target) {} else {
+            if (self.counter > target) {
+            self.update(-1);
+        } else if (self.counter < target) {
+            self.update(1);
+        }
+            console.log(self.counter, target);
+        setTimeout(self.jumpTo, 400, target, self);
+        }
+
     }
 
     update(change){

@@ -27,6 +27,7 @@ body {
 	height: inherit;
     background-position: center;
     background-size: cover;
+    cursor: pointer;
 }
 
 .more-images{
@@ -43,7 +44,7 @@ body {
 	justify-items:center;
 	align-items: center;
 	justify-content: center;
-    cursor: pointer;
+
     position: relative;
     flex-direction: column;
 }
@@ -74,23 +75,27 @@ body {
     position: absolute;
     font-size: x-large;
     z-index: 20;
-    border-radius:50%;
-    background-color: rgba(255,255,255,0.3);
-    width: 8dvh;
-    height: 8dvh;
+    width: 20dvw;
+    height: 100%;
     display:flex;
     text-align: center;
-    justify-content:center;
     align-items:center;
     justify-items:center;
+    cursor: pointer;
 }
 
 .slideshow-left{
-    left: 4dvh;
+    left: 0;
+    justify-content:flex-start;
+    padding-left: 0.7dvh;
 
 }
 .slideshow-right{
-    right: 4dvh;
+    right: 0;
+    justify-content:flex-end;
+    padding-right: 0.7dvh;
+
+
 }
 .previous, .current, .next{
 	transition: left ease-in-out 0.4s;
@@ -111,7 +116,7 @@ body {
 .bubbles{
     display: flex;
 	position: absolute;
-	z-index: 10;
+	z-index: 30;
     bottom:2dvh;
     align-items: flex-end
 
@@ -124,6 +129,7 @@ body {
     border: black solid 0.3dvh;
 	background-color: transparent;
     margin:0.5dvh;
+    cursor: pointer;
 
 }
 .current-bubble{
@@ -266,6 +272,9 @@ body {
     right: 0;
     top: 0;
 }
+#form .popup-cross{
+    	display:none;
+    }
 #form{
     height: fit-content;
     display: none;
@@ -355,22 +364,23 @@ body {
 
     #all-details {
         display: flex !important;
-        padding-bottom:2dvh;
+        padding-bottom:3dvh;
 	width:80dvw;
 	max-width:80dvw;
     }
     #main-right, #main-left {
         width: auto;
+        height: auto;
     }
-
+    #buy{
+        margin-bottom: 3dvh;
+    }
     #form{
 	    align-items: center;
     	flex-direction: column;
 	padding-bottom: 2dvh;
     }
-    #form .popup-cross{
-    	display:none;
-    }
+
     #buy-options{
     	width:100%;
     	justify-content:center;
