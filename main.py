@@ -74,9 +74,9 @@ def make_session_permanent():
 def return_blank():
     from app_essentials.localisation import Localisation2
     loc = Localisation2()
-    print(loc.text_ref)
-    print(loc.text)
-    return loc.text
+    print(loc.texts)
+    print([p.id for p in loc.texts.stream()])
+    return "blank"
 
 
 @app.route("/blank2")

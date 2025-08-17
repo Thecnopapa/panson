@@ -13,17 +13,26 @@ class Localisation2:
 
 
     def preload(self, *pages):
+        if len(pages) == 0:
+            pages = [p.id for p in self.texts.stream()]
         for page in pages:
-            data = {"_".join([page,t.id]):t.to_dict[self.lan] for t in self.texts.where(filter=FieldFilter("activa", "==", True, )).stream()}
+            data = {"_".join([page,t.id]):t.to_dict[self.lan] for t in self.texts.document(page).stream()}
             self.preloaded = {**self.preloaded, **data}
 
 
     def get_text(self, col, name):
-        if "_".join([col,name]) in self.preloaded:
-            return self.preloaded["_".join([col,name])]
-        else:
+        if "_".join([col,name]) not in self.preloaded.keys():
             self.preload(col)
-            return self.preloaded["_".join([col, name])]
+        return self.preloaded["_".join([col, name])]
+
+    def __getitem__(self, item):
+        comps = item.split(["_","-"])
+        col = comps[0]
+        name = "-".join(comps[1:])
+        return self.get_text(col, name)
+
+    def __getattr__(self, item):
+        return self.__getitem__(item)
 
 
 
