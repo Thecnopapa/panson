@@ -293,15 +293,17 @@ def contatce(lan):
 
 
 @app.route("/<lan>/admin/")
+@app.route("/<lan>/admin/page/")
 @app.route("/admin/")
-def admin(lan="cat"):
+@app.route("/admin/<page>/")
+def admin(lan="cat", page="main"):
     lan="cat"
     user = get_current_user()
     print(user.__dict__)
     print("admin check")
     print(user.username, user.password)
     if check_if_admin(user.username, user.password):
-        return template(lan=lan, templates="admin", user = user.username, amagats=True)
+        return template(lan=lan, templates="admin-{}".format(page), user = user.username, amagats=True)
     else:
         return template(lan=lan, templates="login")
 

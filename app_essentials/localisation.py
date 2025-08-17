@@ -14,8 +14,12 @@ class Localisation2:
         self.misc_ref = localisation.document("misc")
         self.misc_labels = []
         self.misc = {}
+        self.preloaded_labels = []
         self.texts = self.db.document("languages").collection("text")
         self.preload_misc()
+        self.pages = [p.id for p in self.texts.stream()]
+        self.extra = self.db.document("languages").get().to_dict()
+        self.all_langs = self.extra["langs"]
 
     def preload_misc(self):
         for key, value in self.misc_ref.get().to_dict().items():
@@ -30,12 +34,17 @@ class Localisation2:
 
     def preload(self, *pages):
         if len(pages) == 0:
-            pages = [p.id for p in self.texts.stream()]
+            pages = self.pages
         data = {}
         for page in pages:
             doc = self.texts.document(page).get()
+            self.preloaded_labels.append(page)
             for key, value in doc.to_dict().items():
-                data["-".join([page,key])] = value[self.lan]
+                try:
+                    data["-".join([page,key])] = value[self.lan]
+                except KeyError:
+                        data["-".join([page,key])] = value["cat"]
+
         self.preloaded = {**self.preloaded, **data}
 
 
@@ -57,6 +66,17 @@ class Localisation2:
 
     def __getattr__(self, item):
         return self.__getitem__(item)
+
+    def get_values_by_page(self, page):
+        doc = self.texts.document(page).get()
+        return doc.to_dict()
+
+    def get_all_values_by_page(self):
+        data = {}
+        for page in self.pages:
+            data[page] = self.get_values_by_page(page)
+        return data
+
 
 
 

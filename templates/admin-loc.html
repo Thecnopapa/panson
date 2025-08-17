@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PANSON: Admin</title>
+    <link href='/static/navigation.css' rel='stylesheet'>
+    <script defer type="text/javascript" src="/static/scripts/navigation.js"></script>
+    <script defer type="text/javascript" src="/static/scripts/admin.js"></script>
+
+    <link href='/static/admin.css' rel='stylesheet'>
+</head>
+
+
+
+
+<div class="content">
+    <h1>Admin</h1>
+    <button onclick="window.location.href='/admin/main/'">Productes</button>
+    <br>
+
+
+{% for page, data in loc.get_all_values_by_page().items() %}
+    <div class="page-block">
+        <div class="page-name">{{ page }}</div>
+        {% for key, value in data.items() %}
+            <div class="loc-block">
+                <div class="loc-key"><em>{{ page }} - </em>{{ key }}</div>
+                {% for lan in ["cat", "en"] %}
+                    <div class="lan-block"><label class="lan-name">{{ lan }}:</label><textarea onkeydown="resizeArea(this)" oncontextlost="updateField(this)" class="lan-value">{{ value[lan] }}</textarea></div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endfor %}
+
+
+
+</div>
+
+
+
+</html>

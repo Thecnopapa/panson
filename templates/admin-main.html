@@ -16,7 +16,8 @@
 
 <div class="content">
     <h1>Admin</h1>
-
+    <button onclick="window.location.href='/admin/loc/'">Localitzacio</button>
+<br>
     <div class="productes">
         {% for producte in productes.get_all() + [productes.new()] %}
             <form action="/admin/update/{{ producte._id }}" method="post" class="producte" enctype="multipart/form-data">

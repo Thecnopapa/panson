@@ -91,3 +91,56 @@ input, option ,select, textarea {
     background-position: center;
     background-size: cover;
 }
+
+
+
+
+
+
+
+
+
+.page-block{
+    display: flex;
+    flex-direction: column;
+    background-color: lightgray;
+    margin-bottom: 3dvh;
+}
+
+.page-name{
+    font-size: 3dvh;
+    text-align: center;
+}
+
+.loc-block{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.loc-key{
+    font-size: 2dvh;
+    text-decoration: underline;
+    font-weight: bold;
+}
+.loc-key em{
+    text-decoration: none;
+    font-weight: normal;
+}
+
+.lan-block{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.lan-name{
+    font-size: 2dvh;
+    font-weight: bold;
+}
+.lan-value{
+    margin: 1dvh;
+    height: auto;
+}
+
+
