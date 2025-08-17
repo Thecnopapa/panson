@@ -110,17 +110,24 @@ body {
 
 .bubbles{
     display: flex;
-	height:2dvh;
 	position: absolute;
 	z-index: 10;
-    bottom:0;
+    bottom:2dvh;
+    align-items: flex-end
+
 }
 .bubble{
     display: flex;
 	border-radius: 50%;
-	height:2dvh;
-	width:2dvh;
-	background-color: black;
+	height:1.5dvh;
+	width:1.5dvh;
+    border: black solid 0.3dvh;
+	background-color: transparent;
+    margin:0.5dvh;
+
+}
+.current-bubble{
+    margin-bottom: 1dvh;
 }
 
 
@@ -142,10 +149,9 @@ body {
     height: 13dvh;
     display:flex;
     flex-direction: column;
-    width: fit-content;
     align-items: center;
     justify-content: center;
-
+    width: 16dvw;
 }
 
 #main-left{
@@ -187,10 +193,8 @@ body {
 	background-color: #ffffff;
     display: flex;
     flex-direction: column;
-    margin-right: 5dvw;
-    margin-left: 5dvw;
-    width:80dvh;
-    max-width: 80dvh;
+    width:60dvw;
+    max-width: 60dvw;
 
 }
 
@@ -277,7 +281,6 @@ body {
 }
 
 #buy-options{
-    margin-top:1dvh;
     padding-top: 2dvh;
     position:relative;
 	display:flex;

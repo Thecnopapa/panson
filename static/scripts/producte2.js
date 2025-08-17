@@ -145,6 +145,18 @@ class Slideshow{
 		bubbles.appendChild(newBubble);
 	}
 	this.imageContainer.appendChild(bubbles);
+    this.bubbles = this.imageContainer.querySelectorAll('.bubble');
+    this.updateBubbles()
+
+    }
+    updateBubbles(){
+        for (var i = 0; i < this.bubbles.length; i++) {
+            if (i === this.counter){
+                this.bubbles[i].classList.add("current-bubble");
+            } else {
+                this.bubbles[i].classList.remove("current-bubble");
+            }
+        }
     }
 
 
@@ -174,6 +186,10 @@ class Slideshow{
             }
             this.selectImages();
             this.displayImages();
+            if (this.displayCounter) {
+                this.updateBubbles();
+            }
+
         } else {
             console.log("slideshow active")
         }
