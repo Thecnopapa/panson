@@ -3,7 +3,8 @@ import os
 from google.cloud.firestore import FieldFilter
 from app_essentials.utils import *
 
-from app_essentials.firebase import localisation, db
+from app_essentials.firebase import localisation, db, check_if_admin
+from app_essentials.session import get_current_user
 
 class Localisation2:
     def __init__(self, lan="cat"):
@@ -15,6 +16,10 @@ class Localisation2:
         self.misc = {}
         self.texts = self.db.document("languages").collection("text")
         self.preload_misc()
+        self.is_admin = False
+        user = get_current_user()
+        if check_if_admin(user.username, user.password):
+            self.is_admin = True
 
     def preload_misc(self):
         for key, value in self.misc_ref.get().to_dict().items():
@@ -22,7 +27,10 @@ class Localisation2:
             self.misc_labels.append(key)
 
     def get_misc(self, label, value):
-        return self.misc[label][value]
+        try:
+            return self.misc[label][value]
+        except KeyError:
+            return "Missing value ({}-{})".format(label, value)
 
     def preload(self, *pages):
         if len(pages) == 0:
@@ -36,12 +44,10 @@ class Localisation2:
 
 
     def get_text(self, col, name):
-        print(col, self.misc_labels)
         if col in self.misc_labels:
             return self.get_misc(col, name)
         if "-".join([col,name]) not in self.preloaded.keys():
             self.preload(col)
-        print(self.preloaded)
         try:
             return self.preloaded["-".join([col, name])]
         except KeyError:
