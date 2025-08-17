@@ -189,6 +189,7 @@ body {
     flex-direction: column;
     margin-right: 5dvw;
     margin-left: 5dvw;
+    width:80dvh;
     max-width: 80dvh;
 
 }
@@ -200,13 +201,16 @@ body {
     margin-bottom: 2dvh;
     margin-top: 2dvh;
     text-align: justify;
+    width:100%;
 }
 
-#info{
+.info{
+	width:100%;
 }
 
 .desplegable{
     height: fit-content;
+    width:100%;
 }
 .titol-desplegable {
     display: flex;
@@ -262,9 +266,13 @@ body {
     height: fit-content;
     display: none;
     flex-direction: row;
-    width: 100%;
-    background-color: rgb(255, 143, 0);
+    width:92dvw;
+    max-width: 92dvw;
+    margin-left:4dvw;
+    margin-right:4dvw;
     position: relative;
+    align-items: center;
+    justify-content: center;
 
 }
 
@@ -272,26 +280,28 @@ body {
     margin-top:1dvh;
     padding-top: 2dvh;
     position:relative;
-	background-color: purple;
 	display:flex;
-	width:100%;
+	width:auto;
     flex-direction: row;
     padding-bottom: 2dvh;
 }
 
 .option-field{
 	padding-bottom: 1dvh;
-	width: 30%;
+	width: fit-content;
     height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center
+    justify-content: center;
 }
 
-#missing-info{
-    display: none;
+.preu-final{
+	margin:1dvh;
 }
 
+.add-to-cart{
+	height: fit-content;
+}
 
 
 
@@ -332,7 +342,8 @@ body {
         padding-top: 2dvh;
         justify-content: flex-start;
         align-items: center;
-
+	padding-bottom:0;
+	margin-bottom:0;
     }
 
     #more-details {
@@ -341,20 +352,28 @@ body {
 
     #all-details {
         display: flex !important;
-        padding-bottom: 2dvh;
+        padding-bottom:2dvh;
+	width:80dvw;
+	max-width:80dvw;
     }
     #main-right, #main-left {
         width: auto;
     }
-    .buy-options{
-    	justify-content: center;
-	align-items: center;
-	justify-items: center;
-	align-content: center;
-	flex-direction: column;
+
+    #form{
+	    align-items: center;
+    	flex-direction: column;
+	padding-bottom: 2dvh;
+    }
+    #form .popup-cross{
+    	display:none;
+    }
+    #buy-options{
+    	width:100%;
+    	justify-content:center;
     }
     .option-field{
-    	width: 80dvw;
+    	width: max-content;
     }
 
 }

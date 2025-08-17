@@ -90,7 +90,17 @@
     <button id="close-options" type="button" class="popup-cross" onclick="hideBuyOptions()">X</button>
     <div id="buy-options">
 
-
+	{% if "materials" in producte.opcions %}
+		<fieldset  name="text:material" class="materials {{ "hide" if utils.len(producte.opcions["materials"].keys()) == 1 }}" >
+			<legend>Seleciona un material</legend>
+			{% for n, (material, info) in utils.enumerate(producte.opcions["materials"].items()) %}
+				<div>
+					<input type="radio" name="material" price="{{ info["preu"] }}" class="material" value="{{ material }}" {{ "checked" if n==0 }}  onchange="updatePrice()"/>
+					<label>{{ material }}</label>
+				</div>
+			{% endfor %}
+		</fieldset>
+	{% endif %}
 
 
         {% if "variacions" in producte.opcions %}
@@ -114,6 +124,7 @@
                     <legend>Color</legend>
                 {% endif %}
                 {% for n in range(producte.opcions.get("n_colors", 1)) %}
+		<span>
                     {% if producte.opcions.get("extra_colors", None) %}
                         {{ loc[producte.opcions["extra_colors"][n]] }}:
                     {% else %}
@@ -125,6 +136,7 @@
                         <option class="color-option" price="{{ info["preu"]}}" value="{{ color }}" {{ "selected=\"selected\"" if color == opcions["color"][n] }}> {{ color }}</option>
                         {% endfor %}
                     </select>
+		</span>
                     <br>
                 {% endfor %}
             </fieldset>
@@ -140,6 +152,7 @@
                            list="defaultSizes"
                            maxlength="2"
                            {{"value={}".format(opcions["talla"]) if opcions["talla"] != "None" }}>
+			<br>
                     <em id="info-talles" class="clickable under-hover" onclick="showPopup(this, this.nextElementSibling)">Descobreix la teva talla</em>
                     <div class="popup-info" id="popup-talles" onclick="event.stopPropagation()">
                     <h3>Graella de talles internacional</h3>
@@ -172,9 +185,9 @@
         {% endif %}
 
     </div>
-	<input class="afegir_carret black-button" type="button" value="AFEGIR AL CARRET" onclick="submitToCart()">
-    <div class="preu-final"> <span id="final_price"></span> &#8364;</div>
-    <div id="missing-info"><p>Siusplau introdueix tots els detalls</p></div>
+     <div class="preu-final"> <span id="final_price"></span> &#8364;</div>
+	<input class="add-to-cart black-button" type="button" value="AFEGIR AL CARRET" onclick="submitToCart(this)">
+	<div id="missing-info" class="popup-info"><p>Siusplau introdueix tots els detalls</p></div>
 
 </form>
 

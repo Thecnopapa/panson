@@ -38,12 +38,14 @@ function updatePrice(){
 
 }
 console.log(1);
-function submitToCart () {
+function submitToCart (trigger) {
     const theForm = document.getElementById("form");
     const missingInfo = document.getElementById("missing-info");
     document.body.style.cursor = "progress";
     theForm.submit();
-    setTimeout(function(){missingInfo.style.display = "block";document.body.style.cursor = "unset";}, 1000);
+	console.log(trigger);
+	console.log(trigger.nextElementSibling)
+    setTimeout(showPopup, 1000, trigger, trigger.nextElementSibling);
 
 }
 
