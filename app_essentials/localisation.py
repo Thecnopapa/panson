@@ -16,10 +16,6 @@ class Localisation2:
         self.misc = {}
         self.texts = self.db.document("languages").collection("text")
         self.preload_misc()
-        self.is_admin = False
-        user = get_current_user()
-        if check_if_admin(user.username, user.password):
-            self.is_admin = True
 
     def preload_misc(self):
         for key, value in self.misc_ref.get().to_dict().items():
