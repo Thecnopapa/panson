@@ -40,6 +40,7 @@ prods = db.collection("productes")
 usuaris = db.collection("usuaris")
 collections = db.collection("collecions")
 admins = db.collection("admins")
+localisation = db.collection("localisation")
 
 print(" * Firebase initialized")
 

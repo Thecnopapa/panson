@@ -72,8 +72,11 @@ def make_session_permanent():
 
 @app.route("/blank")
 def return_blank():
-    from app_essentials.sheets import sheets
-    return sheets()
+    from app_essentials.localisation import Localisation2
+    loc = Localisation2()
+    print(loc.text_ref)
+    print(loc.text)
+    return loc.text
 
 
 @app.route("/blank2")
