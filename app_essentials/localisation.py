@@ -43,7 +43,10 @@ class Localisation2:
                 try:
                     data["-".join([page,key])] = value[self.lan]
                 except KeyError:
+                    try:
                         data["-".join([page,key])] = value["cat"]
+                    except KeyError:
+                        data["-".join([page,key])] = "Missing language ({}) for:{}-{})".format(self.lan, page, key)
 
         self.preloaded = {**self.preloaded, **data}
 
