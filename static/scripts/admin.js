@@ -66,6 +66,7 @@ function resizeArea(target){
     console.log("TEXTAREA");
     console.log(target);
     target.style.height = target.scrollHeight + "px";
+    target.nextElementSibling.style.backgroundColor = "yellow";
 }
 
 function updateField(target){
@@ -82,4 +83,14 @@ function updateField(target){
             method: "POST",
             body: JSON.stringify(payload),
     });
+    target.nextElementSibling.style.backgroundColor = "revert";
+}
+
+
+function resizeAll() {
+    console.log("RESIZING ALL");
+    console.log(document.getElementsByTagName("textarea"));
+    for (let i = 0; i < document.getElementsByTagName("textarea"); i++) {
+        resizeArea(i)
+    }
 }
