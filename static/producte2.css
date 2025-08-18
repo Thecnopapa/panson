@@ -151,12 +151,13 @@ body {
 }
 #main-right, #main-left{
     position:relative;
-    height: 13dvh;
+    height: 11dvh;
     display:flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     width: 16dvw;
+    margin-top: 2vh;
 }
 
 #main-left{
@@ -207,7 +208,7 @@ body {
     font-size:  2.5dvh;
     position: relative;
     height: fit-content;
-    margin-bottom: 2dvh;
+    margin-bottom: 4dvh;
     margin-top: 2dvh;
     text-align: justify;
     width:100%;
@@ -224,7 +225,6 @@ body {
 .titol-desplegable {
     display: flex;
     justify-content: space-between;
-    background-color: #e1e1e1;
     padding: 1%;
     align-items: center;
     height: fit-content;
@@ -314,6 +314,13 @@ body {
 	height: fit-content;
 }
 
+.no-border{
+    border: none;
+}
+.no-arrows .slideshow-button{
+    color: transparent;
+    background-color: transparent;
+}
 
 
 

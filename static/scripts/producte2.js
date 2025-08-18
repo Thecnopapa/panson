@@ -69,9 +69,9 @@ function hideInfoDropdown(trigger, popupContent, arrow=undefined) {
     }
 }
 
-function showPopup(trigger, popupContent, cross=true) {
+function showPopup(trigger, popupContent, cross=true, popup_extra="") {
     popupContent.style.display = "flex";
-    hideBackgound(popupContent, cross=cross);
+    hideBackgound(popupContent, cross=cross, pupup_extra=popup_extra);
 }
 
 function hidePopup(source, sourceElement) {

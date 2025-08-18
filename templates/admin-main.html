@@ -39,7 +39,7 @@
 
                 {% endif %}
                 <h4>Tipus</h4><select name="text:tipus" id="tipus" value="{{ producte.tipus }}">
-                    {% for tipus in loc.types %}
+                    {% for tipus in loc.misc["types"] %}
                         <option value="{{ tipus }}" {{ "selected=selected" if tipus == producte.tipus }}>{{ tipus }}</option>
                     {% endfor %}
                     </select>

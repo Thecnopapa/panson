@@ -402,7 +402,8 @@ def update_product(id, lan="cat"):
                 if subkey is None:
                     target[key][value] = {}
                 else:
-                    parentkey = [request.form[k] for k in request.form.keys() if nkey in k and ":" not in k.split("#")[1]]
+                    [print(k) for k in request.form.keys() if nkey in k.split(":") and ":" not in k.split("#")[1]]
+                    parentkey = [request.form[k] for k in request.form.keys() if nkey in k.split(":") and ":" not in k.split("#")[1]]
                     print("PARENTKEY",parentkey)
                     print("TARGETKEY",key)
                     print("SUBKEY",subkey)
