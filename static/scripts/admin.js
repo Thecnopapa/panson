@@ -1,6 +1,19 @@
 
 
 
+
+function showData(trigger){
+    data = trigger.parentElement.getElementsByClassName("data")[0]
+    data.classList.remove("hide")
+    trigger.setAttribute("onclick","hideData(this)")
+}
+
+function hideData(trigger){
+    data = trigger.parentElement.getElementsByClassName("data")[0]
+    data.classList.add("hide")
+    trigger.setAttribute("onclick","showData(this)")
+}
+
 function addMaterial(button){
     const targetList = button.parentElement;
     const newItem = document.createElement("li");

@@ -28,11 +28,8 @@ body {
     flex-direction: column;
     width: 100%;
     height: fit-content;
-
-
-
-
 }
+
 .producte {
     display: flex;
     flex-direction: column;
@@ -62,6 +59,11 @@ body {
     margin-bottom: 2dvh;
 
 }
+
+.hide{
+    display: none;
+}
+
 #descripcio{
     padding-bottom: 3dvh;
     font-size: 2dvh;
