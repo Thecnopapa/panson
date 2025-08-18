@@ -72,4 +72,14 @@ function updateField(target){
     console.log("UPDATING FIELD");
     console.log(target.value);
     console.log(target.attributes.page.value, target.attributes.key.value, target.attributes.lan.value);
+    payload = {value: target.value, page:target.attributes.page.value, key: target.attributes.key.value, lan: target.attributes.lan.value};
+    fetch("/admin/loc/update-field",
+        {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(payload),
+    });
 }

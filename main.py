@@ -461,6 +461,22 @@ def restore_product(id):
     return redirect("/admin/")
 
 
+@app.post("/admin/loc/update-field")
+def update_field():
+    user = get_current_user()
+    if check_if_admin(user.username, user.password):
+        print(request.json)
+        data = request.json
+        from app_essentials.firebase import localisation
+        prev_data = localisation.document("languages").collection("text").document(data["page"]).get().to_dict()
+        print(prev_data)
+        new_data = prev_data
+        new_data[data["key"]][data["lan"]] = data["value"]
+        print(new_data)
+        localisation.document("languages").collection("text").document(data["page"]).update(new_data)
+    return ""
+
+
 
 '''
 
