@@ -60,3 +60,16 @@ function addVariation(button){
     console.log("NEW:",newItem);
     targetList.lastElementChild.before(newItem);
 }
+
+
+function resizeArea(target){
+    console.log("TEXTAREA");
+    console.log(target);
+    target.style.height = target.scrollHeight + "px";
+}
+
+function updateField(target){
+    console.log("UPDATING FIELD");
+    console.log(target.value);
+    console.log(target.attributes.page.value, target.attributes.key.value, target.attributes.lan.value);
+}

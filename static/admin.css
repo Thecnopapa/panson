@@ -140,7 +140,9 @@ input, option ,select, textarea {
 }
 .lan-value{
     margin: 1dvh;
-    height: auto;
+    height: fit-content;
+    min-height: 0;
+    padding: 0;
 }
 
 

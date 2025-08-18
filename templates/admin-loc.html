@@ -27,7 +27,11 @@
             <div class="loc-block">
                 <div class="loc-key"><em>{{ page }} - </em>{{ key }}</div>
                 {% for lan in ["cat", "en"] %}
-                    <div class="lan-block"><label class="lan-name">{{ lan }}:</label><textarea onkeydown="resizeArea(this)" oncontextlost="updateField(this)" class="lan-value">{{ value[lan] }}</textarea></div>
+                    <div class="lan-block">
+                        <label class="lan-name">{{ lan }}:</label>
+                        <textarea page="{{ page }}" key="{{ key }}" lan="{{ lan }}" onkeydown="resizeArea(this)" oncontextlost="updateField(this)" rows="1" class="lan-value">{{ value[lan] }}</textarea>
+                        <button onclick="updateField(this.previousElementSibling)">&#10003</button>
+                    </div>
                 {% endfor %}
             </div>
         {% endfor %}
