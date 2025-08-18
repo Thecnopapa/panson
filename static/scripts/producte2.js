@@ -71,7 +71,7 @@ function hideInfoDropdown(trigger, popupContent, arrow=undefined) {
 
 function showPopup(trigger, popupContent, cross=true) {
     popupContent.style.display = "flex";
-    hideBackgound(popupContent, cross=cross);
+    hideBackgound(popupContent, cross);
 }
 
 function hidePopup(source, sourceElement) {
