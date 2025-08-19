@@ -110,7 +110,7 @@
 
                             <div class="producte-carret-color is-carret">
                             {% for n, col in utils.enumerate(item["color"]) %}
-                                <span class="producte-carret-cercle is-carret {{ item.producte.opcions.get("extra_colors", [])[n] }}" style="background-color: {{ loc.colours[col] }}"></span>
+                                <span class="producte-carret-cercle is-carret {{ item.producte.opcions.get("extra_colors", [])[n] }}" style="background-color: {{ loc["colours-"+col] }}"></span>
                             {% endfor %}
                             </div>
                         </div>

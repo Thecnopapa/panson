@@ -55,7 +55,7 @@
                     {% if producte.opcions["colors"] %}
                         <div class="colors">
                         {% for col in producte.opcions["colors"] %}
-                            <span class="cercle"  onclick="event.stopPropagation(location.href='/{{ loc.lan }}/productes/{{ producte._id }}/?color={{ col }}" style="background-color: {{ loc.colours[col] }}"></span>
+                            <span class="cercle"  onclick="event.stopPropagation(location.href='/{{ loc.lan }}/productes/{{ producte._id }}/?color={{ col }}" style="background-color: {{ loc["colours-"+col] }}"></span>
                         {% endfor %}
                         </div>
                     {% endif %}
