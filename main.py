@@ -172,6 +172,8 @@ def mostrar_peca(lan, id):
     print(len(request.args))
     opcions = get_opcions()
 
+    filters={}
+    '''
     filters = {"tipus":"totes"}
     if producte.unica:
         titol_galeria = "pro-altres-uniques"
@@ -180,7 +182,8 @@ def mostrar_peca(lan, id):
     else:
         filters["collecio"] = producte.collecio
         titol_galeria = "pro-mateixa-col"
-    html = template(lan=lan, templates=["producte2"], producte=producte, opcions=opcions, filters=filters ,titol_galeria=titol_galeria)
+        '''
+    html = template(lan=lan, templates=["producte2"], producte=producte, opcions=opcions, filters=filters)
     return html
 
 

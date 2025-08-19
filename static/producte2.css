@@ -14,6 +14,7 @@ body {
     width: 100%;
     position: relative;
     height: 80dvh;
+    max-height: 80dvh;
     justify-items:center;
 	align-items: center;
 	justify-content: center;
@@ -27,6 +28,7 @@ body {
 	height: inherit;
     background-position: center;
     background-size: cover;
+    border-radius: 2dvh;
 }
 
 .more-images{
@@ -184,7 +186,7 @@ body {
 
 #buy{
     font-size: 2.2dvh;
-    width: 20dvh;
+    width: 12dvw;
     height: 5dvh;
     background-color: #000000;
     color: white;
@@ -321,7 +323,52 @@ body {
     color: transparent;
     background-color: transparent;
 }
+.mini-gallery{
+    display: flex;
+    flex-direction: column;
+    width: 10dvw;
+    align-items: center;
+    height: inherit;
+    max-height: inherit;
+    overflow: scroll;
+    scroll-behavior: smooth;
+}
+#top-left{
+    align-items: flex-start;
+    padding-right: 8vh;
+}
+#top-right{
+    align-items: flex-end;
+    padding-left: 8vh;
+}
+.mini-gallery-items{
+    padding-top: 2dvh;
+}
+.mini-gallery-item{
+    padding-bottom: 2dvh;
+}
+.mini-gallery-subtitle{
+    width: 100%;
+    display: flex;
+    font-size: 2dvh;
+    font-style: italic;
+}
+.mini-gallery-title{
+    width: 100%;
+    display: flex;
+    font-size: 2.5dvh;
+    font-weight: bold;
+    text-transform: capitalize;
+}
 
+.mini-gallery-img{
+    height:10dvw;
+    width:10dvw;
+    background-position: center;
+    background-size: cover;
+    border-radius: 5%;
+
+}
 
 
 
