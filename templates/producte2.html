@@ -17,22 +17,7 @@
 <body>
 
 <div class="content-producte">
-    <div class="mini-gallery" id="top-left">
-        {% if producte.collecio == None or producte.collecio == "None"  %}
-            <div class="mini-gallery-subtitle">Altres</div>
-            <div class="mini-gallery-title">Peces uniques</div>
-        {% else %}
-            <div class="mini-gallery-subtitle">De la collecio</div>
-            <div class="mini-gallery-title">{{ producte.collecio }}</div>
-        {% endif %}
-        <div class="mini-gallery-items">
-            {% for p in productes_filtrats if p.collecio == producte.collecio and p._id != producte._id %}
-                <div class="mini-gallery-item clickable" onclick="window.location.href='/{{ loc.lan }}/productes/{{p._id}}/'">
-                <div class="mini-gallery-img" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ p.imatges[0] }}?alt=media')"></div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+
     <div class="main-foto {{ "clickable" if utils.len(producte.imatges) >1  }}"  onclick="{{ 'showPopup(this, this.nextElementSibling, cross=false)' if utils.len(producte.imatges) >1 }}" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media')">
 	    {% if utils.len(producte.imatges) >1%}
 	    <div class=more-images>+{{utils.len(producte.imatges)-1}} imatges</div>
@@ -53,17 +38,7 @@
                 <div class="slideshow-progress"></div>
             {% endif %}
     </div>
-    <div class="mini-gallery" id="top-right">
-        <div class="mini-gallery-subtitle">Altres</div>
-        <div class="mini-gallery-title">{{ loc["tip-"+producte.tipus+"-plural"] }}</div>
-        <div class="mini-gallery-items">
-            {% for p in productes_filtrats if p.tipus == producte.tipus and p._id != producte._id %}
-                <div class="mini-gallery-item clickable" onclick="window.location.href='/{{ loc.lan }}/productes/{{p._id}}/'">
-                <div class="mini-gallery-img" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ p.imatges[0] }}?alt=media')"></div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+
 </div>
 <div id="main-details">
 	<div id="main-left">
