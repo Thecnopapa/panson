@@ -29,7 +29,7 @@ body {
 	height: inherit;
     background-position: center;
     background-size: cover;
-    border-radius: 2dvh;
+
 }
 
 .more-images{
@@ -119,23 +119,25 @@ body {
     display: flex;
 	position: absolute;
 	z-index: 30;
-    bottom:2dvh;
-    align-items: flex-end
+    bottom:0;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
 
 }
 .bubble{
     display: flex;
-	border-radius: 50%;
-	height:1.5dvh;
-	width:1.5dvh;
-    border: black solid 0.3dvh;
-	background-color: transparent;
-    margin:0.5dvh;
+	height:1dvh;
+	width:100%;
+    background-color: transparent;
+
+
     cursor: pointer;
 
 }
 .current-bubble{
-    margin-bottom: 1dvh;
+    background-color: #888888;
+    height:1dvh;
 }
 
 
@@ -330,12 +332,15 @@ body {
     background-color: transparent;
 }
 .mini-gallery{
-    display: flex;
     flex-direction: column;
-    width: 10dvw;
     align-items: center;
     height: inherit;
     max-height: inherit;
+    display: flex;
+    width: 80%;
+    max-width: 80%;
+    margin-bottom: 2dvh;
+    margin-top: 2dvh;
 
 }
 #top-left{
@@ -349,14 +354,17 @@ body {
 .mini-gallery-items{
     padding-top: 2dvh;
     display: flex;
-    flex-direction: column;
     max-height: 100%;
-    height: 100%;
     overflow: scroll;
     scroll-behavior: smooth;
+    flex-direction: row;
+    height: fit-content;
+    max-width: 100%;
+    width: 100%;
 }
 .mini-gallery-item{
-    padding-bottom: 2dvh;
+    padding-right: 2dvh;
+    max-height: unset;
 }
 .mini-gallery-subtitle{
     width: 100%;
@@ -372,45 +380,15 @@ body {
     text-transform: capitalize;
 
 }
-#top-right .mini-gallery-title, #top-right .mini-gallery-subtitle{
-    justify-content: flex-end;
-}
-#top-left .mini-gallery-title, #top-left .mini-gallery-subtitle{
-    justify-content: flex-start;
-}
 
 .mini-gallery-img{
-    height:10dvw;
-    width:10dvw;
+    height:20dvh;
+    width:20dvh;
     background-position: center;
     background-size: cover;
-    border-radius: 5%;
 
 }
-#mini-gallery-all{
-    display: flex;
-    width: 80%;
-    max-width: 80%;
-    margin-bottom: 2dvh;
-    margin-top: 2dvh;
 
-    .mini-gallery-items{
-        flex-direction: row;
-        height: fit-content;
-        max-width: 100%;
-        width: 100%;
-
-    }
-    .mini-gallery-item{
-        padding-right: 2dvh;
-        max-height: unset;
-
-    }
-    .mini-gallery-img{
-        height:20dvh;
-        width:20dvh;
-    }
-}
 
 
 
@@ -486,13 +464,6 @@ body {
     }
     .option-field{
     	width: max-content;
-    }
-
-    #top-right, #top-left{
-        display: none;
-    }
-    #mini-gallery-all{
-        display: flex;
     }
 
 
