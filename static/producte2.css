@@ -5,6 +5,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: scroll;
 
 }
 
@@ -219,11 +220,13 @@ body {
 
 .info{
 	width:100%;
+    border-top: black solid 1px;
 }
 
 .desplegable{
     height: fit-content;
     width:100%;
+    border-bottom: black solid 1px;
 }
 .titol-desplegable {
     display: flex;
@@ -231,7 +234,7 @@ body {
     padding: 1%;
     align-items: center;
     height: fit-content;
-    border-bottom: black solid 1px;
+
 }
 .titol-desplegable > h3 {
     margin-top: 0.2dvh;
@@ -387,10 +390,10 @@ body {
 }
 #mini-gallery-all{
     display: flex;
-
     width: 80%;
     max-width: 80%;
     margin-bottom: 2dvh;
+    margin-top: 2dvh;
 
     .mini-gallery-items{
         flex-direction: row;
