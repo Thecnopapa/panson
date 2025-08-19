@@ -55,7 +55,6 @@
     </div>
     <div class="mini-gallery" id="top-right">
         <div class="mini-gallery-subtitle">Altres</div>
-    <div class="mini-gallery-title">{{ producte.altres }}</div>
         <div class="mini-gallery-title">{{ loc["tip-"+producte.tipus+"-plural"] }}</div>
         <div class="mini-gallery-items">
             {% for p in productes_filtrats if p.tipus == producte.tipus and p._id != producte._id %}
@@ -212,6 +211,15 @@
      <div class="preu-final"> <span id="final_price"></span> &#8364;</div>
 	<input class="add-to-cart black-button" type="button" value="AFEGIR AL CARRET" onclick="submitToCart(this)">
 	<div id="missing-info" class="popup-info"><p>Siusplau introdueix tots els detalls</p></div>
-
 </form>
+<div class="mini-gallery" id="mini-gallery-all">
+    <div class="mini-gallery-subtitle">Mes productes</div>
+    <div class="mini-gallery-items">
+            {% for p in productes_filtrats if p._id != producte._id %}
+                <div class="mini-gallery-item clickable" onclick="window.location.href='/{{ loc.lan }}/productes/{{p._id}}/'">
+                <div class="mini-gallery-img" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ p.imatges[0] }}?alt=media')"></div>
+                </div>
+            {% endfor %}
+        </div>
+</div>
 
