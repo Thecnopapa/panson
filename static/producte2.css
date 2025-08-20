@@ -143,16 +143,14 @@ body {
 
 #main-details{
 	position:relative;
-	bottom:0;
-	left:0;
-
 	width: 92%;
 	z-index:30;
 	display:flex;
 	justify-content: space-between;
     align-items: flex-start;
     height: fit-content;
-    min-height: 13dvh;
+    min-height: 11dvh;
+    margin-top:2dvh;
 }
 #main-right, #main-left{
     position:relative;
@@ -235,6 +233,7 @@ body {
     padding: 1%;
     align-items: center;
     height: fit-content;
+    font-size:2dvh;
 
 }
 .titol-desplegable > h3 {
@@ -245,6 +244,7 @@ body {
 }
 .info-desplegable {
     display: none;
+    font-size: 1.8dvh;
 }
 .arrow{
 }
@@ -322,6 +322,8 @@ body {
 
     min-width: 12dvw;
     min-height: 5dvh;
+    padding-right:2dvw;
+    padding-left:2dvw;
 }
 
 .no-border{
@@ -449,6 +451,8 @@ body {
     #buy{
         margin-bottom: 4dvh;
         width: 12dvh;
+	padding-left:2dvh;
+	padding-right:2dvh;
 
     }
     #form{

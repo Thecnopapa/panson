@@ -53,6 +53,7 @@ body {
     color: white;
     transition: background-color 0.2s;
     cursor: pointer;
+    min-width:fit-content;
 }
 .checkout-button:hover {
     background-color: #ffffff;
