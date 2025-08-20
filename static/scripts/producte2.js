@@ -143,12 +143,16 @@ class Slideshow{
 	for (let i = 0; i < this.n_images; i++) {
 		var newBubble = document.createElement("span");
 		newBubble.classList.add("bubble");
-        newBubble.setAttribute("onclick","productSlideshow.jumpTo("+String(i)+")");
+        newBubble.setAttribute("onclick","event.stopPropagation(productSlideshow.jumpTo("+String(i)+"))");
 		bubbles.appendChild(newBubble);
 	}
-	this.imageContainer.appendChild(bubbles);
-    this.bubbles = this.imageContainer.querySelectorAll('.bubble');
-
+	    var scroller = document.createElement("span");
+	    scroller.classList.add("scroller");
+	    bubbles.appendChild(scroller);
+	    this.imageContainer.appendChild(bubbles);
+	    this.bubbles = this.imageContainer.querySelectorAll('.bubble');
+	    this.scroller = this.imageContainer.querySelector(".bubbles").lastElementChild;
+	    this.scrollerWidth = 100 / this.bubbles.length;
     }
     updateBubbles(){
         for (var i = 0; i < this.bubbles.length; i++) {
@@ -158,6 +162,8 @@ class Slideshow{
                 this.bubbles[i].classList.remove("current-bubble");
             }
         }
+	this.scroller.style.width = String(this.scrollerWidth) +"%";
+	this.scroller.style.left = String(this.scrollerWidth * this.counter) + "%";
     }
 
 

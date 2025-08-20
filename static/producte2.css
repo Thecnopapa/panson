@@ -127,17 +127,27 @@ body {
 }
 .bubble{
     display: flex;
-	height:1dvh;
+	height:2dvh;
 	width:100%;
     background-color: transparent;
-
-
     cursor: pointer;
+    z-index: 35;
 
 }
 .current-bubble{
-    background-color: #888888;
-    height:1dvh;
+    
+}
+.scroller{
+	background-color: #888888;
+	height:1dvh;
+	display:flex;
+	position:absolute;
+	bottom:0;
+	left:0;
+	width:100%;
+	transition: left ease-in-out 0.4s;
+	z-index:30;
+	border-radius:2dvw;
 }
 
 
