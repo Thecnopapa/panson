@@ -10,7 +10,7 @@ updateCartCounter();
 function openCart(){
     closeMenu()
     console.log("Opening Cart")
-    cart.style.right = "0";
+    cart.classList.add('open');
     for (let i = 0; i < cartItems.length; i++) {
         cartItems[i].classList.add('open');
         cartButton.setAttribute("onclick", "closeCart()");
@@ -27,8 +27,8 @@ function openCart(){
 
 
 function closeCart(){
-    console.log("Closing Cart")
-    cart.style.right = "-30dvw";
+    console.log("Closing Cart");
+    cart.classList.remove('open');
     for (let i = 0; i < cartItems.length; i++) {
         cartItems[i].classList.remove('open');
         cartButton.setAttribute("onclick", "openCart()");

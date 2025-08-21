@@ -11,14 +11,14 @@
 }
 
 
-.content-carret {
+#carret {
     position: fixed;
     height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 30dvw;
-    right: -30dvw;
+    right: -31dvw;
     top: 0;
     background-color: white;
     max-height: 90dvh;
@@ -32,6 +32,12 @@
     transition: right ease-in-out 400ms;
 
 }
+
+#carret.open {
+    right: 0;
+
+}
+
 #close-carret {
     position: absolute;
     font-size: 2vh;
@@ -185,18 +191,19 @@
         width: fit-content;
         min-width: 100dvw;
         max-width: 100dvw;
+        right: -101dvw;
     }
     .llista-carret {
 
     }
     .producte-carret-delete{
-        padding-right: 2dvh;
 
          }
 
     .producte-carret{
-        width: 94dvh;
-        max-width: 98dvw;
+        width: 92dvw;
+        max-width: 92dvw;
+        padding-left: 4dvw;
     }
     .producte-foto {
         width: 30dvw;

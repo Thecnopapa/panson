@@ -9,7 +9,11 @@ window.addEventListener('load', function () {
 	loader.style = "display:none !important";
 	loaderIcon.style ="display:none !important";
 	console.log(loader.style.display);
-
+})
+window.addEventListener('orientationchange', function () {
+	console.log("Rotation change!");
+	closeCart();
+    closeMenu()
 })
 
 
