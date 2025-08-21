@@ -84,13 +84,12 @@ def return_blank2():
     return Products(filters={"esborrat": False, "amagat":False}).__html__()
 
 
-@app.route("/<lan>/acceptar_cookies/")
-def acceptar_cookies(lan):
+@app.post("/acceptar_cookies")
+def acceptar_cookies():
     user = get_current_user()
     user.accepted_cookies = True
     user.update_db()
-    resp = redirect("/{}/".format(lan))
-    return resp
+    return ""
 
 
 

@@ -13,7 +13,7 @@
 {% endif %}
 
 {% if not user.accepted_cookies %}
-        <div class="request-cookies">Aquesta web fa servir cookies<button class="accept-cookies" onclick="location.href='/{{ loc.lan }}/acceptar_cookies'">d'acord</button></div>
+        <div id=cookies class="request-cookies">Aquesta web fa servir cookies<button class="accept-cookies" onclick="acceptCookies()">d'acord</button></div>
     {% endif %}
 <div class = "navigation">
     <div class = "navigation-left" id="nav-left">

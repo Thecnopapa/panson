@@ -35,6 +35,16 @@ function scrollOnLoad(id) {
 
 
 
+function acceptCookies(){
+	fetch("/acceptar_cookies", {method:"POST"});
+	const banner = document.getElementById("cookies");
+	banner.style.display = "none";
+}
+
+
+
+
+
 
 let menuOpen = false;
 const menu = document.getElementById('menu');
