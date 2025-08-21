@@ -40,11 +40,12 @@ function updateScroll() {
     title.style.paddingTop = String(5 - (5 * scroll / maxScroll)).concat("dvh");
 
     if ($(window).scrollTop() >= windowHeight) {
-        navButtons[0].style.color = "black";
-        navButtons[1].style.color = "black";
-        navButtons[2].style.color = "black";
-        lanButtons[0].style.color = "black";
-        lanButtons[1].style.color = "black";
+        for (let i = 0; i < navButtons.length; i++) {
+            navButtons[i].style.color = "black";
+        }
+        for (let i = 0; i < lanButtons.length; i++) {
+            lanButtons[i].style.color = "black";
+        }
 	if (cartCircle.length != 0) {
         	cartCircle[0].style.color = "white";
         	cartCircle[0].style.backgroundColor = "black";
@@ -55,13 +56,15 @@ function updateScroll() {
         title.style.zIndex = 10;
     } else {
         if (!(menu.classList.contains('open'))) {
-            navButtons[0].style.color = "white";
-            navButtons[1].style.color = "white";
-            navButtons[2].style.color = "white";
+            for (let i = 0; i < navButtons.length; i++) {
+            navButtons[i].style.color = "white";
+        }
             menuButton[0].src = "/static/media/menu-white.svg";
         }
-        lanButtons[0].style.color = "white";
-        lanButtons[1].style.color = "white";
+        for (let i = 0; i < lanButtons.length; i++) {
+            lanButtons[i].style.color = "white";
+        }
+
 	if (cartCircle.length != 0){
         	cartCircle[0].style.color = "black";
         	cartCircle[0].style.backgroundColor = "white";
