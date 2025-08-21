@@ -1,5 +1,15 @@
 const cartIcon = document.getElementsByClassName('shopping-cart');
 const cartCircle = document.getElementsByClassName('cercle-carret');
+const loader = document.getElementById("loader");
+
+
+window.addEventListener('load', function () {
+	console.log("It's loaded!");
+	loader.style = "display:none !important";
+	console.log(loader.style.display);
+
+})
+
 
 function dynamicallyLoadScript(url) {
     var script = document.createElement("script");  // create a script DOM node

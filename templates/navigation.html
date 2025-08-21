@@ -2,7 +2,30 @@
 
 
 
-
+<div id=loader style="
+	display:flex;
+	background-color:white;
+	position:fixed;
+	top:0;
+	left:0;
+	height: 100dvh;
+	width: 100dvw;
+	z-indez: 9998;
+	align-items: center;
+	justify-content: center;
+	">
+	<img id=loader-icon style="
+		display:flex;
+		height: 2dvh;
+		width: 2dvh;
+		color: black;
+		z-index:9999;
+		-webkit-animation:spin 4s linear infinite;
+    		-moz-animation:spin 4s linear infinite;
+    		animation:spin 4s linear infinite;
+		" src="/static/media/reload.svg">
+	</img>
+</div>
 
 {% if origin and False%}
     {% if origin != "hide" %}
