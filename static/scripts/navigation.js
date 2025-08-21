@@ -1,11 +1,13 @@
 const cartIcon = document.getElementsByClassName('shopping-cart');
 const cartCircle = document.getElementsByClassName('cercle-carret');
 const loader = document.getElementById("loader");
+const loaderIcon =document.getElementById("loader-icon");
 
 
 window.addEventListener('load', function () {
 	console.log("It's loaded!");
 	loader.style = "display:none !important";
+	loaderIcon.style ="display:none !important";
 	console.log(loader.style.display);
 
 })
