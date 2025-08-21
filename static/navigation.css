@@ -196,7 +196,16 @@ body {
 }
 
 
-
+#menu-closer{
+	display: none;
+	background-color: rgba(0,0,0,0);
+	position: fixed;
+	right:0;
+	top:0;
+	height: 100dvh;
+	width:20dvw;
+	z-index: 100;
+}
 
 
 #contacte-menu, #projecte-menu {

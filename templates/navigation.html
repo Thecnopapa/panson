@@ -19,7 +19,8 @@
     <div class = "navigation-left" id="nav-left">
         <button class="dropbtn" id="menu-button" onmouseover="openMenu()"> {{ loc.nav_botiga }} </button>
         <button class="menu-simple" id="menu-button-simple" onclick="switchMenu()"><img class="icon-menu-simple" src="/static/media/menu-black.svg" alt="cart"><br> </button>
-        <div class="menu" id="menu" onmouseover="openMenu()" onmouseleave="closeMenu()">
+	<div class=menu-closer" id=menu-closer  onclick="event.stopPropagation(closeMenu())"></div>
+        <div class="menu" id="menu" onmouseover="openMenu()">
 
             <div class="submenu menu-content menutop " id="collecions-menu" onclick="showDropdown(this)" >
                 <div class="titol-submenu menu-content no-line">{{ loc.nav_collecions }}
