@@ -18,7 +18,7 @@
     flex-direction: column;
     align-items: center;
     width: 30dvw;
-    right: 0;
+    right: -30dvw;
     top: 0;
     background-color: white;
     max-height: 90dvh;
@@ -29,6 +29,7 @@
     box-shadow: -0.2px 0px 8px rgb(115, 115, 115);
     padding-bottom: 10dvh;
     z-index: 100;
+    transition: right ease-in-out 400ms;
 
 }
 #close-carret {
