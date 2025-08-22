@@ -203,7 +203,7 @@ def mostrar_peca(lan, id):
         filters["collecio"] = producte.collecio
         titol_galeria = "pro-mateixa-col"
         '''
-    html = template(lan=lan, templates=["producte2"], producte=producte, opcions=opcions, filters=filters)
+    html = template(lan=lan, templates=["producte3"], producte=producte, opcions=opcions, filters=filters)
     return html
 
 
