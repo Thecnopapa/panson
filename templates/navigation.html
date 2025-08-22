@@ -36,7 +36,7 @@
 {% endif %}
 
 {% if not user.accepted_cookies %}
-        <div id=cookies class="request-cookies">Aquesta web fa servir cookies<button class="accept-cookies" onclick="acceptCookies()">d'acord</button></div>
+        <div id=cookies class="request-cookies">{{ loc.nav_cookie_banner }}<button class="accept-cookies" onclick="acceptCookies()">{{ loc.nav_cookie_button }}</button></div>
     {% endif %}
 <div class = "navigation">
     <div class = "navigation-left" id="nav-left">
@@ -82,10 +82,10 @@
     {% endif %}
     <div class = "navigation-right">
     {% if user.is_admin %}
-    <div class="language" onclick="location.href='/admin/'">ADMIN</div>
+    <div class="language" onclick="location.href='/admin/'">{{ loc.nav_admin }}</div>
     {% endif %}
     {% if user.is_admin %}
-    <div class="language" onclick="location.href='/admin/logout'">Tancar Sessio</div>
+    <div class="language" onclick="location.href='/admin/logout'">{{ loc.nav_tancar_sessio }}</div>
     {% endif %}
         {% for lang in loc.all_langs %}
             {% if lang == loc.lan %}
@@ -107,8 +107,8 @@
 </div>
 <div class="content-carret is-carret" id="carret">
 
-    <div class="title-carret is-carret">CARRET</div>
-<div class="is-carret" id="close-carret" onclick="closeCart()">Tancar</div>
+    <div class="title-carret is-carret">{{ loc.car_carret }}</div>
+<div class="is-carret" id="close-carret" onclick="closeCart()">{{ loc.car_tancar }}</div>
     <div class="llista-carret is-carret">
         {% for n, item in utils.enumerate(cart.values()) if item.producte != None%}
             <div class="producte-carret is-carret">
@@ -124,10 +124,10 @@
                         <div class="producte-carret-talla is-carret {{ "hide" if item.talla == "null" }}">TALLA: {{ item.talla }}</div>
                     {% endif %}
                     {% if item["material"] %}
-                        <div class="producte-carret-material is-carret hide">MATERIAL: {{ item.material}}</div>
+                        <div class="producte-carret-material is-carret hide">{{ loc.car_talla }}: {{ item.material}}</div>
                     {% endif %}
                     {% if item["variacio"] %}
-                        <div class="producte-carret-variacio is-carret {{ "hide" if item.variacio == "null" }}">VARIACIO: {{ item.variacio}}</div>
+                        <div class="producte-carret-variacio is-carret {{ "hide" if item.variacio == "null" }}">{{ loc.car_variacio }}: {{ item.variacio}}</div>
                     {% endif %}
                     {% if item["color"] %}
                         <div class="producte-carret-color is-carret {{ "hide" if item.color == "null" }}">
@@ -154,13 +154,15 @@
 
     <div class="footer-carret is-carret">
 
-        <div class="total-cart is-carret" id="total-cart">Total: {{ user.total_carret }}&#8364</div>
+        <div class="total-cart is-carret" id="total-cart">{{ loc.car_total }}: {{ user.total_carret }}&#8364</div>
         <button class="checkout-button is-carret"  onclick="location.href='/{{ loc.lan }}/checkout/'">
             {{ loc.car_checkout }}</button>
 
     </div>
 </div>
-{% if scroll_to %}
-    <body onload="scrollOnLoad('{{ scroll_to }}')">
-{% endif %}
 
+<div id="footer">
+
+
+
+</div>
