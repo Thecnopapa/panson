@@ -5,7 +5,8 @@ let form = document.getElementById('form');
 
 
 
-updatePrice();
+
+
 
 
 function updatePrice(){
@@ -31,9 +32,12 @@ function updatePrice(){
             price += Number(colorList[i].options[colorList[i].selectedIndex].attributes.price.value);
         }
     }
-    const priceTag = document.getElementById("final_price");
+    const priceTags = document.getElementsByClassName("preu-producte");
+    console.log(priceTags, price);
     try {
-        priceTag.innerHTML = price;
+        for (let i = 0; i < priceTags.length; i++) {
+            priceTags[i].innerHTML = price.toFixed(2);
+        }
     } catch (error) {}
 
 }
@@ -293,5 +297,5 @@ if (fotos.children.length > 1){
 console.log(productSlideshow);
 
 
-
+updatePrice();
 

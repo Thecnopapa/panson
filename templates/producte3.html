@@ -39,8 +39,10 @@
             {% endif %}
     </div>
     <div id="main-details">
-        <div id="titol_producte" onclick="scrollToDetails()">{{ producte.nom }}</div>
+        <div id="titol_producte"">{{ producte.nom }}</div>
+        <div id="initial-price"> <span class="preu-producte"></span> &#8364;</div>
         <div id="product-description" >{{ producte.descripcio }}</div>
+        <button id="buy" class="under-hover clickable black-button" onclick="displayBuyOptions(this, false)">Comprar</button>
         <div class="info">
             <div class="desplegable">
                 <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><h3 class="clickable under-hover">Informació del producte</h3><div class="arrow">+</div></div>
@@ -69,7 +71,7 @@
                 </div>
             </div>
         </div>
-        <button id="buy" class="under-hover clickable black-button" onclick="displayBuyOptions(this, false)">Comprar</button>
+
 
 
         <form action="/{{ lan }}/carret/add" method="post" enctype="multipart/form-data" id="form">
@@ -131,7 +133,7 @@
 
                 {% if producte["totes_talles"] or "totes" in producte.opcions.get("talles", {}) %}
                     <fieldset class="talles_producte option-field">
-                        <legend>Talla</legend>
+                        <legend>loc.pro_talla</legend>
                         <span><input type="number" name="talla" class="talla talla-unica " required
                                    min="0"
                                    max="99"
@@ -156,7 +158,7 @@
                     </fieldset>
                 {% elif producte.opcions["talles"] %}
                     <fieldset class="talles_producte option-field">
-                        <legend>Talles disponibles</legend>
+                        <legend>loc.pro_talles_disponibles</legend>
                         {% for talla, info in producte.opcions["talles"].items() %}
                             {% if opcions["talla"] %}
                                 {% if  opcions["talla"].strip() == utils.str(talla) %}
@@ -172,7 +174,7 @@
                 {% endif %}
 
             </div>
-             <div class="preu-final"> <span id="final_price"></span> &#8364;</div>
+             <div id="final_price"> <span class="preu-producte"></span> &#8364;</div>
             <input class="add-to-cart black-button" type="button" value="AFEGIR AL CARRET" onclick="submitToCart(this)">
             <div id="missing-info" class="popup-info"><p>Siusplau introdueix tots els detalls</p></div>
         </form>
