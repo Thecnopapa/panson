@@ -13,17 +13,20 @@
 #index-subtitle{
     position: relative;
     display: flex;
-    width: 100%;
+    width: 90%;
     height: fit-content;
     font-size: 3dvh;
-    padding-top: 5dvh;
-    padding-left: 5dvh;
-    padding-bottom: 5dvh;
+    padding-top:5dvh;
+    padding-bottom:5dvh;
 }
 
 
 
-
+body{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
 
 .capcal , .spacer {
     display: none;
