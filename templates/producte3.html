@@ -53,7 +53,7 @@
             <div id="buy-options">
 
             {% if "materials" in producte.opcions %}
-                <fieldset  name="text:material" class="materials {{ "hide" if utils.len(producte.opcions["materials"].keys()) == 1 }}" >
+                <fieldset  name="text:material" class="materials-producte {{ "hide" if utils.len(producte.opcions["materials"].keys()) == 1 }}" >
                     <legend>Seleciona un material</legend>
                     {% for n, (material, info) in utils.enumerate(producte.opcions["materials"].items()) %}
                         <div>
@@ -66,39 +66,32 @@
 
 
             {% if producte.opcions.get("n_colors", 0) >0 %}
-                <fieldset class="colors_producte option-field">
+                <fieldset class="colors-producte option-field">
                     {% if producte.opcions.get("n_colors", 1) >1 %}
-                        <legend>Colors</legend>
+                        <legend>{{ loc.pro_color_plural }}</legend>
                     {% else %}
-                        <legend>Color</legend>
+                        <legend>{{ loc.pro_color_singular}}</legend>
                     {% endif %}
                     {% for n in range(producte.opcions.get("n_colors", 1)) %}
-            <span>
-                        {% if producte.opcions.get("extra_colors", None) %}
-                            {{ loc[producte.opcions["extra_colors"][n]] }}:
-                        {% else %}
-                            {{ n+1 }}:
-                        {% endif %}
-                        <select name="color" price="0" class="color-selector" onchange="updatePrice()">
-                            <option class="color-option" value="" {{ "selected=\"selected\"" if opcions["color"] == "None" }} ></option>
+                        <fieldset name="color" price="0" class="color-selector" onchange="updatePrice()">
                             {% for color, info in producte.opcions["colors"].items() %}
-                            <option class="color-option" price="{{ info["preu"]}}" value="{{ color }}" {{ "selected=\"selected\"" if color == opcions["color"][n] }}> {{ color }}</option>
+                                <label title="{{ loc["color-"+color] }}" class="colour-label {{ producte.opcions.get("extra_colors", []*n)[n] }}" style="background-color:{{ loc["colours_"+color] }};">
+                                <input type="radio" class="hidden-input"  price="{{ info["preu"]}}" value="{{ color }}" {{ "selected=\"selected\"" if color == opcions["color"][n] }}>
+                                </label>
                             {% endfor %}
-                        </select >
-            </span>
-                        <br>
+                        </fieldset >
                     {% endfor %}
                 </fieldset>
             {% endif %}
 
             {% if "variacions" in producte.opcions %}
-                <fieldset name="text:variacio" class="option-field variacions {{ "hide" if utils.len(producte.opcions["variacions"].keys()) == 1 }}" >
+                <fieldset name="text:variacio" class="option-field variacions-producte {{ "hide" if utils.len(producte.opcions["variacions"].keys()) == 1 }}" >
                     <legend>loc.pro_variacio</legend>
                     <div class="options variations">
                     {% for n, (variacio, info) in utils.enumerate(producte.opcions["variacions"].items()) %}
                         <div class="option variation">
-                            <label>
-                            <input type="radio" name="variacio" price="{{ info["preu"] }}" class="hidden-input" datafld="{{ variacio }}" value="{{ variacio }}" {{ "checked" if n == 0 }}  onchange="updatePrice()"/>
+                            <label class="text-label">
+                            <input type="radio" name="variacio" price="{{ info["preu"] }}" class="hidden-input" value="{{ variacio }}" {{ "checked" if n == 0 }}  onchange="updatePrice()"/>
                             {{ variacio }}
                             </label>
                         </div>

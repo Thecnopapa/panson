@@ -314,9 +314,9 @@ body {
     height: auto;
     display: flex;
     flex-direction: row;
-    justify-content: center;
     width: 100%;
     border: none;
+    align-items: center;
 }
 .hidden-input{
     display: none;
@@ -325,10 +325,14 @@ body {
     cursor: pointer;
     font-size: 2dvh;
 }
-.option-field label:has(> .hidden-input:checked){
+.option-field .text-label:has(> .hidden-input:checked){
     font-weight: bold;
     text-decoration: underline;
     text-underline-offset: 0.5dvh;
+}
+.option-field .colour-label:has(> .hidden-input:checked){
+    border: black solid 0.1dvh;
+    margin-right: 0.8dvh;
 }
 .options{
     display: flex;
@@ -337,6 +341,32 @@ body {
 }
 .option{
     padding-right: 1%;
+}
+.color-selector{
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    border:none;
+    margin-right: 2dvh;
+    height: 3dvh;
+    align-items: center;
+
+
+}
+.colour-label{
+    height: 2dvh;
+    width: 2dvh;
+    border-radius: 50%;
+    margin-right: 1dvh;
+}
+.pro-pedra-gran{
+    height: 2.2dvh;
+    width: 2.2dvh;
+}
+.pro-pedra-petita{
+    height: 1.8dvh;
+    width: 1.8dvh;
 }
 
 
