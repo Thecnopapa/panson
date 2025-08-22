@@ -66,22 +66,24 @@
 
 
             {% if producte.opcions.get("n_colors", 0) >0 %}
-                <fieldset class="colors-producte option-field">
+                <div class="colors-producte option-field">
                     {% if producte.opcions.get("n_colors", 1) >1 %}
                         <legend>{{ loc.pro_color_plural }}</legend>
                     {% else %}
                         <legend>{{ loc.pro_color_singular}}</legend>
                     {% endif %}
-                    {% for n in range(producte.opcions.get("n_colors", 1)) %}
-                        <fieldset name="color" price="0" class="color-selector" onchange="updatePrice()">
-                            {% for color, info in producte.opcions["colors"].items() %}
-                                <label title="{{ loc["color-"+color] }}" class="colour-label {{ producte.opcions.get("extra_colors", []*n)[n] }}" style="background-color:{{ loc["colours_"+color] }};">
-                                <input type="radio" class="hidden-input"  price="{{ info["preu"]}}" value="{{ color }}" {{ "selected=\"selected\"" if color == opcions["color"][n] }}>
-                                </label>
-                            {% endfor %}
-                        </fieldset >
-                    {% endfor %}
-                </fieldset>
+                    <div class="options">
+                        {% for n in range(producte.opcions.get("n_colors", 1)) %}
+                            <fieldset name="color#{{ n }}" class="color-selector" onchange="updatePrice()">
+                                {% for color, info in producte.opcions["colors"].items() %}
+                                    <label title="{{ loc["color-"+color] }}" class="colour-label {{ producte.opcions.get("extra_colors", []*n)[n] }}" style="background-color:{{ loc["colours_"+color] }};">
+                                    <input type="radio" name="color#{{ n }}" class="hidden-input" price="{{ info["preu"]}}" value="{{ color }}" {{ "selected=\"selected\"" if color == opcions["color"][n] }}>
+                                    </label>
+                                {% endfor %}
+                            </fieldset >
+                        {% endfor %}
+                    </div>
+                </div>
             {% endif %}
 
             {% if "variacions" in producte.opcions %}

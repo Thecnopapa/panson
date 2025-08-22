@@ -313,10 +313,11 @@ body {
 	padding-bottom: 4dvh;
     height: auto;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
     border: none;
-    align-items: center;
+    align-items: flex-start;
+
 }
 .hidden-input{
     display: none;

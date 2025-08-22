@@ -26,10 +26,13 @@ function updatePrice(){
         }
     }
 
-    const colorList = document.getElementsByClassName("color-selector");
-    for (let i = 0; i < colorList.length; i++) {
-        if (colorList[i].options[colorList[i].selectedIndex].attributes.price) {
-            price += Number(colorList[i].options[colorList[i].selectedIndex].attributes.price.value);
+    const colorLists = document.getElementsByClassName("color-selector");
+    for (let i = 0; i < colorLists.length; i++) {
+        const colorElements = colorLists[i].getElementsByTagName("input");
+        for (let n =0; n < colorElements.length; n++) {
+            if (colorElements[n].checked && colorElements[n].attributes.price) {
+                price += Number(colorElements[n].attributes.price.value);
+            }
         }
     }
     const priceTags = document.getElementsByClassName("preu-producte");
