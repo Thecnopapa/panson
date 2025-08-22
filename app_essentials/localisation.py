@@ -1,10 +1,8 @@
 import json
 import os
-from google.cloud.firestore import FieldFilter
-from app_essentials.utils import *
 
-from app_essentials.firebase import localisation, db, check_if_admin
-from app_essentials.session import get_current_user
+from app_essentials.utils import *
+from app_essentials.firebase import localisation
 
 class Localisation2:
     def __init__(self, lan="cat"):
@@ -28,6 +26,7 @@ class Localisation2:
 
     def get_misc(self, label, value):
         try:
+            print(self.misc[label][value])
             return self.misc[label][value]
         except KeyError:
             return "Missing value ({}-{})".format(label, value)
@@ -55,29 +54,39 @@ class Localisation2:
 
 
 
-    def get_text(self, col, name):
-        if col in self.misc_labels:
-            return self.get_misc(col, name)
-        if col not in self.preloaded_labels:
-            self.preload(col)
+    def get_text(self, page, name):
+        if page in self.misc_labels:
+            print("loading misc: {}".format(page))
+            t = self.get_misc(page, name)
+            if t == "$empty$":
+                return "Empty text ({}-{})".format(page,name)
+            return t
+        elif page not in self.preloaded_labels:
+            self.preload(page)
         try:
-            return self.preloaded["-".join([col, name])]
+            t = self.preloaded["-".join([page, name])]
         except KeyError:
             try:
-                if self.preloaded[col] is None:
-                    return "Missing page ({}-{})".format(col, name)
+                if self.preloaded[page] is None:
+                    self.create_empty_text(page, name)
+                    return "Missing page ({}-{})".format(page, name)
                 else:
                     return "ERROR"
             except KeyError:
-                return "Missing text ({}-{})".format(col,name)
+                self.create_empty_text(page, name)
+                return "Missing text ({}-{})".format(page,name)
+
+        if t == "$empty$":
+            return "Empty text ({}-{})".format(page, name)
+        return t
 
 
     def __getitem__(self, item):
         comps = split_multiple(item, "_", "-")
-        col = comps[0]
+        page = comps[0]
         name = "-".join(comps[1:])
-        print("Loc laod: page: {}, item: {}".format(col,name))
-        return self.get_text(col, name)
+        print("Loc load: page: {}, item: {}".format(page,name))
+        return self.get_text(page, name)
 
     def __getattr__(self, item):
         return self.__getitem__(item)
@@ -92,40 +101,22 @@ class Localisation2:
             data[page] = self.get_values_by_page(page)
         return data
 
-
-
-
-
-
-
-
-
-
-
-class Localisation:
-    def __init__(self, lan="cat"):
-        self.lan = lan
-        self.loc_json = json.loads(open("static/localization.json").read())
-        self.all_langs = [lang for lang in self.loc_json.keys() if not lang in ["colors", "tipus"]]
-        self.colours = self.loc_json["colors"]
-        self.types = self.loc_json["tipus"].keys()
-
-    def __getattr__(self, item):
+    def create_empty_text(self, page, name):
+        doc = self.texts.document(page).get()
+        print(doc.__dict__)
+        if not doc.exists:
+            self.create_empy_page(page)
         try:
-            return self.loc_json[self.lan][item.replace("_", "-")]
-        except KeyError:
-            try:
-                return self.loc_json["cat"][item.replace("_", "-")]
-            except KeyError:
-                return item
+            doc = self.texts.document(page)
+            doc.update({name:{"cat":"$empty$", "en":"$empty$"}})
+        except:
+            print("ERROR creating empty text ({}-{})".format(page,name))
 
-    def __getitem__(self, item):
-        try:
-            return self.loc_json[self.lan][item]
-        except KeyError:
-            return self.loc_json["cat"][item]
+    def create_empy_page(self, page):
+        doc = self.texts.document(page).set({})
 
-    def update(self, lan="cat"):
-        self.__init__(lan)
+
+
+
 
 

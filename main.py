@@ -52,7 +52,6 @@ storage_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorag
 
 
 # GLOBALS SETUP
-from app_essentials.localisation import Localisation
 from app_essentials.session import get_current_user
 from app_essentials.products import Products, Product
 from app_essentials.firebase import get_user_data, get_cols, check_if_admin
@@ -74,9 +73,8 @@ def make_session_permanent():
 def return_blank():
     from app_essentials.localisation import Localisation2
     loc = Localisation2()
-    print(loc.texts)
-    print([p.id for p in loc.texts.stream()])
-    return loc.colours_plata
+    loc.create_empty_text("page", "name",)
+    return loc.page_name
 
 
 @app.route("/email")
