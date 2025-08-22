@@ -176,6 +176,7 @@ body {
 
 
 #buy{
+    display: none;
     font-size: 2.2dvh;
     width: 100%;
     min-width: fit-content;
@@ -212,31 +213,40 @@ body {
 
 .info{
 	width:100%;
+    padding-top: 2dvh;
 }
 
 .desplegable{
     height: fit-content;
     width:100%;
-    border-bottom: black solid 1px;
+    padding-bottom: 1dvh;
 }
 .titol-desplegable {
     display: flex;
     justify-content: space-between;
-    padding: 1%;
+    padding;
     align-items: center;
     height: fit-content;
-    font-size:2dvh;
-
-}
-.titol-desplegable > h3 {
+    font-size: 2dvh;
     margin-top: 0.2dvh;
     margin-bottom: 0.2dvh;
-    height: fit-content;
-
+    font-weight: normal;
 }
+
 .info-desplegable {
     display: none;
+    font-size: 1.5dvh;
+    padding:1%;
+}
+.info-desplegable > p {
+    margin-top: 0.5dvh;
+}
+.info-desplegable > ul {
+    margin-top: 0.5dvh;
+}
+.subtitol-desplegable {
     font-size: 1.8dvh;
+    margin-bottom: 0;
 }
 .arrow{
 }
@@ -275,12 +285,13 @@ body {
     }
 #form{
     height: fit-content;
-    display: none;
+    display: flex;
     flex-direction: column;
     width: 100%;
     position: relative;
     align-items: center;
     justify-content: center;
+    padding-bottom: 2dvh;
 
 }
 
@@ -303,9 +314,11 @@ body {
 }
 
 #final-price{
+    display: none;
 	margin:1dvh;
     font-size: 2dvh;
 }
+
 #initial-price{
     font-size:2dvh;
     width: 100%;
@@ -313,11 +326,10 @@ body {
 }
 
 .add-to-cart{
-
-    min-width: 12dvw;
+    width: 100%;
     min-height: 5dvh;
-    padding-right:2dvw;
-    padding-left:2dvw;
+    margin-top: 2dvh;
+
 }
 
 .no-border{
