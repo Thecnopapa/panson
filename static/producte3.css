@@ -17,7 +17,7 @@ body {
     position: relative;
     height: 90dvh;
     min-height: fit-content;
-    align-items: center;
+    align-items: flex-start;
 	margin-top:7dvh;
     justify-content: space-evenly;
 }
@@ -389,6 +389,7 @@ body {
     .content-producte {
         height: fit-content;
         flex-direction: column;
+        align-items: center
 
     }
 
@@ -413,7 +414,6 @@ body {
     }
 
     #main-details {
-
         padding-top: 2dvh;
         justify-content: flex-start;
         align-items: center;
