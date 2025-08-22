@@ -79,30 +79,24 @@ def return_blank():
     return loc.colours_plata
 
 
+@app.route("/auth/login/google/persistent")
+def google_login():
+    from app_essentials.email import persistent_google_login
+    return persistent_google_login()
+
+
+@app.route("/auth/token/persistent")
+def recieve_token():
+    from app_essentials.email import persistent_google_token_save
+    persistent_google_token_save()
+    with open("secure/token.json", "r") as f:
+        return f
+
 @app.route("/email")
 def send_email():
-    import email
-    # Import smtplib for the actual sending function
-    import smtplib
-
-    # Import the email modules we'll need
-    from email.message import EmailMessage
-
-    # Open the plain text file whose name is in textfile for reading.
-    msg = EmailMessage()
-    msg.set_content("Message")
-        
-    # me == the sender's email address
-    # you == the recipient's email address
-    msg['Subject'] = 'Test Message'
-    msg['From'] = "iainvisa@gmail.com"
-    msg['To'] = "iainvisa@gmail.com"
-
-    # Send the message via our own SMTP server.
-    s = smtplib.SMTP('localhost')
-    s.send_message(msg)
-    s.quit()
-    return msg
+    from app_essentials.email import emailAPI
+    emailAPI()
+    return "email"
 
 
 @app.post("/acceptar_cookies")
