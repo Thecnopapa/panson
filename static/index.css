@@ -2,7 +2,7 @@
 
 /* Estils generals per als enllaços */
 .content-index {
-    position: absolute;
+    position: relative;
     display: block;
     width: 100dvw;
     height: 100dvh;
@@ -10,15 +10,28 @@
     justify-content: center;
 
 }
-.capcal {
-    position: absolute;
+#index-subtitle{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    font-size: 3dvh;
+    padding-top: 5dvh;
+    padding-left: 5dvh;
+    padding-bottom: 5dvh;
+}
+
+
+
+
+
+.capcal , .spacer {
+    display: none;
 }
 .content-galeria{
-    top:100dvh;
+    position: relative;
 }
-body{
-    max-width: 100dvh;
-}
+
 
 .slide {
     background-repeat: no-repeat;
