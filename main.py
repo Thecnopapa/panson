@@ -324,9 +324,9 @@ def admin(lan="cat", page="main"):
     print("admin check")
     print(user.username, user.password)
     if check_if_admin(user.username, user.password):
-        return template(lan=lan, templates="admin-{}".format(page), user = user.username, amagats=True)
+        return template(lan=lan, templates="admin-{}".format(page), user = user.username, amagats=True, footer=False)
     else:
-        return template(lan=lan, templates="login")
+        return template(lan=lan, templates="login", footer=False)
 
 
 @app.post("/login")
