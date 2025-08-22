@@ -5,17 +5,25 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 100%;
+    margin-top: 5dvh;
 }
 
 .footer-columns{
     display: flex;
     flex-direction: row;
-    width: auto;
-    justify-content: space-around;
-    align-items: flex-start
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
 }
 .footer-col{
     width: 23%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2dvh;
+
 }
 
 .footer-title{
@@ -25,6 +33,7 @@
 
 .footer-element{
     font-size: 1.5dvh;
+    padding-bottom: 0.5dvh;
 }
 
 .footer-button{
@@ -34,4 +43,18 @@
 
 .footer-element:hover{
     text-decoration: underline;
+}
+
+@media screen and (orientation: portrait) {
+    #footer {
+        flex-direction: column;
+        align-items: center;
+    }
+    .footer-columns{
+        width: 80dvw;
+        flex-direction: column;
+    }
+    .footer-col{
+        width: 100%;
+    }
 }
