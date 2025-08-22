@@ -15,7 +15,9 @@ class Localisation2:
         self.preloaded_labels = []
         self.texts = self.db.document("languages").collection("text")
         self.preload_misc()
-        self.pages = [p.id for p in self.texts.stream()]
+        self.pages = sorted([p.id for p in self.texts.stream()])
+
+
         self.extra = self.db.document("languages").get().to_dict()
         self.all_langs = self.extra["langs"]
 
@@ -23,6 +25,8 @@ class Localisation2:
         for key, value in self.misc_ref.get().to_dict().items():
             self.misc[key] = value
             self.misc_labels.append(key)
+        self.misc_labels = sorted(self.misc_labels)
+
 
     def get_misc(self, label, value):
         try:
@@ -51,6 +55,7 @@ class Localisation2:
                 self.preloaded[page] = None
 
         self.preloaded = {**self.preloaded, **data}
+
 
 
 
@@ -93,11 +98,11 @@ class Localisation2:
 
     def get_values_by_page(self, page):
         doc = self.texts.document(page).get()
-        return doc.to_dict()
+        return {k:v for k,v in sorted(doc.to_dict().items(), key = lambda x: x[0])}
 
     def get_all_values_by_page(self):
         data = {}
-        for page in self.pages:
+        for page in sorted(self.pages):
             data[page] = self.get_values_by_page(page)
         return data
 
