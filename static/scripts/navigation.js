@@ -38,6 +38,7 @@ function addFavicon() {
 // dynamicallyLoadCSS("/static/normalize.css")
 dynamicallyLoadScript("/static/scripts/cart.js")
 dynamicallyLoadCSS("/static/carret.css")
+dynamicallyLoadCSS("/static/footer.css")
 if (false) {
     addFavicon()
 }

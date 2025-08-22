@@ -62,8 +62,8 @@ def template(html="", templates=None, navigation=True, **kwargs):
             print("Rendering template: {}.html".format(t))
             html+= render_template(t+".html",no_head=n!=0, **kwargs)
 
-
-
+    if kwargs.get("footer", True):
+        html += render_template("footer.html", **kwargs)
     return html
 
 

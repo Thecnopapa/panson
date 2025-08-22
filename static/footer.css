@@ -1,0 +1,37 @@
+
+
+
+#footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.footer-columns{
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    justify-content: space-around;
+    align-items: flex-start
+}
+.footer-col{
+    width: 23%;
+}
+
+.footer-title{
+    font-size: 2dvh;
+    margin-bottom: 1dvh;
+}
+
+.footer-element{
+    font-size: 1.5dvh;
+}
+
+.footer-button{
+    cursor: pointer;
+    text-underline-offset: 0.5dvh;
+}
+
+.footer-element:hover{
+    text-decoration: underline;
+}
