@@ -79,9 +79,30 @@ def return_blank():
     return loc.colours_plata
 
 
-@app.route("/blank2")
-def return_blank2():
-    return Products(filters={"esborrat": False, "amagat":False}).__html__()
+@app.route("/email")
+def send_email():
+    import email
+    # Import smtplib for the actual sending function
+    import smtplib
+
+    # Import the email modules we'll need
+    from email.message import EmailMessage
+
+    # Open the plain text file whose name is in textfile for reading.
+    msg = EmailMessage()
+    msg.set_content("Message")
+        
+    # me == the sender's email address
+    # you == the recipient's email address
+    msg['Subject'] = 'Test Message'
+    msg['From'] = "iainvisa@gmail.com"
+    msg['To'] = "iainvisa@gmail.com"
+
+    # Send the message via our own SMTP server.
+    s = smtplib.SMTP('localhost')
+    s.send_message(msg)
+    s.quit()
+    return msg
 
 
 @app.post("/acceptar_cookies")
