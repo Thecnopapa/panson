@@ -65,48 +65,53 @@
             {% endif %}
 
 
-                {% if "variacions" in producte.opcions %}
-                    <fieldset  name="text:variacio" class="option-field variacions {{ "hide" if utils.len(producte.opcions["variacions"].keys()) == 1 }}" >
-                        <legend>Seleciona una variacio</legend>
-                        {% for n, (variacio, info) in utils.enumerate(producte.opcions["variacions"].items()) %}
-                            <div>
-                                <input type="radio" name="variacio" price="{{ info["preu"] }}" class="variation variacio" value="{{ variacio }}" {{ "checked" if n == 0 }}  onchange="updatePrice()"/>
-                                <label>{{ variacio }}</label>
-                            </div>
-                        {% endfor %}
-                    </fieldset>
-                {% endif %}
-
-
-                {% if producte.opcions.get("n_colors", 0) >0 %}
-                    <fieldset class="colors_producte option-field">
-                        {% if producte.opcions.get("n_colors", 1) >1 %}
-                            <legend>Colors</legend>
+            {% if producte.opcions.get("n_colors", 0) >0 %}
+                <fieldset class="colors_producte option-field">
+                    {% if producte.opcions.get("n_colors", 1) >1 %}
+                        <legend>Colors</legend>
+                    {% else %}
+                        <legend>Color</legend>
+                    {% endif %}
+                    {% for n in range(producte.opcions.get("n_colors", 1)) %}
+            <span>
+                        {% if producte.opcions.get("extra_colors", None) %}
+                            {{ loc[producte.opcions["extra_colors"][n]] }}:
                         {% else %}
-                            <legend>Color</legend>
+                            {{ n+1 }}:
                         {% endif %}
-                        {% for n in range(producte.opcions.get("n_colors", 1)) %}
-                <span>
-                            {% if producte.opcions.get("extra_colors", None) %}
-                                {{ loc[producte.opcions["extra_colors"][n]] }}:
-                            {% else %}
-                                {{ n+1 }}:
-                            {% endif %}
-                            <select name="color" price="0" class="color-selector" onchange="updatePrice()">
-                                <option class="color-option" value="" {{ "selected=\"selected\"" if opcions["color"] == "None" }} ></option>
-                                {% for color, info in producte.opcions["colors"].items() %}
-                                <option class="color-option" price="{{ info["preu"]}}" value="{{ color }}" {{ "selected=\"selected\"" if color == opcions["color"][n] }}> {{ color }}</option>
-                                {% endfor %}
-                            </select>
-                </span>
-                            <br>
-                        {% endfor %}
-                    </fieldset>
-                {% endif %}
+                        <select name="color" price="0" class="color-selector" onchange="updatePrice()">
+                            <option class="color-option" value="" {{ "selected=\"selected\"" if opcions["color"] == "None" }} ></option>
+                            {% for color, info in producte.opcions["colors"].items() %}
+                            <option class="color-option" price="{{ info["preu"]}}" value="{{ color }}" {{ "selected=\"selected\"" if color == opcions["color"][n] }}> {{ color }}</option>
+                            {% endfor %}
+                        </select >
+            </span>
+                        <br>
+                    {% endfor %}
+                </fieldset>
+            {% endif %}
+
+            {% if "variacions" in producte.opcions %}
+                <fieldset name="text:variacio" class="option-field variacions {{ "hide" if utils.len(producte.opcions["variacions"].keys()) == 1 }}" >
+                    <legend>loc.pro_variacio</legend>
+                    <div class="options variations">
+                    {% for n, (variacio, info) in utils.enumerate(producte.opcions["variacions"].items()) %}
+                        <div class="option variation">
+                            <label>
+                            <input type="radio" name="variacio" price="{{ info["preu"] }}" class="hidden-input" datafld="{{ variacio }}" value="{{ variacio }}" {{ "checked" if n == 0 }}  onchange="updatePrice()"/>
+                            {{ variacio }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </fieldset>
+            {% endif %}
+
+
 
                 {% if producte["totes_talles"] or "totes" in producte.opcions.get("talles", {}) %}
                     <fieldset class="talles_producte option-field">
-                        <legend>loc.pro_talla</legend>
+                        <legend>{{ loc.pro_talla }}</legend>
                         <span><input type="number" name="talla" class="talla talla-unica " required
                                    min="0"
                                    max="99"
