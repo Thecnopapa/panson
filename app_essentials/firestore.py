@@ -47,7 +47,7 @@ try:
     bucket = storage_client.bucket("panson.firebasestorage.app")
 
 
-    print1(" * Firestore initialized")
+    print(" * Firestore initialized")
 except Exception as e:
     sprint("Error importing Firestore:")
     print(e)
