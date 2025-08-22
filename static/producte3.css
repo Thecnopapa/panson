@@ -334,11 +334,18 @@ body {
 .option-field .colour-label:has(> .hidden-input:checked){
     border: black solid 0.1dvh;
     margin-right: 0.8dvh;
+
 }
+.option-field .pro-pedra-petita:has(> .hidden-input:checked){
+        margin-right: 1dvh;
+    }
+
 .options{
     display: flex;
     flex-direction: row;
     width: 100%;
+    max-width: 100dvh;
+    flex-wrap: wrap;
 }
 .option{
     padding-right: 1%;
@@ -368,6 +375,8 @@ body {
 .pro-pedra-petita{
     height: 1.8dvh;
     width: 1.8dvh;
+    margin-left: .2dvh;
+    margin-right: 1.2dvh;
 }
 
 
@@ -468,7 +477,9 @@ body {
     .content-producte {
         height: fit-content;
         flex-direction: column;
-        align-items: center
+        align-items: center;
+        width: 100%;
+        overflow-x: hidden;
 
     }
 
@@ -512,7 +523,7 @@ body {
     #form{
 	    align-items: center;
     	flex-direction: column;
-	padding-bottom: 4dvh;
+	    padding-bottom: 4dvh;
     }
 
     #buy-options{
@@ -521,7 +532,13 @@ body {
 
     }
     .option-field{
-    	width: max-content;
+    	width: 100%;
+        max-width: 100%;
+        justify-content: flex-start;
+    }
+    .options{
+        justify-content: flex-start;
+        width: fit-content;
     }
 
 }
