@@ -39,32 +39,44 @@ class Localisation2:
         for page in pages:
             doc = self.texts.document(page).get()
             self.preloaded_labels.append(page)
-            for key, value in doc.to_dict().items():
-                try:
-                    data["-".join([page,key])] = value[self.lan]
-                except KeyError:
+            if doc.exists:
+                for key, value in doc.to_dict().items():
                     try:
-                        data["-".join([page,key])] = value["cat"]
+                        data["-".join([page,key])] = value[self.lan]
                     except KeyError:
-                        data["-".join([page,key])] = "Missing language ({}) for:{}-{})".format(self.lan, page, key)
+                        try:
+                            data["-".join([page,key])] = value["cat"]
+                        except KeyError:
+                            data["-".join([page,key])] = "Missing language ({}) for:{}-{})".format(self.lan, page, key)
+            else:
+                self.preloaded[page] = None
 
         self.preloaded = {**self.preloaded, **data}
+
 
 
     def get_text(self, col, name):
         if col in self.misc_labels:
             return self.get_misc(col, name)
-        if "-".join([col,name]) not in self.preloaded.keys():
+        if col not in self.preloaded_labels:
             self.preload(col)
         try:
             return self.preloaded["-".join([col, name])]
         except KeyError:
-            return "Missing text ({}-{})".format(col,name)
+            try:
+                if self.preloaded[col] is None:
+                    return "Missing page ({}-{})".format(col, name)
+                else:
+                    return "ERROR"
+            except KeyError:
+                return "Missing text ({}-{})".format(col,name)
+
 
     def __getitem__(self, item):
         comps = split_multiple(item, "_", "-")
         col = comps[0]
         name = "-".join(comps[1:])
+        print("Loc laod: page: {}, item: {}".format(col,name))
         return self.get_text(col, name)
 
     def __getattr__(self, item):
