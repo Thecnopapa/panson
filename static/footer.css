@@ -7,6 +7,7 @@
     justify-content: center;
     width: 100%;
     margin-top: 5dvh;
+    align-items: center;
 }
 
 .footer-columns{
@@ -44,6 +45,26 @@
 .footer-element:hover{
     text-decoration: underline;
 }
+
+#credits{
+    width: 96.5%;
+    margin-top: 1dvh;
+    margin-bottom: 3dvh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#credits-left{
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+#credits-right{
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+
 
 @media screen and (orientation: portrait) {
     #footer {
