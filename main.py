@@ -1,5 +1,7 @@
 # ESSENTIAL IMPORTS
 import json
+import os
+
 from utilities import *
 
 # WEB-RELATED IMPORTS
@@ -23,6 +25,8 @@ try:
         f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/stripe_key_thecnopapa_test/versions/2"}).payload.data.decode("UTF-8"))
     with open("secure/flask_key", "w") as f:
         f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/flask_secret_key/versions/1"}).payload.data.decode("UTF-8"))
+    with open("secure/mailgun_key", "w") as f:
+        f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/mailgun_sending_key/versions/1"}).payload.data.decode("UTF-8"))
     print(" * Secret manager initialised")
 except:
     print(" * Failed to initialise secret manager")
@@ -30,6 +34,7 @@ os.environ["FIREBASE_CREDENTIALS"] = "secure/firebase_service_account_info.json"
 os.environ["FIRESTORE_CREDENTIALS"] = "secure/firestore_service_account_info.json"
 os.environ["STRIPE_KEY"] = "secure/stripe_key"
 os.environ["FLASK_KEY"] = "secure/flask_key"
+os.environ["MAILGUN_KEY"] = "secure/mailgun_key"
 with open(os.environ["STRIPE_KEY"], "r") as f:
     os.environ["STRIPE_SECRET"] = f.read()
 app = Flask(__name__)
@@ -76,6 +81,18 @@ def return_blank():
     loc.create_empty_text("page", "name",)
     return loc.page_name
 
+@app.route("/mailgun")
+
+def send_email(recipient, subject, message, sender="no-reply", recipient_name=""):
+    m = requests.post(
+  		"https://api.eu.mailgun.net/v3/mail.iainvisa.com/messages",
+  		auth=("api", os.environ["MAILGUN_KEY"]),
+  		data={"from": "Mailgun Sandbox <{}@mail.iainvisa.com>".format(sender),
+			"to": "Iain Visa <{}>".format(recipient),
+  			"subject": "{}".format(subject),
+  			"text": "{}".format(message),})
+    print(m)
+    return str(m)
 
 @app.route("/email")
 def send_email():
@@ -93,11 +110,11 @@ def send_email():
     # me == the sender's email address
     # you == the recipient's email address
     msg['Subject'] = 'Test Message'
-    msg['From'] = "iainvisa@gmail.com"
-    msg['To'] = "iainvisa@gmail.com"
+    msg['From'] = "iain@mail.iainvisa.com"
+    msg['To'] = "nico@mail.iainvisa.com"
 
     # Send the message via our own SMTP server.
-    s = smtplib.SMTP('localhost')
+    s = smtplib.SMTP('smtp.eu.mailgun.org', 2525)
     s.send_message(msg)
     s.quit()
     return msg
