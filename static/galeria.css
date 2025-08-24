@@ -7,25 +7,9 @@
 .content-galeria {
     display: block;
     width: 100%;
-    position: absolute;
+    position: relative;
     align-content: start;
-
-}
-.capcal{
-    position: absolute;
-    display: flex;
-    flex-wrap: wrap  ;
-    top: 0;
-    left: 0;
-    width: 94%;
-    justify-content: left;
-    align-items: end;
-    align-content: end;
-    z-index: 1;
-    height: 15dvh;
-    margin-bottom: 3dvh;
-    padding-left: 1%;
-    padding-right: 1%;
+    margin-top: 7dvh;
 
 }
 
@@ -35,11 +19,13 @@
     display: flex;
     flex-direction: row;
     position: absolute;
-    right: 0;
+    right: 1%;
+    top: 1%;
     margin-right: 0;
     z-index: 2;
     width: fit-content;
     justify-content: flex-end;
+    border: black solid 1px;
 }
 
 .boto-filtres {
@@ -53,6 +39,7 @@
     width: fit-content;
     position: fixed;
     right: 0;
+    top: -1px;
     display: none;
     z-index: 1;
     padding: 3%;
@@ -67,30 +54,10 @@
 
 
 
-
-
-
-.subtitle, .titol-galeria{
-    margin: 0;
-    color: black;
-    display: flex;
-    height: fit-content;
-
-}
-.titol-galeria{
-
-    font-size: 3dvh;
-    cursor: default;
-}
-.subtitle{
-    font-size: 2dvh;
-    display: none;
-}
-
 .galeria {
     position: relative;
+    margin-top: 7vh;
     display: flex;
-    top: 0;
     height: max-content;
     flex-wrap: wrap;
     padding-bottom: 10dvh;

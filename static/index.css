@@ -17,7 +17,6 @@
     height: fit-content;
     font-size: 3dvh;
     padding-top:5dvh;
-    padding-bottom:5dvh;
 }
 
 
@@ -26,13 +25,6 @@ body{
     display: flex;
     align-items: center;
     flex-direction: column;
-}
-
-.capcal , .spacer {
-    display: none;
-}
-.content-galeria{
-    position: relative;
 }
 
 
@@ -69,6 +61,10 @@ body{
 
 .title:hover{
     cursor: default;
+}
+
+.content-galeria{
+    margin-top: 0;
 }
 
 @media screen and (orientation: portrait) {

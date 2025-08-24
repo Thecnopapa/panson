@@ -13,9 +13,6 @@
 {% endif %}
 
 <div class="content-galeria">
-    <div class="capcal">
-        <div class="titol-galeria">{{ loc[titol_galeria] }}</div>
-        <div class="subtitle">{{ "/"+subtitol if subtitol }}</div>
         {% if show_filtres %}
         <div class="filtres">
             <button class="boto-filtres">Filtrar</button>
@@ -43,8 +40,6 @@
             </div>
         </div>
         {% endif %}
-    </div>
-    <div class="spacer"></div>
     <div class="galeria">
         {% for producte in productes_filtrats[:max_gallery] %}
            <div class="producte" onclick="location.href='/{{ loc.lan }}/productes/{{ producte._id }}'">
