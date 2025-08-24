@@ -84,7 +84,7 @@ def return_blank():
 @app.route("/mailgun")
 def mailgun():
     from app_essentials.mail import send_email
-    m = send_email("panson.joieria@gmail.com", "Configuracio d'email", "Que et sembla aquest email automatic?\n\nEs podia fins i tot enviar desde:\n<el-que-tu-vulguis>@pansonjoieria.com")
+    m = send_email("iainvisa@gmail.com", "Configuracio d'email", "Que et sembla aquest email automatic?\n\nEs podia fins i tot enviar desde:\n<el-que-tu-vulguis>@pansonjoieria.com")
     print(m)
     return str(m)
 
