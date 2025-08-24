@@ -6,9 +6,11 @@ import stripe
 
 
 try:
-    stripe.api_key = os.environ["STRIPE_SECRET"]
+    with open(os.environ["STRIPE_KEY"]) as f:
+        stripe.api_key = f.read()
+
 except:
-    print("Stripe key could not be loaded")
+    print("Stripe key could not be read")
 
 
 

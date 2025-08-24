@@ -17,15 +17,16 @@ project_id = "panson"
 try:
     secret_client = secretmanager.SecretManagerServiceClient()
     os.makedirs("secure", exist_ok=True)
-    with open("secure/firebase_service_account_info.json", "w") as f:
+    with open("secure/firebase_service_account_info.json", "wr") as f:
         f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firebase_credentials/versions/1"}).payload.data.decode("UTF-8"))
-    with open("secure/firestore_service_account_info.json", "w") as f:
+
+    with open("secure/firestore_service_account_info.json", "wr") as f:
         f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firestore_credentials/versions/1"}).payload.data.decode("UTF-8"))
-    with open("secure/stripe_key", "w") as f:
+    with open("secure/stripe_key", "wr") as f:
         f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/stripe_key_thecnopapa_test/versions/2"}).payload.data.decode("UTF-8"))
-    with open("secure/flask_key", "w") as f:
+    with open("secure/flask_key", "wr") as f:
         f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/flask_secret_key/versions/1"}).payload.data.decode("UTF-8"))
-    with open("secure/mailgun_key", "w") as f:
+    with open("secure/mailgun_key", "wr") as f:
         f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/mailgun_sending_key/versions/1"}).payload.data.decode("UTF-8"))
     print(" * Secret manager initialised")
 except:
@@ -35,8 +36,7 @@ os.environ["FIRESTORE_CREDENTIALS"] = "secure/firestore_service_account_info.jso
 os.environ["STRIPE_KEY"] = "secure/stripe_key"
 os.environ["FLASK_KEY"] = "secure/flask_key"
 os.environ["MAILGUN_KEY"] = "secure/mailgun_key"
-with open(os.environ["STRIPE_KEY"], "r") as f:
-    os.environ["STRIPE_SECRET"] = f.read()
+
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = "./uploads"
 app.config['APPLICATION_ROOT'] = '/'
@@ -82,42 +82,11 @@ def return_blank():
     return loc.page_name
 
 @app.route("/mailgun")
-
-def send_email(recipient, subject, message, sender="no-reply", recipient_name=""):
-    m = requests.post(
-  		"https://api.eu.mailgun.net/v3/mail.iainvisa.com/messages",
-  		auth=("api", os.environ["MAILGUN_KEY"]),
-  		data={"from": "Mailgun Sandbox <{}@mail.iainvisa.com>".format(sender),
-			"to": "Iain Visa <{}>".format(recipient),
-  			"subject": "{}".format(subject),
-  			"text": "{}".format(message),})
+def mailgun():
+    from app_essentials.mail import send_email
+    m = send_email("panson.joieria@gmail.com", "Configuracio d'email", "Que et sembla aquest email automatic?\n\nEs podia fins i tot enviar desde:\n<el-que-tu-vulguis>@pansonjoieria.com")
     print(m)
     return str(m)
-
-@app.route("/email")
-def send_email():
-    import email
-    # Import smtplib for the actual sending function
-    import smtplib
-
-    # Import the email modules we'll need
-    from email.message import EmailMessage
-
-    # Open the plain text file whose name is in textfile for reading.
-    msg = EmailMessage()
-    msg.set_content("Message")
-        
-    # me == the sender's email address
-    # you == the recipient's email address
-    msg['Subject'] = 'Test Message'
-    msg['From'] = "iain@mail.iainvisa.com"
-    msg['To'] = "nico@mail.iainvisa.com"
-
-    # Send the message via our own SMTP server.
-    s = smtplib.SMTP('smtp.eu.mailgun.org', 2525)
-    s.send_message(msg)
-    s.quit()
-    return msg
 
 
 @app.post("/acceptar_cookies")
