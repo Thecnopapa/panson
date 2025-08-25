@@ -68,6 +68,7 @@ body {
     transition: background-color 0.2s;
     cursor: pointer;
     min-width:fit-content;
+    border: none;
 }
 .checkout-button:hover {
     background-color: #ffffff;
@@ -170,8 +171,8 @@ body {
 
 .dropbtn, .menu-simple {
     color: #000000;
-    font-size: 1.55dvh;
-    font-weight: bolder;
+    font-size: 2dvh;
+
     border: none;
     user-select: none;
     margin:  0 1dvh;
@@ -260,7 +261,7 @@ body {
     cursor: pointer;
     min-width: 4dvh;
     text-align: center;
-    font-size: 1.5dvh;
+    font-size: 2dvh;
     user-select: none;
     color: rgb(0, 0, 0);
 
@@ -289,8 +290,8 @@ body {
     align-content: center;
     text-align: center;
     vertical-align: center;
-    height: 2.8dvh;
-    width: 2.8dvh;
+    height: 3dvh;
+    width: 3dvh;
     padding-bottom: 0.5dvh;
 
 
@@ -346,13 +347,12 @@ body {
     display: none;
     color: rgba(0, 0, 0, 0);
     font-size: 2dvh;
-    margin-left: 1dvh;
-    margin-right: 2dvh;
+    margin-left: 4dvh;
+    margin-right: 4dvh;
     padding-bottom: 1dvh;
     padding-top: 1dvh;
     text-underline-offset: 0.5dvh;
     border: none;
-    border-top: black solid 1px;
     width: auto;
 }
 
@@ -373,8 +373,8 @@ body {
 .item-submenu {
     display: none;
     font-size: 2dvh;
-    margin-left: 2dvh;
-    margin-right: 2dvh;
+    margin-left: 4dvh;
+    margin-right: 4dvh;
     cursor: pointer;
     padding-bottom: 1dvh;
     text-underline-offset: 0.5dvh;
@@ -408,7 +408,7 @@ body {
 .minus.dropdown-show {display: inline-block;}
 
 .no-line { border-top:none; }
-.menutop { margin-top: 6dvh;}
+.menutop { margin-top: 8dvh;}
 .last-submenu{padding-bottom: 1.5dvh}
 .less-padding { padding-top: 0.5dvh; padding-bottom: 0.5dvh }
 

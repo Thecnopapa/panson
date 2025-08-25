@@ -26,3 +26,24 @@
         {% endfor %}
     </div>
 </div>
+
+
+    <div class="main-foto {{ "clickable" if utils.len(producte.imatges) >1  }}"  onclick="{{ 'showPopup(this, this.nextElementSibling, cross=false)' if utils.len(producte.imatges) >1 }}" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media')">
+	    {% if utils.len(producte.imatges) >1%}
+	    {% endif %}
+    </div>
+    <div class="popup-info no-border no-arrows" id="slideshow-producte" onclick="event.stopPropagation()">
+	    <div id="fotos-producte">
+        	{% for n, imatge in utils.enumerate(producte._imatges2) %}
+            	    <div class="foto_producte {{ "current" if n==0 }}" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media')"></div>
+        	{% endfor %}
+            {% if utils.len(producte.imatges) == 0 %}
+                <div class="foto_producte current" style="top:50%;left:45%">Sense foto</div>
+            {% endif %}
+        </div>
+            {%if utils.len(producte.imatges) >1%}
+                <div class="slideshow-left slideshow-button" onclick="slideshowPrev('producte')"><</div>
+                <div class="slideshow-right slideshow-button" onclick="slideshowNext('producte')">></div>
+                <div class="slideshow-progress"></div>
+            {% endif %}
+    </div>

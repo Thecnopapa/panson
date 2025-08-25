@@ -20,7 +20,6 @@
 
     <div class="main-foto {{ "clickable" if utils.len(producte.imatges) >1  }}"  onclick="{{ 'showPopup(this, this.nextElementSibling, cross=false)' if utils.len(producte.imatges) >1 }}" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media')">
 	    {% if utils.len(producte.imatges) >1%}
-	    <div class=more-images>+{{ utils.len(producte.imatges)-1 }} imatges</div>
 	    {% endif %}
     </div>
     <div class="popup-info no-border no-arrows" id="slideshow-producte" onclick="event.stopPropagation()">
@@ -118,12 +117,20 @@
                                     </label>
                                 </div>
                             {% endfor %}
-
+                    {% else %}
+                        {% for talla in ["XS", "S", "M", "L", "XL"] %}
+                            <div class="option size">
+                                <label class="text-label">
+                                    <input  type="radio" name="talla" preu="0" class="hidden-input" value="{{ talla }}" {{ "checked" if n == 0 }} onchange="updatePrice()">
+                                {{ talla }}
+                                </label>
+                            </div>
+                        {% endfor %}
                     {% endif %}
 
                     {% if producte["totes_talles"] %}
-                            <div class="show-size-selector option" onclick="this.nextElementSibling.style.display='flex'; this.style.display='none';">{{ loc.pro_personalitza_talla }}</div>
-                            <span style="display: none;"><input type="number" name="talla" class="talla talla-unica option"
+                            <div class="show-size-selector option size" onclick="this.nextElementSibling.style.display='flex'; this.style.display='none';">{{ loc.pro_personalitza_talla }}</div>
+                            <span style="display: none;"><input type="number" name="talla" class="talla talla-unica"
                                        min="0"
                                        max="99"
                                        step="1"
@@ -132,8 +139,8 @@
                                        {{"value={}".format(opcions["talla"]) if opcions["talla"] != "None" }}>
                             </span>
                     {% endif %}
-
-                    <em id="info-talles" class="clickable under-hover" onclick="showPopup(this, this.nextElementSibling)">Descobreix la teva talla</em>
+                    </div>
+                    <em id="info-talles" class="clickable under-hover" onclick="showPopup(this, this.nextElementSibling)">{{ loc.pro_graella_talles }}</em>
                         <div class="popup-info" id="popup-talles" onclick="event.stopPropagation()">
                             <h3>Graella de talles internacional</h3>
                             <p>És molt fàcil! A continuació t’expliquem pas a pas què has de fer:</p>
@@ -145,7 +152,7 @@
                                 <li><strong>Si reps l’anell i no et va bé</strong>, no et preocupis: te’l posaré a mida.</li>
                             </ol>
                         </div>
-                    </div>
+
                 </fieldset>
 
             {% endif %}
