@@ -90,7 +90,7 @@
                 <fieldset name="text:variacio" class="option-field variacions-producte {{ "hide" if utils.len(producte.opcions["variacions"].keys()) == 1 }}" >
                     <legend>loc.pro_variacio</legend>
                     <div class="options variations">
-                    {% for n, (variacio, info) in utils.enumerate(utils.sort_by_keys(producte.opcions["variacions"], "preu").items()) %}
+                    {% for n, (variacio, info) in utils.enumerate(utils.sort_by_keys(producte.opcions["variacions"], ["preu", "ordre"]).items()) %}
                         <div class="option variation">
                             <label class="text-label">
                                 <input type="radio" name="variacio" price="{{ info.get("preu", 0) }}" class="hidden-input" value="{{ variacio }}" {{ "checked" if n == 0 }}  onchange="updatePrice()"/>
@@ -106,36 +106,36 @@
 
             {% if producte.opcions["talles"] or producte["totes_talles"] %}
                 <fieldset class="talles_producte option-field" name="text:talla">
-
-                {% if producte.opcions["talles"] %}
-                    <legend>loc.pro_talles_disponibles</legend>
+                <legend>{{ loc.pro_talla }}</legend>
                     <div class="options talles">
-                        {% for n, (talla, info) in utils.enumerate(utils.sort_by_keys(producte.opcions["talles"],"ordre").items()) %}
-                            <div class="option size">
-                                <label class="text-label">
-                                    <input  type="radio" name="talla" price="{{ info.get("preu", 0) }}" class="hidden-input" value="{{ talla }}" {{ "checked" if n == 0 }} onchange="updatePrice()">
-                                {{ talla }}
-                                </label>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    </fieldset>
-                {% endif %}
 
+                    {% if producte.opcions["talles"] %}
+                            {% for n, (talla, info) in utils.enumerate(utils.sort_by_keys(producte.opcions["talles"], ["preu","ordre"]).items()) %}
+                                <div class="option size">
+                                    <label class="text-label">
+                                        <input  type="radio" name="talla" price="{{ info.get("preu", 0) }}" class="hidden-input" value="{{ talla }}" {{ "checked" if n == 0 }} onchange="updatePrice()">
+                                    {{ talla }}
+                                    </label>
+                                </div>
+                            {% endfor %}
 
-            {% if producte["totes_talles"] %}
-                    <legend>{{ loc.pro_talla }}</legend>
-                    <span><input type="number" name="talla" class="talla talla-unica " required
-                               min="0"
-                               max="99"
-                               step="1"
-                               list="defaultSizes"
-                               maxlength="2"
-                               {{"value={}".format(opcions["talla"]) if opcions["talla"] != "None" }}>
-                <br>
-                        <em id="info-talles" class="clickable under-hover" onclick="showPopup(this, this.nextElementSibling)">Descobreix la teva talla</em>
+                    {% endif %}
+
+                    {% if producte["totes_talles"] %}
+                            <div class="show-size-selector option" onclick="this.nextElementSibling.style.display='flex'; this.style.display='none';">{{ loc.pro_personalitza_talla }}</div>
+                            <span style="display: none;"><input type="number" name="talla" class="talla talla-unica option"
+                                       min="0"
+                                       max="99"
+                                       step="1"
+                                       list="defaultSizes"
+                                       maxlength="2"
+                                       {{"value={}".format(opcions["talla"]) if opcions["talla"] != "None" }}>
+                            </span>
+                    {% endif %}
+
+                    <em id="info-talles" class="clickable under-hover" onclick="showPopup(this, this.nextElementSibling)">Descobreix la teva talla</em>
                         <div class="popup-info" id="popup-talles" onclick="event.stopPropagation()">
-                        <h3>Graella de talles internacional</h3>
+                            <h3>Graella de talles internacional</h3>
                             <p>És molt fàcil! A continuació t’expliquem pas a pas què has de fer:</p>
                             <ol>
                                 <li><strong>Agafa un anell que et vagi bé</strong> i assegura’t que tant aquest com el que vols comprar siguin per al mateix dit i la mateixa mà (cada dit pot tenir una mida diferent). Millor si és fi i regular, com una aliança. L’important és que quedi ben recolzat sobre el paper.</li>
@@ -145,9 +145,9 @@
                                 <li><strong>Si reps l’anell i no et va bé</strong>, no et preocupis: te’l posaré a mida.</li>
                             </ol>
                         </div>
-                    </span>
-                    {% endif %}
+                    </div>
                 </fieldset>
+
             {% endif %}
 
 
