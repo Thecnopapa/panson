@@ -21,16 +21,23 @@
 			<form id=email-form method=POST action="/{{ loc.lan }}/send_email/contacte/">
 				<div id=sender-details>
 					<label for=sender-name class=email-label>NOM
-						<input type=name autocomplete=name class="email-input bottom-border-input" id=sender-name name="sender-name"></label>
+						<input required type=text autocomplete=name class="email-input bottom-border-input" id=sender-name name="sender-name"></label>
 					<label for=sender-email class=email-label>EMAIL
-						<input type=email autocomplete=email class="email-input bottom-border-input" id=sender-email name="sender-email"></label>
+						<input required type=email autocomplete=email class="email-input bottom-border-input" id=sender-email name="sender-email"></label>
 				</div>
 				<div id=long-inputs>
-					<label for=sender-phone class=email-label>PHONE
-						<input type=tel autocomplete=tel class="email-input bottom-border-input" id=sender-tel name=sender-tel></label>
-					<label for=subject class=email-label>SUBJECT
-						<input type=text autocomplete=subject class="mail-input bottom-border-input" id=subjext name=subject></label>
+                    <div id="phone-input">
+                        <label for=sender-phone-prefix class="email-label phone-prefix-label">PREFIX
+                            <span class="phone-prefix">+<input type=number autocomplete=tel-country-code class="phone-prefix-input email-input bottom-border-input" id=sender-tel-prefix name=sender-tel-prefix placeholder="34"></span></label>
+                        <label for=sender-phone class="email-label">PHONE
+                            <input required type=tel autocomplete=tel-national class="email-input bottom-border-input" id=sender-tel name=sender-tel></label>
+					</div>
+                    <label for=subject class=email-label>SUBJECT
+						<input required type=text autocomplete=subject class="email-input square-border-input" id=subject name=subject></label>
+                    <label for=message class=email-label>MESSAGE
+                        <textarea required type=text autocomplete=message class="email-input square-border-input" id=message name=message></textarea></label>
 				</div>
+                <button type=submit class="button black-button" id=submit>SEND</button>
 			</form>
 		</div>
 	</div>

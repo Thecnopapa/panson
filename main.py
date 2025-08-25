@@ -504,6 +504,11 @@ def update_field():
         localisation.document("languages").collection("text").document(data["page"]).update(new_data)
     return ""
 
+@app.post("/<lan>/send_email/contacte/")
+def send_contact_email(lan):
+    form = request.form
+    print(form)
+    return form
 
 
 '''
