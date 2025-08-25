@@ -296,9 +296,11 @@ def checkout(lan):
 
 @app.route("/<lan>/checkout/success/")
 def stripe_success(lan):
-    user = get_current_user()
-    user.move_to_favourites()
-    html = template(lan=lan, templates="success")
+    from payments import process_payment
+
+    customer_session = process_payment(lan=lan)
+
+    html = template(lan=lan, templates="success", cs=customer_session)
     return html
 
 

@@ -1,6 +1,8 @@
 
 import os
 from flask import request, redirect
+from app_essentials.session import get_current_user
+from app_essentials.mail import *
 
 import stripe
 
@@ -15,7 +17,9 @@ except:
 
 
 def stripe_checkout(items, lan, origin=None):
-    DOMAIN = request.url_root
+    DOMAIN = request.url_root+"{}/checkout/".format(lan)
+    user = get_current_user()
+    user.stripe_session = None
     try:
         print(items)
         checkout_session = stripe.checkout.Session.create(
@@ -28,10 +32,30 @@ def stripe_checkout(items, lan, origin=None):
             #    },
             #],
             mode='payment',
-            success_url=DOMAIN + "{}/checkout/success".format(lan),
-            cancel_url=DOMAIN + "{}/checkout/cancel".format(lan),
+            success_url=DOMAIN + "success",
+            cancel_url=DOMAIN + "cancel",
+
         )
     except Exception as e:
         return str(e)
-
+    user.stripe_session = checkout_session
+    user.update_db()
     return redirect(checkout_session.url, code=303)
+
+
+
+def process_payment(lan):
+    user = get_current_user()
+    session = stripe.checkout.Session.retrieve(user.stripe_session["id"])
+    if session["status"] == "complete" and session["payment_status"] == "paid":
+        send_email(
+            recipient="{}".format(session["customer_details"]["email"]),
+            subject="Compra realitzada amb exit",
+            sender="ventes",
+            temp="email_compra",
+            name="{}".format(session["customer_details"]["name"]),
+        )
+        user.move_to_favourites()
+    else:
+        return None
+    return session
