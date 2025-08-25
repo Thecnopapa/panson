@@ -78,7 +78,7 @@
     width: 24.8%;
     height: fit-content;
     position: relative;
-    padding-bottom:3dvh;
+    padding-bottom:2dvh;
     user-select: none;
     align-content: start;
     cursor: pointer;
@@ -154,7 +154,7 @@
 }
 .colors{
     position: absolute;
-    display: flex;
+    display: none;
     flex-wrap: wrap;
     width: fit-content;
     height: 3dvh;

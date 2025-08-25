@@ -14,25 +14,32 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: flex-start;
     flex-wrap: wrap;
 
 }
 .footer-col{
-    width: 23%;
+    width: 24.8%;
+    max-width: 24.8%;
     display: flex;
     flex-direction: column;
     margin-bottom: 2dvh;
 
+
+
+
 }
 
 .footer-title{
+    padding-left: 1dvw;
+
     font-size: 2dvh;
     margin-bottom: 1dvh;
 }
 
 .footer-element{
+    padding-left: 1dvw;
     font-size: 1.5dvh;
     padding-bottom: 0.5dvh;
 }
