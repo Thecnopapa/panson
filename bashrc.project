@@ -29,6 +29,11 @@ alias top="echo -en \"\033]0;Top\a\" && top"
 alias please="sudo"
 
 
+pull(){
+	GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+	echo "* Pulling from branch: origin $GIT_BRANCH"
+	git pull origin $GIT_BRANCH
+}
 
 push(){
     GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
