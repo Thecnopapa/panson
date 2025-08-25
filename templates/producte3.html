@@ -104,47 +104,47 @@
 
 
 
-                {% if producte["totes_talles"] or "totes" in producte.opcions.get("talles", {}) %}
-                    <fieldset class="talles_producte option-field">
-                        <legend>{{ loc.pro_talla }}</legend>
-                        <span><input type="number" name="talla" class="talla talla-unica " required
-                                   min="0"
-                                   max="99"
-                                   step="1"
-                                   list="defaultSizes"
-                                   maxlength="2"
-                                   {{"value={}".format(opcions["talla"]) if opcions["talla"] != "None" }}>
-                    <br>
-                            <em id="info-talles" class="clickable under-hover" onclick="showPopup(this, this.nextElementSibling)">Descobreix la teva talla</em>
-                            <div class="popup-info" id="popup-talles" onclick="event.stopPropagation()">
-                            <h3>Graella de talles internacional</h3>
-                                <p>És molt fàcil! A continuació t’expliquem pas a pas què has de fer:</p>
-                                <ol>
-                                    <li><strong>Agafa un anell que et vagi bé</strong> i assegura’t que tant aquest com el que vols comprar siguin per al mateix dit i la mateixa mà (cada dit pot tenir una mida diferent). Millor si és fi i regular, com una aliança. L’important és que quedi ben recolzat sobre el paper.</li>
-                                    <li><strong>Dibuixa la circumferència interior</strong> de l’anell sobre el paper i mesura el diàmetre. Recorda tenir en compte el gruix del llapis quan facis la marca.</li>
-                                    <li><strong>Consulta la taula de talle</strong> que tens a continuació i busca la que correspongui al teu diàmetre.</li>
-                                    <li><strong>Quan compris un anell a la botiga online</strong>, només caldrà que introdueixis aquest número.</li>
-                                    <li><strong>Si reps l’anell i no et va bé</strong>, no et preocupis: te’l posaré a mida.</li>
-                                </ol>
-                            </div>
-                        </span>
-                    </fieldset>
-                {% elif producte.opcions["talles"] %}
-                    <fieldset class="talles_producte option-field">
-                        <legend>loc.pro_talles_disponibles</legend>
-                        {% for talla, info in producte.opcions["talles"].items() %}
-                            {% if opcions["talla"] %}
-                                {% if  opcions["talla"].strip() == utils.str(talla) %}
-                                    <label class="talla-label"><input name="talla" type="radio" class="talla-radio" id="selected-talla" value="{{ talla }} ">{{ talla }}</label>
-                                {%  else %}
-                                    <label class="talla-label"><input name="talla" type="radio" class="talla-radio" value="{{ talla }}" checked="checked">{{ talla }}</label>
-                                {%  endif %}
+            {% if producte["totes_talles"] or "totes" in producte.opcions.get("talles", {}) %}
+                <fieldset class="talles_producte option-field">
+                    <legend>{{ loc.pro_talla }}</legend>
+                    <span><input type="number" name="talla" class="talla talla-unica " required
+                               min="0"
+                               max="99"
+                               step="1"
+                               list="defaultSizes"
+                               maxlength="2"
+                               {{"value={}".format(opcions["talla"]) if opcions["talla"] != "None" }}>
+                <br>
+                        <em id="info-talles" class="clickable under-hover" onclick="showPopup(this, this.nextElementSibling)">Descobreix la teva talla</em>
+                        <div class="popup-info" id="popup-talles" onclick="event.stopPropagation()">
+                        <h3>Graella de talles internacional</h3>
+                            <p>És molt fàcil! A continuació t’expliquem pas a pas què has de fer:</p>
+                            <ol>
+                                <li><strong>Agafa un anell que et vagi bé</strong> i assegura’t que tant aquest com el que vols comprar siguin per al mateix dit i la mateixa mà (cada dit pot tenir una mida diferent). Millor si és fi i regular, com una aliança. L’important és que quedi ben recolzat sobre el paper.</li>
+                                <li><strong>Dibuixa la circumferència interior</strong> de l’anell sobre el paper i mesura el diàmetre. Recorda tenir en compte el gruix del llapis quan facis la marca.</li>
+                                <li><strong>Consulta la taula de talle</strong> que tens a continuació i busca la que correspongui al teu diàmetre.</li>
+                                <li><strong>Quan compris un anell a la botiga online</strong>, només caldrà que introdueixis aquest número.</li>
+                                <li><strong>Si reps l’anell i no et va bé</strong>, no et preocupis: te’l posaré a mida.</li>
+                            </ol>
+                        </div>
+                    </span>
+                </fieldset>
+            {% elif producte.opcions["talles"] %}
+                <fieldset class="talles_producte option-field">
+                    <legend>loc.pro_talles_disponibles</legend>
+                    {% for talla, info in producte.opcions["talles"].items() %}
+                        {% if opcions["talla"] %}
+                            {% if  opcions["talla"].strip() == utils.str(talla) %}
+                                <label class="talla-label"><input name="talla" type="radio" class="talla-radio" id="selected-talla" value="{{ talla }} ">{{ talla }}</label>
                             {%  else %}
-                                    <label class="talla-label"><input name="talla" type="radio" class="talla-radio" value="{{ talla }}">{{ talla }}</label>
+                                <label class="talla-label"><input name="talla" type="radio" class="talla-radio" value="{{ talla }}" checked="checked">{{ talla }}</label>
                             {%  endif %}
-                        {% endfor %}
-                    </fieldset>
-                {% endif %}
+                        {%  else %}
+                                <label class="talla-label"><input name="talla" type="radio" class="talla-radio" value="{{ talla }}">{{ talla }}</label>
+                        {%  endif %}
+                    {% endfor %}
+                </fieldset>
+            {% endif %}
 
             </div>
              <div id="final-price"> <span class="preu-producte"></span> &#8364;</div>

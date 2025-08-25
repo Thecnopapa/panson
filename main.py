@@ -409,7 +409,6 @@ def update_product(id, lan="cat"):
             else:
                 nkey = key
 
-
             if option:
                 target = product.opcions
             else:

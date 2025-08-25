@@ -92,7 +92,7 @@
                             <li><span><input type="text" name="dict:op:talles#{{ n }}" class="talla" value="{{ talla }}"><input type="number" name="number:op:talles#{{ n }}:qty" class="talla_quantitat" value="{{ info["qty"] }}"><button class="remove" type="button" onclick="this.parentElement.remove()">x</button></span></li>
                         {% endfor %}
                     {% endif %}
-                    <button id="new_colour" type="button" onclick="addSize(this)">+</button>
+                    <button id="new_size" type="button" onclick="addSize(this)">+</button>
                     </ul>
 
                     <h3>Variacions</h3>
@@ -102,7 +102,7 @@
                             <li><span><input type="text" name="dict:variacions#{{ n }}" class="variacio" value="{{ variacio }}"> Preu <input type="number" name="number:variacions#{{ n }}:preu" class="variacio_preu" value="{{ info["preu"] }}"><button class="remove" type="button" onclick="this.parentElement.parentElement.remove()">x</button></span></li>
                         {% endfor %}
                     {% endif %}
-                    <li><button id="new_colour" type="button" onclick="addVariation(this)">+</button></li>
+                    <li><button id="new_variation" type="button" onclick="addVariation(this)">+</button></li>
                     </ul>
 
 
