@@ -14,23 +14,40 @@ from google.oauth2 import service_account
 ### START APP CONFIG ###################################################################################################
 
 project_id = "panson"
+os.makedirs("secure", exist_ok=True)
 try:
     secret_client = secretmanager.SecretManagerServiceClient()
-    os.makedirs("secure", exist_ok=True)
-    with open("secure/firebase_service_account_info.json", "wr") as f:
-        f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firebase_credentials/versions/1"}).payload.data.decode("UTF-8"))
-
-    with open("secure/firestore_service_account_info.json", "wr") as f:
-        f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firestore_credentials/versions/1"}).payload.data.decode("UTF-8"))
-    with open("secure/stripe_key", "wr") as f:
-        f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/stripe_key_thecnopapa_test/versions/2"}).payload.data.decode("UTF-8"))
-    with open("secure/flask_key", "wr") as f:
-        f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/flask_secret_key/versions/1"}).payload.data.decode("UTF-8"))
-    with open("secure/mailgun_key", "wr") as f:
-        f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/mailgun_sending_key/versions/1"}).payload.data.decode("UTF-8"))
     print(" * Secret manager initialised")
 except:
     print(" * Failed to initialise secret manager")
+
+try:
+    with open("secure/firebase_service_account_info.json", "w") as f:
+        f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firebase_credentials/versions/1"}).payload.data.decode("UTF-8"))
+except:
+    print(" * Failed to read firebase secret")
+try:
+    with open("secure/firestore_service_account_info.json", "w") as f:
+        f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firestore_credentials/versions/1"}).payload.data.decode("UTF-8"))
+except:
+    print(" * Failed to read firestore secret")
+try:
+    with open("secure/stripe_key", "w") as f:
+        f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/stripe_key_thecnopapa_test/versions/2"}).payload.data.decode("UTF-8"))
+except:
+    print(" * Failed to read stripe key")
+try:
+    with open("secure/flask_key", "w") as f:
+        f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/flask_secret_key/versions/1"}).payload.data.decode("UTF-8"))
+except:
+    print(" * Failed to read flask secret")
+try:
+    with open("secure/mailgun_key", "w") as f:
+        f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/mailgun_sending_key/versions/1"}).payload.data.decode("UTF-8"))
+except:
+    print(" * Failed to read mailgun sending key")
+
+
 os.environ["FIREBASE_CREDENTIALS"] = "secure/firebase_service_account_info.json"
 os.environ["FIRESTORE_CREDENTIALS"] = "secure/firestore_service_account_info.json"
 os.environ["STRIPE_KEY"] = "secure/stripe_key"
@@ -43,9 +60,11 @@ app.config['APPLICATION_ROOT'] = '/'
 app.config['PREFERRED_URL_SCHEME'] = 'https'
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
 
-
-with open("secure/flask_key", "r") as f:
-    app.secret_key = bytes(str(f.read()), 'utf-8')
+try:
+    with open("secure/flask_key", "r") as f:
+        app.secret_key = bytes(str(f.read()), 'utf-8')
+except:
+    print(" * Failed to read flask key")
 
 
 base_url = "https://firestore.googleapis.com/v1/"
