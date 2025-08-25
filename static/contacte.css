@@ -1,0 +1,76 @@
+
+
+
+#content-contacte{
+	display:flex;
+	flex-direction: column;
+	height:fit-content;
+	min-height: 100dvh;
+	padding-top: 7dvh;
+}
+
+
+#columnes-contacte{
+	display:flex;
+	flex-direction: row;
+	background-color: orange;
+	width:100%;
+	max-width:100%;
+}
+
+#contacte-left, #contacte-right{
+	height: 100%;
+	margin: 5%;
+	width: 50%;
+	
+}
+
+#contacte-right{
+	background-color: cyan;
+}
+
+
+#title-contact{
+	font-size: 3dvh;
+	margin-bottom:2dvh;
+}
+
+#sender-details{
+	display:flex;
+	flex-direction:row;
+}
+
+.contacte-emails{
+	font-size: 2dvh;
+	margin-top:1dvfit-content;
+}
+
+.email-label{
+	display:flex;
+	flex-direction:column;
+	width:100%;
+	padding: 2%;
+	font-size: 2dvh;
+}
+.email-input{
+	font-size:1.5dvh;
+}
+
+
+
+
+
+@media screen and (orientation: portrait) {
+	#columnes-contacte{
+		flex-direction:column;
+		background-color: green;
+	}
+	#contacte-left, #contacte-right{
+		width:auto;
+	}
+}
+
+
+
+
+
