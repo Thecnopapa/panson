@@ -9,10 +9,11 @@
 #   fi
 #}
 
-echo "Panson folder at $FOLDER_PATH"
+echo "* Panson folder at $FOLDER_PATH"
 cd $FOLDER_PATH
-conda activate panson && echo "panson environment activated"
-echo -n "Current git branch: " && git rev-parse --abbrev-ref HEAD
+pip install -q -r requirements.txt && echo "* Requirements installed"
+conda activate panson && echo "* panson environment activated"
+echo -n "* Current git branch: " && git rev-parse --abbrev-ref HEAD
 
 
 
@@ -31,12 +32,12 @@ alias please="sudo"
 
 push(){
     GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-    echo "pushing to branch: origin $GIT_BRANCH"
+    echo "* Pushing to branch: origin $GIT_BRANCH"
     git push origin $GIT_BRANCH
 }
 
 commit(){
-    echo "git commit -a"
+    echo "* git commit -a"
     git commit -a
 }
 
