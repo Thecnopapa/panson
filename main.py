@@ -18,34 +18,35 @@ os.makedirs("secure", exist_ok=True)
 try:
     secret_client = secretmanager.SecretManagerServiceClient()
     print(" * Secret manager initialised")
+
+
+    try:
+        with open("secure/firebase_service_account_info.json", "w") as f:
+            f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firebase_credentials/versions/1"}).payload.data.decode("UTF-8"))
+    except:
+        print(" * Failed to read firebase secret")
+    try:
+        with open("secure/firestore_service_account_info.json", "w") as f:
+            f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firestore_credentials/versions/1"}).payload.data.decode("UTF-8"))
+    except:
+        print(" * Failed to read firestore secret")
+    try:
+        with open("secure/stripe_key", "w") as f:
+            f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/stripe_key_thecnopapa_test/versions/2"}).payload.data.decode("UTF-8"))
+    except:
+        print(" * Failed to read stripe key")
+    try:
+        with open("secure/flask_key", "w") as f:
+            f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/flask_secret_key/versions/1"}).payload.data.decode("UTF-8"))
+    except:
+        print(" * Failed to read flask secret")
+    try:    
+        with open("secure/mailgun_key", "w") as f:
+            f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/mailgun_sending_key/versions/1"}).payload.data.decode("UTF-8"))
+    except:
+        print(" * Failed to read mailgun sending key")
 except:
     print(" * Failed to initialise secret manager")
-
-try:
-    with open("secure/firebase_service_account_info.json", "w") as f:
-        f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firebase_credentials/versions/1"}).payload.data.decode("UTF-8"))
-except:
-    print(" * Failed to read firebase secret")
-try:
-    with open("secure/firestore_service_account_info.json", "w") as f:
-        f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firestore_credentials/versions/1"}).payload.data.decode("UTF-8"))
-except:
-    print(" * Failed to read firestore secret")
-try:
-    with open("secure/stripe_key", "w") as f:
-        f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/stripe_key_thecnopapa_test/versions/2"}).payload.data.decode("UTF-8"))
-except:
-    print(" * Failed to read stripe key")
-try:
-    with open("secure/flask_key", "w") as f:
-        f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/flask_secret_key/versions/1"}).payload.data.decode("UTF-8"))
-except:
-    print(" * Failed to read flask secret")
-try:
-    with open("secure/mailgun_key", "w") as f:
-        f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/mailgun_sending_key/versions/1"}).payload.data.decode("UTF-8"))
-except:
-    print(" * Failed to read mailgun sending key")
 
 
 os.environ["FIREBASE_CREDENTIALS"] = "secure/firebase_service_account_info.json"
