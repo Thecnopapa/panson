@@ -38,22 +38,39 @@
 #sender-details{
 	display:flex;
 	flex-direction:row;
+	width;100%;
+	background-color: pink;
+}
+#long-inputs{
+	display:flex;
+	flex-direction:column;
+	width:100%;
+	background-color: purple;
+}
+
+#email-form{
+	width:100%;
+	display:flex;
+	flex-direction: column;
 }
 
 .contacte-emails{
 	font-size: 2dvh;
-	margin-top:1dvfit-content;
+	margin-top:1dv;
+	width:100%;
 }
 
 .email-label{
 	display:flex;
 	flex-direction:column;
-	width:100%;
-	padding: 2%;
+	width:96%;
+	margin:2%;
 	font-size: 2dvh;
+	background-color: yellow;
 }
 .email-input{
 	font-size:1.5dvh;
+	width:auto;
 }
 
 

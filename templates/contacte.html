@@ -18,12 +18,18 @@
 			<div class="contacte-emails">{{ loc.foo_email_bespoke }} // <a href="mailto:{{ loc.email_bespoke }}">{{ loc.email_bespoke }}</a></div>
 		</div>
 		<div id=contacte-right>
-			<form id=send-email method=POST action="/{{ loc.lan }}/send_email/contacte/">
+			<form id=email-form method=POST action="/{{ loc.lan }}/send_email/contacte/">
 				<div id=sender-details>
 					<label for=sender-name class=email-label>NOM
 						<input type=name autocomplete=name class="email-input" id=sender-name name="sender-name"></label>
 					<label for=sender-email class=email-label>EMAIL
 						<input type=email autocomplete=email class="email-input" id=sender-email name="sender-email"></label>
+				</div>
+				<div id=long-inputs>
+					<label for=sender-phone class=email-label>PHONE
+						<input type=tel autocomplete=tel class=email-input id=sender-tel name=sender-tel></label>
+					<label for=subject class=email-label>SUBJECT
+						<input type=text autocomplete=subject class=mail-input id=subjext name=subject></label>
 				</div>
 			</form>
 		</div>
