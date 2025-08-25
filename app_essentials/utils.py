@@ -36,6 +36,26 @@ class Utils:
     def str_to_list(str, delimiter=","):
         return str_to_list(str, delimiter)
 
+    @staticmethod
+    def sort_by_keys(data:dict, keys=None) -> dict:
+        r = {k:v for k,v in sorted(data.items(), key=lambda x: x[0])}
+        if keys is not None:
+            if keys is not list:
+                keys = [keys]
+            for key in keys:
+                print(r)
+                [print(x[1]) for x in r.items()]
+                r = {k:v for k,v in sorted(r.items(), key=lambda x: x[1].get(key, False))}
+        return r
+
+
+    @staticmethod
+    def float(*args, **kwargs):
+        return float(*args, **kwargs)
+
+
+
+
 def str_to_list(string, delimiter=","):
     if type(string) is list:
         return string

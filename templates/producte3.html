@@ -57,7 +57,7 @@
                     <legend>Seleciona un material</legend>
                     {% for n, (material, info) in utils.enumerate(producte.opcions["materials"].items()) %}
                         <div>
-                            <input type="radio" name="material" price="{{ info["preu"] }}" class="material" value="{{ material }}" {{ "checked" if n==0 }}  onchange="updatePrice()"/>
+                            <input type="radio" name="material" price="{{ info.get("preu", 0) }}" class="material" value="{{ material }}" {{ "checked" if n==0 }}  onchange="updatePrice()"/>
                             <label>{{ material }}</label>
                         </div>
                     {% endfor %}
@@ -77,7 +77,7 @@
                             <fieldset name="color#{{ n }}" class="color-selector" onchange="updatePrice()">
                                 {% for color, info in producte.opcions["colors"].items() %}
                                     <label title="{{ loc["color-"+color] }}" class="colour-label {{ producte.opcions.get("extra_colors", []*n)[n] }}" style="background-color:{{ loc["colours_"+color] }};">
-                                    <input type="radio" name="color#{{ n }}" class="hidden-input" price="{{ info["preu"]}}" value="{{ color }}" {{ "selected=\"selected\"" if color == opcions["color"][n] }}>
+                                    <input type="radio" name="color#{{ n }}" class="hidden-input" price="{{ info.get("preu", 0) }}" value="{{ color }}" {{ "selected=\"selected\"" if color == opcions["color"][n] }}>
                                     </label>
                                 {% endfor %}
                             </fieldset >
@@ -90,10 +90,10 @@
                 <fieldset name="text:variacio" class="option-field variacions-producte {{ "hide" if utils.len(producte.opcions["variacions"].keys()) == 1 }}" >
                     <legend>loc.pro_variacio</legend>
                     <div class="options variations">
-                    {% for n, (variacio, info) in utils.enumerate(producte.opcions["variacions"].items()) %}
+                    {% for n, (variacio, info) in utils.enumerate(utils.sort_by_keys(producte.opcions["variacions"], "preu").items()) %}
                         <div class="option variation">
                             <label class="text-label">
-                                <input type="radio" name="variacio" price="{{ info["preu"] }}" class="hidden-input" value="{{ variacio }}" {{ "checked" if n == 0 }}  onchange="updatePrice()"/>
+                                <input type="radio" name="variacio" price="{{ info.get("preu", 0) }}" class="hidden-input" value="{{ variacio }}" {{ "checked" if n == 0 }}  onchange="updatePrice()"/>
                             {{ variacio }}
                             </label>
                         </div>
@@ -105,18 +105,20 @@
 
 
             {% if producte.opcions["talles"] or producte["totes_talles"] %}
-                <fieldset class="talles_producte option-field">
+                <fieldset class="talles_producte option-field" name="text:talla">
 
                 {% if producte.opcions["talles"] %}
-                        <legend>loc.pro_talles_disponibles</legend>
-                        {% for n, (talla, info) in utils.enumerate(producte.opcions["talles"].items()) %}
+                    <legend>loc.pro_talles_disponibles</legend>
+                    <div class="options talles">
+                        {% for n, (talla, info) in utils.enumerate(utils.sort_by_keys(producte.opcions["talles"],"ordre").items()) %}
                             <div class="option size">
                                 <label class="text-label">
-                                    <input  type="radio" name="talla" price="{{ info.get("preu", 0) }}" class="hidden-input"  value="{{ talla }}" {{ "checked" if n == 0 }} onchange="updatePrice()">
+                                    <input  type="radio" name="talla" price="{{ info.get("preu", 0) }}" class="hidden-input" value="{{ talla }}" {{ "checked" if n == 0 }} onchange="updatePrice()">
                                 {{ talla }}
                                 </label>
                             </div>
                         {% endfor %}
+                    </div>
                     </fieldset>
                 {% endif %}
 
