@@ -221,6 +221,7 @@ def afegir_al_carret(lan):
     variacio = None
     colors = None
     talla = None
+    talla_multi = None
     print(request.form)
     for k, v in request.form.items():
         if "#" in k:
@@ -237,12 +238,17 @@ def afegir_al_carret(lan):
         elif k == "talla":
             if v is None or v == "":
                 return "talla", 204
-            talla = int(v)
+            talla = v
+        elif k == "talla-multi":
+            if v is not "":
+                talla_multi = v
 
     opcions = {}
     opcions["material"] = material
     opcions["variacio"] = variacio
     opcions["color"] = colors
+    if talla_multi is not None:
+        talla = talla_multi
     opcions["talla"] = talla
     user.add_producte_carret(id=request.form["id"], opcions_seleccionades=opcions)
     # return "", 204

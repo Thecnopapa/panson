@@ -64,13 +64,20 @@ function selectSize(trigger){
 	for (let i = 0; i < sizeList.length; i++) {
 		console.log(sizeList[i].getAttribute("checked") == "false", sizeList[i].classList.contains("multiple-input"));
 		if (sizeList[i].getAttribute("checked")=="false" && sizeList[i].classList.contains("multiple-input")){
+			sizeList[i].value = "";
                 	sizeList[i].parentElement.style.display="none";
 			sizeList[i].parentElement.previousElementSibling.style.display="flex";
         	}
 	}
 }
 
-
+function selectColour(trigger){
+	var colourList = trigger.parentElement.getElementsByClassName("color-input");
+	for (let i = 0; i < colourList.length; i++) {
+		colourList[i].setAttribute("checked", false);
+	}
+        trigger.firstElementChild.setAttribute("checked", true);
+}
 
 
 
