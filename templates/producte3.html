@@ -56,7 +56,7 @@
                     <legend>Seleciona un material</legend>
                     {% for n, (material, info) in utils.enumerate(producte.opcions["materials"].items()) %}
                         <div>
-                            <input type="radio" name="material" price="{{ info.get("preu", 0) }}" class="material" value="{{ material }}" {{ "checked" if n==0 }}  onchange="updatePrice()"/>
+                            <input type="radio" name="material" price="{{ info.get("preu", 0) }}" class="material-input" value="{{ material }}" {{ "checked" if n==0 }}  onchange="updatePrice()"/>
                             <label>{{ material }}</label>
                         </div>
                     {% endfor %}
@@ -76,7 +76,7 @@
                             <fieldset name="color#{{ n }}" class="color-selector" onchange="updatePrice()">
                                 {% for color, info in producte.opcions["colors"].items() %}
                                     <label title="{{ loc["color-"+color] }}" class="colour-label {{ producte.opcions.get("extra_colors", []*n)[n] }}" style="background-color:{{ loc["colours_"+color] }};">
-                                    <input type="radio" name="color#{{ n }}" class="hidden-input" price="{{ info.get("preu", 0) }}" value="{{ color }}" {{ "selected=\"selected\"" if color == opcions["color"][n] }}>
+                                    <input type="radio" name="color#{{ n }}" class="hidden-input color-input" price="{{ info.get("preu", 0) }}" value="{{ color }}" {{ "selected=\"selected\"" if color == opcions["color"][n] }}>
                                     </label>
                                 {% endfor %}
                             </fieldset >
@@ -92,7 +92,7 @@
                     {% for n, (variacio, info) in utils.enumerate(utils.sort_by_keys(producte.opcions["variacions"], ["preu", "ordre"]).items()) %}
                         <div class="option variation">
                             <label class="text-label">
-                                <input type="radio" name="variacio" price="{{ info.get("preu", 0) }}" class="hidden-input" value="{{ variacio }}" {{ "checked" if n == 0 }}  onchange="updatePrice()"/>
+                                <input type="radio" name="variacio" price="{{ info.get("preu", 0) }}" class="hidden-input variation-input" value="{{ variacio }}" {{ "checked" if n == 0 }}  onchange="updatePrice()"/>
                             {{ variacio }}
                             </label>
                         </div>
@@ -104,7 +104,7 @@
 
 
             {% if producte.opcions["talles"] or producte["totes_talles"] %}
-                <fieldset class="talles_producte option-field" name="text:talla">
+                <fieldset class="talles-producte option-field" name="text:talla">
                 <legend>{{ loc.pro_talla }}</legend>
                     <div class="options talles">
 
@@ -112,7 +112,7 @@
                             {% for n, (talla, info) in utils.enumerate(utils.sort_by_keys(producte.opcions["talles"], ["preu","ordre"]).items()) %}
                                 <div class="option size">
                                     <label class="text-label">
-                                        <input  type="radio" name="talla" price="{{ info.get("preu", 0) }}" class="hidden-input" value="{{ talla }}" {{ "checked" if n == 0 }} onchange="updatePrice()">
+                                        <input  type="radio" name="talla" price="{{ info.get("preu", 0) }}" class="hidden-input size-input" value="{{ talla }}" {{ "checked" if n == 0 }} onchange="updatePrice()">
                                     {{ talla }}
                                     </label>
                                 </div>
@@ -121,7 +121,7 @@
                         {% for talla in ["XS", "S", "M", "L", "XL"] %}
                             <div class="option size">
                                 <label class="text-label">
-                                    <input  type="radio" name="talla" preu="0" class="hidden-input" value="{{ talla }}" {{ "checked" if n == 0 }} onchange="updatePrice()">
+                                    <input  type="radio" name="talla" preu="0" class="hidden-input size-input" value="{{ talla }}" {{ "checked" if n == 0 }} onchange="selectSize(this);updatePrice();">
                                 {{ talla }}
                                 </label>
                             </div>
@@ -130,7 +130,7 @@
 
                     {% if producte["totes_talles"] %}
                             <div class="show-size-selector option size" onclick="this.nextElementSibling.style.display='flex'; this.style.display='none';">{{ loc.pro_personalitza_talla }}</div>
-                            <span style="display: none;"><input type="number" name="talla" class="talla talla-unica"
+                            <span style="display: none;"><input type="number" name="talla" class="talla talla-unica size-input multiple-input" oninput="selectSize(this); updatePrice();"
                                        min="0"
                                        max="99"
                                        step="1"

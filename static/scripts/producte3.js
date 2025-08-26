@@ -12,29 +12,36 @@ let form = document.getElementById('form');
 function updatePrice(){
     let price = 0
 
-    const variationList = document.getElementsByClassName("variation");
+    const variationList = document.getElementsByClassName("variation-input");
     for (let i = 0; i < variationList.length; i++) {
-        if (variationList[i].checked) {
+        if (variationList[i].checked && variationList[i].attributes.price) {
             price += Number(variationList[i].attributes.price.value);
         }
     }
 
-    const materialList = document.getElementsByClassName("material");
+    const materialList = document.getElementsByClassName("material-input");
     for (let i = 0; i < materialList.length; i++) {
-        if (materialList[i].checked) {
+        if (materialList[i].checked && materialList[i].attributes.price) {
             price += Number(materialList[i].attributes.price.value);
         }
     }
 
     const colorLists = document.getElementsByClassName("color-selector");
     for (let i = 0; i < colorLists.length; i++) {
-        const colorElements = colorLists[i].getElementsByTagName("input");
+        const colorElements = colorLists[i].getElementsByClassName("color-input");
         for (let n =0; n < colorElements.length; n++) {
             if (colorElements[n].checked && colorElements[n].attributes.price) {
                 price += Number(colorElements[n].attributes.price.value);
             }
         }
     }
+	const sizeList = document.getElementsByClassName("size-input");
+	for (let i = 0; i < sizeList.length; i++) {
+		if (sizeList[i].checked && sizeList[i].attributes.price) {
+			price += Number(sizeList[i].attributes.price.value);
+		}
+	}
+    	
     const priceTags = document.getElementsByClassName("preu-producte");
     console.log(priceTags, price);
     try {
@@ -44,7 +51,32 @@ function updatePrice(){
     } catch (error) {}
 
 }
-console.log(1);
+
+
+
+function selectSize(trigger){
+	var sizeList = document.getElementsByClassName("size-input");
+	for (let i = 0; i < sizeList.length; i++) {
+		sizeList[i].setAttribute("checked", false);
+		console.log(sizeList[i]);
+	}
+	trigger.setAttribute("checked", true);
+	for (let i = 0; i < sizeList.length; i++) {
+		console.log(sizeList[i].getAttribute("checked") == "false", sizeList[i].classList.contains("multiple-input"));
+		if (sizeList[i].getAttribute("checked")=="false" && sizeList[i].classList.contains("multiple-input")){
+                	sizeList[i].parentElement.style.display="none";
+			sizeList[i].parentElement.previousElementSibling.style.display="flex";
+        	}
+	}
+}
+
+
+
+
+
+
+
+
 function submitToCart (trigger) {
     const theForm = document.getElementById("form");
     const missingInfo = document.getElementById("missing-info");

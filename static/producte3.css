@@ -331,17 +331,17 @@ body {
     cursor: pointer;
     font-size: 2dvh;
 }
-.option-field .text-label:has(> .hidden-input:checked){
+.option-field .text-label:has(> .hidden-input[checked=true]){
     font-weight: bold;
     text-decoration: underline;
     text-underline-offset: 0.5dvh;
 }
-.option-field .colour-label:has(> .hidden-input:checked){
+.option-field .colour-label:has(> .hidden-input[checked=true]){
     border: black solid 0.1dvh;
     margin-right: 0.8dvh;
 
 }
-.option-field .pro-pedra-petita:has(> .hidden-input:checked){
+.option-field .pro-pedra-petita:has(> .hidden-input[checked=true]){
         margin-right: 1dvh;
     }
 
