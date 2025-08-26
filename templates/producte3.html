@@ -130,7 +130,7 @@
 
                     {% if producte["totes_talles"] %}
                             <div class="show-size-selector option size" onclick="this.nextElementSibling.style.display='flex'; this.style.display='none';">{{ loc.pro_personalitza_talla }}</div>
-                            <span style="display: none;"><input type="number" name="talla-multi" class="talla talla-unica size-input multiple-input" oninput="selectSize(this); updatePrice();"
+			    <span style="display: none;"><input type="number" name="talla-multi" class="talla talla-unica size-input multiple-input" oninput="selectSize(this); updatePrice();" placeholder="{{ loc.pro_talla }}"
                                        min="0"
                                        max="99"
                                        step="1"

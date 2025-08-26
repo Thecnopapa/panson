@@ -358,7 +358,7 @@ body {
 }
 .option{
     font-size: 2dvh;
-    padding-right: 1%;
+    margin-right: 2dvh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -373,6 +373,9 @@ body {
         font-size:2dvh;
         margin:0;
         padding:0;
+	border:none;
+	border-bottom:2px solid black;
+	width:10dvh;
 }
 .color-selector{
     padding: 0;
