@@ -42,7 +42,7 @@ try:
         print(" * Failed to read flask secret")
     try:    
         with open("secure/mailgun_key", "w") as f:
-            f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/mailgun_sending_key/versions/1"}).payload.data.decode("UTF-8"))
+            f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/mailgun_sending_key/versions/2"}).payload.data.decode("UTF-8"))
     except:
         print(" * Failed to read mailgun sending key")
 except:

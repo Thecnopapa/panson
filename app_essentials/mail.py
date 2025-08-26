@@ -4,7 +4,7 @@ from flask import render_template
 from app_essentials.utils import Utils
 
 def send_email(recipient, subject, temp=None, message="", sender="no-reply", sender_name="PANSON joieria", recipient_name=None, internal_recipient=False, **kwargs):
-	mail_server = "mail.iainvisa.com"
+	mail_server = "panson.joieria.com"
 	with open(os.environ["MAILGUN_KEY"]) as f:
 		mailgun_key = f.read()
 
