@@ -31,7 +31,7 @@ def send_email(recipient, subject, temp=None, message="", sender="no-reply", sen
 		data["html"] = template
 
 	m = requests.post(
-		"https://api.eu.mailgun.net/v3/mail.iainvisa.com/messages",
+		"https://api.eu.mailgun.net/v3/{}/messages".format(mail_server),
 		auth=("api", mailgun_key),
 		data=data)
-	return str(m)
+	return data

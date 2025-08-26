@@ -63,7 +63,7 @@
            </div>
         {% endfor %}
         {% for n in range(utils.mod(utils.len(productes_filtrats[:max_gallery]), 4)) %}
-            <div class="producte"></div>
+            <div class="producte empty"></div>
         {% endfor %}
 
     {% if max_gallery < utils.len(productes_filtrats)  %}

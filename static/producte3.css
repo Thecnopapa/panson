@@ -215,13 +215,13 @@ body {
 
 .info{
 	width:100%;
-    padding-top: 2dvh;
+    padding-top: 5dvh;
 }
 
 .desplegable{
     height: fit-content;
     width:100%;
-    padding-bottom: 1dvh;
+    padding-bottom: 3dvh;
 }
 .titol-desplegable {
     display: flex;
@@ -297,7 +297,7 @@ body {
 }
 #info-talles{
     margin-top: 2dvh;
-    font-size: 1.5dvh;
+    font-size:2dvh;
 }
 #buy-options{
     width: 100%;
@@ -309,6 +309,8 @@ body {
 }
 .option-field legend{
     font-size: 2dvh;
+    padding:0;
+    margin:0;
     margin-bottom: 0.5dvh;
 }
 
@@ -331,8 +333,8 @@ body {
     cursor: pointer;
     font-size: 2dvh;
     margin-right: 2%;
-    margin-bottom: 2dvh;
-    margin-top:2dvh;
+    margin-bottom: 1dvh;
+    margin-top:1dvh;
 }
 
 
@@ -349,7 +351,7 @@ body {
     width: 100%;
     max-width: 100dvh;
     flex-wrap: wrap;
-    justify-content:center;
+
 
 }
 .options span{
@@ -358,10 +360,11 @@ body {
 }
 .option{
     font-size: 2dvh;
-    margin-right: 2dvh;
+    margin-right: 1.5dvh;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    cursor: pointer;
 }
 .talla{
     margin-right: 2%;
@@ -513,8 +516,29 @@ body {
 
 }
 
+.producte{
+    min-width: 24.8dvw;
+    padding: 0.1dvw;
+}
+.producte.empty{
+    display: none;
+}
+.content-galeria{
+    margin-top: 2dvh;
+}
+.galeria{
+    margin-top: 0;
+    flex-wrap: nowrap;
+    max-width: 100dvw;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    padding-bottom: 8dvh;
+}
 
-
+.subtitol-galeria{
+    margin-top: 10dvh;
+    font-size: 2dvh;
+}
 
 
 @media screen and (orientation: portrait) {

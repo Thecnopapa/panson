@@ -25,22 +25,17 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 2dvh;
-
-
-
-
 }
 
 .footer-title{
     padding-left: 1dvw;
-
     font-size: 2dvh;
-    margin-bottom: 1dvh;
+    margin-bottom: 2dvh;
 }
 
 .footer-element{
     padding-left: 1dvw;
-    font-size: 1.5dvh;
+    font-size: 2dvh;
     padding-bottom: 0.5dvh;
 }
 
@@ -54,12 +49,15 @@
 }
 
 #credits{
-    width: 96.5%;
+    width: 97.8%;
     margin-top: 1dvh;
     margin-bottom: 3dvh;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    font-size: 1.5dvh;
+    padding-left: 1dvw;
+    padding-right: 1dvw;
 }
 #credits-left{
     display: flex;
