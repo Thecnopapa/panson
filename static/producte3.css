@@ -16,7 +16,6 @@ body {
     width: 100dvw;
     position: relative;
     height: 100dvh;
-    min-height: fit-content;
     align-items: flex-start;
 	margin-top:0dvh;
     justify-content: space-between;
@@ -24,7 +23,7 @@ body {
     background-size: cover;
     min-height: 100dvh;
     max-height: 100dvh;
-    overflow-y: scroll;
+
 }
 
 #producte-images{
