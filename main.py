@@ -518,8 +518,8 @@ def send_contact_email(lan):
     print(form)
     r = send_email(
         recipient="contacte",
-        sender="client",
-        sender_name="Contacte web",
+        sender="web",
+        sender_name="Formulari Contacte",
         internal_recipient=True,
         subject=form["subject"],
         temp="email_contacte",
