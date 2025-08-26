@@ -330,7 +330,12 @@ body {
 .option-field label{
     cursor: pointer;
     font-size: 2dvh;
+    margin-right: 2%;
+    margin-bottom: 2dvh;
+    margin-top:2dvh;
 }
+
+
 .option-field .text-label:has(> .hidden-input[checked=true]){
     font-weight: bold;
     text-decoration: underline;
@@ -351,6 +356,12 @@ body {
     width: 100%;
     max-width: 100dvh;
     flex-wrap: wrap;
+    justify-content:center;
+
+}
+.options span{
+	display:flex;
+	align-items:center;
 }
 .option{
     font-size: 2dvh;
@@ -362,6 +373,13 @@ body {
 .talla{
     margin-right: 2%;
     margin-bottom: 2dvh;
+    margin-top:2dvh;
+}
+
+.multiple-input {
+        font-size:2dvh;
+        margin:0;
+        padding:0;
 }
 .color-selector{
     padding: 0;
