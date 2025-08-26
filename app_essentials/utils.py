@@ -56,6 +56,10 @@ class Utils:
     def mod(num1, num2):
         return num1 % num2
 
+    @staticmethod
+    def replace(string,old,new ):
+        return string.replace(old,new)
+
 
 
 

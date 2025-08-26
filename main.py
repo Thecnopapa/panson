@@ -513,9 +513,20 @@ def update_field():
 
 @app.post("/<lan>/send_email/contacte/")
 def send_contact_email(lan):
+    from app_essentials.mail import send_email
     form = request.form
     print(form)
-    return form
+    r = send_email(
+        recipient="contacte",
+        sender="client",
+        sender_name="Contacte web",
+        internal_recipient=True,
+        subject=form["subject"],
+        temp="email_contacte",
+        form = form,
+    )
+
+    return ""
 
 
 '''
