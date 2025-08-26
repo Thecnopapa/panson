@@ -240,7 +240,7 @@ def afegir_al_carret(lan):
                 return "talla", 204
             talla = v
         elif k == "talla-multi":
-            if v is not "":
+            if v != "":
                 talla_multi = v
 
     opcions = {}
