@@ -1,3 +1,82 @@
 #content-fetamida{
-    height: 100dvh;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    height: 88dvh;
+    max-width: 100dvw;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    background-color: rgba(100, 149, 237, 0.2);
+    margin-top: 12dvh;
+}
+.scroller{
+    height: 100%;
+    cursor: pointer;
+    width: 25%;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: left 1s;
+}
+#scroll-left{
+    left:0dvw;
+}
+#scroll-right{
+    left:75dvw;
+}
+.fetamida-section{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    width: 75dvw;
+    min-width: 75dvw;
+    justify-content: space-between;
+    transition: min-width linear 0.9s;
+}
+
+#fetamida-centre {
+    background-color: orange;
+    width: 40dvw;
+    min-width: 40dvw;
+}
+
+#fetamida-centre.current-section, #fetamida-centre.left-section{
+    width: 75dvw;
+    min-width: 75dvw;
+
+}
+.left-section{
+}
+.right-section{
+}
+
+#section-menu{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    background-color: cyan;
+    transition: left linear 0.5s;
+    justify-content: space-evenly;
+}
+
+.to-section{
+    margin-left: 5dvw;
+    margin-right: 5dvw;
+    font-size: 2dvh;
+    transition-property: margin-left, margin-right;
+    transition-duration: 1s, 1s;
+    transition-timing-function: linear, linear;
+}
+.to-section.current-section{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+.box{
+    width: 20dvh;
+    height: 20dvh;
+    background-color: black;
 }
