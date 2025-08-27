@@ -89,7 +89,7 @@
                     <ul id="size_list">
                     {% if producte.opcions["talles"] %}
                         {% for n, (talla, info) in utils.enumerate(producte.opcions["talles"].items()) if talla != "totes" %}
-                            <li><span><input type="text" name="dict:op:talles#{{ n }}" class="talla" value="{{ talla }}"><input type="number" name="number:op:talles#{{ n }}:qty" class="talla_quantitat" value="{{ info["qty"] }}"><button class="remove" type="button" onclick="this.parentElement.remove()">x</button></span></li>
+                            <li><span><input type="text" name="dict:op:talles#{{ n }}" class="talla" value="{{ talla }}">QTY:<input type="number" name="number:op:talles#{{ n }}:qty" class="talla_quantitat" value="{{ info["qty"] }}">PREU:<input type="number" name="number:op:talles#{{ n }}:preu" class="talla_quantitat" value="{{ info["preu"] }}"><button class="remove" type="button" onclick="this.parentElement.remove()">x</button></span></li>
                         {% endfor %}
                     {% endif %}
                     <button id="new_size" type="button" onclick="addSize(this)">+</button>

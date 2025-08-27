@@ -52,7 +52,17 @@ function updatePrice(){
 
 }
 
-
+function setTimeMessage(trigger){
+    if (trigger.attributes.qty) {
+        if (Number(trigger.attributes.qty.value) > 0){
+            document.getElementById("missatge-rapid").style.display = "flex"
+            document.getElementById("missatge-lent").style.display = "none";
+            return;
+        }
+    }
+    document.getElementById("missatge-rapid").style.display = "none"
+    document.getElementById("missatge-lent").style.display = "flex";
+}
 
 function selectSize(trigger){
 	var sizeList = document.getElementsByClassName("size-input");
@@ -61,6 +71,7 @@ function selectSize(trigger){
 		console.log(sizeList[i]);
 	}
 	trigger.setAttribute("checked", true);
+    setTimeMessage(trigger);
 	for (let i = 0; i < sizeList.length; i++) {
 		console.log(sizeList[i].getAttribute("checked") == "false", sizeList[i].classList.contains("multiple-input"));
 		if (sizeList[i].getAttribute("checked")=="false" && sizeList[i].classList.contains("multiple-input")){
