@@ -375,10 +375,12 @@ def update_product(id, lan="cat"):
     user = get_current_user()
 
     if check_if_admin(user.username, user.password):
+        print(request.form)
 
         if "text:id" in request.form:
             id = request.form["text:id"]
         product = Product(id=id)
+        imatges = {}
         for key, value in request.form.to_dict().items():
             value_type = key.split(":")[0]
             okey = key
@@ -416,7 +418,12 @@ def update_product(id, lan="cat"):
                 key = key.split("#")[0]
             else:
                 nkey = key
-
+            if key == "imatges":
+                if nkey not in imatges.keys():
+                    imatges[nkey] = {}
+                if subkey is not None:
+                    imatges[nkey][subkey] = value
+                continue
             if option:
                 target = product.opcions
             else:
@@ -449,9 +456,14 @@ def update_product(id, lan="cat"):
                 target[key] = value
 
             print(key, value, value_type)
+        print("IMATGES:")
+        print(imatges)
+        imatges = {k:v for k,v in imatges.items() if not v.get("delete", False)}
+        imatges = [v["name"] for k,v in sorted(imatges.items(), key=lambda x: x[1]["order"])]
+        print(imatges)
         uploads = load_files(target_folder="productes")
         uploaded_images = upload_images(uploads, "productes")
-        for image in uploaded_images:
+        for image in imatges + uploaded_images:
             product.imatges.append(image)
         product.update_db()
         #return str(request.form) + "<br>" + str(uploads)+ "<br>" + str(uploaded_images)+ "<br>" + product.__html__()
