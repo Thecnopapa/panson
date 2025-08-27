@@ -459,6 +459,7 @@ def update_product(id, lan="cat"):
         print("IMATGES:")
         print(imatges)
         imatges = {k:v for k,v in imatges.items() if not v.get("delete", False)}
+        print(imatges)
         imatges = [v["name"] for k,v in sorted(imatges.items(), key=lambda x: x[1]["order"])]
         print(imatges)
         uploads = load_files(target_folder="productes")
