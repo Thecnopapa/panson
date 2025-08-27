@@ -113,7 +113,10 @@ function showInfoDropdown(trigger, popupContent, arrow=undefined) {
     if (arrow) {
         arrow.innerHTML = "-";
     }
+    var topPos = popupContent.offsetTop;
     //popupContent.scrollIntoView({behavior: "smooth"});
+    console.log(trigger.parentElement.parentElement.parentElement, trigger.parentElement.offsetHeight);
+    trigger.parentElement.parentElement.parentElement.scrollBy(0, trigger.parentElement.offsetHeight, {behavior: "smooth"});
 
 }
 

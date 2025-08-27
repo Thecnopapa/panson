@@ -541,6 +541,15 @@ def send_contact_email(lan):
 
     return r
 
+@app.route("/<lan>/fetamida/")
+def fetamida(lan):
+    html = template(lan=lan, templates="fetamida")
+    return html
+
+
+
+
+
 
 '''
 
