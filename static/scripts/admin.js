@@ -2,6 +2,48 @@
 
 
 
+
+function prioDown(image, move=true){
+	const input = image.getElementsByClassName("order-img-input")[0];
+	const text = image.getElementsByClassName("order-img-text")[0];
+	
+	if (image.nextElementSibling && move){
+		console.log(image);
+		prioDown(image, false);
+		prioUp(image.nextElementSibling, false);
+		image.nextElementSibling.after(image);
+
+	}
+	console.log(!move);
+	if (!move){
+		var position =Number(input.value);
+                position = position + 1;
+                text.innerHTML = String(position);
+                input.value = position;
+	}
+}
+
+function prioUp(image, move=true){
+        const input = image.getElementsByClassName("order-img-input")[0];
+        const text = image.getElementsByClassName("order-img-text")[0];
+
+        if (image.previousElementSibling && move){
+		console.log(image);
+		prioUp(image, false);
+                prioDown(image.previousElementSibling, false);
+		image.previousElementSibling.before(image);
+                                                                                                }
+	console.log(!move);
+        if (!move){
+                var position =Number(input.value);                                      
+                position = position - 1;                                                                  text.innerHTML = String(position);                                                      input.value = position;                                                         }
+}
+
+
+
+
+
+
 function showData(trigger){
     data = trigger.parentElement.getElementsByClassName("data")[0]
     data.classList.remove("hide")
@@ -107,3 +149,4 @@ function resizeAll() {
         resizeArea(i)
     }
 }
+

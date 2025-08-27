@@ -111,9 +111,17 @@
                     <br>
                     <h3>Fotos</h3>
                     <div class="fotos">
+			    {{ producte.imatges }}
                         {% for n, imatge in utils.enumerate(producte.imatges) %}
                             <div class="foto_producte" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media')">
-                            <input type="text" name="img:imatges#{{ n }}" class="img_list" value="{{ imatge }}">
+				    <button type=button class=prio-up onclick="prioUp(this.parentElement)">&larr;</button>
+				    <label>delete<input type=checkbox name="bool:imatges#{{ n }}:delete" class=del-img></label>
+				    <input type=hidden name="number:imatges#{{ n }}:order" class="order-img-input" value="{{n}}">
+				    <div class=order-img-text>{{ n }}</div>
+				    <button type=button class=prio-up onclick="prioDown(this.parentElement)">&rarr;</button>
+				    <input type=hidden class="name-img" name="text:imatges#{{n}}:name" value="{{imatge}}">
+				    <div class="name-img">{{imatge}}</div>
+
                             </div>
                         {% endfor %}
                     </div>

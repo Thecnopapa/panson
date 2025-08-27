@@ -94,13 +94,33 @@ input, option ,select, textarea {
 }
 
 .foto_producte {
+	position:relative;
+	display: flex;
+	flex-direction:row;
     width: 30dvh;
     height: 30dvh;
     background-position: center;
     background-size: cover;
+    justify-content:space-between;
+}
+.foto_producte label{
+	width:fit-content;
+}
+.foto_producte button{
+	width:10%;
+	height:fit-content;
+}
+.del-img{
+	accent-color:red;
 }
 
-
+.name-img{
+	display:flex;
+	position:absolute;
+	bottom:0;
+	width:100%;
+	justify-content:center;
+}
 
 
 
