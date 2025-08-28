@@ -171,6 +171,7 @@ test (){
 
 }
 deploy (){
+  echo -en "\033]0;Web Deploy\a"
 	cd $FOLDER_PATH && gcloud run deploy --source .
 }
 latest () {
