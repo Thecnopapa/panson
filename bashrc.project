@@ -5,17 +5,17 @@
 
 # SETUP:
 # 1. Make sure this file is in the top folder of the git folder.
-# 	e.g. ~/iain/myProject/bashr.project
-# 	NOTE: If the file isbnot named 'bashrc.project', change SCRIPT_NAME accordingly.
+# 	e.g. ~/iain/myProject/bashrc.project
+# 	NOTE: If the file is not named 'bashrc.project', change SCRIPT_NAME accordingly.
 # 	NOTE: If not using bash or .bashrc change RCFILE accordingly.
 # 2. Execute this file with with the init argument.
-# 	e.g. ./myProject/bashr.project init
-# 	NOTE: The currrent directory does not matter.
+# 	e.g. ./myProject/bashrc.project init
+# 	NOTE: The current directory does not matter.
 # 3. Run the command to initialise the project (the folder name by default).
 # 	e.g. myProject
 # 4. To change any variables, execute or source the script with the innit option.
 # 	e.g. myProject init
-# 	e.g. ./myProject/bashr.project init
+# 	e.g. ./myProject/bashrc.project init
 
 
 RCFILE=~/.bashrc
@@ -23,6 +23,12 @@ SCRIPT_NAME="bashrc.project"
 CONDA_ENV="default" # =folder name
 RUN_COMMAND="default" # =folder name
 SHELL=bash
+
+BLUE="\[\e[94m\]"
+YELLOW="\[\e[93m\]"
+GREEN="\[\e[92m\]"
+CYAN="\[\e[96m\]"
+EC="\[\e[0m\]"
 
 
 if [[ "$(basename -- "$0")" == "$SCRIPT_NAME" ]]; then
@@ -35,12 +41,13 @@ else
 fi
 
 
-cd $FOLDER_PATH
+cd $FOLDER_PATH || {echo "cd $FOLDER_PATH failed, exiting..."; exit}
 
 VIM=$(which vim)
 echo "* Vim location: $VIM"
 vim(){
-	echo -en "\033]0;$1\a"
+	echo -en "\e[96m\033]0;$1\e[0m\a" || echo -en "\033]0;$1\a"
+
 	$VIM $*
 }
 
@@ -98,11 +105,7 @@ echo -n "* Current git branch: " && git rev-parse --abbrev-ref HEAD
 
 
 
-BLUE="\[\e[94m\]"
-YELLOW="\[\e[93m\]"
-GREEN="\[\e[92m\]"
-CYAN="\[\e[96m\]"
-EC="\[\e[0m\]"
+
 
 prompt_setup(){
   git_colour(){
