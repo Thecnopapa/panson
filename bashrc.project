@@ -109,7 +109,7 @@ prompt_setup(){
     if [[ "$(git status -s)" != "" ]]; then
       echo "3"
     else
-      echo "0"
+      echo "96"
     fi
   }
   PS1="${YELLOW}@\u${EC} ${CYAN}($PROJECT_NAME\[\e[$(git_colour)m\]-$(git rev-parse --abbrev-ref HEAD)${EC}${CYAN})${GREEN} ($(echo "$CONDA_PREFIX" | rev | cut -d "/" -f1| rev))${BLUE}:\w ${EC}$ "
