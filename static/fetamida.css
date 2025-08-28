@@ -28,6 +28,7 @@
 
 }
 .fetamida-section{
+    position: relative;
     margin-top: 3vh;
     height: 85dvh;
     display: flex;
@@ -36,7 +37,7 @@
     min-width: 75dvw;
     justify-content: center;
     align-items: center;
-    transition: min-width linear 0.9s;
+    transition: min-width linear 2s;
     ul{
         padding-left: 0;
         width: 76%;
@@ -52,7 +53,7 @@
     width: 80dvw;
     min-width: 80dvw;
 }
-#fetamida-centre.right-section{
+#fetamida-centre.right-section, #fetamida-centre.left-section{
     cursor: pointer;
 }
 
@@ -114,7 +115,7 @@
     width: 100%;
     max-width: 100%;
     height: 70dvh;
-    max-height: 90%;
+    max-height: 70dvh;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -125,7 +126,6 @@
 
 
 }
-
 
 
 .product{
@@ -149,3 +149,18 @@
     object-fit: cover;
     object-position:center;
 }
+
+
+#email-form{
+    position: absolute;
+    right:20%;
+    width: 60%;
+    height: 70dvh;
+    transition: right linear 1s;
+}
+
+#fetamida-right.right-section #email-form{
+    right: 40%;
+
+}
+

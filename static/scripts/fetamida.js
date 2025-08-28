@@ -18,7 +18,6 @@ toSection(currentSection);
 function nextSection() {
     if (currentSection < nSections) {
         currentSection = currentSection +1;
-        fetamidaSlideshiow.removeEventListener("click", nextSection);
         toSection(currentSection);
     }
 }
@@ -42,12 +41,17 @@ function toSection(target) {
             scrollLeft.style.width = "0";
             fetamidaSlideshiow.scrollTo(0, 0, {behavior: "smooth"});
             fetamidaSlideshiow.addEventListener("click", nextSection);
+            fetamidaSlideshiow.removeEventListener("click", prevSection);
             scrollRight.style.pointerEvents = "none";
         }else{
             scrollLeft.style.width = "revert-layer";
             scrollRight.style.pointerEvents = "initial";
+            fetamidaSlideshiow.removeEventListener("click", nextSection);
+            fetamidaSlideshiow.removeEventListener("click", prevSection);
         }
         if (target === nSections) {
+            fetamidaSlideshiow.addEventListener("click", prevSection);
+            fetamidaSlideshiow.removeEventListener("click", nextSection);
             scrollRight.style.width = "0";
         }else{
             scrollRight.style.width = "revert-layer";
