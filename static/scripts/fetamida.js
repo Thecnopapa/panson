@@ -9,6 +9,7 @@ const sectionMenu = document.getElementById("section-menu");
 const sectionMenuChildren = document.getElementsByClassName("to-section");
 const scrollLeft = document.getElementById("scroll-left");
 const scrollRight = document.getElementById("scroll-right");
+const fetamidaSlideshiow = document.getElementById("fetamida-slideshow");
 
 
 console.log(currentSection);
@@ -17,6 +18,7 @@ toSection(currentSection);
 function nextSection() {
     if (currentSection < nSections) {
         currentSection = currentSection +1;
+        fetamidaSlideshiow.removeEventListener("click", nextSection);
         toSection(currentSection);
     }
 }
@@ -30,23 +32,26 @@ function prevSection() {
 function toSection(target) {
     console.log(target);
     container.scrollTo(window.innerWidth*sectionJumps[target]/100, container.scrollHeight, {behavior: "smooth"});
-
-    scrollLeft.style.left = String(window.innerWidth*sectionJumps[target]/100) + "px";
-    scrollRight.style.left = String(window.innerWidth*(sectionJumps[target]+75)/100) + "px";
+    window.scrollTo({top: 0, behavior: 'smooth'});
 
 
     for (let i = 0; i <= nSections; i++) {
         console.log(sectionMenuChildren[0], sectionMenuChildren[1], sectionMenuChildren[2]);
         console.log(target, i);
         if(target === 0) {
-            scrollLeft.style.display = "none";
+            scrollLeft.style.width = "0";
+            fetamidaSlideshiow.scrollTo(0, 0, {behavior: "smooth"});
+            fetamidaSlideshiow.addEventListener("click", nextSection);
+            scrollRight.style.pointerEvents = "none";
         }else{
-            scrollLeft.style.display = "block";
+            scrollLeft.style.width = "revert-layer";
+            scrollRight.style.pointerEvents = "initial";
         }
         if (target === nSections) {
-            scrollRight.style.display = "none";
+            scrollRight.style.width = "0";
         }else{
-            scrollRight.style.display = "block";
+            scrollRight.style.width = "revert-layer";
+
         }
 
         if (target === i) {

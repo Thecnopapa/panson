@@ -6,22 +6,26 @@
     max-width: 100dvw;
     overflow-x: hidden;
     scroll-behavior: smooth;
-    background-color: rgba(100, 149, 237, 0.2);
     margin-top: 12dvh;
 }
 .scroller{
-    height: 100%;
+    height: 71dvh;
     cursor: pointer;
-    width: 25%;
+    width: 10%;
     position: absolute;
-    background-color: rgba(255, 255, 255, 0.3);
-    transition: left 1s;
+    transition: width 1s;
+    top: 22dvh;
+    z-index: 5;
 }
 #scroll-left{
-    left:0dvw;
+    left:0;
+    background: linear-gradient(to right, rgba(140, 140, 140, 0.3), rgba(0, 0, 0, 0));
+
 }
 #scroll-right{
-    left:75dvw;
+    right:0;
+    background: linear-gradient(to left, rgba(140, 140, 140, 0.3), rgba(0, 0, 0, 0));
+
 }
 .fetamida-section{
     margin-top: 3vh;
@@ -34,17 +38,24 @@
     align-items: center;
     transition: min-width linear 0.9s;
     ul{
-        width: 80%;
+        padding-left: 0;
+        width: 76%;
+        transition-property: width;
+        transition-duration: 1s;
+        transition-timing-function: linear;
         li{
+
             width: 100%;
         }
     }
 }
 
 #fetamida-centre {
-    background-color: orange;
     width: 25dvw;
     min-width: 25dvw;
+}
+#fetamida-centre.right-section{
+    cursor: pointer;
 }
 
 #fetamida-centre.current-section, #fetamida-centre.left-section{
@@ -59,10 +70,27 @@
 
 .section-text{
     width: 80%;
+    max-width: 80%;
     font-size: 2dvh;
     white-space: pre-line;
+    transition-property: width, max-width, margin-left;
+    transition-duration: 1s, 1s, 1s;
+    transition-timing-function: linear,linear ,linear;
 }
 
+#fetamida-left.left-section {
+
+    .section-text:not(.inlist){
+        width: 90%;
+        max-width: 90%;
+        margin-left: 5%;
+    }
+    ul{
+        width: 81%;
+    }
+
+
+}
 
 #section-menu{
     display: flex;
@@ -71,7 +99,6 @@
     top: 12dvh;
     left: 0;
     width: 100dvw;
-    background-color: cyan;
     transition: left linear 0.5s;
     justify-content: space-evenly;
     align-items: center;
@@ -100,23 +127,39 @@
 #fetamida-slideshow{
     width: 100%;
     max-width: 100%;
-    height: 90%;
+    height: 70dvh;
     max-height: 90%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
+    align-content: space-between;
     flex-wrap: wrap;
     overflow-y: scroll;
-    padding:1dvw;
+
 
 }
 
 
 
-.box{
+.product{
+    cursor: pointer;
     width: 19.8dvw;
+    min-width: 19.8dvw;
     height: 19.8dvw;
+    min-height: 19.8dvw;
+    display: flex;
+    flex-direction: column;
     margin-bottom: 0.2dvw;
-    background-color: black;
+}
+.product-image{
+    width: 100%;
+    height: 19.8dvw;
+}
+
+.product-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position:center;
 }
