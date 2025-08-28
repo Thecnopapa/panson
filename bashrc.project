@@ -98,9 +98,8 @@ echo -n "* Current git branch: " && git rev-parse --abbrev-ref HEAD
 GIT_UNCOMMITED=$(expr "$(git status -s)" != "")
 
 git_colour(){
-  GIT_UNCOMMITED=$(expr "$(git status -s)" != "")
-  export GIT_UNCOMMITED
-  echo $GIT_UNCOMMITED
+  export GIT_UNCOMMITED=$(expr "$(git status -s)" != "")
+  echo "$(expr "$(git status -s)" != "")"
 }
 
 
@@ -111,7 +110,7 @@ CYAN="\[\e[36m\]"
 EC="\[\e[0m\]"
 
 #PS1="${YELLOW}@\u${EC} (${CYAN}$PROJECT_NAME-\[\e[$(echo $(if [[ "$(echo $(git status -s)")" == ""]]; then echo "36"; else echo "1"; fi) )m\]$(git rev-parse --abbrev-ref HEAD))${GREEN} ($(echo "$CONDA_PREFIX" | rev | cut -d "/" -f1| rev))${BLUE}:\w ${EC}$ "
-PS1="${YELLOW}@\u${EC} (${CYAN}$PROJECT_NAME-\[\e[$(git_colour)m\]$(git rev-parse --abbrev-ref HEAD))${GREEN} ($(echo "$CONDA_PREFIX" | rev | cut -d "/" -f1| rev))${BLUE}:\w ${EC}$ "
+PS1="${YELLOW}@\u${EC} ${CYAN}($PROJECT_NAME-$(git_colour)\[\e[$(git_colour)m\]-$(git rev-parse --abbrev-ref HEAD))${GREEN} ($(echo "$CONDA_PREFIX" | rev | cut -d "/" -f1| rev))${BLUE}:\w ${EC}$ "
 
 
 alias bashrc="vim $RCFILE"
