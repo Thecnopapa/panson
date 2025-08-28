@@ -79,6 +79,7 @@ if [[ $* == *"init"* ]]; then
 	echo "* Init complete!"
 	echo "* Type $RUN_COMMAND to start using the setup"
 	exec $SHELL
+	exit 0
 fi
 
 
