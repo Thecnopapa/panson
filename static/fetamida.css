@@ -40,11 +40,7 @@
     ul{
         padding-left: 0;
         width: 76%;
-        transition-property: width;
-        transition-duration: 1s;
-        transition-timing-function: linear;
         li{
-
             width: 100%;
         }
     }
@@ -53,6 +49,8 @@
 #fetamida-centre {
     width: 25dvw;
     min-width: 25dvw;
+    width: 80dvw;
+    min-width: 80dvw;
 }
 #fetamida-centre.right-section{
     cursor: pointer;
@@ -61,42 +59,29 @@
 #fetamida-centre.current-section, #fetamida-centre.left-section{
     width: 80dvw;
     min-width: 80dvw;
-
 }
 .left-section{
 }
 .right-section{
 }
 
+.section-header{
+    padding-top: 1dvh;
+    padding-bottom: 1dvh;
+}
 .section-text{
     width: 80%;
     max-width: 80%;
     font-size: 2dvh;
     white-space: pre-line;
-    transition-property: width, max-width, margin-left;
-    transition-duration: 1s, 1s, 1s;
-    transition-timing-function: linear,linear ,linear;
 }
 
-#fetamida-left.left-section {
-
-    .section-text:not(.inlist){
-        width: 90%;
-        max-width: 90%;
-        margin-left: 5%;
-    }
-    ul{
-        width: 81%;
-    }
-
-
-}
 
 #section-menu{
     display: flex;
     flex-direction: row;
     position: absolute;
-    top: 12dvh;
+    top: 16dvh;
     left: 0;
     width: 100dvw;
     transition: left linear 0.5s;
@@ -104,6 +89,7 @@
     align-items: center;
     height: 3dvh;
     z-index: 10;
+    border-bottom: black 1px solid;
 }
 
 .to-section{

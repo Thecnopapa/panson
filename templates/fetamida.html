@@ -19,9 +19,9 @@
 <div id="scroll-right" class="scroller" onclick="nextSection()"></div>
 <div id="content-fetamida">
     <div id="fetamida-left" class="fetamida-section">
-        <div class="section-text">{{ loc.fam_1_header }}</div>
+        <div class="section-text section-header">{{ loc.fam_1_header }}</div>
         <div class="section-text">{{ loc.fam_1_p1 }}</div>
-        <div class="section-text">{{ loc.fam_1_subtitol }}</div>
+        <div class="section-text section-header">{{ loc.fam_1_subtitol }}</div>
         <div class="section-text">{{ loc.fam_1_p2 }}</div>
         <ul>
             <li><div class="section-text inlist">{{ loc.fam_1_ll1 }}</div></li>
@@ -42,6 +42,9 @@
                 <div class="product">
                 <div class="product-image"><img src='https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media'></div>
             </div>
+            {% endfor %}
+            {% for n in range(utils.mod(utils.len(productes_filtrats)*2, 4)) %}
+                <div class="product"></div>
             {% endfor %}
         </div>
 
