@@ -75,7 +75,7 @@ if [[ $* == *"init"* ]]; then
 	sed -i "${START}i \
 		$SCRIPT" $RCFILE
 	echo "* Reinitailising conda" 
-	conda init -q  $SHELL &&
+	conda init $SHELL &&
 	echo "* Init complete!"
 	echo "* Type $RUN_COMMAND to start using the setup"
 	exec $SHELL
