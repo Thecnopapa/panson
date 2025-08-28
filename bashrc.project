@@ -109,8 +109,11 @@ GREEN="\[\e[92m\]"
 CYAN="\[\e[36m\]"
 EC="\[\e[0m\]"
 
+prompt_setup(){
+  PS1="${YELLOW}@\u${EC} ${CYAN}($PROJECT_NAME-$(git_colour)\[\e[$(git_colour)m\]-$(git rev-parse --abbrev-ref HEAD))${GREEN} ($(echo "$CONDA_PREFIX" | rev | cut -d "/" -f1| rev))${BLUE}:\w ${EC}$ "
+}
+PROMPT_COMMAND='prompt_setup'
 #PS1="${YELLOW}@\u${EC} (${CYAN}$PROJECT_NAME-\[\e[$(echo $(if [[ "$(echo $(git status -s)")" == ""]]; then echo "36"; else echo "1"; fi) )m\]$(git rev-parse --abbrev-ref HEAD))${GREEN} ($(echo "$CONDA_PREFIX" | rev | cut -d "/" -f1| rev))${BLUE}:\w ${EC}$ "
-PS1="${YELLOW}@\u${EC} ${CYAN}($PROJECT_NAME-$(git_colour)\[\e[$(git_colour)m\]-$(git rev-parse --abbrev-ref HEAD))${GREEN} ($(echo "$CONDA_PREFIX" | rev | cut -d "/" -f1| rev))${BLUE}:\w ${EC}$ "
 
 
 alias bashrc="vim $RCFILE"
