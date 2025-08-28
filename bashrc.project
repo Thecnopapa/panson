@@ -95,22 +95,24 @@ pip install -q -r requirements.txt && echo "* Requirements installed"
 
 
 echo -n "* Current git branch: " && git rev-parse --abbrev-ref HEAD
-GIT_UNCOMMITED=$(expr "$(git status -s)" != "")
-
-git_colour(){
-  export GIT_UNCOMMITED=$(expr "$(git status -s)" != "")
-  echo "$(expr "$(git status -s)" != "")"
-}
 
 
-BLUE="\[\e[34m\]"
-YELLOW="\[\e[33m\]"
+
+BLUE="\[\e[94m\]"
+YELLOW="\[\e[93m\]"
 GREEN="\[\e[92m\]"
-CYAN="\[\e[36m\]"
+CYAN="\[\e[96m\]"
 EC="\[\e[0m\]"
 
 prompt_setup(){
-  PS1="${YELLOW}@\u${EC} ${CYAN}($PROJECT_NAME-$(git_colour)\[\e[$(git_colour)m\]-$(git rev-parse --abbrev-ref HEAD))${GREEN} ($(echo "$CONDA_PREFIX" | rev | cut -d "/" -f1| rev))${BLUE}:\w ${EC}$ "
+  git_colour(){
+    if [[ "$(git status -s)" != "" ]]; then
+      echo "3"
+    else
+      echo "0"
+    fi
+  }
+  PS1="${YELLOW}@\u${EC} ${CYAN}($PROJECT_NAME\[\e[$(git_colour)m\]-$(git rev-parse --abbrev-ref HEAD)${EC}${CYAN})${GREEN} ($(echo "$CONDA_PREFIX" | rev | cut -d "/" -f1| rev))${BLUE}:\w ${EC}$ "
 }
 PROMPT_COMMAND='prompt_setup'
 #PS1="${YELLOW}@\u${EC} (${CYAN}$PROJECT_NAME-\[\e[$(echo $(if [[ "$(echo $(git status -s)")" == ""]]; then echo "36"; else echo "1"; fi) )m\]$(git rev-parse --abbrev-ref HEAD))${GREEN} ($(echo "$CONDA_PREFIX" | rev | cut -d "/" -f1| rev))${BLUE}:\w ${EC}$ "
