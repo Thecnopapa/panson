@@ -1,6 +1,7 @@
 
+
 var currentSection = 0;
-const sectionJumps = [0,65,120];
+const sectionJumps = [0,65,130];
 const container = document.getElementById("content-fetamida");
 const nSections = sectionJumps.length-1;
 const sections = document.getElementsByClassName("fetamida-section");
@@ -29,7 +30,7 @@ function prevSection() {
 function toSection(target) {
     console.log(target);
     container.scrollTo(window.innerWidth*sectionJumps[target]/100, container.scrollHeight, {behavior: "smooth"});
-    sectionMenu.style.left = String(window.innerWidth*sectionJumps[target]/100) + "px";
+
     scrollLeft.style.left = String(window.innerWidth*sectionJumps[target]/100) + "px";
     scrollRight.style.left = String(window.innerWidth*(sectionJumps[target]+75)/100) + "px";
 
@@ -37,7 +38,18 @@ function toSection(target) {
     for (let i = 0; i <= nSections; i++) {
         console.log(sectionMenuChildren[0], sectionMenuChildren[1], sectionMenuChildren[2]);
         console.log(target, i);
-        if (target == i) {
+        if(target === 0) {
+            scrollLeft.style.display = "none";
+        }else{
+            scrollLeft.style.display = "block";
+        }
+        if (target === nSections) {
+            scrollRight.style.display = "none";
+        }else{
+            scrollRight.style.display = "block";
+        }
+
+        if (target === i) {
             sections[i].classList.add("current-section");
             sections[i].classList.remove("right-section", "left-section");
             sectionMenuChildren[i].classList.add("current-section");

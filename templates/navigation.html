@@ -82,7 +82,7 @@
     {% endif %}
     <div class = "navigation-right">
     {% if user.is_admin %}
-    <div class="language" onclick="location.href='/admin/'">{{ loc.nav_admin }}</div>
+    <div class="language" onclick="location.href='/admin/'" oncontextmenu="window.open('/admin/', '_blank')">{{ loc.nav_admin }}</div>
     {% endif %}
     {% if user.is_admin %}
     <div class="language" onclick="location.href='/admin/logout'">{{ loc.nav_tancar_sessio }}</div>

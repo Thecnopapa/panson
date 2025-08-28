@@ -10,23 +10,38 @@
     <script defer type="text/javascript" src="/static/scripts/fetamida.js"></script>
 </head>
 
-<div id="content-fetamida">
-    <div id="scroll-left" class="scroller" onclick="prevSection()"></div>
-    <div id="scroll-right" class="scroller" onclick="nextSection()"></div>
-    <div id="section-menu">
+<div id="section-menu">
         <div id="to-first" class="to-section" onclick="toSection(0)">{{ loc.fam_boto_1 }}</div>
         <div id="to-second" class="to-section" onclick="toSection(1)">{{ loc.fam_boto_2 }}</div>
         <div id="to-third" class="to-section" onclick="toSection(2)">{{ loc.fam_boto_3 }}</div>
-    </div>
+</div>
+<div id="content-fetamida">
+    <div id="scroll-left" class="scroller" onclick="prevSection()"></div>
+    <div id="scroll-right" class="scroller" onclick="nextSection()"></div>
     <div id="fetamida-left" class="fetamida-section">
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
+        <div class="section-text">{{ loc.fam_1_header }}</div>
+        <div class="section-text">{{ loc.fam_1_p1 }}</div>
+        <div class="section-text">{{ loc.fam_1_subtitol }}</div>
+        <div class="section-text">{{ loc.fam_1_p2 }}</div>
+        <ul>
+            <li><div class="section-text">{{ loc.fam_1_ll1 }}</div></li>
+            <li><div class="section-text">{{ loc.fam_1_ll2 }}</div></li>
+            <li><div class="section-text">{{ loc.fam_1_ll3 }}</div></li>
+            <li><div class="section-text">{{ loc.fam_1_ll4 }}</div></li>
+            <li><div class="section-text">{{ loc.fam_1_ll5 }}</div></li>
+        </ul>
+        <div class="section-text">{{ loc.fam_1_p3 }}</div>
+
     </div>
     <div id="fetamida-centre" class="fetamida-section">
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
+        <div id="fetamida-slideshow" class="flex-wrap-anim">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+
     </div>
     <div id="fetamida-right" class="fetamida-section">
         <div class="box"></div>
