@@ -94,9 +94,13 @@ pip install -q -r requirements.txt && echo "* Requirements installed"
 
 
 echo -n "* Current git branch: " && git rev-parse --abbrev-ref HEAD
+echo "[[ -z "$(git status -s)" ]]"
 
+GREEN="e\[92m"
+CYAN="e\[36m"
+EC="\e[0m"
 
-PS1='@\u ($PROJECT_NAME-$(git rev-parse --abbrev-ref HEAD)):\w $ '
+PS1='${GREEN}@\u${EC} ($PROJECT_NAME-$(git rev-parse --abbrev-ref HEAD)) ($(echo "$CONDA_PREFIX" | rev | cut -d "/" -f1| rev)):\w $ '
 
 alias bashrc="vim $RCFILE"
 alias ..="cd .."
