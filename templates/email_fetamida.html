@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<div class="email-body" style="width:auto; height:fit-content; margin:5%; ">
+    <div style="height:2px;background:#000000;width:100%;"></div>
+    <h3>Dades tecniques</h3>
+    <h4>Dades correu:</h4>
+    <p>De: {{ sender_name }} ({{ sender }}@{{ mail_server }})</p>
+    <p>A: {{ recipient_name }} ({{ recipient }})</p>
+    <br>
+    <h4>Dades client:</h4>
+    <p>Mail client: {{ form["sender-email"] }}</p>
+    <p>Nom client: {{ form["sender-name"] }}</p>
+    <p>Tel client: +{{ form["sender-tel-prefix"] }} {{ form["sender-tel"] }}</p>
+    <div style="height:2px;background:#000000;width:100%;"></div>
+    <br>
+    <br>
+    <h4>Un client ha enviat el seguent missatge:</h4>
+    <div style="height:2px;background:#000000;width:100%;"></div>
+    <h4>{{ form["subject"] }}</h4>
+    <div style="height:1px;background:#000000;width:100%;"></div>
+    <p style="white-space: pre-line">{{ form["message"] }}</p>
+    <div style="height:2px;background:#000000;width:100%;"></div>
+    <br>
+
+    <a id="respondre" href='mailto:{{ form["sender-email"] }}?subject=RE:%20{{ utils.replace(form["subject"]," ", "%20")}}' style="border: black 1px solid; width: fit-content; height: fit-content; padding: 3%;">Respondre</a>
+
+</div>

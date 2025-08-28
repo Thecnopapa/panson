@@ -556,8 +556,8 @@ def send_contact_email(lan, target="contacte"):
         temp=temp,
         form = form,
     )
-
-    return r
+    print(r)
+    return "", 204
 
 @app.route("/<lan>/fetamida/")
 def fetamida(lan):

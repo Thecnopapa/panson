@@ -34,4 +34,4 @@ def send_email(recipient, subject, temp=None, message="", sender="no-reply", sen
 		"https://api.eu.mailgun.net/v3/{}/messages".format(mail_server),
 		auth=("api", mailgun_key),
 		data=data)
-	return data
+	return m.status_code
