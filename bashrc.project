@@ -41,7 +41,7 @@ else
 fi
 
 
-cd $FOLDER_PATH || {echo "cd $FOLDER_PATH failed, exiting..."; exit}
+cd $FOLDER_PATH || echo "cd $FOLDER_PATH failed, exiting..."
 
 VIM=$(which vim)
 echo "* Vim location: $VIM"
