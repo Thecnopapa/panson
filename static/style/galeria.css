@@ -60,7 +60,7 @@
     display: flex;
     height: max-content;
     flex-wrap: wrap;
-    padding-bottom: 10dvh;
+    margin-bottom: 10dvh;
     justify-content: space-between;
     overflow-y: hidden;
     width: 100%;
@@ -187,43 +187,36 @@
     border-width: 0.2dvh;
 }
 
-
-
-
-@media screen and (orientation: landscape) {
-    /*.producte:hover {
-        cursor: pointer;
-        background-color: rgba(0, 0, 0, 0.1);
-        transition: background-color 0.3s;
-
-        .imatge {
-            height: 60%;
-            transition: 0.3s ease;
-        }
-        .colors{
-            top: 60%;
-            transition: 0.3s ease;
-        }
-
-        .descripcio {
-            display: block;
-            transition: display ease 0.3s;
-        }
-
-    }*/
-    .cercle:hover {
+.galeria-scroll{
+    height: 85%;
+    position: absolute;
+    width: 10%;
+    top: -5%;
+    z-index: 30;
+    display: none;
+}
+.scroll-left{
+    left:0;
+    background: linear-gradient(to right, rgba(140, 140, 140, 0.3), rgba(0, 0, 0, 0));
 
 }
+.scroll-right{
+    right:0;
+    background: linear-gradient(to left, rgba(140, 140, 140, 0.3), rgba(0, 0, 0, 0));
+
 }
 
 @media screen and (orientation: portrait) {
+    .galeria-scroll{
+        display: none;
+    }
     .galeria {
-        justify-content: center;
+        justify-content: space-evenly;
     }
     .producte{
-        min-width:  45dvw;
-        max-width:  45dvw;
-        width: 45dvw;
+        min-width:  48dvw;
+        max-width:  48dvw;
+        width: 48dvw;
         user-select: none;
     }
     .capcal{

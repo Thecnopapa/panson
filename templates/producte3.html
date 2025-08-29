@@ -9,7 +9,9 @@
     <!-- <script src="/static/scripts/jquery.js"></script> -->
 
     <script defer type="text/javascript" src="/scripts/navigation.js"></script>
+    <script defer type="text/javascript" src="/scripts/galeria.js"></script>
     <script defer type="text/javascript" src="/scripts/producte3.js"></script>
+
     <link href='/style/galeria.css' rel='stylesheet'>
     <link href='/style/producte3.css' rel='stylesheet'>
 
@@ -22,8 +24,7 @@
             <div class="main-foto " style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media')"></div>
     {% endfor %}
     </div>
-    <div class="main-foto {{ "clickable" if utils.len(producte.imatges) >1  }}"  onclick="{{ 'showPopup(this, this.nextElementSibling, cross=false)' if utils.len(producte.imatges) >1 }}" style=" display:none;background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media')"></div>
-    
+
 
 
     <div id="main-details">
@@ -70,6 +71,7 @@
                                     <input type="radio" name="color#{{ n }}" class="hidden-input color-input" price="{{ info.get("preu", 0) }}" value="{{ color }}">
                                     </label>
                                 {% endfor %}
+                            <input type="hidden" name="color" value="" checked="true">
                             </fieldset >
                         {% endfor %}
                     </div>

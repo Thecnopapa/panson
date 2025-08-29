@@ -9,6 +9,7 @@
         <link href='/style/navigation.css' rel='stylesheet'>
         <script defer type="text/javascript" src="/scripts/navigation.js"></script>
         <link href='/style/galeria.css' rel='stylesheet'>
+        <script defer type="text/javascript" src="/scripts/galeria.js"></script>
     </head>
 {% endif %}
 
@@ -40,6 +41,8 @@
             </div>
         </div>
         {% endif %}
+    <div class="galeria-scroll scroll-left" onmouseover="startScrolling(this.nextElementSibling.nextElementSibling, 'left')" onmouseout="stopScrolling(this.nextElementSibling.nextElementSibling)"></div>
+    <div class="galeria-scroll scroll-right" onmouseover="startScrolling(this.nextElementSibling, 'right')" onmouseout="stopScrolling(this.nextElementSibling)"></div>
     <div class="galeria">
         {% for producte in productes_filtrats[:max_gallery] %}
            <div class="producte" onclick="location.href='/{{ loc.lan }}/productes/{{ producte._id }}'">
