@@ -63,8 +63,8 @@ class Utils:
         return string.replace(old,new)
 
     @staticmethod
-    def table(path):
-        return table_to_html(path)
+    def table(path, *args, **kwargs):
+        return table_to_html(path, *args, **kwargs)
 
 
 
@@ -95,7 +95,7 @@ def split_multiple(string, *delimiters):
     return re.split("|".join(delimiters), string)
 
 
-def table_to_html(path):
+def table_to_html(path, onclick_row="", onclick_cell=""):
     df = pd.read_excel(path)
     html = "<table>"
     html += "<tr>"
@@ -103,11 +103,11 @@ def table_to_html(path):
         html += f"<th>{col}</th>"
     html += "</tr>"
     for row in df.itertuples():
-        html += "<tr>"
-        for col in row[1:]:
+        html += f"<tr row={row[0]} onclick={onclick_row}>"
+        for n, col in enumerate(row[1:]):
             if str(col) == "nan":
                 col = ""
-            html += f"<td>{col}</td>"
+            html += f"<td col={n} val={col} onclick='{onclick_cell}'>{col}</td>"
         html += "</tr>"
     html += "</table>"
     return html

@@ -82,6 +82,25 @@ function selectSize(trigger){
 	}
 }
 
+function selectSizeTable(trigger){
+	const selectedVal = trigger.children[2].attributes.val.value;
+	console.log(selectedVal);
+	const multipleInput = document.getElementById("size-multiple-input");
+	const customSize =document.getElementById("custom-size");
+	customSize.dispatchEvent(new Event("click"));
+	const countrySelector = document.getElementById("size-country");
+	multipleInput.value = selectedVal;
+	multipleInput.dispatchEvent(new Event("input"));
+	countrySelector.options[1].selected =true;
+	countrySelector.dispatchEvent(new Event("change"));
+	const popups = document.getElementsByClassName("translucid-screen");
+	for (let p = 0; p < popups.length; p++){
+		hidePopup("backdrop", popups[p]);
+	}
+
+}
+
+
 function selectColour(trigger){
 	var colourList = trigger.parentElement.getElementsByClassName("color-input");
 	for (let i = 0; i < colourList.length; i++) {

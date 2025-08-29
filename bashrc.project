@@ -46,7 +46,7 @@ cd $FOLDER_PATH || echo "cd $FOLDER_PATH failed, exiting..."
 VIM=$(which vim)
 echo "* Vim location: $VIM"
 vim(){
-	echo -en "\e[96m\033]0;$1\e[0m\a" || echo -en "\033]0;$1\a"
+	echo -en "\033]0;$1\a"
 
 	$VIM $*
 }

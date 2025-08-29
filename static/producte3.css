@@ -594,6 +594,10 @@ tr{
 tr:nth-child(even) {
   background-color: rgba(0, 0, 0, 0.1);
 }
+tr:hover{
+	background-color: rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+}
 
 
 

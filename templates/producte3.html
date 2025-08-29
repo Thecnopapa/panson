@@ -137,14 +137,22 @@
                     {% endif %}
 
                     {% if producte["totes_talles"] %}
-                            <div class="show-size-selector option size" onclick="this.nextElementSibling.style.display='flex'; this.style.display='none';">{{ loc.pro_personalitza_talla }}</div>
-			    <span style="display: none;"><input type="number" name="talla-multi" class="talla talla-unica size-input multiple-input" oninput="selectSize(this); updatePrice();" placeholder="{{ loc.pro_talla }}"
+                            <div id=custom-size class="show-size-selector option size" onclick="this.nextElementSibling.style.display='flex'; this.style.display='none';">{{ loc.pro_personalitza_talla }}</div>
+			    <span style="display: none;"><input type="number" name="talla-multi" id=size-multiple-input class="talla talla-unica size-input multiple-input" oninput="selectSize(this); updatePrice();" placeholder="{{ loc.pro_talla }}"
                                        min="0"
                                        max="99"
                                        step="1"
                                        list="defaultSizes"
                                        maxlength="2"
                                        {{"value={}".format(opcions["talla"]) if opcions["talla"] != "None" }}>
+				    <select id=size-country name="talla-country">
+					    <option value="es">ES</option>
+					    <option value="eu" selected>EU</option>
+					    <option value="cm">cm</option>
+					    <option value="us">US</option>
+					    <option value="uk">UK</option>
+
+				    </select>
                             </span>
                     {% endif %}
                     </div>
@@ -159,7 +167,7 @@
                                 <li><strong>Quan compris un anell a la botiga online</strong>, només caldrà que introdueixis aquest número.</li>
                                 <li><strong>Si reps l’anell i no et va bé</strong>, no et preocupis: te’l posaré a mida.</li>
                             </ol>
-                            {{ utils.table("static/MIDES_PANSON.xlsx")|safe }}
+                            {{ utils.table("static/MIDES_PANSON.xlsx", onclick_row='selectSizeTable(this);')|safe }}
                         </div>
 
                 </fieldset>
