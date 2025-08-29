@@ -22,25 +22,10 @@
             <div class="main-foto " style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media')"></div>
     {% endfor %}
     </div>
-    <div class="main-foto {{ "clickable" if utils.len(producte.imatges) >1  }}"  onclick="{{ 'showPopup(this, this.nextElementSibling, cross=false)' if utils.len(producte.imatges) >1 }}" style=" display:none;background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media')">
-	    {% if utils.len(producte.imatges) >1%}
-	    {% endif %}
-    </div>
-    <div class="popup-info no-border no-arrows" id="slideshow-producte" onclick="event.stopPropagation()">
-	    <div id="fotos-producte">
-        	{% for n, imatge in utils.enumerate(producte._imatges2) %}
-            	    <div class="foto_producte {{ "current" if n==0 }}" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media')"></div>
-        	{% endfor %}
-            {% if utils.len(producte.imatges) == 0 %}
-                <div class="foto_producte current" style="top:50%;left:45%">Sense foto</div>
-            {% endif %}
-        </div>
-            {%if utils.len(producte.imatges) >1%}
-                <div class="slideshow-left slideshow-button" onclick="slideshowPrev('producte')"><</div>
-                <div class="slideshow-right slideshow-button" onclick="slideshowNext('producte')">></div>
-                <div class="slideshow-progress"></div>
-            {% endif %}
-    </div>
+    <div class="main-foto {{ "clickable" if utils.len(producte.imatges) >1  }}"  onclick="{{ 'showPopup(this, this.nextElementSibling, cross=false)' if utils.len(producte.imatges) >1 }}" style=" display:none;background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media')"></div>
+    
+
+
     <div id="main-details">
         <div id="titol_producte">{{ producte.nom }}</div>
         <div id="initial-price"> <span class="preu-producte"></span> &#8364;</div>
@@ -138,17 +123,12 @@
 
                     {% if producte["totes_talles"] %}
                             <div id=custom-size class="show-size-selector option size" onclick="this.nextElementSibling.style.display='flex'; this.style.display='none';">{{ loc.pro_personalitza_talla }}</div>
-			    <span style="display: none;"><input type="number" name="talla-multi" id=size-multiple-input class="talla talla-unica size-input multiple-input" oninput="selectSize(this); updatePrice();" placeholder="{{ loc.pro_talla }}"
-                                       min="0"
-                                       max="99"
-                                       step="1"
-                                       list="defaultSizes"
-                                       maxlength="2"
-                                       {{"value={}".format(opcions["talla"]) if opcions["talla"] != "None" }}>
+			    <span style="display: none;"><input type="text" name="talla-multi" id=size-multiple-input class="talla talla-unica size-input multiple-input" oninput="selectSize(this); updatePrice();" placeholder="{{ loc.pro_talla }}" maxlength="4">
 				    <select id=size-country name="talla-country">
 					    <option value="es">ES</option>
 					    <option value="eu" selected>EU</option>
-					    <option value="cm">cm</option>
+					    <option value="mm-c">mm (circumference)</option>
+					    <option value="mm-d">mm (diametre)</option>
 					    <option value="us">US</option>
 					    <option value="uk">UK</option>
 
@@ -158,14 +138,14 @@
                     </div>
                     <div id="info-talles" class="clickable under-hover" onclick="showPopup(this, this.nextElementSibling)">{{ loc.pro_graella_talles }}</div>
                         <div class="popup-info" id="popup-talles" onclick="event.stopPropagation()">
-                            <h3>Graella de talles internacional</h3>
-                            <p>És molt fàcil! A continuació t’expliquem pas a pas què has de fer:</p>
+				<h3>{{loc.pro_popup_talles_titol}}</h3>
+				<p>{{loc.pro_popup_talles_p1}}</p>
                             <ol>
-                                <li><strong>Agafa un anell que et vagi bé</strong> i assegura’t que tant aquest com el que vols comprar siguin per al mateix dit i la mateixa mà (cada dit pot tenir una mida diferent). Millor si és fi i regular, com una aliança. L’important és que quedi ben recolzat sobre el paper.</li>
-                                <li><strong>Dibuixa la circumferència interior</strong> de l’anell sobre el paper i mesura el diàmetre. Recorda tenir en compte el gruix del llapis quan facis la marca.</li>
-                                <li><strong>Consulta la taula de talle</strong> que tens a continuació i busca la que correspongui al teu diàmetre.</li>
-                                <li><strong>Quan compris un anell a la botiga online</strong>, només caldrà que introdueixis aquest número.</li>
-                                <li><strong>Si reps l’anell i no et va bé</strong>, no et preocupis: te’l posaré a mida.</li>
+				    <li><strong>{{loc.pro_talles_t1}}</strong>{{loc.pro_talles_c1}}</li>
+				    <li><strong>{{loc.pro_talles_t2}}</strong>{{loc.pro_talles_c2}}</li>
+				    <li><strong>{{loc.pro_talles_t3}}</strong>{{loc.pro_talles_c3}}</li>
+				    <li><strong>{{loc.pro_talles_t4}}</strong>{{loc.pro_talles_c4}}</li>
+				    <li><strong>{{loc.pro_talles_t5}}</strong>{{loc.pro_talles_c5}}</li>
                             </ol>
                             {{ utils.table("static/MIDES_PANSON.xlsx", onclick_row='selectSizeTable(this);')|safe }}
                         </div>

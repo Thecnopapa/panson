@@ -19,6 +19,7 @@
 * {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+    scroll-behavior:smooth;
 
     -moz-user-select: none;
     -webkit-user-select: none; /* Safari */

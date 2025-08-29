@@ -251,7 +251,7 @@ def afegir_al_carret(lan):
     opcions["color"] = colors
     if talla_multi is not None:
         talla = talla_multi
-    opcions["talla"] = talla+f"({talla_country})"
+    opcions["talla"] = str(talla)+f"({talla_country})"
     user.add_producte_carret(id=request.form["id"], opcions_seleccionades=opcions)
     # return "", 204
     # print("Returning 205")
