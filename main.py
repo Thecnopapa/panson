@@ -286,6 +286,9 @@ def afegir_al_carret():
     elif variacio != "NA":
         opcions["variacio"] = variacio
 
+    if colors is None:
+        resp.headers["missing-val"] = "colors-producte"
+        return resp
     for n, c in enumerate(colors):
         if c == "":
             resp.headers["missing-val"] = "colors-producte#{}".format(n)

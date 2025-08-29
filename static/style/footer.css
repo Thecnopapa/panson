@@ -76,18 +76,27 @@ a{
     flex-direction: column;
     height: fit-content;
 }
+#footer-currency{
+    display: none;
+}
 
 
 @media screen and (orientation: portrait) {
     #footer {
-        flex-direction: column;
-        align-items: center;
+        width: 100%;
+        max-width: 100%;
     }
     .footer-columns{
-        width: 80dvw;
-        flex-direction: column;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-evenly;
     }
     .footer-col{
-        width: 100%;
+        width: 48%;
+        max-width: 50%;
+        padding-bottom: 3dvh;
+    }
+    #credits{
+        width:95%;
     }
 }
