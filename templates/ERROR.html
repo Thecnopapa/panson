@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page Not Found</title>
+
+    <style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 800px; margin: 100px auto 16px; padding: 32px 24px 16px; border-radius: 3px; }
+      #message h3 { color: #888; font-weight: normal; font-size: 16px; margin: 16px 0 12px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a {font-weight: bold; cursor: pointer; }
+      #message a:hover { text-decoration: underline }
+      #message .line {max-width: 800px; height: 3px; background-color:black;}
+      #message button { display: block; text-align: center; background: rgba(255, 255, 255, 0.5); text-transform: uppercase; text-decoration: none; color: #000000; padding: 5px; }
+      #message button:hover { background: rgba(255, 161, 0, 0.5); color: #000000; text-decoration: underline; cursor: pointer; }
+      #message span {display:flex; width: 800px;  align-items: center; justify-content: space-evenly; margin: 0 0 8px;}; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 800px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="message">
+        <h1>PANS<img alt="PANSON logo" height=20px width=20px src="/static/media/panson_favicon.png">N joiera</h1>
+
+        <h2>{{ code }}</h2>
+        <h1>{{ name }}</h1>
+        <h3>Request:</h3>
+        <p>{{ request["method"] }} {{ request["url"] }} </p>
+        <p>{{ description }}</p>
+        <div class="line"></div>
+        <p>If the error persists, please contact <a>support@pansonjoieria.com</a>.</p>
+        <span>
+            <button onclick="window.history.back();">Back</button>
+            <button onclick="window.location.reload();">Reload</button>
+            <button onclick="location.href='/'">Homepage</button>
+        </span>
+    </div>
+  </body>
+</html>
