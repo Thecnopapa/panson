@@ -23,8 +23,10 @@ class Product(firebaseObject):
         if self._id is None:
             self.new = True
         self._imatges2 = self.imatges.copy()
-        if len(self.imatges) >1 and len(self.imatges)<4:
-            self._imatges2 *= 2
+        nimg = len(self.imatges)
+        if nimg != 0:
+            self._imatges2 *= 4//nimg
+            self._imatges2 += self._imatges2[:nimg%nimg]
 
 
 
