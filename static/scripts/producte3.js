@@ -102,11 +102,12 @@ function selectSizeTable(trigger){
 
 
 function selectColour(trigger){
+    console.log(trigger);
 	var colourList = trigger.parentElement.getElementsByClassName("color-input");
 	for (let i = 0; i < colourList.length; i++) {
 		colourList[i].setAttribute("checked", false);
 	}
-        trigger.firstElementChild.setAttribute("checked", true);
+    trigger.firstElementChild.setAttribute("checked", true);
 }
 
 
@@ -127,6 +128,7 @@ async function submitToCart (trigger) {
             });
         console.log(await response);
         console.log(response.status);
+        console.log(response.headers.get("missing-val", undefined));
         if (response.status == "206") {
             const missingField = response.headers.get("missing-val", undefined);
             const targetFieldset = document.getElementsByClassName(missingField)[0];

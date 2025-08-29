@@ -52,7 +52,7 @@
                     {% endfor %}
                 </fieldset>
             {% else %}
-                        <input name="talla" type="hidden" value="NA">
+                        <input name="material" type="hidden" value="NA">
             {% endif %}
 
 
@@ -71,7 +71,7 @@
                                     <input type="radio" name="color#{{ n }}" class="hidden-input color-input" price="{{ info.get("preu", 0) }}" value="{{ color }}">
                                     </label>
                                 {% endfor %}
-                            <input type="hidden" name="color" value="" checked="true">
+                            <input type="hidden" name="color#{{ n }}" class="color-input" value="" checked="true">
                             </fieldset >
                         {% endfor %}
                     </div>
@@ -81,7 +81,7 @@
             {% endif %}
 
             {% if "variacions" in producte.opcions %}
-                <fieldset name="text:variacio" class="option-field variacions-producte {{ "hide" if utils.len(producte.opcions["variacions"].keys()) == 1 }}" >
+                <fieldset class="option-field variacions-producte {{ "hide" if utils.len(producte.opcions["variacions"].keys()) == 1 }}" >
                     <legend>loc.pro_variacio</legend>
                     <div class="options variations">
                     {% for n, (variacio, info) in utils.enumerate(utils.sort_by_keys(producte.opcions["variacions"], ["preu", "ordre"]).items()) %}
