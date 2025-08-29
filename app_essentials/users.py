@@ -61,10 +61,25 @@ class User(firebaseObject):
             product = Products().get_single(item["id"])
             if product is None:
                 continue
-            price = product.calcular_preu(material=item["material"],
-                                          variacio=item["variacio"],
-                                          color=item["color"])[0]*100
-            description = " / ".join(["{}: {}".format(d, item[d]) for d in ["talla", "material", "color", "variacio"]])
+            material = item.get("material", None)
+            variacio = item.get("variacio", None)
+            color = item.get("color", None)
+            talla = item.get("talla", None)
+
+            price = product.calcular_preu(material, variacio, color)[0]*100
+
+            description = ""
+            if talla is not None:
+                description += "Talla: {}/ ".format(talla)
+            if material is not None:
+                description += "Material: {}/ ".format(material)
+            if variacio is not None:
+                description += "Variacio: {}/ ".format(variacio)
+            if color is not None:
+                description += "Color: {}/".format(color)
+            if description[-1] == "/":
+                description = description[:-1]
+
             i = {
                 "price_data": {
                     "currency": "eur",
