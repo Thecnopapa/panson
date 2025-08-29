@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ loc.lan }}">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,8 +17,12 @@
 <body>
 
 <div class="content-producte">
-
-    <div class="main-foto {{ "clickable" if utils.len(producte.imatges) >1  }}"  onclick="{{ 'showPopup(this, this.nextElementSibling, cross=false)' if utils.len(producte.imatges) >1 }}" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media')">
+    <div id="producte-images">
+    {% for n, imatge in utils.enumerate(producte.imatges) %}
+            <div class="main-foto " style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media')"></div>
+    {% endfor %}
+    </div>
+    <div class="main-foto {{ "clickable" if utils.len(producte.imatges) >1  }}"  onclick="{{ 'showPopup(this, this.nextElementSibling, cross=false)' if utils.len(producte.imatges) >1 }}" style=" display:none;background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media')">
 	    {% if utils.len(producte.imatges) >1%}
 	    {% endif %}
     </div>
@@ -102,27 +106,31 @@
             {% endif %}
 
 
-
             {% if producte.opcions["talles"] or producte["totes_talles"] %}
                 <fieldset class="talles-producte option-field" name="text:talla">
                 <legend>{{ loc.pro_talla }}</legend>
                     <div class="options talles">
 
                     {% if producte.opcions["talles"] %}
-                            {% for n, (talla, info) in utils.enumerate(utils.sort_by_keys(producte.opcions["talles"], ["preu","ordre"]).items()) %}
+                            {% for n, (talla, info) in utils.enumerate(utils.sort_by_keys(producte.opcions["talles"], ["preu","ordre"]).items()) if talla not in ["XS", "S", "M", "L", "XL"] %}
                                 <div class="option size">
                                     <label class="text-label">
-                                        <input  type="radio" name="talla" price="{{ info.get("preu", 0) }}" class="hidden-input size-input" value="{{ talla }}" {{ "checked" if n == 0 }} onchange="updatePrice()">
+                                        <input  type="radio" name="talla" price="{{ info.get("preu", 0) }}" qty="{{ info.get("qty", 0) }}" class="hidden-input size-input" value="{{ talla }}" onchange="updatePrice()">
                                     {{ talla }}
                                     </label>
                                 </div>
                             {% endfor %}
-                    {% else %}
+                        {% endif %}
+                    {% if producte["totes_talles"]  %}
                         {% for talla in ["XS", "S", "M", "L", "XL"] %}
                             <div class="option size">
                                 <label class="text-label">
-                                    <input  type="radio" name="talla" preu="0" class="hidden-input size-input" value="{{ talla }}" {{ "checked" if n == 0 }} onchange="selectSize(this);updatePrice();">
-                                {{ talla }}
+                                    {% if talla in producte.opcions.get("talles", {}).keys() %}
+                                        <input  type="radio" name="talla" price="{{ producte.opcions["talles"][talla].get("preu", 0) }}" qty="{{ producte.opcions["talles"][talla].get("qty", 0) }}" class="hidden-input size-input" value="{{ talla }}" onchange="selectSize(this);updatePrice();">
+                                    {% else %}
+                                        <input  type="radio" name="talla" price="0" qty="0" class="hidden-input size-input" value="{{ talla }}" onchange="selectSize(this);updatePrice();">
+                                    {% endif %}
+                                    {{ talla }}
                                 </label>
                             </div>
                         {% endfor %}
@@ -151,6 +159,7 @@
                                 <li><strong>Quan compris un anell a la botiga online</strong>, només caldrà que introdueixis aquest número.</li>
                                 <li><strong>Si reps l’anell i no et va bé</strong>, no et preocupis: te’l posaré a mida.</li>
                             </ol>
+                            {{ utils.table("static/MIDES_PANSON.xlsx")|safe }}
                         </div>
 
                 </fieldset>
@@ -175,6 +184,8 @@
             </div>
              <div id="final-price"> <span class="preu-producte"></span> &#8364;</div>
             <input class="add-to-cart black-button" type="button" value="AFEGIR AL CARRET" onclick="submitToCart(this)">
+            <div id="missatge-lent" class="missatge-enviament" style="display: none">{{ loc.pro_enviament_lent }}</div>
+            <div id="missatge-rapid" class="missatge-enviament" style="display: none">{{ loc.pro_enviament_rapid }}</div>
             <div id="missing-info" class="popup-info"><p>Siusplau introdueix tots els detalls</p></div>
         </form>
     <div class="info">

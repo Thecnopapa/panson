@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ loc.lan }}">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,8 +14,8 @@
 	<div id="columnes-contacte">
 		<div id=contacte-left>
 			<div id=title-contact>{{ loc.con_contacte }}</div>
-			<div class="contacte-emails">{{ loc.foo_email_general }} // <a href="mailto:{{ loc.email_general }}">{{ loc.email_general }}</a></div>
-			<div class="contacte-emails">{{ loc.foo_email_bespoke }} // <a href="mailto:{{ loc.email_bespoke }}">{{ loc.email_bespoke }}</a></div>
+			<div class="contacte-emails">{{ loc.foo_email_general }} <a href="mailto:{{ loc.email_general }}">{{ loc.email_general }}</a></div>
+			<div class="contacte-emails">{{ loc.foo_email_bespoke }} <a href="mailto:{{ loc.email_bespoke }}">{{ loc.email_bespoke }}</a></div>
 		</div>
 		<div id=contacte-right>
 			<form id=email-form method=POST action="/{{ loc.lan }}/send_email/contacte/">
@@ -33,7 +33,7 @@
                             <input required type=tel autocomplete=tel-national class="email-input bottom-border-input" id=sender-tel name=sender-tel></label>
 					</div>
                     <label for=subject class=email-label>SUBJECT
-						<input required type=text autocomplete=subject class="email-input square-border-input" id=subject name=subject></label>
+						<input required type=text autocomplete=subject class="email-input bottom-border-input" id=subject name=subject></label>
                     <label for=message class=email-label>MESSAGE
                         <textarea required type=text autocomplete=message class="email-input square-border-input" id=message name=message></textarea></label>
 				</div>

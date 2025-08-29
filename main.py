@@ -524,22 +524,49 @@ def update_field():
         localisation.document("languages").collection("text").document(data["page"]).update(new_data)
     return ""
 
-@app.post("/<lan>/send_email/contacte/")
-def send_contact_email(lan):
+@app.post("/<lan>/send_email/<target>/")
+def send_contact_email(lan, target="contacte"):
     from app_essentials.mail import send_email
     form = request.form
+
+    if target == "contacte":
+        recipient = "contacte"
+        sender_name = "Formulari Contacte"
+        temp = "email_contacte"
+        subject = form["subject"]
+    elif target == "bespoke":
+        recipient = "fetamida"
+        sender_name = "Formulari Fet a Mida"
+        temp = "email_fetamida"
+        subject = form["subject"]
+    else:
+        recipient = "general"
+        sender_name = "Formulari Desconegut"
+        temp = "email_contacte"
+        subject = form["subject"]
+
+
     print(form)
     r = send_email(
-        recipient="contacte",
+        recipient=recipient,
         sender="web",
-        sender_name="Formulari Contacte",
+        sender_name=sender_name,
         internal_recipient=True,
-        subject=form["subject"],
-        temp="email_contacte",
+        subject=subject,
+        temp=temp,
         form = form,
     )
+    print(r)
+    return "", 204
 
-    return r
+@app.route("/<lan>/fetamida/")
+def fetamida(lan):
+    html = template(lan=lan, templates="fetamida")
+    return html
+
+
+
+
 
 
 '''

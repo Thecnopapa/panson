@@ -1,3 +1,5 @@
+import pandas as pd
+
 
 class Utils:
     @staticmethod
@@ -60,6 +62,10 @@ class Utils:
     def replace(string,old,new ):
         return string.replace(old,new)
 
+    @staticmethod
+    def table(path):
+        return table_to_html(path)
+
 
 
 
@@ -87,3 +93,23 @@ def get_opcions():
 def split_multiple(string, *delimiters):
     import re
     return re.split("|".join(delimiters), string)
+
+
+def table_to_html(path):
+    df = pd.read_excel(path)
+    html = "<table>"
+    html += "<tr>"
+    for col in df.columns:
+        html += f"<th>{col}</th>"
+    html += "</tr>"
+    for row in df.itertuples():
+        html += "<tr>"
+        for col in row[1:]:
+            if str(col) == "nan":
+                col = ""
+            html += f"<td>{col}</td>"
+        html += "</tr>"
+    html += "</table>"
+    return html
+
+

@@ -69,12 +69,12 @@
                     {% endfor %}
                 {% endif %}
             </div>
-            <div class="titol-submenu menu-content" id="projecte-menu" onclick="location.href='/{{ loc.lan }}/projecte'">{{ loc.nav_projecte_mobil }}</div>
-            <div class="titol-submenu menu-content" id="contacte-menu" onclick="location.href='/{{ loc.lan }}/contacte'">{{ loc.nav_contacte_mobil }}</div>
+            <div class="titol-submenu menu-content" id="projecte-menu" onclick="location.href='/{{ loc.lan }}/projecte/'">{{ loc.nav_projecte_mobil }}</div>
+            <div class="titol-submenu menu-content" id="contacte-menu" onclick="location.href='/{{ loc.lan }}/fetamida/'">{{ loc.nav_contacte_mobil }}</div>
         </div>
 
-        <button class="dropbtn" id="projecte" onclick="location.href='/{{ loc.lan }}/projecte'"> {{ loc.nav_projecte }}</button>
-        <button class="dropbtn" id="contacte" onclick="location.href='/{{ loc.lan }}/contacte'">{{ loc.nav_contacte }}</button>
+        <button class="dropbtn" id="projecte" onclick="location.href='/{{ loc.lan }}/projecte/'"> {{ loc.nav_projecte }}</button>
+        <button class="dropbtn" id="contacte" onclick="location.href='/{{ loc.lan }}/fetamida/'">{{ loc.nav_contacte }}</button>
     </div>
     {% if hide_title %}
     {% else %}
@@ -82,7 +82,7 @@
     {% endif %}
     <div class = "navigation-right">
     {% if user.is_admin %}
-    <div class="language" onclick="location.href='/admin/'">{{ loc.nav_admin }}</div>
+    <div class="language" onclick="location.href='/admin/'" oncontextmenu="window.open('/admin/', '_blank')">{{ loc.nav_admin }}</div>
     {% endif %}
     {% if user.is_admin %}
     <div class="language" onclick="location.href='/admin/logout'">{{ loc.nav_tancar_sessio }}</div>
