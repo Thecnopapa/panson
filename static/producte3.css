@@ -621,6 +621,9 @@ tr:hover{
 @media screen and (orientation: portrait) {
 	
 	#content-producte{
+		min-height:90dvh;
+		max-height:100dvh;
+		height:fit-content;
 	}
 
 	.main-foto{
@@ -634,8 +637,8 @@ tr:hover{
 	}
 	#main-details{
 		height:100%;
-		max-height:100%;
-		min-height:100%;
+		max-height:100dvh;
+		min-height:90dvh;
 		background-color:white;
 	}
 
