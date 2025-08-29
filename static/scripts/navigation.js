@@ -76,9 +76,6 @@ const menuContent = document.getElementsByClassName('titol-submenu');
 const menuCloser = document.getElementById("menu-closer");
 
 
-for(var i = 0; i < menuContent.length; i++) {
-    menuContent[i].addEventListener('mouseover', openMenu());
-}
 
 
 menu.style.width = "0px";
