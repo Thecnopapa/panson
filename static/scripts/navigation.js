@@ -36,9 +36,9 @@ function addFavicon() {
     document.head.appendChild(fav);  // add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
 }
 // dynamicallyLoadCSS("/static/normalize.css")
-dynamicallyLoadScript("/static/scripts/cart.js")
-dynamicallyLoadCSS("/static/carret.css")
-dynamicallyLoadCSS("/static/footer.css")
+dynamicallyLoadScript("/scripts/cart.js")
+dynamicallyLoadCSS("/style/carret.css")
+dynamicallyLoadCSS("/style/footer.css")
 if (false) {
     addFavicon()
 }

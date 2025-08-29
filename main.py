@@ -123,12 +123,12 @@ def acceptar_cookies():
 def get_static(lan, path):
     return redirect("/static/"+path)
 
-@app.route("/style/<path:path>", defaults={"lan": "cat"})
-def get_style(lan, path):
-    return redirect("/static"+path)
-@app.route("/style/<path:path>", defaults={"lan": "cat"})
-def get_script(lan, path):
-    return redirect("/static"+path)
+@app.route("/style/<path:path>")
+def get_style(path):
+    return redirect("/static/style/"+path)
+@app.route("/scripts/<path:path>")
+def get_script(path):
+    return redirect("/static/scripts/"+path)
 
 @app.route("/")
 @app.route("/<lan>/")
