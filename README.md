@@ -1,7 +1,15 @@
-# Flask Web App Starter
+# Website for PANS<img height=30px width=30px src="static/media/panson_favicon.png">N joiera
+### By [Iain Visa](iainvisa.com)
 
-A Flask starter template as per [these docs](https://flask.palletsprojects.com/en/3.0.x/quickstart/#a-minimal-application).
+## Front-end:
+- HTML (jinja templates)
+- JS (pure)
+- CSS
 
-## Getting Started
+## Back-end:
+- Flask (Python)
+- Google Cloud (hosting)
 
-Previews should run automatically when starting a workspace.
+## Database:
+- Firebase (data)
+- Firestore (files)
