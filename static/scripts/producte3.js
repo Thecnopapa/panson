@@ -114,14 +114,40 @@ function selectColour(trigger){
 
 
 
-function submitToCart (trigger) {
+async function submitToCart (trigger) {
     const theForm = document.getElementById("form");
     const missingInfo = document.getElementById("missing-info");
-    document.body.style.cursor = "progress";
-    theForm.submit();
-	console.log(trigger);
-	console.log(trigger.nextElementSibling)
-    setTimeout(showPopup, 1000, trigger, trigger.nextElementSibling);
+    const formData = new FormData(theForm);
+    const fieldsets = form.querySelectorAll("fieldset");
+    document.body.style.cursor = "progress !important";
+    try {
+        const response = await fetch("/carret/add", {
+                method: "POST",
+                body: formData,
+            });
+        console.log(await response);
+        console.log(response.status);
+        if (response.status == "206") {
+            const missingField = response.headers.get("missing-val", undefined);
+            const targetFieldset = document.getElementsByClassName(missingField)[0];
+            targetFieldset.setAttribute("onmousedown", "this.style.border = 'none'");
+            targetFieldset.style.border = "1px solid red";
+
+        } else {
+            console.log(document.documentElement.lang);
+            if (document.documentElement.lang === "cat"){
+                alert("Producte afegit al carret!");
+            } else if (document.documentElement.lang === "en") {
+                alert("Product added to cart!");
+            }
+            window.location.reload();
+        }
+    } catch (error) {
+        console.log(error);
+        alert(error.message);
+    }
+
+
 
 }
 
@@ -148,8 +174,9 @@ function hideInfoDropdown(trigger, popupContent, arrow=undefined) {
     }
 }
 
-function showPopup(trigger, popupContent, cross=true) {
+function showPopup(popupContent, cross=true) {
     popupContent.style.display = "flex";
+    document.body.style.cursor = undefined;
     hideBackgound(popupContent, cross);
 }
 

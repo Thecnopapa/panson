@@ -237,15 +237,21 @@ def mostrar_peca(lan, id):
 
 
 
-@app.post("/<lan>/carret/add")
-def afegir_al_carret(lan):
+@app.post("/carret/add")
+def afegir_al_carret():
     user = get_current_user()
     material= None
     variacio = None
     colors = None
     talla = None
     talla_multi = None
+    talla_country = None
     print(request.form)
+    resp = make_response()
+    resp.status_code = 206
+    #resp.body = {"missing-val"}
+    #resp.content_type = "application/json"
+    resp.headers["missing-val"] = ""
     for k, v in request.form.items():
         if "#" in k:
             k = k.split("#")[0]
@@ -259,9 +265,8 @@ def afegir_al_carret(lan):
             else:
                 colors.append(v)
         elif k == "talla":
-            if v is None or v == "":
-                return "talla", 204
-            talla = v
+            if v != "":
+                talla = v
         elif k == "talla-multi":
             if v != "":
                 talla_multi = v
@@ -269,17 +274,45 @@ def afegir_al_carret(lan):
             talla_country = v
 
     opcions = {}
-    opcions["material"] = material
-    opcions["variacio"] = variacio
-    opcions["color"] = colors
+    if material == "":
+        resp.headers["missing-val"] = "materials-producte"
+        return resp
+    elif material != "NA":
+        opcions["material"] = material
+
+    if variacio == "":
+        resp.headers["missing-val"] = "variacions-producte"
+        return resp
+    elif variacio != "NA":
+        opcions["variacio"] = variacio
+
+    for n, c in enumerate(colors):
+        if c == "":
+            resp.headers["missing-val"] = "colors-producte#{}".format(n)
+            return resp
+    if colors != ["NA"]:
+        opcions["color"] = colors
+
+    if talla is None and talla_multi is None:
+        resp.headers["missing-val"] = "talles-producte"
+        return resp
     if talla_multi is not None:
         talla = talla_multi
-    opcions["talla"] = str(talla)+f"({talla_country})"
+        if talla_country is not None:
+            talla = "{}({})".format(talla, talla_country)
+        else:
+            resp.headers["missing-val"] = "unit"
+            return resp
+    opcions["talla"] = talla
+    print("OPCIONS: ", opcions)
     user.add_producte_carret(id=request.form["id"], opcions_seleccionades=opcions)
-    # return "", 204
-    # print("Returning 205")
-    # return "", 205
-    return redirect("/{}/productes/{}/".format(lan, request.form["id"]))
+
+    resp.status_code = 200
+    resp.headers["refresh"] = 0
+
+    #return redirect("/{}/productes/{}/".format(lan, request.form["id"]))
+    return redirect(request.referrer)
+
 
 @app.post("/productes/carret/<pos>/<qty>")
 def alterar_carret(pos, qty):

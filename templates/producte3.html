@@ -35,13 +35,13 @@
 
 
 
-        <form action="/{{ lan }}/carret/add" method="post" enctype="multipart/form-data" id="form">
+        <form method="post" enctype="multipart/form-data" id="form">
             <input value="{{ producte._id }}" name="id" style="display: none">
             <button id="close-options" type="button" class="popup-cross" onclick="hideBuyOptions()">X</button>
             <div id="buy-options">
 
             {% if "materials" in producte.opcions %}
-                <fieldset  name="text:material" class="materials-producte {{ "hide" if utils.len(producte.opcions["materials"].keys()) == 1 }}" >
+                <fieldset class="materials-producte {{ "hide" if utils.len(producte.opcions["materials"].keys()) == 1 }}" >
                     <legend>Seleciona un material</legend>
                     {% for n, (material, info) in utils.enumerate(producte.opcions["materials"].items()) %}
                         <div>
@@ -50,6 +50,8 @@
                         </div>
                     {% endfor %}
                 </fieldset>
+            {% else %}
+                        <input name="talla" type="hidden" value="NA">
             {% endif %}
 
 
@@ -62,7 +64,7 @@
                     {% endif %}
                     <div class="options">
                         {% for n in range(producte.opcions.get("n_colors", 1)) %}
-                            <fieldset name="color#{{ n }}" class="color-selector" onchange="updatePrice()">
+                            <fieldset class="color-selector colors-producte#{{ n }}" onchange="updatePrice()">
                                 {% for color, info in producte.opcions["colors"].items() %}
                                     <label title="{{ loc["color-"+color] }}" class="colour-label {{ producte.opcions.get("extra_colors", []*n)[n] }}" style="background-color:{{ loc["colours_"+color] }};" onclick="selectColour(this)">
                                     <input type="radio" name="color#{{ n }}" class="hidden-input color-input" price="{{ info.get("preu", 0) }}" value="{{ color }}">
@@ -72,6 +74,8 @@
                         {% endfor %}
                     </div>
                 </div>
+            {% else %}
+                        <input name="color" type="hidden" value="NA">
             {% endif %}
 
             {% if "variacions" in producte.opcions %}
@@ -88,6 +92,8 @@
                     {% endfor %}
                     </div>
                 </fieldset>
+            {% else %}
+                        <input name="variacio" type="hidden" value="NA">
             {% endif %}
 
 
@@ -135,8 +141,9 @@
 				    </select>
                             </span>
                     {% endif %}
+
                     </div>
-                    <div id="info-talles" class="clickable under-hover" onclick="showPopup(this, this.nextElementSibling)">{{ loc.pro_graella_talles }}</div>
+                    <div id="info-talles" class="clickable under-hover" onclick="showPopup(this.nextElementSibling)">{{ loc.pro_graella_talles }}</div>
                         <div class="popup-info" id="popup-talles" onclick="event.stopPropagation()">
 				<h3>{{loc.pro_popup_talles_titol}}</h3>
 				<p>{{loc.pro_popup_talles_p1}}</p>
@@ -151,7 +158,8 @@
                         </div>
 
                 </fieldset>
-
+            {% else %}
+                        <input name="talla" type="hidden" value="NA">
             {% endif %}
 
 
