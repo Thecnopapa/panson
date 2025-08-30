@@ -39,7 +39,7 @@ function updateScroll() {
 
     title.style.paddingBottom = String(5 - (5 * scroll / maxScroll)).concat("dvh");
     title.style.paddingTop = String(5 - (5 * scroll / maxScroll)).concat("dvh");
-    print(oscroll, windowHeight*0.97);
+    //print(oscroll, windowHeight*0.97);
     if (oscroll >= windowHeight*0.97) {
         for (let i = 0; i < navButtons.length; i++) {
             navButtons[i].style.color = "black";
