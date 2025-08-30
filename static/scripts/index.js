@@ -1,6 +1,4 @@
 
-let windowHeight = window.innerHeight
-const maxScroll = windowHeight * 0.35
 const onClickLink = document.getElementById('title').onclick
 const navButtons = document.getElementsByClassName('dropbtn');
 const lanButtons = document.getElementsByClassName('language');
@@ -10,13 +8,16 @@ const title = document.getElementById('title');
 
 
 function scrollToTop() {
-  window.scrollTo({top: 0, behavior: 'smooth'});
+  window.scrollTo(0, 0, {behavior: 'smooth'});
 }
 
-
+print("a");
 function updateScroll() {
-    let scroll = $(window).scrollTop()
-
+	let windowHeight = window.innerHeight;
+	const maxScroll = windowHeight * 0.35;
+    let scroll = document.documentElement.scrollTop;
+	//print("Scroll detected", scroll);
+	var oscroll = scroll;
     if (scroll >= maxScroll) {
         scroll = maxScroll;
         title.style.cursor = "pointer";
@@ -29,7 +30,7 @@ function updateScroll() {
         title.style.height = String(20 - (14 * scroll / maxScroll)).concat("dvh");
         title.style.width = String(60 - (0 * scroll / maxScroll)).concat("dvw");
         title.style.left = String(20 + (0 * scroll / maxScroll)).concat("dvw");
-    }else {
+	    }else {
         title.style.height = String(20 - (13 * scroll / maxScroll)).concat("dvh");
         title.style.width = String(60 - (40 * scroll / maxScroll)).concat("dvw");
         title.style.left = String(20 + (20 * scroll / maxScroll)).concat("dvw");
@@ -38,8 +39,8 @@ function updateScroll() {
 
     title.style.paddingBottom = String(5 - (5 * scroll / maxScroll)).concat("dvh");
     title.style.paddingTop = String(5 - (5 * scroll / maxScroll)).concat("dvh");
-
-    if ($(window).scrollTop() >= windowHeight) {
+    print(oscroll, windowHeight*0.97);
+    if (oscroll >= windowHeight*0.97) {
         for (let i = 0; i < navButtons.length; i++) {
             navButtons[i].style.color = "black";
         }
@@ -77,6 +78,5 @@ function updateScroll() {
 
 };
 
-$(window).onload = updateScroll();
-
-$(window).scroll(updateScroll);
+print("b");
+setInterval(updateScroll, 0.1);

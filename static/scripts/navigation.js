@@ -16,13 +16,18 @@ window.addEventListener('load', function () {
 	loader.style = "display:none !important";
 	loaderIcon.style ="display:none !important";
 	console.log(loader.style.display);
+	
+	updateScroll();
+	//document.documentElement.addEventListener("scroll", updateScroll);
+	//document.documentElement.addEventListener("touchmove", updateScroll);
+	
 })
 window.addEventListener('orientationchange', function () {
 	console.log("Rotation change!");
 	closeCart();
     closeMenu()
 })
-
+print("1");
 
 function dynamicallyLoadScript(url) {
     var script = document.createElement("script");  // create a script DOM node
@@ -49,6 +54,8 @@ dynamicallyLoadCSS("/style/footer.css")
 if (false) {
     addFavicon()
 }
+
+print("2");
 
 function scrollOnLoad(id) {
     console.log("scrolling to " +id);
