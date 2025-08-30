@@ -72,16 +72,21 @@
     height: 18dvh;
 }
 .producte{
+    display: flex;
+    flex-direction: column;
     background-color: rgba(255, 255, 255, 0.8);
     min-width: 20%;
     max-width: 40%;
-    width: 24.8%;
-    height: 26.8dvh;
+    width: 24.8dvw;
+    height: 26.8dvw;
     position: relative;
     margin-bottom:1dvh;
     user-select: none;
-    align-content: start;
+    align-content: center;
+    align-items: center;
+    justify-content: start;
     cursor: pointer;
+    overflow: hidden;
 }
 
 .descripcio{
@@ -102,8 +107,8 @@
 .imatge{
     position: relative;
     background-size: cover;
-    background-position: center center;
-    width: inherit;
+    background-position: center;
+    width: 24.8dvw;
     height: 24.8dvw;
     border-radius: 0px;
     user-select: inherit;
@@ -112,8 +117,8 @@
     transition-timing-function: ease, ease;
 }
 .producte:hover .imatge{
-	height:100%;
-	background-size:auto  150%;
+    height: 100%;
+
 }
 
 .detalls-galeria{
@@ -255,6 +260,7 @@
     }
     .imatge{
         height: 48dvw;
+        width: 48dvw;
     }
 
     .colors {
