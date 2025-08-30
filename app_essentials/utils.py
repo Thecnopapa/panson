@@ -106,8 +106,11 @@ def table_to_html(path, onclick_row="", onclick_cell=""):
         html += f"<tr row={row[0]} onclick={onclick_row}>"
         for n, col in enumerate(row[1:]):
             if str(col) == "nan":
+                val = "NA"
                 col = ""
-            html += f"<td col={n} val={col} onclick='{onclick_cell}'>{col}</td>"
+            else:
+                val = str(col)
+            html += f"<td col={n} val='{val}' onclick='{onclick_cell}'>{col}</td>"
         html += "</tr>"
     html += "</table>"
     return html

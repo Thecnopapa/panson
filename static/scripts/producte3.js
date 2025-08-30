@@ -65,6 +65,9 @@ function setTimeMessage(trigger){
 }
 
 function selectSize(trigger){
+    if (trigger.value === ""){
+        return;
+    }
 	var sizeList = document.getElementsByClassName("size-input");
 	for (let i = 0; i < sizeList.length; i++) {
 		sizeList[i].setAttribute("checked", false);
@@ -73,30 +76,69 @@ function selectSize(trigger){
 	trigger.setAttribute("checked", true);
     setTimeMessage(trigger);
 	for (let i = 0; i < sizeList.length; i++) {
-		console.log(sizeList[i].getAttribute("checked") == "false", sizeList[i].classList.contains("multiple-input"));
-		if (sizeList[i].getAttribute("checked")=="false" && sizeList[i].classList.contains("multiple-input")){
+		if (sizeList[i].getAttribute("checked") === "false" && sizeList[i].classList.contains("multiple-input")){
 			sizeList[i].value = "";
                 	sizeList[i].parentElement.style.display="none";
 			sizeList[i].parentElement.previousElementSibling.style.display="flex";
-        	}
+        }
 	}
 }
 
-function selectSizeTable(trigger){
-	const selectedVal = trigger.children[2].attributes.val.value;
-	console.log(selectedVal);
-	const multipleInput = document.getElementById("size-multiple-input");
-	const customSize =document.getElementById("custom-size");
-	customSize.dispatchEvent(new Event("click"));
-	const countrySelector = document.getElementById("size-country");
-	multipleInput.value = selectedVal;
-	multipleInput.dispatchEvent(new Event("input"));
-	countrySelector.options[1].selected =true;
-	countrySelector.dispatchEvent(new Event("change"));
-	const popups = document.getElementsByClassName("translucid-screen");
-	for (let p = 0; p < popups.length; p++){
-		hidePopup("backdrop", popups[p]);
-	}
+function resizeSelector(trigger){
+    print("TRIGGER: ", trigger);
+    const selectedOption = trigger.selectedOptions[0];
+    const targetWidth =  ((1.7+selectedOption.text.length) * 1.7 * window.innerHeight / 100);
+    print("TARGET: ", targetWidth, "CURRENT: ", trigger.offsetWidth);
+    trigger.style.width =  String(targetWidth)+"px";
+    //print(trigger.style);
+    //trigger.style.minWidth = String(targetWidth)+"px !important";
+    //trigger.style.maxWidth = String(targetWidth)+"px !important";
+    print("NEW: ", trigger.offsetWidth, trigger.width);
+}
+
+
+function selectSizeTable(trigger) {
+    var selectedVal = trigger.attributes.val.value;
+    var selectedCol = trigger.attributes.col.value;
+    console.log(selectedVal, selectedCol);
+    try {
+        const targetContainer = document.getElementsByClassName("talles")[0]
+        const targetInput = targetContainer.getElementsByTagName("input");
+        if (selectedCol in ["0","1"] && selectedVal !== "NA") {
+            for (let i = 0; i < targetInput.length; i++) {
+                print(targetInput[i].value)
+                if (targetInput[i].value === selectedVal) {
+                    //targetInput[i].setAttribute("checked", true);
+                    print(targetInput[i].parentElement);
+                    targetInput[i].dispatchEvent(new Event("change"));
+                    throw new Error("found");
+                }
+            }
+        }
+        throw new Error("Size not found on displayed options");
+    } catch (error) {
+        print(error);
+        if (error.message !== "found") {
+            if (selectedVal === "NA"){
+                selectedCol = "1";
+                selectedVal = trigger.parentElement.children[1].attributes.val.value;
+            }
+            const multipleInput = document.getElementById("size-multiple-input");
+            const customSize = document.getElementById("custom-size");
+            customSize.dispatchEvent(new Event("click"));
+            const countrySelector = document.getElementById("size-country");
+            multipleInput.value = selectedVal;
+            multipleInput.dispatchEvent(new Event("input"));
+            //print(countrySelector.options, Number(selectedCol));
+            countrySelector.options[Number(selectedCol)].selected = true;
+            countrySelector.dispatchEvent(new Event("change"));
+        }
+    }
+    print("done")
+    const popups = document.getElementsByClassName("translucid-screen");
+        for (let p = 0; p < popups.length; p++) {
+            hidePopup("backdrop", popups[p]);
+        }
 
 }
 
