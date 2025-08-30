@@ -130,7 +130,7 @@ function selectSizeTable(trigger) {
             multipleInput.value = selectedVal;
             multipleInput.dispatchEvent(new Event("input"));
             //print(countrySelector.options, Number(selectedCol));
-            countrySelector.options[Number(selectedCol)].selected = true;
+            countrySelector.options[Number(selectedCol)-1].selected = true;
             countrySelector.dispatchEvent(new Event("change"));
         }
     }

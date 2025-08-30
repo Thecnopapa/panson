@@ -133,7 +133,6 @@
                             <div id=custom-size class="show-size-selector option size" onclick="this.nextElementSibling.style.display='flex'; this.style.display='none';resizeSelector(this.nextElementSibling.lastElementChild);">{{ loc.pro_personalitza_talla }}</div>
                             <div class="multiple-input-span" style="display: none;"><input type="text" name="talla-multi" id=size-multiple-input class="talla talla-unica size-input multiple-input" oninput="selectSize(this); updatePrice();" placeholder="{{ loc.pro_talla_input }}" maxlength="4">
                                 <select id=size-country name="talla-country" style="width: fit-content" onchange="resizeSelector(this);selectSize(this.previousElementSibling); updatePrice();">
-                                    <option value="panson" selected>PANSON</option>
                                     <option value="es" selected>ES</option>
                                     <option value="eu">EU</option>
                                     <option value="mm-c">mm (circumference)</option>
