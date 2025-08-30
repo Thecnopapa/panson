@@ -17,10 +17,6 @@ window.addEventListener('load', function () {
 	loaderIcon.style ="display:none !important";
 	console.log(loader.style.display);
 	
-	updateScroll();
-	//document.documentElement.addEventListener("scroll", updateScroll);
-	//document.documentElement.addEventListener("touchmove", updateScroll);
-	
 })
 window.addEventListener('orientationchange', function () {
 	console.log("Rotation change!");

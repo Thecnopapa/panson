@@ -45,8 +45,8 @@
     <div class="galeria-scroll scroll-right" onmouseover="startScrolling(this.nextElementSibling, 'right')" onmouseout="stopScrolling(this.nextElementSibling)"></div>
     <div class="galeria">
         {% for producte in productes_filtrats[:max_gallery] %}
-           <div class="producte" onclick="location.href='/{{ loc.lan }}/productes/{{ producte._id }}'">
-               <div class="imatge"><img src='https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media'></div>
+           <div class="producte" onclick="location.href='/{{ loc.lan }}/productes/{{ producte._id }}'" onmouseover="highlightProduct(this)">
+               <div class="imatge" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media')"></div>
                 <div class="detalls-galeria">
                     <div class="detalls-principals">
                         <div class="nom">{{ producte.nom }}</div>

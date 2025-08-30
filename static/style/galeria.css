@@ -76,14 +76,12 @@
     min-width: 20%;
     max-width: 40%;
     width: 24.8%;
-    height: fit-content;
+    height: 26.8dvh;
     position: relative;
-    padding-bottom:2dvh;
+    margin-bottom:1dvh;
     user-select: none;
     align-content: start;
     cursor: pointer;
-
-
 }
 
 .descripcio{
@@ -98,37 +96,46 @@
     overflow: hidden;
     text-overflow: ellipsis;
 
-
-
 }
+
+
 .imatge{
     position: relative;
-    height: 80%;
-    width: 100%;
-    max-height: fit-content;
-}
-
-.imatge img{
-    position: relative;
-    object-fit: cover;
-    object-position: center;
-    width: 100%;
+    background-size: cover;
+    background-position: center;
+    width: inherit;
     height: 24.8dvw;
     border-radius: 0px;
     user-select: inherit;
+    transition-property: height, background-size;
+    transition-duration: 1s, 1s;
+    transition-timing-function: ease, ease;
 }
+.producte:hover .imatge{
+	height:100%;
+	background-size:auto  150%;
+}
+
 .detalls-galeria{
-    max-height: 100%;
-    width: auto;
+	position:absolute;
+	bottom:0;
+    height:3dvh;
+    width: 22.8dvw;
     padding-right: 1dvw;
     padding-left: 1dvw;
     user-select: inherit;
+    background: linear-gradient(to top, rgba(255,255,255,0.6), rgba(255,255,255,0));
+    display:flex;
+    flex-direction: column;
+    justify-content:end;
+    
 }
 .detalls-principals{
     position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding-bottom: 0.5dvh;
 }
 .nom, .preu-inline{
     font-size: 2dvh;
@@ -218,6 +225,7 @@
         min-width:  48dvw;
         max-width:  48dvw;
         width: 48dvw;
+	height:calc(48dvw + 3dvh);
         user-select: none;
     }
     .capcal{
@@ -229,23 +237,28 @@
         align-items: flex-start;
         flex-wrap: nowrap;
     }
+    .detalls-galeria{
+	    height: 4dvh;
+	    width: 46dvw;
+
+    }
 
     .titol-galeria{
 
         padding-top: 1dvh;
         font-size: 3dvh;
-        text-align: center ;
+        text-align: center;
     }
     .subtitle{
         padding-top: 1dvh;
         font-size: 2dvh;
     }
-    .imatge img{
-        width: 100%;
-        height: 45dvw;
+    .imatge{
+        height: 48dvw;
     }
+
     .colors {
-        top: 80%
+        top: 80%;
     }
 
 
