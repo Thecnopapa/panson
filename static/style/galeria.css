@@ -102,7 +102,7 @@
 .imatge{
     position: relative;
     background-size: cover;
-    background-position: center;
+    background-position: center center;
     width: inherit;
     height: 24.8dvw;
     border-radius: 0px;

@@ -77,7 +77,7 @@ storage_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorag
 
 
 # GLOBALS SETUP
-from app_essentials.session import get_current_user
+from app_essentials.session import get_current_user, get_session_id
 from app_essentials.products import Products, Product
 from app_essentials.firebase import get_user_data, get_cols, check_if_admin
 from app_essentials.firestore import list_blobs, upload_images, load_files
@@ -101,6 +101,12 @@ def handle_exception(e):
     return render_template("ERROR.html", code=e.code, name=e.name, description=e.description, request=request)
 
 
+from flask_limiter import Limiter
+limiter = Limiter(
+        app=app,
+        default_limits=["1 per second"],
+        key_func=get_session_id,
+        )
 
 
 
@@ -133,15 +139,17 @@ def acceptar_cookies():
     return ""
 
 
-
+@limiter.exempt
 @app.route("/static/<path:path>", defaults={"lan": "cat"})
 @app.route("/<lan>/static/<path:path>")
 def get_static(lan, path):
     return redirect("/static/"+path)
 
+@limiter.exempt
 @app.route("/style/<path:path>")
 def get_style(path):
     return redirect("/static/style/"+path)
+@limiter.exempt
 @app.route("/scripts/<path:path>")
 def get_script(path):
     return redirect("/static/scripts/"+path)
@@ -236,7 +244,7 @@ def mostrar_peca(lan, id):
 
 
 
-
+@limiter.exempt
 @app.post("/carret/add")
 def afegir_al_carret():
     user = get_current_user()
@@ -316,7 +324,7 @@ def afegir_al_carret():
     #return redirect("/{}/productes/{}/".format(lan, request.form["id"]))
     return redirect(request.referrer)
 
-
+@limiter.exempt
 @app.post("/productes/carret/<pos>/<qty>")
 def alterar_carret(pos, qty):
     user = get_current_user()
@@ -334,7 +342,7 @@ def alterar_carret(pos, qty):
     return "", 204
 
 
-
+@limiter.exempt
 @app.post("/<lan>/carret/id2/eliminar_del_carret")
 def eliminar_del_carret(lan, id2):
     opcions = get_opcions()
@@ -344,14 +352,9 @@ def eliminar_del_carret(lan, id2):
     resp = redirect("/{}/productes/{}/?{}".format(lan, id, opcions))
     return resp
 
-@app.route("/<lan>/carret/")
-def veure_carret(lan):
-    html = template(lan=lan, templates="carret", carret=get_current_user().carret)
-    return html
 
 
-
-
+@limiter.exempt
 @app.route("/<lan>/checkout/")
 def checkout(lan):
     user = get_current_user()
@@ -360,7 +363,7 @@ def checkout(lan):
     from payments import stripe_checkout
     return stripe_checkout(items, lan=lan)
 
-
+@limiter.exempt
 @app.route("/<lan>/checkout/success/")
 def stripe_success(lan):
     from payments import process_payment
@@ -380,6 +383,7 @@ def stripe_cancel(lan):
 def projecte(lan):
     html = template(lan=lan, templates="projecte")
     return html
+
 @app.route("/<lan>/contacte/")
 def contatce(lan):
     html = template(lan=lan, templates="contacte")
@@ -387,7 +391,7 @@ def contatce(lan):
 
 
 
-
+@limiter.exempt
 @app.route("/<lan>/admin/")
 @app.route("/<lan>/admin/page/")
 @app.route("/admin/")
@@ -403,7 +407,7 @@ def admin(lan="cat", page="main"):
     else:
         return template(lan=lan, templates="login", footer=False)
 
-
+@limiter.exempt
 @app.post("/login")
 def login():
     print("loging in...")
@@ -421,6 +425,7 @@ def login():
         print("login failed")
     return(redirect("/admin/"))
 
+@limiter.exempt
 @app.route("/admin/logout")
 def logout():
     user = get_current_user()
@@ -430,7 +435,7 @@ def logout():
     user.update_db()
     return redirect("/")
 
-
+@limiter.exempt
 @app.post("/admin/update/<id>")
 def update_product(id, lan="cat"):
     user = get_current_user()
@@ -534,7 +539,7 @@ def update_product(id, lan="cat"):
         return template(lan=lan, templates="login")
 
 
-
+@limiter.exempt
 @app.route("/admin/hide/<id>")
 def hide_product(id):
     user = get_current_user()
@@ -543,6 +548,8 @@ def hide_product(id):
         product.amagat = True
         product.update_db()
     return redirect("/admin/")
+
+@limiter.exempt
 @app.route("/admin/unhide/<id>")
 def unhide_product(id):
     user = get_current_user()
@@ -552,6 +559,7 @@ def unhide_product(id):
         product.update_db()
     return redirect("/admin/")
 
+@limiter.exempt
 @app.route("/admin/delete/<id>")
 def delete_product(id):
     user = get_current_user()
@@ -560,6 +568,8 @@ def delete_product(id):
         product.esborrat = True
         product.update_db()
     return redirect("/admin/")
+
+@limiter.exempt
 @app.route("/admin/restore/<id>")
 def restore_product(id):
     user = get_current_user()
@@ -569,7 +579,7 @@ def restore_product(id):
         product.update_db()
     return redirect("/admin/")
 
-
+@limiter.exempt
 @app.post("/admin/loc/update-field")
 def update_field():
     user = get_current_user()
@@ -640,11 +650,14 @@ def admin_redirect_login(lan):
 def admin_login():
     return render_template("login.html") + navigation()
 
+@limiter.exempt
 @app.route("/admin/logout/")
 def admin_logout():
     resp = redirect("/"+s.loc.lan)
     resp = s.admin.logout(resp)
     return resp
+
+@limiter.exempt
 @app.route("/admin/", methods=["GET", "POST"])
 def admin_load():
     #s.loc.update()
@@ -654,13 +667,14 @@ def admin_load():
     #print(resp)
     return resp
 
-
+@limiter.exempt
 @app.route("/admin/update/<id>", methods=["GET", "POST"])
 def update_product(id):
     firebase.update_firebase(id, s.productes.get_single(id).nou_producte, taken_ids=s.productes.taken_ids)
     s.loc.update()
     return (redirect("/admin/"))
 
+@limiter.exempt
 @app.route("/admin/delete/<id>", methods=["GET", "POST"])
 def delete_product(id):
     firebase.delete_firebase(id)

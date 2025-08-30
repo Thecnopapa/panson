@@ -11,6 +11,7 @@ google_auth_oauthlib
 
 # App
 flask
+Flask-limiter
 gunicorn
 unidecode
 stripe

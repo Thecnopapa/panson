@@ -30,4 +30,5 @@ class Cookies:
 
 
 
-
+def get_session_id():
+    return session.get("session_id", "no-id")
