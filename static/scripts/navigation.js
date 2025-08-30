@@ -1,3 +1,10 @@
+
+function print(...args){
+    console.log(...args);
+}
+
+
+
 const cartIcon = document.getElementsByClassName('shopping-cart');
 const cartCircle = document.getElementsByClassName('cercle-carret');
 const loader = document.getElementById("loader");

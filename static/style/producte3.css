@@ -42,6 +42,7 @@ body {
     min-height: 100%;
     background-position: left;
     background-size: cover;
+    cursor: pointer;
 
 }
 
@@ -456,6 +457,45 @@ tr:hover{
 }
 
 
+.enlarged-container{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100dvh;
+    width: 100dvw;
+    background-color: rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.enlarged-img{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 80%;
+    height: 90%;
+    cursor: zoom-in;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center, left, 0, top, 0;
+    background-repeat: no-repeat;
+}
+.enlarged-img.zoomed{
+        background-size: 150%;
+        cursor: zoom-out;
+    }
+
+
+
+
+
+
+
+
+
 
 @media screen and (orientation: portrait) {
     .galeria-scroll{
@@ -503,6 +543,14 @@ tr:hover{
         min-width: 45dvw;
         max-width: 45dvw;
         margin-right:0.5dvh;
+    }
+
+    .enlarged-img{
+        width: 90%;
+        height: 60%;
+    }
+    .enlarged-img.zoomed{
+        background-size: 200%;
     }
 
 }

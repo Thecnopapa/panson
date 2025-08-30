@@ -386,11 +386,70 @@ function hideAllDetails(trigger){
 }
 
 
-
-
-
-
-
-
 updatePrice();
+
+function enlargeImg(img){
+    print("Enlarging img...");
+
+    const imgUrl = img.style.backgroundImage.split("\"")[1]
+    const productName = img.attributes["product"].value;
+    print(productName, imgUrl);
+
+    document.body.style.overflow = "hidden";
+
+    const newContainer = document.createElement("div");
+    newContainer.classList.add("enlarged-container");
+    newContainer.addEventListener("click", function (event){newContainer.remove(); document.body.style.overflow = "unset";});
+    document.body.appendChild(newContainer);
+
+    const newImg = document.createElement("img");
+    newImg.classList.add("enlarged-img");
+    //newImg.src = imgUrl;
+    newImg.style.backgroundImage = img.style.backgroundImage
+    newImg.setAttribute('draggable', false);
+    newImg.addEventListener("click", startZoom,);
+    newContainer.appendChild(newImg);
+
+    const zoomDiv = document.createElement("div");
+    zoomDiv.classList.add("zoomed-img");
+    newContainer.appendChild(zoomDiv);
+
+
+
+
+    print("Enlarged img ready!")
+}
+
+
+function startZoom(event){
+    image = event.target;
+    event.stopPropagation();
+    print("Starting zoom");
+    print("image", image);
+    image.classList.add("zoomed");
+    image.addEventListener("click", stopZoom);
+    image.removeEventListener("click", startZoom);
+    image.addEventListener("mousemove", moveImg);
+}
+
+function stopZoom(event) {
+    event.target;
+    event.stopPropagation();
+    print("Ending zoom");
+    print("image", image);
+    image.classList.remove("zoomed");
+    image.addEventListener("click", startZoom);
+    image.removeEventListener("click", stopZoom);
+    image.removeEventListener("mousemove", moveImg);
+    image.style.backgroundPosition = "center";
+}
+
+
+function moveImg(event){
+    image = event.target;
+    clickX = (1-(image.width - event.pageX + image.offsetLeft)/image.width)*100;
+    clickY = (1-(image.height -  event.pageY + image.offsetTop)/image.height)*100;
+    image.style.backgroundPosition = String(clickX)+ "% "+String(clickY)+"%";
+}
+
 
