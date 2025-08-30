@@ -157,7 +157,7 @@
 				    <li><strong>{{loc.pro_talles_t4}}</strong>{{loc.pro_talles_c4}}</li>
 				    <li><strong>{{loc.pro_talles_t5}}</strong>{{loc.pro_talles_c5}}</li>
                             </ol>
-                            {{ utils.table("static/MIDES_PANSON.xlsx", onclick_cell='selectSizeTable(this);')|safe }}
+                            {{ utils.table("static/MIDES_PANSON.xlsx", onclick_cell='selectSizeTable(this);', skip_rows=[0])|safe }}
                         </div>
 
                 </fieldset>

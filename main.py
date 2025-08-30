@@ -130,6 +130,24 @@ def mailgun():
     print(m)
     return str(m)
 
+@limiter.exempt
+@app.route("/size/calculator/", methods=["POST", "GET"])
+def get_talla():
+    from app_essentials.products import get_talla_es
+    es_talla =""
+
+
+    f_talla = request.form.get("talla")
+    f_unit = request.form.get("unit")
+    print(f_talla, f_unit)
+    if f_talla is not None and f_unit is not None:
+        es_talla = get_talla_es(f_unit, f_talla)
+    else:
+        es_talla = "missing data"
+
+    result = "Talla: {} / Unit: {} /= TallaES: {}".format(f_talla, f_unit, es_talla)
+    return "<form action='/size/calculator/' method=POST><input name='unit' placeholder='unit'><br><input name='talla' placeholder='size'><br><button>SUBMIT</button></form><br>Result: {}".format(result)
+
 
 @app.post("/acceptar_cookies")
 def acceptar_cookies():

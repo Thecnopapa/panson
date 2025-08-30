@@ -95,14 +95,16 @@ def split_multiple(string, *delimiters):
     return re.split("|".join(delimiters), string)
 
 
-def table_to_html(path, onclick_row="", onclick_cell=""):
+def table_to_html(path, onclick_row="", onclick_cell="", skip_rows=[]):
     df = pd.read_excel(path)
     html = "<table>"
     html += "<tr>"
     for col in df.columns:
         html += f"<th>{col}</th>"
     html += "</tr>"
-    for row in df.itertuples():
+    for r, row in enumerate(df.itertuples()):
+        if r in skip_rows:
+            continue
         html += f"<tr row={row[0]} onclick={onclick_row}>"
         for n, col in enumerate(row[1:]):
             if str(col) == "nan":
