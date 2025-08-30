@@ -1,5 +1,5 @@
 from app_essentials.firebase import firebaseObject
-from app_essentials.products import Products
+from app_essentials.products import Products, get_talla_es
 from app_essentials.utils import str_to_list
 import hashlib
 
@@ -65,15 +65,15 @@ class User(firebaseObject):
             variacio = item.get("variacio", None)
             color = item.get("color", None)
             talla = item.get("talla", None)
+            talla_es = item.get("talla_es", None)
 
             price = product.calcular_preu(material, variacio, color)[0]*100
 
             description = ""
             if talla is not None:
                 description += "Talla: {}/ ".format(talla)
-            if "(es)" not in talla:
+            if talla_es is not None:
                 description += "TallaES: {} ".format(talla)
-                get
             if material is not None:
                 description += "Material: {}/ ".format(material)
             if variacio is not None:

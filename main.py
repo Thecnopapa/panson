@@ -78,7 +78,7 @@ storage_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorag
 
 # GLOBALS SETUP
 from app_essentials.session import get_current_user, get_session_id
-from app_essentials.products import Products, Product
+from app_essentials.products import Products, Product, get_talla_es
 from app_essentials.firebase import get_user_data, get_cols, check_if_admin
 from app_essentials.firestore import list_blobs, upload_images, load_files
 from app_essentials.html_builder import template
@@ -133,7 +133,6 @@ def mailgun():
 @limiter.exempt
 @app.route("/size/calculator/", methods=["POST", "GET"])
 def get_talla():
-    from app_essentials.products import get_talla_es
     es_talla =""
 
 
@@ -272,6 +271,7 @@ def afegir_al_carret():
     talla = None
     talla_multi = None
     talla_country = None
+    talla_es = None
     print(request.form)
     resp = make_response()
     resp.status_code = 206
@@ -329,10 +329,14 @@ def afegir_al_carret():
         talla = talla_multi
         if talla_country is not None:
             talla = "{}({})".format(talla, talla_country)
+            if talla_country != "es":
+                talla_es = "{}".format(get_talla_es(talla_country, talla_multi))
+            else: talla_es = talla_multi
         else:
             resp.headers["missing-val"] = "unit"
             return resp
     opcions["talla"] = talla
+    opcions["talla_es"] = talla_es
     print("OPCIONS: ", opcions)
     user.add_producte_carret(id=request.form["id"], opcions_seleccionades=opcions)
 
