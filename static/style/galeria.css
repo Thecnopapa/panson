@@ -78,9 +78,9 @@
     min-width: 20%;
     max-width: 40%;
     width: 24.8dvw;
-    height: 26.8dvw;
+    height: 27dvw;
     position: relative;
-    margin-bottom:1dvh;
+    margin-bottom:0.5dvh;
     user-select: none;
     align-content: center;
     align-items: center;
@@ -116,15 +116,25 @@
     transition-duration: 1s, 1s;
     transition-timing-function: ease, ease;
 }
-.producte:hover .imatge{
-    height: 100%;
+.imatge.segona, .imatge.inactive {
+    display: none;
+}
 
+.imatge.segona:hover{
+     height:100%;
+}
+
+.imatge.active{
+    display: block;
+}
+
+.imatge.active.segona {
 }
 
 .detalls-galeria{
 	position:absolute;
 	bottom:0;
-    height:3dvh;
+    height:4dvh;
     width: 22.8dvw;
     padding-right: 1dvw;
     padding-left: 1dvw;
@@ -140,7 +150,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding-bottom: 0.5dvh;
+    padding-bottom: 0dvh;
 }
 .nom, .preu-inline{
     font-size: 2dvh;

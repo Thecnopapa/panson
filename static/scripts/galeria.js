@@ -37,3 +37,20 @@ function stopScrolling(galeria) {
     }
 
 }
+
+function highlightProduct(trigger) {
+    const primera = trigger;
+    const segona = trigger.nextElementSibling;
+    segona.classList.add("active");
+    primera.classList.remove("active");
+    primera.classList.add("inactive");
+
+}
+
+function reverseProduct(trigger) {
+    const segona = trigger;
+    const primera = trigger.previousElementSibling;
+    primera.classList.add("active");
+    primera.classList.remove("inactive");
+    segona.classList.remove("active");
+}
