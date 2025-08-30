@@ -20,20 +20,9 @@
 <div id="scroll-right" class="scroller" onclick="nextSection()"></div>
 <div id="content-fetamida">
     <div id="fetamida-left" class="fetamida-section">
-        <div class="section-text section-header">{{ loc.fam_1_header }}</div>
-        <div class="section-text">{{ loc.fam_1_p1 }}</div>
-        <div class="section-text section-header">{{ loc.fam_1_subtitol }}</div>
-        <div class="section-text">{{ loc.fam_1_p2 }}</div>
-        <ul>
-            <li><div class="section-text inlist">{{ loc.fam_1_ll1 }}</div></li>
-            <li><div class="section-text inlist">{{ loc.fam_1_ll2 }}</div></li>
-            <li><div class="section-text inlist">{{ loc.fam_1_ll3 }}</div></li>
-            <li><div class="section-text inlist">{{ loc.fam_1_ll4 }}</div></li>
-            <li><div class="section-text inlist">{{ loc.fam_1_ll5 }}</div></li>
-        </ul>
-        <div class="section-text">{{ loc.fam_1_p3 }}</div>
-
+        <div class="section-text">{{ loc.fam_1_header |safe}}</div>
     </div>
+
     <div id="fetamida-centre" class="fetamida-section">
         <div id="fetamida-slideshow" class="flex-wrap-anim">
             {% for producte in productes_filtrats %}

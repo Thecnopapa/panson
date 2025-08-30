@@ -2,11 +2,13 @@
     position: relative;
     display: flex;
     flex-direction: row;
-    height: 88dvh;
+    height: 80dvh;
+    max-height: 80dvh;
     max-width: 100dvw;
     overflow-x: hidden;
     scroll-behavior: smooth;
-    margin-top: 12dvh;
+    margin-top: 20dvh;
+    overflow: hidden;
 }
 .scroller{
     height: 71dvh;
@@ -28,28 +30,25 @@
 
 }
 .fetamida-section{
+    margin-top: 3dvh;
     position: relative;
-    margin-top: 3vh;
-    height: 85dvh;
+    height: 97dvh;
+    max-height: 97dvh;
     display: flex;
     flex-direction: column;
     width: 75dvw;
     min-width: 75dvw;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    transition: min-width linear 2s;
-    ul{
-        padding-left: 0;
-        width: 76%;
-        li{
-            width: 100%;
-        }
-    }
+    overflow: hidden;
+
+}
+#fetamida-left{
+
+    height: 85dvh;
 }
 
 #fetamida-centre {
-    width: 25dvw;
-    min-width: 25dvw;
     width: 80dvw;
     min-width: 80dvw;
 }
@@ -69,12 +68,15 @@
 .section-header{
     padding-top: 1dvh;
     padding-bottom: 1dvh;
+    white-space: pre-line;
 }
 .section-text{
     width: 80%;
-    max-width: 80%;
+    max-width: 90%;
     font-size: 2dvh;
-    white-space: pre-line;
+    white-space: pre-wrap;
+    max-height: 80%;
+    overflow-y: scroll;
 }
 
 
@@ -91,24 +93,41 @@
     height: 3dvh;
     z-index: 10;
     border-bottom: black 1px solid;
+    overflow: hidden;
 }
 
 .to-section{
     display: flex;
-    width: 25%;
+    width: 30%;
+    min-width: 30%;
     font-size: 2dvh;
-    transition-property: width;
-    transition-duration: 1s;
-    transition-timing-function: ease-in-out;
+    transition-property: padding-left, margin-left;
+    transition-duration: 1s, 1s;
+    transition-timing-function: ease-in-out, ease-in-out;
     cursor: pointer;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    padding-right: 3%;
-    padding-left: 3%;
+    padding-right: 7.5dvw;
+    padding-left: 7.5dvw;
 }
 .to-section.current-section{
     width: 100%;
 }
+
+#to-first.current-section{
+    justify-content: flex-start;
+}
+#to-second.right-section{
+    padding-left: 7.5dvw;
+    padding-right: 7.5dvw;
+    margin-left: 22.5dvw;
+    width: fit-content;
+}
+
+
+
+
+
 
 
 #fetamida-slideshow{
