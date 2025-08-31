@@ -108,8 +108,15 @@ echo -n "* Current git branch: " && git rev-parse --abbrev-ref HEAD
 
 
 prompt_setup(){
+	GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+	GIT_LOG=$(git log origin/${GIT_BRANCH}..HEAD)
 	git_pushed(){
-		echo $(git log origin/master..HEAD)
+		if [[ ${GIT_PUSHED}//' '/''  != "" ]]; then
+			echo "96"
+		else
+			echo ${GIT_PUSHED}//' '/''
+			echo "1"
+		fi
 	}
   git_commits(){
     if [[ "$(git status -s)" != "" ]]; then
@@ -118,7 +125,7 @@ prompt_setup(){
       echo "96"
     fi
   }
-  PS1="${YELLOW}@\u${EC} ${CYAN}($PROJECT_NAME\[\e[$(git_commits)m\]-$(git rev-parse --abbrev-ref HEAD)${EC}${CYAN})${GREEN} ($(echo "$CONDA_PREFIX" | rev | cut -d "/" -f1| rev))${BLUE}:\w ${EC}$ "
+  PS1="${YELLOW}@\u${EC} ${CYAN}(\[\e[$(git_pushed)m\]$(git_pushed)-$PROJECT_NAME\[\e[$(git_commits)m\]-${GIT_BRANCH}${EC}${CYAN})${GREEN} ($(echo "$CONDA_PREFIX" | rev | cut -d "/" -f1| rev))${BLUE}:\w ${EC}$ "
 }
 PROMPT_COMMAND='prompt_setup'
 #PS1="${YELLOW}@\u${EC} (${CYAN}$PROJECT_NAME-\[\e[$(echo $(if [[ "$(echo $(git status -s)")" == ""]]; then echo "36"; else echo "1"; fi) )m\]$(git rev-parse --abbrev-ref HEAD))${GREEN} ($(echo "$CONDA_PREFIX" | rev | cut -d "/" -f1| rev))${BLUE}:\w ${EC}$ "
