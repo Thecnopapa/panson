@@ -163,7 +163,7 @@ body {
     display: flex;
     height: 6dvh;
     width: fit-content;
-    padding-right: 2dvw;
+    padding-right: 4dvh;
     z-index: 200;
     align-items: center;
 
@@ -174,7 +174,6 @@ body {
 .dropbtn, .menu-simple {
     color: #000000;
     font-size: 2dvh;
-
     border: none;
     user-select: none;
     margin:  0 1dvh;
