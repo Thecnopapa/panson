@@ -110,12 +110,14 @@ echo -n "* Current git branch: " && git rev-parse --abbrev-ref HEAD
 prompt_setup(){
 	GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 	GIT_LOG=$(git log origin/${GIT_BRANCH}..HEAD)
+	GIT_LOG_CLEAN=${GIT_LOG}//' '/''
 	git_pushed(){
-		if [[ ${GIT_PUSHED}//' '/''  != "" ]]; then
-			echo "96"
-		else
-			echo ${GIT_PUSHED}//' '/''
+		if [[ ${GIT_LOG}//' '/''  != "" ]]; then
+			echo ${GIT_LOG}
 			echo "1"
+		else
+			echo ${GIT_LOG}
+			echo "96"
 		fi
 	}
   git_commits(){
