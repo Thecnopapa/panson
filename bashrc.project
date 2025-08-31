@@ -113,10 +113,8 @@ prompt_setup(){
 	GIT_LOG_CLEAN=${GIT_LOG}//' '/''
 	git_pushed(){
 		if [[ ${GIT_LOG}//' '/''  != "" ]]; then
-			echo ${GIT_LOG}
 			echo "1"
 		else
-			echo ${GIT_LOG}
 			echo "96"
 		fi
 	}
