@@ -14,6 +14,7 @@ class Product(firebaseObject):
         self.imatges = []
         self.nom = ""
         self.amagat = False
+        self._bespoke= False
 
         self.tipus = None
         self.opcions={}
@@ -230,5 +231,15 @@ def get_talla_es(unit, value, target_unit="es"):
     value_row = [t for t in df[df[unit] == value].itertuples()][0]
     target_value = value_row.__getattribute__(target_unit)
     return target_value
+
+
+class Bespoke(Product):
+    bucket = "bespoke"
+    def __init__(self, data={}, id=None):
+        self.per_a = ""
+        self._bespoke = True
+        super().__init__(data, id)
+
+
 
 
