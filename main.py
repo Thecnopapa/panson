@@ -418,7 +418,7 @@ def contatce(lan):
 @app.route("/<lan>/admin/page/")
 @app.route("/admin/")
 @app.route("/admin/<page>/")
-def admin(lan="cat", page="main"):
+def admin(lan="cat", page="base"):
     lan="cat"
     user = get_current_user()
     print(user.__dict__)

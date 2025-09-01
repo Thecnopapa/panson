@@ -1,28 +1,33 @@
 
 
-form {
-    font-size: 2dvh;
+*{
+	font-size: 2dvh;
 }
 input {
     margin: 0 1dvh;
 }
 body {
-    width: 100dvw;
-    height: fit-content;
+    width: 100vw;
+    max-width 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    overflow:hidden;
 }
-.content {
-    display: flex;
-    flex-direction: column;
-    padding: 10%;
-    height: 80dvh;
-    max-height: 80dvh;
 
-    width: 80%;
-    overflow-y: scroll;
-    background: rgba(255, 255, 255, 0.1);
-    -ms-overflow-style: scrollbar;  /* IE and Edge */
-    scrollbar-width: thin;  /* Firefox */
+
+
+.admin-content{
+	width:fit-content;
+	min-width: 100%;
+	margin: 2%;
+	display:flex;
+	flex-direction: column;
+	overflow: scroll;
+	-ms-overflow-style: scrollbar;  /* IE and Edge */                           scrollbar-width: thin;  /* Firefox */
+	background-color: cyan;
 }
+
+
 .productes {
     display: flex;
     flex-direction: column;
