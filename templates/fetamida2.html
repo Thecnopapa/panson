@@ -27,16 +27,14 @@
 
         <div id="fetamida-centre" class="fetamida-section">
             <div id="fetamida-slideshow" class="flex-wrap-anim">
-                {% for producte in productes_filtrats %}
+                {% for producte in productes_filtrats*2 %}
                 <div class="product">
                     <div class="product-image"><img src='https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media'></div>
-                </div>
-                    <div class="product">
-                    <div class="product-image"><img src='https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media'></div>
+		    <div class="product-for">{{loc.fam_per_a}} (Nom persona)</div>
                 </div>
                 {% endfor %}
                 {% for n in range(utils.mod(utils.len(productes_filtrats)*2, 4)) %}
-                    <div class="product"></div>
+                    <div class="product empty"></div>
                 {% endfor %}
             </div>
 

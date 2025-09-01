@@ -195,7 +195,9 @@ body {
     align-items: center;
 }
 
-
+#contacte{
+	display:none;
+}
 #menu {
     display: flex;
     flex-direction: column;
@@ -224,7 +226,7 @@ body {
 }
 
 
-#contacte-menu, #projecte-menu {
+.button-menu {
     display: none;
     background-color: rgba(0, 0, 0, 0);
 
