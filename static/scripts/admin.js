@@ -141,6 +141,26 @@ function updateField(target){
     target.nextElementSibling.style.backgroundColor = "revert";
 }
 
+function deleteField(trigger){
+	const pageValue = trigger.attributes.page.value;
+	const keyValue = trigger.attributes.key.value;
+	print("deleting: ", pageValue, "-", keyValue);
+	fetch("/admin/loc/delete-field",
+		{
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			method: "POST",
+			body: JSON.stringify({page: pageValue, key:keyValue} ),
+		});
+	trigger.parentElement.remove();
+
+}
+
+
+
+
 
 function resizeAll() {
     console.log("RESIZING ALL");

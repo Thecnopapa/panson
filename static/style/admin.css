@@ -142,12 +142,14 @@ input, option ,select, textarea {
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+    overflow-x:scroll;
 }
 
 .loc-key{
     font-size: 2dvh;
     text-decoration: underline;
     font-weight: bold;
+    min-width:fit-content;
 }
 .loc-key em{
     text-decoration: none;
@@ -160,6 +162,7 @@ input, option ,select, textarea {
     align-items: center;
 }
 .lan-name{
+	padding-left:3dvw;
     font-size: 2dvh;
     font-weight: bold;
 }

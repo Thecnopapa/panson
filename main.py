@@ -617,6 +617,24 @@ def update_field():
         localisation.document("languages").collection("text").document(data["page"]).update(new_data)
     return ""
 
+
+@limiter.exempt
+@app.post("/admin/loc/delete-field")
+def delete_field():
+    user = get_current_user()
+    if check_if_admin(user.username, user.password):
+        print(request.json)
+        data = request.json
+        from app_essentials.firebase import localisation
+        prev_data = localisation.document("languages").collection("text").document(data["page"]).get().to_dict()
+        print(prev_data)
+        new_data = prev_data
+        new_data.pop(data["key"])
+        print(new_data)
+        localisation.document("languages").collection("text").document(data["page"]).set(new_data)
+        return ""
+
+
 @app.post("/<lan>/send_email/<target>/")
 def send_contact_email(lan, target="contacte"):
     from app_essentials.mail import send_email
@@ -662,46 +680,6 @@ def fetamida(lan):
 
 
 
-'''
-
-
-@app.route("/<lan>/admin/login/")
-def admin_redirect_login(lan):
-    return redirect("/admin/login")
-@app.route("/admin/login/")
-def admin_login():
-    return render_template("login.html") + navigation()
-
-@limiter.exempt
-@app.route("/admin/logout/")
-def admin_logout():
-    resp = redirect("/"+s.loc.lan)
-    resp = s.admin.logout(resp)
-    return resp
-
-@limiter.exempt
-@app.route("/admin/", methods=["GET", "POST"])
-def admin_load():
-    #s.loc.update()
-    #resp = make_response(admin_page())
-    resp = s.admin.check_login( from_form=request.method == "POST")
-    s.loc.update()
-    #print(resp)
-    return resp
-
-@limiter.exempt
-@app.route("/admin/update/<id>", methods=["GET", "POST"])
-def update_product(id):
-    firebase.update_firebase(id, s.productes.get_single(id).nou_producte, taken_ids=s.productes.taken_ids)
-    s.loc.update()
-    return (redirect("/admin/"))
-
-@limiter.exempt
-@app.route("/admin/delete/<id>", methods=["GET", "POST"])
-def delete_product(id):
-    firebase.delete_firebase(id)
-    s.loc.update()
-    return (redirect("/admin/"))
 
 
 
@@ -710,7 +688,10 @@ def delete_product(id):
 
 
 
-'''
+
+
+
+
 def start_ngrok():
     from pyngrok import ngrok
     url = ngrok.connect(5000, name="tunnel1", url="https://funny-constantly-peacock.ngrok-free.app").public_url
