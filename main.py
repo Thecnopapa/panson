@@ -98,7 +98,7 @@ def handle_exception(e):
         "description": e.description,
     })
     response.content_type = "application/json"
-    return render_template("ERROR.html", code=e.code, name=e.name, description=e.description, request=request)
+    return render_template("ERROR.html", code=e.code, name=e.name, description=e.description, request=request), e.code
 
 
 from flask_limiter import Limiter
@@ -415,15 +415,15 @@ def contatce(lan):
 
 @limiter.exempt
 @app.route("/<lan>/admin/")
-@app.route("/<lan>/admin/page/")
+@app.route("/<lan>/admin/<page>/")
 @app.route("/admin/")
 @app.route("/admin/<page>/")
 def admin(lan="cat", page="base"):
     lan="cat"
     user = get_current_user()
-    print(user.__dict__)
+    #print(user.__dict__)
     print("admin check")
-    print(user.username, user.password)
+    #print(user.username, user.password)
     if check_if_admin(user.username, user.password):
         return template(lan=lan, templates="admin-{}".format(page), user = user.username, amagats=True, footer=False)
     else:
@@ -434,7 +434,7 @@ def admin(lan="cat", page="base"):
 def login():
     print("loging in...")
     from app_essentials.firebase import check_if_admin
-    print(request.form["username"], request.form["password"])
+    #print(request.form["username"], request.form["password"])
 
     if check_if_admin(request.form["username"], request.form["password"]):
         user = get_current_user()
@@ -637,38 +637,46 @@ def delete_field():
 
 
 @limiter.exempt
-@app.post("/admin/product/update-field")
-def update_product():
+@app.post("/admin/<bucket>/update")
+def update_product(bucket):
     user = get_current_user()
     if check_if_admin(user.username, user.password):
         print(request.json)
         data = request.json
-        from app_essentials.firebase import prods
-        from app_essentials.products import Product
-        prev_data = prods.document(data["product"]).get().to_dict()
-        p = Product(prev_data, data["product"])
+        if bucket == "product":
+            from app_essentials.firebase import prods
+            from app_essentials.products import Product
+            prev_data = prods.document(data["product"]).get().to_dict()
+            p = Product(prev_data, data["product"])
+        elif bucket == "bespoke":
+            from app_essentials.firebase import bespoke
+            from app_essentials.products import Bespoke
+            prev_data = bespoke.document(data["product"]).get().to_dict()
+            p = Bespoke(prev_data, data["product"])
         print(p)
         if data["type"] == "list":
             new =p.__getattribute__(data["field"]).copy()
             print(type(new), new)
-            if data["add"]:
+            if data["mode"] == "add":
                 new.append(data["value"])
-            else:
+            elif data["mode"] == "remove":
                 new.remove(data["value"])
+            elif data["mode"] == "sort":
+                new.insert(data["value"], new.pop(data["key"]))
             print(new)
             p.__setattr__(data["field"], new)
         elif data["type"] == "dict":
             new = p.__getattribute__(data["field"]).copy()
             print(type(new), new)
             if data["subdict"] is not None:
-                if data["add"]:
+                if data["mode"] == "add":
                     new[data["subkey"]][data["key"]] = data["value"]
-                else:
+                elif data["mode"] == "remove":
                     new[data["subkey"]].pop(data["key"])
             else:
-                if data["add"]:
+                if data["mode"] == "add":
                     new[data["key"]] = data["value"]
-                else:
+                elif data["mode"] == "remove":
                     new.pop(data["key"])
             print(new)
             p.__setattr__(data["field"], new)
@@ -695,9 +703,9 @@ def update_bespoke():
         if data["type"] == "list":
             new =p.__getattribute__(data["field"]).copy()
             print(type(new), new)
-            if data["add"]:
+            if data["mode"]=="add":
                 new.append(data["value"])
-            else:
+            elif data["mode"]=="remove":
                 new.remove(data["value"])
             print(new)
             p.__setattr__(data["field"], new)

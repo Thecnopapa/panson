@@ -213,9 +213,14 @@ function uploadImage(file, folder="productes"){
 
 
 
-function productUpdate(trigger, value=false, type="text", add=true, subkey=undefined) {
+function productUpdate(trigger, value=false, type="text", mode="add",  key=undefined,  subdict=undefined, subkey=undefined) {
 	const field = trigger.attributes.field.value;
-	const product = trigger.attributes.product.value
+	const product = trigger.attributes.product.value;
+    var bucket = window.location.href.split("/");
+
+    print("BUCKET: " + bucket, bucket.length);
+    bucket = bucket[bucket.length - 2];
+    print(bucket);
 	print("Trigger: ", trigger);
 	if (!value){
 		value = trigger.value;
@@ -225,13 +230,13 @@ function productUpdate(trigger, value=false, type="text", add=true, subkey=undef
 	}
 	print("Updating field: ", field);
 	print("With value: ", value);
-	fetch("/admin/bespoke/update-field",
+	fetch("/admin/"+bucket+"/update-field",
 		{
 			headers: {'Accept': 'application/json',
 				'Content-Type': 'application/json'
 			},
 			method: "POST",
-			body: JSON.stringify({product: product, field: field, value: value, type:type, add:add, subkey:subkey} ),
+			body: JSON.stringify({product: product, field: field, value: value, type:type, mode:mode, key:key, subdict:subdict, subkey:subkey} ),
                 });
 
     trigger.nextElementSibling.style.backgroundColor = "lightgreen";
