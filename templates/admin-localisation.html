@@ -1,0 +1,27 @@
+
+{% extends "admin-base.html" %}
+
+
+{% block content %}
+<div id=localisation class="admin-content">
+	{% for page, data in loc.get_all_values_by_page().items() %}
+    		<div class="page-block">
+        		<div class="page-name">{{ data["_name"] }}</div>
+        		{% for key, value in data.items() if key[0] != "_" %}
+            			<div class="loc-block">
+                			<div class="loc-key"><em>{{ page }} - </em>{{ key }}</div>
+                			{% for lan in ["cat", "en"] %}
+                    				<div class="lan-block">
+                        				<label class="lan-name">{{ lan }}:</label>
+                        				<textarea page="{{ page }}" key="{{ key }}" lan="{{ lan }}" oninput="resizeArea(this)" style="{{ 'background-color: orange' if value[lan] == "$empty$"}} {{ 'background-color: salmon' if not value[lan] }}"  rows="1" class="lan-value">{{ value[lan] }}</textarea>
+                        				<button onclick="updateField(this.previousElementSibling)">&#10003;</button>
+                    				</div>
+                			{% endfor %}
+					<button onclick="deleteField(this)" page="{{page}}" key="{{key}}" style="background-color:red; margin-left:10%;">&#10008;</button>
+           		 	</div>
+        		{% endfor %}
+    		</div>
+	{% endfor %}
+</div>
+{% endblock %}
+

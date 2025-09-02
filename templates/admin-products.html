@@ -1,24 +1,8 @@
-<!doctype html>
-<html lang="{{ loc.lan }}">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PANSON: Admin</title>
-    <link href='/style/navigation.css' rel='stylesheet'>
-    <script defer type="text/javascript" src="/scripts/navigation.js"></script>
-    <script defer type="text/javascript" src="/scripts/admin.js"></script>
-
-    <link href='/style/admin.css' rel='stylesheet'>
-</head>
 
 
-
-
-<div class="content">
-    <h1>Admin</h1>
-    <button onclick="window.location.href='/admin/loc/'">Localitzacio</button>
-<br>
-    <div class="productes">
+{% extends "admin-base.html" %}
+{% block content %}
+    <div id="productes" class="admin-content">
         {% for producte in productes.get_all() + [productes.new()] %}
             <form action="/admin/update/{{ producte._id }}" method="post" class="producte" enctype="multipart/form-data">
 
@@ -134,4 +118,6 @@
         {% endfor %}
 
     </div>
-</div>
+
+
+{% endblock %}

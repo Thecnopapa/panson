@@ -1,41 +1,62 @@
 
 
-form {
-    font-size: 2dvh;
-}
-input {
-    margin: 0 1dvh;
-}
 body {
-    width: 100dvw;
-    height: fit-content;
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
 }
-.content {
-    display: flex;
-    flex-direction: column;
-    padding: 10%;
-    height: 80dvh;
-    max-height: 80dvh;
 
-    width: 80%;
-    overflow-y: scroll;
-    background: rgba(255, 255, 255, 0.1);
-    -ms-overflow-style: scrollbar;  /* IE and Edge */
-    scrollbar-width: thin;  /* Firefox */
+
+#admin-common{
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+	position:relative;
+	margin-top: 6dvh;
+	max-height: calc(15vh - 6dvh);
+	height: calc(15vh - 6dvh);
+	width:100vw;
+
 }
-.productes {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: fit-content;
+#admin-menu{
+	display:flex;
+	justify-content: space-evenly;
+	width:100%;
 }
+.admin-content{
+	width:fit-content;
+	min-width: 96%;
+	max-width:96%;
+	margin: 2%;
+	display:flex;
+	flex-direction: column;
+	overflow: scroll;
+	-ms-overflow-style: scrollbar;  /* IE and Edge */
+	scrollbar-width: thin;  /* Firefox */
+	height: fit-content;
+	max-height: 96%;
+    align-items: center;
+}
+
+#admin-page{
+    display:flex;
+	min-height:85vh;
+	height:85vh;
+	max-height: 85vh;
+}
+
 
 .producte {
     display: flex;
     flex-direction: column;
-    margin-top: 3dvh;
+    margin-top: 1%;
+    margin-bottom:1%;
     background-color: rgba(136, 136, 136, 0.2);
-    padding: 1%;
+    padding:2%;
     align-items: flex-start;
 
 }
@@ -65,9 +86,6 @@ body {
     flex-direction: column;
     height: fit-content;
     width: 100%;
-}
-.hide{
-    display: none;
 }
 
 #descripcio{
@@ -128,13 +146,16 @@ input, option ,select, textarea {
 .page-block{
     display: flex;
     flex-direction: column;
-    background-color: lightgray;
+    background-color: rgba(0, 94, 94, 0.1);
     margin-bottom: 3dvh;
+    width: 99%;
+    border: 1px solid black;
 }
 
 .page-name{
     font-size: 3dvh;
     text-align: center;
+    font-weight: bold;
 }
 
 .loc-block{
@@ -143,6 +164,7 @@ input, option ,select, textarea {
     align-items: center;
     justify-content: space-around;
     overflow-x:scroll;
+    padding:2%;
 }
 
 .loc-key{
@@ -174,3 +196,104 @@ input, option ,select, textarea {
 }
 
 
+
+
+
+.product-container{
+	width: 94%;
+	max-width: 96%;
+	padding: 2%;
+	background-color: rgba(0, 255, 255, 0.1);
+    position: relative;
+    border: black solid 1px;
+    margin-bottom: 1%;
+}
+.product-header{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 10vh;
+    width: 100%;
+    background-color: #ffffff;
+    align-items: center;
+    justify-content: center;
+}
+.product-header:hover{
+    cursor: pointer;
+}
+.product-title{
+    font-size: 3dvh;
+    font-weight: bold;
+}
+
+.product-snapshot{
+    position: absolute;
+    right: 0;
+    height: 10vh;
+    width: 10vh;
+    background-size: cover;
+    background-position: center;
+
+}
+.product-data{
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    padding-top: 1%;
+}
+.product-data.hide{
+    display: none;
+}
+
+.product-element{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    background-color: rgba(136,136,136, 0.2);
+    margin-bottom: 2%;
+}
+.product-element input{
+    width: 30%;
+}
+.product-element textarea{
+    width: 80%;
+}
+.product-images{
+	display:flex;
+	flex-wrap:wrap;
+}
+
+.product-image, .product-image-add{
+	width:25vh;
+	height:25vh;
+    background-size: cover;
+    background-position: center;
+	justify-content: center;
+	margin-right: 5%;
+	margin-bottom:5%;
+    position: relative;
+}
+.product-image-input{
+	display:none;
+}
+
+.product-image-left, .product-image-right{
+    position: absolute;
+    bottom:0;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+.product-image-left{
+    left:0;
+}
+.product-image-right{
+    right:0;
+}
+
+.product-image-delete{
+    position: absolute;
+    top:0;
+    right:0;
+    background-color: rgba(255, 0, 0, 0.8);
+}

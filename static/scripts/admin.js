@@ -32,11 +32,14 @@ function prioUp(image, move=true){
 		prioUp(image, false);
                 prioDown(image.previousElementSibling, false);
 		image.previousElementSibling.before(image);
-                                                                                                }
+        }
 	console.log(!move);
         if (!move){
                 var position =Number(input.value);                                      
-                position = position - 1;                                                                  text.innerHTML = String(position);                                                      input.value = position;                                                         }
+                position = position - 1;
+                text.innerHTML = String(position);
+                input.value = position;
+        }
 }
 
 
@@ -45,13 +48,13 @@ function prioUp(image, move=true){
 
 
 function showData(trigger){
-    data = trigger.parentElement.getElementsByClassName("data")[0]
+    data = trigger.parentElement.getElementsByClassName("product-data")[0]
     data.classList.remove("hide")
     trigger.setAttribute("onclick","hideData(this)")
 }
 
 function hideData(trigger){
-    data = trigger.parentElement.getElementsByClassName("data")[0]
+    data = trigger.parentElement.getElementsByClassName("product-data")[0]
     data.classList.add("hide")
     trigger.setAttribute("onclick","showData(this)")
 }
@@ -170,3 +173,67 @@ function resizeAll() {
     }
 }
 
+
+
+function triggerInput(target){
+	target.click();
+}
+
+
+function productAddImage(trigger){
+	const files = trigger.files;
+	print("Adding images: ", files);
+
+	for (let i = 0; i < files.length; i++){
+        fileName = files[i].name;
+		uploadImage(files[i], "bespoke");
+		bespokeUpdate(trigger,fileName , "list", true);
+        const newImage = trigger.parentElement.previousElementSibling.cloneNode(true);
+        newUrl = imageUrl("bespoke", fileName);
+        newImage.style = "background-image: url('" + newUrl + "')";
+        trigger.parentElement.before(newImage);
+	}
+}
+
+
+
+function uploadImage(file, folder="productes"){
+	print("Uploading: ", file.name, "("+file.type+")");
+	fetch("/admin/images/upload/"+folder,
+		{
+			headers: {'Accept': file.type,
+				'Content-Type': file.type,
+                'Content-Disposition': 'attachment; filename="'+file.name+'"',
+                'fname': file.name,
+			},
+			method: "POST",
+			body: file,
+		});
+}
+
+
+
+function productUpdate(trigger, value=false, type="text", add=true, subkey=undefined) {
+	const field = trigger.attributes.field.value;
+	const product = trigger.attributes.product.value
+	print("Trigger: ", trigger);
+	if (!value){
+		value = trigger.value;
+	}
+    if (trigger.attributes.dataType){
+		type = trigger.attributes.dataType.value;
+	}
+	print("Updating field: ", field);
+	print("With value: ", value);
+	fetch("/admin/bespoke/update-field",
+		{
+			headers: {'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			method: "POST",
+			body: JSON.stringify({product: product, field: field, value: value, type:type, add:add, subkey:subkey} ),
+                });
+
+    trigger.nextElementSibling.style.backgroundColor = "lightgreen";
+
+}

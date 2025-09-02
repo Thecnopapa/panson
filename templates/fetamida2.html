@@ -27,7 +27,7 @@
 
         <div id="fetamida-centre" class="fetamida-section">
             <div id="fetamida-slideshow" class="flex-wrap-anim">
-                {% for producte in productes_filtrats*2 %}
+                {% for producte in productes.bespoke%}
                 <div class="product">
                     <div class="product-image"><img src='https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media'></div>
 		    <div class="product-for">{{loc.fam_per_a}} (Nom persona)</div>

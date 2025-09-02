@@ -2,7 +2,9 @@
 function print(...args){
     console.log(...args);
 }
-
+function imageUrl(folder, filename){
+    return "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/"+folder+"%2F"+filename+"?alt=media"
+}
 
 
 const cartIcon = document.getElementsByClassName('shopping-cart');

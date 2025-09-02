@@ -1,4 +1,4 @@
-from app_essentials.firebase import get_products, firebaseObject, get_cols
+from app_essentials.firebase import get_products, firebaseObject, get_cols, get_bespoke
 from app_essentials.utils import str_to_list
 
 
@@ -12,6 +12,7 @@ class Product(firebaseObject):
         self.descripcio = ""
         self.subtitol = ""
         self.imatges = []
+        self.imatges2 = []
         self.nom = ""
         self.amagat = False
         self._bespoke= False
@@ -22,6 +23,8 @@ class Product(firebaseObject):
         super().__init__(data, id)
         if self._id is None:
             self.new = True
+        if self.imatges is None:
+            self.imatges=[]
         self._imatges2 = self.imatges.copy()
         nimg = len(self.imatges)
         if nimg != 0:
@@ -104,6 +107,7 @@ class Products():
         self.products = {id:Product(data, id) for id, data in get_products().items()}
         if filters is not None:
             self.products = self.filter(filters, as_dict=True)
+        self.bespoke = [Bespoke(data, id) for id, data in get_bespoke().items()]
         self.setup()
     def setup(self):
         self.col_names = [c["nom"] for c in get_cols().values()]
