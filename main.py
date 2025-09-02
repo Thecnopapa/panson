@@ -56,7 +56,7 @@ os.environ["FLASK_KEY"] = "secure/flask_key"
 os.environ["MAILGUN_KEY"] = "secure/mailgun_key"
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = "uploads"
+app.config['UPLOAD_FOLDER'] = "./uploads"
 app.config['APPLICATION_ROOT'] = '/'
 app.config['PREFERRED_URL_SCHEME'] = 'https'
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
@@ -670,10 +670,15 @@ def upload_image(folder="productes"):
     from werkzeug.utils import secure_filename
     user = get_current_user()
     if check_if_admin(user.username, user.password):
-        fname=secure_filename(request.json["fname"])
-        fpath= "uploads/{}".format(fname)
-        upload_images({fname:fpath}, folder)
+        os.makedirs("./uploads", exist_ok=True)
+        file = request.data
+        fname = secure_filename(request.headers["fname"])
+        fpath = "./uploads/{}".format(fname)
+        with open(fpath, "wb") as f:
+            f.write(file)
+        upload_images({fname: fpath}, folder)
         return fname
+
 
 
 

@@ -17,7 +17,7 @@
 				<div class="bespoke-image"></div>
 				<div class="bespoke-image"></div>
 				<div class="bespoke-image"></div>
-				<button class="bespoke-image-add" onclick="triggerInput(this.firstElementChild)">&#10133;<input type="file" accept="image/*" multiple class="bespoke-image-input" oninput="bespokeAddImage(this)" field="imatges" product="{{product._id}}" ></button>
+				<button class="bespoke-image-add" onclick="triggerInput(this.firstElementChild)">&#10133;<input type="file" accept="image/*|video/*" name="file" multiple class="bespoke-image-input" oninput="bespokeAddImage(this)" field="imatges" product="{{product._id}}" ></button>
 			</div>
 		</div>
 	{%endfor%}

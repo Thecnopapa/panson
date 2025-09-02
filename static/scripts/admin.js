@@ -32,11 +32,14 @@ function prioUp(image, move=true){
 		prioUp(image, false);
                 prioDown(image.previousElementSibling, false);
 		image.previousElementSibling.before(image);
-                                                                                                }
+        }
 	console.log(!move);
         if (!move){
                 var position =Number(input.value);                                      
-                position = position - 1;                                                                  text.innerHTML = String(position);                                                      input.value = position;                                                         }
+                position = position - 1;
+                text.innerHTML = String(position);
+                input.value = position;
+        }
 }
 
 
@@ -185,21 +188,23 @@ function bespokeAddImage(trigger){
 
 	for (let i = 0; i < files.length; i++){
 		uploadImage(files[i], "bespoke");
-		bespokeUpdate(trigger,files[i].name , true, true);
+		//bespokeUpdate(trigger,files[i].name , true, true);
 	}
 }
 
 
 
 function uploadImage(file, folder="productes"){
-	print("Uploading: ", file.name);
+	print("Uploading: ", file.name, "("+file.type+")");
 	fetch("/admin/images/upload/"+folder,
 		{
-			headers: {'Accept': 'application/json',
-				'Content-Type': 'application/json'
+			headers: {'Accept': file.type,
+				'Content-Type': file.type,
+                'Content-Disposition': 'attachment; filename="'+file.name+'"',
+                'fname': file.name,
 			},
 			method: "POST",
-			body: JSON.stringify({fname:file.name}),
+			body: file,
 		});
 }
 
