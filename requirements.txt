@@ -25,4 +25,5 @@ pyngrok
 
 pandas
 openpyxl
+dos2unix
 
