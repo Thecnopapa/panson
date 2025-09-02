@@ -41,6 +41,7 @@ usuaris = db.collection("usuaris")
 collections = db.collection("collecions")
 admins = db.collection("admins")
 localisation = db.collection("localisation")
+bespoke = db.collection("bespoke")
 
 print(" * Firebase initialized")
 
@@ -89,6 +90,13 @@ def get_products():
     raw = prods.where(filter=FieldFilter("esborrat", "==", False, )).stream()
     ps = {p.id:p.to_dict() for p in raw}
     return ps
+
+
+def get_bespoke():
+    raw = bespoke.where(filter=FieldFilter("esborrat", "==",False, )).stream()
+    ps = {p.id:p.to_dict() for p in raw}
+    return ps
+
 
 def get_cols():
     raw = collections.where(filter=FieldFilter("activa", "==", True, )).stream()
