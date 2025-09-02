@@ -187,8 +187,14 @@ function bespokeAddImage(trigger){
 
 
 	for (let i = 0; i < files.length; i++){
+        fileName = files[i].name;
 		uploadImage(files[i], "bespoke");
-		//bespokeUpdate(trigger,files[i].name , true, true);
+		bespokeUpdate(trigger,fileName , true, true);
+        const newImage = trigger.parentElement.previousElementSibling.cloneNode(true);
+        newUrl = imageUrl("bespoke", fileName);
+        newImage.style = "background-image: url('" + newUrl + "')";
+        trigger.parentElement.before(newImage);
+
 	}
 }
 

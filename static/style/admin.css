@@ -8,7 +8,7 @@ input {
 }
 body {
     width: 100vw;
-    max-width 100vw;
+    max-width: 100vw;
     height: 100vh;
     max-height: 100vh;
     overflow:hidden;
@@ -50,7 +50,7 @@ body {
 #admin-page{
 	min-height:85vh;
 	height:85vh;
-	max-height 85vh;
+	max-height: 85vh;
 }
 
 
@@ -201,20 +201,20 @@ input, option ,select, textarea {
 
 .bespoke-product{
 	width: 96%;
-	max-width 96%;
+	max-width: 96%;
 	padding: 2%;
 	background-color: rgba(136,136,136, 0.2);
 }
 .bespoke-images{
 	display:flex;
 	flex-wrap:wrap;
-	background-color: cyan;
-
 }
+
 .bespoke-image, .bespoke-image-add{
 	width:20vh;
 	height:20vh;
-	background-color: orange;
+    background-size: cover;
+    background-position: center;
 	justify-content: space-between;
 	margin-right: 5%;
 	margin-bottom:2%;
