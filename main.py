@@ -653,21 +653,23 @@ def update_product(bucket):
             from app_essentials.products import Bespoke
             prev_data = bespoke.document(data["product"]).get().to_dict()
             p = Bespoke(prev_data, data["product"])
-        print(p)
+        else:
+            return "", 500
+        #print(p)
         if data["type"] == "list":
             new =p.__getattribute__(data["field"]).copy()
-            print(type(new), new)
+            print("\nOLD: ",type(new), new)
             if data["mode"] == "add":
                 new.append(data["value"])
             elif data["mode"] == "remove":
                 new.remove(data["value"])
             elif data["mode"] == "sort":
-                new.insert(data["value"], new.pop(data["key"]))
-            print(new)
+                print(data["key"], "-->", data["value"])
+                new.insert(data["key"], new.pop(data["value"]))
+            print("\nNEW: ",type(new), new)
             p.__setattr__(data["field"], new)
         elif data["type"] == "dict":
             new = p.__getattribute__(data["field"]).copy()
-            print(type(new), new)
             if data["subdict"] is not None:
                 if data["mode"] == "add":
                     new[data["subkey"]][data["key"]] = data["value"]
@@ -682,7 +684,7 @@ def update_product(bucket):
             p.__setattr__(data["field"], new)
         else:
             p.__setattr__(data["field"], data["value"])
-        print(p)
+        #print(p)
         p.update_db()
         return p.__dict__
 

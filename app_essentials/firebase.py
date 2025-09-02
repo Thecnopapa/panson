@@ -66,8 +66,8 @@ class firebaseObject(object):
             bucket = self.bucket
         data = {k:v for k,v in self.__dict__.items() if not k.startswith("_")}
         data["_timestamp"] = datetime.datetime.utcnow().isoformat()
-        print(data)
-        print(db.collection(bucket).document(self._id).set(data))
+        db.collection(bucket).document(self._id).set(data)
+
 
     def keys(self):
         return list(self.__dict__.keys())
@@ -109,7 +109,6 @@ def get_user_data(id):
     r = usuaris.document(id).get().to_dict()
     if r is None:
         print("No such user")
-
         new_user = User({}, id)
         new_user.update_db()
         return new_user
@@ -148,7 +147,7 @@ def update_firebase(id, new, taken_ids):
             if data_type == "bool":
                 data[db_key] = True if value in ["true", "on", True ,"1", 1, "True"] else False
     data["imatges"] = data["imatges"] + uploaded_images
-    print(data)
+    #print(data)
     if new:
         n = 1
         new_id = id

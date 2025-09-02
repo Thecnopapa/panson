@@ -21,10 +21,10 @@
 
                 <div class="product-images">
                     {% for image in product.imatges %}
-                        <div class="product-image" style="background-image: url('{{ utils.img_url("bespoke", image) }}')">
-                            <button type=button class=product-image-left onclick="bespokeImageMove(this.parentElement)">&larr;</button>
-                            <button type=button class=product-image-right onclick="bespokeImageMove(this.parentElement)">&rarr;</button>
-                            <button type=button class=product-image-delete onclick="bespokeImageDelete(this.parentElement)">&#10008;</button>
+                        <div class="product-image" product="{{product._id}}" field="imatges" value="{{ image }}" style="background-image: url('{{ utils.img_url("bespoke", image) }}')">
+                            <button type=button class=product-image-left  onclick="productImageMove(this.parentElement, false)">&larr;</button>
+                            <button type=button class=product-image-right onclick="productImageMove(this.parentElement, true)">&rarr;</button>
+                            <button type=button class=product-image-delete onclick="productImageDelete(this.parentElement)">&#10008;</button>
                         </div>
                     {% endfor %}
                     <button class="product-image-add" onclick="triggerInput(this.firstElementChild)">&#10133;<input type="file" accept="image/*|video/*" name="file" multiple class="product-image-input" oninput="productAddImage(this)" field="imatges" product="{{product._id}}" ></button>

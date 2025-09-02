@@ -12,7 +12,7 @@ class Product(firebaseObject):
         self.descripcio = ""
         self.subtitol = ""
         self.imatges = []
-        self.imatges2 = []
+        self._imatges2 = []
         self.nom = ""
         self.amagat = False
         self._bespoke= False

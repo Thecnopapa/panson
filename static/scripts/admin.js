@@ -16,7 +16,7 @@ function prioDown(image, move=true){
 	}
 	console.log(!move);
 	if (!move){
-		var position =Number(input.value);
+		let position =Number(input.value);
                 position = position + 1;
                 text.innerHTML = String(position);
                 input.value = position;
@@ -35,7 +35,7 @@ function prioUp(image, move=true){
         }
 	console.log(!move);
         if (!move){
-                var position =Number(input.value);                                      
+                let position =Number(input.value);
                 position = position - 1;
                 text.innerHTML = String(position);
                 input.value = position;
@@ -187,11 +187,15 @@ function productAddImage(trigger){
 	for (let i = 0; i < files.length; i++){
         fileName = files[i].name;
 		uploadImage(files[i], "bespoke");
-		bespokeUpdate(trigger,fileName , "list", true);
-        const newImage = trigger.parentElement.previousElementSibling.cloneNode(true);
-        newUrl = imageUrl("bespoke", fileName);
-        newImage.style = "background-image: url('" + newUrl + "')";
-        trigger.parentElement.before(newImage);
+		productUpdate(trigger,fileName , "list", "add");
+        try {
+            const newImage = trigger.parentElement.previousElementSibling.cloneNode(true);
+            newUrl = imageUrl("bespoke", fileName);
+            newImage.style = "background-image: url('" + newUrl + "')";
+            trigger.parentElement.before(newImage);
+        } catch (e) {
+            location.reload();
+        }
 	}
 }
 
@@ -211,26 +215,55 @@ function uploadImage(file, folder="productes"){
 		});
 }
 
+function productImageMove(image, moveRight){
+    const oldPosition = Array.from(image.parentElement.children).indexOf(image);
+    let newPosition = oldPosition
+    if (moveRight){
+        if (image.nextElementSibling !== null && image.nextElementSibling.classList.contains("product-image")){
+            newPosition += 1;
+            image.nextElementSibling.after(image);
+        }
+    } else{
+        if (image.previousElementSibling !== null) {
+            newPosition -= 1;
+            image.previousElementSibling.before(image);
+        }
+    }
+    print("Moved image: ",oldPosition, "->", newPosition)
+    productUpdate(image, oldPosition, "list", "sort", newPosition);
+}
+
+function productImageDelete(image){
+    productUpdate(image, undefined, "list", "remove");
+    image.remove();
+
+}
 
 
-function productUpdate(trigger, value=false, type="text", mode="add",  key=undefined,  subdict=undefined, subkey=undefined) {
+
+
+function productUpdate(trigger, value=undefined, type="text", mode="add",  key=undefined,  subdict=undefined, subkey=undefined) {
 	const field = trigger.attributes.field.value;
 	const product = trigger.attributes.product.value;
-    var bucket = window.location.href.split("/");
+    let bucket = window.location.href.split("/");
 
     print("BUCKET: " + bucket, bucket.length);
     bucket = bucket[bucket.length - 2];
     print(bucket);
-	print("Trigger: ", trigger);
-	if (!value){
-		value = trigger.value;
+	print("Trigger: ", trigger, value);
+	if (value === undefined) {
+        if (trigger.value) {
+            value = trigger.value;
+        }else {
+            value = trigger.attributes.value.value;
+        }
 	}
     if (trigger.attributes.dataType){
 		type = trigger.attributes.dataType.value;
 	}
-	print("Updating field: ", field);
+	print("Updating field: ", field, "("+mode+")");
 	print("With value: ", value);
-	fetch("/admin/"+bucket+"/update-field",
+	fetch("/admin/"+bucket+"/update",
 		{
 			headers: {'Accept': 'application/json',
 				'Content-Type': 'application/json'
@@ -238,7 +271,9 @@ function productUpdate(trigger, value=false, type="text", mode="add",  key=undef
 			method: "POST",
 			body: JSON.stringify({product: product, field: field, value: value, type:type, mode:mode, key:key, subdict:subdict, subkey:subkey} ),
                 });
+    if (type === "text"){
+        trigger.nextElementSibling.style.backgroundColor = "lightgreen";
+    }
 
-    trigger.nextElementSibling.style.backgroundColor = "lightgreen";
 
 }
