@@ -1,37 +1,34 @@
 {% extends "admin-base.html" %}
 
 
-
 {% block content %}
+    <div id="bespoke" class="admin-content">
 
+        {% for product in productes.bespoke %}
+            <div class="product-container">
+            <div class="product-header" onclick="showData(this)">
+                <div class="product-title" >{{product.nom}}</div>
+                <div class="product-id">{{product._id}}</div>
+                <div class="product-snapshot" style="background-image: url('{{ utils.img_url("bespoke", product.imatges[0]) }}')"></div>
+            </div>
+                <div class="product-data hide">
+                    <div class="product-element name">Nom: <input product="{{product._id}}" field="nom" class="product-input" value="{{product.nom}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; this.parentElement.parentElement.parentElement.getElementsByClassName('product-title')[0].innerHTML=this.value"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
+                    <div class="product-element for">Per a: <input product="{{product._id}}" field="per_a"  class="product-input" value="{{product.per_a}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
+                    <div class="product-element description">Descripcio: <textarea product="{{product._id}}" field="descripcio"  class="product-input" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';">{{product.descripcio}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
 
-<div id="bespoke" class="admin-content">
-
-	{% for product in productes.bespoke %}
-		<div class="product-container">
-        <div class="product-header" onclick="showData(this)">
-            <div class="product-title" >{{product.nom}}</div>
-            <div class="product-id">{{product._id}}</div>
-            <div class="product-snapshot" style="background-image: url('{{ utils.img_url("bespoke", product.imatges[0]) }}')"></div>
-        </div>
-            <div class="product-data hide">
-                <div class="product-element name">Nom: <input product="{{product._id}}" field="nom" class="product-input" value="{{product.nom}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; this.parentElement.parentElement.parentElement.getElementsByClassName('product-title')[0].innerHTML=this.value"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
-                <div class="product-element for">Per a: <input product="{{product._id}}" field="per_a"  class="product-input" value="{{product.per_a}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
-                <div class="product-element description">Descripcio: <textarea product="{{product._id}}" field="descripcio"  class="product-input" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';">{{product.descripcio}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
-
-                <div class="product-images">
-                    {% for image in product.imatges %}
-                        <div class="product-image" product="{{product._id}}" field="imatges" value="{{ image }}" style="background-image: url('{{ utils.img_url("bespoke", image) }}')">
-                            <button type=button class=product-image-left  onclick="productImageMove(this.parentElement, false)">&larr;</button>
-                            <button type=button class=product-image-right onclick="productImageMove(this.parentElement, true)">&rarr;</button>
-                            <button type=button class=product-image-delete onclick="productImageDelete(this.parentElement)">&#10008;</button>
-                        </div>
-                    {% endfor %}
-                    <button class="product-image-add" onclick="triggerInput(this.firstElementChild)">&#10133;<input type="file" accept="image/*|video/*" name="file" multiple class="product-image-input" oninput="productAddImage(this)" field="imatges" product="{{product._id}}" ></button>
+                    <div class="product-images">
+                        {% for image in product.imatges %}
+                            <div class="product-image" product="{{product._id}}" field="imatges" value="{{ image }}" style="background-image: url('{{ utils.img_url("bespoke", image) }}')">
+                                <button type=button class=product-image-left  onclick="productImageMove(this.parentElement, false)">&larr;</button>
+                                <button type=button class=product-image-right onclick="productImageMove(this.parentElement, true)">&rarr;</button>
+                                <button type=button class=product-image-delete onclick="productImageDelete(this.parentElement)">&#10008;</button>
+                            </div>
+                        {% endfor %}
+                        <button class="product-image-add" onclick="triggerInput(this.firstElementChild)">&#10133;<input type="file" accept="image/*|video/*" name="file" multiple class="product-image-input" oninput="productAddImage(this)" field="imatges" product="{{product._id}}" ></button>
+                    </div>
                 </div>
             </div>
-        </div>
-	{%endfor%}
+        {%endfor%}
 
-</div>
+    </div>
 {% endblock %}

@@ -643,7 +643,7 @@ def update_product(bucket):
     if check_if_admin(user.username, user.password):
         print(request.json)
         data = request.json
-        if bucket == "product":
+        if bucket == "productes":
             from app_essentials.firebase import prods
             from app_essentials.products import Product
             prev_data = prods.document(data["product"]).get().to_dict()
