@@ -158,24 +158,24 @@ class Products():
             else:
                 new_filters[key] = filters[key]
 
-        print("CUSTOM FILTERING:", custom)
-        print(new_filters)
+        #print("CUSTOM FILTERING:", custom)
+        #print(new_filters)
         for product in self:
             stays = False
             if custom:
                 if "collecio" in new_filters:
-                    print(product.collecio, new_filters["collecio"])
+                    #print(product.collecio, new_filters["collecio"])
                     if str(product.collecio) in new_filters["collecio"] or new_filters["collecio"] == "totes" :
-                        print("Col OK")
+                        #print("Col OK")
                         stays=True
                     elif "unica" in new_filters:
-                        print(product.unica, new_filters["unica"])
+                        #print(product.unica, new_filters["unica"])
                         if product.unica or new_filters["unica"] == "totes":
-                            print("Unica OK")
+                            #print("Unica OK")
                             stays = True
                 if not stays and not keep_all:
                     continue
-                print("Col OK")
+                #print("Col OK")
                 if "tipus" in new_filters:
                     if str(product.tipus) in new_filters["tipus"] or new_filters["tipus"] == "totes":
                         stays = True
@@ -229,9 +229,9 @@ def get_talla_es(unit, value, target_unit="es"):
     df = pd.read_excel("static/MIDES_PANSON.xlsx", header = 1).astype(str)
     unit = unit.lower()
     value = str(value)
-    print(df)
-    print(df[unit])
-    print(df[df[unit] == value])
+    #print(df)
+    #print(df[unit])
+    #print(df[df[unit] == value])
     value_row = [t for t in df[df[unit] == value].itertuples()][0]
     target_value = value_row.__getattribute__(target_unit)
     return target_value

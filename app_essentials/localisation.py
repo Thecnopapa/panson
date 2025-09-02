@@ -30,7 +30,7 @@ class Localisation2:
 
     def get_misc(self, label, value):
         try:
-            print(self.misc[label][value])
+            #print(self.misc[label][value])
             return self.misc[label][value]
         except KeyError:
             return "Missing value ({}-{})".format(label, value)
@@ -63,7 +63,7 @@ class Localisation2:
 
     def get_text(self, page, name):
         if page in self.misc_labels:
-            print("loading misc: {}".format(page))
+            #print("loading misc: {}".format(page))
             t = self.get_misc(page, name)
             if t == "$empty$":
                 return "Empty text ({}-{})".format(page,name)
@@ -92,7 +92,7 @@ class Localisation2:
         comps = split_multiple(item, "_", "-")
         page = comps[0]
         name = "-".join(comps[1:])
-        print("Loc load: page: {}, item: {}".format(page,name))
+        #print("Loc load: page: {}, item: {}".format(page,name))
         return self.get_text(page, name)
 
     def __getattr__(self, item):
@@ -110,7 +110,7 @@ class Localisation2:
 
     def create_empty_text(self, page, name):
         doc = self.texts.document(page).get()
-        print(doc.__dict__)
+        #print(doc.__dict__)
         if not doc.exists:
             self.create_empy_page(page)
         try:
