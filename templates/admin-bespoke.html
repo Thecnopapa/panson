@@ -9,9 +9,10 @@
 
 	{% for product in productes.bespoke %}
 		<div class="bespoke-product">
-			<div class="bespoke-id">{{product._id}}</div>
-			<div class="bespoke-name">Nom: <input product="{{product._id}}" field="nom" class="bespoke-name-input" value="{{product.nom}}"><button class="bespoke-update" onclick="bespokeUpdate(this.previousElementSibling)">&#10004;</button></div>
-			<div class="bespoke-for">Per a: <input product="{{product._id}}" field="per_a"  class="bespoke-for-input" value="{{product.per_a}}"><button class="bespoke-update" onclick="bespokeUpdate(this.previousElementSibling)">&#10004;</button></div>
+			<div class="product-element bespoke-id">{{product._id}}</div>
+			<div class="product-element bespoke-name">Nom: <input product="{{product._id}}" field="nom" class="bespoke-name-input" value="{{product.nom}}"><button class="bespoke-update" onclick="bespokeUpdate(this.previousElementSibling)">&#10004;</button></div>
+			<div class="product-element bespoke-for">Per a: <input product="{{product._id}}" field="per_a"  class="bespoke-for-input" value="{{product.per_a}}"><button class="bespoke-update" onclick="bespokeUpdate(this.previousElementSibling)">&#10004;</button></div>
+            <div class="product-element bespoke-description">Descripcio: <textarea product="{{product._id}}" field="descripcio"  class="bespoke-descripcio-input" >{{product.descripcio}}</textarea><button class="bespoke-update" onclick="bespokeUpdate(this.previousElementSibling)">&#10004;</button></div>
 
 			<div class="bespoke-images">
                 {% for image in product.imatges %}

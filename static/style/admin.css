@@ -199,6 +199,14 @@ input, option ,select, textarea {
     padding: 0;
 }
 
+.product-element{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: start;
+}
+
 .bespoke-product{
 	width: 96%;
 	max-width: 96%;
