@@ -13,7 +13,7 @@
 
 
 	<body>
-		<div id=admin-common">
+		<div id="admin-common">
 			<h1>Admin</h1>
 			<div id=admin-menu>
 				<button onclick="window.location.href='/admin/products/'">Productes</button>
@@ -24,8 +24,9 @@
 				{% endif %}
 			</div>
 		</div>
-
-		{% block content %}{% endblock %}
+		<div id=admin-page>
+			{% block content %}{% endblock %}
+		</div>
 
 	</body>
 

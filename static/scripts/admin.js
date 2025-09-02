@@ -170,3 +170,57 @@ function resizeAll() {
     }
 }
 
+
+
+function triggerInput(target){
+	target.click();
+}
+
+
+function bespokeAddImage(trigger){
+	const files = trigger.files;
+	print("Adding images: ", files);
+	
+
+
+	for (let i = 0; i < files.length; i++){
+		uploadImage(files[i], "bespoke");
+		bespokeUpdate(trigger,files[i].name , true, true);
+	}
+}
+
+
+
+function uploadImage(file, folder="productes"){
+	print("Uploading: ", file.name);
+	fetch("/admin/images/upload/"+folder,
+		{
+			headers: {'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			method: "POST",
+			body: JSON.stringify({fname:file.name}),
+		});
+}
+
+
+
+function bespokeUpdate(trigger, value=false, list=false, add=true){
+	const field = trigger.attributes.field.value;
+	const product = trigger.attributes.product.value
+	print("Trigger: ", trigger);
+	if (!value){
+		value = trigger.value;
+	}
+	print("Updating field: ", field);
+	print("With value: ", value);
+	fetch("/admin/bespoke/update-field",
+		{
+			headers: {'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			method: "POST",
+			body: JSON.stringify({product: product, field: field, value: value, list:list, add:add} ),
+                });
+
+}

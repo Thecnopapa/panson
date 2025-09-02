@@ -12,6 +12,7 @@ class Product(firebaseObject):
         self.descripcio = ""
         self.subtitol = ""
         self.imatges = []
+        self.imatges2 = []
         self.nom = ""
         self.amagat = False
         self._bespoke= False
@@ -22,6 +23,8 @@ class Product(firebaseObject):
         super().__init__(data, id)
         if self._id is None:
             self.new = True
+        if self.imatges is None:
+            self.imatges=[]
         self._imatges2 = self.imatges.copy()
         nimg = len(self.imatges)
         if nimg != 0:

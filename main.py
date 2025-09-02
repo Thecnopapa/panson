@@ -56,7 +56,7 @@ os.environ["FLASK_KEY"] = "secure/flask_key"
 os.environ["MAILGUN_KEY"] = "secure/mailgun_key"
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = "./uploads"
+app.config['UPLOAD_FOLDER'] = "uploads"
 app.config['APPLICATION_ROOT'] = '/'
 app.config['PREFERRED_URL_SCHEME'] = 'https'
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
@@ -633,6 +633,51 @@ def delete_field():
         print(new_data)
         localisation.document("languages").collection("text").document(data["page"]).set(new_data)
         return ""
+
+
+
+@limiter.exempt
+@app.post("/admin/bespoke/update-field")
+def update_bespoke():
+    user = get_current_user()
+    if check_if_admin(user.username, user.password):
+        print(request.json)
+        data = request.json
+        from app_essentials.firebase import bespoke
+        from app_essentials.products import Bespoke
+        prev_data = bespoke.document(data["product"]).get().to_dict()
+        p = Bespoke(prev_data, data["product"])
+        print(p)
+        if data["list"]:
+            new =p.__getattribute__(data["field"]).copy()
+            print(type(new), new)
+            if data["add"]:
+                new.append(data["value"])
+            else:
+                new.remove(data["value"])
+            print(new)
+            p.__setattr__(data["field"], new)
+        else:
+            p.__setattr__(data["field"], data["value"])
+        print(p)
+        p.update_db()
+        return p.__dict__
+
+@limiter.exempt
+@app.post("/admin/images/upload/<folder>")
+def upload_image(folder="productes"):
+    from app_essentials.firestore import upload_images
+    from werkzeug.utils import secure_filename
+    user = get_current_user()
+    if check_if_admin(user.username, user.password):
+        fname=secure_filename(request.json["fname"])
+        fpath= "uploads/{}".format(fname)
+        upload_images({fname:fpath}, folder)
+        return fname
+
+
+
+
 
 
 @app.post("/<lan>/send_email/<target>/")

@@ -102,6 +102,7 @@ def load_files(folder= "./uploads", name="file", target_folder= "productes"):
 def upload_images(path_dict, folder="productes"):
     sprint("Uploading images")
     for fname, path in path_dict.items():
+        from werkzeug.utils import secure_filename
         if folder+"/"+fname in list_blobs(folder):
             fname = fname.split(".")[0] +"_copia."+os.path.splitext(fname)[1]
         new_blob = bucket.blob(folder+"/"+fname)

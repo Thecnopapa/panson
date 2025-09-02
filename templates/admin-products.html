@@ -2,7 +2,7 @@
 
 {% extends "admin-base.html" %}
 {% block content %}
-    <div class="productes" class="admin-content">
+    <div id="productes" class="admin-content">
         {% for producte in productes.get_all() + [productes.new()] %}
             <form action="/admin/update/{{ producte._id }}" method="post" class="producte" enctype="multipart/form-data">
 

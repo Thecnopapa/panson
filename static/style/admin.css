@@ -12,35 +12,55 @@ body {
     height: 100vh;
     max-height: 100vh;
     overflow:hidden;
+    display:flex;
+    flex-direction:column;
 }
 
 
+#admin-common{
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+	position:relative;
+	margin-top: 6dvh;
+	max-height: calc(15vh - 6dvh);
+	height: calc(15vh - 6dvh);
+	width:100vw;
 
+}
+#admin-menu{
+	display:flex;
+	justify-content: space-evenly;
+	width:100%;
+}
 .admin-content{
 	width:fit-content;
-	min-width: 100%;
+	min-width: 96%;
+	max-width:96%;
 	margin: 2%;
 	display:flex;
 	flex-direction: column;
 	overflow: scroll;
-	-ms-overflow-style: scrollbar;  /* IE and Edge */                           scrollbar-width: thin;  /* Firefox */
-	background-color: cyan;
+	-ms-overflow-style: scrollbar;  /* IE and Edge */
+	scrollbar-width: thin;  /* Firefox */
+	height: fit-content;
+	max-height: 96%;
 }
 
-
-.productes {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: fit-content;
+#admin-page{
+	min-height:85vh;
+	height:85vh;
+	max-height 85vh;
 }
+
 
 .producte {
     display: flex;
     flex-direction: column;
-    margin-top: 3dvh;
+    margin-top: 1%;
+    margin-bottom:1%;
     background-color: rgba(136, 136, 136, 0.2);
-    padding: 1%;
+    padding:2%;
     align-items: flex-start;
 
 }
@@ -148,6 +168,7 @@ input, option ,select, textarea {
     align-items: center;
     justify-content: space-around;
     overflow-x:scroll;
+    padding:2%;
 }
 
 .loc-key{
@@ -178,4 +199,27 @@ input, option ,select, textarea {
     padding: 0;
 }
 
+.bespoke-product{
+	width: 96%;
+	max-width 96%;
+	padding: 2%;
+	background-color: rgba(136,136,136, 0.2);
+}
+.bespoke-images{
+	display:flex;
+	flex-wrap:wrap;
+	background-color: cyan;
+
+}
+.bespoke-image, .bespoke-image-add{
+	width:20vh;
+	height:20vh;
+	background-color: orange;
+	justify-content: space-between;
+	margin-right: 5%;
+	margin-bottom:2%;
+}
+.bespoke-image-input{
+	display:none;
+}
 
