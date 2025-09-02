@@ -199,6 +199,13 @@ input, option ,select, textarea {
     padding: 0;
 }
 
+.product-container{
+	width: 96%;
+	max-width: 96%;
+	padding: 2%;
+	background-color: rgba(136,136,136, 0.2);
+}
+
 .product-element{
     display: flex;
     flex-direction: row;
@@ -207,18 +214,13 @@ input, option ,select, textarea {
     justify-content: start;
 }
 
-.bespoke-product{
-	width: 96%;
-	max-width: 96%;
-	padding: 2%;
-	background-color: rgba(136,136,136, 0.2);
-}
-.bespoke-images{
+
+.product-images{
 	display:flex;
 	flex-wrap:wrap;
 }
 
-.bespoke-image, .bespoke-image-add{
+.product-image, .product-image-add{
 	width:20vh;
 	height:20vh;
     background-size: cover;
@@ -227,7 +229,7 @@ input, option ,select, textarea {
 	margin-right: 5%;
 	margin-bottom:2%;
 }
-.bespoke-image-input{
+.product-image-input{
 	display:none;
 }
 

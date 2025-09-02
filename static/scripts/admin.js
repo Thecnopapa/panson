@@ -180,21 +180,18 @@ function triggerInput(target){
 }
 
 
-function bespokeAddImage(trigger){
+function productAddImage(trigger){
 	const files = trigger.files;
 	print("Adding images: ", files);
-	
-
 
 	for (let i = 0; i < files.length; i++){
         fileName = files[i].name;
 		uploadImage(files[i], "bespoke");
-		bespokeUpdate(trigger,fileName , true, true);
+		bespokeUpdate(trigger,fileName , "list", true);
         const newImage = trigger.parentElement.previousElementSibling.cloneNode(true);
         newUrl = imageUrl("bespoke", fileName);
         newImage.style = "background-image: url('" + newUrl + "')";
         trigger.parentElement.before(newImage);
-
 	}
 }
 
@@ -216,12 +213,15 @@ function uploadImage(file, folder="productes"){
 
 
 
-function bespokeUpdate(trigger, value=false, list=false, add=true){
+function productUpdate(trigger, value=false, type="text", add=true, subkey=undefined) {
 	const field = trigger.attributes.field.value;
 	const product = trigger.attributes.product.value
 	print("Trigger: ", trigger);
 	if (!value){
 		value = trigger.value;
+	}
+    if (trigger.attributes.dataType){
+		type = trigger.attributes.dataType.value;
 	}
 	print("Updating field: ", field);
 	print("With value: ", value);
@@ -231,7 +231,9 @@ function bespokeUpdate(trigger, value=false, list=false, add=true){
 				'Content-Type': 'application/json'
 			},
 			method: "POST",
-			body: JSON.stringify({product: product, field: field, value: value, list:list, add:add} ),
+			body: JSON.stringify({product: product, field: field, value: value, type:type, add:add, subkey:subkey} ),
                 });
+
+    trigger.nextElementSibling.style.backgroundColor = "lightgreen";
 
 }

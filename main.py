@@ -459,7 +459,7 @@ def logout():
 
 @limiter.exempt
 @app.post("/admin/update/<id>")
-def update_product(id, lan="cat"):
+def update_product_old(id, lan="cat"):
     user = get_current_user()
 
     if check_if_admin(user.username, user.password):
@@ -637,6 +637,50 @@ def delete_field():
 
 
 @limiter.exempt
+@app.post("/admin/product/update-field")
+def update_product():
+    user = get_current_user()
+    if check_if_admin(user.username, user.password):
+        print(request.json)
+        data = request.json
+        from app_essentials.firebase import prods
+        from app_essentials.products import Product
+        prev_data = prods.document(data["product"]).get().to_dict()
+        p = Product(prev_data, data["product"])
+        print(p)
+        if data["type"] == "list":
+            new =p.__getattribute__(data["field"]).copy()
+            print(type(new), new)
+            if data["add"]:
+                new.append(data["value"])
+            else:
+                new.remove(data["value"])
+            print(new)
+            p.__setattr__(data["field"], new)
+        elif data["type"] == "dict":
+            new = p.__getattribute__(data["field"]).copy()
+            print(type(new), new)
+            if data["subdict"] is not None:
+                if data["add"]:
+                    new[data["subkey"]][data["key"]] = data["value"]
+                else:
+                    new[data["subkey"]].pop(data["key"])
+            else:
+                if data["add"]:
+                    new[data["key"]] = data["value"]
+                else:
+                    new.pop(data["key"])
+            print(new)
+            p.__setattr__(data["field"], new)
+        else:
+            p.__setattr__(data["field"], data["value"])
+        print(p)
+        p.update_db()
+        return p.__dict__
+
+
+
+@limiter.exempt
 @app.post("/admin/bespoke/update-field")
 def update_bespoke():
     user = get_current_user()
@@ -648,7 +692,7 @@ def update_bespoke():
         prev_data = bespoke.document(data["product"]).get().to_dict()
         p = Bespoke(prev_data, data["product"])
         print(p)
-        if data["list"]:
+        if data["type"] == "list":
             new =p.__getattribute__(data["field"]).copy()
             print(type(new), new)
             if data["add"]:
