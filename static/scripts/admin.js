@@ -48,13 +48,13 @@ function prioUp(image, move=true){
 
 
 function showData(trigger){
-    data = trigger.parentElement.getElementsByClassName("data")[0]
+    data = trigger.parentElement.getElementsByClassName("product-data")[0]
     data.classList.remove("hide")
     trigger.setAttribute("onclick","hideData(this)")
 }
 
 function hideData(trigger){
-    data = trigger.parentElement.getElementsByClassName("data")[0]
+    data = trigger.parentElement.getElementsByClassName("product-data")[0]
     data.classList.add("hide")
     trigger.setAttribute("onclick","showData(this)")
 }

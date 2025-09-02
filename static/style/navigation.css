@@ -236,7 +236,7 @@ body {
 
 
 
-.title{
+#title{
     background-image: url('/static/media/logo-complet.png');
     background-repeat: no-repeat;
     background-size: contain;
@@ -427,7 +427,7 @@ body {
         display: flex;
         padding: 0;
     }
-    .title{
+    #title{
         display: flex;
 
     }

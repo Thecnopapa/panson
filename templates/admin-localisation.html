@@ -6,8 +6,8 @@
 <div id=localisation class="admin-content">
 	{% for page, data in loc.get_all_values_by_page().items() %}
     		<div class="page-block">
-        		<div class="page-name">{{ page }}</div>
-        		{% for key, value in data.items() %}
+        		<div class="page-name">{{ data["_name"] }}</div>
+        		{% for key, value in data.items() if key[0] != "_" %}
             			<div class="loc-block">
                 			<div class="loc-key"><em>{{ page }} - </em>{{ key }}</div>
                 			{% for lan in ["cat", "en"] %}

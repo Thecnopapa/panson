@@ -44,6 +44,8 @@ class Localisation2:
             self.preloaded_labels.append(page)
             if doc.exists:
                 for key, value in doc.to_dict().items():
+                    if key.startswith("_"):
+                        continue
                     try:
                         data["-".join([page,key])] = value[self.lan]
                     except KeyError:
