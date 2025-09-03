@@ -642,7 +642,7 @@ def update_product(bucket):
     user = get_current_user()
     if check_if_admin(user.username, user.password):
         print(request.json)
-        data = request.json
+        data = request.json.copy()
         if bucket == "productes":
             from app_essentials.firebase import prods
             from app_essentials.products import Product
@@ -654,8 +654,15 @@ def update_product(bucket):
             prev_data = bespoke.document(data["product"]).get().to_dict()
             p = Bespoke(prev_data, data["product"])
         else:
-            return "", 500
-        #print(p)
+            return "Unknown bucket", 500
+        if data["type"] == "bool":
+            data["value"] = data["value"] in ["true", "True", "TRUE", "on", "1", 1]
+        elif data["type"] == "int":
+            data["value"] = int(data["value"])
+        elif data["type"] == "float":
+            data["value"] = float(data["value"])
+        else:
+            return "Unknown dataType", 500
         if data["type"] == "list":
             new =p.__getattribute__(data["field"]).copy()
             print("\nOLD: ",type(new), new)
@@ -683,8 +690,8 @@ def update_product(bucket):
             print(new)
             p.__setattr__(data["field"], new)
         else:
+            print("\nNEW: ",data["field"], "==>", type(data["value"]), data["value"])
             p.__setattr__(data["field"], data["value"])
-        #print(p)
         p.update_db()
         return p.__dict__
 
