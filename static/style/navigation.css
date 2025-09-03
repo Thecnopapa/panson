@@ -214,7 +214,7 @@ body {
 }
 
 
-#menu-closer{
+.menu-closer{
 	display: none;
 	background-color: rgba(0,0,0,0);
 	position: fixed;
@@ -415,6 +415,13 @@ body {
 .last-submenu{padding-bottom: 1.5dvh}
 .less-padding { padding-top: 0.5dvh; padding-bottom: 0.5dvh }
 
+
+@media screen and (orientation: landscape) {
+	#menu-closer-portrait{
+		display: none !important;
+	}
+}
+
 @media screen and (orientation: portrait) {
     .navigation {
         justify-content: center;
@@ -426,6 +433,9 @@ body {
     .menu-simple {
         display: flex;
         padding: 0;
+    }
+    #menu-closer-landscape{
+	    display: none !important;
     }
     #title{
         display: flex;

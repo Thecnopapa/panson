@@ -85,7 +85,7 @@ const botoMenuSimple = document.getElementsByClassName('icon-menu-simple')[0];
 const contacteMenu = document.getElementById("contacte-menu");
 const projecteMenu = document.getElementById('projecte-menu');
 const menuContent = document.getElementsByClassName('titol-submenu');
-const menuCloser = document.getElementById("menu-closer");
+const menuClosers = document.getElementsByClassName("menu-closer");
 
 
 
@@ -99,15 +99,19 @@ function openMenu() {
     console.log('Open menu');
     if(window.innerHeight > window.innerWidth){
        menu.style.width = "80%";
-       menuCloser.style.width = "20dvw";
+	    print(menuClosers);
+       menuClosers[0].style.width = "20dvw";
+	    menuClosers[1].style.width = "20dvw";
        contacteMenu.style.display = "block";
         projecteMenu.style.display = "block";
 }
     else {
         menu.style.width = String(navLeft.offsetWidth) + "px";
-	menuCloser.style.width = String(window.innerWidth - navLeft.offsetWidth) + "px";
+	menuClosers[0].style.width = String(window.innerWidth - navLeft.offsetWidth) + "px";
+	menuClosers[1].style.width = String(window.innerWidth - navLeft.offsetWidth) + "px";
     }
-    menuCloser.style.display = "flex";
+    menuClosers[0].style.display = "flex";
+    menuClosers[1].style.display = "flex";
     botoMenu.style.color = "black";
     botoProjecte.style.color = "black";
     botoContacte.style.color = "black";
@@ -168,7 +172,8 @@ function closeMenu() {
     for(var i = 0; i < menuContent.length; i++) {
         menuContent[i].style.color = "rgba(0,0,0,0)";
     }
-    menuCloser.style.display = "none";
+    menuClosers[0].style.display = "none";
+	menuClosers[1].style.display = "none";
     let hideContent = document.getElementsByClassName('menu-content');
     for(var i = 0; i < hideContent.length; i++) {
         hideContent[i].classList.remove('shown');
