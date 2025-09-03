@@ -636,6 +636,28 @@ def delete_field():
 
 
 
+
+
+@limiter.exempt
+@app.post("/admin/<bucket>/create")
+def create_product(bucket):
+    user = get_current_user()
+    if check_if_admin(user.username, user.password):
+        print(request.form)
+
+        if bucket == "productes":
+            from app_essentials.products import Product as P
+        elif bucket == "bespoke":
+            from app_essentials.products import Bespoke as P
+        else:
+            return "Unknown bucket", 500
+
+        new = P({"nom": request.form["name"]}, request.form["id"])
+        new.update_db()
+
+        return redirect("/admin/{}/".format(bucket))
+
+
 @limiter.exempt
 @app.post("/admin/<bucket>/update")
 def update_product(bucket):
@@ -655,14 +677,19 @@ def update_product(bucket):
             p = Bespoke(prev_data, data["product"])
         else:
             return "Unknown bucket", 500
-        if data["type"] == "bool":
-            data["value"] = data["value"] in ["true", "True", "TRUE", "on", "1", 1]
-        elif data["type"] == "int":
-            data["value"] = int(data["value"])
-        elif data["type"] == "float":
-            data["value"] = float(data["value"])
+        if "value" not in data.keys():
+            data["value"] = None
         else:
-            return "Unknown dataType", 500
+            if data["type"] == "bool":
+                data["value"] = data["value"] in ["true", "True", "TRUE", "on", "1", 1]
+            elif data["type"] == "int":
+                data["value"] = int(data["value"])
+            elif data["type"] == "float":
+                data["value"] = float(data["value"])
+            elif data["type"] == "text":
+                data["value"] = str(data["value"])
+            else:
+                return "Unknown dataType: {}".format(data["type"]), 500
         if data["type"] == "list":
             new =p.__getattribute__(data["field"]).copy()
             print("\nOLD: ",type(new), new)

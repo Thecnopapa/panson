@@ -255,7 +255,9 @@ function productUpdate(trigger, value=undefined, type="text", mode="add",  key=u
         if (trigger.value) {
             value = trigger.value;
         }else {
-            value = trigger.attributes.value.value;
+		try{
+            		value = trigger.attributes.value.value;
+		} catch{}
         }
 	}
     if (trigger.attributes.dataType){

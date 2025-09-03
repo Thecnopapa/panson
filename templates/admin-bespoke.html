@@ -29,6 +29,15 @@
                 </div>
             </div>
         {%endfor%}
+	<div class="product-container">
+		<form action="/admin/bespoke/create" method="post">
+			<div class="product-header" onclick="showData(this)">
+				<input name=name class="product-title" placeholder="NOM">
+				<input name=id class="product-id" placeholder="ID">
+				<button type=submit>CREAR</button>
+			</div>
+		</form>
+	</div>
 
     </div>
 {% endblock %}

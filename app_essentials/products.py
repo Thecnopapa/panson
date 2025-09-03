@@ -111,7 +111,7 @@ class Products():
         self.setup()
     def setup(self):
         self.col_names = [c["nom"] for c in get_cols().values()]
-        self.tipus = sorted(set([c.tipus for c in self.products.values()]))
+        self.tipus = sorted(set([c.tipus for c in self.products.values() if c.tipus is not None]))
 
 
     def __repr__(self):
@@ -119,8 +119,13 @@ class Products():
     def __html__(self):
         return "<br>".join(["Products:".format(self.__class__.__name__), *[p.__html__() for p in self]])
 
-    def new(self):
-        return Product()
+    def new(self, classname="product"):
+        if classname == "product":
+            return Product()
+        elif classname == "bespoke":
+            return Bespoke()
+
+
     def __iter__(self):
         for producte in self.get_all():
             yield producte

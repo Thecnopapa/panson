@@ -21,13 +21,15 @@
                 <div class="product-element description">Descripcio: <textarea product="{{product._id}}" field="descripcio" class="product-input" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';">{{product.descripcio}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
                 <div class="product-element type">Tipus:
                     <select product="{{product._id}}" field="tipus" class="product-input" oninput="productUpdate(this)">
-                            {% for tipus in loc.misc["types"] %}
+                            <option value=""></option>
+			    {% for tipus in loc.misc["types"] %}
                                 <option value="{{ tipus }}" {{ "selected=selected" if tipus == product.tipus }}>{{ tipus }}</option>
                             {% endfor %}
                     </select><div></div>
                 </div>
                 <div class="product-element collection">Collecio:
                     <select product="{{product._id}}" field="collecio" class="product-input" oninput="productUpdate(this)">
+			    <option value=""></option>
                             {% for collecio in productes.col_names %}
                                 <option value="{{ collecio.lower() }}" {{ "selected=selected" if collecio.lower() == product.collecio }}>{{ collecio }}</option>
                             {% endfor %}
@@ -55,6 +57,15 @@
             </div>
         </div>
 	{%endfor%}
+	<div class="product-container">
+		<form action="/admin/productes/create" method="post">
+			<div class="product-header" onclick="showData(this)">
+				<input name=name class="product-title" placeholder="NOM">
+				<input name=id class="product-id" placeholder="ID">
+				<button type=submit>CREAR</button>
+			</div>
+		</form>
+	</div>                                                                                  
 
 </div>
 {% endblock %}
