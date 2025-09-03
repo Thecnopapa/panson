@@ -100,6 +100,7 @@
     position: relative;
     margin-top: 10dvh;
     align-items: center;
+    width: 100%;
 
 }
 .total-cart{
@@ -142,20 +143,11 @@
 }
 
 .checkout-button{
-    font-size: 2dvh;
-    width: 20dvh;
-    height: 5dvh;
-    background-color: #000000;
-    color: white;
-    transition: background-color 0.2s;
-    cursor: pointer;
+    width: 50%;
+    min-height: 5dvh;
+    margin-bottom: 5dvh;
+}
 
-}
-.checkout-button:hover {
-    background-color: #ffffff;
-    color: #000000;
-    transition: background-color 0.2s;
-}
 .producte-carret-preu {
     font-size: 1.8dvh;
     position: relative;
