@@ -16,7 +16,7 @@
     display: flex;
     width: 90%;
     height: fit-content;
-    font-size: 3dvh;
+    font-size: 3.5dvh;
     padding-top:5dvh;
 }
 
@@ -71,6 +71,11 @@ body{
 @media screen and (orientation: portrait) {
     #title-logo{
         font-size: 5dvw;
+    }
+    #index-subtitle{
+        font-size: 2dvh;
+        display: flex;
+        justify-content: center;
     }
 }
 
