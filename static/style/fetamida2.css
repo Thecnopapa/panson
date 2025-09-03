@@ -47,6 +47,7 @@
     flex-direction: row;
     position: relative;
     width: calc(100dvw - 8dvh);
+    max-width: calc(100dvw - 8dvh);
     justify-content: space-between;
     align-items: start;
     height: fit-content;
@@ -61,7 +62,7 @@
 .to-section{
     position: absolute;
     display: flex;
-
+    max-width: 30%;
     width: fit-content;
     font-size: 2dvh;
     transition-property: left;
@@ -196,6 +197,9 @@
 	#message{
 		min-height:50%;
 	}
+    .section-text{
+        width: 100%;
+    }
 
 }
 

@@ -25,4 +25,6 @@ function toSection(targetSection) {
         toThird.style.left = "calc(100% - " + String(toThird.offsetWidth) + "px)";
     }
 }
-toSection(1)
+window.addEventListener('load', function () {
+    toSection(1)
+})
