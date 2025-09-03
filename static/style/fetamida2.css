@@ -89,7 +89,15 @@
     height:  calc(100% - 8dvh);
     max-height:  calc(100% - 8dvh);
     min-height: calc(100% - 8dvh);
+    align-items: center;
 
+}
+#fetamida-centre{
+    padding-right: 0;
+    padding-left: 0;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%
 }
 
 
@@ -101,6 +109,7 @@
     li{
         line-height: 0.5;
     }
+    width: 60%;
 }
 
 
@@ -124,8 +133,9 @@
 
 .product{
     cursor: pointer;
-    width: calc(25% - 0.2dvw);
-    min-width:calc(25% - 0.2dvw);
+    width: 24.8%;
+    min-width:24.8%;
+    /*min-width:calc(25% - 0.2dvw);*/
     height: fit-content;
     display: flex;
     flex-direction: column;

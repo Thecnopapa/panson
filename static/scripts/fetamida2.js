@@ -6,8 +6,5 @@ function toSection(targetSection) {
     const sectionContainer = document.getElementById("sections-fetamida");
     print(sectionContainer, sectionWidth * targetSection);
     sectionContainer.scrollTo(sectionWidth * targetSection, 0 , {behavior: "smooth"});
-
-
-
-
 }
+toSection(1)

@@ -66,7 +66,7 @@
                 <div class="titol-submenu menu-content" onclick="location.href='/{{ loc.lan }}/productes/'">{{ loc.nav_peces }}</div>
                 {% if productes %}
                     {% for tipus in productes.tipus %}
-                        <div class="titol-submenu menu-content no-line less-padding"  onclick="location.href='/{{ loc.lan }}/productes/?tipus={{ tipus }}'">{{ loc["tip-"+tipus+"-plural"]}}</div>
+                        <div class="titol-submenu menu-content no-line"  onclick="location.href='/{{ loc.lan }}/productes/?tipus={{ tipus }}'">{{ loc["tip-"+tipus+"-plural"]}}</div>
                     {% endfor %}
                 {% endif %}
             </div>
