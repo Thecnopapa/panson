@@ -48,24 +48,29 @@
     position: relative;
     width: calc(100dvw - 8dvh);
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
     height: fit-content;
-    padding-left: 4dvh;
-    padding-right: 4dvh;
+    margin-left: 4dvh;
+    margin-right: 4dvh;
+    z-index: 5;
+    height: 3dvh;
+    overflow-y: visible;
+
 }
 
 .to-section{
+    position: absolute;
     display: flex;
-    width:30%;
-    min-width: 30%;
-    max-width: 30%;
+
+    width: fit-content;
     font-size: 2dvh;
-    transition-property: padding-left, margin-left;
-    transition-duration: 1s, 1s;
-    transition-timing-function: ease-in-out, ease-in-out;
+    transition-property: left;
+    transition-duration: 1s;
     cursor: pointer;
     justify-content: flex-start;
     align-items: center;
+    height: fit-content;
+    min-height: 3dvh;
 }
 
 #to-second{
@@ -170,14 +175,11 @@
 
 @media screen and (orientation: portrait) {
 	#section-menu{
-		justify-content: space-evenly;
-		width:100%;
-		padding:0;
+		width:calc(100% - 4dvh);
+        margin-left: 2dvh;
+        margin-right: 2dvh;
 	}
-	.to-section{
-		justify-content: center;
-		text-align:center;
-	}
+
 	.product{
 		width: calc(50% - 1dvw);
 		margin-bottom:1dvw;
