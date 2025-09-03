@@ -324,13 +324,13 @@ body {
     align-content: center;
     text-align: center;
     vertical-align: center;
-    height: 2.5dvh;
-    width: 2.5dvh;
-
+    height: 3dvh;
+    width: 3dvh;
+    transition: 1s ease;
 
 }
-.icon-menu-simple .open {
-    transition: 0.3s ease;
+.icon-menu-simple.open {
+
     -webkit-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
     transform: rotate(90deg);
@@ -439,14 +439,21 @@ body {
     }
     #title{
         display: flex;
-
+        width: 30dvw;
     }
-
+    .shopping-cart{
+        height: 3.5dvh;
+        width: 3.5dvh;
+    }
 
     .navigation-left {
         display: flex;
-        width: 100dvw;
+        width: 100%;
+        max-width: 100%;
         justify-content: flex-start;
+    }
+    .navigation-right {
+        padding-right: 2dvh;
     }
     .language {
         display: none;

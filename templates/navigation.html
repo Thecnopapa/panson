@@ -118,7 +118,7 @@
                 <div class="producte-foto is-carret" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ item.producte.imatges[0] }}?alt=media')"></div>
             {% endif %}
                 <div class="detalls-carret is-carret">
-                    <div class="producte-carret-delete is-carret" onclick="deleteItem(this.parentElement.parentElement, {{ n }})">X</div>
+                    <div class="producte-carret-delete is-carret" onclick="deleteItem(this.parentElement.parentElement, {{ n }})">&#10006;</div>
 
                     <div class="producte-carret-nom is-carret">{{ item.producte.nom }}</div>
                     <div class="producte-carret-id is-carret hide">ID: {{ item.id2 }}</div>
