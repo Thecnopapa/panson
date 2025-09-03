@@ -5,12 +5,13 @@
 
 
 .content-galeria {
-    display: block;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     position: relative;
-    align-content: start;
+    align-items:center;
     margin-top: 7dvh;
-
+    margin-bottom: 8dvh;
 }
 
 .filtres {
@@ -60,7 +61,7 @@
     display: flex;
     height: max-content;
     flex-wrap: wrap;
-    margin-bottom: 10dvh;
+    margin-bottom: 2dvh;
     justify-content: space-between;
     overflow-y: hidden;
     width: 100%;
@@ -198,12 +199,10 @@
     cursor: pointer;
 }
 .view-more {
-    position: absolute;
-    bottom: 5dvh;
+    position: relative;
     font-size: 2dvh;
     width: 20dvw;
     min-width:fit-content;
-    left: 40dvw;
     height: 5dvh;
     background-color: rgba(255, 255, 255, 0);
     border-width: 0.2dvh;

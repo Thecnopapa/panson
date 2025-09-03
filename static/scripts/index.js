@@ -1,10 +1,10 @@
 
-const onClickLink = document.getElementById('title').onclick
+const onClickLink = document.getElementById('title-logo').onclick
 const navButtons = document.getElementsByClassName('dropbtn');
 const lanButtons = document.getElementsByClassName('language');
 
 const menuButton = document.getElementsByClassName('icon-menu-simple');
-const title = document.getElementById('title');
+const title = document.getElementById('title-logo');
 
 
 function scrollToTop() {
@@ -17,7 +17,7 @@ function updateScroll() {
 	const maxScroll = windowHeight * 0.35;
     let scroll = document.documentElement.scrollTop;
 	//print("Scroll detected", scroll);
-	var oscroll = scroll;
+	const oscroll = scroll;
     if (scroll >= maxScroll) {
         scroll = maxScroll;
         title.style.cursor = "pointer";
@@ -25,6 +25,7 @@ function updateScroll() {
         title.style.cursor = "default";
     }
     title.style.top = String(35 - (35 * scroll / maxScroll)).concat("dvh");
+	//print(oscroll, scroll, maxScroll, title.style.top );
 
     if (window.innerHeight > window.innerWidth){
         title.style.height = String(20 - (14 * scroll / maxScroll)).concat("dvh");

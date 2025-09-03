@@ -39,7 +39,7 @@ body{
 
 
 
-.title{
+#title-logo{
     background-image: url('/static/media/logo-complet-blanc.png');
     background-repeat: no-repeat;
     background-size: contain;
@@ -55,12 +55,12 @@ body{
     padding: 5dvh 0dvh 5dvh 0dvh;
     position: fixed;
     width: 60%;
-    top:35dvh;
+    top:35dv;
     left: 20%;
     z-index: 5;
 }
 
-.title:hover{
+#title-logo:hover{
     cursor: default;
 }
 
@@ -69,7 +69,7 @@ body{
 }
 
 @media screen and (orientation: portrait) {
-    .title{
+    #title-logo{
         font-size: 5dvw;
     }
 }
