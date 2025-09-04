@@ -44,7 +44,11 @@
     <div class="galeria-scroll scroll-left" onmouseover="startScrolling(this.nextElementSibling.nextElementSibling, 'left')" onmouseout="stopScrolling(this.nextElementSibling.nextElementSibling)"></div>
     <div class="galeria-scroll scroll-right" onmouseover="startScrolling(this.nextElementSibling, 'right')" onmouseout="stopScrolling(this.nextElementSibling)"></div>
     <div class="galeria">
-        {% for producte in productes_filtrats[:max_gallery] %}
+
+        {% for n, producte in utils.enumerate(productes_filtrats[:max_gallery]) %}
+            {% if (doble_galeria and n % 2 == 0) %}
+               <div class="producte-doble">
+        {% endif %}
            <div class="producte" onclick="location.href='/{{ loc.lan }}/productes/{{ producte._id }}'" onmouseover="highlightProduct(this)">
                <div class="imatge primera" onmouseover="highlightProduct(this)" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media')"></div>
                <div class="imatge segona" onmouseout="reverseProduct(this)" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[1] }}?alt=media')"></div>
@@ -65,6 +69,9 @@
                         <div class="descripcio">{{ producte.descripcio }}</div>
                 </div>
            </div>
+           {% if (doble_galeria and n % 2 == 1) %}
+               </div>
+           {% endif %}
         {% endfor %}
         {% for n in range(utils.mod(utils.len(productes_filtrats[:max_gallery]), 4)) %}
             <div class="producte empty"></div>

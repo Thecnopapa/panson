@@ -79,7 +79,7 @@
     min-width: 20%;
     max-width: 40%;
     width: 24.8dvw;
-    height: 27dvw;
+    height: calc(24.9dvw + 4dvh);
     position: relative;
     margin-bottom:0.5dvh;
     user-select: none;

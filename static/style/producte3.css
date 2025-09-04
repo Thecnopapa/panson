@@ -410,12 +410,17 @@ body {
     align-items: flex-end;
     padding-left: 8vh;
 }
+.producte-doble{
+    margin-right: 0.2dvw;
+}
 
+.producte .imatge {
+    width: 24.8dvw;
+    height: 24.8dvw;
+}
 
 .producte{
     min-width: 24.8dvw;
-    padding: 0.1dvw;
-    snap-scroll-align: start;
 }
 .producte.empty{
     display: none;
@@ -501,7 +506,7 @@ tr:hover{
 	position: absolute;
 	top: 0;
 	right: 0;
-	font-size 5dvh;
+	font-size: 5dvh;
 	height: 5%;
 	width:10%;
 }
@@ -580,10 +585,16 @@ tr:hover{
         flex-direction: row;
         justify-content: start;
     }
+
     .producte{
-        min-width: 45dvw;
-        max-width: 45dvw;
-        margin-right:0.5dvh;
+        min-width: 49.8dvw;
+        max-width: 49.8dvw;
+        scroll-snap-align: end;
+        height: calc(48dvw + 5dvh);
+    }
+    .producte .imatge {
+        width: 49.8dvw;
+        height: 49.8dvw;
     }
 
     .enlarged-img{
