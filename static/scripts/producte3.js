@@ -439,10 +439,18 @@ function enlargeImg(img){
 
     document.body.style.overflow = "hidden";
 
+	
     const newContainer = document.createElement("div");
     newContainer.classList.add("enlarged-container");
     newContainer.addEventListener("click", function (event){newContainer.remove(); document.body.style.overflow = "unset";});
     document.body.appendChild(newContainer);
+	
+	const newCross = document.createElement("div");
+	newCross.innerHTML ="&#10005;";
+	newCross.classList.add("close-enlarged-container");
+	newCross.addEventListener("click", function (event){newContainer.remove(); document.body.style.overflow = "unset";});
+	newContainer.appendChild(newCross);
+
 
     const newImg = document.createElement("img");
     newImg.classList.add("enlarged-img");
@@ -472,6 +480,7 @@ function startZoom(event){
     image.addEventListener("click", stopZoom);
     image.removeEventListener("click", startZoom);
     image.addEventListener("mousemove", moveImg);
+    moveImg(event);
 }
 
 function stopZoom(event) {

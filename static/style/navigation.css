@@ -325,12 +325,7 @@ body {
     transition: 1s ease;
 
 }
-.icon-menu-simple.open {
 
-    -webkit-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
-}
 .submenu {
 
 }
