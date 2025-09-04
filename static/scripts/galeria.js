@@ -54,3 +54,8 @@ function reverseProduct(trigger) {
     primera.classList.remove("inactive");
     segona.classList.remove("active");
 }
+function initGaleria(galeria) {
+    print("Initialising galeria:")
+    print(galeria)
+}
+initGaleria(document.getElementById("galeria"));

@@ -13,37 +13,27 @@
     </head>
 {% endif %}
 
+<div id="hidden-product-list">
+    {% for n, producte in utils.enumerate(productes_filtrats) %}
+        <div class="hidden-info-producte" id="{{ producte._id }}" nom="{{ producte.nom }}" preu="{{ producte.calcular_preu_minim() }}&#8364;" col="{{ producte.collecio }}" tipus="{{ producte.tipus }}" unica="{{ producte.unica }}"></div>
+    {% endfor %}
+</div>
 <div class="content-galeria">
         {% if show_filtres %}
-        <div class="filtres">
-            <button class="boto-filtres">Filtrar</button>
-            <div class="desplegable-filtres">
-                <form method="GET" action="/{{ loc.lan }}/productes/">
-                    <div id="titol-filtres"><h3>Filtres</h3></div>
+            <div id="inline-filtres">
                 <div class="filtre">
-                    <div class="titol-filtre" id="filtre-colleccio">Colleccio</div>
-                    {% for n, col in utils.enumerate(productes.col_names) %}
-                    <label><input type="checkbox" name="collecio#{{ n }}" id="collecio-{{ col }}" value="{{ col }}" {{ "checked" if filters["collecio"] == "totes" or utils.lower(col) in filters["collecio"]  }}/>{{ col }}</label><br>
-                    {% endfor %}
-                    <label><input type="checkbox" name="unica" id="collecio-unica" value="true" {{ "checked" if filters["unica"] == "totes" or filters["unica"] == "true"  }}/>Uniques</label><br>
-
+                    <div class="filtre" field="tipus" value="anell" onclick="filterGaleria(this)">Anells</div>
+                    <div class="filtre" field="tipus" value="penjoll" onclick="filterGaleria(this)">Penjolls</div>
+                    <div class="filtre" field="tipus" value="arracades" onclick="filterGaleria(this)">Arracades</div>
+                    <div class="filtre" field="col" value="sol" onclick="filterGaleria(this)">Sol</div>
+                    <div class="filtre" field="col" value="nus" onclick="filterGaleria(this)">Nus</div>
+                    <div class="filtre" field="unica" value="True" onclick="filterGaleria(this)">Uniques</div>
                 </div>
-                <br>
-                <div class="filtre">
-                    <div class="titol-filtre" id="filtre-tipus">Tipus de peca</div>
-                    {% for n, tipus in utils.enumerate(productes.tipus) %}
-                    <label><input type="checkbox" name="tipus#{{ n }}" id="tipus-{{ tipus }}" value="{{ tipus }}" {{ "checked" if filters["tipus"] == "totes" or utils.lower(tipus) in filters["tipus"]}}/>{{ tipus }}</label><br>
-                    {% endfor %}
-                </div>
-
-                <button type="submit" value="Filtrar">Filtrar</button>
-                </form>
             </div>
-        </div>
         {% endif %}
     <div class="galeria-scroll scroll-left" onmouseover="startScrolling(this.nextElementSibling.nextElementSibling, 'left')" onmouseout="stopScrolling(this.nextElementSibling.nextElementSibling)"></div>
     <div class="galeria-scroll scroll-right" onmouseover="startScrolling(this.nextElementSibling, 'right')" onmouseout="stopScrolling(this.nextElementSibling)"></div>
-    <div class="galeria">
+    <div id="galeria" class="galeria">
 
         {% for n, producte in utils.enumerate(productes_filtrats[:max_gallery]) %}
             {% if (doble_galeria and n % 2 == 0) %}
@@ -73,7 +63,7 @@
                </div>
            {% endif %}
         {% endfor %}
-        {% for n in range(utils.mod(utils.len(productes_filtrats[:max_gallery]), 4)) %}
+        {% for n in range(4 -utils.mod(utils.len(productes_filtrats[:max_gallery]), 4)) %}
             <div class="producte empty"></div>
         {% endfor %}
     </div>
