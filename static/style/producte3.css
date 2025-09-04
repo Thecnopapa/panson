@@ -415,12 +415,14 @@ body {
 .producte{
     min-width: 24.8dvw;
     padding: 0.1dvw;
+    snap-scroll-align: start;
 }
 .producte.empty{
     display: none;
 }
 .content-galeria{
     margin-top: 2dvh;
+
 }
 .galeria{
     margin-top: 0;
@@ -429,6 +431,7 @@ body {
     overflow-x: scroll;
     scroll-behavior: revert;
     margin-bottom: 8dvh;
+    scroll-snap-type: both mandatory;
 }
 .galeria-scroll{
     display: flex;
