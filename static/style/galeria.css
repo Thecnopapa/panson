@@ -14,6 +14,33 @@
     margin-bottom: 8dvh;
 }
 
+#inline-filtres{
+	width:calc(100% - 8dvh);
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.filtre-buttons{
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	width: 100%;
+	overflow:hidden;
+	flex-direction:row;
+	align-items: center;
+	font-size: 1em;
+
+}
+
+.filtre{
+	margin-right: 4dvh;
+	margin-left: 4dvh;
+	cursor:pointer;
+}
+
+
+
 .filtres {
     font-size: 1.5dvh;
     background-color: rgba(255, 255, 255, 0.8);
@@ -57,7 +84,7 @@
 
 .galeria {
     position: relative;
-    margin-top: 7vh;
+    margin-top: 2dvh;
     display: flex;
     height: max-content;
     flex-wrap: wrap;
