@@ -244,7 +244,7 @@ def mostrar_peca(lan, id):
     print(len(request.args))
     opcions = get_opcions()
 
-    filters={}
+    filters={"esborrat":False, "amagat:false":False}
     '''
     filters = {"tipus":"totes"}
     if producte.unica:
