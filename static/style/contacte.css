@@ -6,7 +6,7 @@
 	flex-direction: column;
 	height:fit-content;
 	min-height: 100dvh;
-	padding-top: 7dvh;
+	padding-top: 7vh;
 }
 
 
@@ -31,8 +31,7 @@
 
 
 #title-contact{
-	font-size: 2dvh;
-	margin-bottom:2dvh;
+	margin-bottom:2vh;
 }
 
 #sender-details{
@@ -55,8 +54,7 @@
 }
 
 .contacte-emails{
-	font-size: 2dvh;
-	margin-top:1dvh;
+	margin-top:1vh;
 	width:100%;
 }
 
@@ -65,17 +63,14 @@
 	flex-direction:column;
 	width:96%;
 	margin:2%;
-	font-size: 2dvh;
-
 }
 
 
 .email-input{
-	font-size:2dvh;
 	width:auto;
 }
 #message{
-	height:30dvh;
+	height:30vh;
 	resize: vertical;
 }
 #submit{

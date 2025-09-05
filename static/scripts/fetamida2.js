@@ -6,6 +6,10 @@ const toThird = document.getElementById("to-third");
 
 
 function toSection(targetSection) {
+    if (targetSection === null) {
+        targetSection = 1;
+    }
+    window.history.replaceState(document.title, "", document.location.pathname+"?page=" + targetSection);
     const sectionWidth = window.innerWidth;
     const sectionContainer = document.getElementById("sections-fetamida");
     print("TO: ", targetSection);
@@ -26,5 +30,5 @@ function toSection(targetSection) {
     }
 }
 window.addEventListener('load', function () {
-    toSection(1)
+    toSection(Number(new URL(document.URL).searchParams.get("page")));
 })

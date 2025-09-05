@@ -9,8 +9,11 @@
 * {
     font-family: myFont;
 }
-html, *{
+html{
 	font-size: 2vh;
+}
+*{
+	font-size: 1em;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
