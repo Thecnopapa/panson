@@ -8,7 +8,7 @@ a{
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    margin-top: 5dvh;
+    margin-top: 5vh;
     align-items: center;
 }
 
@@ -26,19 +26,17 @@ a{
     max-width: 24.8%;
     display: flex;
     flex-direction: column;
-    margin-bottom: 2dvh;
+    margin-bottom: 2vh;
 }
 
 .footer-title{
-    padding-left: 1dvw;
-    font-size: 2dvh;
-    margin-bottom: 2dvh;
+    padding-left: 1vw;
+    margin-bottom: 2vh;
 }
 
 .footer-element{
-    padding-left: 1dvw;
-    font-size: 2dvh;
-    padding-bottom: 0.5dvh;
+    padding-left: 1vw;
+    padding-bottom: 0.25rem;
 }
 
 .footer-button{
@@ -52,14 +50,14 @@ a{
 
 #credits{
     width: 97.8%;
-    margin-top: 1dvh;
-    margin-bottom: 3dvh;
+    margin-top: 1vh;
+    margin-bottom: 3vh;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    font-size: 1.5dvh;
-    padding-left: 1dvw;
-    padding-right: 1dvw;
+    font-size: 0.75rem;
+    padding-left: 1vw;
+    padding-right: 1vw;
 }
 #credits-left{
     display: flex;
@@ -68,7 +66,7 @@ a{
 }
 
 #copyright{
-    margin-bottom: 1dvh;
+    margin-bottom: 1vh;
 }
 
 #credits-right{
@@ -94,7 +92,7 @@ a{
     .footer-col{
         width: 48%;
         max-width: 50%;
-        padding-bottom: 3dvh;
+        padding-bottom: 3vh;
     }
     #credits{
         width:95%;

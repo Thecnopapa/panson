@@ -29,7 +29,6 @@ body {
 
 .descripcio {
     text-align: center;
-    font-size: 2.3dvh;
     position: relative;
     color: #FFFFFF;
 }
@@ -41,12 +40,12 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-size: 9.3dvh;
+    font-size: 4.5rem;
     font-weight: normal;
     color: rgba(240, 248, 255, 0.9);
-    height: 15dvh;
+    height: 15vh;
     user-select: none;
-    margin: 0 5dvh 0 5dvh;
+    margin: 0 5vh 0 5vh;
     cursor: pointer;
     top:45%;
     
@@ -69,6 +68,5 @@ body {
 
 @media screen and (orientation: portrait) {
     .subtitle{
-        font-size: 2dvw;
     }
 }

@@ -10,7 +10,6 @@
 }
 
 .page-name{
-    font-size: 3dvh;
     text-align: center;
     font-weight: bold;
 }
@@ -25,7 +24,6 @@
 }
 
 .loc-key{
-    font-size: 2dvh;
     text-decoration: underline;
     font-weight: bold;
     min-width:fit-content;
@@ -42,7 +40,6 @@
 }
 .lan-name{
 	padding-left:3dvw;
-    font-size: 2dvh;
     font-weight: bold;
 }
 .lan-value{

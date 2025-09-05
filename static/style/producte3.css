@@ -80,7 +80,6 @@ body {
 
 #titol_producte {
     position: relative;
-    font-size: 2dvh;
     height: max-content;
     width: 100%;
     margin-bottom: 2dvh;
@@ -92,7 +91,6 @@ body {
 
 #buy{
     display: none;
-    font-size: 2dvh;
     width: 100%;
     min-width: fit-content;
     height: 5dvh;
@@ -117,7 +115,6 @@ body {
 }
 
 #product-description {
-    font-size:  2dvh;
     position: relative;
     height: fit-content;
     margin-bottom: 2dvh;
@@ -141,7 +138,6 @@ body {
     justify-content: space-between;
     align-items: center;
     height: fit-content;
-    font-size: 2dvh;
     margin-top: 0.2dvh;
     margin-bottom: 0.2dvh;
     font-weight: normal;
@@ -149,18 +145,16 @@ body {
 
 .info-desplegable {
     display: none;
-    font-size: 2dvh;
     padding:1%;
 }
 .info-desplegable > p {
-    margin-top: 0.5dvh;
+    margin-top: 0.25rem;
 }
 .info-desplegable > ul {
-    margin-top: 0.5dvh;
+    margin-top: 0.25rem;
     padding-left: 2.5dvh;
 }
 .subtitol-desplegable {
-    font-size: 2dvh;
     margin-bottom: 0;
 }
 .arrow{
@@ -213,19 +207,16 @@ body {
 }
 #info-talles{
     margin-top: 4dvh;
-    font-size:2dvh;
 
 }
 #buy-options{
     width: 100%;
-    padding-top: 2dvh;
     position:relative;
 	display:flex;
     flex-direction: column;
     padding-bottom: 2dvh;
 }
 .option-field legend{
-    font-size: 2dvh;
     padding:0;
     margin:0;
     margin-bottom: 0.5dvh;
@@ -249,7 +240,6 @@ body {
 }
 .option-field label{
     cursor: pointer;
-    font-size: 2dvh;
     margin-right: 2%;
     margin-bottom: 1dvh;
     margin-top:1dvh;
@@ -284,7 +274,6 @@ body {
 
 }
 .option{
-    font-size: 2dvh;
     margin-right: 1.5dvh;
     display: flex;
     flex-direction: column;
@@ -300,7 +289,6 @@ body {
 }
 
 .multiple-input, #size-country {
-        font-size:2dvh;
         margin:0;
         padding:0;
 	border:none;
@@ -322,75 +310,73 @@ body {
     display: flex;
     flex-direction: row;
     border:none;
-    margin-right: 4dvh;
-    height: 3dvh;
+    margin-right: 4vh;
+    height: 3vh;
     align-items: center;
     width: fit-content;
     min-width: fit-content;
 }
 .colour-label{
-    height: 2dvh;
-    width: 2dvh;
-    min-width:2dvh;
+    height: 2vh;
+    width: 2vh;
+    min-width:2vh;
     border-radius: 50%;
-    margin-right: 0.5dvh;
-    margin-left:0.5dvh;
-    font-size:1dvh;
+    margin-right: 0.5vh;
+    margin-left:0.5vh;
+    font-size:0.5rem;
 }
 
 .pro-pedra-gran{
-    height: 2.2dvh;
-    width: 2.2dvh;
-    min-width:2.2dvh;
-    margin-right: 0.4dvh;
-    margin-left: 0.4dvh;
+    height: 2.2vh;
+    width: 2.2vh;
+    min-width:2.2vh;
+    margin-right: 0.4vh;
+    margin-left: 0.4vh;
 }
 .pro-pedra-petita{
-    height: 1.8dvh;
-    width: 1.8dvh;
-    min-width: 1.8dvh;
-    margin-right: 0.6dvh;
-    margin-left: 0.6dvh;
+    height: 1.8vh;
+    width: 1.8vh;
+    min-width: 1.8vh;
+    margin-right: 0.6vh;
+    margin-left: 0.6vh;
 }
 
 .colour-label:has(> .hidden-input[checked=true]){
-    border: black solid 0.2dvh;
-    margin-right: 0.4dvh;
-    margin-left:0.4dvh;
+    border: black solid 0.2vh;
+    margin-right: 0.4vh;
+    margin-left:0.4vh;
 
 }
 .pro-pedra-petita:has(> .hidden-input[checked=true]){
-        margin-right: 0.3dvh;
-	margin-left: 0.3dvh;
+        margin-right: 0.3vh;
+	margin-left: 0.3vh;
     }
 .pro-pedra-gran:has(> .hidden-input[checked=true]){
-        margin-right: 0.5dvh;
-	margin-left: 0.5dvh;
+        margin-right: 0.5vh;
+	margin-left: 0.5vh;
     }
 
 #final-price{
     display: none;
-    margin:1dvh;
-    font-size: 2dvh;
+    margin:1vh;
     width:100%;
 }
 
 #initial-price{
-    font-size:2dvh;
     width: 100%;
 }
 
 .add-to-cart{
     width: 100%;
-    min-height: 5dvh;
-    margin-top: 1dvh;
+    min-height: 5vh;
+    margin-top: 1vh;
 
 }
 .missatge-enviament{
     display: none;
     flex-direction: column;
-    margin-top: 1.5dvh;
-    font-size: 1.7dvh;
+    margin-top: 1.5vh;
+    font-size: 0.8rem;
     width: 80%;
 
     font-style: italic;
@@ -446,8 +432,7 @@ body {
 }
 
 .subtitol-galeria{
-    margin-top: 10dvh;
-    font-size: 2dvh;
+    margin-top: 10vh;
 }
 table {
   border-collapse: collapse;
@@ -509,7 +494,7 @@ tr:hover{
 	position: absolute;
 	top: 0;
 	right: 0;
-	font-size: 5dvh;
+	font-size: 2.5rem;
 	height: 5%;
 	width:10%;
 }
@@ -543,8 +528,8 @@ tr:hover{
 		position:relative;
 		width: calc(100% - 8dvh);
 		max-width: calc(100% - 8dvh);
-		padding-left:4dvh;
-		padding-right:4dvh;
+		padding-left:4vh;
+		padding-right:4vh;
 		left:0;
 		min-height: fit-content;
 		height:fit-content;

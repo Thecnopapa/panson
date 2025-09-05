@@ -23,7 +23,7 @@ body {
 
 }
 #admin-header{
-    font-size: 4dvh;
+    font-size: 2rem;
 }
 #admin-menu {
     display: flex;

@@ -1,7 +1,7 @@
 
 
 .is-carret {
-    font-size: 1.5dvh;
+    font-size: 0.75rem;
     color: black;
     z-index: 20;
 }
@@ -39,17 +39,17 @@
 #close-carret {
     position: absolute;
     font-size: 2vh;
-    top: 2dvh;
-    right: 2dvh;
+    top: 2vh;
+    right: 2vh;
     text-decoration: underline;
-    text-underline-offset: 0.5dvh;
+    text-underline-offset: 0.5vh;
     cursor: pointer;
 }
 .title-carret {
-    font-size: 3dvh;
-    padding-top: 2dvh;
+    font-size: 3vh;
+    padding-top: 2vh;
     position: relative;
-    padding-bottom: 2dvh;
+    padding-bottom: 2vh;
 
 }
 
@@ -59,15 +59,15 @@
     position: relative;
     top:5%;
     width: calc(100% - 4dvh);
-    margin-right: 2dvh;
-    margin-left: 2dvh ;
+    margin-right: 2vh;
+    margin-left: 2vh ;
     left: 0;
     align-items: center;
 }
 .producte-carret {
     position: relative;
     width: 100%;
-    margin-bottom: 2dvh;
+    margin-bottom: 2vh;
     background-color: rgba(0, 0, 0, 0);
     height: fit-content;
     display: flex;
@@ -76,9 +76,9 @@
 }
 .producte-foto {
     position: relative;
-    height: 15dvh;
-    width: 15dvh;
-    min-width: 15dvh;
+    height: 15vh;
+    width: 15vh;
+    min-width: 15vh;
     background-size: cover;
     background-position: center;
 
@@ -87,7 +87,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    padding-left: 1dvw;
+    padding-left: 1vw;
     height: 100%;
     width: 100%;
 
@@ -98,35 +98,35 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    margin-top: 10dvh;
+    margin-top: 10vh;
     align-items: center;
     width: 100%;
 
 }
 .total-cart{
-    padding-bottom: 0.5dvh;
+    padding-bottom: 0.25rem;
 }
 
 .producte-carret-nom {
     font-size: 3vh;
-    padding-bottom: 0.1dvw;
+    padding-bottom: 0.1rem;
 }
 
 .producte-carret-color{
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-bottom: 0.1dvw;
+    padding-bottom: 0.1rem;
 }
 .producte-carret-cercle {
     display: block;
-    height: 1.4dvh;
-    width: 1.4dvh;
+    height: 0.75rem;
+    width: 0.75rem;
     background-color: #bbb;
     border-radius: 50%;
-    margin: 0 0.2dvh;
+    margin: 0 0.1rem;
     border-color: #000000;
-    border-width: 0.2dvh;
+    border-width: 0.1rem;
 }
 .pro-pedra-gran{
     height: 1.7dvh;
@@ -144,33 +144,33 @@
 
 .checkout-button{
     width: 50%;
-    min-height: 5dvh;
-    margin-bottom: 5dvh;
+    min-height: 5vh;
+    margin-bottom: 5vh;
 }
 
 .producte-carret-preu {
-    font-size: 1.8dvh;
+    font-size: 0.9rem;
     position: relative;
-    padding-bottom: 0.1dvw;
+    padding-bottom: 0.1rem;
 
 }
 .quantitats-carret {
     display: flex;
     align-items: center;
-    padding-bottom: 0.1dvw;
+    padding-bottom: 0.1rem;
 
 
 }
 .producte-carret-quantitat{
-    font-size: 1.5dvh;
-    padding-right: 0.4dvh;
-    padding-left: 0.5dvh;
+    font-size: 0.75rem;
+    padding-right: 0.4vh;
+    padding-left: 0.5vh;
 }
 
 
 .carret-plus, .carret-minus {
-    height: 1.6dvh;
-    width: 1.6dvh;
+    height: 1rem;
+    width: 1rem;
     padding: 0;
     cursor: pointer;
 }
@@ -196,13 +196,13 @@
     .producte-carret{
     }
     .producte-foto {
-        width: 30dvw;
-        min-width: 30dvw;
-        height: 30dvw;
+        width: 30vw;
+        min-width: 30vw;
+        height: 30vw;
 
     }
     .detalls-carret {
-        padding-left: 2dvw;
+        padding-left: 2vw;
 
         width: 80%;
     }

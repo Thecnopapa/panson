@@ -64,7 +64,6 @@
     display: flex;
     max-width: 30%;
     width: fit-content;
-    font-size: 2dvh;
     transition-property: left;
     transition-duration: 1s;
     cursor: pointer;
