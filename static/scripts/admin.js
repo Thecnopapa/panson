@@ -259,7 +259,7 @@ function productImageDelete(image){
 
 
 
-function productUpdate(trigger, value=undefined, type="text", mode="add",  key=undefined,  subdicts=undefined, subkey=undefined) {
+function productUpdate(trigger, value=undefined, type=undefined, mode="add",  key=undefined,  subdict=undefined, subkey=undefined) {
 	const field = trigger.attributes.field.value;
 	const product = trigger.attributes.product.value;
     let bucket = window.location.href.split("/");
@@ -278,15 +278,15 @@ function productUpdate(trigger, value=undefined, type="text", mode="add",  key=u
 		} catch{}
         }
 	}
-    if (trigger.attributes.dataType){
-		type = trigger.attributes.dataType.value;
+    if (type === undefined){
+        try{
+            type = trigger.attributes.dataType.value;
+        }catch(e){
+            type = "text"
+        }
+
 	}
 	print("Updating field: ", field, "("+mode+")");
-
-    if (subdicts !== undefined) {
-        subdicts = subdicts.split(",");
-        print("Within subdicts: ", subdicts);
-    }
 
 
 	print("With value: ", value);
@@ -296,11 +296,41 @@ function productUpdate(trigger, value=undefined, type="text", mode="add",  key=u
 				'Content-Type': 'application/json'
 			},
 			method: "POST",
-			body: JSON.stringify({product: product, field: field, value: value, type:type, mode:mode, key:key, subdicts:subdicts, subkey:subkey} ),
+			body: JSON.stringify({product: product, field: field, value: value, type:type, mode:mode, key:key, subdict:subdict, subkey:subkey} ),
                 });
     if (type === "text"){
         trigger.nextElementSibling.style.backgroundColor = "lightgreen";
     }
+}
+
+function productUpdateDict(container, mode){
+    const keyElement = container.getElementsByClassName("dict-key")[0];
+    const inputElements = container.getElementsByClassName("dict-input");
+    const subdict = keyElement.attributes.subdict.value;
+    const subkey = keyElement.value;
+    print("Updating dict..")
+    if (mode === "remove"){
+        productUpdate(keyElement, undefined, "dict:dict", "remove", subdict);
+    } else if (mode === "add"){
+        print(inputElements, "dict:dict", "add", subdict);
+        for (let i = 0; i < inputElements.length; i++) {
+            const input = inputElements[i];
+            print(input.attributes.key.value);
+            const value =  input.value;
+            const key = input.attributes.key.value;
+            const dataType = input.attributes.dataType.value
+            productUpdate(keyElement, value, "dict:"+dataType, "add", key, subdict, subkey );
+        }
+    }
+}
 
 
+function addListElement(trigger, typeOfFirst){
+    let newElement = trigger.lastElementChild.cloneNode(true);
+    const inputs = newElement.getElementsByTagName("input");
+    inputs[0].type = typeOfFirst;
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].value = ""
+    }
+    trigger.lastElementChild.after(newElement);
 }

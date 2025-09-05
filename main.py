@@ -650,58 +650,71 @@ def update_product(bucket):
                 target_type = None
                 data_type = data["type"]
 
+            print("Type:", target_type, target_type)
             if "value" not in data.keys():
-                data["value"] = None
+                value = None
             else:
-                if data_type == "bool":
-                    data["value"] = data["value"] in ["true", "True", "TRUE", "on", "1", 1]
+                value = data["value"]
+                if data_type == "dict":
+                    if value is None:
+                        value = {}
+                    else:
+                        value = dict(value)
+                elif data_type == "list":
+                    if value is None:
+                        value = []
+                    else:
+                        value = list(value)
+                elif data_type == "bool":
+                    value = value in ["true", "True", "TRUE", "on", "1", 1]
                 elif data_type == "int":
-                    data["value"] = int(data["value"])
+                    value = int(value)
                 elif data_type == "float":
-                    data["value"] = float(data["value"])
+                    value = float(value)
                 elif data_type == "text":
-                    data["value"] = str(data["value"])
-                elif data_type not in ["list", "dict"]:
+                    value = str(value)
+                else:
                     print("Unknown data type", data_type)
                     return "Unknown dataType: {}".format(data_type), 500
 
             subdicts = []
-            if "subdicts" in data.keys():
-                subdicts = [s.strip() for s in data["subdicts"]]
+            if "subdict" in data.keys():
+                subdicts = [data["subdict"]]
+                if "subkey" in data.keys():
+                    subdicts.append(data["subkey"])
             print("Subdicts: ", subdicts)
 
             if target_type == "list":
                 new =p.__getattribute__(data["field"]).copy()
                 print("\nOLD: ",type(new), new)
                 if data["mode"] == "add":
-                    new.append(data["value"])
+                    new.append(value)
                 elif data["mode"] == "remove":
-                    new.remove(data["value"])
+                    new.remove(value)
                 elif data["mode"] == "sort":
-                    print(data["key"], "-->", data["value"])
-                    new.insert(data["key"], new.pop(data["value"]))
+                    print(data["key"], "-->", value)
+                    new.insert(data["key"], new.pop(value))
                 print("\nNEW: ",type(new), new)
                 p.__setattr__(data["field"], new)
             elif target_type == "dict":
                 new = p.__getattribute__(data["field"]).copy()
                 target_dict = new
-                for subdict in subdicts:
-                    target_dict = target_dict[subdict]
-                if data["subdict"] is not None:
-                    if data["mode"] == "add":
-                        target_dict[data["subkey"]][data["key"]] = data["value"]
-                    elif data["mode"] == "remove":
-                        target_dict[data["subkey"]].pop(data["key"])
-                else:
-                    if data["mode"] == "add":
-                        target_dict[data["key"]] = data["value"]
-                    elif data["mode"] == "remove":
-                        target_dict.pop(data["key"])
+                for s in subdicts:
+                    try:
+                        target_dict = target_dict[s]
+                    except KeyError:
+                        target_dict[s] = {}
+                        target_dict = target_dict[s]
+
+                if data["mode"] == "add":
+                    target_dict[data["key"]] = value
+                elif data["mode"] == "remove":
+                    target_dict.pop(data["key"])
                 print(new)
                 p.__setattr__(data["field"], new)
             else:
-                print("\nNEW: ",data["field"], "==>", type(data["value"]), data["value"])
-                p.__setattr__(data["field"], data["value"])
+                print("\nNEW: ",data["field"], "==>", type(value), value)
+                p.__setattr__(data["field"], value)
 
 
 
