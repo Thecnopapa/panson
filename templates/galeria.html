@@ -1,10 +1,10 @@
 
 
 
-{% macro galeria(bucket, double=False, filtres=False) %}
+{% macro galeria(bucket, double=False, filtres=False, max_prods=8) %}
 
 <div id="hidden-product-list">
-    <div id="gallery-info" double="{{ doble_galeria }}" max-prods="{{ max_gallery }}"></div>
+    <div id="gallery-info" double="{{ doble_galeria }}" max-prods="{{ max_prods }}"></div>
     {% for n, producte in utils.enumerate(productes_filtrats) %}
         <div class="hidden-info-producte" id="{{ producte._id }}" nom="{{ producte.nom }}" preu="{{ producte.calcular_preu_minim() }}&#8364;" col="{{ producte.collecio }}" tipus="{{ producte.tipus }}" unica="{{ producte.unica }}" img1="{{ producte.imatges[0] }}" img2="{{ producte.imatges[1] }}"></div>
     {% endfor %}
@@ -23,7 +23,7 @@
     <div class="galeria-scroll scroll-right" onmouseover="startScrolling(this.nextElementSibling, 'right')" onmouseout="stopScrolling(this.nextElementSibling)"></div>
     <div id="galeria" class="galeria">
 
-        {% for n in range(max_gallery) %}
+        {% for n in range(max_prods) %}
             {% if (double and n % 2 == 0) %}
                <div class="producte-doble">
             {% endif %}
