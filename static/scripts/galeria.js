@@ -54,8 +54,42 @@ function reverseProduct(trigger) {
     primera.classList.remove("inactive");
     segona.classList.remove("active");
 }
-function initGaleria(galeria) {
+
+function initGaleria(galeria, bucket) {
     print("Initialising galeria:")
     print(galeria)
+    const allProducts = document.getElementsByClassName("hidden-info-producte");
+    const productElements = document.getElementsByClassName("producte");
+
+    for (let i = 0; i < productElements.length; i++) {
+        const targetProductNo = i + currentPage*maxProds;
+        changeProduct(productElements[i], allProducts[targetProductNo], bucket);
+    }
 }
-initGaleria(document.getElementById("galeria"));
+
+function changeProduct(element, product, bucket) {
+    let info = undefined;
+    try {
+        info = product.attributes;
+    } catch (e){
+        print(e);
+        element.classList.add("empty");
+        return}
+    print(element);
+    print(info);
+    element.classList.remove("empty");
+    element.onclick = function () { location.href = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value }
+    element.getElementsByClassName("imatge primera")[0].style.backgroundImage = 'url('+ imageUrl("productes", info.img1.value) + ')';
+    element.getElementsByClassName("imatge segona")[0].style.backgroundImage = 'url('+ imageUrl("productes", info.img2.value) + ')';
+    element.getElementsByClassName("nom")[0].innerHTML = info.nom.value;
+    element.getElementsByClassName("preu-inline")[0].innerHTML = info.preu.value;
+
+
+
+
+}
+
+
+let currentPage = 0;
+let maxProds = Number(document.getElementById("gallery-info").attributes["max-prods"].value);
+initGaleria(document.getElementById("galeria"), "productes");

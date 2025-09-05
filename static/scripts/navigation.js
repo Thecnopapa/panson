@@ -15,8 +15,7 @@ const loaderIcon =document.getElementById("loader-icon");
 
 window.addEventListener('load', function () {
 	console.log("It's loaded!");
-	loader.style = "display:none !important";
-	loaderIcon.style ="display:none !important";
+	loader.remove();
 	console.log(loader.style.display);
 	
 })

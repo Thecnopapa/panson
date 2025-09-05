@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="{{ loc.lan }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{% block head %}
+    <title>PANSON</title>
+{% endblock %}
+    <link href='/style/navigation.css' rel='stylesheet'>
+    <script defer type="text/javascript" src="/scripts/navigation.js"></script>
+    <link href='/style/footer.css' rel='stylesheet'>
+{% block imports %}
+
+{% endblock %}
+</head>
+
+
+<body>
+{% include "navigation.html" %}
+
+{% block body %}
+
+{% endblock %}
+
+{% include "footer.html" %}
+
+</body>
+</html>

@@ -206,28 +206,9 @@ def collections(lan):
 
 
 @app.route("/<lan>/productes/")
-def mostrar_tot(lan):
-    filters = request.args.copy()
-    keys = [k for k in request.args.copy().keys()]
+def productes(lan):
 
-    for n, k in enumerate(keys):
-        if "#" in k:
-            print(k)
-            keys[n] = k.split("#")[0]
-
-    keys = list(set(keys))
-    print(keys)
-    if "collecio" not in keys:
-        if "unica" in keys:
-            filters["collecio"] = []
-        else:
-            filters["collecio"] = "totes"
-    if "unica" not in keys:
-        filters["unica"] = "totes"
-    if "tipus" not in keys:
-        filters["tipus"] = "totes"
-
-    html = template(lan=lan,templates="galeria", filters = filters, titol="gal_totes", show_filtres=True)
+    html = template(lan=lan,templates="all_products", show_filtres=True)
     return html
 
 @app.route("/<lan>/peces_uniques/")

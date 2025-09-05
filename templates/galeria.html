@@ -1,33 +1,21 @@
 
-{% if not no_head %}
-    <!doctype html>
-    <html lang="{{ loc.lan }}">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>PANSON: {{ titol }}</title>
-        <link href='/style/navigation.css' rel='stylesheet'>
-        <script defer type="text/javascript" src="/scripts/navigation.js"></script>
-        <link href='/style/galeria.css' rel='stylesheet'>
-        <script defer type="text/javascript" src="/scripts/galeria.js"></script>
-    </head>
-{% endif %}
+
+
+{% macro galeria(bucket, double=False, filtres=False) %}
 
 <div id="hidden-product-list">
+    <div id="gallery-info" double="{{ doble_galeria }}" max-prods="{{ max_gallery }}"></div>
     {% for n, producte in utils.enumerate(productes_filtrats) %}
-        <div class="hidden-info-producte" id="{{ producte._id }}" nom="{{ producte.nom }}" preu="{{ producte.calcular_preu_minim() }}&#8364;" col="{{ producte.collecio }}" tipus="{{ producte.tipus }}" unica="{{ producte.unica }}"></div>
+        <div class="hidden-info-producte" id="{{ producte._id }}" nom="{{ producte.nom }}" preu="{{ producte.calcular_preu_minim() }}&#8364;" col="{{ producte.collecio }}" tipus="{{ producte.tipus }}" unica="{{ producte.unica }}" img1="{{ producte.imatges[0] }}" img2="{{ producte.imatges[1] }}"></div>
     {% endfor %}
 </div>
 <div class="content-galeria">
-        {% if show_filtres %}
+        {% if filtres %}
             <div id="inline-filtres">
                 <div class="filtre-buttons">
                     <div class="filtre" field="tipus" value="anell" onclick="filterGaleria(this)">Anells</div>
                     <div class="filtre" field="tipus" value="penjoll" onclick="filterGaleria(this)">Penjolls</div>
                     <div class="filtre" field="tipus" value="arracades" onclick="filterGaleria(this)">Arracades</div>
-                    <div class="filtre" field="col" value="sol" onclick="filterGaleria(this)">Sol</div>
-                    <div class="filtre" field="col" value="nus" onclick="filterGaleria(this)">Nus</div>
-                    <div class="filtre" field="unica" value="True" onclick="filterGaleria(this)">Uniques</div>
                 </div>
             </div>
         {% endif %}
@@ -35,31 +23,22 @@
     <div class="galeria-scroll scroll-right" onmouseover="startScrolling(this.nextElementSibling, 'right')" onmouseout="stopScrolling(this.nextElementSibling)"></div>
     <div id="galeria" class="galeria">
 
-        {% for n, producte in utils.enumerate(productes_filtrats[:max_gallery]) %}
-            {% if (doble_galeria and n % 2 == 0) %}
+        {% for n in range(max_gallery) %}
+            {% if (double and n % 2 == 0) %}
                <div class="producte-doble">
-        {% endif %}
-           <div class="producte" onclick="location.href='/{{ loc.lan }}/productes/{{ producte._id }}'" onmouseover="highlightProduct(this)">
-               <div class="imatge primera" onmouseover="highlightProduct(this)" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media')"></div>
-               <div class="imatge segona" onmouseout="reverseProduct(this)" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[1] }}?alt=media')"></div>
+            {% endif %}
+           <div class="producte empty" onmouseover="highlightProduct(this)">
+               <div class="imatge primera" onmouseover="highlightProduct(this)"></div>
+               <div class="imatge segona" onmouseout="reverseProduct(this)"></div>
                <div class="detalls-galeria">
                     <div class="detalls-principals">
-                        <div class="nom">{{ producte.nom }}</div>
-                        <div class="preu-inline">{{ producte.calcular_preu_minim() }}&#8364;</div>
+                        <div class="nom"></div>
+                        <div class="preu-inline"></div>
 
                     </div>
-                    <div class="subtiol">{{ producte.subtitol }}&nbsp;</div>
-                    {% if producte.opcions["colors"] %}
-                        <div class="colors">
-                        {% for col in producte.opcions["colors"] %}
-                            <span class="cercle"  onclick="event.stopPropagation(location.href='/{{ loc.lan }}/productes/{{ producte._id }}/?color={{ col }}" style="background-color: {{ loc["colours-"+col] }}"></span>
-                        {% endfor %}
-                        </div>
-                    {% endif %}
-                        <div class="descripcio">{{ producte.descripcio }}</div>
                 </div>
            </div>
-           {% if (doble_galeria and n % 2 == 1) %}
+           {% if (double and n % 2 == 1) %}
                </div>
            {% endif %}
         {% endfor %}
@@ -70,7 +49,5 @@
     {% if max_gallery < utils.len(productes_filtrats)  %}
         <button class="view-more" onclick="location.href='/{{ loc.lan }}/productes/'"> Veure mes</button>
     {% endif %}
-    
-
-
 </div>
+{% endmacro %}

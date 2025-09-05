@@ -1,0 +1,17 @@
+
+
+{% extends "base.html" %}
+{% block head %}
+    <title>PANSON: Productes</title>
+{% endblock %}
+
+{% block imports %}
+    <link href='/style/galeria.css' rel='stylesheet'>
+    <script defer type="text/javascript" src="/scripts/galeria.js"></script>
+{% endblock %}
+
+{% import 'galeria.html' as galeria with context%}
+
+{% block body %}
+{{ galeria.galeria("productes", filtres=True) }}
+{% endblock %}
