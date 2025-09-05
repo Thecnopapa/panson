@@ -207,8 +207,8 @@ def collections(lan):
 
 @app.route("/<lan>/productes/")
 def productes(lan):
-
-    html = template(lan=lan,templates="all_products", show_filtres=True)
+    filters = {"esborrat": False, "amagat": False}
+    html = template(lan=lan,templates="all_products")
     return html
 
 @app.route("/<lan>/peces_uniques/")
@@ -218,25 +218,9 @@ def peces_uniques(lan):
 
 @app.route("/<lan>/productes/<id>/")
 def mostrar_peca(lan, id):
-
     producte = Products(lan=lan).get_single(id)
     print(producte)
-
-    print(len(request.args))
-    opcions = get_opcions()
-
-    filters={"esborrat":False, "amagat:false":False}
-    '''
-    filters = {"tipus":"totes"}
-    if producte.unica:
-        titol_galeria = "pro-altres-uniques"
-        filters["unica"] = True
-        filters["collecio"] = []
-    else:
-        filters["collecio"] = producte.collecio
-        titol_galeria = "pro-mateixa-col"
-        '''
-    html = template(lan=lan, templates=["producte3", "galeria"], producte=producte, opcions=opcions, filters=filters, doble_galeria=True)
+    html = template(lan=lan, templates="producte3", producte=producte)
     return html
 
 

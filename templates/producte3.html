@@ -1,23 +1,20 @@
-<!doctype html>
-<html lang="{{ loc.lan }}">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+
+{% extends "base.html" %}
+{% block head %}
     <title>PANSON: {{ producte.nom }}</title>
-    <link href='/style/navigation.css' rel='stylesheet'>
-    <!-- <script src="/static/scripts/jquery.js"></script> -->
+{% endblock %}
 
-    <script defer type="text/javascript" src="/scripts/navigation.js"></script>
-    <script defer type="text/javascript" src="/scripts/galeria.js"></script>
-    <script defer type="text/javascript" src="/scripts/producte3.js"></script>
-
+{% block imports %}
     <link href='/style/galeria.css' rel='stylesheet'>
+    <script defer type="text/javascript" src="/scripts/galeria.js"></script>
     <link href='/style/producte3.css' rel='stylesheet'>
+    <script defer type="text/javascript" src="/scripts/producte3.js"></script>
+{% endblock %}
 
-</head>
-<body>
+{% import 'galeria.html' as galeria with context%}
 
+{% block body %}
 <div class="content-producte">
     <div id="producte-images">
     {% for n, imatge in utils.enumerate(producte._imatges2) %}
@@ -218,5 +215,8 @@
 </div>
 
 <div class="subtitol-galeria">{{ loc.pro_tiol_galeria }}</div>
+{{ galeria.galeria("productes", filtres=False, double=True) }}
+{% endblock %}
+
 
 

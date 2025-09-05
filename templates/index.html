@@ -1,23 +1,21 @@
-
-<!doctype html>
-<html lang="{{ loc.lan }}">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{% extends "base.html" %}
+{% block head %}
     <title>PANSON</title>
-    <link href='/style/navigation.css' rel='stylesheet'>
-    <script defer type="text/javascript" src="/scripts/navigation.js"></script>
+{% endblock %}
 
-    <link href='/style/slideshow.css' rel='stylesheet'>
-    <script defer type="text/javascript" src="/scripts/slideshow.js"></script>
+{% block imports %}
     <link href='/style/galeria.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/scripts/galeria.js"></script>
     <link href='/style/index.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/scripts/index.js"></script>
+    <link href='/style/slideshow.css' rel='stylesheet'>
+    <script defer type="text/javascript" src="/scripts/slideshow.js"></script>
 
+{% endblock %}
 
-</head>
+{% import 'galeria.html' as galeria with context%}
 
+{% block body %}
     <div class="content-index">
         <div class = "slideshow">
             {% for slide_name, slide_url in slides %}
@@ -31,6 +29,8 @@
     </div>
 
 <div id="index-subtitle">{{ loc.ind_subtitol }}</div>
+    {{ galeria.galeria("productes") }}
+{% endblock %}
 
 
 

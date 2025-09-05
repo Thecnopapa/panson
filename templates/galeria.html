@@ -42,9 +42,6 @@
                </div>
            {% endif %}
         {% endfor %}
-        {% for n in range(4 -utils.mod(utils.len(productes_filtrats[:max_gallery]), 4)) %}
-            <div class="producte empty"></div>
-        {% endfor %}
     </div>
     {% if max_gallery < utils.len(productes_filtrats)  %}
         <button class="view-more" onclick="location.href='/{{ loc.lan }}/productes/'"> Veure mes</button>
