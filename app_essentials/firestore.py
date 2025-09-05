@@ -89,7 +89,7 @@ def load_files(folder= "./uploads", name="file", target_folder= "productes"):
             if filename == "":
                 continue
 
-            if target_folder + "/" + filename in list_blobs(target_folder):
+            while target_folder + "/" + filename in list_blobs(target_folder):
                 filename = filename.split(".")[0] + "_copia." + filename.split(".")[1]
             os.makedirs(folder, exist_ok=True)
             path = os.path.join(folder, file.filename)
@@ -101,12 +101,19 @@ def load_files(folder= "./uploads", name="file", target_folder= "productes"):
 
 def upload_images(path_dict, folder="productes"):
     sprint("Uploading images")
+    fnames = []
     for fname, path in path_dict.items():
-        from werkzeug.utils import secure_filename
-        if folder+"/"+fname in list_blobs(folder):
-            fname = fname.split(".")[0] +"_copia."+os.path.splitext(fname)[1]
+        print1(fname)
+        print2(path)
+        print1(folder+"/"+fname)
+        [print2(f) for f in list_blobs(folder)]
+        while folder+"/"+fname in list_blobs(folder):
+            fname = fname.split(".")[0] +"_copia"+os.path.splitext(fname)[1]
+        print("Final fname: ", fname)
         new_blob = bucket.blob(folder+"/"+fname)
         new_blob.upload_from_filename(path)
-    return list(path_dict.keys())
+        fnames.append(fname)
+    print1("Uploaded images")
+    return fnames
 
 

@@ -127,12 +127,12 @@ function resizeArea(target){
     target.nextElementSibling.style.backgroundColor = "yellow";
 }
 
-function updateField(target){
+async function updateField(target){
     console.log("UPDATING FIELD");
     console.log(target.value);
     console.log(target.attributes.page.value, target.attributes.key.value, target.attributes.lan.value);
     payload = {value: target.value, page:target.attributes.page.value, key: target.attributes.key.value, lan: target.attributes.lan.value};
-    fetch("/admin/loc/update-field",
+    let resp = await fetch("/admin/loc/update-field",
         {
             headers: {
               'Accept': 'application/json',
@@ -140,8 +140,13 @@ function updateField(target){
             },
             method: "POST",
             body: JSON.stringify(payload),
-    });
-    target.nextElementSibling.style.backgroundColor = "revert";
+    }).then((response) => {return response});
+    if (resp.ok) {
+        target.nextElementSibling.style.backgroundColor = "revert";
+    } else {
+        target.nextElementSibling.style.backgroundColor = "red";
+    }
+
 }
 
 function deleteField(trigger){
@@ -180,17 +185,18 @@ function triggerInput(target){
 }
 
 
-function productAddImage(trigger){
+async function productAddImage(trigger){
 	const files = trigger.files;
 	print("Adding images: ", files);
 
 	for (let i = 0; i < files.length; i++){
-        fileName = files[i].name;
-		uploadImage(files[i], "bespoke");
-		productUpdate(trigger,fileName , "list", "add");
+        const originalName = files[i].name;
+		let newName = await uploadImage(files[i], "bespoke").then(response => {return response;});
+        productUpdate(trigger, newName , "list", "add");
+
         try {
             const newImage = trigger.parentElement.previousElementSibling.cloneNode(true);
-            newUrl = imageUrl("bespoke", fileName);
+            newUrl = imageUrl("bespoke", newName);
             newImage.style = "background-image: url('" + newUrl + "')";
             trigger.parentElement.before(newImage);
         } catch (e) {
@@ -201,9 +207,9 @@ function productAddImage(trigger){
 
 
 
-function uploadImage(file, folder="productes"){
+async function uploadImage(file, folder="productes"){
 	print("Uploading: ", file.name, "("+file.type+")");
-	fetch("/admin/images/upload/"+folder,
+	let newFname = await fetch("/admin/images/upload/"+folder,
 		{
 			headers: {'Accept': file.type,
 				'Content-Type': file.type,
@@ -212,7 +218,9 @@ function uploadImage(file, folder="productes"){
 			},
 			method: "POST",
 			body: file,
-		});
+		}).then(response => {return response.text();});
+    console.log("Uploaded: ", newFname);
+    return newFname;
 }
 
 function productImageMove(image, moveRight){
@@ -252,6 +260,7 @@ function productUpdate(trigger, value=undefined, type="text", mode="add",  key=u
     print(bucket);
 	print("Trigger: ", trigger, value);
 	if (value === undefined) {
+        print("Value undefined: " + value);
         if (trigger.value) {
             value = trigger.value;
         }else {

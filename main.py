@@ -628,93 +628,70 @@ def create_product(bucket):
 def update_product(bucket):
     user = get_current_user()
     if check_if_admin(user.username, user.password):
-        print(request.json)
-        data = request.json.copy()
-        if bucket == "productes":
-            from app_essentials.firebase import prods
-            from app_essentials.products import Product
-            prev_data = prods.document(data["product"]).get().to_dict()
-            p = Product(prev_data, data["product"])
-        elif bucket == "bespoke":
-            from app_essentials.firebase import bespoke
-            from app_essentials.products import Bespoke
-            prev_data = bespoke.document(data["product"]).get().to_dict()
-            p = Bespoke(prev_data, data["product"])
-        else:
-            return "Unknown bucket", 500
-        if "value" not in data.keys():
-            data["value"] = None
-        else:
-            if data["type"] == "bool":
-                data["value"] = data["value"] in ["true", "True", "TRUE", "on", "1", 1]
-            elif data["type"] == "int":
-                data["value"] = int(data["value"])
-            elif data["type"] == "float":
-                data["value"] = float(data["value"])
-            elif data["type"] == "text":
-                data["value"] = str(data["value"])
+        try:
+            print(request.json)
+            data = request.json.copy()
+            if bucket == "productes":
+                from app_essentials.firebase import prods
+                from app_essentials.products import Product
+                prev_data = prods.document(data["product"]).get().to_dict()
+                p = Product(prev_data, data["product"])
+            elif bucket == "bespoke":
+                from app_essentials.firebase import bespoke
+                from app_essentials.products import Bespoke
+                prev_data = bespoke.document(data["product"]).get().to_dict()
+                p = Bespoke(prev_data, data["product"])
             else:
-                return "Unknown dataType: {}".format(data["type"]), 500
-        if data["type"] == "list":
-            new =p.__getattribute__(data["field"]).copy()
-            print("\nOLD: ",type(new), new)
-            if data["mode"] == "add":
-                new.append(data["value"])
-            elif data["mode"] == "remove":
-                new.remove(data["value"])
-            elif data["mode"] == "sort":
-                print(data["key"], "-->", data["value"])
-                new.insert(data["key"], new.pop(data["value"]))
-            print("\nNEW: ",type(new), new)
-            p.__setattr__(data["field"], new)
-        elif data["type"] == "dict":
-            new = p.__getattribute__(data["field"]).copy()
-            if data["subdict"] is not None:
-                if data["mode"] == "add":
-                    new[data["subkey"]][data["key"]] = data["value"]
-                elif data["mode"] == "remove":
-                    new[data["subkey"]].pop(data["key"])
+                return "Unknown bucket", 500
+            if "value" not in data.keys():
+                data["value"] = None
             else:
+                if data["type"] == "bool":
+                    data["value"] = data["value"] in ["true", "True", "TRUE", "on", "1", 1]
+                elif data["type"] == "int":
+                    data["value"] = int(data["value"])
+                elif data["type"] == "float":
+                    data["value"] = float(data["value"])
+                elif data["type"] == "text":
+                    data["value"] = str(data["value"])
+                elif data["type"] not in ["list", "dict"]:
+                    return "Unknown dataType: {}".format(data["type"]), 500
+            if data["type"] == "list":
+                new =p.__getattribute__(data["field"]).copy()
+                print("\nOLD: ",type(new), new)
                 if data["mode"] == "add":
-                    new[data["key"]] = data["value"]
+                    new.append(data["value"])
                 elif data["mode"] == "remove":
-                    new.pop(data["key"])
-            print(new)
-            p.__setattr__(data["field"], new)
-        else:
-            print("\nNEW: ",data["field"], "==>", type(data["value"]), data["value"])
-            p.__setattr__(data["field"], data["value"])
-        p.update_db()
-        return p.__dict__
+                    new.remove(data["value"])
+                elif data["mode"] == "sort":
+                    print(data["key"], "-->", data["value"])
+                    new.insert(data["key"], new.pop(data["value"]))
+                print("\nNEW: ",type(new), new)
+                p.__setattr__(data["field"], new)
+            elif data["type"] == "dict":
+                new = p.__getattribute__(data["field"]).copy()
+                if data["subdict"] is not None:
+                    if data["mode"] == "add":
+                        new[data["subkey"]][data["key"]] = data["value"]
+                    elif data["mode"] == "remove":
+                        new[data["subkey"]].pop(data["key"])
+                else:
+                    if data["mode"] == "add":
+                        new[data["key"]] = data["value"]
+                    elif data["mode"] == "remove":
+                        new.pop(data["key"])
+                print(new)
+                p.__setattr__(data["field"], new)
+            else:
+                print("\nNEW: ",data["field"], "==>", type(data["value"]), data["value"])
+                p.__setattr__(data["field"], data["value"])
+            sprint("Updating DB")
+            p.update_db()
+            print1("DB updated")
+            return p.__dict__
+        except Exception as e:
+            return str(e), 500
 
-
-
-@limiter.exempt
-@app.post("/admin/bespoke/update-field")
-def update_bespoke():
-    user = get_current_user()
-    if check_if_admin(user.username, user.password):
-        print(request.json)
-        data = request.json
-        from app_essentials.firebase import bespoke
-        from app_essentials.products import Bespoke
-        prev_data = bespoke.document(data["product"]).get().to_dict()
-        p = Bespoke(prev_data, data["product"])
-        print(p)
-        if data["type"] == "list":
-            new =p.__getattribute__(data["field"]).copy()
-            print(type(new), new)
-            if data["mode"]=="add":
-                new.append(data["value"])
-            elif data["mode"]=="remove":
-                new.remove(data["value"])
-            print(new)
-            p.__setattr__(data["field"], new)
-        else:
-            p.__setattr__(data["field"], data["value"])
-        print(p)
-        p.update_db()
-        return p.__dict__
 
 @limiter.exempt
 @app.post("/admin/images/upload/<folder>")
@@ -729,7 +706,8 @@ def upload_image(folder="productes"):
         fpath = "./uploads/{}".format(fname)
         with open(fpath, "wb") as f:
             f.write(file)
-        upload_images({fname: fpath}, folder)
+            #print(file)
+        fname = upload_images({fname: fpath}, folder)[0]
         return fname
 
 
