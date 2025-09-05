@@ -12,16 +12,16 @@ function toSection(targetSection) {
     sectionContainer.scrollTo(sectionWidth * targetSection, 0 , {behavior: "smooth"});
     if (targetSection === 0 ) {
         toFirst.style.left = "0";
-        toSecond.style.left = "calc(100% - " + String(toSecond.offsetWidth) + "px)";
-        toThird.style.left = "calc(100% + " + String(toSecond.offsetWidth) + "px + 4dvh)";
+        toSecond.style.left = "calc(100% - " + String(toSecond.offsetWidth + toThird.offsetWidth + sectionWidth*0.02) + "px)";
+        toThird.style.left = "calc(100% - " + String(toThird.offsetWidth) + "px)";
     } else if (targetSection === 1) {
         toFirst.style.left = "0";
         toSecond.style.left = "calc(50% - " + String(toSecond.offsetWidth / 2) + "px)";
         toThird.style.left = "calc(100% - " + String(toThird.offsetWidth) + "px)";
 
     } else if (targetSection === 2) {
-        toFirst.style.left = "calc(-" + String(toFirst.offsetWidth*2) + "px - 4dvh)";
-        toSecond.style.left = "0";
+        toFirst.style.left = "0";
+        toSecond.style.left = String(toFirst.offsetWidth + sectionWidth*0.02) + "px";
         toThird.style.left = "calc(100% - " + String(toThird.offsetWidth) + "px)";
     }
 }

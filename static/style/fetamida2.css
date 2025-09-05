@@ -46,15 +46,14 @@
     display: flex;
     flex-direction: row;
     position: relative;
-    width: calc(100dvw - 8dvh);
-    max-width: calc(100dvw - 8dvh);
+    width: calc(100dvw - 8vh);
     justify-content: space-between;
     align-items: start;
     height: fit-content;
-    margin-left: 4dvh;
-    margin-right: 4dvh;
+    margin-left: 4vh;
+    margin-right: 4vh;
     z-index: 5;
-    height: 3dvh;
+    height: 3vh;
     overflow-y: visible;
 
 }
@@ -70,7 +69,7 @@
     justify-content: flex-start;
     align-items: center;
     height: fit-content;
-    min-height: 3dvh;
+    min-height: 3vh;
 }
 
 #to-second{
@@ -86,13 +85,13 @@
     flex-direction: column;
     justify-content: flex-start;
     overflow: hidden;
-    padding:4dvh;
+    padding:4vh;
     width: calc(100dvw - 8dvh);
-    max-width: calc(100dvw - 8dvh);
-    min-width: calc(100dvw - 8dvh);
-    height:  calc(100% - 8dvh);
-    max-height:  calc(100% - 8dvh);
-    min-height: calc(100% - 8dvh);
+    max-width: calc(100dvw - 8vh);
+    min-width: calc(100dvw - 8vh);
+    height:  calc(100% - 8vh);
+    max-height:  calc(100% - 8vh);
+    min-height: calc(100% - 8vh);
     align-items: center;
 
 }
@@ -129,9 +128,9 @@
 
 @media screen and (orientation: portrait) {
 	#section-menu{
-		width:calc(100% - 4dvh);
-        margin-left: 2dvh;
-        margin-right: 2dvh;
+		width:calc(100% - 4vh);
+        margin-left: 2vh;
+        margin-right: 2vh;
 	}
 
 	
