@@ -14,6 +14,7 @@ function toSection(targetSection) {
     const sectionContainer = document.getElementById("sections-fetamida");
     print("TO: ", targetSection);
     sectionContainer.scrollTo(sectionWidth * targetSection, 0 , {behavior: "smooth"});
+    sectionContainer.style.maxHeight = String(sectionContainer.getElementsByClassName("fetamida-section")[targetSection].offsetHeight) + "px";
     if (targetSection === 0 ) {
         toFirst.style.left = "0";
         toSecond.style.left = "calc(100% - " + String(toSecond.offsetWidth + toThird.offsetWidth + sectionWidth*0.02) + "px)";

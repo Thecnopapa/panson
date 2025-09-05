@@ -59,6 +59,10 @@ class Utils:
         return num1 % num2
 
     @staticmethod
+    def max(*args):
+        return max(*args)
+
+    @staticmethod
     def replace(string,old,new ):
         return string.replace(old,new)
 

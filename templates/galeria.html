@@ -1,7 +1,7 @@
 
 
 
-{% macro galeria(bucket, double=False, filtres=False, max_prods=8) %}
+{% macro galeria(bucket, double=False, filtres=False, max_prods=utils.len(productes.__getattribute__(bucket))) %}
 
 <div id="hidden-product-list">
 	<div id="gallery-info" double="{{ doble_galeria }}" max-prods="{{ max_prods }}" bucket="{{ bucket }}"></div>
@@ -18,7 +18,6 @@
 	    {% if bucket == "bespoke" %}
 	    per_a="{{ loc.fam_per_a }} {{ producte.per_a }}"
 	    {% endif %}
-
 	    ></div>
     {% endfor %}
 </div>
@@ -36,7 +35,7 @@
     <div class="galeria-scroll scroll-right" onmouseover="startScrolling(this.nextElementSibling, 'right')" onmouseout="stopScrolling(this.nextElementSibling)"></div>
     <div id="galeria" class="galeria">
 
-        {% for n in range(max_prods) %}
+        {% for n in range(utils.max(max_prods, 4)) %}
             {% if (double and n % 2 == 0) %}
                <div class="producte-doble">
             {% endif %}

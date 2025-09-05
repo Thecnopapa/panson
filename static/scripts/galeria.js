@@ -78,17 +78,15 @@ function changeProduct(element, product, bucket) {
     print(element);
     print(info);
     element.classList.remove("empty");
-    element.onclick = function () { location.href = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value }
     element.getElementsByClassName("imatge primera")[0].style.backgroundImage = 'url('+ imageUrl(bucket, info.img1.value) + ')';
     element.getElementsByClassName("imatge segona")[0].style.backgroundImage = 'url('+ imageUrl(bucket, info.img2.value) + ')';
 	if (bucket === "bespoke"){
 		element.getElementsByClassName("per-a")[0].innerHTML = info.per_a.value;
 	} else{
+            element.onclick = function () { location.href = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value }
     		element.getElementsByClassName("nom")[0].innerHTML = info.nom.value;
     		element.getElementsByClassName("preu-inline")[0].innerHTML = info.preu.value;
 	}
-
-
 
 }
 
@@ -96,3 +94,4 @@ let pageBucket = document.getElementById("gallery-info").attributes["bucket"].va
 let currentPage = 0;
 let maxProds = Number(document.getElementById("gallery-info").attributes["max-prods"].value);
 initGaleria(document.getElementById("galeria"), pageBucket);
+window.scrollTo(0,0)
