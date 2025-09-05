@@ -185,31 +185,40 @@ function triggerInput(target){
 }
 
 
-async function productAddImage(trigger){
+async function productAddImage(trigger, bucket){
 	const files = trigger.files;
 	print("Adding images: ", files);
+    if (bucket === undefined){
+        bucket = document.URL.split("/");
+        bucket = bucket[bucket.length - 2];
+    }
+    print("Bucket: ", bucket);
 
 	for (let i = 0; i < files.length; i++){
         const originalName = files[i].name;
-		let newName = await uploadImage(files[i], "bespoke").then(response => {return response;});
-        productUpdate(trigger, newName , "list", "add");
-
-        try {
-            const newImage = trigger.parentElement.previousElementSibling.cloneNode(true);
-            newUrl = imageUrl("bespoke", newName);
-            newImage.style = "background-image: url('" + newUrl + "')";
-            trigger.parentElement.before(newImage);
-        } catch (e) {
-            location.reload();
+		let newName = await uploadImage(files[i], bucket).then(response => {return response;});
+        if (newName !== undefined){
+            productUpdate(trigger, newName , "list:text", "add");
+            try {
+                const newImage = trigger.parentElement.previousElementSibling.cloneNode(true);
+                newUrl = imageUrl(bucket, newName);
+                newImage.style = "background-image: url('" + newUrl + "')";
+                trigger.parentElement.before(newImage);
+            } catch (e) {
+                location.reload();
+            }
         }
+
+
+
 	}
 }
 
 
 
-async function uploadImage(file, folder="productes"){
+async function uploadImage(file, bucket){
 	print("Uploading: ", file.name, "("+file.type+")");
-	let newFname = await fetch("/admin/images/upload/"+folder,
+	let newFname = await fetch("/admin/images/upload/"+bucket,
 		{
 			headers: {'Accept': file.type,
 				'Content-Type': file.type,
@@ -218,7 +227,7 @@ async function uploadImage(file, folder="productes"){
 			},
 			method: "POST",
 			body: file,
-		}).then(response => {return response.text();});
+		}).then(response => {if (response.ok){return response.text();}else{return undefined;}});
     console.log("Uploaded: ", newFname);
     return newFname;
 }
@@ -238,11 +247,11 @@ function productImageMove(image, moveRight){
         }
     }
     print("Moved image: ",oldPosition, "->", newPosition)
-    productUpdate(image, oldPosition, "list", "sort", newPosition);
+    productUpdate(image, oldPosition, "list:text", "sort", newPosition);
 }
 
 function productImageDelete(image){
-    productUpdate(image, undefined, "list", "remove");
+    productUpdate(image, undefined, "list:text", "remove");
     image.remove();
 
 }
@@ -250,7 +259,7 @@ function productImageDelete(image){
 
 
 
-function productUpdate(trigger, value=undefined, type="text", mode="add",  key=undefined,  subdict=undefined, subkey=undefined) {
+function productUpdate(trigger, value=undefined, type="text", mode="add",  key=undefined,  subdicts=undefined, subkey=undefined) {
 	const field = trigger.attributes.field.value;
 	const product = trigger.attributes.product.value;
     let bucket = window.location.href.split("/");
@@ -273,6 +282,13 @@ function productUpdate(trigger, value=undefined, type="text", mode="add",  key=u
 		type = trigger.attributes.dataType.value;
 	}
 	print("Updating field: ", field, "("+mode+")");
+
+    if (subdicts !== undefined) {
+        subdicts = subdicts.split(",");
+        print("Within subdicts: ", subdicts);
+    }
+
+
 	print("With value: ", value);
 	fetch("/admin/"+bucket+"/update",
 		{
@@ -280,7 +296,7 @@ function productUpdate(trigger, value=undefined, type="text", mode="add",  key=u
 				'Content-Type': 'application/json'
 			},
 			method: "POST",
-			body: JSON.stringify({product: product, field: field, value: value, type:type, mode:mode, key:key, subdict:subdict, subkey:subkey} ),
+			body: JSON.stringify({product: product, field: field, value: value, type:type, mode:mode, key:key, subdicts:subdicts, subkey:subkey} ),
                 });
     if (type === "text"){
         trigger.nextElementSibling.style.backgroundColor = "lightgreen";

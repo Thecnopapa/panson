@@ -643,20 +643,34 @@ def update_product(bucket):
                 p = Bespoke(prev_data, data["product"])
             else:
                 return "Unknown bucket", 500
+            if ":" in data["type"]:
+                target_type = data["type"].split(":")[0]
+                data_type = data["type"].split(":")[1]
+            else:
+                target_type = None
+                data_type = data["type"]
+
             if "value" not in data.keys():
                 data["value"] = None
             else:
-                if data["type"] == "bool":
+                if data_type == "bool":
                     data["value"] = data["value"] in ["true", "True", "TRUE", "on", "1", 1]
-                elif data["type"] == "int":
+                elif data_type == "int":
                     data["value"] = int(data["value"])
-                elif data["type"] == "float":
+                elif data_type == "float":
                     data["value"] = float(data["value"])
-                elif data["type"] == "text":
+                elif data_type == "text":
                     data["value"] = str(data["value"])
-                elif data["type"] not in ["list", "dict"]:
-                    return "Unknown dataType: {}".format(data["type"]), 500
-            if data["type"] == "list":
+                elif data_type not in ["list", "dict"]:
+                    print("Unknown data type", data_type)
+                    return "Unknown dataType: {}".format(data_type), 500
+
+            subdicts = []
+            if "subdicts" in data.keys():
+                subdicts = [s.strip() for s in data["subdicts"]]
+            print("Subdicts: ", subdicts)
+
+            if target_type == "list":
                 new =p.__getattribute__(data["field"]).copy()
                 print("\nOLD: ",type(new), new)
                 if data["mode"] == "add":
@@ -668,34 +682,41 @@ def update_product(bucket):
                     new.insert(data["key"], new.pop(data["value"]))
                 print("\nNEW: ",type(new), new)
                 p.__setattr__(data["field"], new)
-            elif data["type"] == "dict":
+            elif target_type == "dict":
                 new = p.__getattribute__(data["field"]).copy()
+                target_dict = new
+                for subdict in subdicts:
+                    target_dict = target_dict[subdict]
                 if data["subdict"] is not None:
                     if data["mode"] == "add":
-                        new[data["subkey"]][data["key"]] = data["value"]
+                        target_dict[data["subkey"]][data["key"]] = data["value"]
                     elif data["mode"] == "remove":
-                        new[data["subkey"]].pop(data["key"])
+                        target_dict[data["subkey"]].pop(data["key"])
                 else:
                     if data["mode"] == "add":
-                        new[data["key"]] = data["value"]
+                        target_dict[data["key"]] = data["value"]
                     elif data["mode"] == "remove":
-                        new.pop(data["key"])
+                        target_dict.pop(data["key"])
                 print(new)
                 p.__setattr__(data["field"], new)
             else:
                 print("\nNEW: ",data["field"], "==>", type(data["value"]), data["value"])
                 p.__setattr__(data["field"], data["value"])
+
+
+
             sprint("Updating DB")
             p.update_db()
             print1("DB updated")
             return p.__dict__
         except Exception as e:
+            print(e)
             return str(e), 500
 
 
 @limiter.exempt
-@app.post("/admin/images/upload/<folder>")
-def upload_image(folder="productes"):
+@app.post("/admin/images/upload/<bucket>")
+def upload_image(bucket):
     from app_essentials.firestore import upload_images
     from werkzeug.utils import secure_filename
     user = get_current_user()
@@ -707,7 +728,7 @@ def upload_image(folder="productes"):
         with open(fpath, "wb") as f:
             f.write(file)
             #print(file)
-        fname = upload_images({fname: fpath}, folder)[0]
+        fname = upload_images({fname: fpath}, bucket)[0]
         return fname
 
 

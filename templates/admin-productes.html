@@ -44,6 +44,16 @@
                 </div>
 
 
+                <div class="product-element material">Material:<ul>
+                        {% if product.opcions["materials"] %}
+                            {% for n, (material, info) in utils.enumerate(product.opcions["materials"].items()) %}
+                                <li><span><input product="{{product._id}}" field="nom" class="product-input" dataType="dict:text" value="{{product.nom}}"> Preu <input type="number" name="number:op:materials#{{ n }}:preu" id="material" value="{{ info["preu"] }}"><button class="remove" type="button" onclick="this.parentElement.parentElement.remove()">x</button></span></li>
+                            {% endfor %}
+                        {% endif %}
+                        </ul><button id="new_material" type="button" onclick="addListElement(this.previousElementSibling)">+</button>
+
+                </div>
+
                 <div class="product-images">
                     {% for image in product.imatges %}
                         <div class="product-image" product="{{product._id}}" field="imatges" value="{{ image }}" style="background-image: url('{{ utils.img_url("productes", image) }}')">

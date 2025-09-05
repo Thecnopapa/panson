@@ -44,7 +44,7 @@ try:
         print(" * Firestore credentials loaded (local)")
 
     storage_client = storage.Client(credentials=credentials, project="panson")
-    bucket = storage_client.bucket("panson.firebasestorage.app")
+    db = storage_client.bucket("panson.firebasestorage.app")
 
 
     print(" * Firestore initialized")
@@ -62,7 +62,7 @@ def list_blobs(prefix = None ):
         # Note: Client.list_blobs requires at least package version 1.17.0.
 
         #print(bucket.__dict__)
-        blobs = bucket.list_blobs(prefix=prefix)
+        blobs = db.list_blobs(prefix=prefix)
         #print(blobs.__dict__)
 
         # Note: The call returns a response only when the iterator is consumed.
@@ -99,18 +99,18 @@ def load_files(folder= "./uploads", name="file", target_folder= "productes"):
         return paths
 
 
-def upload_images(path_dict, folder="productes"):
-    sprint("Uploading images")
+def upload_images(path_dict, bucket):
+    sprint("Uploading images to: ", bucket)
     fnames = []
     for fname, path in path_dict.items():
         print1(fname)
         print2(path)
-        print1(folder+"/"+fname)
-        [print2(f) for f in list_blobs(folder)]
-        while folder+"/"+fname in list_blobs(folder):
+        print1(bucket+"/"+fname)
+        [print2(f) for f in list_blobs(bucket)]
+        while bucket+"/"+fname in list_blobs(bucket):
             fname = fname.split(".")[0] +"_copia"+os.path.splitext(fname)[1]
         print("Final fname: ", fname)
-        new_blob = bucket.blob(folder+"/"+fname)
+        new_blob = db.blob(bucket+"/"+fname)
         new_blob.upload_from_filename(path)
         fnames.append(fname)
     print1("Uploaded images")
