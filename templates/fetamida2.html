@@ -5,14 +5,17 @@
 
 {% block imports %}
     <link href='/style/contacte.css' rel='stylesheet'>
+    <link href='/style/galeria.css' rel='stylesheet'>
+    <script defer type="text/javascript" src="/scripts/galeria.js"></script>
     <link href='/style/fetamida2.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/scripts/fetamida2.js"></script>
 
 {% endblock %}
 
+{% import 'galeria.html' as galeria with context%}
+
+
 {% block body %}
-
-
 
 <div id="scroll-left" class="scroller" onclick="prevSection()"></div>
 <div id="scroll-right" class="scroller" onclick="nextSection()"></div>
@@ -28,17 +31,7 @@
         </div>
 
         <div id="fetamida-centre" class="fetamida-section">
-            <div id="fetamida-slideshow" class="flex-wrap-anim">
-                {% for producte in productes.bespoke%}
-                <div class="product">
-                    <div class="product-image"><img src='https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ producte.imatges[0] }}?alt=media'></div>
-		    <div class="product-for">{{loc.fam_per_a}} (Nom persona)</div>
-                </div>
-                {% endfor %}
-                {% for n in range(utils.mod(utils.len(productes_filtrats)*2, 4)) %}
-                    <div class="product empty"></div>
-                {% endfor %}
-            </div>
+            {{ galeria.galeria("bespoke") }}
 
         </div>
         <div id="fetamida-right" class="fetamida-section">

@@ -104,7 +104,7 @@ def handle_exception(e):
 from flask_limiter import Limiter
 limiter = Limiter(
         app=app,
-        default_limits=["1 per second"],
+        default_limits=["3 per second"],
         key_func=get_session_id,
         )
 

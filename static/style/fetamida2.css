@@ -81,7 +81,6 @@
     justify-content: flex-end;
 }
 
-
 .fetamida-section{
     position: relative;
     display: flex;
@@ -107,56 +106,11 @@
 }
 
 
-.section-text{
-    font-size: 2dvh;
-    white-space: pre-wrap;
-    height: fit-content;
-    overflow-y: scroll;
-    li{
-        line-height: 0.5;
-    }
-    width: 60%;
-}
 
 
-
-#fetamida-slideshow{
-    width: 100%;
-    max-width: 100%;
-    height: 100%;
-    max-height: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    align-content: space-between;
-    flex-wrap: wrap;
-    overflow-y: scroll;
-
-
-}
-
-
-.product{
-    cursor: pointer;
-    width: 24.8%;
-    min-width:24.8%;
-    /*min-width:calc(25% - 0.2dvw);*/
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 0.2dvw;
-}
-.product-image{
-    width: 100%;
-    height: calc((100dvw - 8dvh) * 0.25 - 0.2dvw);
-}
-
-.product-image img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position:center;
+.content-galeria{
+	overflow-y: scroll;
+	max-height:100%;
 }
 
 #fetamida-right{
@@ -181,13 +135,7 @@
         margin-right: 2dvh;
 	}
 
-	.product{
-		width: calc(50% - 1dvw);
-		margin-bottom:1dvw;
-	}
-	.product-image{
-		height: calc((100dvw - 8dvh) * 0.5 - 1dvw);
-	}
+	
 	#fetamida-right{
 		align-items:center;
 	}

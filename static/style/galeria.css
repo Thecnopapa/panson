@@ -170,23 +170,23 @@
         display: none;
     }
     .galeria {
-        justify-content: space-evenly;
+        justify-content: space-between;
     }
     .producte{
-        min-width:  48dvw;
-        max-width:  48dvw;
-        width: 48dvw;
-	    height:calc(48dvw + 3rem);
+        min-width:  49.5dvw;
+        max-width:  49.5dvw;
+        width: 49.5dvw;
+	    height:calc(49.5dvw + 3rem);
         user-select: none;
     }
 
     .detalls-galeria{
-	    width: 46dvw;
+	    width: 80%;
     }
 
     .imatge{
-        height: 48dvw;
-        width: 48dvw;
+        height: 49.5dvw;
+        width: inherit;
     }
 
 

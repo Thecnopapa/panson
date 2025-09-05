@@ -79,17 +79,20 @@ function changeProduct(element, product, bucket) {
     print(info);
     element.classList.remove("empty");
     element.onclick = function () { location.href = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value }
-    element.getElementsByClassName("imatge primera")[0].style.backgroundImage = 'url('+ imageUrl("productes", info.img1.value) + ')';
-    element.getElementsByClassName("imatge segona")[0].style.backgroundImage = 'url('+ imageUrl("productes", info.img2.value) + ')';
-    element.getElementsByClassName("nom")[0].innerHTML = info.nom.value;
-    element.getElementsByClassName("preu-inline")[0].innerHTML = info.preu.value;
-
+    element.getElementsByClassName("imatge primera")[0].style.backgroundImage = 'url('+ imageUrl(bucket, info.img1.value) + ')';
+    element.getElementsByClassName("imatge segona")[0].style.backgroundImage = 'url('+ imageUrl(bucket, info.img2.value) + ')';
+	if (bucket === "bespoke"){
+		element.getElementsByClassName("per-a")[0].innerHTML = info.per_a.value;
+	} else{
+    		element.getElementsByClassName("nom")[0].innerHTML = info.nom.value;
+    		element.getElementsByClassName("preu-inline")[0].innerHTML = info.preu.value;
+	}
 
 
 
 }
 
-
+let pageBucket = document.getElementById("gallery-info").attributes["bucket"].value;
 let currentPage = 0;
 let maxProds = Number(document.getElementById("gallery-info").attributes["max-prods"].value);
-initGaleria(document.getElementById("galeria"), "productes");
+initGaleria(document.getElementById("galeria"), pageBucket);

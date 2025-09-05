@@ -109,9 +109,14 @@ class Products():
             self.products = self.filter(filters, as_dict=True)
         self.bespoke = [Bespoke(data, id) for id, data in get_bespoke().items()]
         self.setup()
+
+
     def setup(self):
         self.col_names = [c["nom"] for c in get_cols().values()]
         self.tipus = sorted(set([c.tipus for c in self.products.values() if c.tipus is not None]))
+        self.productes = [p for p in  self.get_all() if not (p.esborrat or p.amagat)]
+        self.bespoke = [p for p in self.bespoke if not (p.esborrat or p.amagat)]
+        
 
 
     def __repr__(self):
