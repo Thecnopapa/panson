@@ -411,7 +411,9 @@ body {
     padding-left: 8vh;
 }
 .producte-doble{
-    margin-right: 0.2dvw;
+
+    display: flex;
+    flex-direction: row;
 }
 
 .producte .imatge {
@@ -421,6 +423,7 @@ body {
 
 .producte{
     min-width: 24.8dvw;
+    margin-right: 0.2dvw;
 }
 .producte.empty{
     display: none;
@@ -522,6 +525,9 @@ tr:hover{
 @media screen and (orientation: portrait) {
     .galeria-scroll{
         display: none;
+    }
+    .producte-doble{
+        flex-direction: column;
     }
 	
 	.content-producte {
