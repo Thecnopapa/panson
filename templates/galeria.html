@@ -34,8 +34,7 @@
     <div class="galeria-scroll scroll-left" onmouseover="startScrolling(this.nextElementSibling.nextElementSibling, 'left')" onmouseout="stopScrolling(this.nextElementSibling.nextElementSibling)"></div>
     <div class="galeria-scroll scroll-right" onmouseover="startScrolling(this.nextElementSibling, 'right')" onmouseout="stopScrolling(this.nextElementSibling)"></div>
     <div id="galeria" class="galeria">
-
-        {% for n in range(utils.max(max_prods, 4)) %}
+        {% for n in range(utils.max(max_prods, 4) + (4-utils.mod(utils.max(max_prods, 4), 4) if utils.max(max_prods, 4) > 4 else 0)) %}
             {% if (double and n % 2 == 0) %}
                <div class="producte-doble">
             {% endif %}

@@ -13,5 +13,5 @@
 {% import 'galeria.html' as galeria with context%}
 
 {% block body %}
-{{ galeria.galeria("productes", filtres=True) }}
+{{ galeria.galeria("productes", filtres=True, max_prods=8) }}
 {% endblock %}
