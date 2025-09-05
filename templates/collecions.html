@@ -1,14 +1,15 @@
-<!doctype html>
-<html lang="{{ loc.lan }}">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PANSON: {{ loc.col_collecions }}</title>
-    <link href='/style/navigation.css' rel='stylesheet'>
-    <script defer type="text/javascript" src="/scripts/navigation.js"></script>
-    <link href='/style/collecio.css' rel='stylesheet'>
-</head>
 
+{% extends "base.html" %}
+{% block head %}
+    <title>PANSON: {{ loc.col_collecions }}</title>
+{% endblock %}
+
+{% block imports %}
+    <link href='/style/collecio.css' rel='stylesheet'>
+
+{% endblock %}
+
+{% block body %}
 
 {% for id, col in cols.items() %}
     <div class="content">
@@ -28,3 +29,5 @@
     </div>
     </div>
 {% endfor %}
+
+{% endblock %}

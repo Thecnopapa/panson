@@ -1,13 +1,12 @@
-<!doctype html>
-<html lang="{{ loc.lan }}">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{% extends "base.html" %}
+{% block head %}
     <title>PANSON: {{ loc.prj_projecte }}</title>
-    <link href='/style/navigation.css' rel='stylesheet'>
-    <script defer type="text/javascript" src="/scripts/navigation.js"></script>
-    <link href='/style/projecte.css' rel='stylesheet'>
-</head>
+{% endblock %}
 
+{% block imports %}
+    <link href='/style/projecte.css' rel='stylesheet'>
+{% endblock %}
+
+{% block body %}
 
 <div class="titol-projecte">EL MEU PROJECTE</div>

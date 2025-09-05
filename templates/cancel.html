@@ -1,19 +1,20 @@
-<!doctype html>
-<html lang="{{ loc.lan }}">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+{% extends "base.html" %}
+{% block head %}
     <title>PANSON: Pagaments</title>
-    <link href='/style/navigation.css' rel='stylesheet'>
-    <script defer type="text/javascript" src="/scripts/navigation.js"></script>
+{% endblock %}
 
+{% block imports %}
     <link href='/style/stripe.css' rel='stylesheet'>
-</head>
 
-<body>
+{% endblock %}
+
+{% block body %}
+
   <div class="content-cancel">
       Compra cance;lada, el carret s'ha guardat.
       <a href="/{{ loc.lan }}/productes/">Tornar a la botiga</a>.
   </div>
-</body>
-</html>
+
+
+{% endblock %}

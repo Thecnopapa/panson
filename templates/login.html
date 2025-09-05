@@ -1,16 +1,14 @@
-<!doctype html>
-<html lang="{{ loc.lan }}">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PANSON: Admin</title>
-    <link href='/style/navigation.css' rel='stylesheet'>
-    <script defer type="text/javascript" src="/scripts/navigation.js"></script>
+{% extends "base.html" %}
+{% block head %}
+    <title>PANSON: Log In</title>
+{% endblock %}
 
+{% block imports %}
     <link href='/style/admin.css' rel='stylesheet'>
-</head>
 
+{% endblock %}
 
+{% block body %}
 
 <h2>Admin login</h2>
 <form method=post action=/login>
@@ -18,3 +16,4 @@
     Contrasenya:<input type=password name=password value="" id=contrasenya autocomplete=password>
     <input type=submit name=save value=Accedir id=accedir>
 </form>
+{% endblock %}

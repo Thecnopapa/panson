@@ -1,15 +1,15 @@
-<!doctype html>
-<html lang="{{ loc.lan }}">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{% extends "base.html" %}
+{% block head %}
     <title>PANSON: {{ loc.uni_titol_curt }}</title>
-    <link href='/style/navigation.css' rel='stylesheet'>
-    <script defer type="text/javascript" src="/scripts/navigation.js"></script>
+{% endblock %}
+
+{% block imports %}
     <link href='/style/collecio.css' rel='stylesheet'>
     <link href='/style/uniques.css' rel='stylesheet'>
-</head>
 
+{% endblock %}
+
+{% block body %}
 
 
 {% for producte in productes_filtrats %}
@@ -29,3 +29,4 @@
 	</div>
     </div>
 {% endfor %}
+{% endblock %}
