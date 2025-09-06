@@ -180,6 +180,9 @@ body {
     z-index: 110;
 
 }
+.dropbtn.white:not(.black){
+    color: white;
+}
 
 .dropbtn, .menu-simple {
     background-color: rgba(0, 0, 0, 0);
@@ -187,7 +190,6 @@ body {
     transition: 0.3s ease;
     padding: 0 2vh;
     cursor: pointer;
-
 }
 .menu-simple {
     display: none;
@@ -257,6 +259,9 @@ body {
     transition: height 0.3s ease-out;
     cursor: pointer;
 }
+#title.white{
+    background-image: url('/static/media/logo-complet-blanc.png');
+}
 
 .language{
     align-content: center;
@@ -266,9 +271,10 @@ body {
     text-align: center;
     user-select: none;
     color: rgb(0, 0, 0);
-
 }
-.language:hover {
+
+.language.white{
+    color: white;
 }
 #current{
 }
@@ -295,8 +301,8 @@ body {
     height: 3vh;
     width: 3vh;
     padding-bottom: 0.5vh;
-
-
+}
+.shopping-cart.white{
 }
 .shopping-cart:hover {
     transition: 0.3s ease;
@@ -315,6 +321,10 @@ body {
     justify-content: center;
     color: white;
     font-size: 0.75rem;
+}
+.cercle-carret.white{
+    color: black;
+    background-color: white;
 }
 
 .icon-menu-simple {

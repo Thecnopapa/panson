@@ -7,10 +7,11 @@ function imageUrl(bucket, filename){
 }
 
 
-const cartIcon = document.getElementsByClassName('shopping-cart');
-const cartCircle = document.getElementsByClassName('cercle-carret');
+
+
 const loader = document.getElementById("loader");
 const loaderIcon =document.getElementById("loader-icon");
+
 
 
 window.addEventListener('load', function () {
@@ -86,8 +87,17 @@ const projecteMenu = document.getElementById('projecte-menu');
 const menuContent = document.getElementsByClassName('titol-submenu');
 const menuClosers = document.getElementsByClassName("menu-closer");
 
+const navButtons = document.getElementsByClassName('dropbtn');
+const lanButtons = document.getElementsByClassName('language');
+
+const menuButton = document.getElementsByClassName('icon-menu-simple');
 
 
+const cartIcon = document.getElementsByClassName('shopping-cart');
+const cartCircle = document.getElementsByClassName('cercle-carret');
+const navTitle = document.getElementById("title")
+
+const navElements = [...navButtons, ...lanButtons, navTitle, ...cartCircle, ...cartIcon];
 
 menu.style.width = "0px";
 closeMenu();
@@ -111,10 +121,11 @@ function openMenu() {
     }
     menuClosers[0].style.display = "flex";
     menuClosers[1].style.display = "flex";
-    botoMenu.style.color = "black";
-    botoProjecte.style.color = "black";
-    botoContacte.style.color = "black";
-    botoMenuSimple.src = "/static/media/menu-black.svg";
+    for (i = 0; i < navButtons.length; i++) {
+        navButtons[i].classList.add("black");
+    }
+    cartIcon[0].src = "/static/media/bag-black.svg";
+    menuButton[0].src = "/static/media/menu-black.svg";
     try {
         menu.classList.add('open');
         botoMenuSimple.classList.add('open');
@@ -168,6 +179,13 @@ function closeMenu() {
     menu.style.width = "0px";
     window.scrollTo(window.scrollX, window.scrollY - 1);
     window.scrollTo(window.scrollX, window.scrollY + 1);
+    for (i = 0; i < navButtons.length; i++) {
+        navButtons[i].classList.remove("black");
+    }
+    checkColor()
+    try{
+        updateScroll()
+    } catch(e){}
     for(var i = 0; i < menuContent.length; i++) {
         menuContent[i].style.color = "rgba(0,0,0,0)";
     }
@@ -180,8 +198,6 @@ function closeMenu() {
         if (hideContent[i].classList.contains('submenu')) {
             hideDropdown(hideContent[i]);
         }
-
-
     }
 
     try {
@@ -203,3 +219,40 @@ function switchMenu(){
   }
 }
 
+
+function goBlack(){
+    print(navElements);
+    for (let i = 0; i < navElements.length; i++) {
+        if (navElements[i] !== null) {
+            navElements[i].classList.remove('white');
+        }
+    }
+    cartIcon[0].src = "/static/media/bag-black.svg";
+    menuButton[0].src = "/static/media/menu-black.svg";
+}
+function goWhite(){
+    print(navElements);
+    for (let i = 0; i < navElements.length; i++) {
+        if (navElements[i] !== null) {
+            print(navElements[i]);
+            navElements[i].classList.add('white');
+        }
+    }
+    cartIcon[0].src = "/static/media/bag.svg";
+    menuButton[0].src = "/static/media/menu-white.svg";
+}
+
+function checkColor() {
+    const colorElement = document.getElementById("nav-color")
+    print(colorElement);
+    if (colorElement !== null) {
+        targetColour = colorElement.attributes.color.value;
+        print(targetColour);
+        if (targetColour === "white") {
+            goWhite();
+        } else if (targetColour === "black") {
+            goBlack();
+        }
+    }
+}
+checkColor();

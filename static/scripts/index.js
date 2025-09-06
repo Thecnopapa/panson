@@ -1,9 +1,5 @@
 
 const onClickLink = document.getElementById('title-logo').onclick
-const navButtons = document.getElementsByClassName('dropbtn');
-const lanButtons = document.getElementsByClassName('language');
-
-const menuButton = document.getElementsByClassName('icon-menu-simple');
 const title = document.getElementById('title-logo');
 
 
@@ -42,37 +38,11 @@ function updateScroll() {
     title.style.paddingTop = String(5 - (5 * scroll / maxScroll)).concat("dvh");
     //print(oscroll, windowHeight*0.97);
     if (oscroll >= windowHeight*0.97) {
-        for (let i = 0; i < navButtons.length; i++) {
-            navButtons[i].style.color = "black";
-        }
-        for (let i = 0; i < lanButtons.length; i++) {
-            lanButtons[i].style.color = "black";
-        }
-	if (cartCircle.length != 0) {
-        	cartCircle[0].style.color = "white";
-        	cartCircle[0].style.backgroundColor = "black";
-	}
-        cartIcon[0].src = "/static/media/bag-black.svg";
-        menuButton[0].src = "/static/media/menu-black.svg";
+        goBlack()
         title.style.backgroundImage = "url(\"/static/media/logo-complet.png\")";
         title.style.zIndex = 10;
     } else {
-        if (!(menu.classList.contains('open'))) {
-            for (let i = 0; i < navButtons.length; i++) {
-            navButtons[i].style.color = "white";
-        }
-            menuButton[0].src = "/static/media/menu-white.svg";
-        }
-        for (let i = 0; i < lanButtons.length; i++) {
-            lanButtons[i].style.color = "white";
-        }
-
-	if (cartCircle.length != 0){
-        	cartCircle[0].style.color = "black";
-        	cartCircle[0].style.backgroundColor = "white";
-	}
-        cartIcon[0].src = "/static/media/bag.svg";
-
+        goWhite()
         title.style.backgroundImage = "url(\"/static/media/logo-complet-blanc.png\")";
         title.style.zIndex = 4;
     }
@@ -81,3 +51,5 @@ function updateScroll() {
 
 print("b");
 setInterval(updateScroll, 0.1);
+
+

@@ -1,0 +1,27 @@
+#fetamida-intro{
+	height:100dvh;
+	width: 100dvw;
+	display: flex;
+	flex-direction: row;
+}
+.intro-half{
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items:center;
+	height: 100%;
+	width:100%;
+	background-position: center;
+	background-size: cover;
+	font-size: 2rem;
+	color: white;
+}
+
+@media screen and (orientation: portrait) {
+	#fetamida-intro{
+		flex-direction:column;
+	}
+}
+
+
+
