@@ -75,6 +75,10 @@ class Utils:
         storage_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/{}%2F{}?alt=media"
         return storage_url.format(folder, filename)
 
+    @staticmethod
+    def list(l):
+        return list(l)
+
 
 
 

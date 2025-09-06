@@ -46,18 +46,49 @@
 
                 <div class="product-element material">Material:<ul>
                         {% if product.opcions["materials"] %}
-                            {% for n, (material, info) in utils.enumerate(product.opcions["materials"].items()) %}
+                            {% for n, (subkey, info) in utils.enumerate(utils.list(product.opcions.get("materials", {"": {"":""}}).items())) %}
                                 <li>
-                                    <input type="hidden" class="dict-key" product="{{product._id}}" field="opcions" dataType="dict:dict" subdict="materials" value="{{ material }}">{{ material }}
+                                    <input type="hidden" subdict="materials" class="dict-key" product="{{product._id}}" field="opcions" dataType="dict:text" value="{{ subkey }}"><span>{{ subkey }}</span>
                                     Preu: <input type="number" dataType="float" class="product-input dict-input" key="preu" value="{{ info["preu"] }}">
                                     <button class="product-update" onclick="productUpdateDict(this.parentElement, 'add')">&#10004;</button>
                                     <button class="product-update" onclick="productUpdateDict(this.parentElement, 'remove')">✖</button>
                                 </li>
                             {% endfor %}
                         {% endif %}
-                        </ul><button id="new_material" type="button" onclick="addListElement(this.previousElementSibling, 'text')">+</button>
-
+                        </ul><button type="button" onclick="addListElement(this.previousElementSibling, 'text')">+</button>
                 </div>
+
+                <div class="product-element variacio">Variacio:<ul>
+
+                            {% for n, (subkey, info) in utils.enumerate(utils.list(product.opcions.get("variacions", {"": {"":""}}).items())) %}
+                                <li>
+                                    <input type="hidden" subdict="variacions" class="dict-key" product="{{product._id}}" field="opcions" dataType="dict:text" value="{{ subkey }}"><span>{{ subkey }}</span>
+                                    Preu: <input type="number" dataType="float" class="product-input dict-input" key="preu" value="{{ info["preu"] }}">
+                                    <button class="product-update" onclick="productUpdateDict(this.parentElement, 'add')">&#10004;</button>
+                                    <button class="product-update" onclick="productUpdateDict(this.parentElement, 'remove')">✖</button>
+                                </li>
+                            {% endfor %}
+
+                        </ul><button type="button" onclick="addListElement(this.previousElementSibling, 'text')">+</button>
+                </div>
+                <div class="product-element talles">Talles:<ul>
+
+                            {% for n, (subkey, info) in utils.enumerate(utils.list(product.opcions.get("talles", {"": {"":""}}).items())) %}
+                                <li>
+                                    <input type="hidden" subdict="variacions" class="dict-key" product="{{product._id}}" field="opcions" dataType="dict:text" value="{{ subkey }}"><span>{{ subkey }}</span>
+                                    Quantitat: <input type="number" dataType="text" class="product-input dict-input" key="qty" value="{{ info["qty"] }}">
+                                    <button class="product-update" onclick="productUpdateDict(this.parentElement, 'add')">&#10004;</button>
+                                    <button class="product-update" onclick="productUpdateDict(this.parentElement, 'remove')">✖</button>
+                                </li>
+                            {% endfor %}
+
+                        </ul><button type="button" onclick="addListElement(this.previousElementSibling, 'text')">+</button>
+                </div>
+
+
+
+
+
 
                 <div class="product-images">
                     {% for image in product.imatges %}

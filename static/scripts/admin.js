@@ -259,7 +259,7 @@ function productImageDelete(image){
 
 
 
-function productUpdate(trigger, value=undefined, type=undefined, mode="add",  key=undefined,  subdict=undefined, subkey=undefined) {
+async function productUpdate(trigger, value=undefined, type=undefined, mode="add",  key=undefined,  subdict=undefined, subkey=undefined) {
 	const field = trigger.attributes.field.value;
 	const product = trigger.attributes.product.value;
     let bucket = window.location.href.split("/");
@@ -290,27 +290,38 @@ function productUpdate(trigger, value=undefined, type=undefined, mode="add",  ke
 
 
 	print("With value: ", value);
-	fetch("/admin/"+bucket+"/update",
+	let resp = await fetch("/admin/"+bucket+"/update",
 		{
 			headers: {'Accept': 'application/json',
 				'Content-Type': 'application/json'
 			},
 			method: "POST",
 			body: JSON.stringify({product: product, field: field, value: value, type:type, mode:mode, key:key, subdict:subdict, subkey:subkey} ),
-                });
-    if (type === "text"){
+                }).then(response => {return response;});
+    if (resp.ok){
         trigger.nextElementSibling.style.backgroundColor = "lightgreen";
+    } else {
+        trigger.nextElementSibling.style.backgroundColor = "red";
+
     }
+    return resp;
 }
 
-function productUpdateDict(container, mode){
+async function productUpdateDict(container, mode){
+    const labelElement = container.getElementsByTagName("span")[0];
     const keyElement = container.getElementsByClassName("dict-key")[0];
     const inputElements = container.getElementsByClassName("dict-input");
     const subdict = keyElement.attributes.subdict.value;
     const subkey = keyElement.value;
+    let responses = []
     print("Updating dict..")
     if (mode === "remove"){
-        productUpdate(keyElement, undefined, "dict:dict", "remove", subdict);
+        let resp = await productUpdate(keyElement, undefined, "dict:dict", "remove", subdict).then(response => {return response;});
+        if (resp.ok) {
+            container.remove();
+        }else {
+            container.style.backgroundColor = "red";
+        }
     } else if (mode === "add"){
         print(inputElements, "dict:dict", "add", subdict);
         for (let i = 0; i < inputElements.length; i++) {
@@ -319,14 +330,27 @@ function productUpdateDict(container, mode){
             const value =  input.value;
             const key = input.attributes.key.value;
             const dataType = input.attributes.dataType.value
-            productUpdate(keyElement, value, "dict:"+dataType, "add", key, subdict, subkey );
+            let resp = await productUpdate(keyElement, value, "dict:"+dataType, "add", key, subdict, subkey).then(response => {return response;});
+                responses.push(resp);
         }
+        for (let i = 0; i < responses.length; i++) {
+            if (!responses[i].ok) {
+                container.style.backgroundColor = "red";
+                return false;
+            }
+        }
+        container.style.backgroundColor = "lightgreen";
+        keyElement.type = "hidden";
+        labelElement.innerHTML = "";
+        return true;
     }
 }
 
 
 function addListElement(trigger, typeOfFirst){
     let newElement = trigger.lastElementChild.cloneNode(true);
+    newElement.getElementsByTagName("span")[0].innerHTML = "";
+    newElement.style.backgroundColor = "";
     const inputs = newElement.getElementsByTagName("input");
     inputs[0].type = typeOfFirst;
     for (let i = 0; i < inputs.length; i++) {
