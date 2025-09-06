@@ -316,20 +316,22 @@ async function productUpdateDict(container, mode){
     let responses = []
     print("Updating dict..")
     if (mode === "remove"){
-        let resp = await productUpdate(keyElement, undefined, "dict:dict", "remove", subdict).then(response => {return response;});
+        print(keyElement, undefined, "dict:text", "remove", subdict);
+        let resp = await productUpdate(keyElement, undefined, "dict:text", "remove", subdict).then(response => {return response;});
         if (resp.ok) {
             container.remove();
         }else {
             container.style.backgroundColor = "red";
         }
     } else if (mode === "add"){
-        print(inputElements, "dict:dict", "add", subdict);
+
         for (let i = 0; i < inputElements.length; i++) {
             const input = inputElements[i];
             print(input.attributes.key.value);
             const value =  input.value;
             const key = input.attributes.key.value;
             const dataType = input.attributes.dataType.value
+            print(keyElement, value, "dict:"+dataType, "add", key, subdict, subkey);
             let resp = await productUpdate(keyElement, value, "dict:"+dataType, "add", key, subdict, subkey).then(response => {return response;});
                 responses.push(resp);
         }
