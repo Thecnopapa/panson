@@ -22,12 +22,11 @@
         <div class="imatge-collecio" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/collecions%2F{{ col["_id"] }}.jpg?alt=media')">
 
             {% if col["nom"] %}
-                <div class = "titol-collecio"  onclick="location.href='/{{ loc.lan }}/productes?collecio={{ col["_id"] }}'">
-                        Colleccio {{ col["nom"] }} &or;
+                <div class = "titol-collecio"  onclick="document.getElementsByClassName('galeria')[0].scrollIntoView({block: 'end'});">
+                        Colleccio {{ col["nom"] }}<br>&or;
                 </div>
             {% endif %}
         </div>
-
 
     {{ galeria.galeria("productes", filtres=False, max_prods=2) }}
     </div>

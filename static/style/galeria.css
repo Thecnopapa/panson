@@ -180,7 +180,9 @@
     }
 
     .detalls-galeria{
-	    width: 80%;
+        padding-right: 2vh;
+        padding-left: 2vh;
+        width: calc(100% - 4vh);
     }
 
     .imatge{

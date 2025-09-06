@@ -153,8 +153,7 @@ body {
     height: fit-content;
     transition: 0.3s ease;
     flex-wrap: wrap;
-    padding-left: 1vh;
-    padding-right: 2vh;
+    padding-right: 0;
     justify-content: flex-start;
 }
 
@@ -165,7 +164,7 @@ body {
     display: flex;
     height: 6vh;
     width: fit-content;
-    padding-right: 4vh;
+    padding-right: 1vw;
     z-index: 200;
     align-items: center;
 
@@ -177,21 +176,24 @@ body {
     color: #000000;
     border: none;
     user-select: none;
-    margin:  0 1vh;
     z-index: 110;
+    background-color: rgba(0, 0, 0, 0);
+    height: 6vh;
+    transition: 0.3s ease;
+    margin-right: 1vw ;
+    cursor: pointer;
+    padding-right: 1vw;
+    padding-left: 1vw;
 
 }
 .dropbtn.white:not(.black){
     color: white;
 }
 
-.dropbtn, .menu-simple {
-    background-color: rgba(0, 0, 0, 0);
-    height: 6vh;
-    transition: 0.3s ease;
-    padding: 0 2vh;
-    cursor: pointer;
+.dropbtn.last{
+    margin-right: 1vw;
 }
+
 .menu-simple {
     display: none;
     flex-direction: row;
@@ -354,8 +356,8 @@ body {
 .titol-submenu {
     display: none;
     color: rgba(0, 0, 0, 0);
-    margin-left: 4vh;
-    margin-right: 4vh;
+    margin-left: 1vw;
+    margin-right: 2vw;
     padding-bottom: 1vh;
     padding-top: 1vh;
     text-underline-offset: 0.5vh;
@@ -379,11 +381,11 @@ body {
 
 .item-submenu {
     display: none;
-    margin-left: 4vh;
-    margin-right: 4vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
     cursor: pointer;
     padding-bottom: 1vh;
-    text-underline-offset: 0.5vh;
+    text-underline-offset: 0.25rem;
     width: auto;
 }
 .item-submenu:hover {
@@ -454,6 +456,7 @@ body {
         width: 100%;
         max-width: 100%;
         justify-content: flex-start;
+        padding-left: 2vh;
     }
     .navigation-right {
         padding-right: 2vh;

@@ -255,5 +255,10 @@ class Bespoke(Product):
         super().__init__(data, id)
 
 
+class Collecio(firebaseObject):
+    bucket = "collecions"
+
+
+
 
 

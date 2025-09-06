@@ -57,7 +57,7 @@ body {
 
 #main-details{
 	position:absolute;
-    left:56%;
+    left:58%;
 	width: 40%;
     max-width: 40%;
 	z-index:30;
@@ -67,8 +67,8 @@ body {
     height: 93dvh;
     min-height: 93dvh;
     padding-top:7dvh;
-    padding-left:2dvw;
-    padding-right:2dvw;
+    padding-left:1vw;
+    padding-right:1vw;
     background-color: rgba(255, 255, 255, 0.7);
     overflow-y: scroll;
     max-height: 93dvh;
@@ -93,13 +93,13 @@ body {
     display: none;
     width: 100%;
     min-width: fit-content;
-    height: 5dvh;
+    height: 5vh;
     background-color: #000000;
     color: white;
     transition: background-color 0.2s;
     cursor: pointer;
-    margin-top: 2dvh;
-    margin-bottom: 2dvh;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
 }
 
 
@@ -546,10 +546,10 @@ tr:hover{
 	}
 	#main-details{
 		position:relative;
-		width: calc(100% - 8dvh);
-		max-width: calc(100% - 8dvh);
-		padding-left:4vh;
-		padding-right:4vh;
+		width: calc(100% - 4vh);
+		max-width: calc(100% - 4vh);
+		padding-left:2vh;
+		padding-right:2vh;
 		left:0;
 		min-height: fit-content;
 		height:fit-content;
@@ -601,7 +601,7 @@ tr:hover{
         min-width: 49.8dvw;
         max-width: 49.8dvw;
         scroll-snap-align: end;
-        height: calc(48dvw + 5dvh);
+        height: calc(49.8dvw + 2.5rem);
     }
     .producte .imatge {
         width: 49.8dvw;
