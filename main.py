@@ -790,6 +790,11 @@ def fetamida(lan):
     html = template(lan=lan, templates="fetamida2")
     return html
 
+@app.route("/<lan>/fetamida/intro")
+def fetamida_intro(lan):
+    html = template(lan=lan, templates="fetamida-intro")
+    return html
+
 
 
 
