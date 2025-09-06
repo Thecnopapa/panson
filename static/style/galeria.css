@@ -155,12 +155,12 @@
 }
 .scroll-left{
     left:0;
-    background: linear-gradient(to right, rgba(140, 140, 140, 0.3), rgba(0, 0, 0, 0));
+    background: linear-gradient(to right, rgba(140, 140, 140, 0), rgba(0, 0, 0, 0));
 
 }
 .scroll-right{
     right:0;
-    background: linear-gradient(to left, rgba(140, 140, 140, 0.3), rgba(0, 0, 0, 0));
+    background: linear-gradient(to left, rgba(140, 140, 140, 0), rgba(0, 0, 0, 0));
 
 }
 
