@@ -14,10 +14,13 @@
 #index-subtitle{
     position: relative;
     display: flex;
-    width: 90%;
+    width: fit-content;
     height: fit-content;
     font-size: 1.75rem;
-    padding-top:5dvh;
+    padding-top:2%;
+    padding-bottom:2%;
+    margin-right: auto;
+    padding-left: 4vh;
 }
 
 
@@ -55,7 +58,7 @@ body{
     padding: 5dvh 0dvh 5dvh 0dvh;
     position: fixed;
     width: 60%;
-    top:35dv;
+    top:35vh;
     left: 20%;
     z-index: 5;
 }
@@ -65,6 +68,9 @@ body{
 }
 
 .content-galeria{
+    margin-top: 0;
+}
+.galeria{
     margin-top: 0;
 }
 
