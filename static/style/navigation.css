@@ -11,6 +11,7 @@
 }
 html{
 	font-size: 2vh;
+    overflow: scroll;
 }
 *{
 	font-size: 1em;

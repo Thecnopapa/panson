@@ -51,16 +51,16 @@
                 <span><img class="plus menu-content" src="/static/media/plus.svg"><img class="minus menu-content" src="/static/media/minus.svg"></span></div>
                 {% if productes %}
                     {% for col in productes.col_names %}
-                        <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/collecions/#{{ utils.lower(col) }}'">{{ col }}</div>
+                        <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/collecio/{{ utils.lower(col) }}'">{{ col }}</div>
                     {% endfor %}
                 {% endif %}
             </div>
             <div class="submenu menu-content" id="peces-menu" onclick="showDropdown(this)">
                 <div class="titol-submenu menu-content">{{ loc.nav_peces_uniques }}<span><img class="plus menu-content" src="/static/media/plus.svg"><img class="minus menu-content" src="/static/media/minus.svg"></span></div>
                 {% for prod in productes.uniques()[:-1] %}
-                        <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/peces_uniques#{{ prod._id }}'">{{ prod.nom }}</div>
+                        <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/productes/{{ prod._id }}'">{{ prod.nom }}</div>
                     {% endfor %}
-                <div class="item-submenu menu-content last-submenu"  onclick="location.href='/{{ loc.lan }}/peces_uniques#{{ productes.uniques()[-1]._id }}'">{{ productes.uniques()[-1].nom }}</div>
+                <div class="item-submenu menu-content last-submenu"  onclick="location.href='/{{ loc.lan }}/productes/{{ productes.uniques()[-1]._id }}'">{{ productes.uniques()[-1].nom }}</div>
             </div>
             <div class="submenu menu-content" id="peces-menu" onclick="showDropdown(this)">
                 <div class="titol-submenu menu-content" onclick="location.href='/{{ loc.lan }}/productes/'">{{ loc.nav_peces }}</div>

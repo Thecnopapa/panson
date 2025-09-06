@@ -1,72 +1,64 @@
 
-body {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-}
 
-
-.producte-gran{
-	height:100%;
-	width:100%;
-	display: flex;
-	flex-direction: column;
-	align-content: center;
-	justify-items: center;
-	align-items: center;
-}
-.fons_collecio{
-    position: relative;
-    height: 100%;
-    align-content: center;
-    justify-items: center;
+#collecions{
+    display: flex;
+    height: fit-content;
+    min-height: 100dvh;
+    flex-direction: column;
     width: 100%;
 
+
+}
+
+.collecio{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    min-height: 100%;
+    justify-content: start;
+    align-items: center;
     background-position: center;
-    background-repeat: no-repeat;
     background-size: cover;
 }
 
-.descripcio {
-    text-align: center;
-    position: relative;
-    color: #FFFFFF;
-}
-.titol-collecio {
+.imatge-collecio{
     display: flex;
-    position: absolute;
-    width: fit-content;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-size: 4.5rem;
-    font-weight: normal;
-    color: rgba(240, 248, 255, 0.9);
-    height: 15vh;
-    user-select: none;
-    margin: 0 5vh 0 5vh;
-    cursor: pointer;
-    top:45%;
-    
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+
+    min-height: 100vh;
 }
-.titol-collecio:hover {
+.titol-collecio{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: rgba(240, 248, 255, 0.9);
+    text-align: center;
     transition: color 0.3s ease;
+    padding: 2%;
+}
+
+.titol-collecio:hover {
     color: rgba(0, 0, 0, 0.9);
 }
 
-.content {
-    position: relative;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    height: 90dvh;
+
+.content-galeria{
+    margin-top: 0.2vw;
+    margin-bottom: 4vh;
+}
+.galeria{
+    margin-top: 0;
+}
+.footer{
+    background-color: transparent;
 }
 
 
-
-
 @media screen and (orientation: portrait) {
-    .subtitle{
-    }
+
 }

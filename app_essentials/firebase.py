@@ -100,8 +100,12 @@ def get_bespoke():
 
 def get_cols():
     raw = collections.where(filter=FieldFilter("activa", "==", True, )).stream()
+
     cols = {c.id:c.to_dict() for c in raw}
-    cols = dict(sorted(cols.items(), key=lambda col: col[1]["ordre"]))
+    for id, col in cols.copy().items():
+        col["_id"] = id
+    print(cols.items())
+    cols = {x[0]:x[1] for x in sorted(cols.items(), key=lambda x: x[1]["ordre"])}
     return cols
 
 def get_user_data(id):

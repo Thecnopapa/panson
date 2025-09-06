@@ -5,29 +5,32 @@
 {% endblock %}
 
 {% block imports %}
+    <link href='/style/galeria.css' rel='stylesheet'>
+    <script defer type="text/javascript" src="/scripts/galeria.js"></script>
     <link href='/style/collecio.css' rel='stylesheet'>
 
 {% endblock %}
 
+
+{% import 'galeria.html' as galeria with context%}
+{{ galeria.galeria("productes", filtres=True, max_prods=8) }}
+
+
 {% block body %}
-
+<div id="collecions">
 {% for id, col in cols.items() %}
-    <div class="content">
-	    <div class="producte-gran" id="{{id}}">
-    		<div class="fons_collecio" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/collecions%2F{{ id }}.jpg?alt=media')">
-		</div>
-        	{% if col["nom"] %}
-            		<div class = "titol-collecio"  onclick="location.href='/{{ loc.lan }}/productes?collecio={{ id }}'">
-                		{{ col["nom"] }}
-        			<div class = "descripcio">
-            			{{ loc.col_subtitiol }}
-        			</div>
-	    		</div>
-		{% endif %}
-	    </div>
+    <div class="collecio" id="{{id}}">
+        <div class="imatge-collecio" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/collecions%2F{{ id }}.jpg?alt=media')"></div>
 
+        {% if col["nom"] %}
+            <div class = "titol-collecio"  onclick="location.href='/{{ loc.lan }}/productes?collecio={{ id }}'">
+                    {{ col["nom"] }}
+            </div>
+        {% endif %}
+
+    {{ galeria.galeria("productes", filtres=False, max_prods=2) }}
     </div>
-    </div>
+
 {% endfor %}
-
+</div>
 {% endblock %}

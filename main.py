@@ -196,10 +196,10 @@ def index(lan ="cat", favicon = True):
     return html
 
 
-@app.route("/<lan>/collecions/")
-def collections(lan):
-    cols = get_cols()
-    html = template(lan=lan, templates=["collecions"], cols=cols)
+@app.route("/<lan>/collecio/<id>")
+def collections(lan,id):
+    col = get_cols()[id]
+    html = template(lan=lan, templates=["collecio"], col=col)
     return html
 
 
