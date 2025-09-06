@@ -9,7 +9,7 @@ updateCartCounter();
 
 function openCart(){
     closeMenu()
-    console.log("Opening Cart")
+    //console.log("Opening Cart")
     cart.classList.add('open');
     for (let i = 0; i < cartItems.length; i++) {
         cartItems[i].classList.add('open');
@@ -27,7 +27,7 @@ function openCart(){
 
 
 function closeCart(){
-    console.log("Closing Cart");
+    //console.log("Closing Cart");
     cart.classList.remove('open');
     for (let i = 0; i < cartItems.length; i++) {
         cartItems[i].classList.remove('open');
@@ -87,4 +87,6 @@ function updateCartCounter(){
         cartCounter.style.display = "flex";
     }
 }
+
+print(" * Cart JS ready")
 

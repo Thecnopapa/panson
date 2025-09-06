@@ -38,3 +38,7 @@ function showSlides() {
 
   setTimeout(showSlides, 5000); // Change image every 2 seconds
 }
+
+
+
+print(" * Slideshow JS ready")

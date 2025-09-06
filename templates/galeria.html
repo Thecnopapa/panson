@@ -38,9 +38,9 @@
             {% if (double and n % 2 == 0) %}
                <div class="producte-doble">
             {% endif %}
-           <div class="producte empty" onmouseover="highlightProduct(this)">
-               <div class="imatge primera" onmouseover="highlightProduct(this)"></div>
-               <div class="imatge segona" onmouseout="reverseProduct(this)"></div>
+           <div class="producte empty" onmouseover="highlightProduct(this)" onmouseout="reverseProduct(this)">
+               <div class="imatge primera" onmouseover="//highlightProduct(this)"></div>
+               <div class="imatge segona" onmouseout="//reverseProduct(this)"></div>
                <div class="detalls-galeria">
                     <div class="detalls-principals">
 			    {% if bucket == "bespoke" %}

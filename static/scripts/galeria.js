@@ -14,13 +14,13 @@ function scrollGallery(galeria, direction){
 function startScrolling(galeria, direction) {
 
     if (galeria.attributes["intervalId"]) {
-        console.log("current intervalId: " + galeria.attributes["intervalId"].value);
+        //console.log("current intervalId: " + galeria.attributes["intervalId"].value);
 
     } else{
-        console.log("startScrolling");
+        //console.log("startScrolling");
         const intervalId = setInterval(scrollGallery, 1, galeria, direction);
         galeria.setAttribute("intervalId", intervalId);
-        console.log("scrollId:", intervalId);
+        //console.log("scrollId:", intervalId);
     }
 }
 
@@ -29,9 +29,9 @@ function startScrolling(galeria, direction) {
 function stopScrolling(galeria) {
 
     const currentInterval = galeria.attributes["intervalId"]
-    console.log("stopping interval: ", currentInterval);
+    //console.log("stopping interval: ", currentInterval);
     if (currentInterval) {
-        console.log(`stopScrolling(${galeria.attributes["intervalId"].value})`);
+        //console.log(`stopScrolling(${galeria.attributes["intervalId"].value})`);
         clearInterval(Number(currentInterval.value));
         galeria.removeAttribute("intervalId");
     }
@@ -39,25 +39,18 @@ function stopScrolling(galeria) {
 }
 
 function highlightProduct(trigger) {
-    const primera = trigger;
-    const segona = trigger.nextElementSibling;
-    segona.classList.add("active");
-    primera.classList.remove("active");
-    primera.classList.add("inactive");
+    trigger.classList.add("active");
+
 
 }
 
 function reverseProduct(trigger) {
-    const segona = trigger;
-    const primera = trigger.previousElementSibling;
-    primera.classList.add("active");
-    primera.classList.remove("inactive");
-    segona.classList.remove("active");
+    trigger.classList.remove("active");
 }
 
 function initGaleria(galeria, bucket) {
-    print("Initialising galeria:")
-    print(galeria)
+    print(" * Initialising galeria")
+    //print(galeria)
     const allProducts = document.getElementsByClassName("hidden-info-producte");
     const productElements = document.getElementsByClassName("producte");
 
@@ -72,11 +65,11 @@ function changeProduct(element, product, bucket) {
     try {
         info = product.attributes;
     } catch (e){
-        print(e);
+        //print(e);
         element.classList.add("empty");
         return}
-    print(element);
-    print(info);
+    //print(element);
+    //print(info);
     element.classList.remove("empty");
     element.getElementsByClassName("imatge primera")[0].style.backgroundImage = 'url('+ imageUrl(bucket, info.img1.value) + ')';
     element.getElementsByClassName("imatge segona")[0].style.backgroundImage = 'url('+ imageUrl(bucket, info.img2.value) + ')';
@@ -95,3 +88,6 @@ let currentPage = 0;
 let maxProds = Number(document.getElementById("gallery-info").attributes["max-prods"].value);
 initGaleria(document.getElementById("galeria"), pageBucket);
 window.scrollTo(0,0)
+
+
+print(" * Gallery JS ready")

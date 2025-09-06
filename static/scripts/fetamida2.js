@@ -55,5 +55,5 @@ sectionContainer.addEventListener("touchend", function(event){
 });
 
 
-
+print(" * Bespoke JS ready")
 

@@ -15,9 +15,8 @@ const loaderIcon =document.getElementById("loader-icon");
 
 
 window.addEventListener('load', function () {
-	console.log("It's loaded!");
 	loader.remove();
-	console.log(loader.style.display);
+	print(" * Page loaded!");
 	
 })
 window.addEventListener('orientationchange', function () {
@@ -25,7 +24,7 @@ window.addEventListener('orientationchange', function () {
 	closeCart();
     closeMenu()
 })
-print("1");
+
 
 function dynamicallyLoadScript(url) {
     var script = document.createElement("script");  // create a script DOM node
@@ -52,8 +51,6 @@ function addFavicon() {
 if (false) {
     addFavicon()
 }
-
-print("2");
 
 function scrollOnLoad(id) {
     console.log("scrolling to " +id);
@@ -105,10 +102,10 @@ closeMenu();
 function openMenu() {
     if (menuOpen) {return}
     closeCart()
-    console.log('Open menu');
+    //console.log('Open menu');
     if(window.innerHeight > window.innerWidth){
        menu.style.width = "80%";
-	    print(menuClosers);
+	    //print(menuClosers);
        menuClosers[0].style.width = "20dvw";
 	    menuClosers[1].style.width = "20dvw";
        contacteMenu.style.display = "block";
@@ -175,7 +172,7 @@ function showMenuContent() {
 }
 
 function closeMenu() {
-    console.log('Close menu');
+    //console.log('Close menu');
     menu.style.width = "0px";
     window.scrollTo(window.scrollX, window.scrollY - 1);
     window.scrollTo(window.scrollX, window.scrollY + 1);
@@ -221,7 +218,6 @@ function switchMenu(){
 
 
 function goBlack(){
-    print(navElements);
     for (let i = 0; i < navElements.length; i++) {
         if (navElements[i] !== null) {
             navElements[i].classList.remove('white');
@@ -231,10 +227,9 @@ function goBlack(){
     menuButton[0].src = "/static/media/menu-black.svg";
 }
 function goWhite(){
-    print(navElements);
     for (let i = 0; i < navElements.length; i++) {
         if (navElements[i] !== null) {
-            print(navElements[i]);
+            //print(navElements[i]);
             navElements[i].classList.add('white');
         }
     }
@@ -244,15 +239,24 @@ function goWhite(){
 
 function checkColor() {
     const colorElement = document.getElementById("nav-color")
-    print(colorElement);
+    //print(colorElement);
     if (colorElement !== null) {
         targetColour = colorElement.attributes.color.value;
-        print(targetColour);
+
         if (targetColour === "white") {
             goWhite();
+            return "white";
         } else if (targetColour === "black") {
             goBlack();
+            return "black";
         }
     }
 }
-checkColor();
+
+const c = checkColor()
+if (c != null) {
+   print(" * Nav colour: ", c);
+}
+
+
+print(" * Navigation JS ready")

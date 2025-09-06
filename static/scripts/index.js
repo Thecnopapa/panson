@@ -7,7 +7,6 @@ function scrollToTop() {
   window.scrollTo(0, 0, {behavior: 'smooth'});
 }
 
-print("a");
 function updateScroll() {
 	let windowHeight = window.innerHeight;
 	const maxScroll = windowHeight * 0.35;
@@ -49,7 +48,6 @@ function updateScroll() {
 
 };
 
-print("b");
 setInterval(updateScroll, 0.1);
 
-
+print(" * Index JS ready")

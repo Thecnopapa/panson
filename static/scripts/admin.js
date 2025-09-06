@@ -360,3 +360,5 @@ function addListElement(trigger, typeOfFirst){
     }
     trigger.lastElementChild.after(newElement);
 }
+
+print(" * Admin JS ready")

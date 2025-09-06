@@ -83,6 +83,7 @@
 
 
 .imatge{
+    display: none;
     position: relative;
     background-size: cover;
     background-position: center;
@@ -94,20 +95,18 @@
     transition-duration: 1s, 1s;
     transition-timing-function: ease, ease;
 }
-.imatge.segona, .imatge.inactive {
-    display: none;
-}
-
-.imatge.segona:hover{
-     /*height:100%;*/
-}
-
-.imatge.active{
+.primera{
     display: block;
 }
 
-.imatge.active.segona {
+.producte.active .segona{
+        display: block;
 }
+.producte.active .primera{
+        display: none;
+    }
+
+
 
 .detalls-galeria{
 	position:relative;
