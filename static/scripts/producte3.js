@@ -430,12 +430,21 @@ function hideAllDetails(trigger){
 
 updatePrice();
 
-function enlargeImg(img){
-    print("Enlarging img...");
+function enlargeImg(img, all=true){
+    print("Enlarging img, all: ", all);
+	let images = undefined;
+	let targetImage = undefined
+	if (all){
+		images = img.parentElement.children;
+		targetImage = [...images].indexOf(img);
 
-    const imgUrl = img.style.backgroundImage.split("\"")[1]
+	} else {
+		images = [img];
+		targetImage = 0;
+	}
+	print("N images: ", images.length, " target: ", targetImage);
     const productName = img.attributes["product"].value;
-    print(productName, imgUrl);
+    print(productName);
 
     document.body.style.overflow = "hidden";
 
@@ -445,26 +454,34 @@ function enlargeImg(img){
     newContainer.addEventListener("click", function (event){newContainer.remove(); document.body.style.overflow = "unset";});
     document.body.appendChild(newContainer);
 	
+
+  
 	const newCross = document.createElement("div");
 	newCross.innerHTML ="&#10005;";
 	newCross.classList.add("close-enlarged-container");
 	newCross.addEventListener("click", function (event){newContainer.remove(); document.body.style.overflow = "unset";});
 	newContainer.appendChild(newCross);
 
-
-    const newImg = document.createElement("img");
-    newImg.classList.add("enlarged-img");
-    //newImg.src = imgUrl;
-    newImg.style.backgroundImage = img.style.backgroundImage
-    newImg.setAttribute('draggable', false);
-    newImg.addEventListener("click", startZoom,);
-    newContainer.appendChild(newImg);
-
-    const zoomDiv = document.createElement("div");
-    zoomDiv.classList.add("zoomed-img");
-    newContainer.appendChild(zoomDiv);
+	const newSlideshow = document.createElement("div");
+	newSlideshow.classList.add("enlarged-slideshow");
+	newContainer.appendChild(newSlideshow);
 
 
+
+    for (let i = 0; i < images.length; i++){
+	const productName = img.attributes["product"].value;
+	print(productName);
+    	const newImg = document.createElement("img");
+    	newImg.classList.add("enlarged-img");
+    	//newImg.src = imgUrl;
+    	newImg.style.backgroundImage = img.style.backgroundImage;
+    	newImg.setAttribute('draggable', false);
+    	newImg.addEventListener("click", startZoom);
+	newImg.addEventListener("mouseleave", stopZoom);
+    	newSlideshow.appendChild(newImg);
+    }
+	print("Scrolling to: ", images[targetImage])
+	newSlideshow.children[targetImage].scrollIntoView({block: "center"});
 
 
     print("Enlarged img ready!")
@@ -497,9 +514,10 @@ function stopZoom(event) {
 
 
 function moveImg(event){
-    image = event.target;
-    clickX = (1-(image.width - event.pageX + image.offsetLeft)/image.width)*100;
-    clickY = (1-(image.height -  event.pageY + image.offsetTop)/image.height)*100;
+    const image = event.target;
+	let pos = image.getBoundingClientRect();
+    clickX = (1-(image.width - event.pageX + pos.left)/image.width)*100;
+    clickY = (1-(image.height -  event.pageY + pos.top)/image.height)*100;
     image.style.backgroundPosition = String(clickX)+ "% "+String(clickY)+"%";
 }
 
