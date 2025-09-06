@@ -554,7 +554,6 @@ tr:hover{
 		min-height: fit-content;
 		height:fit-content;
 
-
 	}
 	#producte-images{
 		width: 100%;
@@ -575,6 +574,19 @@ tr:hover{
 	#main-details{
 		background-color:white;
 	}
+    #titol_producte{
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+    .info{
+        padding-top: 2vh;
+    }
+    #product-description{
+        margin-top: 0;
+    }
+    #initial-price{
+        margin-bottom: 2rem;
+    }
     .options{
         width:fit-content;
     }
@@ -586,6 +598,12 @@ tr:hover{
     .colour-label[style*="background-color:white"] {
     background-color:lightgray !important;
     }
+
+
+    .subtitol-galeria{
+    margin-top: 8vh;
+    }
+
     .content-galeria{
         max-width: 100%;
         display: flex;

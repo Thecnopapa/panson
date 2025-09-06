@@ -442,6 +442,12 @@ body {
     #menu-closer-landscape{
 	    display: none !important;
     }
+    .titol-submenu {
+        padding-right: 2vh;
+    }
+    .titol-submenu, .item-submenu {
+        padding-left: 2vh;
+    }
     #title{
         display: flex;
         width: 30vw;
