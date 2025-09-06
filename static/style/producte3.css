@@ -478,7 +478,7 @@ tr:hover{
 	position: relative;
 	width: 90%;
 	min-width:90%;
-	height 90%;
+	height: 90%;
 	min-height: 90%;
 	background-color: orange;
 	overflow-y:scroll;
@@ -509,12 +509,14 @@ tr:hover{
 	align-items: center;
 	z-index: 2000;
 	position: absolute;
-	top: 5%;
-	right: 5%;
-	font-size: 2rem;
-	height: 5%;
-	width:10%;
-	font-weight: 100;
+	font-size: 2.5vw;
+    top:5%;
+    right:0;
+    height:5%;
+    width:5%;
+	font-weight: normal;
+    -webkit-text-stroke: 0.05rem white;
+    text-stroke: 0.05rem white;
 }
 
 
@@ -612,6 +614,13 @@ tr:hover{
 	}
     .enlarged-img.zoomed{
         background-size: 200%;
+    }
+    .close-enlarged-container{
+        font-size: 2.5vh;
+        top:15%;
+        right:5%;
+        height:5%;
+        width:5%;;
     }
 
 }
