@@ -80,9 +80,11 @@ class Utils:
         return list(l)
 
     @staticmethod
-    def filter_by_attr(obj_list, key, value):
+    def filter_by_attr(obj_list, key, value, exclude=False):
         if key is None or value is None:
             return obj_list
+        if exclude:
+            return [o for o in obj_list if o.__getattribute__(key) != value]
         return [o for o in obj_list if o.__getattribute__(key) == value]
 
 

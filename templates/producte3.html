@@ -216,8 +216,8 @@
 
 <div class="subtitol-galeria">{{ loc.pro_tiol_galeria }}</div>
 
-{{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=producte.collecio, min_row=1) }}
-{{ galeria.galeria("productes", filtres=False, filterKey="tipus", filterValue=producte.tipus, min_row=1) }}
+{{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=producte.collecio, min_row=1, exclude=producte._id) }}
+{{ galeria.galeria("productes", filtres=False, filterKey="tipus", filterValue=producte.tipus, min_row=1, exclude=producte._id) }}
 {% endblock %}
 
 

@@ -417,7 +417,7 @@ body {
 .subtitol-galeria{
     margin-top: 10vh;
 }
-.producte{
+.producte:not(.last){
 	margin-right: 1dvw;
 }
 

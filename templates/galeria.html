@@ -1,14 +1,14 @@
 
 
 
-{% macro galeria(bucket, double=False, filtres=False, max_prods=None, filterKey=None, filterValue=None, min_row=4) %}
+{% macro galeria(bucket, double=False, filtres=False, max_prods=None, filterKey=None, filterValue=None, min_row=4, exclude=None) %}
 
 
 {% set productes = productes.__getattribute__(bucket) %}
 
 
 {% set prods = utils.filter_by_attr(productes, filterKey, filterValue) %}
-
+{% set prods = utils.filter_by_attr(prods, "_id", exclude, exclude=True) %}
 
 {% if max_prods == None %}
 	{% set max_prods = utils.len(prods) %}
@@ -50,7 +50,7 @@
             {% if (double and n % 2 == 0) %}
                <div class="producte-doble">
             {% endif %}
-           <div class="producte empty enabled" onmouseover="highlightProduct(this)" onmouseout="reverseProduct(this)">
+	    <div class="producte empty enabled {{ 'last' if n==max_prods-1 }}" onmouseover="highlightProduct(this)" onmouseout="reverseProduct(this)">
                <div class="imatge primera" onmouseover="//highlightProduct(this)"></div>
                <div class="imatge segona" onmouseout="//reverseProduct(this)"></div>
                <div class="detalls-galeria">
