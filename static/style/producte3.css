@@ -418,7 +418,7 @@ body {
     margin-top: 10vh;
 }
 .producte:not(.last){
-	margin-right: 1dvw;
+	margin-right: 0.4dvw;
 }
 
 table {
@@ -519,47 +519,49 @@ tr:hover{
         	display: none;
     	}
 
-	
-	.content-producte {
-		flex-direction: column;
-		max-height:fit-content;
-		height: fit-content;
-		width: 100%;
-		max-width:100%;
-		overflow-x: hidden
-		
-	}
+        .producte:not(.last){
+        margin-right: 1dvw;
+    }
+        .content-producte {
+            flex-direction: column;
+            max-height:fit-content;
+            height: fit-content;
+            width: 100%;
+            max-width:100%;
+            overflow-x: hidden
 
-	#main-details{
-		position:relative;
-		width: calc(100% - 4vh);
-		max-width: calc(100% - 4vh);
-		padding-left:2vh;
-		padding-right:2vh;
-		left:0;
-		min-height: fit-content;
-		height:fit-content;
+        }
 
-	}
+        #main-details{
+            position:relative;
+            width: calc(100% - 4vh);
+            max-width: calc(100% - 4vh);
+            padding-left:2vh;
+            padding-right:2vh;
+            left:0;
+            min-height: fit-content;
+            height:fit-content;
 
-	#producte-images{
-		width: 100%;
-		max-width: 100%;
-		flex-direction: row;
-		flex-wrap: nowrap;
-		overflow-x: scroll;
-	}
+        }
 
-	.main-foto{
-		height:100dvw;
-		max-height:100dvw;
-		width:100dvw;
-		min-width:100dvw;
-	}
+        #producte-images{
+            width: 100%;
+            max-width: 100%;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            overflow-x: scroll;
+        }
 
-	#main-details{
-		background-color:white;
-	}
+        .main-foto{
+            height:100dvw;
+            max-height:100dvw;
+            width:100dvw;
+            min-width:100dvw;
+        }
+
+        #main-details{
+            background-color:white;
+        }
 
     	#titol_producte{
         	font-size: 1.25rem;
@@ -608,11 +610,11 @@ tr:hover{
         	justify-content: start;
     	}
     
-	.enlarged-slideshow{
-		min-height:60%;
-		height:60%;
-	
-	}
+        .enlarged-slideshow{
+            min-height:60%;
+            height:60%;
+
+        }
 
     	.enlarged-img.zoomed{
         	background-size: 200%;

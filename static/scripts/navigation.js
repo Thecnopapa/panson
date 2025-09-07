@@ -17,8 +17,23 @@ const loaderIcon =document.getElementById("loader-icon");
 window.addEventListener('load', function () {
 	loader.remove();
 	print(" * Page loaded!");
-	
+     const fastImages = document.getElementsByClassName("fast-image");
+    for (let i = 0; i < fastImages.length; i++){
+        try{
+            fastImages[i].style.backgroundImage = "url('"+fastImages[i].attributes.background.value+"');";
+        } catch(err){console.log(err);}
+    }
+    const slowImages = document.getElementsByClassName("slow-image");
+    for (let i = 0; i < slowImages.length; i++){
+        try{
+            slowImages[i].style.backgroundImage = "url('"+slowImages[i].attributes.background.value+"');";
+        } catch(err){console.log(err);}
+    }
+
+    print(" * Images loaded!");
+
 })
+
 window.addEventListener('orientationchange', function () {
 	console.log("Rotation change!");
 	closeCart();
@@ -127,7 +142,7 @@ function openMenu() {
         menu.classList.add('open');
         botoMenuSimple.classList.add('open');
     }catch(e){}
-    for(var i = 0; i < menuContent.length; i++) {
+    for (let i = 0; i < menuContent.length; i++) {
         menuContent[i].classList.add('shown');
         if (menuContent[i].classList.contains('submenu')) {
             menuContent[i].setAttribute("onclick", "showDropdown(this)");

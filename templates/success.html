@@ -5,8 +5,9 @@
 {% endblock %}
 
 {% block imports %}
-    <link href='/style/stripe.css' rel='stylesheet'>
+    <link href='/style/stripe.css' as='style' rel='preload'>
 
+    <link href='/style/stripe.css' rel='stylesheet'>
 {% endblock %}
 
 {% block body %}

@@ -6,6 +6,11 @@
 {% endblock %}
 
 {% block imports %}
+    <link href='/style/galeria.css' as='style' rel='preload'>
+    <link href='/scripts/galeria.js' as='script' rel='preload'>
+    <link href='/style/producte3.css' as='style' rel='preload'>
+    <link href='/scripts/producte3.js' as='script' rel='preload'>
+
     <link href='/style/galeria.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/scripts/galeria.js"></script>
     <link href='/style/producte3.css' rel='stylesheet'>
@@ -216,8 +221,8 @@
 
 <div class="subtitol-galeria">{{ loc.pro_tiol_galeria }}</div>
 
-{{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=producte.collecio, min_row=1, exclude=producte._id) }}
-{{ galeria.galeria("productes", filtres=False, filterKey="tipus", filterValue=producte.tipus, min_row=1, exclude=producte._id) }}
+{{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=producte.collecio, min_row=4, exclude=producte._id) }}
+{{ galeria.galeria("productes", filtres=False, filterKey="tipus", filterValue=producte.tipus, min_row=4, exclude=producte._id) }}
 {% endblock %}
 
 

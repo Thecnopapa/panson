@@ -4,13 +4,19 @@
 {% endblock %}
 
 {% block imports %}
+    <link href='/style/galeria.css' as='style' rel='preload'>
+    <link href='/scripts/galeria.js' as='script' rel='preload'>
+    <link href='/style/index.css' as='style' rel='preload'>
+    <link href='/scripts/index.js' as='script' rel='preload'>
+    <link href='/style/slideshow.css' as='style' rel='preload'>
+    <link href='/scripts/slideshow.js' as='script' rel='preload'>
+
     <link href='/style/galeria.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/scripts/galeria.js"></script>
     <link href='/style/index.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/scripts/index.js"></script>
     <link href='/style/slideshow.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/scripts/slideshow.js"></script>
-
 {% endblock %}
 
 {% import 'galeria.html' as galeria with context%}

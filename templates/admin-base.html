@@ -6,9 +6,13 @@
 {% endblock %}
 
 {% block imports %}
-		<script defer type="text/javascript" src="/scripts/admin.js"></script>
-		<link href='/style/admin.css' rel='stylesheet'>
-        <link href='/style/admin-loc.css' rel='stylesheet'>
+    <link href='/style/admin-loc.css' as='style' rel='preload'>
+    <link href='/style/admin.css' as='style' rel='preload'>
+    <link href='/scripts/admin.js' as='script' rel='preload'>
+
+    <script defer type="text/javascript" src="/scripts/admin.js"></script>
+    <link href='/style/admin.css' rel='stylesheet'>
+    <link href='/style/admin-loc.css' rel='stylesheet'>
 {% endblock %}
 
 
