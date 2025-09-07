@@ -198,7 +198,7 @@ def index(lan ="cat", favicon = True):
 
 @app.route("/<lan>/collecio/<id>")
 def collections(lan,id):
-    col = get_cols()[id]
+    col = [c for c in get_cols(filtered=True) if c._id == id][0]
     html = template(lan=lan, templates=["collecio"], col=col)
     return html
 
@@ -390,7 +390,7 @@ def admin(lan="cat", page="base"):
     print("admin check")
     #print(user.username, user.password)
     if check_if_admin(user.username, user.password):
-        return template(lan=lan, templates="admin-{}".format(page), user = user.username, amagats=True, footer=False)
+        return template(lan=lan, templates="admin-{}".format(page), user = user.username, amagats=True, footer=False, collecions = get_cols())
     else:
         return template(lan=lan, templates="login", footer=False)
 
@@ -641,7 +641,13 @@ def update_product(bucket):
                 from app_essentials.products import Bespoke
                 prev_data = bespoke.document(data["product"]).get().to_dict()
                 p = Bespoke(prev_data, data["product"])
+            elif bucket == "collecions":
+                from app_essentials.firebase import collections
+                from app_essentials.products import Collection
+                prev_data = collections.document(data["product"]).get().to_dict()
+                p = Collection(prev_data, data["product"])
             else:
+                print("Unknown bucket: ", bucket)
                 return "Unknown bucket", 500
             if ":" in data["type"]:
                 target_type = data["type"].split(":")[0]
@@ -674,7 +680,7 @@ def update_product(bucket):
                 elif data_type == "text":
                     value = str(value)
                 else:
-                    print("Unknown data type", data_type)
+                    print("Unknown data type: ", data_type)
                     return "Unknown dataType: {}".format(data_type), 500
 
             subdicts = []
@@ -714,6 +720,7 @@ def update_product(bucket):
                 p.__setattr__(data["field"], new)
             else:
                 print("\nNEW: ",data["field"], "==>", type(value), value)
+                print(p.__dict__)
                 p.__setattr__(data["field"], value)
 
 

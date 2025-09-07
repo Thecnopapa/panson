@@ -112,7 +112,7 @@ class Products():
 
 
     def setup(self):
-        self.col_names = [c["nom"] for c in get_cols().values()]
+        self.col_names = [c.nom for c in get_cols(filtered=True)]
         self.tipus = sorted(set([c.tipus for c in self.products.values() if c.tipus is not None]))
         self.productes = [p for p in  self.get_all() if not (p.esborrat or p.amagat)]
         self.bespoke = [p for p in self.bespoke if not (p.esborrat or p.amagat)]
@@ -255,8 +255,21 @@ class Bespoke(Product):
         super().__init__(data, id)
 
 
-class Collecio(firebaseObject):
+class Collection(firebaseObject):
     bucket = "collecions"
+    def __init__(self, data={}, id=None):
+        self.data ={}
+        self.nom = ""
+        self.descripcio = ""
+        self.imatges =[]
+        self.ordre = 10
+
+        self.amagst=False
+        self.esborrat=False
+        super().__init__(data, id)
+        if self._id is None:
+            self.new = True
+        
 
 
 

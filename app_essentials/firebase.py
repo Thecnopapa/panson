@@ -98,15 +98,18 @@ def get_bespoke():
     return ps
 
 
-def get_cols():
+def get_cols(as_dict=False, filtered=False):
+    from app_essentials.products import Collection
     raw = collections.where(filter=FieldFilter("activa", "==", True, )).stream()
-
     cols = {c.id:c.to_dict() for c in raw}
-    for id, col in cols.copy().items():
-        col["_id"] = id
-    print(cols.items())
-    cols = {x[0]:x[1] for x in sorted(cols.items(), key=lambda x: x[1]["ordre"])}
-    return cols
+    if as_dict:
+        return cols
+    else:
+        cols = [Collection(data, id) for id, data in cols.items()]
+        if filtered:
+            cols = [c for c in cols if not (c.amagat or c.esborrat)]
+        cols = sorted(cols, key=lambda x: x.ordre)
+        return cols
 
 def get_user_data(id):
     from app_essentials.users import User
