@@ -23,7 +23,7 @@
 <div class="content-producte">
     <div id="producte-images">
     {% for n, imatge in utils.enumerate(producte.imatges) %}
-            <div class="main-foto" draggable=false product="{{ producte.nom }}" onclick="enlargeImg(this)" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media')"></div>
+            <div class="main-foto normal-image {{ 'fast-image' if n ==0 }}" draggable=false product="{{ producte.nom }}" onclick="enlargeImg(this)" background='https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media'></div>
     {% endfor %}
     </div>
 

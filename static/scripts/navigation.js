@@ -27,16 +27,24 @@ function loadAllImages() {
     loadImages("slow");
 }
 
-function loadImages(selection){
+async function preloadHiddenImages(){
+
+}
+
+async function loadImages(selection){
     let selectedImages = document.getElementsByClassName(selection+"-image");
-    console.log(selection);
-    console.log(selectedImages);
+    //console.log(selection);
+    //console.log(selectedImages);
+    let changedImages = 0
     for (let i = 0; i < selectedImages.length; i++){
         try{
             selectedImages[i].style.backgroundImage = "url('"+selectedImages[i].attributes.background.value+"')";
-        } catch(err){console.log(err);}
-        print(" * "+ selection +" images loaded!");
+            selectedImages[i].removeAttribute("background");
+            changedImages++;
+        } catch(err){}
     }
+    print(" * "+ selection +" images loaded (" + changedImages + ") "+ window.performance?.timeOrigin);
+
 }
 
 

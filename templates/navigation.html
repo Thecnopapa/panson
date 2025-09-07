@@ -119,7 +119,7 @@
         {% for n, item in utils.enumerate(cart.values()) if item.producte != None%}
             <div class="producte-carret is-carret">
             {% if utils.len(item.producte.imatges) > 0 %}
-                <div class="producte-foto is-carret" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ item.producte.imatges[0] }}?alt=media')"></div>
+                <div class="producte-foto is-carret slow-image" background='https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ item.producte.imatges[0] }}?alt=media'></div>
             {% endif %}
                 <div class="detalls-carret is-carret">
                     <div class="producte-carret-delete is-carret" onclick="deleteItem(this.parentElement.parentElement, {{ n }})">&#10006;</div>

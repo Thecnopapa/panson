@@ -155,21 +155,28 @@ def acceptar_cookies():
     user.update_db()
     return ""
 
+from werkzeug.utils import secure_filename
+from flask import url_for
+@limiter.exempt
+
+
+#TODO: NOT SAFE!
+@app.route("/static/<path:path>")
+def get_static(path):
+    return url_for("static", filename=path)
 
 @limiter.exempt
-@app.route("/static/<path:path>", defaults={"lan": "cat"})
-@app.route("/<lan>/static/<path:path>")
-def get_static(lan, path):
-    return redirect("/static/"+path)
+@app.route("/style/<file>")
+def get_style(file):
+    return redirect("/static/style/"+secure_filename(file))
+@limiter.exempt
+@app.route("/scripts/<file>")
+def get_script(file):
+    return redirect("/static/scripts/"+secure_filename(file))
+@app.route("/fonts/<file>")
+def get_font(file):
+    return redirect("/static/scripts/"+secure_filename(file))
 
-@limiter.exempt
-@app.route("/style/<path:path>")
-def get_style(path):
-    return redirect("/static/style/"+path)
-@limiter.exempt
-@app.route("/scripts/<path:path>")
-def get_script(path):
-    return redirect("/static/scripts/"+path)
 
 @app.route("/")
 @app.route("/<lan>/")
