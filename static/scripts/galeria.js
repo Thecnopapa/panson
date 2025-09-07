@@ -88,6 +88,7 @@ function filterGaleria(trigger){
 	const galeria = trigger.parentElement.parentElement.parentElement;
 	const key = trigger.attributes.filterKey.value;
 	const value = trigger.attributes.filterValue.value;
+	window.history.replaceState(document.title, "", document.location.pathname+"?filterKey=" + key + "&filterValue=" + value);
 	initGaleria(galeria, 0, key, value);
 }
 
@@ -118,7 +119,10 @@ function changeProduct(element, product, bucket) {
 const galleryElements = document.getElementsByClassName("content-galeria");
 for (let i = 0; i < galleryElements.length; i++) {
 	console.log("Initialising gallery");
-	initGaleria(galleryElements[i]);
+	let params = new URLSearchParams(document.location.search);
+	const key = params.get("filterKey", undefined);
+	const value = params.get("filterValue", undefined);
+	initGaleria(galleryElements[i], undefined, key, value);
 
 }
 
