@@ -13,31 +13,38 @@ const loader = document.getElementById("loader");
 const loaderIcon =document.getElementById("loader-icon");
 
 
-
 window.addEventListener('load', function () {
 	loader.remove();
 	print(" * Page loaded!");
-     const fastImages = document.getElementsByClassName("fast-image");
-    for (let i = 0; i < fastImages.length; i++){
-        try{
-            fastImages[i].style.backgroundImage = "url('"+fastImages[i].attributes.background.value+"');";
-        } catch(err){console.log(err);}
-    }
-    const slowImages = document.getElementsByClassName("slow-image");
-    for (let i = 0; i < slowImages.length; i++){
-        try{
-            slowImages[i].style.backgroundImage = "url('"+slowImages[i].attributes.background.value+"');";
-        } catch(err){console.log(err);}
-    }
-
-    print(" * Images loaded!");
+    loadAllImages();
 
 })
+loadImages("fast");
+
+function loadAllImages() {
+    loadImages("fast");
+    loadImages("normal");
+    loadImages("slow");
+}
+
+function loadImages(selection){
+    let selectedImages = document.getElementsByClassName(selection+"-image");
+    console.log(selection);
+    console.log(selectedImages);
+    for (let i = 0; i < selectedImages.length; i++){
+        try{
+            selectedImages[i].style.backgroundImage = "url('"+selectedImages[i].attributes.background.value+"')";
+        } catch(err){console.log(err);}
+        print(" * "+ selection +" images loaded!");
+    }
+}
+
+
 
 window.addEventListener('orientationchange', function () {
 	console.log("Rotation change!");
 	closeCart();
-    closeMenu()
+    closeMenu();
 })
 
 

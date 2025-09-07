@@ -51,8 +51,8 @@
                <div class="producte-doble">
             {% endif %}
             <div class="producte empty enabled {{ 'last' if n==max_prods-1 }}" onmouseover="highlightProduct(this)" onmouseout="reverseProduct(this)">
-               <div class="imatge primera" onmouseover="//highlightProduct(this)"></div>
-               <div class="imatge segona" onmouseout="//reverseProduct(this)"></div>
+               <div class="imatge primera normal-image" onmouseover="//highlightProduct(this)"></div>
+               <div class="imatge segona slow-image" onmouseout="//reverseProduct(this)"></div>
                <div class="detalls-galeria">
                     <div class="detalls-principals">
                         {% if bucket == "bespoke" %}

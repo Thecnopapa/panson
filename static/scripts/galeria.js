@@ -49,7 +49,7 @@ function reverseProduct(trigger) {
 }
 
 function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterValue=undefined) {
-    	print(" * Initialising galeria")
+    print(" * Initialising galeria")
 	const currentPage = Number(galeria.attributes.page.value);
 	if (targetPage === undefined){
 		targetPage = currentPage;
@@ -71,27 +71,29 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
 	}
 
 
-    	const allProducts = galeria.getElementsByClassName("hidden-info-producte");
-	if (filterKey === null){filterKey = undefined;}
-	if (filterValue === null){filterValue = undefined;}
-	let filteredProducts = []
-	if (filterKey !== undefined  && filterValue !== undefined){
-		for (let i = 0; i < allProducts.length; i++) {
-			print(filterKey);
-			if (allProducts[i].attributes[filterKey].value === filterValue){
-				filteredProducts.push(allProducts[i]);
-			}
-		}
-	} else {
-		filteredProducts = allProducts;
-	}
-    	const productElements = galeria.getElementsByClassName("producte enabled");
+    const allProducts = galeria.getElementsByClassName("hidden-info-producte");
+    if (filterKey === null){filterKey = undefined;}
+    if (filterValue === null){filterValue = undefined;}
+    let filteredProducts = []
+    if (filterKey !== undefined  && filterValue !== undefined){
+        for (let i = 0; i < allProducts.length; i++) {
+            print(filterKey);
+            if (allProducts[i].attributes[filterKey].value === filterValue){
+                filteredProducts.push(allProducts[i]);
+            }
+        }
+    } else {
+        filteredProducts = allProducts;
+    }
+    const productElements = galeria.getElementsByClassName("producte enabled");
 
-    	for (let i = 0; i < maxProds; i++) {
-        	const targetProductNo = i + targetPage*maxProds;
-        	changeProduct(productElements[i], filteredProducts[targetProductNo], bucket);
-    	}
+    for (let i = 0; i < maxProds; i++) {
+        const targetProductNo = i + targetPage*maxProds;
+        changeProduct(productElements[i], filteredProducts[targetProductNo], bucket);
+    }
+    loadAllImages()
 }
+
 
 
 
@@ -115,8 +117,8 @@ function changeProduct(element, product, bucket) {
     //print(element);
     //print(info);
     element.classList.remove("empty");
-    element.getElementsByClassName("imatge primera")[0].style.backgroundImage = 'url('+ imageUrl(bucket, info.img1.value) + ')';
-    element.getElementsByClassName("imatge segona")[0].style.backgroundImage = 'url('+ imageUrl(bucket, info.img2.value) + ')';
+    element.getElementsByClassName("imatge primera")[0].setAttribute("background", imageUrl(bucket, info.img1.value));
+    element.getElementsByClassName("imatge segona")[0].setAttribute("background", imageUrl(bucket, info.img2.value));
 	if (bucket === "bespoke"){
 		element.getElementsByClassName("per-a")[0].innerHTML = info.per_a.value;
 	} else{
