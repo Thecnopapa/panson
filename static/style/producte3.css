@@ -418,8 +418,24 @@ body {
     margin-top: 10vh;
 }
 .producte:not(.last){
-	margin-right: 0.4dvw;
+	margin-right: calc(0.8dvw / 3);
 }
+
+.producte-galeria{
+    flex-direction: column;
+    width: 100dvw;
+    max-width: 100dvw;
+    min-width: 100dvw;
+    height: fit-content;
+}
+
+.galeries-landscape{
+    display: flex;
+}
+.galeries-portrait{
+    display: none;
+}
+
 
 table {
   border-collapse: collapse;
@@ -518,10 +534,15 @@ tr:hover{
     	.galeria-scroll{
         	display: none;
     	}
-
         .producte:not(.last){
         margin-right: 1dvw;
-    }
+        }
+        .galeries-landscape{
+            display: none;
+        }
+        .galeries-portrait{
+            display: flex;
+        }
         .content-producte {
             flex-direction: column;
             max-height:fit-content;
@@ -602,6 +623,7 @@ tr:hover{
         	max-width: 100%;
         	display: flex;
         	overflow: hidden;
+            margin-bottom: 0;
     	}
 
     	.galeria{

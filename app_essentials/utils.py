@@ -80,12 +80,43 @@ class Utils:
         return list(l)
 
     @staticmethod
-    def filter_by_attr(obj_list, key, value, exclude=False):
-        if key is None or value is None:
+    def filter_by_attr(obj_list, keys, values, mode="&", exclude=False):
+        if keys is None or values is None:
             return obj_list
-        if exclude:
-            return [o for o in obj_list if o.__getattribute__(key) != value]
-        return [o for o in obj_list if o.__getattribute__(key) == value]
+        if ";" in keys:
+            keys = keys.split(";")
+        else:
+            keys = [keys]
+        if ";" in values:
+            values = values.split(";")
+        else:
+            values = [values]
+
+        if "!" in mode:
+            exclude = True
+            mode = mode.replace("!", "")
+
+        r = []
+        for o in obj_list:
+            append = False
+            if mode == "&":
+                append = True
+                for key, value in zip(keys, values):
+                    if o.__getattribute__(key) == value:
+                        continue
+                    append = False
+            elif mode == "|":
+                append = False
+                for key, value in zip(keys, values):
+                    if o.__getattribute__(key) == value:
+                        append = True
+                        break
+            if exclude:
+                append = not append
+            if append:
+                r.append(o)
+        return r
+
 
 
 

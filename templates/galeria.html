@@ -1,14 +1,14 @@
 
 
 
-{% macro galeria(bucket, double=False, filtres=False, max_prods=None, filterKey=None, filterValue=None, min_row=4, exclude=None) %}
+{% macro galeria(bucket, double=False, filtres=False, max_prods=None, filterKey=None, filterValue=None, min_row=4, exclude=None, filter_mode="&") %}
 
 
 {% set productes = productes.__getattribute__(bucket) %}
 
 
-{% set prods = utils.filter_by_attr(productes, filterKey, filterValue) %}
-{% set prods = utils.filter_by_attr(prods, "_id", exclude, exclude=True) %}
+{% set prods = utils.filter_by_attr(productes, filterKey, filterValue, mode=filter_mode) %}
+{% set prods = utils.filter_by_attr(prods, "_id", exclude, mode="!&") %}
 
 {% if max_prods == None %}
 	{% set max_prods = utils.len(prods) %}
@@ -68,7 +68,7 @@
                </div>
            {% endif %}
         {% endfor %}
-        {% for n in range(4-utils.mod(max_prods, min_row)) %}
+        {% for n in range(utils.mod(max_prods, min_row)) %}
             {% if (double and (n+max_prods) % 2 == 0) %}
                 <div class="producte-doble">
             {% endif %}
