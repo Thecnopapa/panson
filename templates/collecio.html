@@ -17,7 +17,9 @@
 
 {% block body %}
 
-
+{% if col.fons_blanc %}
+	<div id="nav-color" color="white"></div>
+{% endif %}
     <div class="collecio">
         <div class="imatge-collecio" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/collecions%2F{{ col.imatges[0] }}?alt=media')">
 

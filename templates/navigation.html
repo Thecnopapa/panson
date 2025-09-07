@@ -73,6 +73,10 @@
 	    <div class="titol-submenu menu-content button-menu" id="fetamida-menu" onclick="location.href='/{{ loc.lan }}/fetamida/intro'">{{ loc.nav_fetamida_mobil }}</div>
             <div class="titol-submenu menu-content button-menu" id="projecte-menu" onclick="location.href='/{{ loc.lan }}/projecte/'">{{ loc.nav_projecte_mobil }}</div>
             <div class="titol-submenu menu-content button-memu" id="contacte-menu" onclick="location.href='/{{ loc.lan }}/contacte/'">{{ loc.nav_contacte_mobil }}</div>
+	    {% if user.is_admin %}
+	    <div class="titol-submenu menu-content button-memu" id="admin-menu" onclick="location.href='/admin/'">{{ loc.nav_admin }}</div>
+	    <div class="titol-submenu menu-content button-memu" id="logout-menu" onclick="location.href='/admin/logout'">{{ loc.nav_tancar_sessio }}</div>
+	    {% endif %}
         </div>
 	<button class="dropbtn" id="projecte" onclick="location.href='/{{ loc.lan }}/projecte/'"> {{ loc.nav_projecte}}</button>
         <button class="dropbtn last" id="fetamida" onclick="location.href='/{{ loc.lan }}/fetamida/intro'"> {{ loc.nav_fetamida }}</button>

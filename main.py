@@ -198,7 +198,7 @@ def index(lan ="cat", favicon = True):
 
 @app.route("/<lan>/collecio/<id>")
 def collections(lan,id):
-    col = [c for c in get_cols(filtered=True) if c._id == id][0]
+    col = [c for c in get_cols() if c._id == id][0]
     html = template(lan=lan, templates=["collecio"], col=col)
     return html
 
@@ -390,7 +390,7 @@ def admin(lan="cat", page="base"):
     print("admin check")
     #print(user.username, user.password)
     if check_if_admin(user.username, user.password):
-        return template(lan=lan, templates="admin-{}".format(page), user = user.username, amagats=True, footer=False, collecions = get_cols())
+        return template(lan=lan, templates="admin-{}".format(page), user = user.username, amagats=True, footer=False, collecions = get_cols(amagats=True))
     else:
         return template(lan=lan, templates="login", footer=False)
 

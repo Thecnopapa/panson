@@ -112,7 +112,7 @@ class Products():
 
 
     def setup(self):
-        self.col_names = [c.nom for c in get_cols(filtered=True)]
+        self.col_names = [c.nom for c in get_cols()]
         self.tipus = sorted(set([c.tipus for c in self.products.values() if c.tipus is not None]))
         self.productes = [p for p in  self.get_all() if not (p.esborrat or p.amagat)]
         self.bespoke = [p for p in self.bespoke if not (p.esborrat or p.amagat)]
@@ -263,6 +263,7 @@ class Collection(firebaseObject):
         self.descripcio = ""
         self.imatges =[]
         self.ordre = 10
+        self.fons_blanc = False
 
         self.amagst=False
         self.esborrat=False

@@ -17,8 +17,13 @@
                 <div class="product-data hide">
                     <div class="product-element name">Nom: <input product="{{product._id}}" field="nom" class="product-input" value="{{product.nom}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; this.parentElement.parentElement.parentElement.getElementsByClassName('product-title')[0].innerHTML=this.value"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
                     <div class="product-element description">Descripcio: <textarea product="{{product._id}}" field="descripcio"  class="product-input" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';">{{product.descripcio}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
-
-
+		    <div class="product-element bavkground">Navegacio blanca:
+                <select product="{{product._id}}" field="fons_blanc" dataType="bool" class="product-input" oninput="productUpdate(this);">
+                            {% for b in [True, False] %}
+                                <option value="{{ b }}" {{ "selected=selected" if product.unica == b }}>{{ loc.misc["bools"]["{}".format(b)] }}</option>
+                            {% endfor %}
+                </select><div></div>
+                </div>
 
 
 

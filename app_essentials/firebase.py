@@ -98,7 +98,7 @@ def get_bespoke():
     return ps
 
 
-def get_cols(as_dict=False, filtered=False):
+def get_cols(as_dict=False, amagats=False, esborrats=False):
     from app_essentials.products import Collection
     raw = collections.where(filter=FieldFilter("activa", "==", True, )).stream()
     cols = {c.id:c.to_dict() for c in raw}
@@ -106,8 +106,10 @@ def get_cols(as_dict=False, filtered=False):
         return cols
     else:
         cols = [Collection(data, id) for id, data in cols.items()]
-        if filtered:
-            cols = [c for c in cols if not (c.amagat or c.esborrat)]
+        if not esborrats:
+            cols = [c for c in cols if not c.esborrat]
+        if not amagats:
+            cols = [c for c in cols if not c.amagat]
         cols = sorted(cols, key=lambda x: x.ordre)
         return cols
 
