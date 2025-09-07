@@ -85,7 +85,7 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
 	} else {
 		filteredProducts = allProducts;
 	}
-    	const productElements = galeria.getElementsByClassName("producte");
+    	const productElements = galeria.getElementsByClassName("producte enabled");
 
     	for (let i = 0; i < maxProds; i++) {
         	const targetProductNo = i + targetPage*maxProds;

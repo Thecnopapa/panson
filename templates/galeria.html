@@ -1,13 +1,23 @@
 
 
 
-{% macro galeria(bucket, double=False, filtres=False, max_prods=utils.len(productes.__getattribute__(bucket)), filterKey=None, filterValue=None) %}
+{% macro galeria(bucket, double=False, filtres=False, max_prods=None, filterKey=None, filterValue=None, min_row=4) %}
 
+
+{% set productes = productes.__getattribute__(bucket) %}
+
+
+{% set prods = utils.filter_by_attr(productes, filterKey, filterValue) %}
+
+
+{% if max_prods == None %}
+	{% set max_prods = utils.len(prods) %}
+{% endif %}
 
 <div class="content-galeria" page=0>
 <div class="hidden-product-list">
-	<div class="gallery-info" double="{{ doble_galeria }}" maxProds="{{ max_prods }}" bucket="{{ bucket }}" filterKey="{{ filterKey }}" filterValue="{{ filterValue }}"></div>
-    {% for n, producte in utils.enumerate(productes.__getattribute__(bucket)) %}
+	<div class="gallery-info" double="{{ doble_galeria }}" maxProds="{{ max_prods }}" bucket="{{ bucket }}" filterKey="None" filterValue="None"></div>
+    {% for n, producte in utils.enumerate(prods) %}
     <div class="hidden-info-producte" 
 	    id="{{ producte._id }}" 
 	    nom="{{ producte.nom }}" 
@@ -36,11 +46,11 @@
     <div class="galeria-scroll scroll-left" onmouseover="startScrolling(this.nextElementSibling.nextElementSibling, 'left')" onmouseout="stopScrolling(this.nextElementSibling.nextElementSibling)"></div>
     <div class="galeria-scroll scroll-right" onmouseover="startScrolling(this.nextElementSibling, 'right')" onmouseout="stopScrolling(this.nextElementSibling)"></div>
     <div class="galeria" class="galeria">
-        {% for n in range(utils.max(max_prods, 4) + (utils.mod(utils.max(max_prods, 4), 4) if utils.max(max_prods, 4) > 4 else 0)) %}
+        {% for n in range(max_prods) %}
             {% if (double and n % 2 == 0) %}
                <div class="producte-doble">
             {% endif %}
-           <div class="producte empty" onmouseover="highlightProduct(this)" onmouseout="reverseProduct(this)">
+           <div class="producte empty enabled" onmouseover="highlightProduct(this)" onmouseout="reverseProduct(this)">
                <div class="imatge primera" onmouseover="//highlightProduct(this)"></div>
                <div class="imatge segona" onmouseout="//reverseProduct(this)"></div>
                <div class="detalls-galeria">
@@ -59,9 +69,23 @@
                </div>
            {% endif %}
         {% endfor %}
+	{% for n in range(utils.mod(max_prods, min_row)) %}
+		{% if (double and (n+max_prods) % 2 == 0) %}
+			<div class="producte-doble">
+            	{% endif %}
+		<div class="producte empty disabled"><div>
+		{% if (double and (n+max_prods) % 2 == 1) %}
+               		</div>
+            	{% endif %}
+	{% endfor %}
+	{% if (double and (max_prods+range(utils.mod(max_prods, min_row))) % 2 == 1) %}
+		</div>
+	{% endif %}
+
+
     </div>
-    {% if max_gallery < utils.len(productes_filtrats)  %}
-        <button class="view-more" onclick="location.href='/{{ loc.lan }}/productes/'"> Veure mes</button>
-    {% endif %}
+    <div class="gallery-navigation disabled">
+    </div>
+
 </div>
 {% endmacro %}
