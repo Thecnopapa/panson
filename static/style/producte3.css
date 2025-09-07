@@ -17,7 +17,7 @@ body {
     position: relative;
     height: 100dvh;
     align-items: flex-start;
-	margin-top:0dvh;
+    margin-top:0dvh;
     justify-content: space-between;
     background-position: right;
     background-size: cover;
@@ -396,24 +396,7 @@ body {
     align-items: flex-end;
     padding-left: 8vh;
 }
-.producte-doble{
 
-    display: flex;
-    flex-direction: row;
-}
-
-.producte .imatge {
-    width: 24.8dvw;
-    height: 24.8dvw;
-}
-
-.producte{
-    min-width: 24.8dvw;
-    margin-right: 0.2dvw;
-}
-.producte.empty{
-    display: none;
-}
 .content-galeria{
     margin-top: 2dvh;
 
@@ -424,7 +407,7 @@ body {
     max-width: 100dvw;
     overflow-x: scroll;
     scroll-behavior: revert;
-    margin-bottom: 8dvh;
+    margin-bottom: 0;
     scroll-snap-type: both mandatory;
 }
 .galeria-scroll{
@@ -434,6 +417,10 @@ body {
 .subtitol-galeria{
     margin-top: 10vh;
 }
+.producte{
+	margin-right: 1dvw;
+}
+
 table {
   border-collapse: collapse;
 }
@@ -528,12 +515,10 @@ tr:hover{
 
 
 @media screen and (orientation: portrait) {
-    .galeria-scroll{
-        display: none;
-    }
-    .producte-doble{
-        flex-direction: column;
-    }
+    	.galeria-scroll{
+        	display: none;
+    	}
+
 	
 	.content-producte {
 		flex-direction: column;
@@ -544,6 +529,7 @@ tr:hover{
 		overflow-x: hidden
 		
 	}
+
 	#main-details{
 		position:relative;
 		width: calc(100% - 4vh);
@@ -555,6 +541,7 @@ tr:hover{
 		height:fit-content;
 
 	}
+
 	#producte-images{
 		width: 100%;
 		max-width: 100%;
@@ -562,84 +549,82 @@ tr:hover{
 		flex-wrap: nowrap;
 		overflow-x: scroll;
 	}
+
 	.main-foto{
 		height:100dvw;
 		max-height:100dvw;
 		width:100dvw;
 		min-width:100dvw;
 	}
-	#producte-images{
 
-	}
 	#main-details{
 		background-color:white;
 	}
-    #titol_producte{
-        font-size: 1.25rem;
-        margin-bottom: 1rem;
-    }
-    .info{
-        padding-top: 2vh;
-    }
-    #product-description{
-        margin-top: 0;
-    }
-    #initial-price{
-        margin-bottom: 2rem;
-    }
-    .options{
-        width:fit-content;
-    }
-    .color-selector{
-        width:fit-content;
-        min-width: 100%;
-        justify-content: space-evenly;
-    }
-    .colour-label[style*="background-color:white"] {
-    background-color:lightgray !important;
-    }
 
+    	#titol_producte{
+        	font-size: 1.25rem;
+        	margin-bottom: 1rem;
+    	}
 
-    .subtitol-galeria{
-    margin-top: 8vh;
-    }
+    	.info{
+        	padding-top: 2vh;
+    	}
 
-    .content-galeria{
-        max-width: 100%;
-        display: flex;
-        overflow: hidden;
-    }
-    .galeria{
-        flex-wrap: nowrap;
-        flex-direction: row;
-        justify-content: start;
-    }
+    	#product-description{
+        	margin-top: 0;
+    	}
 
-    .producte{
-        min-width: 49.8dvw;
-        max-width: 49.8dvw;
-        scroll-snap-align: end;
-        height: calc(49.8dvw + 2.5rem);
-    }
-    .producte .imatge {
-        width: 49.8dvw;
-        height: 49.8dvw;
-    }
+    	#initial-price{
+        	margin-bottom: 2rem;
+    	}
+
+    	.options{
+        	width:fit-content;
+    	}
+
+    	.color-selector{
+        	width:fit-content;
+        	min-width: 100%;
+        	justify-content: space-evenly;
+    	}
+
+    	.colour-label[style*="background-color:white"] {
+    		background-color:lightgray !important;
+    	}
+
+    	.subtitol-galeria{
+    		margin-top: 8vh;
+    	}
+
+    	.content-galeria{
+        	max-width: 100%;
+        	display: flex;
+        	overflow: hidden;
+    	}
+
+    	.galeria{
+        	flex-wrap: nowrap;
+        	flex-direction: row;
+        	justify-content: start;
+    	}
+    
 	.enlarged-slideshow{
 		min-height:60%;
 		height:60%;
 	
 	}
-    .enlarged-img.zoomed{
-        background-size: 200%;
-    }
-    .close-enlarged-container{
-        font-size: 2.5vh;
-        top:15%;
-        right:5%;
-        height:5%;
-        width:5%;;
-    }
+
+    	.enlarged-img.zoomed{
+        	background-size: 200%;
+    	}
+	
+    	.close-enlarged-container{
+        	font-size: 2.5vh;
+        	top:15%;
+        	right:5%;
+        	height:5%;
+        	width:5%;;
+    	}
 
 }
 

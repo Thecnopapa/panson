@@ -61,12 +61,23 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
 	const infoElement = galeria.getElementsByClassName("gallery-info")[0];
 	const maxProds = Number(infoElement.attributes.maxProds.value);
 	const bucket = infoElement.attributes.bucket.value;
+	const key = infoElement.attributes.filterKey.value;
+	const value = infoElement.attributes.filterValue.value;
+	
+	if (key !== "None" && value !== "None"){
+		console.log("Filters from div")
+		filterKey = key;
+		filterValue = value;
+	}
 
-    	//print(galeria)
+
     	const allProducts = galeria.getElementsByClassName("hidden-info-producte");
+	if (filterKey === null){filterKey = undefined;}
+	if (filterValue === null){filterValue = undefined;}
 	let filteredProducts = []
-	if (filterKey !== undefined &&  filterValue !== undefined){
+	if (filterKey !== undefined  && filterValue !== undefined){
 		for (let i = 0; i < allProducts.length; i++) {
+			print(filterKey);
 			if (allProducts[i].attributes[filterKey].value === filterValue){
 				filteredProducts.push(allProducts[i]);
 			}
@@ -118,7 +129,6 @@ function changeProduct(element, product, bucket) {
 
 const galleryElements = document.getElementsByClassName("content-galeria");
 for (let i = 0; i < galleryElements.length; i++) {
-	console.log("Initialising gallery");
 	let params = new URLSearchParams(document.location.search);
 	const key = params.get("filterKey", undefined);
 	const value = params.get("filterValue", undefined);

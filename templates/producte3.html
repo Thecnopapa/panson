@@ -215,7 +215,9 @@
 </div>
 
 <div class="subtitol-galeria">{{ loc.pro_tiol_galeria }}</div>
-{{ galeria.galeria("productes", filtres=False, double=True) }}
+
+{{ galeria.galeria("productes", filtres=False, filterKey="col", filterValue=producte.collecio) }}
+{{ galeria.galeria("productes", filtres=False, filterKey="tipus", filterValue=producte.tipus) }}
 {% endblock %}
 
 

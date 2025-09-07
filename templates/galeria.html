@@ -1,12 +1,12 @@
 
 
 
-{% macro galeria(bucket, double=False, filtres=False, max_prods=utils.len(productes.__getattribute__(bucket))) %}
+{% macro galeria(bucket, double=False, filtres=False, max_prods=utils.len(productes.__getattribute__(bucket)), filterKey=None, filterValue=None) %}
 
 
 <div class="content-galeria" page=0>
 <div class="hidden-product-list">
-	<div class="gallery-info" double="{{ doble_galeria }}" maxProds="{{ max_prods }}" bucket="{{ bucket }}"></div>
+	<div class="gallery-info" double="{{ doble_galeria }}" maxProds="{{ max_prods }}" bucket="{{ bucket }}" filterKey="{{ filterKey }}" filterValue="{{ filterValue }}"></div>
     {% for n, producte in utils.enumerate(productes.__getattribute__(bucket)) %}
     <div class="hidden-info-producte" 
 	    id="{{ producte._id }}" 
