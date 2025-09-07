@@ -339,7 +339,7 @@ function enlargeImg(img, all=true){
     	const newImg = document.createElement("img");
     	newImg.classList.add("enlarged-img");
     	//newImg.src = imgUrl;
-    	newImg.style.backgroundImage = img.style.backgroundImage;
+    	newImg.style.backgroundImage = images[i].style.backgroundImage;
     	newImg.setAttribute('draggable', false);
     	newImg.addEventListener("click", startZoom);
 	newImg.addEventListener("mouseleave", stopZoom);
