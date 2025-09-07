@@ -48,17 +48,49 @@ function reverseProduct(trigger) {
     trigger.classList.remove("active");
 }
 
-function initGaleria(galeria, bucket) {
-    print(" * Initialising galeria")
-    //print(galeria)
-    const allProducts = document.getElementsByClassName("hidden-info-producte");
-    const productElements = document.getElementsByClassName("producte");
+function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterValue=undefined) {
+    	print(" * Initialising galeria")
+	const currentPage = Number(galeria.attributes.page.value);
+	if (targetPage === undefined){
+		targetPage = currentPage;
+	}
 
-    for (let i = 0; i < productElements.length; i++) {
-        const targetProductNo = i + currentPage*maxProds;
-        changeProduct(productElements[i], allProducts[targetProductNo], bucket);
-    }
+	targetPage=Number(targetPage);
+	galeria.setAttribute("page", targetPage);
+	galeria.scrollTo(0,0);
+	const infoElement = galeria.getElementsByClassName("gallery-info")[0];
+	const maxProds = Number(infoElement.attributes.maxProds.value);
+	const bucket = infoElement.attributes.bucket.value;
+
+    	//print(galeria)
+    	const allProducts = galeria.getElementsByClassName("hidden-info-producte");
+	let filteredProducts = []
+	if (filterKey !== undefined &&  filterValue !== undefined){
+		for (let i = 0; i < allProducts.length; i++) {
+			if (allProducts[i].attributes[filterKey].value === filterValue){
+				filteredProducts.push(allProducts[i]);
+			}
+		}
+	} else {
+		filteredProducts = allProducts;
+	}
+    	const productElements = galeria.getElementsByClassName("producte");
+
+    	for (let i = 0; i < maxProds; i++) {
+        	const targetProductNo = i + targetPage*maxProds;
+        	changeProduct(productElements[i], filteredProducts[targetProductNo], bucket);
+    	}
 }
+
+
+
+function filterGaleria(trigger){
+	const galeria = trigger.parentElement.parentElement.parentElement;
+	const key = trigger.attributes.filterKey.value;
+	const value = trigger.attributes.filterValue.value;
+	initGaleria(galeria, 0, key, value);
+}
+
 
 function changeProduct(element, product, bucket) {
     let info = undefined;
@@ -83,11 +115,12 @@ function changeProduct(element, product, bucket) {
 
 }
 
-let pageBucket = document.getElementById("gallery-info").attributes["bucket"].value;
-let currentPage = 0;
-let maxProds = Number(document.getElementById("gallery-info").attributes["max-prods"].value);
-initGaleria(document.getElementById("galeria"), pageBucket);
-window.scrollTo(0,0)
+const galleryElements = document.getElementsByClassName("content-galeria");
+for (let i = 0; i < galleryElements.length; i++) {
+	console.log("Initialising gallery");
+	initGaleria(galleryElements[i]);
+
+}
 
 
 print(" * Gallery JS ready")

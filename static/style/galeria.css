@@ -14,7 +14,7 @@
     margin-bottom: 8dvh;
 }
 
-#inline-filtres{
+.inline-filtres{
 	width:calc(100% - 8dvh);
 	display:flex;
 	flex-direction: column;

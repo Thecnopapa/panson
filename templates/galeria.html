@@ -3,8 +3,10 @@
 
 {% macro galeria(bucket, double=False, filtres=False, max_prods=utils.len(productes.__getattribute__(bucket))) %}
 
-<div id="hidden-product-list">
-	<div id="gallery-info" double="{{ doble_galeria }}" max-prods="{{ max_prods }}" bucket="{{ bucket }}"></div>
+
+<div class="content-galeria" page=0>
+<div class="hidden-product-list">
+	<div class="gallery-info" double="{{ doble_galeria }}" maxProds="{{ max_prods }}" bucket="{{ bucket }}"></div>
     {% for n, producte in utils.enumerate(productes.__getattribute__(bucket)) %}
     <div class="hidden-info-producte" 
 	    id="{{ producte._id }}" 
@@ -21,19 +23,19 @@
 	    ></div>
     {% endfor %}
 </div>
-<div class="content-galeria">
+
         {% if filtres %}
-            <div id="inline-filtres">
+            <div class="inline-filtres">
                 <div class="filtre-buttons">
-                    <div class="filtre" field="tipus" value="anell" onclick="filterGaleria(this)">Anells</div>
-                    <div class="filtre" field="tipus" value="penjoll" onclick="filterGaleria(this)">Penjolls</div>
-                    <div class="filtre" field="tipus" value="arracades" onclick="filterGaleria(this)">Arracades</div>
+                    <div class="filtre" filterKey="tipus" filterValue="anell" onclick="filterGaleria(this)">Anells</div>
+                    <div class="filtre" filterKey="tipus" filterValue="penjoll" onclick="filterGaleria(this)">Penjolls</div>
+                    <div class="filtre" filterKey="tipus" filterValue="arracades" onclick="filterGaleria(this)">Arracades</div>
                 </div>
             </div>
         {% endif %}
     <div class="galeria-scroll scroll-left" onmouseover="startScrolling(this.nextElementSibling.nextElementSibling, 'left')" onmouseout="stopScrolling(this.nextElementSibling.nextElementSibling)"></div>
     <div class="galeria-scroll scroll-right" onmouseover="startScrolling(this.nextElementSibling, 'right')" onmouseout="stopScrolling(this.nextElementSibling)"></div>
-    <div id="galeria" class="galeria">
+    <div class="galeria" class="galeria">
         {% for n in range(utils.max(max_prods, 4) + (utils.mod(utils.max(max_prods, 4), 4) if utils.max(max_prods, 4) > 4 else 0)) %}
             {% if (double and n % 2 == 0) %}
                <div class="producte-doble">
