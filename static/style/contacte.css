@@ -7,6 +7,8 @@
 	height:fit-content;
 	min-height: 100dvh;
 	padding-top: 7vh;
+
+    width: 100%;
 }
 
 
@@ -20,7 +22,7 @@
 
 #contacte-left, #contacte-right{
 	height: 100%;
-	margin: 5%;
+	margin: 1vw;
 	width: 50%;
 	
 }
@@ -36,8 +38,11 @@
 
 #sender-details{
 	display:flex;
-	flex-direction:row;
+	flex-direction:column;
 	width:100%;
+    max-width:100%;
+    flex-wrap: wrap-reverse;
+    justify-content: stretch;
 
 }
 #long-inputs{
@@ -51,6 +56,9 @@
 	width:100%;
 	display:flex;
 	flex-direction: column;
+    max-width: 100%;
+    flex-wrap: wrap;
+    align-items: stretch;
 }
 
 .contacte-emails{
@@ -61,13 +69,16 @@
 .email-label{
 	display:flex;
 	flex-direction:column;
-	width:96%;
+    min-width: 30%;
+	width:auto;
 	margin:2%;
 }
 
 
 .email-input{
-	width:auto;
+	width: 100%;
+    display:flex;
+
 }
 #message{
 	height:30vh;
@@ -88,12 +99,21 @@
 #phone-input{
 	display:flex;
 	flex-direction:row;
+    width:100%;
+    max-width:100%;
+    flex-wrap: wrap;
+    justify-content: stretch;
 }
 .phone-prefix-label{
-	width:15%;
+	width:20%;
+    min-width: max(20%, fit-content);
 }
+.phone-number-label{
+    width:62%;
+}
+
 .phone-prefix{
-	width:auto;
+	width:100%;
 	display:flex;
 	flex-direction:row;
 }
@@ -106,12 +126,14 @@
 
 
 @media screen and (orientation: portrait) {
+
 	#columnes-contacte{
 		flex-direction:column;
 		background-color: green;
 	}
 	#contacte-left, #contacte-right{
 		width:auto;
+        margin:2vh;
 	}
 }
 

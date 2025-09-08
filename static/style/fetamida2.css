@@ -7,7 +7,7 @@
     width: 100dvw;
     max-width: 100dvw;
     scroll-behavior: smooth;
-    margin-top: 15dvh;
+    margin-top: 10dvh;
     overflow: hidden;
 }
 #sections-fetamida{
@@ -48,15 +48,17 @@
     display: flex;
     flex-direction: row;
     position: relative;
-    width: calc(100dvw - 8vh);
+    width: calc(100dvw - 4vh);
     justify-content: space-between;
     align-items: start;
-    height: fit-content;
-    margin-left: 4vh;
-    margin-right: 4vh;
+    height: 1rem;
+    margin-left: 2vh;
+    margin-right: 2vh;
     z-index: 5;
     overflow-y: visible;
-    margin-bottom: 3vh;
+    margin-bottom: 1vh;
+
+
 
 }
 
@@ -76,8 +78,10 @@
 
 #to-second{
     justify-content: center;
+    left: 40%;
 }
 #to-third{
+    left:90%;
     justify-content: flex-end;
 }
 
@@ -97,6 +101,7 @@
     */
     height: fit-content;
     max-height: fit-content;
+    min-height: fit-content;
     overflow: hidden;
     align-items: center;
 
@@ -140,19 +145,52 @@
     position: relative;
     width: 60%;
     height: 100%;
-    max-height: 100%;
-    overflow-y:scroll;
+    min-height: fit-content;
+
  
 }
 
 
 @media screen and (orientation: portrait) {
-	#section-menu{
-		width:calc(100% - 4vh);
-        margin-left: 2vh;
-        margin-right: 2vh;
-	}
+    #content-fetamida{
+        margin-top: 10vh;
 
+    }
+    #sections-fetamida{
+        height: fit-content;
+        min-height: 100vh;
+        margin-top: 14vh;
+    }
+    .fetamida-section{
+        margin-top: 0vh;
+        overflow-y: visible;
+        height: fit-content;
+    }
+	#section-menu{
+        box-shadow: 0.2px 0px 8px rgb(115, 115, 115);
+        position: fixed;
+        background-color: white;
+        top: 0;
+        padding-top: 8vh;
+		width:calc(100% - 4vh);
+        margin-right: 0;
+        margin-left: 0;
+        padding-left: 2vh;
+        padding-right: 2vh;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 0;
+	}
+    .to-section{
+        position: relative;
+        left: unset !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 1rem;
+    }
+    .galeria{
+        margin-top: 0;
+    }
 	
 	#fetamida-right{
 		align-items:center;
