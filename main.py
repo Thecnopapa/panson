@@ -56,7 +56,8 @@ os.environ["FLASK_KEY"] = "secure/flask_key"
 os.environ["MAILGUN_KEY"] = "secure/mailgun_key"
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = "./uploads"
+app.config['STATIC_FOLDER'] = "static"
+app.config['UPLOAD_FOLDER'] = "uploads"
 app.config['APPLICATION_ROOT'] = '/'
 app.config['PREFERRED_URL_SCHEME'] = 'https'
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
@@ -156,14 +157,16 @@ def acceptar_cookies():
     return ""
 
 from werkzeug.utils import secure_filename
-from flask import url_for
+from flask import url_for, send_from_directory
 @limiter.exempt
 
 
 #TODO: NOT SAFE!
+
 @app.route("/static/<path:path>")
-def get_static(path):
-    return url_for("static", filename=path)
+def get_static(file, folder=None):
+    
+    return send_from_directory(path)
 
 @limiter.exempt
 @app.route("/style/<file>")
