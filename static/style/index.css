@@ -9,6 +9,7 @@
     min-height:100dvh;
     align-content: center;
     justify-content: center;
+    z-index: 40;
 
 }
 #index-subtitle{
@@ -60,7 +61,8 @@ body{
     width: 60%;
     top:35vh;
     left: 20%;
-    z-index: 5;
+    z-index: 50;
+    mix-blend-mode: difference;
 }
 
 #title-logo:hover{

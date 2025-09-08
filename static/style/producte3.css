@@ -34,7 +34,6 @@ body {
     width: 100%;
     height: 100%;
     scroll-snap-type: both mandatory;
-    mix-blend-mode: difference;
 }
 
 .main-foto{
