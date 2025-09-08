@@ -32,7 +32,7 @@ function toSection(targetSection) {
         toThird.style.left = "calc(50% - " + String(toThird.offsetWidth / 2) + "px)";
     }
 }
-
+toSection(Number(new URL(document.URL).searchParams.get("page")));
 window.addEventListener('load', function () {
     toSection(Number(new URL(document.URL).searchParams.get("page")));
 })

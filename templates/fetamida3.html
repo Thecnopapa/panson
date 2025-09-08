@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block head %}
+    <title>PANSON: {{ loc.nav_fetamida }}</title>
+{% endblock %}
+
+{% block imports %}
+
+    <link href='/style/contacte.css' as='style' rel='preload'>
+    <link href='/style/galeria.css' as='style' rel='preload'>
+    <link href='/scripts/galeria.js' as='script' rel='preload'>
+    <link href='/style/fetamida2.css' as='style' rel='preload'>
+    <link href='/scripts/fetamida2.js' as='script' rel='preload'>
+    <link href='/style/fetamida-crea.css' as='style' rel='preload'>
+    <link href='/scripts/fetamida-crea.js' as='script' rel='preload'>
+
+    <link href='/style/contacte.css' rel='stylesheet'>
+    <link href='/style/galeria.css' rel='stylesheet'>
+    <script defer type="text/javascript" src="/scripts/galeria.js"></script>
+    <link href='/style/fetamida2.css' rel='stylesheet'>
+    <script defer type="text/javascript" src="/scripts/fetamida2.js"></script>
+    <link href='/style/fetamida-crea.css' rel='stylesheet'>
+    <script defer type="text/javascript" src="/scripts/fetamida-crea.js"></script>
+
+{% endblock %}
+
+{% import 'galeria.html' as galeria with context %}
+{% import 'contacte.html' as contact with context %}
+{% import 'fetamida-crea.html' as crea with context %}
+
+
+{% block body %}
+
+<div id="scroll-left" class="scroller" onclick="prevSection()"></div>
+<div id="scroll-right" class="scroller" onclick="nextSection()"></div>
+<div id="content-fetamida">
+    <div id="section-menu">
+            <div id="to-first" class="to-section left" onclick="toSection(0)">{{ loc.fam_boto_1 }}</div>
+            <div id="to-second" class="to-section center" onclick="toSection(1)">{{ loc.fam_boto_2 }}</div>
+            <div id="to-third" class="to-section right" onclick="toSection(2)">{{ loc.fam_boto_3 }}</div>
+    </div>
+    <div id="sections-fetamida">
+        <div id="fetamida-left" class="fetamida-section">
+            {{ crea.fetamida_crea() }}
+        </div>
+
+        <div id="fetamida-centre" class="fetamida-section">
+            {{ galeria.galeria("bespoke", max_prods=8,min_row=4, min_prods=8, pages=True) }}
+
+        </div>
+        <div id="fetamida-right" class="fetamida-section">
+		{{ contact.contact_form() }}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
