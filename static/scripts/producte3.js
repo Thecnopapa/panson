@@ -422,7 +422,7 @@ let initialSlideshowObserver = new IntersectionObserver(initialBubbleChange, {
 
 function initialBubbleChange(triggers, opts){
 	const triggerContainer = document.getElementById("producte-images");
-	const bubbleContainer = triggerContainer.nextElementSibling;
+	const bubbleContainer = triggerContainer.nextElementSibling.firstElementChild;
 	
 	for (let i = 0; i < triggers.length; i++){
 		const trigger = triggers[i].target;
@@ -440,7 +440,31 @@ for (let i = 0; i < initialSlideshowElements.length; i++){
 }
 
 
+function slideshowScroll(container, mode, axis="X"){
+	console.log(container);
+	let targetScroll = 0;
+	let increment = 0;
+	if (axis === "X"){
+		targetScroll = container.scrollLeft;
+		increment = container.offsetWidth;
+	} else if (axis === "Y") {
+		targetScroll = container.scrollTop;
+		increment = container.offsetHeight;
+	}
+	console.log(targetScroll, increment);
 
+	if (mode === "prev"){
+		targetScroll = targetScroll - increment;
+	} else if (mode = "next") {
+		targetScroll = targetScroll + increment;
+	}
+	console.log(axis, targetScroll);
+	if (axis === "X") {
+		container.scrollTo(targetScroll, container.scrollTop);
+	} else if (axis === "Y"){
+		container.scrollTo(container.scrollLeft, targetScroll);
+	}
+}
 
 
 updatePrice();

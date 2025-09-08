@@ -513,16 +513,25 @@ tr:hover{
 }
 
 
-.bubbles, .enlarged-bubbles{
-	margin-left:0.5rem;
+.bubble-container{
 	position:absolute;
 	left:0;
 	top:0;
+	height:100dvh;
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+	margin-left:1vw;
+}
+
+.bubbles, .enlarged-bubbles{
+	position:relative;
 	display:flex;
 	flex-direction:column;
 	justify-content: center;
 	align-items:center;
-	height: 100dvh;
+	height: fit-content;
 	width:fit-content;
 	z-index:10;
 }
@@ -532,7 +541,7 @@ tr:hover{
 
 }
 
-.bubbles.hidden, .enlarged-bubbles.hidden{
+.bubble-container.hidden, .enlarged-bubbles.hidden{
 	display:none;
 }
 .bubble, .enlarged-bubble{
@@ -555,18 +564,27 @@ tr:hover{
 	background-color:black;
 }
 
-
-
-
+.arrows{
+	display:none;
+}
 
 
 
 @media screen and (orientation: portrait) {
-	.bubbles{
-		margin-top: 0.5rem;
+	.bubble-container{
 		position:relative;
+		margin-top: 0.5rem;
+		margin-left:2vh;
+		margin-right: 2vh;
 		flex-direction:row;
-		width:100%;
+		width:calc(100% - 4vh);
+		justify-content: space-between;;
+		height:fit-content;
+		align-items:center;
+	}
+	.bubbles{
+		flex-direction:row;
+		width:fit-content;
 		height: fit-content;
 	}
 	.bubble{
@@ -575,7 +593,34 @@ tr:hover{
 		margin-bottom:0;
 		margin-top:0;
 	}
-    	
+    	.arrows{
+		display:flex;
+		flex-direction: row;
+		width: fit-content;
+		height:2rem;
+		align-items:center;
+	}
+	.arrow{
+		height: 0.8rem;
+		width: 0.8rem;
+		min-width: 0.8rem;
+		border-top:black 0.1rem solid;
+		border-right: black 0.1rem solid;
+		border-bottom:transparent 0.1rem solid;
+                border-left: transparent 0.1rem solid;
+		cursor:pointer;
+	}
+	.arrow.left{
+		margin-right:1rem;
+		transform: rotate(-135deg);
+		-webkit-transform: rotate(-135deg);
+	}
+	.arrow.right{
+                transform: rotate(45deg);
+		-webkit-transform: rotate(45deg);
+        }
+
+
         .galeries-landscape{
             display: none;
         }
