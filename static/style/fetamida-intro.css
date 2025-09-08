@@ -15,7 +15,24 @@
 	background-size: cover;
 	font-size: 2rem;
 	color: white;
+    cursor: pointer;
+    transition: 1s;
+    filter: brightness(80%);
+
 }
+
+.intro-half:hover{
+    filter: brightness(120%);
+    font-size: 2.5rem;
+}
+
+.intro-title{
+    transition: 1s;
+}
+.intro-title:hover{
+
+}
+
 
 @media screen and (orientation: portrait) {
 	#fetamida-intro{
