@@ -204,8 +204,6 @@ function showMenuContent() {
 function closeMenu() {
     //console.log('Close menu');
     menu.style.width = "0px";
-    window.scrollTo(window.scrollX, window.scrollY - 1);
-    window.scrollTo(window.scrollX, window.scrollY + 1);
     for (i = 0; i < navButtons.length; i++) {
         navButtons[i].classList.remove("black");
     }

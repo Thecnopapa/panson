@@ -183,6 +183,13 @@ for (let i = 0; i < galleryElements.length; i++) {
 	let params = new URLSearchParams(document.location.search);
 	const key = params.get("filterKey", undefined);
 	const value = params.get("filterValue", undefined);
+    const galeria = galleryElements[i];
+    const filterElements= galeria.getElementsByClassName("filtre");
+    for (let i = 0; i < filterElements.length; i++){
+        if (filterElements[i].attributes.filterKey.value === key && filterElements[i].attributes.filterValue.value === value){
+            filterElements[i].classList.add("active");
+        }
+    }
 	initGaleria(galleryElements[i], undefined, key, value);
 
 }

@@ -1,6 +1,5 @@
 
 let oldUrl = new URL(window.location.href);
-window.scrollTo({top: Number(oldUrl.searchParams.get("scroll")), behavior: 'smooth'});
 let form = document.getElementById('form');
 
 
@@ -391,7 +390,7 @@ function startZoom(event){
 }
 
 function stopZoom(event) {
-    event.target;
+    image = event.target;
     event.stopPropagation();
     print("Ending zoom");
     //print("image", image);

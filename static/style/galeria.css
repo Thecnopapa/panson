@@ -15,7 +15,8 @@
 }
 
 .inline-filtres{
-	width:calc(100% - 8dvh);
+    padding-top: 2%;
+	max-width:calc(100% - 8dvh);
 	display:flex;
 	flex-direction: column;
 	align-items: center;
@@ -29,6 +30,7 @@
 	overflow:hidden;
 	flex-direction:row;
 	align-items: center;
+    height: 2rem;
 }
 
 .filtre{
@@ -39,6 +41,9 @@
 
 .filtre.active{
 	font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 0.2rem;
+    text-decoration-thickness: 0.1rem;
 }
 
 .galeria {
