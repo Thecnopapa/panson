@@ -82,9 +82,10 @@
 	{% endif %}
     </div>
 
-{% if pages %}
-    <div class="gallery-navigation disabled">
+    <div class="galeria-navigation" show="{{ pages }}">
+	    <div class="galeria-arrow left" onclick="galeriaPrev(this.parentElement.parentElement)"></div>
+	    <div class="galeria-counter"></div>
+	    <div class="galeria-arrow right" onclick="galeriaNext(this.parentElement.parentElement)"></div>
     </div>
-{% endif %}
 </div>
 {% endmacro %}

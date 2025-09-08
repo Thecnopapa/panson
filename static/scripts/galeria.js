@@ -57,6 +57,15 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
 
 	targetPage=Number(targetPage);
 	galeria.setAttribute("page", targetPage);
+	if (filterKey === undefined && galeria.hasAttribute("filterKey")){filterKey = galeria.attributes.filterKey.value;}
+	if (filterValue === undefined && galeria.hasAttribute("filterValue")){filterValue = galeria.attributes.filterValue.value}
+	
+	console.log(filterKey, filterValue);
+
+	galeria.setAttribute("filterKey", filterKey);
+	galeria.setAttribute("filterValue", filterValue);
+	
+
 	galeria.scrollTo(0,0);
 	const infoElement = galeria.getElementsByClassName("gallery-info")[0];
 	const maxProds = Number(infoElement.attributes.maxProds.value);
@@ -72,12 +81,12 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
 
 
     const allProducts = galeria.getElementsByClassName("hidden-info-producte");
-    if (filterKey === null){filterKey = undefined;}
-    if (filterValue === null){filterValue = undefined;}
+    if (filterKey === null || filterKey === "null"){filterKey = undefined;}
+    if (filterValue === null || filterValue ==="null"){filterValue = undefined;}
     let filteredProducts = []
     if (filterKey !== undefined  && filterValue !== undefined){
         for (let i = 0; i < allProducts.length; i++) {
-            print(filterKey);
+            
             if (allProducts[i].attributes[filterKey].value === filterValue){
                 filteredProducts.push(allProducts[i]);
             }
@@ -85,6 +94,27 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
     } else {
         filteredProducts = allProducts;
     }
+
+	const pageNav = galeria.getElementsByClassName("galeria-navigation")[0];
+	if (pageNav.attributes.show.value === "True"){
+		const pageCounter = galeria.getElementsByClassName("galeria-counter")[0];
+		const leftArrow = galeria.getElementsByClassName("galeria-arrow left")[0];
+		const rightArrow = galeria.getElementsByClassName("galeria-arrow right")[0];
+	        targetPage=Number(targetPage);
+		let maxPages = Math.round(Math.ceil(filteredProducts.length / maxProds));
+		console.log("MAX: ", maxPages);
+		pageNav.classList.toggle("disabled", maxPages <=1);
+		pageCounter.innerHTML = String(targetPage+1)+" / "+String(maxPages);
+		leftArrow.classList.toggle("disabled", targetPage === 0);
+		rightArrow.classList.toggle("disabled", (targetPage + 1) === maxPages);
+	} else{
+		console.log("disabled");
+		console.log(pageNav);
+		pageNav.classList.add("disabled");
+	}
+
+
+
     const productElements = galeria.getElementsByClassName("producte enabled");
 
     for (let i = 0; i < maxProds; i++) {
@@ -95,14 +125,33 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
 }
 
 
-
+function galeriaNext(galeria){
+	console.log(galeria);
+	initGaleria(galeria, Number(galeria.attributes.page.value)+1);
+}
+function galeriaPrev(galeria){
+	initGaleria(galeria, Number(galeria.attributes.page.value)-1);
+}
 
 function filterGaleria(trigger){
 	const galeria = trigger.parentElement.parentElement.parentElement;
+	if (trigger.classList.contains("active")){
+		galeria.removeAttribute("filterKey");
+		galeria.removeAttribute("filterValue");
+		trigger.classList.remove("active");
+		initGaleria(galeria);
+	}else{
+		const filterElements= galeria.getElementsByClassName("filtre");
+		for (let i = 0; i < filterElements.length; i++){
+			filterElements[i].classList.remove("active");
+		}
+
 	const key = trigger.attributes.filterKey.value;
 	const value = trigger.attributes.filterValue.value;
 	window.history.replaceState(document.title, "", document.location.pathname+"?filterKey=" + key + "&filterValue=" + value);
 	initGaleria(galeria, 0, key, value);
+	trigger.classList.add("active");
+	}
 }
 
 
