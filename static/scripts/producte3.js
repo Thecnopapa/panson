@@ -316,15 +316,36 @@ function enlargeImg(img, all=true){
 	
     const newContainer = document.createElement("div");
     newContainer.classList.add("enlarged-container");
-    newContainer.addEventListener("click", function (event){newContainer.remove(); document.body.style.overflow = "unset";});
+    newContainer.addEventListener("click", function (event){newContainer.remove(); document.body.style.overflow = "unset"; newObserver.disconnect()});
     document.body.appendChild(newContainer);
-	
+
+	let newObserver = new IntersectionObserver(newBubbleChange, {
+		root: newContainer,
+		threshold: 0.5,
+	});
+
+	function newBubbleChange(triggers, opts){
+		for (let i = 0; i < triggers.length; i++){
+                	const trigger = triggers[i].target;
+              		console.log(trigger);
+                	const targetIndex = [...newSlideshow.children].indexOf(trigger);
+                	const targetBubble = newBubbles.children[targetIndex];
+                	targetBubble.classList.toggle("active", triggers[i].isIntersecting);
+        }
+	}
+
+
+
+	const newBubbles = document.createElement("div");
+	newBubbles.classList.add("enlarged-bubbles");
+	if (images.length <= 1){newBubbles.classList.add("hidden");}
+	newContainer.appendChild(newBubbles);
 
   
 	const newCross = document.createElement("div");
 	newCross.innerHTML ="&#10005;";
 	newCross.classList.add("close-enlarged-container");
-	newCross.addEventListener("click", function (event){newContainer.remove(); document.body.style.overflow = "unset";});
+	newCross.addEventListener("click", function (event){newContainer.remove(); document.body.style.overflow = "unset"; newObserver.disconnect()});
 	newContainer.appendChild(newCross);
 
 	const newSlideshow = document.createElement("div");
@@ -344,6 +365,10 @@ function enlargeImg(img, all=true){
     	newImg.addEventListener("click", startZoom);
 	newImg.addEventListener("mouseleave", stopZoom);
     	newSlideshow.appendChild(newImg);
+	newObserver.observe(newImg);
+	const newBubble = document.createElement("div");
+	newBubble.classList.add("enlarged-bubble");
+	newBubbles.appendChild(newBubble);
     }
 	print("Scrolling to: ", images[targetImage])
 	newSlideshow.children[targetImage].scrollIntoView({block: "center"});

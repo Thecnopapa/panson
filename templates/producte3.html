@@ -26,7 +26,7 @@
             <div class="main-foto normal-image {{ 'fast-image' if n ==0 }}" draggable=false product="{{ producte.nom }}" onclick="enlargeImg(this)" background='https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/productes%2F{{ imatge }}?alt=media'></div>
     {% endfor %}
     </div>
-    <div class="bubbles">
+    <div class="bubbles {{ 'hidden' if utils.len(producte.imatges) <= 1 }}">
 	    {% for n, imatge in utils.enumerate(producte.imatges) %}
 	    	<div class="bubble"></div>
 	    {% endfor %}
