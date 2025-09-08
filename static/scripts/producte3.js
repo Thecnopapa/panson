@@ -386,6 +386,38 @@ function moveImg(event){
     image.style.backgroundPosition = String(clickX)+ "% "+String(clickY)+"%";
 }
 
+
+
+const initialSlideshowElements = document.getElementsByClassName("main-foto");
+
+let initialSlideshowObserver = new IntersectionObserver(initialBubbleChange, {
+	root: document.getElementById("producte-images"),
+	threshold: 0.5,
+})
+
+function initialBubbleChange(triggers, opts){
+	const triggerContainer = document.getElementById("producte-images");
+	const bubbleContainer = triggerContainer.nextElementSibling;
+	
+	for (let i = 0; i < triggers.length; i++){
+		const trigger = triggers[i].target;
+		console.log(trigger);
+		const targetIndex = [...triggerContainer.children].indexOf(trigger);
+		const targetBubble = bubbleContainer.children[targetIndex];
+		targetBubble.classList.toggle("active", triggers[i].isIntersecting);
+	}
+}
+
+
+
+for (let i = 0; i < initialSlideshowElements.length; i++){
+	initialSlideshowObserver.observe(initialSlideshowElements[i]);
+}
+
+
+
+
+
 updatePrice();
 
 
