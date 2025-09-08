@@ -58,7 +58,7 @@ body {
     flex-direction: column;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    align-content: center;
+    align-items: center;
 }
 
 .clickable{
@@ -252,16 +252,16 @@ body {
     color: rgba(240, 248, 255, 0.9);
     height: 7vh;
     user-select: none;
-    position: relative;
+    position: fixed;
     width: 20vw;
     top:0;
-    left: 0;
-    z-index: 5;
+    z-index: 60;
     transition: height 0.3s ease-out;
     cursor: pointer;
 }
 #title.white{
     background-image: url('/static/media/logo-complet-blanc.png');
+    mix-blend-mode: difference;
 }
 
 .language{

@@ -38,6 +38,11 @@
 {% if not user.accepted_cookies %}
         <div id=cookies class="request-cookies">{{ loc.nav_cookie_banner }}<button class="accept-cookies" onclick="acceptCookies()">{{ loc.nav_cookie_button }}</button></div>
     {% endif %}
+
+{% if hide_title %}
+{% else %}
+    <div id="title" onclick="location.href='/{{ loc.lan }}/'"></div>
+{% endif %}
 <div class = "navigation">
     <div class = "navigation-left" id="nav-left">
         <button class="dropbtn" id="menu-button" onmouseover="openMenu()" onclick="location.href='/{{ loc.lan }}/productes/'"> {{ loc.nav_botiga }} </button>
@@ -82,10 +87,7 @@
         <button class="dropbtn last" id="fetamida" onclick="location.href='/{{ loc.lan }}/fetamida/intro'"> {{ loc.nav_fetamida }}</button>
         <button class="dropbtn" id="contacte" onclick="location.href='/{{ loc.lan }}/contacte/'">{{ loc.nav_contacte }}</button>
     </div>
-    {% if hide_title %}
-    {% else %}
-        <div id="title" onclick="location.href='/{{ loc.lan }}/'"></div>
-    {% endif %}
+
     <div class = "navigation-right">
     {% if user.is_admin %}
     <div class="language" onclick="location.href='/admin/'" oncontextmenu="window.open('/admin/', '_blank')">{{ loc.nav_admin }}</div>
