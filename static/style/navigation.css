@@ -264,7 +264,7 @@ body {
 }
 #title.white{
     background-image: url('/static/media/logo-complet-blanc.png');
-    mix-blend-mode: difference;
+    /*mix-blend-mode: difference;*/
 }
 
 .language{

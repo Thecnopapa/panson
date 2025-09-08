@@ -68,7 +68,7 @@ body{
     top:35vh;
     left: 20%;
     z-index: 40;
-    mix-blend-mode: difference;
+    /*mix-blend-mode: difference;*/
 }
 
 #title-logo:hover{
