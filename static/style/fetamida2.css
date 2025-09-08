@@ -7,7 +7,7 @@
     width: 100dvw;
     max-width: 100dvw;
     scroll-behavior: smooth;
-    margin-top: 10dvh;
+    margin-top: 13dvh;
     overflow: hidden;
 }
 #sections-fetamida{
@@ -120,13 +120,12 @@
     overflow: hidden;
 }
 .section-text{
-    text-align: justify ;
+    text-align: center ;
     white-space: pre-wrap;
     height: fit-content;
     max-height: fit-content;
     overflow: hidden;
     li{
-
     }
     width: 50%;
 }
