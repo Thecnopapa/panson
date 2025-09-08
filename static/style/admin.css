@@ -1,12 +1,7 @@
 
 
 body {
-    width: 100dvw;
-    max-width: 100dvw;
-    height: 100dvh;
-    max-height: 100dvh;
-    display:flex;
-    flex-direction:column;
+
 }
 
 
@@ -44,15 +39,15 @@ body {
 	-ms-overflow-style: scrollbar;  /* IE and Edge */
 	scrollbar-width: thin;  /* Firefox */
 	height: fit-content;
-	max-height: 96%;
+
     align-items: center;
 }
 
 #admin-page{
     display:flex;
 	min-height:85vh;
-	height:85vh;
-	max-height: 85vh;
+	height:fit-content;
+    width:90%;
 }
 
 

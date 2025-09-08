@@ -12,6 +12,19 @@
 .page-name{
     text-align: center;
     font-weight: bold;
+    font-size: 2rem;
+    cursor: pointer;
+    min-height: 1rem;
+}
+
+.page-data{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+}
+.page-data.hidden{
+    display: none;
 }
 
 .loc-block{
