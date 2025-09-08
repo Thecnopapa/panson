@@ -158,7 +158,7 @@ body {
 .subtitol-desplegable {
     margin-bottom: 0;
 }
-.arrow{
+.titol-desplegable .arrow{
 }
 
 .popup-info {
@@ -600,7 +600,7 @@ tr:hover{
 		height:2rem;
 		align-items:center;
 	}
-	.arrow{
+	.arrows .arrow{
 		height: 0.8rem;
 		width: 0.8rem;
 		min-width: 0.8rem;
@@ -610,12 +610,12 @@ tr:hover{
                 border-left: transparent 0.1rem solid;
 		cursor:pointer;
 	}
-	.arrow.left{
+	.arrows .arrow.left{
 		margin-right:1rem;
 		transform: rotate(-135deg);
 		-webkit-transform: rotate(-135deg);
 	}
-	.arrow.right{
+	.arrows .arrow.right{
                 transform: rotate(45deg);
 		-webkit-transform: rotate(45deg);
         }
