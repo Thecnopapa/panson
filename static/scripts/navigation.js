@@ -39,7 +39,8 @@ async function loadImages(selection){
     let changedImages = 0
     for (let i = 0; i < selectedImages.length; i++){
         try{
-            selectedImages[i].style.backgroundImage = "url('"+selectedImages[i].attributes.background.value+"')";
+            const url = selectedImages[i].attributes.background.value
+            selectedImages[i].style.backgroundImage = "url('"+url+"')";
             selectedImages[i].removeAttribute("background");
             changedImages++;
         } catch(err){}

@@ -23,6 +23,7 @@
 {% import 'galeria.html' as galeria with context%}
 
 {% block body %}
+    <div id="title-logo" onclick="scrollToTop()"></div>
     <div class="content-index">
         <div class = "slideshow">
             {% for n, (slide_name, slide_url) in utils.enumerate(slides) %}
@@ -33,8 +34,7 @@
                 {% endif %}
             {% endfor %}
         </div>
-        <div id="title-logo" onclick="scrollToTop()">
-        </div>
+
     </div>
 
 <div id="index-subtitle">{{ loc.ind_subtitol }}</div>

@@ -9,7 +9,7 @@
     min-height:100dvh;
     align-content: center;
     justify-content: center;
-    z-index: 40;
+    z-index: 10;
 
 }
 #index-subtitle{
@@ -22,6 +22,10 @@
     padding-bottom:2%;
     margin-right: auto;
     padding-left: 1vw;
+    background-color: white;
+}
+#title-logo.black{
+    mix-blend-mode: normal;
 }
 
 
@@ -41,7 +45,9 @@ body{
     height: 100dvh;
 }
 
-
+.slow-image, .normal-image, .fast-image{
+    background-image: url("/static/media/panson_favicon.png");
+}
 
 #title-logo{
     background-image: url('/static/media/logo-complet-blanc.png');
@@ -61,7 +67,7 @@ body{
     width: 60%;
     top:35vh;
     left: 20%;
-    z-index: 50;
+    z-index: 40;
     mix-blend-mode: difference;
 }
 
@@ -84,6 +90,9 @@ body{
       	font-size: 1rem;
         display: flex;
         justify-content: center;
+        padding-top: 2vh;
+        padding-bottom: 2vh;
     }
 }
+
 

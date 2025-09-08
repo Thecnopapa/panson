@@ -36,14 +36,20 @@ function updateScroll() {
     title.style.paddingBottom = String(5 - (5 * scroll / maxScroll)).concat("dvh");
     title.style.paddingTop = String(5 - (5 * scroll / maxScroll)).concat("dvh");
     //print(oscroll, windowHeight*0.97);
-    if (oscroll >= windowHeight*0.97) {
-        goBlack()
-        title.style.backgroundImage = "url(\"/static/media/logo-complet.png\")";
-        title.style.zIndex = 10;
+    if (oscroll >= windowHeight*0.35) {
+        title.style.zIndex = 60;
     } else {
-        goWhite()
+        title.style.zIndex = 40;
+    }
+    if (oscroll >= windowHeight*0.97) {
+        goBlack();
+        title.classList.add('black');
+        title.style.backgroundImage = "url(\"/static/media/logo-complet.png\")";
+
+    } else {
+        goWhite();
+        title.classList.remove('black');
         title.style.backgroundImage = "url(\"/static/media/logo-complet-blanc.png\")";
-        title.style.zIndex = 4;
     }
 
 };
