@@ -57,11 +57,25 @@
 .galeria{
     margin-top: 0;
 }
+.galeria-landscape{
+	width:100%;
+	display:flex;
+}
+.galeria-portrait{
+	width:100;
+	display:none;
+}
+
 .footer{
     background-color: transparent;
 }
 
 
 @media screen and (orientation: portrait) {
-
+	.galeria-landscape{
+		display:none;
+	}
+	.galeria-portrait{
+		display:flex;
+	}
 }

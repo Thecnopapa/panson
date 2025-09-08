@@ -1,7 +1,7 @@
 
 
 
-{% macro galeria(bucket, double=False, filtres=False, max_prods=None, filterKey=None, filterValue=None, min_row=4, exclude=None, filter_mode="&") %}
+{% macro galeria(bucket, double=False, filtres=False, max_prods=None, filterKey=None, filterValue=None, min_row=4, min_prods=4, exclude=None, filter_mode="&", pages=False, inline=False) %}
 
 
 {% set productes = productes.__getattribute__(bucket) %}
@@ -43,9 +43,9 @@
                 </div>
             </div>
         {% endif %}
-    <div class="galeria-scroll scroll-left" onmouseover="startScrolling(this.nextElementSibling.nextElementSibling, 'left')" onmouseout="stopScrolling(this.nextElementSibling.nextElementSibling)"></div>
-    <div class="galeria-scroll scroll-right" onmouseover="startScrolling(this.nextElementSibling, 'right')" onmouseout="stopScrolling(this.nextElementSibling)"></div>
-    <div class="galeria" class="galeria">
+    <div class="galeria-scroll scroll-left {{ 'inline' if inline }}" onmouseover="startScrolling(this.nextElementSibling.nextElementSibling, 'left')" onmouseout="stopScrolling(this.nextElementSibling.nextElementSibling)"></div>
+    <div class="galeria-scroll scroll-right {{ 'inline' if inline }}" onmouseover="startScrolling(this.nextElementSibling, 'right')" onmouseout="stopScrolling(this.nextElementSibling)"></div>
+    <div class="galeria {{ 'inline' if inline }}">
         {% for n in range(max_prods) %}
             {% if (double and n % 2 == 0) %}
                <div class="producte-doble">
@@ -68,7 +68,7 @@
                </div>
            {% endif %}
         {% endfor %}
-        {% for n in range(utils.mod(max_prods, min_row)) %}
+        {% for n in range(utils.mod(max_prods, min_row)+min_prods-utils.min(max_prods, min_prods)) %}
             {% if (double and (n+max_prods) % 2 == 0) %}
                 <div class="producte-doble">
             {% endif %}
@@ -82,9 +82,9 @@
 	{% endif %}
     </div>
 
-
+{% if pages %}
     <div class="gallery-navigation disabled">
     </div>
-
+{% endif %}
 </div>
 {% endmacro %}

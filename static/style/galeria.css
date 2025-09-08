@@ -47,6 +47,7 @@
     justify-content: space-between;
     overflow-y: hidden;
     width: 100%;
+    scroll-snap-type: both mandatory;
 }
 
 .producte{
@@ -163,6 +164,19 @@
     background: linear-gradient(to left, rgba(140, 140, 140, 0), rgba(0, 0, 0, 0));
 
 }
+.galeria-scroll.inline{
+	display:flex;
+}
+.galeria.inline{
+	flex-direction:row;
+	flex-wrap:nowrap;
+	overflow-x: scroll;
+	justify-content: start;
+}
+.galeria.inline .producte:not(.last){
+        margin-right: calc(0.8dvw / 3);
+}
+
 
 @media screen and (orientation: portrait) {
     .galeria-scroll{
@@ -177,6 +191,9 @@
         width: 49.5dvw;
 	    height:calc(49.5dvw + 3rem);
         user-select: none;
+    }
+    .galeria.inline .producte:not(.last){
+        margin-right: calc(2dvw / 3);
     }
 
     .detalls-galeria{

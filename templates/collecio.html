@@ -33,8 +33,12 @@
                 </div>
             {% endif %}
         </div>
-
-    {{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=col._id) }}
+	<div class=galeria-landscape>
+    {{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=col._id, min_row=1, min_prods=4, inline=True) }}
+	</div>
+	<div class=galeria-portrait>
+    {{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=col._id, min_row=1, min_prods=2, inline=True) }}
+        </div>
     </div>
 
 

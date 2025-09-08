@@ -1,5 +1,5 @@
 import pandas as pd
-
+from utilities import *
 
 class Utils:
     @staticmethod
@@ -63,6 +63,10 @@ class Utils:
         return max(*args)
 
     @staticmethod
+    def min(*args):
+        return min(*args)
+
+    @staticmethod
     def replace(string,old,new ):
         return string.replace(old,new)
 
@@ -81,7 +85,9 @@ class Utils:
 
     @staticmethod
     def filter_by_attr(obj_list, keys, values, mode="&", exclude=False):
+        sprint("Filtering: ", keys, values)
         if keys is None or values is None:
+            print1("Skipping filter: ", keys is None, values is None)
             return obj_list
         if ";" in keys:
             keys = keys.split(";")
@@ -95,20 +101,25 @@ class Utils:
         if "!" in mode:
             exclude = True
             mode = mode.replace("!", "")
-
+        for key in keys:
+            key= str(key)
+        for value in values:
+            value = str(value)
+        print1(list(zip(keys, values)))
         r = []
         for o in obj_list:
             append = False
             if mode == "&":
                 append = True
                 for key, value in zip(keys, values):
-                    if o.__getattribute__(key) == value:
+                    print2(key, value, str(o.__getattribute__(key)))
+                    if str(o.__getattribute__(key)) == value:
                         continue
                     append = False
             elif mode == "|":
                 append = False
                 for key, value in zip(keys, values):
-                    if o.__getattribute__(key) == value:
+                    if str(o.__getattribute__(key)) == value:
                         append = True
                         break
             if exclude:
