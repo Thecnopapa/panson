@@ -6,7 +6,7 @@ function imageUrl(bucket, filename){
     return "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/"+bucket+"%2F"+filename+"?alt=media"
 }
 
-
+document.documentElement.scrollTo({top:0,left:0, behavior: "instant"})
 
 
 const loader = document.getElementById("loader");
@@ -14,6 +14,7 @@ const loaderIcon =document.getElementById("loader-icon");
 
 
 window.addEventListener('load', function () {
+
 	loader.remove();
 	print(" * Page loaded!");
     loadAllImages();

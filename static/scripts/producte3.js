@@ -362,15 +362,16 @@ function enlargeImg(img, all=true){
     	newImg.style.backgroundImage = images[i].style.backgroundImage;
     	newImg.setAttribute('draggable', false);
     	newImg.addEventListener("click", startZoom);
-	newImg.addEventListener("mouseleave", stopZoom);
+        newImg.addEventListener("mouseleave", stopZoom);
     	newSlideshow.appendChild(newImg);
-	newObserver.observe(newImg);
-	const newBubble = document.createElement("div");
-	newBubble.classList.add("enlarged-bubble");
-	newBubbles.appendChild(newBubble);
+        newObserver.observe(newImg);
+        const newBubble = document.createElement("div");
+        newBubble.classList.add("enlarged-bubble");
+        newBubbles.appendChild(newBubble);
     }
+
 	print("Scrolling to: ", images[targetImage])
-	newSlideshow.children[targetImage].scrollIntoView({block: "center"});
+	newSlideshow.children[targetImage].scrollIntoView({block: "center", behavior: "instant"});
 
 
     print("Enlarged img ready!")
@@ -425,7 +426,6 @@ function initialBubbleChange(triggers, opts){
 	
 	for (let i = 0; i < triggers.length; i++){
 		const trigger = triggers[i].target;
-		console.log(trigger);
 		const targetIndex = [...triggerContainer.children].indexOf(trigger);
 		const targetBubble = bubbleContainer.children[targetIndex];
 		targetBubble.classList.toggle("active", triggers[i].isIntersecting);
@@ -439,30 +439,37 @@ for (let i = 0; i < initialSlideshowElements.length; i++){
 }
 
 
-function slideshowScroll(container, mode, axis="X"){
-	console.log(container);
-	let targetScroll = 0;
-	let increment = 0;
-	if (axis === "X"){
-		targetScroll = container.scrollLeft;
-		increment = container.offsetWidth;
-	} else if (axis === "Y") {
-		targetScroll = container.scrollTop;
-		increment = container.offsetHeight;
+function slideshowScroll(container, mode, axis="both"){
+	let targetScrollX = 0;
+    let targetScrollY = 0;
+	let incrementX = 0;
+    let incrementY = 0;
+	if (axis === "X" || axis === "both"){
+		targetScrollX = container.scrollLeft;
+		incrementX = container.offsetWidth;
 	}
-	console.log(targetScroll, increment);
+    if (axis === "Y" || axis === "both") {
+		targetScrollY = container.scrollTop;
+		incrementY = container.offsetHeight;
+	}
 
 	if (mode === "prev"){
-		targetScroll = targetScroll - increment;
-	} else if (mode = "next") {
-		targetScroll = targetScroll + increment;
-	}
-	console.log(axis, targetScroll);
-	if (axis === "X") {
-		container.scrollTo(targetScroll, container.scrollTop);
-	} else if (axis === "Y"){
-		container.scrollTo(container.scrollLeft, targetScroll);
-	}
+		targetScrollX = targetScrollX - incrementX;
+        targetScrollY = targetScrollY - incrementY;
+	} else if (mode === "next") {
+		targetScrollX = targetScrollX + incrementX;
+        targetScrollY = targetScrollY + incrementY;
+    } else{
+        try{
+            mode = Number(mode)
+            targetScrollX = incrementX*mode;
+            targetScrollY = incrementY*mode;
+            console.log(mode, targetScrollX, targetScrollY);
+        } catch(err){console.log(err)}
+    }
+	console.log(axis, targetScrollX, targetScrollY);
+    container.scrollTo(targetScrollX, targetScrollY);
+
 }
 
 

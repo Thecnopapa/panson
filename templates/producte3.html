@@ -29,7 +29,7 @@
     <div class="bubble-container {{ 'hidden' if utils.len(producte.imatges) <= 1 }}">
     	<div class="bubbles">
 	    {% for n, imatge in utils.enumerate(producte.imatges) %}
-	    	<div class="bubble"></div>
+	    	<div class="bubble" onclick="slideshowScroll(this.parentElement.parentElement.previousElementSibling, '{{ n }}')"></div>
 	    {% endfor %}
     	</div>
 	<div class="arrows">
@@ -122,7 +122,7 @@
                             {% for n, (talla, info) in utils.enumerate(utils.sort_by_keys(producte.opcions["talles"], ["preu","ordre"]).items()) if talla not in ["XS", "S", "M", "L", "XL"] %}
                                 <div class="option size">
                                     <label class="text-label">
-                                        <input  type="radio" name="talla" price="{{ info.get("preu", 0) }}" qty="{{ info.get("qty", 0) }}" class="hidden-input size-input" value="{{ talla }}" onchange="updatePrice()">
+                                        <input  type="radio" name="talla" price="{{ info.get("preu", 0) }}" qty="{{ info.get("qty", 0) }}" class="hidden-input size-input" value="{{ talla }}" onchange="selectSize(this);updatePrice()">
                                     {{ talla }}
                                     </label>
                                 </div>
