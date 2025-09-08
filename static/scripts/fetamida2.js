@@ -18,7 +18,7 @@ function toSection(targetSection) {
     sectionContainer.scrollTo(sectionWidth * targetSection, 0 , {behavior: "smooth"});
     sectionContainer.style.maxHeight = String(sectionContainer.getElementsByClassName("fetamida-section")[targetSection].offsetHeight) + "px";
     if (targetSection === 0 ) {
-        toFirst.style.left = "0";
+        toFirst.style.left = "calc(50% - " + String(toFirst.offsetWidth / 2) + "px)";
         toSecond.style.left = "calc(100% - " + String(toSecond.offsetWidth + toThird.offsetWidth + sectionWidth*0.02) + "px)";
         toThird.style.left = "calc(100% - " + String(toThird.offsetWidth) + "px)";
     } else if (targetSection === 1) {
@@ -29,7 +29,7 @@ function toSection(targetSection) {
     } else if (targetSection === 2) {
         toFirst.style.left = "0";
         toSecond.style.left = String(toFirst.offsetWidth + sectionWidth*0.02) + "px";
-        toThird.style.left = "calc(100% - " + String(toThird.offsetWidth) + "px)";
+        toThird.style.left = "calc(50% - " + String(toThird.offsetWidth / 2) + "px)";
     }
 }
 
