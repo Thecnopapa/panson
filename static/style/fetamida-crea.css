@@ -1,6 +1,75 @@
 
 
+#fetamida-crea{
+    height: fit-content;
+    min-height: 80vh;
+    max-height: 80vh;
+    overflow-y: scroll;
+    width: 100%;
+    scroll-snap-type: y mandatory;
+}
+.fetamida-crea-page{
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    width: 100%;
+    scroll-snap-align: start;
+    justify-content: center;
+    align-items: center;
+}
+#crea-gracies{
+    background-color: rgba(0, 255, 255, 0.2);
+
+}
+.crea-main-image{
+    background-color: rgba(255, 126, 0, 0.5);
+    width: 80%;
+    height: 90%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.crea-title{
+    font-size: 2rem;
+
+}
+.crea-main-text{
+    width: 40%;
+    text-align: justify;
+}
 
 
+#crea-proces{
+    background-color: rgba(255, 192, 203, 0.5);
+}
+.crea-proces-title{
+    width: 100%;
+    font-size: 2rem;
+}
+.crea-steps{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.crea-step{
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 0, 234, 0.8);
+    height: 30vw;
+    width: 30vw;
+    justify-content: center;
+    align-items: center;
+    padding:1vw;
+}
 
-
+.step-number{
+    font-size: 2rem;
+}
+.crea-step-text{
+    text-align: justify;
+}
