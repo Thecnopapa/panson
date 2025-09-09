@@ -185,7 +185,7 @@ function triggerInput(target){
 }
 
 
-async function productAddImage(trigger, bucket){
+async function productAddImageDeprecated(trigger, bucket){
 	const files = trigger.files;
 	print("Adding images: ", files);
     if (bucket === undefined){
@@ -216,21 +216,29 @@ async function productAddImage(trigger, bucket){
 
 
 
-async function uploadImage(file, bucket){
-	print("Uploading: ", file.name, "("+file.type+")");
-	let newFname = await fetch("/admin/images/upload/"+bucket,
-		{
-			headers: {
-				'Content-Type': file.type,
-                'Content-Disposition': 'attachment; filename="'+file.name+'"',
-                'filename': file.name,
+async function uploadFiles(trigger, bucket){
+	const files = trigger.files;
+	let uploadedFiles = []
+	for (let i = 0; i < files.length; i++){
+		const file = files[i];
+		print("Uploading: ", file.name, "("+file.type+")");
+		let newFname = await fetch("/admin/images/upload/"+bucket,
+			{
+				headers: {
+					'Content-Type': file.type,
+                			'Content-Disposition': 'attachment; filename="'+file.name+'"',
+                			'filename': file.name,
 			},
 			method: "POST",
 			body: file,
 		}).then(response => {if (response.ok){return response.text();}else{return undefined;}});
-    console.log("Uploaded: ", newFname);
-    return newFname;
+		uploadedFiles.push(newFname);
+    		console.log("Uploaded: ", newFname);
+	}
+    return uploadedFiles;
 }
+
+
 
 function productImageMove(image, moveRight){
     const oldPosition = Array.from(image.parentElement.children).indexOf(image);

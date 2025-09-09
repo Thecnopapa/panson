@@ -755,7 +755,9 @@ def upload_image(bucket):
         print(request.headers)
         filename = request.headers["filename"]
         print("filename: ", filename, filename.split(".")[-1])
-        content_type = "image/"+filename.split(".")[-1]
+        #content_type = "image/"+filename.split(".")[-1]
+        content_type = request.headers["content_type"]
+        print(content_type)
         from app_essentials.localisation import Images
         imgs = Images()
         filename = imgs.upload(bucket, filename, filedata, content_type)

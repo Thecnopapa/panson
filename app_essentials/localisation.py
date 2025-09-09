@@ -27,13 +27,14 @@ class Images:
     def __call__(self, bucket, filename):
         return self.get_url(bucket, filename)
 
-    def upload(self, bucket, filename, filedata, content_type):
+    def upload(self, bucket, filename, filedata, content_type, replace=False):
         bucket = secure_filename(bucket)
         filename = secure_filename(filename)
         storage_path = bucket + "/" + filename
-        while storage_path in self.get_blobs(bucket):
-            filename = filename.split(".")[0] +"_copia"+os.path.splitext(filename)[1]
-            storage_path = bucket + "/" + filename
+        if not replace:
+            while storage_path in self.get_names(bucket):
+                filename = filename.split(".")[0] +"_copia"+os.path.splitext(filename)[1]
+                storage_path = bucket + "/" + filename
 
         new_blob = db.blob(storage_path)
         print("Uploading {} MIME: {}".format(filename, content_type))
