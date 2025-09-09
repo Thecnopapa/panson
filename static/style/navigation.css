@@ -51,7 +51,9 @@ html{
     } 
 }
 
-
+.hidden{
+	display: none;
+}
 body {
     padding: 0 0;
     margin: 0 0;
@@ -63,6 +65,16 @@ body {
     -moz-osx-font-smoothing: grayscale;
     align-items: center;
 }
+
+.slow-image, .normal-image, .fast-image{
+    /*background-image: url("/static/media/panson_favicon.png");
+    background-size: 10%;
+    background-color:white;*/
+}
+
+
+
+
 
 .clickable{
     cursor: pointer;
