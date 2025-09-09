@@ -1,0 +1,26 @@
+{% extends "admin-base.html" %}
+
+
+{% block content %}
+    <div id="misc" class="admin-content">
+
+	    <div class="warning"> Aquesta seccio conté valors delicats que poden petar la web o certs elements</div>
+
+		<div class="misc-loc">
+			{% for field, data in loc.misc.items() %}
+			<div class="misc-block">
+				<div class="misc-block-title">{{ field }}</div>
+				<div class="misc-block-data">
+					{% for key, value in data.items() %}
+					<div class"misc-key-value">
+						{{key}}:<input type=hidden class="misc-key" field="{{field}}" key="{{key}}" value="{{key}}">
+						<input type=text class="misc-value" field="{{field}}" key="{{key}}" value="{{value}}" oninput="updateMisc(this);">
+
+					{% endfor %}
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+
+    </div>
+    {% endblock %}
