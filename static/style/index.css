@@ -45,9 +45,6 @@ body{
     height: 100dvh;
 }
 
-.slow-image, .normal-image, .fast-image{
-    background-image: url("/static/media/panson_favicon.png");
-}
 
 #title-logo{
     background-image: url('/static/media/logo-complet-blanc.png');

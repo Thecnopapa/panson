@@ -20,16 +20,39 @@ window.addEventListener('load', function () {
     loadAllImages();
 
 })
+
+let imagesToPreload = [];
+
 loadImages("fast");
 
 function loadAllImages() {
     loadImages("fast");
     loadImages("normal");
     loadImages("slow");
+    preloadHiddenImages();
 }
 
-async function preloadHiddenImages(){
 
+async function preloadHiddenImages(){
+	console.log("preloading "+imagesToPreload.length+" images");
+	for (let i = 0; i < imagesToPreload.length; i++){
+		newImage = document.createElement("img");
+		newImage.classList.add("hidden");
+		newImage.zIndex = "-999";
+		newImage.width = "0";
+		newImage.height = "0";
+		
+		newImage.setAttribute("srcUrl", imagesToPreload[i]);
+		document.getElementById("hidden-images").appendChild(newImage);
+		console.log(newImage);
+		setTimeout(sourceToSrc,3000, newImage);
+	}
+	imagesToPreload =[];
+}
+
+function sourceToSrc(trigger){
+	trigger.src = trigger.attributes.srcUrl.value;
+	console.log(trigger);
 }
 
 async function loadImages(selection){
@@ -43,9 +66,10 @@ async function loadImages(selection){
             selectedImages[i].style.backgroundImage = "url('"+url+"')";
             selectedImages[i].removeAttribute("background");
             changedImages++;
+	    imagesToPreload.push(url);
         } catch(err){}
     }
-    print(" * "+ selection +" images loaded (" + changedImages + ") "+ window.performance?.timeOrigin);
+    print(" * "+ selection +" images loaded (" + changedImages + ") ");
 
 }
 
