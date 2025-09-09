@@ -247,7 +247,7 @@ function productImageMove(image, moveRight){
         }
     }
     print("Moved image: ",oldPosition, "->", newPosition)
-    productUpdate(image, oldPosition, "list:text", "sort", newPosition);
+    productUpdate(image, oldPosition, "list:int", "sort", newPosition);
 }
 
 function productImageDelete(image){
