@@ -401,7 +401,8 @@ def admin(lan="cat", page="base"):
     print("admin check")
     #print(user.username, user.password)
     if check_if_admin(user.username, user.password):
-        return template(lan=lan, templates="admin-{}".format(page), user = user.username, amagats=True, footer=False, collecions = get_cols(amagats=True))
+        from app_essentials.localisation import Images
+        return template(lan=lan, imgs=Images().load(), templates="admin-{}".format(page), user = user.username, amagats=True, footer=False, collecions = get_cols(amagats=True))
     else:
         return template(lan=lan, templates="login", footer=False)
 
@@ -751,6 +752,8 @@ def update_product(bucket):
 def upload_image(bucket):
     user = get_current_user()
     if check_if_admin(user.username, user.password):
+        from app_essentials.localisation import Images
+        imgs = Images()
         filedata = request.data
         print(request.headers)
         filename = request.headers["filename"]
@@ -758,10 +761,8 @@ def upload_image(bucket):
         #content_type = "image/"+filename.split(".")[-1]
         content_type = request.headers["content_type"]
         print(content_type)
-        from app_essentials.localisation import Images
-        imgs = Images()
-        filename = imgs.upload(bucket, filename, filedata, content_type)
-        return filename
+        data = imgs.upload(bucket, filename, filedata, content_type)
+        return data["filename"]
 
 
 def upload_image_old(bucket):

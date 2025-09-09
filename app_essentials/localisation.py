@@ -8,13 +8,23 @@ from app_essentials.firestore import db
 from flask import request
 class Images:
     def __init__(self):
+        self.img_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/{}%2F{}?alt=media"
+    
+    def load(self):
         self.paths = [b.name for b in db.list_blobs()]
         self.buckets = list(set([b.split("/")[0] for b in self.paths]))
-        self.img_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/{}%2F{}?alt=media"
+        return self
 
     def get_blobs(self, bucket):
         bucket = secure_filename(bucket)
         return [b for b in db.list_blobs(prefix=bucket)]
+    
+    def get_blob(self, bucket, filename):
+        filename = secure_filename(filename)
+        for blob in self.get_blobs(bucket):
+            if blob.name == bucket+"/"+filename:
+                return blob
+
 
     def get_names(self, bucket):
         return [b.name for b in self.get_blobs(bucket)]
@@ -26,6 +36,7 @@ class Images:
 
     def __call__(self, bucket, filename):
         return self.get_url(bucket, filename)
+    
 
     def upload(self, bucket, filename, filedata, content_type, replace=False):
         bucket = secure_filename(bucket)
@@ -39,24 +50,31 @@ class Images:
         new_blob = db.blob(storage_path)
         print("Uploading {} MIME: {}".format(filename, content_type))
         new_blob.upload_from_string(filedata, content_type=content_type)
-        return filename
+        return dict(blob=new_blob, filedata=filedata, content_type=content_type,
+ filename=filename, bucket=bucket)
+    
 
     def get(self, bucket, filename):
         bucket = secure_filename(bucket)
         filename = secure_filename(filename)
-        for blob in self.get_blobs(bucket):
-            if blob.name == bucket+"/"+filename:
-                return blob.download_as_bytes()
+        blob = self.get_blob(bucket, filename)
+        filedata = blob.download_as_bytes()
+        content_type = blob.content_type
+        return dict(blob=blob, filedata=filedata, content_type=content_type, filename=filename, bucket=bucket)
 
-
+    
     def delete(self, bucket, filename):
-        bucket = secure_filename(bucket)
-        filename = secure_filename(filename)
+        data = self.get(bucket, filename)
+        data["blob"].delete()
+        return data
 
 
 
-    def move(self, oldbucket, new_bucket, filename):
-        pass
+    def move(self, oldbucket, new_bucket, filename, replace=False):
+        data = self.delete(oldbucket, filename)
+        new_data = self.upload(new_bucket, data["filename"], data["filedata"], data["content_type"], replace)
+        return new_data
+
 
 
 
