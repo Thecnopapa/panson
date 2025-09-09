@@ -220,10 +220,10 @@ async function uploadImage(file, bucket){
 	print("Uploading: ", file.name, "("+file.type+")");
 	let newFname = await fetch("/admin/images/upload/"+bucket,
 		{
-			headers: {'Accept': file.type,
+			headers: {
 				'Content-Type': file.type,
                 'Content-Disposition': 'attachment; filename="'+file.name+'"',
-                'fname': file.name,
+                'filename': file.name,
 			},
 			method: "POST",
 			body: file,

@@ -3,6 +3,79 @@ import os
 
 from app_essentials.utils import *
 from app_essentials.firebase import localisation
+from werkzeug.utils import secure_filename
+from app_essentials.firestore import db
+from flask import request
+class Images:
+    def __init__(self):
+        self.paths = [b.name for b in db.list_blobs()]
+        self.buckets = list(set([b.split("/")[0] for b in self.paths]))
+        self.img_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/{}%2F{}?alt=media"
+
+    def get_blobs(self, bucket):
+        bucket = secure_filename(bucket)
+        return [b for b in db.list_blobs(prefix=bucket)]
+
+    def get_names(self, bucket):
+        return [b.name for b in self.get_blobs(bucket)]
+
+    def get_url(self, bucket, filename):
+        bucket = secure_filename(bucket)
+        filename = secure_filename(filename)
+        return self.img_url.format(bucket, filename)
+
+    def __call__(self, bucket, filename):
+        return self.get_url(bucket, filename)
+
+    def upload(self, bucket, filename, filedata, content_type):
+        bucket = secure_filename(bucket)
+        filename = secure_filename(filename)
+        storage_path = bucket + "/" + filename
+        while storage_path in self.get_blobs(bucket):
+            filename = filename.split(".")[0] +"_copia"+os.path.splitext(filename)[1]
+            storage_path = bucket + "/" + filename
+
+        new_blob = db.blob(storage_path)
+        print("Uploading {} MIME: {}".format(filename, content_type))
+        new_blob.upload_from_string(filedata, content_type=content_type)
+        return filename
+
+    def get(self, bucket, filename):
+        bucket = secure_filename(bucket)
+        filename = secure_filename(filename)
+        for blob in self.get_blobs(bucket):
+            if blob.name == bucket+"/"+filename:
+                return blob.download_as_bytes()
+
+
+    def delete(self, bucket, filename):
+        bucket = secure_filename(bucket)
+        filename = secure_filename(filename)
+
+
+
+    def move(self, oldbucket, new_bucket, filename):
+        pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class Localisation2:
     def __init__(self, lan="cat"):

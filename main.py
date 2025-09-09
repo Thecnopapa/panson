@@ -119,10 +119,11 @@ def make_session_permanent():
 
 @app.route("/blank")
 def return_blank():
-    from app_essentials.localisation import Localisation2
-    loc = Localisation2()
-    loc.create_empty_text("page", "name",)
-    return loc.page_name
+    from app_essentials.localisation import Images
+    imgs = Images()
+    buckets = imgs.buckets
+    print(buckets)
+    return buckets
 
 @app.route("/mailgun")
 def mailgun():
@@ -746,7 +747,22 @@ def update_product(bucket):
 
 @limiter.exempt
 @app.post("/admin/images/upload/<bucket>")
+
 def upload_image(bucket):
+    user = get_current_user()
+    if check_if_admin(user.username, user.password):
+        filedata = request.data
+        print(request.headers)
+        filename = request.headers["filename"]
+        print("filename: ", filename, filename.split(".")[-1])
+        content_type = "image/"+filename.split(".")[-1]
+        from app_essentials.localisation import Images
+        imgs = Images()
+        filename = imgs.upload(bucket, filename, filedata, content_type)
+        return filename
+
+
+def upload_image_old(bucket):
     from app_essentials.firestore import upload_images
     from werkzeug.utils import secure_filename
     user = get_current_user()

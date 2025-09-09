@@ -1,0 +1,11 @@
+{% extends "admin-base.html" %}
+
+
+{% block content %}
+    <div id="imatges" class="admin-content">
+
+    <input type="file" name="file" id="test-file" value="{{id_imatges}}" oninput="uploadImage(this, 'test');"/>
+
+
+    </div>
+{% endblock %}
