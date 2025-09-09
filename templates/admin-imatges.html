@@ -12,11 +12,25 @@
                     {% for file in imgs.get_names(bucket) %}
                         <div class="bucket-image normal-image" filename="{{ file }}" bucket="{{ bucket }}" background="{{ imgs.get_url(bucket, file) }}" onclick="showImgDetails(this)"></div>
                     {% endfor %}
+                    <div class="bucket-image" bucket="{{ bucket }}" onclick="this.firstElementChild.click()"><input multiple class="hidden" type="file" oninput="uploadFiles(this, '{{ bucket }}', this.parentElement.previousElementSibling);"/>&#10133;</div>
+
                 </div>
             </div>
-
     {% endfor %}
-    <input type="file" id="test-file" value="{{id_imatges}}" oninput="uploadFiles(this, 'test');"/>
+
 
     </div>
 {% endblock %}
+
+
+{% macro image_selector(bucket) %}
+<div class="image-selector container-closer hidden" onclick="this.classList.toggle('hidden');">
+    <div class="image-selector-content img-details" onclick="event.stopPropagation();">
+        <div class="image-selector-title">{{ bucket }}</div>
+        <div class="image-selector-gallery">
+            <div class="image-selector-image template" onclick="selectThis(this)"></div>
+        </div>
+        <div class="image-selector-confirm" onclick="confirmSelection()">Confirmar</div>
+    </div>
+</div>
+{% endmacro %}

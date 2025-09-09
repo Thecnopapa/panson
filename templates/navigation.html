@@ -27,13 +27,6 @@
 
 </div>
 
-{% if origin and False%}
-    {% if origin != "hide" %}
-        <button class="back" onclick="location.href='/{{ loc.lan }}/{{ origin }}'"> &lt; {{ loc.nav_enrere }}</button>
-    {% endif %}
-{% elif False %}
-    <button class="back" onclick="history.back()"><img class="back-arrow" src="/static/media/arrow.svg" alt="{{ loc.nav_enrere }}"> </button>
-{% endif %}
 
 {% if not user.accepted_cookies %}
         <div id=cookies class="request-cookies">{{ loc.nav_cookie_banner }}<button class="accept-cookies" onclick="acceptCookies()">{{ loc.nav_cookie_button }}</button></div>
@@ -77,10 +70,11 @@
             </div>
 	    <div class="titol-submenu menu-content button-menu" id="fetamida-menu" onclick="location.href='/{{ loc.lan }}/fetamida/intro'">{{ loc.nav_fetamida_mobil }}</div>
             <div class="titol-submenu menu-content button-menu" id="projecte-menu" onclick="location.href='/{{ loc.lan }}/projecte/'">{{ loc.nav_projecte_mobil }}</div>
-            <div class="titol-submenu menu-content button-memu" id="contacte-menu" onclick="location.href='/{{ loc.lan }}/contacte/'">{{ loc.nav_contacte_mobil }}</div>
+            <div class="titol-submenu menu-content button-menu" id="contacte-menu" onclick="location.href='/{{ loc.lan }}/contacte/'">{{ loc.nav_contacte_mobil }}</div>
 	    {% if user.is_admin %}
-	    <div class="titol-submenu menu-content button-memu" id="admin-menu" onclick="location.href='/admin/'">{{ loc.nav_admin }}</div>
-	    <div class="titol-submenu menu-content button-memu" id="logout-menu" onclick="location.href='/admin/logout'">{{ loc.nav_tancar_sessio }}</div>
+	    <div class="titol-submenu menu-content button-menu" id="admin-menu" onclick="location.href='/admin/'">{{ loc.nav_admin }}</div>
+	    <div class="titol-submenu menu-content button-menu" id="logout-menu" onclick="location.href='/admin/logout'">{{ loc.nav_tancar_sessio }}</div>
+            <input type="number" class="text-size-input titol-submenu menu-content button-menu" value="2" oninput="document.documentElement.style.fontSize = this.value+'vh';">
 	    {% endif %}
         </div>
 	<button class="dropbtn" id="projecte" onclick="location.href='/{{ loc.lan }}/projecte/'"> {{ loc.nav_projecte}}</button>

@@ -12,7 +12,7 @@
             <button type="button" class="product-button product-delete {{ "hide" if product.esborrat }}" product="{{product._id}}" field="esborrat" value="True" dataType="bool" onclick="event.stopPropagation(productUpdate(this)); this.parentElement.parentElement.remove()">ESBORRAR</button>
                 <div class="product-title" >{{product.nom}}</div>
                 <div class="product-id">{{product._id}}</div>
-                <div class="product-snapshot" style="background-image: url('{{ utils.img_url("bespoke", product.imatges[0]) }}')"></div>
+                <div class="product-snapshot normal-image" style="background-image: url('{{ imgs.get_url("bespoke", product.imatges[0]) }}')"></div>
             </div>
                 <div class="product-data hide">
                     <div class="product-element name">Nom: <input product="{{product._id}}" field="nom" class="product-input" value="{{product.nom}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; this.parentElement.parentElement.parentElement.getElementsByClassName('product-title')[0].innerHTML=this.value"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
@@ -21,13 +21,13 @@
 
                     <div class="product-images">
                         {% for image in product.imatges %}
-                            <div class="product-image" product="{{product._id}}" field="imatges" value="{{ image }}" style="background-image: url('{{ utils.img_url("bespoke", image) }}')">
+                            <div class="product-image slow-image" product="{{product._id}}" field="imatges" value="{{ image }}" background='{{ imgs.get_url("bespoke", image) }}'>
                                 <button type=button class=product-image-left  onclick="productImageMove(this.parentElement, false)">&larr;</button>
                                 <button type=button class=product-image-right onclick="productImageMove(this.parentElement, true)">&rarr;</button>
                                 <button type=button class=product-image-delete onclick="productImageDelete(this.parentElement)">&#10008;</button>
                             </div>
                         {% endfor %}
-                        <button class="product-image-add" onclick="triggerInput(this.firstElementChild)">&#10133;<input type="file" accept="image/*|video/*" name="file" multiple class="product-image-input" oninput="productAddImage(this)" field="imatges" product="{{product._id}}" ></button>
+                        <button class="product-image-add" onclick="this.firstElementChild.click()">&#10133;<input type="file" multiple class="product-image-input" oninput="uploadFiles(this, 'bespoke', this.parentElement.previousElementSibling)" field="imatges" product="{{product._id}}" ></button>
                     </div>
                 </div>
             </div>

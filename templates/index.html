@@ -10,7 +10,7 @@
     <link href='/scripts/index.js' as='script' rel='preload'>
     <link href='/style/slideshow.css' as='style' rel='preload'>
     <link href='/scripts/slideshow.js' as='script' rel='preload'>
-    <link href='{{ slides[0][1] }}' as='image' rel='preload'>
+
 
     <link href='/style/galeria.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/scripts/galeria.js"></script>
@@ -26,11 +26,11 @@
     <div id="title-logo" onclick="scrollToTop()"></div>
     <div class="content-index">
         <div class = "slideshow">
-            {% for n, (slide_name, slide_url) in utils.enumerate(slides) %}
+            {% for n, (image) in utils.enumerate(imgs.get_names("portada"))  %}
                 {% if n == 0 %}
-                    <div class="slide-content"><div class="slide fast-image" background="{{ slide_url }}"></div></div>
+                    <div class="slide-content"><div class="slide fast-image" background="{{ imgs.get_url("portada", image) }}">{{ image }}</div></div>
                 {% else %}
-                    <div class="slide-content"><div class="slide slow-image" background="{{ slide_url }}"></div></div>
+                    <div class="slide-content"><div class="slide normal-image" background="{{ imgs.get_url("portada", image) }}">{{ image }}</div></div>
                 {% endif %}
             {% endfor %}
         </div>

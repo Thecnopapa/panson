@@ -402,9 +402,10 @@ def contatce(lan):
 @app.route("/admin/")
 @app.route("/admin/<page>/")
 def admin(lan="cat", page="base"):
-    user = get_current_user()
-    return template(lan=lan, imgs=Images().load(), templates="admin-{}".format(page), user = user.username, amagats=True, footer=False, collecions = get_cols(amagats=True))
-
+    if admin_check():
+        return template(lan=lan, imgs=Images().load(), templates="admin-{}".format(page), amagats=True, footer=False, collecions = get_cols(amagats=True))
+    else:
+        return template(lan=lan, templates="login")
 
 @limiter.exempt
 @app.post("/login")
@@ -422,7 +423,7 @@ def login():
         print("login succesfull")
     else:
         print("login failed")
-    return(redirect("/admin/"))
+    return redirect("/admin/")
 
 @limiter.exempt
 @app.route("/admin/logout")
@@ -565,7 +566,10 @@ def update_product(bucket):
                 if data["mode"] == "add":
                     new.append(value)
                 elif data["mode"] == "remove":
-                    new.remove(value)
+                    try:
+                        new.remove(value)
+                    except ValueError:
+                        pass
                 elif data["mode"] == "sort":
                     print(data["key"], "-->", value)
                     new.insert(data["key"], new.pop(value))
@@ -591,8 +595,6 @@ def update_product(bucket):
                 print("\nNEW: ",data["field"], "==>", type(value), value)
                 print(p.__dict__)
                 p.__setattr__(data["field"], value)
-
-
 
             sprint("Updating DB")
             p.update_db()
@@ -636,7 +638,7 @@ def get_file_info():
         return json.dumps(dict(
             bucket=data["bucket"],
             filename=data["filename"],
-            size=data["blob"].size,
+            size="{}MB".format(round(int(data["blob"].size)/1000000,2)),
             content_type=data["content_type"],
             full_path=data["blob"].name,
             url = imgs(target["bucket"], data["filename"]),

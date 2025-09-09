@@ -3,7 +3,7 @@ function print(...args){
     console.log(...args);
 }
 function imageUrl(bucket, filename){
-    return "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/"+bucket+"%2F"+filename+"?alt=media"
+    return "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/media%2F"+bucket+"%2F"+filename+"?alt=media"
 }
 
 document.documentElement.scrollTo({top:0,left:0, behavior: "instant"})
@@ -29,7 +29,7 @@ function loadAllImages() {
     loadImages("fast");
     loadImages("normal");
     loadImages("slow");
-    //preloadHiddenImages();
+    preloadHiddenImages();
 }
 
 
@@ -63,6 +63,7 @@ async function loadImages(selection){
     for (let i = 0; i < selectedImages.length; i++){
         try{
             const url = selectedImages[i].attributes.background.value
+
             selectedImages[i].style.backgroundImage = "url('"+url+"')";
             selectedImages[i].removeAttribute("background");
             changedImages++;

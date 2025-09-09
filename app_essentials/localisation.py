@@ -18,8 +18,8 @@ class Images:
         return self
 
     def get_blobs(self, bucket):
-        bucket = self.folder.format(secure_filename(bucket))
-        return [b for b in db.list_blobs(prefix=bucket)]
+        bucket = self.folder.format(secure_filename(bucket))+"/"
+        return [b for b in db.list_blobs(prefix=bucket) if b.name != bucket]
     
     def get_blob(self, bucket, filename):
         filename = secure_filename(filename)
@@ -34,9 +34,12 @@ class Images:
         return [b.name.split("/")[-1] for b in self.get_blobs(bucket)]
 
     def get_url(self, bucket, filename):
-        bucket = secure_filename(bucket)
-        filename = secure_filename(filename)
-        return self.img_url.format(bucket, filename)
+        try:
+            bucket = secure_filename(bucket)
+            filename = secure_filename(filename)
+            return self.img_url.format(bucket, filename)
+        except:
+            return None
 
     def __call__(self, bucket, filename):
         return self.get_url(bucket, filename)

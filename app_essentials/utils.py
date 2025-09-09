@@ -74,10 +74,6 @@ class Utils:
     def table(path, *args, **kwargs):
         return table_to_html(path, *args, **kwargs)
 
-    @staticmethod
-    def img_url(folder, filename):
-        storage_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/{}%2F{}?alt=media"
-        return storage_url.format(folder, filename)
 
     @staticmethod
     def list(l):

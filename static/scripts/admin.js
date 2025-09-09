@@ -216,7 +216,7 @@ async function productAddImageDeprecated(trigger, bucket){
 
 
 
-async function uploadFiles(trigger, bucket){
+async function uploadFiles(trigger, bucket, clone=undefined){
 	const files = trigger.files;
 	let uploadedFiles = []
 	for (let i = 0; i < files.length; i++){
@@ -232,9 +232,29 @@ async function uploadFiles(trigger, bucket){
 			method: "POST",
 			body: file,
 		}).then(response => {if (response.ok){return response.text();}else{return undefined;}});
-		uploadedFiles.push(newFname);
-    		console.log("Uploaded: ", newFname);
+		uploadedFiles.push(await newFname);
+        console.log("Uploaded: ", await newFname);
+
+        if (trigger.hasAttribute("product")){
+            productUpdate(trigger, await newFname , "list:text", "add");
+        }
+
+        if (clone !== undefined && clone !== null){
+            print("Cloning: ", clone)
+            print(imageUrl(bucket, await newFname))
+            let clonedElement = clone.cloneNode(true);
+            clonedElement.style = "background-image: url('" + imageUrl(bucket, await newFname) + "')";
+
+            clonedElement.setAttribute("filename", await newFname);
+            clone.after(clonedElement);
+            print("Clone: ", clonedElement);
+
+        }
 	}
+
+    if (clone === undefined || clone === null){
+        window.location.reload();
+    }
     return uploadedFiles;
 }
 
@@ -270,6 +290,10 @@ function productImageDelete(image){
 async function productUpdate(trigger, value=undefined, type=undefined, mode="add",  key=undefined,  subdict=undefined, subkey=undefined) {
 	const field = trigger.attributes.field.value;
 	const product = trigger.attributes.product.value;
+    let colorcode = trigger.getAttribute("colorcode");
+    if (colorcode === undefined || colorcode === null){
+        colorcode = "next";
+    }
     let bucket = window.location.href.split("/");
 
     print("BUCKET: " + bucket, bucket.length);
@@ -306,11 +330,12 @@ async function productUpdate(trigger, value=undefined, type=undefined, mode="add
 			method: "POST",
 			body: JSON.stringify({product: product, field: field, value: value, type:type, mode:mode, key:key, subdict:subdict, subkey:subkey} ),
                 }).then(response => {return response;});
-    if (resp.ok){
-        trigger.nextElementSibling.style.backgroundColor = "lightgreen";
-    } else {
-        trigger.nextElementSibling.style.backgroundColor = "red";
-
+    if (colorcode !== undefined && colorcode !== null) {
+        if (resp.ok) {
+            trigger.nextElementSibling.style.backgroundColor = "lightgreen";
+        } else {
+            trigger.nextElementSibling.style.backgroundColor = "red";
+        }
     }
     return resp;
 }
