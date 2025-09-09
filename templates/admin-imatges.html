@@ -3,9 +3,20 @@
 
 {% block content %}
     <div id="imatges" class="admin-content">
+        {% for bucket in imgs.buckets %}
+            <div class="bucket-container">
+                <div class="bucket-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                    <div class="bucket-title">{{ bucket }}</div>
+                </div>
+                <div class="bucket-data hidden">
+                    {% for file in imgs.get_names(bucket) %}
+                        <div class="bucket-image normal-image" filename="{{ file }}" bucket="{{ bucket }}" background="{{ imgs.get_url(bucket, file) }}" onclick="showImgDetails(this)"></div>
+                    {% endfor %}
+                </div>
+            </div>
 
+    {% endfor %}
     <input type="file" id="test-file" value="{{id_imatges}}" oninput="uploadFiles(this, 'test');"/>
-
 
     </div>
 {% endblock %}

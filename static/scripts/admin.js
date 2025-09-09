@@ -369,4 +369,58 @@ function addListElement(trigger, typeOfFirst){
     trigger.lastElementChild.after(newElement);
 }
 
+
+
+
+async function showImgDetails(image){
+    const filename = image.attributes.filename.value;
+    const bucket = image.attributes.bucket.value;
+
+    let containerCloser = document.createElement("div");
+    containerCloser.classList.add("container-closer");
+    containerCloser.addEventListener("click", function(event){event.target.remove();});
+    document.body.appendChild(containerCloser);
+    let newContainer = document.createElement("div");
+    newContainer.classList.add("img-details");
+    newContainer.addEventListener("click", function(event){event.stopPropagation();});
+    containerCloser.appendChild(newContainer);
+    let newImage = document.createElement("img");
+    newImage.classList.add("img-details-img");
+    newContainer.appendChild(newImage);
+    let newInfo = document.createElement("div");
+    newInfo.classList.add("img-details-info");
+    newContainer.appendChild(newInfo);
+    let newInfoTable = document.createElement("table");
+    newInfoTable.classList.add("img-details-table");
+    newInfo.appendChild(newInfoTable);
+
+    let imgInfo = await fetch("/admin/files/info",{
+        method: "POST",
+        body: JSON.stringify({filename: filename, bucket:bucket }),
+        headers: {
+            "Content-Type": "application/json"
+        },
+    }).then(response => {return response.json();});
+    newImage.src = imgInfo.url;
+    for (const key in imgInfo) {
+        let newRow = document.createElement("tr");
+        newInfoTable.appendChild(newRow);
+        newRow.innerHTML = "<th class='key'>"+key+"</th><th>"+imgInfo[key]+"</th>";
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 print(" * Admin JS ready")

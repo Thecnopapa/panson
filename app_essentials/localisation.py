@@ -7,27 +7,31 @@ from werkzeug.utils import secure_filename
 from app_essentials.firestore import db
 from flask import request
 class Images:
-    def __init__(self):
-        self.img_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/{}%2F{}?alt=media"
+    def __init__(self, folder="media"):
+        self.folder_name = folder
+        self.folder = folder+"/{}"
+        self.img_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/{}%2F{}%2F{}?alt=media".format(self.folder_name,"{}","{}")
     
     def load(self):
-        self.paths = [b.name for b in db.list_blobs()]
-        self.buckets = list(set([b.split("/")[0] for b in self.paths]))
+        self.paths = [b.name for b in db.list_blobs(prefix=self.folder_name)]
+        self.buckets = list(set([b.split("/")[1] for b in self.paths]))
         return self
 
     def get_blobs(self, bucket):
-        bucket = secure_filename(bucket)
+        bucket = self.folder.format(secure_filename(bucket))
         return [b for b in db.list_blobs(prefix=bucket)]
     
     def get_blob(self, bucket, filename):
         filename = secure_filename(filename)
         for blob in self.get_blobs(bucket):
-            if blob.name == bucket+"/"+filename:
+            if blob.name == self.folder.format(bucket)+"/"+filename:
                 return blob
 
 
-    def get_names(self, bucket):
-        return [b.name for b in self.get_blobs(bucket)]
+    def get_names(self, bucket, with_prefix=False):
+        if with_prefix:
+            return [b.name for b in self.get_blobs(bucket)]
+        return [b.name.split("/")[-1] for b in self.get_blobs(bucket)]
 
     def get_url(self, bucket, filename):
         bucket = secure_filename(bucket)
@@ -41,17 +45,17 @@ class Images:
     def upload(self, bucket, filename, filedata, content_type, replace=False):
         bucket = secure_filename(bucket)
         filename = secure_filename(filename)
-        storage_path = bucket + "/" + filename
+        storage_path = self.folder.format(bucket) + "/" + filename
         if not replace:
-            while storage_path in self.get_names(bucket):
+            print(filename, self.get_names(bucket))
+            while filename in self.get_names(bucket):
                 filename = filename.split(".")[0] +"_copia"+os.path.splitext(filename)[1]
-                storage_path = bucket + "/" + filename
+        storage_path = self.folder.format(bucket) + "/" + filename
 
         new_blob = db.blob(storage_path)
-        print("Uploading {} MIME: {}".format(filename, content_type))
+        print("Uploading {} MIME: {} to: {}".format(filename, content_type, storage_path))
         new_blob.upload_from_string(filedata, content_type=content_type)
-        return dict(blob=new_blob, filedata=filedata, content_type=content_type,
- filename=filename, bucket=bucket)
+        return dict(blob=new_blob, filedata=filedata, content_type=content_type,filename=filename, bucket=bucket)
     
 
     def get(self, bucket, filename):

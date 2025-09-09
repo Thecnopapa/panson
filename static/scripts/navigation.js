@@ -29,7 +29,7 @@ function loadAllImages() {
     loadImages("fast");
     loadImages("normal");
     loadImages("slow");
-    preloadHiddenImages();
+    //preloadHiddenImages();
 }
 
 

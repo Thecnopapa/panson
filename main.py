@@ -84,6 +84,7 @@ from app_essentials.firebase import get_user_data, get_cols, check_if_admin
 from app_essentials.firestore import list_blobs, upload_images, load_files
 from app_essentials.html_builder import template
 from app_essentials.utils import get_opcions
+from app_essentials.localisation import Images
 
 
 from werkzeug.exceptions import HTTPException
@@ -114,6 +115,12 @@ limiter = Limiter(
 @app.before_request
 def make_session_permanent():
     session.permanent = True
+
+
+def admin_check():
+    user = get_current_user()
+    return check_if_admin(user.username, user.password)
+
 
 
 
@@ -395,16 +402,9 @@ def contatce(lan):
 @app.route("/admin/")
 @app.route("/admin/<page>/")
 def admin(lan="cat", page="base"):
-    lan="cat"
     user = get_current_user()
-    #print(user.__dict__)
-    print("admin check")
-    #print(user.username, user.password)
-    if check_if_admin(user.username, user.password):
-        from app_essentials.localisation import Images
-        return template(lan=lan, imgs=Images().load(), templates="admin-{}".format(page), user = user.username, amagats=True, footer=False, collecions = get_cols(amagats=True))
-    else:
-        return template(lan=lan, templates="login", footer=False)
+    return template(lan=lan, imgs=Images().load(), templates="admin-{}".format(page), user = user.username, amagats=True, footer=False, collecions = get_cols(amagats=True))
+
 
 @limiter.exempt
 @app.post("/login")
@@ -434,149 +434,6 @@ def logout():
     user.update_db()
     return redirect("/")
 
-@limiter.exempt
-@app.post("/admin/update/<id>")
-def update_product_old(id, lan="cat"):
-    user = get_current_user()
-
-    if check_if_admin(user.username, user.password):
-        print(request.form)
-
-        if "text:id" in request.form:
-            id = request.form["text:id"]
-        product = Product(id=id)
-        imatges = {}
-        for key, value in request.form.to_dict().items():
-            value_type = key.split(":")[0]
-            okey = key
-            print(key, value)
-            if value.strip() in ["none", "", "None", "cap", "Cap"]:
-                value = None
-            if value_type == "bool":
-                if value in ["true", "on", "True", True, None]:
-                    value = True
-                else:
-                    value = False
-            if value_type == "number":
-                if value is None:
-                    value = 0
-                else:
-                    value = int(value)
-            if value_type == "float":
-                if value is None:
-                    value = 0
-                else:
-                    value = float(value)
-            key = key.split(":")[1]
-            option = False
-            if key == "op":
-                option = True
-                key = okey.split(":")[2]
-            subkey = None
-            try:
-                if okey.split(":")[-1] != key:
-                    subkey = okey.split(":")[-1]
-            except:
-                pass
-            if "#" in key:
-                nkey = key
-                key = key.split("#")[0]
-            else:
-                nkey = key
-            if key == "imatges":
-                if nkey not in imatges.keys():
-                    imatges[nkey] = {}
-                if subkey is not None:
-                    imatges[nkey][subkey] = value
-                continue
-            if option:
-                target = product.opcions
-            else:
-                target = product
-            if key not in target.keys():
-                if value_type == "list":
-                    target[key] = []
-                elif value_type == "dict" and subkey is None:
-                    target[key] = {}
-                else:
-                    target[key] = value
-            print(subkey)
-            print(target.keys())
-            if type(target[key]) is list:
-                target[key].append(value)
-            elif type(target[key]) is dict:
-                if subkey is None:
-                    target[key][value] = {}
-                else:
-                    [print(k) for k in request.form.keys() if nkey in k.split(":") and ":" not in k.split("#")[1]]
-                    parentkey = [request.form[k] for k in request.form.keys() if nkey in k.split(":") and ":" not in k.split("#")[1]]
-                    print("PARENTKEY",parentkey)
-                    print("TARGETKEY",key)
-                    print("SUBKEY",subkey)
-                    print("NKEY", nkey)
-                    print("OKEY", okey)
-                    assert len(parentkey) == 1
-                    target[key][parentkey[0]][subkey] = value
-            else:
-                target[key] = value
-
-            print(key, value, value_type)
-        print("IMATGES:")
-        print(imatges)
-        imatges = {k:v for k,v in imatges.items() if not v.get("delete", False)}
-        print(imatges)
-        imatges = [v["name"] for k,v in sorted(imatges.items(), key=lambda x: x[1]["order"])]
-        print(imatges)
-        uploads = load_files(target_folder="productes")
-        uploaded_images = upload_images(uploads, "productes")
-        for image in imatges + uploaded_images:
-            product.imatges.append(image)
-        product.update_db()
-        #return str(request.form) + "<br>" + str(uploads)+ "<br>" + str(uploaded_images)+ "<br>" + product.__html__()
-        return redirect("/admin/#"+product._id)
-    else:
-        return template(lan=lan, templates="login")
-
-
-@limiter.exempt
-@app.route("/admin/hide/<id>")
-def hide_product(id):
-    user = get_current_user()
-    if check_if_admin(user.username, user.password):
-        product = Products(lan="cat").get_single(id=id)
-        product.amagat = True
-        product.update_db()
-    return redirect("/admin/")
-
-@limiter.exempt
-@app.route("/admin/unhide/<id>")
-def unhide_product(id):
-    user = get_current_user()
-    if check_if_admin(user.username, user.password):
-        product = Products(lan="cat").get_single(id=id)
-        product.amagat = False
-        product.update_db()
-    return redirect("/admin/")
-
-@limiter.exempt
-@app.route("/admin/delete/<id>")
-def delete_product(id):
-    user = get_current_user()
-    if check_if_admin(user.username, user.password):
-        product = Products(lan="cat").get_single(id=id)
-        product.esborrat = True
-        product.update_db()
-    return redirect("/admin/")
-
-@limiter.exempt
-@app.route("/admin/restore/<id>")
-def restore_product(id):
-    user = get_current_user()
-    if check_if_admin(user.username, user.password):
-        product = Products(lan="cat").get_single(id=id)
-        product.esborrat = False
-        product.update_db()
-    return redirect("/admin/")
 
 @limiter.exempt
 @app.post("/admin/loc/update-field")
@@ -748,7 +605,6 @@ def update_product(bucket):
 
 @limiter.exempt
 @app.post("/admin/images/upload/<bucket>")
-
 def upload_image(bucket):
     user = get_current_user()
     if check_if_admin(user.username, user.password):
@@ -765,23 +621,27 @@ def upload_image(bucket):
         return data["filename"]
 
 
-def upload_image_old(bucket):
-    from app_essentials.firestore import upload_images
-    from werkzeug.utils import secure_filename
-    user = get_current_user()
-    if check_if_admin(user.username, user.password):
-        os.makedirs("./uploads", exist_ok=True)
-        file = request.data
-        fname = secure_filename(request.headers["fname"])
-        fpath = "./uploads/{}".format(fname)
-        with open(fpath, "wb") as f:
-            f.write(file)
-            #print(file)
-        fname = upload_images({fname: fpath}, bucket)[0]
-        return fname
 
+@app.post("/admin/files/info")
+def get_file_info():
+    if admin_check():
+        imgs = Images()
 
-
+        target = request.get_json()
+        data = imgs.get(target["bucket"], target["filename"])
+        try:
+            prods = Products().__getattribute__(data["bucket"])
+        except:
+            prods = []
+        return json.dumps(dict(
+            bucket=data["bucket"],
+            filename=data["filename"],
+            size=data["blob"].size,
+            content_type=data["content_type"],
+            full_path=data["blob"].name,
+            url = imgs(target["bucket"], data["filename"]),
+            usage = [p.id for p in prods if data["filename"] in p.imatges]
+        ))
 
 
 
