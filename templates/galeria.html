@@ -25,6 +25,8 @@
 	    col="{{ producte.collecio }}" 
 	    tipus="{{ producte.tipus }}" 
 	    unica="{{ producte.unica }}" 
+	    novetat="{{ producte.novetat }}"
+	    popular="{{ producte.popular }}"
 	    img1="{{ producte.imatges[0] }}" 
 	    img2="{{ producte.imatges[1] }}"
 	    {% if bucket == "bespoke" %}
@@ -37,6 +39,9 @@
         {% if filtres %}
             <div class="inline-filtres">
                 <div class="filtre-buttons">
+			{% for filtre in loc.filtres %}
+			<div class="filtre" filterKey="{{ filtre["field"] }}" filterValue="{{ filtre["value"] }}" onclick="filterGaleria(this)">{{ loc[filtre["nom"]] }}</div>
+			{% endfor %}
                     <div class="filtre" filterKey="tipus" filterValue="anell" onclick="filterGaleria(this)">Anells</div>
                     <div class="filtre" filterKey="tipus" filterValue="penjoll" onclick="filterGaleria(this)">Penjolls</div>
                     <div class="filtre" filterKey="tipus" filterValue="arracades" onclick="filterGaleria(this)">Arracades</div>

@@ -82,9 +82,14 @@ class Utils:
     @staticmethod
     def filter_by_attr(obj_list, keys, values, mode="&", exclude=False):
         sprint("Filtering: ", keys, values)
-        if keys is None or values is None:
-            print1("Skipping filter: ", keys is None, values is None)
+        if keys is None:
+            print1("Skipping filter: ", keys)
             return obj_list
+        if keys == "":
+            print1("Skipping filter: ", keys)
+            return obj_list
+        if values is None:
+            values = "None"
         if ";" in keys:
             keys = keys.split(";")
         else:

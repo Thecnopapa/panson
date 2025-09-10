@@ -83,13 +83,16 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
     const allProducts = galeria.getElementsByClassName("hidden-info-producte");
     if (filterKey === null || filterKey === "null"){filterKey = undefined;}
     if (filterValue === null || filterValue ==="null"){filterValue = undefined;}
-    let filteredProducts = []
+    let filteredProducts = [];
+    console.log("filters: ", filterKey, filterValue);
     if (filterKey !== undefined  && filterValue !== undefined){
         for (let i = 0; i < allProducts.length; i++) {
-            
-            if (allProducts[i].attributes[filterKey].value === filterValue){
-                filteredProducts.push(allProducts[i]);
-            }
+		try{
+            		if (allProducts[i].attributes[filterKey].value === filterValue){
+                		filteredProducts.push(allProducts[i]);
+            		}
+		} catch (e){}
+		
         }
     } else {
         filteredProducts = allProducts;

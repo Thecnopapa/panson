@@ -128,9 +128,14 @@ class Localisation2:
 
 
     def get_misc(self, label, value):
-        try:
-            #print(self.misc[label][value])
-            return self.misc[label][value]
+        print("getting misc: {}:{}".format(label, value))
+        try: 
+            field = self.misc[label]
+            if value is None:
+                return field
+            if value == "":
+                return field
+            return field[value]
         except KeyError:
             return "Missing value ({}-{})".format(label, value)
 

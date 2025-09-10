@@ -16,6 +16,9 @@ class Product(firebaseObject):
         self.nom = ""
         self.amagat = False
         self._bespoke= False
+        self.popular = False
+        self.novetat = False
+
 
         self.tipus = None
         self.opcions={}
