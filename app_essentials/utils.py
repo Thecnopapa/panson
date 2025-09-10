@@ -103,21 +103,25 @@ class Utils:
             value = str(value)
         print1(list(zip(keys, values)))
         r = []
+
         for o in obj_list:
-            append = False
-            if mode == "&":
-                append = True
-                for key, value in zip(keys, values):
-                    print2(key, value, str(o.__getattribute__(key)))
-                    if str(o.__getattribute__(key)) == value:
-                        continue
-                    append = False
-            elif mode == "|":
-                append = False
-                for key, value in zip(keys, values):
-                    if str(o.__getattribute__(key)) == value:
+            append = mode == "&"
+            for key, value in zip(keys, values):
+                target = o.__getattribute__(key)
+                subkeys =[]
+                if ">" in key:
+                    subkeys = key.split(">")[1:]
+                for subkey in subkeys:
+                    target = target[subkey]
+                if str(target) == value:
+                    if mode == "|":
                         append = True
                         break
+                    continue
+                if mode == "&":
+                    append = False
+                    break
+
             if exclude:
                 append = not append
             if append:
