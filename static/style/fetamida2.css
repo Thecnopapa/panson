@@ -169,6 +169,9 @@
         margin-top: 0;
         overflow-y: visible;
         height: fit-content;
+        width: calc(100dvw - 4vh);
+        max-width: calc(100dvw - 4vh);
+        min-width: calc(100dvw - 4vh);
     }
 	#section-menu{
         box-shadow: 0.2px 0px 8px rgb(115, 115, 115);
