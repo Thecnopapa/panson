@@ -28,9 +28,9 @@
         <div class = "slideshow">
             {% for n, (image) in utils.enumerate(imgs.get_names("portada"))  %}
                 {% if n == 0 %}
-                    <div class="slide-content"><div class="slide fast-image" background="{{ imgs.get_url("portada", image) }}">{{ image }}</div></div>
+                    <div class="slide-content"><div class="slide fast-image" background="{{ imgs.get_url("portada", image) }}"></div></div>
                 {% else %}
-                    <div class="slide-content"><div class="slide normal-image" background="{{ imgs.get_url("portada", image) }}">{{ image }}</div></div>
+                    <div class="slide-content"><div class="slide normal-image" background="{{ imgs.get_url("portada", image) }}"></div></div>
                 {% endif %}
             {% endfor %}
         </div>

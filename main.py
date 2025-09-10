@@ -642,7 +642,7 @@ def get_file_info():
             content_type=data["content_type"],
             full_path=data["blob"].name,
             url = imgs(target["bucket"], data["filename"]),
-            usage = [p.id for p in prods if data["filename"] in p.imatges]
+            usage = [p._id for p in prods if data["filename"] in p.imatges]
         ))
 
 

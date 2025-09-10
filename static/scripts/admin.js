@@ -185,34 +185,7 @@ function triggerInput(target){
 }
 
 
-async function productAddImageDeprecated(trigger, bucket){
-	const files = trigger.files;
-	print("Adding images: ", files);
-    if (bucket === undefined){
-        bucket = document.URL.split("/");
-        bucket = bucket[bucket.length - 2];
-    }
-    print("Bucket: ", bucket);
 
-	for (let i = 0; i < files.length; i++){
-        const originalName = files[i].name;
-		let newName = await uploadImage(files[i], bucket).then(response => {return response;});
-        if (newName !== undefined){
-            productUpdate(trigger, newName , "list:text", "add");
-            try {
-                const newImage = trigger.parentElement.previousElementSibling.cloneNode(true);
-                newUrl = imageUrl(bucket, newName);
-                newImage.style = "background-image: url('" + newUrl + "')";
-                trigger.parentElement.before(newImage);
-            } catch (e) {
-                location.reload();
-            }
-        }
-
-
-
-	}
-}
 
 
 
@@ -411,12 +384,15 @@ async function showImgDetails(image){
     containerCloser.appendChild(newContainer);
     let newImage = document.createElement("img");
     newImage.classList.add("img-details-img");
+    newImage.addEventListener("mouseover", function(event){event.target.scrollIntoView();});
     newContainer.appendChild(newImage);
     let newInfo = document.createElement("div");
     newInfo.classList.add("img-details-info");
+    newInfo.addEventListener("mouseover", function(event){event.target.scrollIntoView({block: "end"});});
     newContainer.appendChild(newInfo);
     let newInfoTable = document.createElement("table");
     newInfoTable.classList.add("img-details-table");
+    newInfo.addEventListener("mouseover", function(event){event.target.parentElement.scrollIntoView({block: "end"});});
     newInfo.appendChild(newInfoTable);
 
     let imgInfo = await fetch("/admin/files/info",{
@@ -431,6 +407,7 @@ async function showImgDetails(image){
         let newRow = document.createElement("tr");
         newInfoTable.appendChild(newRow);
         newRow.innerHTML = "<th class='key'>"+key+"</th><th>"+imgInfo[key]+"</th>";
+        newInfo.addEventListener("mouseover", function(event){event.parentElement.parentElement.scrollIntoView({block: "end"});});
     }
 
 }

@@ -22,7 +22,7 @@
 
 }
 .crea-main-image{
-    background-color: rgba(255, 126, 0, 0.5);
+    background-color: rgba(64, 255, 0, 0.5);
     width: 80%;
     height: 90%;
     min-height: 100%;
@@ -73,3 +73,34 @@
 .crea-step-text{
     text-align: justify;
 }
+
+
+#crea-encarrec {
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(127, 255, 212, 0.2);
+
+}
+
+
+.encarrec-title{
+    font-size: 2rem;
+
+}
+.encarrec-info{
+    width: 60%;
+    text-align: justify;
+
+    background-color: rgba(0, 111, 255, 0.2);
+}
+.encarrec-image{
+    width: 40%;
+    min-width: 40%;
+    height: 100%;
+    background-color: rgba(255, 165, 0, 0.2);
+}
+
+
+
+
+

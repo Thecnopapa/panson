@@ -145,9 +145,10 @@
 
 #email-form{
     position: relative;
-    width: 60%;
+    width: 54.5%;
     height: 100%;
     min-height: fit-content;
+    padding-left: 0;
 
  
 }

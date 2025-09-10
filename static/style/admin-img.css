@@ -34,7 +34,8 @@
     height: 20vw;
     margin:calc(2vw - 2px);
     background-position: center;
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     border: 2px solid #000000;
     align-items: center;
     justify-content: center;
@@ -63,23 +64,29 @@
     display: flex;
     flex-direction: row;
     user-select: text;
+    overflow-x: scroll;
+    cursor: default;
+
 }
 .img-details-img{
-    width: 50%;
-    background-size: contain;
+    max-width: 100%;
+    max-height: 100%;
+    background-size: cover;
     background-position: center;
 }
 .img-details-info{
     display: flex;
     flex-direction: column;
-    width: 50%;
-    max-width: 50%;
-    height: fit-content;
-    margin-top: 10%;
+    width: 48%;
+    justify-content: center;
     padding: 1%;
+    min-width: 48%;
+    height: 96%;
+
 }
 .img-details-table{
     max-width: 100%;
+    min-width:50%;
     user-select: text;
     tr{
         max-width: 100%;
@@ -98,6 +105,7 @@
         word-break: break-all;
         user-select: text;
         cursor: text;
+        overflow-x: scroll;
     }
 }
 
