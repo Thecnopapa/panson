@@ -36,16 +36,18 @@ function closeCart(){
 }
 
 
-function deleteItem(productElement, pos){
+async function deleteItem(productElement, pos){
     productElement.remove();
     let link = "/productes/carret/"+ pos+"/0";
 	console.log(link);
-	fetch(link, {method: "POST"});
-    updateCartCounter()
+	let resp = await fetch(link, {method: "POST"});
+	if (resp.ok){
+    		updateCartCounter()
+	}
 
 }
 
-function modifyItem(counterElement, pos, mode){
+async function modifyItem(counterElement, pos, mode){
     let oldQty = counterElement.innerHTML;
     let newQty = Number(oldQty);
     if (mode == "increase"){
@@ -59,8 +61,10 @@ function modifyItem(counterElement, pos, mode){
         counterElement.innerHTML = newQty;
         let link = "/productes/carret/"+ pos+"/"+newQty;
         console.log(link);
-        fetch(link, {method: "POST"});
-        updateCartCounter()
+        let resp = await fetch(link, {method: "POST"});
+	    if (resp.ok){
+        	updateCartCounter()
+	    }
     }
 
 }

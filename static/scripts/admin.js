@@ -269,8 +269,9 @@ async function productUpdate(trigger, value=undefined, type=undefined, mode="add
     }
     let bucket = window.location.href.split("/");
 
-    print("BUCKET: " + bucket, bucket.length);
+    
     bucket = bucket[bucket.length - 2];
+    print("BUCKET: " + bucket);
     print(bucket);
 	print("Trigger: ", trigger, value);
 	if (value === undefined) {
@@ -295,7 +296,7 @@ async function productUpdate(trigger, value=undefined, type=undefined, mode="add
 
 
 	print("With value: ", value);
-	let resp = await fetch("/admin/"+bucket+"/update",
+	let resp = await fetch("/admin/update/"+bucket,
 		{
 			headers: {'Accept': 'application/json',
 				'Content-Type': 'application/json'

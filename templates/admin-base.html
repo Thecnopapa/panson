@@ -93,10 +93,16 @@
 
 
                 <div class="product-element material">Material:<ul>
-                            {% for n, (subkey, info) in utils.enumerate(utils.list(product.opcions.get("materials", {"": {"":""}}).items())) %}
+			{% if product.opcions.get("materials") == None %}
+				{% set materials = {"": {"":""}} %}
+			{% else %}
+				{% set materials = product.opcions.get("materials") %}
+			{% endif %}
+			
+                            {% for n, (subkey, info) in utils.enumerate(utils.list(materials.items())) %}
                                 <li>
                                     <input type="{{ "hidden" if product.opcions["materials"] }}" subdict="materials" class="dict-key" product="{{product._id}}" field="opcions" dataType="dict:text" value="{{ subkey }}"><span>{{ subkey }}</span>
-                                    Preu: <input type="number" dataType="float" class="product-input dict-input" key="preu" value="{{ info["preu"] }}">
+                                    Preu: <input type="number" dataType="int" class="product-input dict-input" key="preu" value="{{ info["preu"] }}">
                                     <button class="product-update" onclick="productUpdateDict(this.parentElement, 'add')">&#10004;</button>
                                     <button class="product-update" onclick="productUpdateDict(this.parentElement, 'remove')">✖</button>
                                 </li>
@@ -105,10 +111,15 @@
                 </div>
 
                 <div class="product-element variacio">Variacio:<ul>
-                            {% for n, (subkey, info) in utils.enumerate(utils.list(product.opcions.get("variacions", {"": {"":""}}).items())) %}
+			{% if product.opcions.get("variacions") == None %}
+				{% set variacions = {"": {"":""}} %}
+			{% else %}
+				{% set variacions = product.opcions.get("variacions") %}
+			{% endif %}
+                            {% for n, (subkey, info) in utils.enumerate(utils.list(variacions.items())) %}
                                 <li>
                                     <input type="{{ "hidden" if product.opcions["variacions"] }}" subdict="variacions" class="dict-key" product="{{product._id}}" field="opcions" dataType="dict:text" value="{{ subkey }}"><span>{{ subkey }}</span>
-                                    Preu: <input type="number" dataType="float" class="product-input dict-input" key="preu" value="{{ info["preu"] }}">
+                                    Preu: <input type="number" dataType="int" class="product-input dict-input" key="preu" value="{{ info["preu"] }}">
                                     <button class="product-update" onclick="productUpdateDict(this.parentElement, 'add')">&#10004;</button>
                                     <button class="product-update" onclick="productUpdateDict(this.parentElement, 'remove')">✖</button>
                                 </li>
@@ -117,10 +128,15 @@
                 </div>
 
                 <div class="product-element talles">Talles:<ul>
-                            {% for n, (subkey, info) in utils.enumerate(utils.list(product.opcions.get("talles", {"": {"":""}}).items())) %}
+			{% if product.opcions.get("talles") == None %}
+				{% set talles = {"": {"":""}} %}
+			{% else %}
+				{% set talles = product.opcions.get("talles") %}
+			{% endif %}
+                            {% for n, (subkey, info) in utils.enumerate(utils.list(talles.items())) %}
                                 <li>
                                     <input type="{{ "hidden" if product.opcions["talles"] }}" subdict="variacions" class="dict-key" product="{{product._id}}" field="opcions" dataType="dict:text" value="{{ subkey }}"><span>{{ subkey }}</span>
-                                    Quantitat: <input type="number" dataType="text" class="product-input dict-input" key="qty" value="{{ info["qty"] }}">
+                                    Quantitat: <input type="number" dataType="int" class="product-input dict-input" key="qty" value="{{ info["qty"] }}">
                                     <button class="product-update" onclick="productUpdateDict(this.parentElement, 'add')">&#10004;</button>
                                     <button class="product-update" onclick="productUpdateDict(this.parentElement, 'remove')">✖</button>
                                 </li>

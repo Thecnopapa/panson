@@ -163,7 +163,7 @@ async function submitToCart (trigger) {
     const fieldsets = form.querySelectorAll("fieldset");
     document.body.style.cursor = "progress !important";
     try {
-        const response = await fetch("/carret/add", {
+        let response = await fetch("/carret/add", {
                 method: "POST",
                 body: formData,
             });

@@ -494,7 +494,7 @@ def create_product(bucket):
 
 
 @limiter.exempt
-@app.post("/admin/<bucket>/update")
+@app.post("/admin/update/<bucket>")
 def update_product(bucket):
     user = get_current_user()
     if check_if_admin(user.username, user.password):
@@ -577,18 +577,26 @@ def update_product(bucket):
                 p.__setattr__(data["field"], new)
             elif target_type == "dict":
                 new = p.__getattribute__(data["field"]).copy()
+                print("\nOLD: ",type(new), new)
                 target_dict = new
                 for s in subdicts:
                     try:
+                        if target_dict[s] is None:
+                            target_dict[s] = {}
                         target_dict = target_dict[s]
                     except KeyError:
                         target_dict[s] = {}
                         target_dict = target_dict[s]
-
+                    print("target_dict[{}]: {}".format(s,target_dict))
+                print("target dict: {}, subficts: {}".format( target_dict, subdicts))
+                print("key = {}, value = {}".format(data["key"], value))
                 if data["mode"] == "add":
+                    print("adding")
                     target_dict[data["key"]] = value
                 elif data["mode"] == "remove":
+                    print("removing")
                     target_dict.pop(data["key"])
+                print("final dict: {}".format(target_dict))
                 print(new)
                 p.__setattr__(data["field"], new)
             else:

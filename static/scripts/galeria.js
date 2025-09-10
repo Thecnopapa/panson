@@ -88,7 +88,8 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
     if (filterKey !== undefined  && filterValue !== undefined){
         for (let i = 0; i < allProducts.length; i++) {
 		try{
-            		if (allProducts[i].attributes[filterKey].value === filterValue){
+			
+            		if (allProducts[i].attributes[filterKey].value.includes(filterValue)){
                 		filteredProducts.push(allProducts[i]);
             		}
 		} catch (e){}

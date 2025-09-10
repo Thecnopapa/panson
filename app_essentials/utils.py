@@ -39,6 +39,10 @@ class Utils:
         return str_to_list(str, delimiter)
 
     @staticmethod
+    def join(delimiter, iterable):
+        return delimiter.join(iterable)
+
+    @staticmethod
     def sort_by_keys(data:dict, keys=None) -> dict:
         r = {k:v for k,v in sorted(data.items(), key=lambda x: x[0])}
         if keys is not None:
@@ -78,6 +82,15 @@ class Utils:
     @staticmethod
     def list(l):
         return list(l)
+
+    @staticmethod
+    def try_catch(fun, error=None, *args, **kwargs):
+        print("catching: {} with args: {} {}".format(fun, args, kwargs))
+        try:
+            return fun(*args, **kwargs)
+        except:
+            return error
+
 
     @staticmethod
     def filter_by_attr(obj_list, keys, values, mode="&", exclude=False):

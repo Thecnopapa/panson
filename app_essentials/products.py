@@ -21,7 +21,7 @@ class Product(firebaseObject):
 
 
         self.tipus = None
-        self.opcions={}
+        self.opcions=dict(materials=None, variacions=None, colors=None, talles=None)
         self.totes_talles = False
         super().__init__(data, id)
         if self._id is None:
@@ -38,12 +38,12 @@ class Product(firebaseObject):
 
     def calcular_preu_minim(self):
         p = 0
-        if "materials" in self.opcions:
+        if self.opcions["materials"] is not None:
             print(self.opcions["materials"].values())
             p += min([material["preu"] for material in self.opcions["materials"].values()])
-        if "variacions" in self.opcions and self.opcions.get("vars_exclusivament", False):
+        if self.opcions["variacions"] is not None  and self.opcions.get("vars_exclusivament", False):
             p += min([variacio["preu"] for variacio in self.opcions["variacions"].values()])
-        if "colors" in self.opcions:
+        if self.opcions["colors"] is not None:
             print(self.opcions["colors"].values())
             p += min([data["preu"] for color, data in self.opcions["colors"].items()]) * self.opcions.get("n_colors", 1)
         return p
@@ -62,7 +62,7 @@ class Product(firebaseObject):
         print(type(material), type(variacio), type(color))
 
         if material is None:
-            if "materials" in self.opcions:
+            if self.opcions["materials"] is not None:
                 #incomplet = True
                 print([material["preu"] for material in self.opcions["materials"].values()])
                 p += min([material["preu"] for material in self.opcions["materials"].values()])
@@ -70,7 +70,7 @@ class Product(firebaseObject):
             p += self.opcions["materials"][material]["preu"]
 
         if variacio is None:
-            if "variacions" in self.opcions:
+            if self.opcions["variacions"] is not None:
                 incomplet = True
                 p += min([variacio["preu"] for variacio in self.opcions["variacions"].values()])
         else:
@@ -80,7 +80,7 @@ class Product(firebaseObject):
                 p += self.opcions["variacions"][v]["preu"]
 
         if color is None:
-            if "color" in self.opcions:
+            if self.opcions["colors"] is not None:
                 incomplet = True
                 p += min([data["preu"] for color,data in self.opcions["colors"].items()])* self.opcions.get("n_colors",1)
         else:

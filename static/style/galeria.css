@@ -17,7 +17,7 @@
 
 .inline-filtres{
     padding-top: 2%;
-	max-width:calc(100% - 8dvh);
+	max-width:calc(100% - 2dvw);
 	display:flex;
 	flex-direction: column;
 	align-items: center;
@@ -26,12 +26,12 @@
 .filtre-buttons{
 	display: flex;
 	justify-content: space-between;
-	flex-wrap: wrap;
 	width: 100%;
 	overflow:hidden;
 	flex-direction:row;
 	align-items: center;
-    height: 2rem;
+    	height: fit-content;
+	overflow-x:scroll;
 }
 
 .filtre{

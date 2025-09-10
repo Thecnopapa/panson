@@ -55,7 +55,7 @@
             <button id="close-options" type="button" class="popup-cross" onclick="hideBuyOptions()">X</button>
             <div id="buy-options">
 
-            {% if "materials" in producte.opcions %}
+            {% if producte.opcions["materials"] != None %}
                 <fieldset class="materials-producte {{ "hide" if utils.len(producte.opcions["materials"].keys()) == 1 }}" >
                     <legend>Seleciona un material</legend>
                     {% for n, (material, info) in utils.enumerate(producte.opcions["materials"].items()) %}
@@ -94,7 +94,7 @@
                         <input name="color" type="hidden" value="NA">
             {% endif %}
 
-            {% if "variacions" in producte.opcions %}
+            {% if producte.opcions["variacions"] != None %}
                 <fieldset class="option-field variacions-producte {{ "hide" if utils.len(producte.opcions["variacions"].keys()) == 1 }}" >
                     <legend>loc.pro_variacio</legend>
                     <div class="options variations">
@@ -113,7 +113,7 @@
             {% endif %}
 
 
-            {% if producte.opcions["talles"] or producte["totes_talles"] %}
+            {% if producte.opcions["talles"] != None or producte["totes_talles"] %}
                 <fieldset class="talles-producte option-field" name="text:talla">
                 <legend>{{ loc.pro_talla }}</legend>
                     <div class="options talles">

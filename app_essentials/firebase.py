@@ -52,6 +52,10 @@ class firebaseObject(object):
     def __init__(self,data, id = None):
         self._data = data
         for key, value in data.items():
+            if type(value) is dict and hasattr(self, key):
+                if type(self.__getattribute__(key)) is dict:
+                    value = self.__getattribute__(key).update(value)
+                    continue
             setattr(self, key, value)
         self._id = id
 
