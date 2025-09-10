@@ -1,5 +1,8 @@
 
 
+
+
+
 function scrollGallery(galeria, direction){
     var targetScroll = galeria.scrollLeft;
     if (direction === "right"){
@@ -182,6 +185,13 @@ function changeProduct(element, product, bucket) {
 
 }
 
+
+let galleryObserver = new IntersectionObserver(galleryAnimation, {
+    threshold: 0.3,
+})
+
+
+
 const galleryElements = document.getElementsByClassName("content-galeria");
 for (let i = 0; i < galleryElements.length; i++) {
 	let params = new URLSearchParams(document.location.search);
@@ -194,9 +204,42 @@ for (let i = 0; i < galleryElements.length; i++) {
             filterElements[i].classList.add("active");
         }
     }
-	initGaleria(galleryElements[i], undefined, key, value);
+	initGaleria(galeria, undefined, key, value);
+    if (!galeria.classList.contains("inline")){
+        const productElements = galeria.getElementsByClassName("producte enabled");
+        for (let i = 0; i < productElements.length; i++) {
+            galleryObserver.observe(productElements[i]);
+        }
+
+    }
 
 }
+
+
+
+
+function galleryAnimation(triggers, ops) {
+    triggers.forEach(trigger => {
+        if (trigger.boundingClientRect.top > 0) {
+            trigger.target.classList.toggle("inside", trigger.isIntersecting);
+        }
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 print(" * Gallery JS ready")

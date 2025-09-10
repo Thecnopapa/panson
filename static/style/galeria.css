@@ -75,6 +75,7 @@
     justify-content: start;
     cursor: pointer;
     overflow: hidden;
+    transition: 1s;
 }
 .producte.empty{
     visibility: hidden;
@@ -236,6 +237,9 @@
         width: 49.5dvw;
 	    height:calc(49.5dvw + 3rem);
         user-select: none;
+    }
+    .producte:not(.inside){
+        margin-top: 5vh;
     }
     .galeria.inline .producte:not(.last){
         margin-right: calc(2dvw / 3);
