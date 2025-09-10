@@ -436,11 +436,35 @@ def logout():
     return redirect("/")
 
 
+
+@limiter.exempt
+@app.post("/admin/misc/update")
+def misc_update():
+    if admin_check():
+        data = request.json
+        from app_essentials.firebase import localisation
+        print(data)
+        prev_data = localisation.document("misc").get().to_dict()
+        target_data = prev_data[data["field"]]
+        if "pos" in data:
+            target_data = target_data[int(data["pos"])]
+        print(target_data)
+        if data["del"]:
+            target_data.pop(data["key"])
+        else:
+            target_data.update({data["key"]: data["value"]})
+        print("###")
+        print(target_data)
+        print(prev_data)
+        localisation.document("misc").update(prev_data)
+        return ""
+
+
+
 @limiter.exempt
 @app.post("/admin/loc/update-field")
 def update_field():
-    user = get_current_user()
-    if check_if_admin(user.username, user.password):
+    if admin_check():
         print(request.json)
         data = request.json
         from app_essentials.firebase import localisation

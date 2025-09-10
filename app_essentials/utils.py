@@ -23,7 +23,9 @@ class Utils:
         return str(s)
 
     @staticmethod
-    def type(s):
+    def type(s, as_str=False):
+        if as_str:
+            return str(type(s).__name__)
         return type(s)
 
     @staticmethod

@@ -2,21 +2,38 @@
 
 
 {% block content %}
+    <link href='/style/admin-misc.css' rel='stylesheet'>
     <div id="misc" class="admin-content">
 
 	    <div class="warning"> Aquesta seccio conté valors delicats que poden petar la web o certs elements</div>
 
-		<div class="misc-loc">
+		<div class="misc-data">
 			{% for field, data in loc.misc.items() %}
 			<div class="misc-block">
 				<div class="misc-block-title">{{ field }}</div>
 				<div class="misc-block-data">
+                {% if utils.type(data, as_str=True) == "dict" %}
 					{% for key, value in data.items() %}
-					<div class"misc-key-value">
-						{{key}}:<input type=hidden class="misc-key" field="{{field}}" key="{{key}}" value="{{key}}">
-						<input type=text class="misc-value" field="{{field}}" key="{{key}}" value="{{value}}" oninput="updateMisc(this);">
-
+					<div class=misc-key-value field="{{field}}">
+                        <div class="misc-key-name">{{key}}</div>:<input type=hidden class="misc-key colorcoded" value="{{key}}" oninput="this.style.backgroundColor = 'yellow';">
+						<input type=text class="misc-value" value="{{value}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';">
+                        <button class="colorcoded"  onclick="miscUpdate(this.parentElement)">&#10003;</button>
+                        <button onclick="miscUpdate(this.parentElement, true)" style="background-color:red;">&#10008;</button>
+                    </div>
 					{% endfor %}
+                {% elif utils.type(data, as_str=True) == "list" %}
+                    {% for n, item in utils.enumerate(data) %}
+                        <div class="misc-block-subtitle">{{ n }}</div>
+                        {% for key, value in item.items() %}
+                        <div class=misc-key-value position="{{ n }}" field="{{field}}">
+                            <div class="misc-key-name">{{key}}</div>:<input type=hidden class="misc-key colorcoded" value="{{key}}" oninput="this.style.backgroundColor = 'yellow';">
+                            <input type=text class="misc-value" value="{{value}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';">
+                            <button class="colorcoded" onclick="miscUpdate(this.parentElement)">&#10003;</button>
+                            <button onclick="miscUpdate(this.parentElement, true)" style="background-color:red;">&#10008;</button>
+                        </div>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
 				</div>
 			</div>
 			{% endfor %}

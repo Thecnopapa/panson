@@ -1,0 +1,41 @@
+
+
+.warning{
+    color: red;
+    font-weight: bold;
+}
+.misc-data{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: start;
+}
+
+.misc-block{
+    width: fit-content;
+    margin: 1%;
+
+}
+
+.misc-block-title{
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-align: center;
+}
+.misc-block-data{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: rgba(0, 255, 255, 0.1);
+    padding: 1%;
+}
+.misc-key-value{
+    display: flex;
+    width: 100%;
+    min-width: fit-content;
+    justify-content: space-between;
+}
+.misc-key-name{
+    width: fit-content;
+}

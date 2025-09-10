@@ -167,21 +167,41 @@ function deleteField(trigger){
 }
 
 
+async function miscUpdate(target, del=false){
+    console.log("UPDATING MISC");
+    let pos = undefined
+    const colorcodedElements = [...target.getElementsByClassName("colorcoded")];
+    const field = target.attributes.field.value;
+    const keyElement = target.getElementsByClassName("misc-key")[0];
+    const valueElement = target.getElementsByClassName("misc-value")[0];
+    const key = keyElement.value;
+    const value = valueElement.value;
 
+    try {
+        pos = target.attributes.position.value;
+    } catch {}
+    console.log("FIELD:", field);
+    console.log("POS:", pos);
+    console.log("KEY:", key);
+    console.log("VALUE:", value);
 
+    let resp = await fetch("/admin/misc/update",
+        {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify({field: field, pos: pos, key:key, value: value, del: del} ),
+        })
+    if (resp.ok) {
+        if (del){
+            target.remove();
+        }
+        colorcodedElements.forEach(element => {element.style.backgroundColor = "lightgreen";});
+    } else {
 
-function resizeAll() {
-    console.log("RESIZING ALL");
-    console.log(document.getElementsByTagName("textarea"));
-    for (let i = 0; i < document.getElementsByTagName("textarea"); i++) {
-        resizeArea(i)
+        colorcodedElements.forEach(element => {element.style.backgroundColor = "red";});
     }
-}
-
-
-
-function triggerInput(target){
-	target.click();
 }
 
 
@@ -412,6 +432,7 @@ async function showImgDetails(image){
     }
 
 }
+
 
 
 
