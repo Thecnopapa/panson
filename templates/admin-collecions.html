@@ -1,54 +1,15 @@
 {% extends "admin-base.html" %}
 
-
 {% block content %}
     <div id="collecions" class="admin-content">
 
         {% for product in collecions %}
-            <div class="product-container">
-            <div class="product-header" onclick="showData(this)">
-		                <button type="button" class="product-button product-hide {{ "hide" if product.amagat }}" product="{{product._id}}" field="amagat" value="True" dataType="bool" onclick="event.stopPropagation(productUpdate(this)); this.style.display='none'; this.nextElementSibling.style.display = 'block'; this.parentElement.getElementsByClassName('product-title')[0].innerHTML = this.parentElement.parentElement.getElementsByClassName('name')[0].firstElementChild.value + ' (Amagat)'">Amagar</button>
-            <button type="button" class="product-button product-show {{ "hide" if not product.amagat }}" product="{{product._id}}" field="amagat" value="False" dataType="bool" onclick="event.stopPropagation(productUpdate(this)); this.style.display='none'; this.previousElementSibling.style.display = 'block'; this.parentElement.getElementsByClassName('product-title')[0].innerHTML = this.parentElement.parentElement.getElementsByClassName('name')[0].firstElementChild.value">Mostrar</button>
-            <button type="button" class="product-button product-delete {{ "hide" if product.esborrat }}" product="{{product._id}}" field="esborrat" value="True" dataType="bool" onclick="event.stopPropagation(productUpdate(this)); this.parentElement.parentElement.remove()">ESBORRAR</button>
-                <div class="product-title" >{{product.nom}}</div>
-                <div class="product-id">{{product._id}}</div>
-                <div class="product-snapshot normal-image" style="background-image: url('{{ imgs.get_url("collecions", product.imatges[0]) }}')"></div>
-            </div>
-                <div class="product-data hide">
-                    <div class="product-element name">Nom: <input product="{{product._id}}" field="nom" class="product-input" value="{{product.nom}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; this.parentElement.parentElement.parentElement.getElementsByClassName('product-title')[0].innerHTML=this.value"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
-                    <div class="product-element description">Descripcio: <textarea product="{{product._id}}" field="descripcio"  class="product-input" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';">{{product.descripcio}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
-		    <div class="product-element bavkground">Navegacio blanca:
-                <select product="{{product._id}}" field="fons_blanc" dataType="bool" class="product-input" oninput="productUpdate(this);">
-                            {% for b in [True, False] %}
-                                <option value="{{ b }}" {{ "selected=selected" if product.unica == b }}>{{ loc.misc["bools"]["{}".format(b)] }}</option>
-                            {% endfor %}
-                </select><div></div>
-                </div>
+            {{ admin_container(product) }}
+        {% endfor %}
 
-
-
-                    <div class="product-images">
-                        {% for image in product.imatges %}
-                            <div class="product-image slow-image" product="{{product._id}}" field="imatges" value="{{ image }}" background='{{ imgs.get_url("collecions", image) }}'>
-                                <button type=button class=product-image-left  onclick="productImageMove(this.parentElement, false)">&larr;</button>
-                                <button type=button class=product-image-right onclick="productImageMove(this.parentElement, true)">&rarr;</button>
-                                <button type=button class=product-image-delete onclick="productImageDelete(this.parentElement)">&#10008;</button>
-                            </div>
-                        {% endfor %}
-                        <button class="product-image-add" onclick="this.firstElementChild.click()">&#10133;<input type="file" multiple class="product-image-input" oninput="uploadFiles(this, 'collecions', this.parentElement.previousElementSibling)" field="imatges" product="{{product._id}}" ></button>
-                    </div>
-                </div>
-            </div>
-        {%endfor%}
-        <div class="product-container">
-                <form action="/admin/collecions/create" method="post">
-                        <div class="product-header" onclick="showData(this)">
-                                <input name=name class="product-title" placeholder="NOM">
-                                <input name=id class="product-id" placeholder="ID">
-                                <button type=submit>CREAR</button>
-                        </div>
-                </form>
-        </div>
+        {{ new_container("collecions") }}
 
     </div>
 {% endblock %}
+
+

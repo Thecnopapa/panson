@@ -474,7 +474,7 @@ def delete_field():
 
 
 @limiter.exempt
-@app.post("/admin/<bucket>/create")
+@app.post("/admin/create/<bucket>")
 def create_product(bucket):
     user = get_current_user()
     if check_if_admin(user.username, user.password):
