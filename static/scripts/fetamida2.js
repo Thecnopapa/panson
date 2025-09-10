@@ -50,11 +50,11 @@ window.addEventListener('load', function () {
 
 let touchStart = 0;
 let touchEnd = 0;
-sectionContainer.addEventListener("touchstart", function(event){
+menuContainer.addEventListener("touchstart", function(event){
 	touchStart = event.changedTouches[0].screenX;
 	print("TouchStart: ", touchStart);
 });
-sectionContainer.addEventListener("touchend", function(event){
+menuContainer.addEventListener("touchend", function(event){
 	touchEnd = event.changedTouches[0].screenX;
 	const touchX = touchEnd - touchStart;
 	print("TouchEnd: ", touchEnd, "Total: ", touchX, window.innerWidth);
