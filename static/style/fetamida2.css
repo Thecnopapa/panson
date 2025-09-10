@@ -135,6 +135,7 @@
 
 
 .content-galeria{
+    margin-top: 0;
 	overflow-y: scroll;
 	max-height:100%;
 }
@@ -156,7 +157,7 @@
 
 @media screen and (orientation: portrait) {
     #content-fetamida{
-        margin-top: 10vh;
+        margin-top: 10vh !important;
 
     }
     #sections-fetamida{

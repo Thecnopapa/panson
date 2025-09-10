@@ -7,6 +7,10 @@ const sectionContainer = document.getElementById("sections-fetamida");
 const menuContainer = document.getElementById("section-menu");
 let currentSection = 1;
 
+
+window.addEventListener("orientationchange", () => {setTimeout( toSection, 2000,currentSection);});
+
+
 function toSection(targetSection) {
     if (targetSection === null) {
         targetSection = 1;
