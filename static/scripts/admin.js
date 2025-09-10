@@ -167,7 +167,7 @@ function deleteField(trigger){
 }
 
 
-async function miscUpdate(target, del=false){
+async function miscUpdate(target, del=false, sure=false){
     console.log("UPDATING MISC");
     let pos = undefined
     const colorcodedElements = [...target.getElementsByClassName("colorcoded")];
@@ -176,6 +176,30 @@ async function miscUpdate(target, del=false){
     const valueElement = target.getElementsByClassName("misc-value")[0];
     const key = keyElement.value;
     const value = valueElement.value;
+
+    if (del && !sure){
+        let dialog = document.createElement("dialog");
+        dialog.classList.add("dialog-delete");
+        let closeButton = document.createElement("button");
+        closeButton.className = "cancel";
+        closeButton.innerHTML = "Cancel";
+        closeButton.addEventListener("click", (event) => {dialog.remove();});
+        let deleteButton = document.createElement("button");
+        deleteButton.className = "delete";
+        deleteButton.innerHTML = "DELETE";
+        deleteButton.addEventListener("click", () => {miscUpdate(target, del, true); dialog.remove();});
+        let deleteText = document.createElement("div");
+        deleteText.className = "delete-warning";
+        deleteText.innerHTML = 'Are you sure you want to delete?<br>('+field+') <b>'+key+'</b>';
+
+        dialog.appendChild(deleteText);
+        dialog.appendChild(closeButton);
+        dialog.appendChild(deleteButton);
+        document.body.appendChild(dialog)
+        dialog.showModal()
+        return
+    }
+
 
     try {
         pos = target.attributes.position.value;

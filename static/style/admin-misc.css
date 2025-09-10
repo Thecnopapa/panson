@@ -39,3 +39,33 @@
 .misc-key-name{
     width: fit-content;
 }
+
+
+.dialog-delete{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    height: 20%;
+    .delete-warning{
+        text-align: center;
+    }
+    button{
+        position: absolute;
+        bottom: 5%;
+        cursor: pointer;
+    }
+    .delete{
+        background-color: red;
+        right: 5%;
+    }
+    .delete:hover{
+        background-color: darkred;
+    }
+    .cancel{
+        left:5%;
+    }
+
+}
+
