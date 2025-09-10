@@ -7,8 +7,13 @@
     width: 100dvw;
     max-width: 100dvw;
     scroll-behavior: smooth;
-    margin-top: 13dvh;
+    margin-top: 9vh;
     overflow: hidden;
+    transition: 1s;
+}
+
+#content-fetamida.active {
+    margin-top: 13vh;
 }
 #sections-fetamida{
     position: relative;
@@ -21,7 +26,6 @@
     overflow: hidden;
     height: fit-content;
     transition: max-height 1s ease;
-
 }
 
 .scroller{
@@ -57,8 +61,8 @@
     z-index: 5;
     overflow-y: visible;
     margin-bottom: 1vh;
-
-
+}
+#section-menu.active{
 
 }
 
@@ -67,8 +71,7 @@
     display: flex;
     max-width: 30%;
     width: fit-content;
-    transition-property: left;
-    transition-duration: 1s;
+    transition: inherit;
     cursor: pointer;
     justify-content: flex-start;
     align-items: center;
