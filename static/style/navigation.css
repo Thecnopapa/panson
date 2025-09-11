@@ -442,11 +442,24 @@ body {
 	#menu-closer-portrait{
 		display: none !important;
 	}
+    .portrait{
+        display: none !important;
+    }
 }
 
 @media screen and (orientation: portrait) {
+    html{
+        font-size: 1.7vh;
+    }
+
+    .landscape{
+        display: none !important;
+    }
     .navigation {
         justify-content: center;
+    }
+    #menu{
+        background-color: white;
     }
 
     .dropbtn {

@@ -89,6 +89,8 @@ body{
         justify-content: center;
         padding-top: 2vh;
         padding-bottom: 2vh;
+        width: calc(100% - 4vh);
+        margin-right: 0;
     }
 }
 

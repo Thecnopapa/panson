@@ -132,11 +132,15 @@
                         {% for talla in ["XS", "S", "M", "L", "XL"] %}
                             <div class="option size">
                                 <label class="text-label">
+                                {% if producte.opcions["talles"] != None %}
                                     {% if talla in producte.opcions.get("talles", {}).keys() %}
                                         <input  type="radio" name="talla" price="{{ producte.opcions["talles"][talla].get("preu", 0) }}" qty="{{ producte.opcions["talles"][talla].get("qty", 0) }}" class="hidden-input size-input" value="{{ talla }}" onchange="selectSize(this);updatePrice();">
                                     {% else %}
                                         <input  type="radio" name="talla" price="0" qty="0" class="hidden-input size-input" value="{{ talla }}" onchange="selectSize(this);updatePrice();">
                                     {% endif %}
+                                {% else %}
+                                    <input  type="radio" name="talla" price="0" qty="0" class="hidden-input size-input" value="{{ talla }}" onchange="selectSize(this);updatePrice();">
+                                {% endif %}
                                     {{ talla }}
                                 </label>
                             </div>

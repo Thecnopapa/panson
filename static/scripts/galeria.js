@@ -180,7 +180,7 @@ function changeProduct(element, product, bucket) {
 	} else{
             element.onclick = function () { location.href = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value }
     		element.getElementsByClassName("nom")[0].innerHTML = info.nom.value;
-    		element.getElementsByClassName("preu-inline")[0].innerHTML = info.preu.value;
+            [...element.getElementsByClassName("preu-inline")].forEach(e => {e.innerHTML = info.preu.value;});
 	}
 
 }
