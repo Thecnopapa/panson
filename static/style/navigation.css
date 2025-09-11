@@ -9,10 +9,42 @@
 * {
     font-family: myFont;
 }
+
+
+
+@property --padding-horizontal {
+    syntax: "<length>{1:4}";
+    inherits: true;
+    initial-value: 0;
+}
+
+@property --padding-vertical {
+    syntax: "<length>{1:4}";
+    inherits: true;
+    initial-value: 0;
+}
+
+
+@property --padded-width {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 100%;
+}
+
+:root{
+
+}
+
 html{
+    --padding: 1vw;
 	font-size: 16px;
     overflow: scroll;
+    --padding-horizontal: 0 var(--padding);
+    --padding-vertical: var(--padding) 0;
+    --padded-width: calc(100% - var(--padding) * 2);
 }
+
+
 *{
 	font-size: 1em;
 }
@@ -116,37 +148,6 @@ body {
     margin-left: 1vh;
 }
 
-.back {
-    display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    height: fit-content;
-    width: fit-content;
-    color: black;
-    padding:  1vh 1vw;
-    font-size: 1.25rem;
-    font-weight: bolder;
-    background-color: rgba(255, 255, 255, 0.5);
-
-    text-align: center;
-    align-content: center;
-    border: transparent;
-    user-select: none;
-}
-.back-arrow {
-    height: 4vh;
-    width: 4vh;
-    rotate: 180deg;
-
-}
-
-.back:hover {
-    color: white;
-    cursor: pointer;
-
-}
 
 .navigation {
     position: fixed;
@@ -181,7 +182,7 @@ body {
     display: flex;
     height: 6vh;
     width: fit-content;
-    padding-right: 1vw;
+    padding: var(--padding-horizontal);
     z-index: 200;
     align-items: center;
 
@@ -197,10 +198,10 @@ body {
     background-color: rgba(0, 0, 0, 0);
     height: 6vh;
     transition: 0.3s ease;
-    margin-right: 1vw ;
+    margin-right: var(--padding) ;
     cursor: pointer;
-    padding-right: 1vw;
-    padding-left: 1vw;
+    padding-right: var(--padding);
+    padding-left: var(--padding);
 
 }
 .dropbtn.white:not(.black){
@@ -208,7 +209,7 @@ body {
 }
 
 .dropbtn.last{
-    margin-right: 1vw;
+    margin-right: var(--padding);
 }
 
 .menu-simple {
@@ -307,7 +308,7 @@ body {
     width: min-content;
     height: 6vh;
     align-items: center;
-    margin-left: 1vw;
+    margin-left: var(--padding);
     cursor: pointer;
     z-index: 21;
 
@@ -373,8 +374,8 @@ body {
 .titol-submenu {
     display: none;
     color: rgba(0, 0, 0, 0);
-    margin-left: 1vw;
-    margin-right: 2vw;
+    margin-left: var(--padding);
+    margin-right: calc(var(--padding) * 2);
     padding-bottom: 1vh;
     padding-top: 1vh;
     text-underline-offset: 0.5vh;
@@ -398,8 +399,7 @@ body {
 
 .item-submenu {
     display: none;
-    margin-left: 1vw;
-    margin-right: 1vw;
+    margin: var(--padding-horizontal);
     cursor: pointer;
     padding-bottom: 1vh;
     text-underline-offset: 0.25rem;
@@ -450,6 +450,7 @@ body {
 @media screen and (orientation: portrait) {
     html{
         font-size: 16px;
+        --padding: 2vh;
     }
 
     .landscape{
