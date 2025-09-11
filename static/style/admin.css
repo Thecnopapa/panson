@@ -10,7 +10,7 @@ body {
 	flex-direction: column;
 	align-items: center;
 	position:relative;
-	margin-top: 6dvh;
+	margin-top: 6vh;
 	max-height: calc(15vh - 6dvh);
 	height: calc(15vh - 6dvh);
 	width:100vw;
@@ -24,7 +24,6 @@ body {
     justify-content: space-evenly;
     flex-wrap: wrap;
     width: 100%;
-    font-size: 2dvh;
 }
 #admin-menu button {
     font-size: inherit;
