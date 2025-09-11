@@ -53,7 +53,7 @@
             {% if (double and n % 2 == 0) %}
                <div class="producte-doble">
             {% endif %}
-            <div class="producte empty enabled {{ 'last' if n==max_prods-1 }}" onmouseover="highlightProduct(this)" onmouseout="reverseProduct(this)">
+            <div class="producte empty enabled {{ 'last' if n==max_prods-1 }} {{ 'inline' if inline }}" onmouseover="highlightProduct(this)" onmouseout="reverseProduct(this)">
                <div class="imatge primera normal-image" onmouseover="//highlightProduct(this)"></div>
                <div class="imatge segona slow-image" onmouseout="//reverseProduct(this)"></div>
                <div class="detalls-galeria">

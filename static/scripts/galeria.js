@@ -206,7 +206,7 @@ for (let i = 0; i < galleryElements.length; i++) {
     }
 	initGaleria(galeria, undefined, key, value);
     if (!galeria.classList.contains("inline")){
-        const productElements = galeria.getElementsByClassName("producte enabled");
+        const productElements = galeria.querySelectorAll(".producte.enabled:not(.inline)");
         for (let i = 0; i < productElements.length; i++) {
             galleryObserver.observe(productElements[i]);
         }
