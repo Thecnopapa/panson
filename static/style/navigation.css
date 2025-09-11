@@ -10,7 +10,7 @@
     font-family: myFont;
 }
 html{
-	font-size: 2vh;
+	font-size: 16px;
     overflow: scroll;
 }
 *{
@@ -449,7 +449,7 @@ body {
 
 @media screen and (orientation: portrait) {
     html{
-        font-size: 1.7vh;
+        font-size: 12px;
     }
 
     .landscape{

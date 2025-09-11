@@ -13,16 +13,16 @@ body {
 .content-producte {
     display: flex;
     flex-direction: row;
-    width: 100dvw;
+    width: 100vw;
     position: relative;
-    height: 100dvh;
+    height: 100vh;
     align-items: flex-start;
-    margin-top:0dvh;
+    margin-top:0;
     justify-content: space-between;
     background-position: right;
     background-size: cover;
-    min-height: 100dvh;
-    max-height: 100dvh;
+    min-height: 100vh;
+    max-height: 100vh;
 
 }
 
@@ -66,14 +66,14 @@ body {
 	display:flex;
     flex-direction: column;
     align-items: center;
-    height: 93dvh;
-    min-height: 93dvh;
-    padding-top:7dvh;
+    height: 93;
+    min-height: 93vh;
+    padding-top:7vh;
     padding-left:1vw;
     padding-right:1vw;
     background-color: rgba(255, 255, 255, 0.7);
     overflow-y: scroll;
-    max-height: 93dvh;
+    max-height: 93vh;
     scroll-behavior: smooth;
 
 
@@ -84,8 +84,8 @@ body {
     position: relative;
     height: max-content;
     width: 100%;
-    margin-bottom: 2dvh;
-    margin-top: 3dvh;
+    margin-bottom: 2vh;
+    margin-top: 3vh;
     text-transform: uppercase;
 
 }
@@ -119,29 +119,29 @@ body {
 #product-description {
     position: relative;
     height: fit-content;
-    margin-bottom: 2dvh;
-    margin-top: 0.5dvh;
+    margin-bottom: 2vh;
+    margin-top: 0.5vh;
     text-align: justify;
     width:100%;
 }
 
 .info{
 	width:100%;
-    padding-top: 5dvh;
+    padding-top: 5vh;
 }
 
 .desplegable{
     height: fit-content;
     width:100%;
-    padding-bottom: 3dvh;
+    padding-bottom: 3vh;
 }
 .titol-desplegable {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: fit-content;
-    margin-top: 0.2dvh;
-    margin-bottom: 0.2dvh;
+    margin-top: 0.2vh;
+    margin-bottom: 0.2vh;
     font-weight: normal;
 }
 
@@ -154,7 +154,7 @@ body {
 }
 .info-desplegable > ul {
     margin-top: 0.25rem;
-    padding-left: 2.5dvh;
+    padding-left: 2.5vh;
 }
 .subtitol-desplegable {
     margin-bottom: 0;
@@ -167,11 +167,11 @@ body {
     display: none;
     position: fixed;
     z-index: 50;
-    border: black 0.2dvh solid;
+    border: black 0.2vh solid;
     max-width: 80%;
     background-color: rgba(255, 255, 255, 100);
-    padding: 2%;
-    max-height: 80dvh;
+    padding: 1vw;
+    max-height: 80vh;
     overflow-y: scroll;
 }
 
@@ -204,11 +204,11 @@ body {
     position: relative;
     align-items: center;
     justify-content: center;
-    padding-bottom: 2dvh;
+    padding-bottom: 2vh;
 
 }
 #info-talles{
-    margin-top: 4dvh;
+    margin-top: 4vh;
 
 }
 #buy-options{
@@ -216,18 +216,18 @@ body {
     position:relative;
 	display:flex;
     flex-direction: column;
-    padding-bottom: 2dvh;
+    padding-bottom: 2vh;
 }
 .option-field legend{
     padding:0;
     margin:0;
-    margin-bottom: 0.5dvh;
+    margin-bottom: 0.5vh;
 }
 
 .option-field{
     padding: 0;
     margin:0;
-	padding-bottom: 4dvh;
+	padding-bottom: 4vh;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -243,15 +243,15 @@ body {
 .option-field label{
     cursor: pointer;
     margin-right: 2%;
-    margin-bottom: 1dvh;
-    margin-top:1dvh;
+    margin-bottom: 1vh;
+    margin-top:1vh;
 }
 
 
 .option-field .text-label:has(> .hidden-input[checked=true]){
     font-weight: bold;
     text-decoration: underline;
-    text-underline-offset: 0.5dvh;
+    text-underline-offset: 0.5vh;
 }
 
 
@@ -272,11 +272,11 @@ body {
 	max-width:100%;
 	width:fit-content;
     align-items:flex-end;
-    height: 3dvh;
+    height: 3vh;
 
 }
 .option{
-    margin-right: 1.5dvh;
+    margin-right: 1.5vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -286,8 +286,8 @@ body {
 }
 .talla{
     margin-right: 2%;
-    margin-bottom: 2dvh;
-    margin-top:2dvh;
+    margin-bottom: 2vh;
+    margin-top:2vh;
 }
 
 .multiple-input, #size-country {
@@ -296,7 +296,7 @@ body {
 	border:none;
 	border-bottom:1px solid black;
 	outline-offset: 0;
-	width:6dvh;
+	width:6vh;
 	max-width:50%;
 	background-color:rgba(0,0,0,0);
 	color:black;
@@ -400,7 +400,7 @@ body {
 }
 
 .content-galeria{
-    margin-top: 2dvh;
+    margin-top: 2vh;
 
 }
 .galeria{
@@ -428,14 +428,24 @@ body {
 }
 
 
-table {
-  border-collapse: collapse;
+.table-container{
+    width: calc(100%);
+    max-width: calc(100%);
+    overflow-x: scroll;
 }
 
+table {
+  border-collapse: collapse;
+    position: relative;
+
+}
+
+
 td, th{
-    padding: 0.5%;
+    margin: 1%;
     text-align: right;
     width: 10%;
+    min-width: max-content;
     border: 1px solid #000000;
 }
 tr{
@@ -447,6 +457,19 @@ tr:nth-child(even) {
 tr:hover{
 	background-color: rgba(0, 0, 0, 0.2);
 	cursor: pointer;
+}
+
+tr:first-child {
+
+    position: sticky;
+    top: 0;
+    background-color: white;
+    border: none;
+
+    .th{
+        position: sticky;
+
+    }
 }
 
 
@@ -518,7 +541,7 @@ tr:hover{
 	position:absolute;
 	left:0;
 	top:0;
-	height:100dvh;
+	height:100vh;
 	display:flex;
 	flex-direction: column;
 	justify-content: center;
@@ -544,7 +567,7 @@ tr:hover{
     position: absolute;
     left:0;
     bottom:0;
-    height:100dvh;
+    height:100vh;
     z-index:2500;
 }
 
@@ -753,6 +776,9 @@ tr:hover{
         	height:5%;
         	width:5%;;
     	}
+        .popup-info {
+            padding:2vh;
+        }
 
 }
 

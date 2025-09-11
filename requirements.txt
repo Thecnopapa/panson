@@ -27,4 +27,3 @@ pandas
 openpyxl
 dos2unix
 
-grpcio==1.60.1
