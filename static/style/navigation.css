@@ -117,7 +117,7 @@ body {
 }
 .under-hover:hover{
     text-decoration: underline;
-    text-underline-offset: 0.5vh;
+    text-underline-offset: 0.25rem;
 }
 
 .black-button{
@@ -378,7 +378,7 @@ body {
     margin-right: calc(var(--padding) * 2);
     padding-bottom: 1vh;
     padding-top: 1vh;
-    text-underline-offset: 0.5vh;
+    text-underline-offset: 0.25rem;
     border: none;
     width: auto;
 }

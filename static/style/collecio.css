@@ -3,7 +3,7 @@
 #collecions{
     display: flex;
     height: fit-content;
-    min-height: 100dvh;
+    min-height: 100vh;
     flex-direction: column;
     width: 100%;
 

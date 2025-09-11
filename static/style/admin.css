@@ -11,8 +11,8 @@ body {
 	align-items: center;
 	position:relative;
 	margin-top: 6vh;
-	max-height: calc(15vh - 6dvh);
-	height: calc(15vh - 6dvh);
+	max-height: calc(15vh - 6vh);
+	height: calc(15vh - 6vh);
 	width:100vw;
 
 }
