@@ -44,7 +44,7 @@ async function preloadHiddenImages(){
 		
 		newImage.setAttribute("srcUrl", imagesToPreload[i]);
 		document.getElementById("hidden-images").appendChild(newImage);
-		console.log(newImage);
+		//console.log(newImage);
 		setTimeout(sourceToSrc,3000, newImage);
 	}
 	imagesToPreload =[];
@@ -52,7 +52,7 @@ async function preloadHiddenImages(){
 
 function sourceToSrc(trigger){
 	trigger.src = trigger.attributes.srcUrl.value;
-	console.log(trigger);
+	//console.log(trigger);
 }
 
 async function loadImages(selection){
@@ -66,6 +66,7 @@ async function loadImages(selection){
 
             selectedImages[i].style.backgroundImage = "url('"+url+"')";
             selectedImages[i].removeAttribute("background");
+	    selectedImages.classList.remove(selection-"-image");
             changedImages++;
 	    imagesToPreload.push(url);
         } catch(err){}

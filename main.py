@@ -690,6 +690,18 @@ def get_file_info(data=None):
         ))
 
 
+@app.post("/admin/files/list")
+def get_file_list():
+    print("admin/files/list")
+    if admin_check():
+        imgs = Images()
+        data = request.get_json()
+        print(data)
+        bucket = data["bucket"]
+        print("Fetching list feom bucket: " ,bucket)
+        return json.dumps(dict(filenames=imgs.get_names(bucket)))
+
+
 
 
 @app.post("/<lan>/send_email/<target>/")

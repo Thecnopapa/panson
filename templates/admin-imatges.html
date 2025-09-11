@@ -24,15 +24,4 @@
 {% endblock %}
 
 
-{% macro image_selector(bucket) %}
-DiALoG
-<dialog class="image-selector container-closer hidden" onclick="this.classList.toggle('hidden');">
-    <div class="image-selector-content img-details" onclick="event.stopPropagation();">
-        <div class="image-selector-title">{{ bucket }}</div>
-        <div class="image-selector-gallery">
-            <div class="image-selector-image template" onclick="selectThis(this)"></div>
-        </div>
-        <div class="image-selector-confirm" onclick="confirmSelection(this)">Confirmar</div>
-    </div>
-</dialog>
-{% endmacro %}
+

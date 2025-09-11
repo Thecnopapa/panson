@@ -111,6 +111,13 @@
 }
 
 
+
+
+.image-selector-content{
+	display:flex;
+	flex-direction: column;
+}
+
 .image-selector-gallery{
     display: flex;
     flex-direction: row;
@@ -118,9 +125,14 @@
     flex-wrap: wrap;
 }
 .image-selector-image{
-    height: 20vh;
-    width: 20vw;
-    margin: 2vh;
+    height: 25vw;
+    width: 25vw;
+    margin: 2vw;
+    background-position:center;
+    background-size: contain;
+}
+.image-selector-image.selected{
+	border: 2px blue solid;
 }
 
 

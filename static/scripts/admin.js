@@ -1,5 +1,5 @@
 
-
+let currentBucket = location.pathname.split("/")[2];
 
 
 
@@ -309,7 +309,8 @@ async function productUpdate(trigger, value=undefined, type=undefined, mode="add
 	const product = trigger.attributes.product.value;
     let colorcode = trigger.getAttribute("colorcode");
     if (colorcode === undefined || colorcode === null){
-        colorcode = "next";
+        //colorcode = "next";
+	colorcode = undefined;
     }
     let bucket = window.location.href.split("/");
 
@@ -349,6 +350,7 @@ async function productUpdate(trigger, value=undefined, type=undefined, mode="add
 			body: JSON.stringify({product: product, field: field, value: value, type:type, mode:mode, key:key, subdict:subdict, subkey:subkey} ),
                 }).then(response => {return response;});
     if (colorcode !== undefined && colorcode !== null) {
+	    console.log(colorcode);
         if (resp.ok) {
             trigger.nextElementSibling.style.backgroundColor = "lightgreen";
         } else {
@@ -458,18 +460,99 @@ async function showImgDetails(image){
 }
 
 
+let lastSelectedTrigger = undefined;
 
-function showImageSelector(bucket){
+async function initImageSelector(dialog, product, trigger){
+
+	lastSelectedTrigger = trigger;
+
+	let gallery = dialog.getElementsByClassName("image-selector-gallery")[0];
+	let template = gallery.firstElementChild;
+	const bucket = currentBucket;
+	const titleElement = dialog.getElementsByClassName("image-selector-title")[0];
+	const submitElement = dialog.getElementsByClassName("image-selector-confirm")[0];
+	console.log(submitElement);
+	submitElement.setAttribute("field", "imatges");
+	submitElement.setAttribute("product", product);
+	console.log(bucket);
+	titleElement.innerHTML = bucket + ": "+product ;
+
+	let resp = await fetch("/admin/files/list",
+		{
+
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			method: "POST",
+			body: JSON.stringify({bucket:bucket})
+		}).then(resp => {return resp.json()});
+	let filenames = resp["filenames"];
+	console.log(resp, filenames);
+	filenames.forEach(file => {
+		//console.log(file);
+		let newElement = template.cloneNode(true);
+		newElement.classList.remove("template");
+		newElement.classList.add("normal-image");
+		newElement.classList.add("selectable");
+		newElement.setAttribute("filename", file);
+		//console.log(imageUrl(bucket, file))
+		newElement.setAttribute("background", imageUrl(bucket, file));
+		gallery.appendChild(newElement);
+	});
+	loadAllImages();
+
+
+}
+
+
+function showImageSelector(trigger, product){
 	let dialog = document.getElementsByClassName("image-selector")[0];
-	console.log(dialog);
+	console.log(dialog, product);
 	dialog.classList.remove("hidden");
+	initImageSelector(dialog, product, trigger);
 }
 
-function confirmSelection(trigger){
-	trigger.parentElement.parentElement.classList.add("hidden");
+async function confirmSelection(trigger){
+	const dialog = trigger.parentElement.parentElement
+	let selection =[];
+	let selected = [...trigger.parentElement.getElementsByClassName("selected")];
+	selected.forEach(element => {selection.push(element.getAttribute("filename"))});
+	console.log(selection);
+	resps =[];
+
+	for (let i = 0; i < selection.length; i++) {
+
+		file = selection[i];
+		console.log("updating with: ", file);
+		r = await productUpdate(trigger, file);
+		resps.push([r, file]);
+	}
+	console.log(await Promise.all(resps));
+	try{
+		resps.forEach(r => {
+			template = lastSelectedTrigger.parentElement.getElementsByClassName("as-template")[0];
+			if (r[0].ok){
+				let filename = r[1];
+				let clone = template.cloneNode(true);
+				template.classList.remove("as-template");
+				clone.setAttribute("value", filename);
+				clone.setAttribute("background", imageUrl(currentBucket, filename));
+				template.after(clone);
+			}
+		});
+		loadAllImages();
+	} catch {}
+	
+	dialog.classList.add("hidden");
+
+	
 }
 
 
+function selectThis(trigger){
+	trigger.classList.toggle("selected");
+
+}
 
 
 
