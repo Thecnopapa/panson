@@ -10,16 +10,27 @@ class Images:
     def __init__(self, folder="media"):
         self.folder_name = folder
         self.folder = folder+"/{}"
-        self.img_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/{}%2F{}%2F{}?alt=media".format(self.folder_name,"{}","{}")
-    
+        self.folder_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/{}%2F".format(self.folder_name)
+        self.img_url = self.folder_url+"{}%2F{}?alt=media".format("{}","{}")
+
     def load(self):
-        self.paths = [b.name for b in db.list_blobs(prefix=self.folder_name)]
-        self.buckets = list(set([b.split("/")[1] for b in self.paths]))
+        self.paths = self.get_folders(None, with_prefix=True)
+        print(self.paths)
+        self.buckets = [b.split("/")[1] for b in self.paths]
         return self
 
-    def get_blobs(self, bucket):
-        bucket = self.folder.format(secure_filename(bucket))+"/"
-        return [b for b in db.list_blobs(prefix=bucket) if b.name != bucket]
+    def get_blobs(self, bucket, folders=False):
+        if bucket is not None:
+            bucket = self.folder.format(secure_filename(bucket))+"/"
+        else:
+            bucket = self.folder_name+"/"
+        l = [b for b in db.list_blobs(prefix=bucket)]
+        if folders is None:
+            return l
+        elif folders:
+            return [b for b in l if b.name.endswith("/")]
+        else:
+            return [b for b in l if b.name != bucket]
     
     def get_blob(self, bucket, filename):
         filename = secure_filename(filename)
@@ -28,10 +39,13 @@ class Images:
                 return blob
 
 
-    def get_names(self, bucket, with_prefix=False):
+    def get_names(self, bucket, with_prefix=False, folders=False):
         if with_prefix:
-            return [b.name for b in self.get_blobs(bucket)]
-        return [b.name.split("/")[-1] for b in self.get_blobs(bucket)]
+            return [b.name for b in self.get_blobs(bucket, folders)]
+        return [b.name.split("/")[-1] for b in self.get_blobs(bucket,folders)]
+
+    def get_folders(self, bucket, with_prefix=False):
+        return self.get_names(bucket, with_prefix=with_prefix, folders=True)
 
     def get_url(self, bucket, filename):
         try:
@@ -75,12 +89,19 @@ class Images:
         data["blob"].delete()
         return data
 
-
-
     def move(self, oldbucket, new_bucket, filename, replace=False):
         data = self.delete(oldbucket, filename)
         new_data = self.upload(new_bucket, data["filename"], data["filedata"], data["content_type"], replace)
         return new_data
+
+    def get_usage(self, bucket, filename):
+        from app_essentials.products import Products
+        try:
+            prods = Products().__getattribute__(bucket)
+            return [p._id for p in prods if filename in p.imatges]
+
+        except:
+            return []
 
 
 

@@ -12,7 +12,7 @@ from google.cloud import secretmanager
 from google.oauth2 import service_account
 
 ### START APP CONFIG ###################################################################################################
-
+print(" * Inititlising...")
 project_id = "panson"
 os.makedirs("secure", exist_ok=True)
 try:
@@ -172,10 +172,21 @@ from flask import url_for, send_from_directory
 
 #TODO: NOT SAFE!
 
-@app.route("/static/<path:path>")
+
+@app.route("/static/<folder>/<file>")
+@app.route("/static/<file>")
 def get_static(file, folder=None):
-    
-    return send_from_directory(path)
+    try:
+        raise Exception()
+        file = secure_filename(file)
+        if folder is None:
+            return redirect(storage_url_single.format(file))
+        folder = secure_filename(folder)
+        return redirect(storage_url.format(folder, file), 301)
+    except:
+        if folder is None:
+            return send_from_directory("static", file)
+        return send_from_directory("static", folder + "/" + file)
 
 @limiter.exempt
 @app.route("/style/<file>")
@@ -658,12 +669,12 @@ def upload_image(bucket):
 
 
 @app.post("/admin/files/info")
-def get_file_info():
+def get_file_info(data=None):
     if admin_check():
         imgs = Images()
-
-        target = request.get_json()
-        data = imgs.get(target["bucket"], target["filename"])
+        if data is None:
+            target = request.get_json()
+            data = imgs.get(target["bucket"], target["filename"])
         try:
             prods = Products().__getattribute__(data["bucket"])
         except:
