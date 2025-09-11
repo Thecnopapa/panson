@@ -186,7 +186,7 @@ upload (){
 
 deploy (){
   echo -en "\033]0;Web Deploy\a"
-	cd $FOLDER_PATH && gcloud run deploy --source .
+	cd $FOLDER_PATH && gcloud run deploy test --source .
 }
 latest () {
   cd $FOLDER_PATH && gcloud run services update-traffic --to-latest
