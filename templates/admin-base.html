@@ -11,9 +11,11 @@
 
     <script defer type="text/javascript" src="/scripts/admin.js"></script>
     <link href='/style/admin.css' rel='stylesheet'>
+    <link href='/style/admin-img.css' rel='stylesheet'>
 
 {% endblock %}
 
+{% import 'admin-imatges.html' as images with context%}
 
 {% block body %}
 
@@ -36,6 +38,7 @@
 		<div id=admin-page>
 			{% block content %}{% endblock %}
 		</div>
+        	{{ images.image_selector("bespoke") }}a
 
 	</body>
 
@@ -173,6 +176,7 @@
                     </div>
                 {% endfor %}
                     <button class="product-image-add" onclick="this.firstElementChild.click()">&#10133;<input type="file" multiple class="product-image-input" oninput="uploadFiles(this, 'productes', this.parentElement.previousElementSibling)" field="imatges" product="{{product._id}}" ></button>
+		    <button class="product-image-add" onclick="showImageSelector('{{ bucket }}')">&#10133;</button>
             </div>
         </div>
     </div>

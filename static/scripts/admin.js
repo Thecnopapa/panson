@@ -459,8 +459,15 @@ async function showImgDetails(image){
 
 
 
+function showImageSelector(bucket){
+	let dialog = document.getElementsByClassName("image-selector")[0];
+	console.log(dialog);
+	dialog.classList.remove("hidden");
+}
 
-
+function confirmSelection(trigger){
+	trigger.parentElement.parentElement.classList.add("hidden");
+}
 
 
 
