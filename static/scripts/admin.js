@@ -233,12 +233,13 @@ async function miscUpdate(target, del=false, sure=false){
 
 
 
-async function uploadFiles(trigger, bucket, clone=undefined){
+async function uploadFiles(trigger, clone=undefined){
+	bucket = currentBucket;
 	const files = trigger.files;
 	let uploadedFiles = []
 	for (let i = 0; i < files.length; i++){
 		const file = files[i];
-		print("Uploading: ", file.name, "("+file.type+")");
+		print("Uploading: ", file.name, "("+file.type+") to: "+bucket);
 		let newFname = await fetch("/admin/images/upload/"+bucket,
 			{
 				headers: {
@@ -293,6 +294,7 @@ function productImageMove(image, moveRight){
     }
     print("Moved image: ",oldPosition, "->", newPosition)
     productUpdate(image, oldPosition, "list:int", "sort", newPosition);
+    image.scrollIntoView({block: "center"});
 }
 
 function productImageDelete(image){
@@ -467,6 +469,11 @@ async function initImageSelector(dialog, product, trigger){
 	lastSelectedTrigger = trigger;
 
 	let gallery = dialog.getElementsByClassName("image-selector-gallery")[0];
+	[...gallery.children].forEach(child => {
+		if (!child.classList.contains("template")){
+			child.remove();
+		}
+	});
 	let template = gallery.firstElementChild;
 	const bucket = currentBucket;
 	const titleElement = dialog.getElementsByClassName("image-selector-title")[0];

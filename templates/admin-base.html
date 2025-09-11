@@ -176,8 +176,8 @@
                         <button type=button class=product-image-delete onclick="productImageDelete(this.parentElement)">&#10008;</button>
                     </div>
                 {% endfor %}
-                    <button class="product-image-add" onclick="this.firstElementChild.click()">&#10133;<input type="file" multiple class="product-image-input" oninput="uploadFiles(this, 'productes', this.parentElement.previousElementSibling)" field="imatges" product="{{product._id}}" ></button>
-		    <button class="product-image-add" onclick="showImageSelector(this,'{{ product._id }}')">&#10133;</button>
+		<button class="product-image-upload" onclick="this.lastElementChild.click()">&#9729;<br>&#8613;<br>&#10133;<br>Pujar<input type="file" multiple class="product-image-input" oninput="uploadFiles(this, this.parentElement.previousElementSibling)" field="imatges" product="{{product._id}}" ></button>
+		<button class="product-image-select" onclick="showImageSelector(this,'{{ product._id }}')">&#9729;<br>&#8615;<br>&#10133;<br>Seleccionar</button>
             </div>
         </div>
     </div>

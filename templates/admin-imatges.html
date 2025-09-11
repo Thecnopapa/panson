@@ -13,7 +13,7 @@
                     {% for file in imgs.get_names(bucket) %}
                         <div class="bucket-image normal-image" filename="{{ file }}" bucket="{{ bucket }}" background="{{ imgs.get_url(bucket, file) }}" onclick="showImgDetails(this)">{{ utils.len(imgs.get_usage(bucket, file)) }}</div>
                     {% endfor %}
-                    <div class="bucket-image" bucket="{{ bucket }}" onclick="this.firstElementChild.click()"><input multiple class="hidden" type="file" oninput="uploadFiles(this, '{{ bucket }}', this.parentElement.previousElementSibling);"/>&#10133;</div>
+                    <div class="bucket-image" bucket="{{ bucket }}" onclick="this.firstElementChild.click()"><input multiple class="hidden" type="file" oninput="uploadFiles(this, this.parentElement.previousElementSibling);"/>&#10133;</div>
 
                 </div>
             </div>

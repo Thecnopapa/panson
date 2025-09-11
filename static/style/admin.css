@@ -165,7 +165,7 @@ body {
 	flex-wrap:wrap;
 }
 
-.product-image, .product-image-add{
+.product-image, .product-image-upload, .product-image-select{
 	width:25vh;
 	height:25vh;
 	min-width:25vh;
@@ -180,6 +180,10 @@ body {
 .product-image-input{
 	display:none;
 }
+.product-image-upload, .product-image-select{
+	font-size: 2rem;
+}
+
 
 .product-image-left, .product-image-right{
     position: absolute;
