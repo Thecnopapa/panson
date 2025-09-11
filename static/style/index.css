@@ -5,8 +5,8 @@
     position: relative;
     display: block;
     width: 100dvw;
-    height: 100dvh;
-    min-height:100dvh;
+    height: 100vh;
+    min-height:100vh;
     align-content: center;
     justify-content: center;
     z-index: 10;
@@ -57,7 +57,7 @@ body{
     font-size: 5rem;
     font-weight: bold;
     color: rgba(240, 248, 255, 0.9);
-    height: 20dvh;
+    height: 20vh;
     user-select: none;
     padding: 5dvh 0dvh 5dvh 0dvh;
     position: fixed;

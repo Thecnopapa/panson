@@ -93,8 +93,8 @@ html{
 body {
     padding: 0 0;
     margin: 0 0;
-    width: 100dvw;
-    min-height: 100dvh;
+    width: 100vw;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     -webkit-font-smoothing: antialiased;

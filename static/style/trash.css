@@ -7,13 +7,13 @@
     display: flex;
     width: 80%;
     max-width: 80%;
-    margin-bottom: 2dvh;
-    margin-top: 4dvh;
+    margin-bottom: 2vh;
+    margin-top: 4vh;
 
 }
 
 .mini-gallery-items{
-    padding-top: 2dvh;
+    padding-top: 2vh;
     display: flex;
     max-height: 100%;
     overflow: scroll;
