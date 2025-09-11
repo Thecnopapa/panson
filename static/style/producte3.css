@@ -242,16 +242,16 @@ body {
 }
 .option-field label{
     cursor: pointer;
-    margin-right: 2%;
-    margin-bottom: 1vh;
-    margin-top:1vh;
+    margin-right: 0.1rem;
+    margin-bottom: 0.5rem;
+    margin-top:0.5rem
 }
 
 
 .option-field .text-label:has(> .hidden-input[checked=true]){
     font-weight: bold;
     text-decoration: underline;
-    text-underline-offset: 0.5vh;
+    text-underline-offset: 0.25rem;
 }
 
 
@@ -276,7 +276,7 @@ body {
 
 }
 .option{
-    margin-right: 1.5vh;
+    margin-right: 0.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;

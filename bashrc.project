@@ -170,10 +170,10 @@ test (){
     if [[ "$*" == *"debug"* ]]; then
         local title="$title --debug"
         echo -en "\033]0;$title\a"
-        flask --app main run --host="0.0.0.0" --port=5000 --debug
+        flask --app main run --host="127.0.0.1" --port=5000 --debug
     else
         echo -en "\033]0;$title\a"
-        flask --app main run --host="0.0.0.0" --port=5000
+        flask --app main run --host="127.0.0.1" --port=5000
     fi
 
 
