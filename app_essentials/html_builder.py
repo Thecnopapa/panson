@@ -6,6 +6,7 @@ from app_essentials.localisation import Localisation2 as localisation, Images
 from app_essentials.products import Products
 from app_essentials.utils import Utils
 from app_essentials.session import get_current_user
+from app_essentials.firestore import Storage
 
 
 
@@ -13,6 +14,7 @@ from app_essentials.session import get_current_user
 def common_kwargs(**kwargs):
     kwargs["loc"] = kwargs.get("loc", localisation(kwargs.get("lan", "cat")))
     kwargs["imgs"] = kwargs.get("imgs", Images())
+    kwargs["stg"] = kwargs.get("stg", Storage())
     kwargs["productes"] = Products(lan=kwargs.get("lan", "cat"))
     kwargs["productes_filtrats"] = Products(lan=kwargs.get("lan", "cat"))
     #print("STARTING PRODUCTS:", len(kwargs["productes_filtrats"].get_all()))

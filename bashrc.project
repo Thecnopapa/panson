@@ -179,10 +179,15 @@ test (){
 
 
 }
+upload (){
+  echo -en "\033]0;Cloud Upload\a"
+	cd $FOLDER_PATH && gcloud storage cp -r ./static/* gs://panson.firebasestorage.app/
+}
+
 deploy (){
   echo -en "\033]0;Web Deploy\a"
 	cd $FOLDER_PATH && gcloud run deploy --source .
 }
 latest () {
-    cd $FOLDER_PATH && gcloud run services update-traffic --to-latest
+  cd $FOLDER_PATH && gcloud run services update-traffic --to-latest
 }

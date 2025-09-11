@@ -73,6 +73,7 @@ base_url = "https://firestore.googleapis.com/v1/"
 cols_path = base_url + "projects/panson/databases/productes/documents/collecions"
 prods_path = base_url + "projects/panson/databases/productes/documents/productes"
 storage_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/{}%2F{}?alt=media"
+storage_url_single = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/{}?alt=media"
 
 ### END APP CONFIG #####################################################################################################
 

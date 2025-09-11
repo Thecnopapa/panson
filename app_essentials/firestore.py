@@ -7,6 +7,8 @@ from google.oauth2 import service_account
 import json
 from flask import request
 from werkzeug.utils import secure_filename
+from werkzeug.utils import secure_filename
+
 
 try:
     '''SCOPES = ['https://www.googleapis.com/auth/sqlservice.admin']
@@ -116,4 +118,14 @@ def upload_images(path_dict, bucket):
     print1("Uploaded images")
     return fnames
 
+class Storage:
+    def __init__(self):
+        self.base_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/{}?alt=media"
+
+    def get(self, folder, file):
+        file = secure_filename(file)
+        if folder is None:
+            return self.base_url.format(file)
+        folder = secure_filename(folder)
+        return self.base_url.format(folder+"%2F"+file)
 
