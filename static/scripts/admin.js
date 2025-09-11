@@ -465,8 +465,15 @@ async function showImgDetails(image){
 let lastSelectedTrigger = undefined;
 
 async function initImageSelector(dialog, product, trigger){
-
+	if (lastSelectedTrigger === trigger){
+		return null;
+	}
 	lastSelectedTrigger = trigger;
+	let previousImages = [];
+	const previousImageElements = [...trigger.parentElement.getElementsByClassName("product-image")];
+	previousImageElements.forEach(pImage => {
+		previousImages.push(pImage.getAttribute("value"));
+	});
 
 	let gallery = dialog.getElementsByClassName("image-selector-gallery")[0];
 	[...gallery.children].forEach(child => {
@@ -501,6 +508,9 @@ async function initImageSelector(dialog, product, trigger){
 		newElement.classList.remove("template");
 		newElement.classList.add("normal-image");
 		newElement.classList.add("selectable");
+		if (previousImages.includes(file)){
+			newElement.classList.add("selected");
+		}
 		newElement.setAttribute("filename", file);
 		//console.log(imageUrl(bucket, file))
 		newElement.setAttribute("background", imageUrl(bucket, file));
@@ -525,16 +535,17 @@ async function confirmSelection(trigger){
 	let selected = [...trigger.parentElement.getElementsByClassName("selected")];
 	selected.forEach(element => {selection.push(element.getAttribute("filename"))});
 	console.log(selection);
-	resps =[];
-
+	let resps =[];
+	let d = await productUpdate(trigger, undefined, undefined, "reset");
 	for (let i = 0; i < selection.length; i++) {
 
 		file = selection[i];
 		console.log("updating with: ", file);
-		r = await productUpdate(trigger, file);
+		let r = await productUpdate(trigger, file);
 		resps.push([r, file]);
 	}
 	console.log(await Promise.all(resps));
+	let previousElements = [...lastSelectedTrigger.parentElement.getElementsByClassName("product-image")];
 	try{
 		resps.forEach(r => {
 			template = lastSelectedTrigger.parentElement.getElementsByClassName("as-template")[0];
@@ -547,10 +558,13 @@ async function confirmSelection(trigger){
 				template.after(clone);
 			}
 		});
+		previousElements.forEach(e => {e.remove();});
 		loadAllImages();
+		lastSelectedTrigger = undefined;
 	} catch {}
 	
 	dialog.classList.add("hidden");
+
 
 	
 }

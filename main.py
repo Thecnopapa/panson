@@ -606,6 +606,8 @@ def update_product(bucket):
                         new.remove(value)
                     except ValueError:
                         pass
+                elif data["mode"] == "reset":
+                    new = []
                 elif data["mode"] == "sort":
                     print(data["key"], "-->", value)
                     new.insert(data["key"], new.pop(value))
