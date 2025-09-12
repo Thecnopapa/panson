@@ -81,7 +81,9 @@ class Images:
         blob = self.get_blob(bucket, filename)
         filedata = blob.download_as_bytes()
         content_type = blob.content_type
-        return dict(blob=blob, filedata=filedata, content_type=content_type, filename=filename, bucket=bucket)
+        size = blob.size
+        url = self.get_url(bucket, filename)
+        return dict(blob=blob, filedata=filedata, content_type=content_type, filename=filename, bucket=bucket, size=size, url=url)
 
     
     def delete(self, bucket, filename):
@@ -102,6 +104,14 @@ class Images:
 
         except:
             return []
+
+    def get_brightness(self, bucket, filename):
+        from PIL import Image, ImageStat
+        import requests
+        data = self.get(bucket, filename)
+        im = Image.open(requests.get(data["url"], stream=True).raw).convert('L')
+        stat = ImageStat.Stat(im)
+        return stat.mean[0]
 
 
 

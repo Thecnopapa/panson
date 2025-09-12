@@ -52,7 +52,7 @@ function updateScroll() {
         title.style.backgroundImage = "url(\"/static/media/logo-complet-blanc.png\")";
     }
 
-};
+}
 
 setInterval(updateScroll, 0.1);
 

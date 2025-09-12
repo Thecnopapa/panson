@@ -23,6 +23,7 @@ firebase-admin
 werkzeug
 pyngrok
 
+pillow
 pandas
 openpyxl
 dos2unix

@@ -471,9 +471,18 @@ function slideshowScroll(container, mode, axis="both"){
     container.scrollTo(targetScrollX, targetScrollY);
 
 }
-
+let alwaysBlackInProduct = [...lanButtons, ...cartIcon, ...cartCircle]
+console.log(alwaysBlackInProduct);
+window.addEventListener("load", () => {
+    alwaysBlackInProduct.forEach(el => {
+        el.classList.add("black");
+    });
+    cartIcon[0].src = "/static/media/bag-black.svg";
+    //menuButton[0].src = "/static/media/menu-black.svg";
+});
 
 updatePrice();
 
+blackObserver.observe(document.getElementById("producte-images"))
 
 print(" * Product JS ready")

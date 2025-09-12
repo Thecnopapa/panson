@@ -20,6 +20,10 @@
 {% import 'galeria.html' as galeria with context%}
 
 {% block body %}
+{% if imgs.get_brightness("productes", producte.imatges[0]) <127 %}
+    <div id="nav-color" color="white"></div>
+{% endif %}
+
 <div class="content-producte">
     <div id="producte-images">
     {% for n, imatge in utils.enumerate(producte.imatges) %}

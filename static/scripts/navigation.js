@@ -289,7 +289,9 @@ function goWhite(){
             navElements[i].classList.add('white');
         }
     }
-    cartIcon[0].src = "/static/media/bag.svg";
+    if (!cartIcon[0].classList.contains('black')) {
+        cartIcon[0].src = "/static/media/bag.svg";
+    }
     menuButton[0].src = "/static/media/menu-white.svg";
 }
 
@@ -313,6 +315,105 @@ const c = checkColor()
 if (c != null) {
    print(" * Nav colour: ", c);
 }
+
+
+function background_to_url(background){
+    return  background.replace(/"/g, "").split("(")[1].split(")")[0];
+}
+
+
+function getImageBrightness(url) {
+    console.log(url)
+    const newImg = document.createElement("img");
+
+
+    newImg.style.zIndex = "-999";
+    newImg.src = url
+    newImg.classList.add("hidden");
+
+
+    let colorSum = 0;
+    newImg.onload = function() {
+        let canvas = document.createElement("canvas");
+        canvas.width = this.width;
+        canvas.height = this.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(this,0,0);
+
+        var imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+        var data = imageData.data;
+        var r,g,b,avg;
+
+        for(var x = 0, len = data.length; x < len; x+=4) {
+            r = data[x];
+            g = data[x+1];
+            b = data[x+2];
+
+            avg = Math.floor((r+g+b)/3);
+            colorSum += avg;
+        }
+
+        let brightness = Math.floor(colorSum / (this.width*this.height));
+      console.log(brightness);
+      newImg.setAttribute("brightness", brightness);
+    }
+    return newImg.getAttribute("brightness");
+}
+
+function getImageBrightnessSO(image,callback) {
+    var thisImgID = image.attr("id");
+
+    const img = document.createElement("img");
+    img.src = image.attr("src");
+
+    img.style.display = "none";
+    document.body.appendChild(img);
+
+    let colorSum = 0;
+
+    img.onload = function() {
+        // create canvas
+        var canvas = document.createElement("canvas");
+        canvas.width = this.width;
+        canvas.height = this.height;
+
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(this,0,0);
+
+        var imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+        var data = imageData.data;
+        var r,g,b,avg;
+
+          for(var x = 0, len = data.length; x < len; x+=4) {
+            r = data[x];
+            g = data[x+1];
+            b = data[x+2];
+
+            avg = Math.floor((r+g+b)/3);
+            colorSum += avg;
+        }
+
+        var brightness = Math.floor(colorSum / (this.width*this.height));
+        callback(thisImgID, brightness);
+    }
+}
+
+
+
+
+let blackObserver = new IntersectionObserver((triggers) => {
+    if (!triggers[0].isIntersecting) {
+        goBlack()
+    } else {
+        checkColor();
+    }
+},{threshold: 0.05,});
+
+
+
+
+
+
 
 
 print(" * Navigation JS ready")

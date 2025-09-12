@@ -87,9 +87,10 @@ body{
       	font-size: 1rem;
         display: flex;
         justify-content: center;
-        padding-top: 2vh;
-        padding-bottom: 2vh;
-        width: calc(100% - 4vh);
+        padding: var(--padding-horizontal);
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        width: var(--padded-width);
         margin-right: 0;
     }
 }
