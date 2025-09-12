@@ -90,6 +90,20 @@
                             {% endfor %}
                 </select><div></div>
                 </div>
+		<div class="product-element collection">Novetat:
+                <select product="{{product._id}}" field="novetat" dataType="bool" class="product-input" oninput="productUpdate(this);">
+                            {% for b in [True, False] %}
+                                <option value="{{ b }}" {{ "selected=selected" if product.novetat == b }}>{{ loc.misc["bools"]["{}".format(b)] }}</option>
+                            {% endfor %}
+                </select><div></div>
+                </div>
+		<div class="product-element collection">Popular:
+                <select product="{{product._id}}" field="popular" dataType="bool" class="product-input" oninput="productUpdate(this);">
+                            {% for b in [True, False] %}
+                                <option value="{{ b }}" {{ "selected=selected" if product.popular == b }}>{{ loc.misc["bools"]["{}".format(b)] }}</option>
+                            {% endfor %}
+                </select><div></div>
+                </div>
 
 
                 <div class="product-element material">Material:<ul>
