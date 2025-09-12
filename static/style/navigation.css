@@ -344,7 +344,7 @@ body {
     color: white;
     font-size: 0.75rem;
 }
-.cercle-carret.white{
+.cercle-carret.white:not(.black){
     color: black;
     background-color: white;
 }
