@@ -29,6 +29,7 @@ function loadAllImages() {
     loadImages("fast");
     loadImages("normal");
     loadImages("slow");
+    loadImages("video");
     preloadHiddenImages();
 }
 
@@ -51,27 +52,43 @@ async function preloadHiddenImages(){
 }
 
 function sourceToSrc(trigger){
+	let url = trigger.attributes.srcUrl.value;
 	trigger.src = trigger.attributes.srcUrl.value;
-	//console.log(trigger);
 }
 
 async function loadImages(selection){
     let selectedImages = document.getElementsByClassName(selection+"-image");
     //console.log(selection);
     //console.log(selectedImages);
-    let changedImages = 0
-    for (let i = 0; i < selectedImages.length; i++){
-        try{
-            const url = selectedImages[i].attributes.background.value
-
-            selectedImages[i].style.backgroundImage = "url('"+url+"')";
-            selectedImages[i].removeAttribute("background");
-	    selectedImages.classList.remove(selection-"-image");
-            changedImages++;
-	    imagesToPreload.push(url);
-        } catch(err){}
+    let changedImages = 0;
+    let changedVideos = 0;
+    for (let i = 0; i < selectedImages.length; i++) {
+	    try{
+            	const url = selectedImages[i].attributes.background.value;
+		    //console.log(url.endsWith(".mp4"));
+		if (url.includes(".mp4?")){
+			try{
+			console.log("video: ", url);
+                	let videoContainer = document.createElement("video");
+			videoContainer.setAttribute("autoplay", "true");
+			videoContainer.setAttribute("muted", "true");
+			videoContainer.setAttribute("loop", "true");
+			videoContainer.classList.add("video");
+			videoContainer.src = url;
+			selectedImages[i].appendChild(videoContainer);
+			changedVideos++;
+			} catch(err) {console.log(err)}
+		} else {
+			//console.log("image: ", url);
+            		selectedImages[i].style.backgroundImage = "url('"+url+"')";
+	    		imagesToPreload.push(url);
+			changedImages++;
+		}
+		    selectedImages[i].removeAttribute("background");
+		    selectedImages.classList.remove(selection-"-image");
+	    } catch(err){}
     }
-    print(" * "+ selection +" images loaded (" + changedImages + ") ");
+    print(" * "+ selection +" images loaded (" + changedImages + ") videos: "+changedVideos);
 
 }
 

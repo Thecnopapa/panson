@@ -102,6 +102,13 @@ body {
     align-items: center;
 }
 
+
+video {
+	margin:auto;
+	height:100%;
+	width:100%;
+}
+
 .slow-image, .normal-image, .fast-image{
     /*background-image: url("/static/media/panson_favicon.png");
     background-size: 10%;
