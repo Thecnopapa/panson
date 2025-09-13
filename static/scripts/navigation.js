@@ -170,7 +170,7 @@ const cartIcon = document.getElementsByClassName('shopping-cart');
 const cartCircle = document.getElementsByClassName('cercle-carret');
 const navTitle = document.getElementById("title")
 
-const navElements = [...navButtons, ...lanButtons, navTitle, ...cartCircle, ...cartIcon, botoMenuSimple];
+const camaleonElements = [...navButtons, ...lanButtons, navTitle, ...cartCircle, ...cartIcon, botoMenuSimple];
 
 menu.style.width = "0px";
 closeMenu();
@@ -197,8 +197,7 @@ function openMenu() {
     for (i = 0; i < navButtons.length; i++) {
         navButtons[i].classList.add("black");
     }
-    cartIcon[0].src = "/static/media/bag-black.svg";
-    menuButton[0].src = "/static/media/menu-black.svg";
+    botoMenuSimple.classList.add("black");
     try {
         menu.classList.add('open');
         botoMenuSimple.classList.add('open');
@@ -253,6 +252,7 @@ function closeMenu() {
     for (i = 0; i < navButtons.length; i++) {
         navButtons[i].classList.remove("black");
     }
+    botoMenuSimple.classList.remove("black");
     checkColor()
     try{
         updateScroll()
@@ -292,17 +292,17 @@ function switchMenu(){
 
 
 function goBlack(){
-    for (let i = 0; i < navElements.length; i++) {
-        if (navElements[i] !== null) {
-            navElements[i].classList.remove('white');
+    for (let i = 0; i < camaleonElements.length; i++) {
+        if (camaleonElements[i] !== null) {
+            camaleonElements[i].classList.remove('white');
         }
     }
 }
 
 function goWhite(){
-    for (let i = 0; i < navElements.length; i++) {
-        if (navElements[i] !== null) {
-            navElements[i].classList.add('white');
+    for (let i = 0; i < camaleonElements.length; i++) {
+        if (camaleonElements[i] !== null) {
+            camaleonElements[i].classList.add('white');
         }
     }
 }
@@ -424,7 +424,19 @@ let blackObserver = new IntersectionObserver((triggers) => {
 },{threshold: 0.06,});
 
 
+try{
+    blackObserver.observe(document.getElementById("producte-images"));
+} catch {}
 
+try{
+    blackObserver.observe(document.getElementsByClassName("imatge-collecio")[0]);
+    camaleonElements.push(document.getElementsByClassName("titol-collecio")[0])
+    document.getElementsByClassName("titol-collecio")[0].addEventListener("click", function() {
+        let galleries = [...document.getElementsByClassName('content-galeria')];
+        galleries.forEach(g => {if (g.offsetParent !== null){g.scrollIntoView({block: 'end'})}});
+    });
+
+} catch {}
 
 
 

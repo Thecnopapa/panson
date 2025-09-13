@@ -56,6 +56,8 @@ function updateScroll() {
 
 }
 
+
+
 setInterval(updateScroll, 0.1);
 goWhite();
 print(" * Index JS ready")
