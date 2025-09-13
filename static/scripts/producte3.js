@@ -474,7 +474,8 @@ function slideshowScroll(container, mode, axis="both"){
 let alwaysBlackInProduct = [...lanButtons, ...cartIcon, ...cartCircle]
 console.log(alwaysBlackInProduct);
 alwaysBlackInProduct.forEach(el => {
-    el.classList.add("black");
+
+    el.classList.add("black-landscape");
 });
 //cartIcon[0].src = "/static/media/bag-black.svg";
 //menuButton[0].src = "/static/media/menu-black.svg";

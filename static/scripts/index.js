@@ -41,19 +41,21 @@ function updateScroll() {
     } else {
         title.style.zIndex = 40;
     }
-    if (oscroll >= windowHeight*0.97) {
+    if (oscroll >= windowHeight*0.94) {
         goBlack();
-        title.classList.add('black');
+        title.classList.remove('white');
         //title.style.backgroundImage = "url(\"/static/media/logo-complet.png\")";
+        navigation.classList.add("opaque");
 
     } else {
         goWhite();
-        title.classList.remove('black');
+        title.classList.add('white');
         //title.style.backgroundImage = "url(\"/static/media/logo-complet-blanc.png\")";
+        navigation.classList.remove("opaque");
     }
 
 }
 
 setInterval(updateScroll, 0.1);
-
+goWhite();
 print(" * Index JS ready")

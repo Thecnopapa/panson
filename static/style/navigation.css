@@ -166,6 +166,10 @@ video {
     justify-content: center;
     align-items: center;
     z-index: 50;
+    transition: 0.5s;
+}
+.navigation.opaque{
+    background-color: white;
 }
 
 
@@ -282,7 +286,8 @@ video {
     z-index: 60;
     transition: height 0.3s ease-out;
     cursor: pointer;
-}
+    transition: 1s;
+    }
 
 
 .language{
@@ -293,6 +298,7 @@ video {
     text-align: center;
     user-select: none;
     color: rgb(0, 0, 0);
+    transition: 1s;
 }
 
 
@@ -321,11 +327,10 @@ video {
     height: 3vh;
     width: 3vh;
     padding-bottom: 0.5vh;
+    transition: 1s;
 }
 
-.shopping-cart:hover {
-    transition: 0.3s ease;
-}
+
 
 .cercle-carret {
     height: 0.75rem;
@@ -340,6 +345,7 @@ video {
     justify-content: center;
     color: white;
     font-size: 0.75rem;
+    transition: 1s;
 }
 
 
@@ -433,27 +439,12 @@ video {
 .less-padding { padding-top: 0.25rem; padding-bottom: 0.25rem}
 
 
-.dropbtn.white:not(.black){
-    color: white;
+
+.white{
+       filter: invert(100%);
 }
-
-#title.white:not(.black){
-
-    filter: invert(100%);
-    /*mix-blend-mode: difference;*/
-}
-
-.language.white:not(.black){
-    color: white;
-}
-
-.shopping-cart.white:not(.black){
-    filter: invert(100%);
-}
-
-.cercle-carret.white:not(.black){
-    color: black;
-    background-color: white;
+.black{
+    filter: unset;
 }
 
 
@@ -462,6 +453,11 @@ video {
 
 
 @media screen and (orientation: landscape) {
+    .black-landscape{
+           filter: unset;
+    }
+
+
 	#menu-closer-portrait{
 		display: none !important;
 	}
@@ -471,9 +467,14 @@ video {
 }
 
 @media screen and (orientation: portrait) {
+
     html{
         font-size: 16px;
         --padding: 2vh;
+    }
+
+    .black-portrait{
+           filter: unset;
     }
 
     .landscape{

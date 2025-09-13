@@ -149,6 +149,7 @@ function acceptCookies(){
 
 let menuOpen = false;
 const menu = document.getElementById('menu');
+const navigation = document.getElementsByClassName("navigation")[0];
 const navLeft = document.getElementById('nav-left');
 const botoMenu = document.getElementById('menu-button');
 const botoProjecte = document.getElementById('projecte');
@@ -169,7 +170,7 @@ const cartIcon = document.getElementsByClassName('shopping-cart');
 const cartCircle = document.getElementsByClassName('cercle-carret');
 const navTitle = document.getElementById("title")
 
-const navElements = [...navButtons, ...lanButtons, navTitle, ...cartCircle, ...cartIcon];
+const navElements = [...navButtons, ...lanButtons, navTitle, ...cartCircle, ...cartIcon, botoMenuSimple];
 
 menu.style.width = "0px";
 closeMenu();
@@ -296,20 +297,14 @@ function goBlack(){
             navElements[i].classList.remove('white');
         }
     }
-    //cartIcon[0].src = "/static/media/bag-black.svg";
-    //menuButton[0].src = "/static/media/menu-black.svg";
 }
+
 function goWhite(){
     for (let i = 0; i < navElements.length; i++) {
         if (navElements[i] !== null) {
-            //print(navElements[i]);
             navElements[i].classList.add('white');
         }
     }
-    if (!cartIcon[0].classList.contains('black')) {
-        //cartIcon[0].src = "/static/media/bag.svg";
-    }
-    //menuButton[0].src = "/static/media/menu-white.svg";
 }
 
 function checkColor() {
@@ -420,11 +415,13 @@ function getImageBrightnessSO(image,callback) {
 
 let blackObserver = new IntersectionObserver((triggers) => {
     if (!triggers[0].isIntersecting) {
-        goBlack()
+        goBlack();
+        navigation.classList.add("opaque");
     } else {
         checkColor();
+        navigation.classList.remove("opaque");
     }
-},{threshold: 0.05,});
+},{threshold: 0.06,});
 
 
 
