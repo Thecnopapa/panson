@@ -23,7 +23,7 @@
 {% import 'galeria.html' as galeria with context%}
 
 {% block body %}
-    <div id="title-logo" onclick="scrollToTop()"></div>
+    <div id="title-logo" class="white" onclick="scrollToTop()"></div>
     <div class="content-index">
         <div class = "slideshow">
             {% for n, (image) in utils.enumerate(imgs.get_names("portada"))  %}

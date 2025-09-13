@@ -296,8 +296,8 @@ function goBlack(){
             navElements[i].classList.remove('white');
         }
     }
-    cartIcon[0].src = "/static/media/bag-black.svg";
-    menuButton[0].src = "/static/media/menu-black.svg";
+    //cartIcon[0].src = "/static/media/bag-black.svg";
+    //menuButton[0].src = "/static/media/menu-black.svg";
 }
 function goWhite(){
     for (let i = 0; i < navElements.length; i++) {
@@ -307,9 +307,9 @@ function goWhite(){
         }
     }
     if (!cartIcon[0].classList.contains('black')) {
-        cartIcon[0].src = "/static/media/bag.svg";
+        //cartIcon[0].src = "/static/media/bag.svg";
     }
-    menuButton[0].src = "/static/media/menu-white.svg";
+    //menuButton[0].src = "/static/media/menu-white.svg";
 }
 
 function checkColor() {

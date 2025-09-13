@@ -47,7 +47,7 @@ body{
 
 
 #title-logo{
-    background-image: url('/static/media/logo-complet-blanc.png');
+    background-image: url('/static/media/logo-complet.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -66,6 +66,9 @@ body{
     left: 20%;
     z-index: 40;
     /*mix-blend-mode: difference;*/
+}
+#title-logo.white:not(.black){
+    filter: invert(100%);
 }
 
 #title-logo:hover{

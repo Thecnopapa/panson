@@ -211,9 +211,6 @@ video {
     padding-left: var(--padding);
 
 }
-.dropbtn.white:not(.black){
-    color: white;
-}
 
 .dropbtn.last{
     margin-right: var(--padding);
@@ -286,10 +283,7 @@ video {
     transition: height 0.3s ease-out;
     cursor: pointer;
 }
-#title.white:not(.black){
-    background-image: url('/static/media/logo-complet-blanc.png');
-    /*mix-blend-mode: difference;*/
-}
+
 
 .language{
     align-content: center;
@@ -301,9 +295,7 @@ video {
     color: rgb(0, 0, 0);
 }
 
-.language.white:not(.black){
-    color: white;
-}
+
 #current{
 }
 
@@ -330,9 +322,7 @@ video {
     width: 3vh;
     padding-bottom: 0.5vh;
 }
-.shopping-cart.white:not(.black){
 
-}
 .shopping-cart:hover {
     transition: 0.3s ease;
 }
@@ -351,10 +341,7 @@ video {
     color: white;
     font-size: 0.75rem;
 }
-.cercle-carret.white:not(.black){
-    color: black;
-    background-color: white;
-}
+
 
 .icon-menu-simple {
     position: relative;
@@ -444,6 +431,34 @@ video {
 .menutop { margin-top: 8dvh;}
 .last-submenu{padding-bottom: 1rem}
 .less-padding { padding-top: 0.25rem; padding-bottom: 0.25rem}
+
+
+.dropbtn.white:not(.black){
+    color: white;
+}
+
+#title.white:not(.black){
+
+    filter: invert(100%);
+    /*mix-blend-mode: difference;*/
+}
+
+.language.white:not(.black){
+    color: white;
+}
+
+.shopping-cart.white:not(.black){
+    filter: invert(100%);
+}
+
+.cercle-carret.white:not(.black){
+    color: black;
+    background-color: white;
+}
+
+
+
+
 
 
 @media screen and (orientation: landscape) {

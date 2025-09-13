@@ -476,7 +476,7 @@ console.log(alwaysBlackInProduct);
 alwaysBlackInProduct.forEach(el => {
     el.classList.add("black");
 });
-cartIcon[0].src = "/static/media/bag-black.svg";
+//cartIcon[0].src = "/static/media/bag-black.svg";
 //menuButton[0].src = "/static/media/menu-black.svg";
 
 updatePrice();

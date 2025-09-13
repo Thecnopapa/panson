@@ -44,12 +44,12 @@ function updateScroll() {
     if (oscroll >= windowHeight*0.97) {
         goBlack();
         title.classList.add('black');
-        title.style.backgroundImage = "url(\"/static/media/logo-complet.png\")";
+        //title.style.backgroundImage = "url(\"/static/media/logo-complet.png\")";
 
     } else {
         goWhite();
         title.classList.remove('black');
-        title.style.backgroundImage = "url(\"/static/media/logo-complet-blanc.png\")";
+        //title.style.backgroundImage = "url(\"/static/media/logo-complet-blanc.png\")";
     }
 
 }
