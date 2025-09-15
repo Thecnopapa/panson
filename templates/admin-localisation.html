@@ -3,6 +3,7 @@
 
 
 {% block content %}
+<link href='/style/admin-loc.css' rel='stylesheet'>
 <div id=localisation class="admin-content">
 	{% for page, data in loc.get_all_values_by_page().items() %}
     		<div class="page-block">
