@@ -185,6 +185,7 @@
 	flex-wrap:nowrap;
 	overflow-x: scroll;
 	justify-content: start;
+    scroll-behavior: unset;
 }
 .galeria.inline .producte:not(.last){
         margin-right: calc(0.8dvw / 3);
@@ -228,11 +229,12 @@
 
 @media screen and (orientation: portrait) {
     .inline-filtres{
-        margin-top: 2vh;
+        margin-top: var(--padding);
+        margin-bottom: var(--padding);
     }
     .filtre{
-        margin-right: 2vh;
-        margin-left: 2vh;
+        padding-right: var(--padding);
+        padding-left: var(--padding);
     }
     .galeria-scroll{
         display: none;

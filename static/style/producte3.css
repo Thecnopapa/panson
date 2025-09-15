@@ -576,8 +576,8 @@ tr:first-child {
 }
 
 .bubble, .enlarged-bubble{
-	height:1rem;
-	width:1rem;
+	height:0.5rem;
+	width:0.5rem;
 	border-radius:50%;
 	background-color:transparent;
 	margin-bottom:0.25rem;

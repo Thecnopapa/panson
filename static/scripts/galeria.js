@@ -6,9 +6,9 @@
 function scrollGallery(galeria, direction){
     var targetScroll = galeria.scrollLeft;
     if (direction === "right"){
-        targetScroll += 1;
+        targetScroll += 2;
     } else if (direction === "left"){
-        targetScroll -= 1;
+        targetScroll -= 2;
     }
     galeria.scrollTo(targetScroll, 0);
 }
