@@ -73,6 +73,9 @@ async function loadImages(selection){
 			videoContainer.setAttribute("autoplay", "true");
 			videoContainer.setAttribute("muted", "true");
 			videoContainer.setAttribute("loop", "true");
+			videoContainer.setAttribute("disableremoteplayback", "true");
+			videoContainer.setAttribute("x-webkit-airplay", "deny");
+			videoContainer.setAttribute("disablepictureinpicture", "true");
 			videoContainer.classList.add("video");
 			videoContainer.src = url;
 			selectedImages[i].appendChild(videoContainer);
