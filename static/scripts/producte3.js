@@ -406,9 +406,10 @@ function stopZoom(event) {
 function moveImg(event){
     const image = event.target;
 	let pos = image.getBoundingClientRect();
-    clickX = (1-(image.width - event.pageX + pos.left)/image.width)*100;
-    clickY = (1-(image.height -  event.pageY + pos.top)/image.height)*100;
+    clickX = (1-(image.width - event.clientX + pos.left)/image.width)*100;
+    clickY = (1-(image.height -  event.clientY + pos.top)/image.height)*100;
     image.style.backgroundPosition = String(clickX)+ "% "+String(clickY)+"%";
+    console.log(image.style.backgroundPosition);
 }
 
 
