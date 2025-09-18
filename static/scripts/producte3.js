@@ -483,6 +483,37 @@ alwaysBlackInProduct.forEach(el => {
 
 updatePrice();
 
-blackObserver.observe(document.getElementById("producte-images"))
+imageSlideshow = document.getElementById("producte-images");
+imageSlideshow.addEventListener("scroll", function (event) {if(imageSlideshow.scrollTop !== (imageSlideshow.scrollHeight - imageSlideshow.offsetHeight)){event.stopPropagation()}});
+imageSlideshow.addEventListener("wheel", function (event) {if(imageSlideshow.scrollTop !== (imageSlideshow.scrollHeight - imageSlideshow.offsetHeight)){event.stopPropagation()}});
+blackObserver.observe(imageSlideshow);
+
+
+document.documentElement.style.overflowY = "hidden";
+document.documentElement.scrollTo(0,0)
+
+document.addEventListener("scroll", preventDefaultScroll, false);
+document.addEventListener("wheel", preventDefaultScroll, false);
+
+
+
+
+function preventDefaultScroll(event) {
+    //event.preventDefault();
+    if( imageSlideshow.scrollTop === (imageSlideshow.scrollHeight - imageSlideshow.offsetHeight)){
+        document.documentElement.style.overflowY = "unset";
+    } else {
+        event.preventDefault();
+        document.documentElement.style.overflowY = "hidden";
+        imageSlideshow.scrollTo(imageSlideshow.scrollWidth, imageSlideshow.scrollTop+imageSlideshow.offsetHeight/2);
+        //document.documentElement.scrollTo(0,0);
+    }
+}
+
+
+
+
+
+
 
 print(" * Product JS ready")

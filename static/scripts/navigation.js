@@ -437,6 +437,7 @@ let blackObserver = new IntersectionObserver((triggers) => {
 
 try{
     blackObserver.observe(document.getElementById("producte-images"));
+    console.log(1)
 } catch {}
 
 try{
@@ -446,7 +447,7 @@ try{
         let galleries = [...document.getElementsByClassName('content-galeria')];
         galleries.forEach(g => {if (g.offsetParent !== null){g.scrollIntoView({block: 'end'})}});
     });
-
+    console.log(2)
 } catch {}
 
 
