@@ -217,47 +217,6 @@ function hideInfoDropdown(trigger, popupContent, arrow=undefined) {
     }
 }
 
-function showPopup(popupContent, cross=true) {
-	console.log("Showing Popup");
-    popupContent = popupContent.cloneNode(true);
-    popupContent.style.display = "flex";
-    document.body.style.cursor = undefined;
-    hideBackgound(popupContent, cross);
-    document.documentElement.style.overflow = "hidden";
-}
-
-function hidePopup(source, sourceElement) {
-    let popupContent = undefined;
-    if (source == "cross") {
-        popupContent = sourceElement.parentElement;
-    } else if (source == "backdrop") {
-        popupContent = sourceElement.firstChild;
-    }
-
-    popupContent.parentElement.remove();
-    popupContent.remove()
-    document.documentElement.style.overflow = "unset";
-}
-
-function hideBackgound(popupContent, cross=true) {
-    var translucidScreen = document.createElement("div");
-    translucidScreen.className = "translucid-screen";
-    translucidScreen.setAttribute("onclick","event.preventDefault(hidePopup('backdrop', this))");
-    document.documentElement.appendChild(translucidScreen);
-    translucidScreen.appendChild(popupContent);
-    if (cross) {
-        addPopupCross(popupContent);
-    }
-}
-function addPopupCross(popupContent) {
-    var cross = document.createElement("button");
-    cross.className = "popup-cross";
-    cross.innerHTML = "x";
-    cross.type = "button";
-    cross.setAttribute("onclick","hidePopup('cross', this)")
-    popupContent.appendChild(cross);
-}
-
 
 
 

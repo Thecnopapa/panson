@@ -28,27 +28,39 @@
 {% endblock %}
 
 
-{% macro contact_form() %}
-			<form id=email-form method=POST action="/{{ loc.lan }}/send_email/contacte/">
-				<div id=sender-details>
-					<label for=sender-name class=email-label>NOM
-						<input required type=text autocomplete=name class="email-input bottom-border-input" id=sender-name name="sender-name"></label>
-					<label for=sender-email class=email-label>EMAIL
-						<input required type=email autocomplete=email class="email-input bottom-border-input" id=sender-email name="sender-email"></label>
+{% macro contact_form(target="contacte", name=True, email=True, prefix=True, phone=True, subject=True, message=True) %}
+			<form class=email-form method=POST action="/{{ loc.lan }}/send_email/{{ target }}/">
+				<div class=sender-details>
+                    {% if name %}
+					<label for=sender-name class=email-label>{{ loc.con_nom }}
+						<input required type=text autocomplete=name class="email-input bottom-border-input sender-name" name="sender-name"></label>
+                    {% endif %}
+                {% if email %}
+					<label for=sender-email class=email-label>{{ loc.con_email }}
+						<input required type=email autocomplete=email class="email-input bottom-border-input sender-email" name="sender-email"></label>
+                {% endif %}
 				</div>
-				<div id=long-inputs>
-                    <div id="phone-input">
-                        <label for=sender-phone-prefix class="email-label phone-prefix-label">PREFIX
-                            <span class="phone-prefix">+<input type=number autocomplete=tel-country-code class="phone-prefix-input email-input bottom-border-input" id=sender-tel-prefix name=sender-tel-prefix placeholder="34"></span></label>
-                        <label for=sender-phone class="email-label phone-number-label">PHONE
-                            <input required type=tel autocomplete=tel-national class="email-input bottom-border-input" id=sender-tel name=sender-tel></label>
+				<div class=long-inputs>
+                    {% if phone %}
+                    <div class="phone-input">
+                        {% if prefix %}
+                        <label for=sender-phone-prefix class="email-label phone-prefix-label">{{ loc.con_prefixe }}
+                            <span class="phone-prefix">+<input type=number autocomplete=tel-country-code class="phone-prefix-input email-input bottom-border-input sender-tel-prefix" name=sender-tel-prefix placeholder="34"></span></label>
+                        {% endif %}
+                        <label for=sender-phone class="email-label phone-number-label">{{ loc.con_telefon}}
+                            <input required type=tel autocomplete=tel-national class="email-input bottom-border-input sender-tel" name=sender-tel></label>
 					</div>
-                    <label for=subject class=email-label>SUBJECT
-						<input required type=text autocomplete=subject class="email-input bottom-border-input" id=subject name=subject></label>
-                    <label for=message class=email-label>MESSAGE
-                        <textarea required type=text autocomplete=message class="email-input square-border-input" id=message name=message></textarea></label>
+                {% endif %}
+                    {% if subject %}
+                    <label for=subject class=email-label>{{ loc.con_assumpte }}
+						<input required type=text autocomplete=subject class="email-input bottom-border-input subject" name=subject></label>
+                    {% endif %}
+                    {% if message %}
+                    <label for=message class="email-label" class="message-label">{{ loc.con_missatge}}
+                        <textarea required type=text autocomplete=message class="email-input bottom-border-input message" name=message></textarea></label>
+                {% endif %}
 				</div>
-                <button type=submit class="button black-button" id=submit>SEND</button>
+                <button type=submit class="button black-button submit-email">SEND</button>
 			</form>
 		</div>
 	</div>

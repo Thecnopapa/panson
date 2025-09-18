@@ -722,7 +722,7 @@ def send_contact_email(lan, target="contacte"):
         recipient = "fetamida"
         sender_name = "Formulari Fet a Mida"
         temp = "email_fetamida"
-        subject = form["subject"]
+        subject = "PANSON: Fet a mida"
     else:
         recipient = "general"
         sender_name = "Formulari Desconegut"
@@ -745,7 +745,7 @@ def send_contact_email(lan, target="contacte"):
 
 @app.route("/<lan>/fetamida/")
 def fetamida(lan):
-    html = template(lan=lan, templates="fetamida3")
+    html = template(lan=lan, templates="fetamida4")
     return html
 
 @app.route("/<lan>/fetamida/intro")

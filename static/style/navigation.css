@@ -423,6 +423,49 @@ video {
         display: none;
     }
 
+
+
+
+
+
+.popup-info {
+    flex-direction: column;
+    display: none;
+    z-index: 50;
+    border: black 0.2vh solid;
+    max-width: 80%;
+    background-color: rgba(255, 255, 255, 100);
+    padding: 1vw;
+    max-height: 80vh;
+    overflow-y: scroll;
+    height: fit-content;
+}
+
+
+.translucid-screen{
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    height: 100dvh;
+    background-color: rgba(255, 255, 255, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+.popup-cross {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+
+
+
+
+
+
 .plus, .minus {
     height: 1rem;
     width: 1rem;

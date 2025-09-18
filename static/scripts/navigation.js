@@ -215,22 +215,6 @@ function openMenu() {
     setTimeout(showMenuContent, 300);
 
 
-};
-
-function showDropdown (submenu) {
-    let submenuContent = submenu.getElementsByClassName('item-submenu');
-    submenu.setAttribute("onclick", "hideDropdown(this)");
-    for (let i = 0; i < submenuContent.length; i++) {
-        submenuContent[i].classList.add('dropdown-show');
-    }
-
-}
-function hideDropdown (submenu) {
-    let submenuContent = submenu.getElementsByClassName('item-submenu');
-    submenu.setAttribute("onclick", "showDropdown(this)");
-    for (let i = 0; i < submenuContent.length; i++) {
-        submenuContent[i].classList.remove('dropdown-show');
-    }
 }
 
 
@@ -283,7 +267,7 @@ function closeMenu() {
 
 menuOpen = false;
 
-};
+}
 
 function switchMenu(){
   if (menuOpen){
@@ -292,6 +276,86 @@ function switchMenu(){
     openMenu();
   }
 }
+
+
+
+function showDropdown (submenu) {
+    let submenuContent = submenu.getElementsByClassName('item-submenu');
+    submenu.setAttribute("onclick", "hideDropdown(this)");
+    for (let i = 0; i < submenuContent.length; i++) {
+        submenuContent[i].classList.add('dropdown-show');
+    }
+
+}
+function hideDropdown (submenu) {
+    let submenuContent = submenu.getElementsByClassName('item-submenu');
+    submenu.setAttribute("onclick", "showDropdown(this)");
+    for (let i = 0; i < submenuContent.length; i++) {
+        submenuContent[i].classList.remove('dropdown-show');
+    }
+}
+
+
+function showPopup(popupContent, cross=true) {
+	console.log("Showing Popup");
+    popupContent = popupContent.cloneNode(true);
+    popupContent.addEventListener("click", function(event) {event.stopPropagation()});
+    popupContent.style.display = "flex";
+    document.body.style.cursor = undefined;
+    hideBackgound(popupContent, cross);
+    document.documentElement.style.overflow = "hidden";
+    return popupContent
+}
+
+function hidePopup(source, sourceElement) {
+    let popupContent = undefined;
+    if (source == "cross") {
+        popupContent = sourceElement.parentElement;
+    } else if (source == "backdrop") {
+        popupContent = sourceElement.firstChild;
+    } else {
+        popupContent = source;
+    }
+    popupContent.style.display = "none";
+    let template = document.getElementsByClassName(popupContent.className);
+    console.log(template);
+    if (template.length === 2) {
+        popupContent.parentElement.remove();
+        template[0].after(popupContent);
+        template[0].remove();
+    } else {
+        popupContent.parentElement.remove();
+        popupContent.remove()
+    }
+
+    document.documentElement.style.overflow = "unset";
+}
+
+function hideBackgound(popupContent, cross=true) {
+    var translucidScreen = document.createElement("div");
+    translucidScreen.className = "translucid-screen";
+    translucidScreen.setAttribute("onclick","event.preventDefault(hidePopup('backdrop', this))");
+    document.documentElement.appendChild(translucidScreen);
+    translucidScreen.appendChild(popupContent);
+    if (cross) {
+        addPopupCross(popupContent);
+    }
+}
+function addPopupCross(popupContent) {
+    var cross = document.createElement("button");
+    cross.className = "popup-cross";
+    cross.innerHTML = "x";
+    cross.type = "button";
+    cross.setAttribute("onclick","hidePopup('cross', this)")
+    popupContent.appendChild(cross);
+}
+
+
+
+
+
+
+
 
 
 function goBlack(){

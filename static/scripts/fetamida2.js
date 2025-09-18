@@ -2,7 +2,6 @@
 
 const toFirst = document.getElementById("to-first");
 const toSecond = document.getElementById("to-second");
-const toThird = document.getElementById("to-third");
 const sectionContainer = document.getElementById("sections-fetamida");
 const menuContainer = document.getElementById("section-menu");
 let currentSection = 1;
@@ -27,26 +26,6 @@ function toSection(targetSection) {
         sectionContainer.style.maxHeight = String(sectionContainer.getElementsByClassName("fetamida-section")[targetSection].offsetHeight) + "px";
         sectionContainer.children[targetSection].scrollTo(0, 0);
         sectionContainer.children[targetSection].firstElementChild.scrollTo(0, 0);
-        if (targetSection === 0) {
-            toFirst.style.left = "calc(50% - " + String(toFirst.offsetWidth / 2) + "px)";
-            toSecond.style.left = "calc(100% - " + String(toSecond.offsetWidth + toThird.offsetWidth + sectionWidth * 0.02) + "px)";
-            toThird.style.left = "calc(100% - " + String(toThird.offsetWidth) + "px)";
-            menuContainer.parentElement.classList.remove("active");
-        } else if (targetSection === 1) {
-            toFirst.style.left = "0";
-            toSecond.style.left = "calc(50% - " + String(toSecond.offsetWidth / 2) + "px)";
-            toThird.style.left = "calc(100% - " + String(toThird.offsetWidth) + "px)";
-            menuContainer.parentElement.classList.add("active");
-
-        } else if (targetSection === 2) {
-            toFirst.style.left = "0";
-            toSecond.style.left = String(toFirst.offsetWidth + sectionWidth * 0.02) + "px";
-            toThird.style.left = "calc(50% - " + String(toThird.offsetWidth / 2) + "px)";
-            menuContainer.parentElement.classList.remove("active");
-        }
-        setInterval(function () {
-            menuContainer.style.transition = "1s"
-        }, 1000);
     } else {
         console.log(sectionContainer.children[targetSection].offsetTop,  menuContainer.offsetHeight );
         sectionContainer.scrollTo(0, sectionContainer.children[targetSection].offsetTop + menuContainer.offsetHeight);
@@ -81,6 +60,21 @@ menuContainer.addEventListener("touchend", function(event){
 */
 
 sectionContainer.addEventListener("scroll", (event) => {document.documentElement.scrollTo(0,0);});
+
+
+function showEmailForm(content){
+    content = showPopup(content);
+    console.log(content.getElementsByClassName("submit-email"));
+    content.getElementsByClassName("email-form")[0].addEventListener("submit", function(event) {
+        alert("Correu enviat correctament!");
+        hidePopup(event.target.parentElement);
+    })
+
+}
+
+
+
+
 
 print(" * Bespoke JS ready")
 
