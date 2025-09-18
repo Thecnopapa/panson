@@ -58,9 +58,9 @@
     height: 1rem;
     margin-left: 1vw;
     margin-right: 1vw;
-    z-index: 5;
     overflow-y: visible;
     margin-bottom: 1vh;
+    z-index: 50;
 }
 #section-menu.active{
 
@@ -161,9 +161,14 @@
 
     }
     #sections-fetamida{
+        position: relative;
         height: fit-content;
-        min-height: 100vh;
         margin-top: 13vh;
+        flex-direction: column;
+        height: fit-content;
+        max-height: 85vh;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
     }
     .fetamida-section{
         padding: 2vh;
@@ -173,6 +178,7 @@
         width: calc(100dvw - 4vh);
         max-width: calc(100dvw - 4vh);
         min-width: calc(100dvw - 4vh);
+        scroll-snap-align: start;
     }
 	#section-menu{
         box-shadow: 0.2px 0px 8px rgb(115, 115, 115);
@@ -196,6 +202,7 @@
         width: 100% !important;
         max-width: 100% !important;
         margin-bottom: 1rem;
+        justify-content: start !important;
     }
     .galeria{
         margin-top: 0;

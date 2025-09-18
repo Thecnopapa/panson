@@ -15,34 +15,44 @@ function toSection(targetSection) {
     if (targetSection === null) {
         targetSection = 1;
     }
-	if (targetSection > 2 || targetSection < 0){return;};
+	if (targetSection > 2 || targetSection < 0){return;}
     window.history.replaceState(document.title, "", document.location.pathname+"?page=" + targetSection);
     const sectionWidth = window.innerWidth;
     print("TO: ", targetSection);
-    menuContainer.parentElement.scrollTo(0,0);
-	currentSection = targetSection;
-    sectionContainer.scrollTo(sectionWidth * targetSection, 0 , {behavior: "smooth"});
-    sectionContainer.style.maxHeight = String(sectionContainer.getElementsByClassName("fetamida-section")[targetSection].offsetHeight) + "px";
-    sectionContainer.children[targetSection].scrollTo(0,0);
-    sectionContainer.children[targetSection].firstElementChild.scrollTo(0,0);
-    if (targetSection === 0 ) {
-        toFirst.style.left = "calc(50% - " + String(toFirst.offsetWidth / 2) + "px)";
-        toSecond.style.left = "calc(100% - " + String(toSecond.offsetWidth + toThird.offsetWidth + sectionWidth*0.02) + "px)";
-        toThird.style.left = "calc(100% - " + String(toThird.offsetWidth) + "px)";
-        menuContainer.parentElement.classList.remove("active");
-    } else if (targetSection === 1) {
-        toFirst.style.left = "0";
-        toSecond.style.left = "calc(50% - " + String(toSecond.offsetWidth / 2) + "px)";
-        toThird.style.left = "calc(100% - " + String(toThird.offsetWidth) + "px)";
-        menuContainer.parentElement.classList.add("active");
+    currentSection = targetSection;
 
-    } else if (targetSection === 2) {
-        toFirst.style.left = "0";
-        toSecond.style.left = String(toFirst.offsetWidth + sectionWidth*0.02) + "px";
-        toThird.style.left = "calc(50% - " + String(toThird.offsetWidth / 2) + "px)";
-        menuContainer.parentElement.classList.remove("active");
+    if (window.innerWidth >= window.innerHeight) {
+        menuContainer.parentElement.scrollTo(0, 0);
+        sectionContainer.scrollTo(sectionWidth * targetSection, 0, {behavior: "smooth"});
+        sectionContainer.style.maxHeight = String(sectionContainer.getElementsByClassName("fetamida-section")[targetSection].offsetHeight) + "px";
+        sectionContainer.children[targetSection].scrollTo(0, 0);
+        sectionContainer.children[targetSection].firstElementChild.scrollTo(0, 0);
+        if (targetSection === 0) {
+            toFirst.style.left = "calc(50% - " + String(toFirst.offsetWidth / 2) + "px)";
+            toSecond.style.left = "calc(100% - " + String(toSecond.offsetWidth + toThird.offsetWidth + sectionWidth * 0.02) + "px)";
+            toThird.style.left = "calc(100% - " + String(toThird.offsetWidth) + "px)";
+            menuContainer.parentElement.classList.remove("active");
+        } else if (targetSection === 1) {
+            toFirst.style.left = "0";
+            toSecond.style.left = "calc(50% - " + String(toSecond.offsetWidth / 2) + "px)";
+            toThird.style.left = "calc(100% - " + String(toThird.offsetWidth) + "px)";
+            menuContainer.parentElement.classList.add("active");
+
+        } else if (targetSection === 2) {
+            toFirst.style.left = "0";
+            toSecond.style.left = String(toFirst.offsetWidth + sectionWidth * 0.02) + "px";
+            toThird.style.left = "calc(50% - " + String(toThird.offsetWidth / 2) + "px)";
+            menuContainer.parentElement.classList.remove("active");
+        }
+        setInterval(function () {
+            menuContainer.style.transition = "1s"
+        }, 1000);
+    } else {
+        console.log(sectionContainer.children[targetSection].offsetTop,  menuContainer.offsetHeight );
+        sectionContainer.scrollTo(0, sectionContainer.children[targetSection].offsetTop + menuContainer.offsetHeight);
+        sectionContainer.children[targetSection].scrollTo(0, 0);
+        sectionContainer.children[targetSection].firstElementChild.scrollTo(0, 0);
     }
-    setInterval(function(){menuContainer.style.transition = "1s"}, 1000);
 }
 
 
@@ -51,7 +61,7 @@ toSection(Number(new URL(document.URL).searchParams.get("page")));
 window.addEventListener('load', function () {
     toSection(Number(new URL(document.URL).searchParams.get("page")));
 })
-
+/*
 let touchStart = 0;
 let touchEnd = 0;
 menuContainer.addEventListener("touchstart", function(event){
@@ -68,7 +78,7 @@ menuContainer.addEventListener("touchend", function(event){
 		toSection(currentSection + 1);
 	}
 });
-
+*/
 
 print(" * Bespoke JS ready")
 
