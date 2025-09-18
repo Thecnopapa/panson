@@ -219,6 +219,7 @@ function hideInfoDropdown(trigger, popupContent, arrow=undefined) {
 
 function showPopup(popupContent, cross=true) {
 	console.log("Showing Popup");
+    popupContent = popupContent.cloneNode(true);
     popupContent.style.display = "flex";
     document.body.style.cursor = undefined;
     hideBackgound(popupContent, cross);
@@ -232,13 +233,9 @@ function hidePopup(source, sourceElement) {
     } else if (source == "backdrop") {
         popupContent = sourceElement.firstChild;
     }
-    popupContent.parentElement.before(popupContent);
-	try{
-		popupContent.getElementsByClassName("popup-cross")[0].remove();
-	} catch{};
 
-    popupContent.nextElementSibling.remove();
-    popupContent.style.display = "none";
+    popupContent.parentElement.remove();
+    popupContent.remove()
     document.documentElement.style.overflow = "unset";
 }
 
