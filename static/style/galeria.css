@@ -255,6 +255,7 @@
     }
     .detalls-principals{
 	    align-items:end;
+        font-size: 12px;
     }
     .preu-inline-slash{
 	    font-size: 9px;
