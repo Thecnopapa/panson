@@ -173,6 +173,7 @@ body {
     padding: 1vw;
     max-height: 80vh;
     overflow-y: scroll;
+    height: fit-content;
 }
 
 
@@ -437,6 +438,8 @@ body {
 table {
   border-collapse: collapse;
     position: relative;
+    height:fit-content;
+    min-height: 30%;
 
 }
 
@@ -445,7 +448,7 @@ td, th{
     margin: 1%;
     text-align: right;
     width: 10%;
-    min-width: max-content;
+    min-width: max-content;;
     border: 1px solid #000000;
 }
 tr{
@@ -756,7 +759,14 @@ tr:first-child {
 
     	.content-galeria{
             margin-bottom: 0;
+	    margin-top:0;
     	}
+	.galeria{
+		margin-bottom:0;
+	}
+	.producte{
+		margin-top:0 !important;
+	}
 
     
         .enlarged-slideshow{

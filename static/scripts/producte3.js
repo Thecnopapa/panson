@@ -218,9 +218,11 @@ function hideInfoDropdown(trigger, popupContent, arrow=undefined) {
 }
 
 function showPopup(popupContent, cross=true) {
+	console.log("Showing Popup");
     popupContent.style.display = "flex";
     document.body.style.cursor = undefined;
     hideBackgound(popupContent, cross);
+    document.documentElement.style.overflow = "hidden";
 }
 
 function hidePopup(source, sourceElement) {
@@ -237,12 +239,13 @@ function hidePopup(source, sourceElement) {
 
     popupContent.nextElementSibling.remove();
     popupContent.style.display = "none";
+    document.documentElement.style.overflow = "unset";
 }
 
 function hideBackgound(popupContent, cross=true) {
     var translucidScreen = document.createElement("div");
     translucidScreen.className = "translucid-screen";
-    translucidScreen.setAttribute("onclick","hidePopup('backdrop', this)")
+    translucidScreen.setAttribute("onclick","hidePopup('backdrop', this)");
     popupContent.after(translucidScreen);
     translucidScreen.appendChild(popupContent);
     if (cross) {
