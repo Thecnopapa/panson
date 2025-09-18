@@ -80,5 +80,7 @@ menuContainer.addEventListener("touchend", function(event){
 });
 */
 
+sectionContainer.addEventListener("scroll", (event) => {document.documentElement.scrollTo(0,0);});
+
 print(" * Bespoke JS ready")
 
