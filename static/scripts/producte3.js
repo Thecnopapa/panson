@@ -245,8 +245,8 @@ function hidePopup(source, sourceElement) {
 function hideBackgound(popupContent, cross=true) {
     var translucidScreen = document.createElement("div");
     translucidScreen.className = "translucid-screen";
-    translucidScreen.setAttribute("onclick","hidePopup('backdrop', this)");
-    popupContent.after(translucidScreen);
+    translucidScreen.setAttribute("onclick","event.preventDefault(hidePopup('backdrop', this))");
+    document.documentElement.appendChild(translucidScreen);
     translucidScreen.appendChild(popupContent);
     if (cross) {
         addPopupCross(popupContent);
