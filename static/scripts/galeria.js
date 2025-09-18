@@ -56,6 +56,8 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
 	const currentPage = Number(galeria.attributes.page.value);
 	if (targetPage === undefined){
 		targetPage = currentPage;
+	} else{
+		galeria.scrollIntoView({block: "start"})
 	}
 
 	targetPage=Number(targetPage);
