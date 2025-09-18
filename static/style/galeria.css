@@ -16,8 +16,8 @@
 }
 
 .inline-filtres{
-    padding-top: 2%;
-    padding-bottom: 2%;
+    padding-top: 2.5%;
+    padding-bottom: 0.75vh;
 	max-width:100%;
 	display:flex;
 	flex-direction: column;
@@ -113,6 +113,10 @@
 .primera{
     display: block;
 }
+.producte.active{
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+}
 
 .producte.active .segona{
         display: block;
@@ -198,6 +202,7 @@
 	width:100%;
 	align-items: center;
 	justify-content: center;
+    margin-top: 1vh;
 }
 .galeria-navigation.disabled{
 	display:none;
