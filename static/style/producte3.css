@@ -412,6 +412,7 @@ body {
 
 .subtitol-galeria{
     margin-top: 10vh;
+    margin-bottom: 5vh;
 }
 
 
@@ -433,13 +434,14 @@ body {
     width: calc(100%);
     max-width: calc(100%);
     overflow-x: scroll;
+    min-height: fit-content;
 }
 
 table {
   border-collapse: collapse;
     position: relative;
     height:fit-content;
-    min-height: 30%;
+    min-height: fit-content;
 
 }
 
@@ -449,6 +451,7 @@ td, th{
     text-align: right;
     width: 10%;
     min-width: max-content;;
+    min-height: fit-content;
     border: 1px solid #000000;
 }
 tr{
