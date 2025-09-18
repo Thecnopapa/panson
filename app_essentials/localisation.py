@@ -106,13 +106,16 @@ class Images:
             return []
 
     def get_brightness(self, bucket, filename):
-        from PIL import Image, ImageStat
-        import requests
-        data = self.get(bucket, filename)
-        im = Image.open(requests.get(data["url"], stream=True).raw).convert('L')
-        stat = ImageStat.Stat(im)
-        return stat.mean[0]
-
+        try:
+            from PIL import Image, ImageStat
+            import requests
+            data = self.get(bucket, filename)
+            im = Image.open(requests.get(data["url"], stream=True).raw).convert('L')
+            stat = ImageStat.Stat(im)
+            return stat.mean[0]
+        except:
+            print("Failed to calculate brightness")
+            return 100
 
 
 

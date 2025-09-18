@@ -252,6 +252,12 @@
     .producte:not(.inside){
         margin-top: 5vh;
     }
+    .detalls-principals{
+	    align-items:end;
+    }
+    .preu-inline-slash{
+	    font-size: 9px;
+    }
     .galeria.inline .producte:not(.last){
         margin-right: calc(2dvw / 3);
     }
@@ -262,7 +268,7 @@
         width: calc(100% - 4vh);
     }
     .detalls-principals{
-        justify-content: center;
+        justify-content: start;
     }
 
     .imatge{
