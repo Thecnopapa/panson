@@ -314,15 +314,22 @@ function checkColor() {
     const colorElement = document.getElementById("nav-color")
     //print(colorElement);
     if (colorElement !== null) {
-        targetColour = colorElement.attributes.color.value;
-
-        if (targetColour === "white") {
-            goWhite();
-            return "white";
-        } else if (targetColour === "black") {
-            goBlack();
-            return "black";
-        }
+        try {
+            let targetColour = colorElement.attributes.color.value;
+            if (targetColour === "white") {
+                goWhite();
+            } else if (targetColour === "black") {
+                goBlack();
+            }
+        } catch {}
+        try{
+            let navColour = colorElement.attributes.navColor.value;
+            if (navColour === "translucid") {
+                navigation.classList.remove("opaque");
+            } else if (navColour === "opaque") {
+                navigation.classList.add("opaque");
+            }
+        } catch {}
     }
 }
 
@@ -416,6 +423,7 @@ function getImageBrightnessSO(image,callback) {
 
 
 
+
 let blackObserver = new IntersectionObserver((triggers) => {
     if (!triggers[0].isIntersecting) {
         goBlack();
@@ -440,6 +448,8 @@ try{
     });
 
 } catch {}
+
+
 
 
 
