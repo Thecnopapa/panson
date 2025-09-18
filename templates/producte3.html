@@ -48,7 +48,7 @@
     <div id="main-details">
         <div id="titol_producte">{{ producte.nom }}</div>
         <div id="initial-price"> <span class="preu-producte"></span> &#8364;</div>
-        <div id="product-description" >{{ producte.descripcio }}</div>
+
         <button id="buy" class="under-hover clickable black-button" onclick="displayBuyOptions(this, false)">Comprar</button>
 
 
@@ -170,13 +170,13 @@
                     <div id="info-talles" class="clickable under-hover" onclick="showPopup(this.nextElementSibling)">{{ loc.pro_graella_talles }}</div>
                         <div class="popup-info" id="popup-talles" onclick="event.stopPropagation()">
 				<h3>{{loc.pro_popup_talles_titol}}</h3>
-				<p>{{loc.pro_popup_talles_p1}}</p>
+				<p>{{loc.pro_popup_talles_p1 | safe}}</p>
                             <ol>
-				    <li><strong>{{loc.pro_talles_t1}}</strong>{{loc.pro_talles_c1}}</li>
-				    <li><strong>{{loc.pro_talles_t2}}</strong>{{loc.pro_talles_c2}}</li>
-				    <li><strong>{{loc.pro_talles_t3}}</strong>{{loc.pro_talles_c3}}</li>
-				    <li><strong>{{loc.pro_talles_t4}}</strong>{{loc.pro_talles_c4}}</li>
-				    <li><strong>{{loc.pro_talles_t5}}</strong>{{loc.pro_talles_c5}}</li>
+				    <li><strong>{{loc.pro_talles_t1}}</strong>{{loc.pro_talles_c1 | safe}}</li>
+				    <li><strong>{{loc.pro_talles_t2}}</strong>{{loc.pro_talles_c2 | safe}}</li>
+				    <li><strong>{{loc.pro_talles_t3}}</strong>{{loc.pro_talles_c3 | safe}}</li>
+				    <li><strong>{{loc.pro_talles_t4}}</strong>{{loc.pro_talles_c4 | safe}}</li>
+				    <li><strong>{{loc.pro_talles_t5}}</strong>{{loc.pro_talles_c5 | safe}}</li>
                             </ol>
                             <div class="table-container">
                                 {{ utils.table("static/MIDES_PANSON.xlsx", onclick_cell='selectSizeTable(this);', skip_rows=[0])|safe }}
@@ -210,31 +210,27 @@
             <div id="missatge-rapid" class="missatge-enviament" style="display: none">{{ loc.pro_enviament_rapid }}</div>
             <div id="missing-info" class="popup-info"><p>Siusplau introdueix tots els detalls</p></div>
         </form>
+    <div id="product-description" >{{ producte.descripcio | safe}}</div>
     <div class="info">
             <div class="desplegable">
-                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover">Informació del producte</div><div class="arrow">+</div></div>
+                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover">{{ loc.pro_info_titol }}</div><div class="arrow">+</div></div>
                 <div class="info-desplegable">
-                    <ul>
-                        <li>Material: Plata de llei 925</li>
-                        <li>Pedra:</li>
-                        <li>Xapat d’or de 3 micras</li>
-                    </ul>
-                    <p>Aquestes joies estan fetes artesanalment, per això poden presentar subtils variacions que les fan úniques i especials.</p>
+                    <p class="extra-info"> {{ producte.info | safe }}</p>
+                    <p>{{ loc.pro_info_text | safe}}</p>
                 </div>
             </div>
             <div class="desplegable">
-                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover">Cura de la peça</div><div class="arrow">+</div></div>
+                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover">{{ loc.pro_cura_titol }}</div><div class="arrow">+</div></div>
                 <div class="info-desplegable">
-                    <p>Per preservar-ne l’aspecte original, recomanem evitar el contacte amb líquids, com perfums, cremes o aigua. Si la peça de plata s’ennegreix amb l’ús, es pot netejar suaument amb bicarbonat per recuperar-ne la brillantor inicial.</p>
-                    <div class="subtitol-desplegable"> Nota sobre el xapat en or</div>
-                    <p>Si la peça està xapada en or, és important tenir en compte que amb el pas del temps i l’ús habitual, el xapat pot desgastar-se. En cas que això succeeixi, oferim la possibilitat de tornar-la a xapar per un cost de 20€. Si és necessari enviar la peça, les despeses d’enviament aniran a càrrec del client. Per més informació <a href="mailto:infopanson@gmail.com">infopanson@gmail.com</a></p>
+                    <p>{{ loc.pro_cura_text_1 | safe}}</p>
+                    <div class="subtitol-desplegable">{{ loc.pro_cura_subtitol }}</div>
+                    <p>{{ loc.pro_cura_text_2 | safe}}</p>
                 </div>
             </div>
             <div class="desplegable">
-                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover">Enviament</div><div class="arrow">+</div></div>
+                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover">{{ loc.pro_enviament_titol }}</div><div class="arrow">+</div></div>
                 <div class="info-desplegable">
-                    <p>Cada peça es fabrica artesanalment al nostre taller especialment per a tu, per això el temps de preparació és d’entre 15 i 21 dies laborables.<br>
-                    El termini d’enviament pot variar en funció del país de destinació. Rebràs un correu electrònic amb el número de seguiment tan bon punt s’hagi enviat el paquet.</p>
+                    <p>{{ loc.pro_enviament_text_1 | safe}}</p>
                 </div>
             </div>
         </div>

@@ -123,8 +123,13 @@ body {
     margin-top: 0.5vh;
     text-align: justify;
     width:100%;
+    white-space: pre-line;
 }
-
+.extra-info{
+    text-align: justify;
+    width:100%;
+    white-space: pre-line;
+}
 .info{
 	width:100%;
     padding-top: 5vh;
@@ -165,7 +170,6 @@ body {
 .popup-info {
     flex-direction: column;
     display: none;
-    position: fixed;
     z-index: 50;
     border: black 0.2vh solid;
     max-width: 80%;
@@ -367,6 +371,7 @@ body {
 
 #initial-price{
     width: 100%;
+
 }
 
 .add-to-cart{
@@ -485,8 +490,8 @@ tr:first-child {
     position: fixed;
     top: 0;
     left: 0;
-    height: 100dvh;
-    width: 100dvw;
+    height: 100vh;
+    width: 100vw;
     background-color: rgba(255, 255, 255, 1);
     z-index: 1000;
     justify-content: center;
@@ -695,12 +700,12 @@ tr:first-child {
         }
 
         #main-details{
-            position:relative;
             width: calc(100% - 4vh);
             max-width: calc(100% - 4vh);
             padding-left:2vh;
             padding-right:2vh;
             left:0;
+            height: fit-content;
             min-height: fit-content;
             height:fit-content;
 
@@ -792,6 +797,10 @@ tr:first-child {
         .popup-info {
             padding:2vh;
         }
+    .missatge-enviament{
 
+    width: 100%;
+
+}
 }
 

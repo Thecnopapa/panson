@@ -18,6 +18,7 @@ class Product(firebaseObject):
         self._bespoke= False
         self.popular = False
         self.novetat = False
+        self.info = ""
 
 
         self.tipus = None
@@ -268,7 +269,7 @@ class Collection(firebaseObject):
         self.ordre = 10
         self.fons_blanc = False
 
-        self.amagst=False
+        self.amagat=False
         self.esborrat=False
         super().__init__(data, id)
         if self._id is None:
