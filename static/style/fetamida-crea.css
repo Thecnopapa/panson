@@ -7,6 +7,8 @@
     overflow-y: scroll;
     width: 100%;
     scroll-snap-type: y mandatory;
+    scroll-snap-stop: always;
+
 }
 .fetamida-crea-page{
     display: flex;
@@ -123,6 +125,7 @@
 	.crea-steps{
 		flex-direction: row;
 		scroll-snap-type: x mandatory;
+        scroll-snap-stop: always;
 		overflow-x:scroll;
         scroll-snap-align: center;
 

@@ -84,9 +84,10 @@ body {
     position: relative;
     height: max-content;
     width: 100%;
-    margin-bottom: 2vh;
+    margin-bottom: 1.5vh;
     margin-top: 3vh;
     text-transform: uppercase;
+    font-weight: bold;
 
 }
 
@@ -210,6 +211,7 @@ body {
     align-items: center;
     justify-content: center;
     padding-bottom: 2vh;
+    padding-top: 2vh;
 
 }
 #info-talles{
