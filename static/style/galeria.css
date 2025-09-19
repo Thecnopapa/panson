@@ -16,8 +16,8 @@
 }
 
 .inline-filtres{
-    padding-top: 2.5%;
-    padding-bottom: 0.75vh;
+        margin-top: calc(var(--padding) * 1.5);
+        margin-bottom: calc(var(--padding) * 1.5);
 	max-width:100%;
 	display:flex;
 	flex-direction: column;
@@ -38,25 +38,20 @@
 .filtre{
     width:fit-content;
     min-width: fit-content;
-	margin-right: 1vw;
-	margin-left: 1vw;
+	margin-right: var(--padding);
+	margin-left: var(--padding);
 	cursor:pointer;
 }
 
 .filtre.active{
-	font-weight: bold;
-    text-decoration: underline;
-    text-underline-offset: 0.2rem;
-    text-decoration-thickness: 0.1rem;
+	border-bottom: 1px black solid;
 }
 
 .galeria {
     position: relative;
-    margin-top: 2vh;
     display: flex;
     height: max-content;
     flex-wrap: wrap;
-    margin-bottom: 2vh;
     justify-content: space-between;
     overflow-y: hidden;
     width: 100%;
@@ -112,10 +107,6 @@
 }
 .primera{
     display: block;
-}
-.producte.active{
-    text-decoration: underline;
-    text-underline-offset: 0.25rem;
 }
 
 .producte.active .segona{
@@ -233,14 +224,23 @@
 }
 
 
+@media screen and (orientation: landscape) {
+	.producte.active .nom, .producte.active .preu-inline{
+    		border-bottom: 1px black solid;
+	}
+}
+
+
+
 @media screen and (orientation: portrait) {
+
     .inline-filtres{
-        margin-top: var(--padding);
-        margin-bottom: var(--padding);
+        margin-top: calc(var(--padding) * 1.5);
+        margin-bottom: calc(var(--padding) * 1.5);
     }
     .filtre{
-        padding-right: var(--padding);
-        padding-left: var(--padding);
+        margin-right: var(--padding);
+        margin-left: var(--padding);
     }
     .galeria-scroll{
         display: none;
@@ -258,6 +258,10 @@
     .producte:not(.inside){
         margin-top: 5vh;
     }
+
+    .producte.active .detalls-principals{
+    	border-bottom: 1px black solid;
+	}
     .detalls-principals{
 	    align-items:end;
         font-size: 12px;
@@ -276,6 +280,7 @@
     }
     .detalls-principals{
         justify-content: start;
+	width: fit-content;
     }
 
     .imatge{

@@ -7,7 +7,7 @@
     width: 100dvw;
     max-width: 100dvw;
     scroll-behavior: smooth;
-    margin-top: 9vh;
+    margin-top: 7vh;
     overflow: hidden;
     transition: 1s;
 }
@@ -56,8 +56,10 @@
     justify-content: space-between;
     align-items: start;
     height: 1rem;
-    margin-left: 1vw;
-    margin-right: 1vw;
+    margin-top: calc(var(--padding) * 1.5);
+    margin-bottom: calc(var(--padding) * 1.5);
+    margin-left: var(--padding);
+    margin-right: var(--padding);
     overflow-y: visible;
     margin-bottom: 1vh;
     z-index: 40;
@@ -165,8 +167,13 @@
     background-color: white;
 
 }
+.email-label{
+    width: 40%;
+    margin-bottom: var(--padding);
+}
 .contact-header{
     padding: var(--padding);
+    margin: var(--padding-vertical);
 }
 .phone-input{
     justify-content: end;
@@ -186,10 +193,12 @@
     flex-direction: row;
     justify-content: space-between;
 }
-.email-label{
-    width: 40%;
-}
 
+.submit-email{
+	width:fit-content;
+	padding: var(--padding-horizontal);
+	margin:auto;
+}
 
 
 .popup-info{
@@ -230,13 +239,11 @@
         box-shadow: 0.2px 0px 8px rgb(115, 115, 115);
         position: fixed;
         background-color: white;
-        top: 0;
-        padding-top: 8vh;
-		width:calc(100% - 4vh);
-        margin-right: 0;
-        margin-left: 0;
-        padding-left: 2vh;
-        padding-right: 2vh;
+        top: 7vh;
+	margin:0;
+	padding: var(--padding-horizontal);
+	padding-top: calc(var(--padding) * 1.5);
+
         flex-direction: column;
         align-items: center;
         margin-bottom: 0;
@@ -253,15 +260,8 @@
     .galeria{
         margin-top: 0;
     }
-	
-	#fetamida-right{
-		align-items:center;
-	}
-	#email-form{
-		width:100%;
-	}
-	#message{
-		min-height:50%;
+	.fetamida-contact{
+		width:var(--padded-width);
 	}
     .section-text{
         width: 100%;
