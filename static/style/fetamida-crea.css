@@ -7,7 +7,6 @@
     overflow-y: scroll;
     width: 100%;
     scroll-snap-type: y mandatory;
-    scroll-snap-stop: always;
 
 }
 .fetamida-crea-page{
@@ -16,6 +15,7 @@
     height: 80vh;
     width: 100%;
     scroll-snap-align: start;
+    scroll-snap-stop: always;
     justify-content: center;
     align-items: center;
 }
@@ -114,6 +114,7 @@
         min-height: fit-content;
          height: 60vh;
         scroll-snap-align: start;
+	scroll-snap-stop: always;
     }
     .crea-main-image{
         width: 100%;
@@ -125,9 +126,7 @@
 	.crea-steps{
 		flex-direction: row;
 		scroll-snap-type: x mandatory;
-        scroll-snap-stop: always;
 		overflow-x:scroll;
-        scroll-snap-align: center;
 
 	}
 	.crea-step{
@@ -135,6 +134,7 @@
 		min-width:100%;
 		height:60vh;
 		scroll-snap-align: center;
+		scroll-snap-stop: always;
 	}
     .crea-step-text{
         width: 80%;
