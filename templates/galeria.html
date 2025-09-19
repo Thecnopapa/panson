@@ -46,8 +46,12 @@
                 </div>
             </div>
         {% endif %}
-    <div class="galeria-scroll scroll-left {{ 'inline' if inline }}" onmouseover="startScrolling(this.nextElementSibling.nextElementSibling, 'left')" onmouseout="stopScrolling(this.nextElementSibling.nextElementSibling)"></div>
-    <div class="galeria-scroll scroll-right {{ 'inline' if inline }}" onmouseover="startScrolling(this.nextElementSibling, 'right')" onmouseout="stopScrolling(this.nextElementSibling)"></div>
+    <div class="galeria-scroll scroll-left {{ 'inline' if inline }}" >
+        <div class=" galeria-scroll-button scroll-left-button" onmousedown="startScrolling(this.parentElement.nextElementSibling.nextElementSibling, 'left')" onmouseup="stopScrolling(this.parentElement.nextElementSibling.nextElementSibling)"><div class="galeria-arrow left"></div></div>
+    </div>
+    <div class="galeria-scroll scroll-right {{ 'inline' if inline }}" >
+        <div class=" galeria-scroll-button scroll-right-button" onmousedown="startScrolling(this.parentElement.nextElementSibling, 'right')" onmouseup="stopScrolling(this.parentElement.nextElementSibling)"><div class="galeria-arrow right"></div></div>
+    </div>
     <div class="galeria {{ 'inline' if inline }}">
         {% for n in range(max_prods) %}
             {% if (double and n % 2 == 0) %}

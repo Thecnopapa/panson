@@ -445,6 +445,8 @@ updatePrice();
 imageSlideshow = document.getElementById("producte-images");
 imageSlideshow.addEventListener("scroll", function (event) {if(imageSlideshow.scrollTop !== (imageSlideshow.scrollHeight - imageSlideshow.offsetHeight)){event.stopPropagation()}});
 imageSlideshow.addEventListener("wheel", function (event) {if(imageSlideshow.scrollTop !== (imageSlideshow.scrollHeight - imageSlideshow.offsetHeight)){event.stopPropagation()}});
+imageSlideshow.addEventListener("touchmove", function (event) {if(imageSlideshow.scrollTop !== (imageSlideshow.scrollHeight - imageSlideshow.offsetHeight)){event.stopPropagation()}});
+
 blackObserver.observe(imageSlideshow);
 
 
@@ -453,6 +455,7 @@ document.documentElement.scrollTo(0,0)
 
 document.addEventListener("scroll", preventDefaultScroll, false);
 document.addEventListener("wheel", preventDefaultScroll, false);
+document.addEventListener("touchmove", preventDefaultScroll, false);
 
 
 
