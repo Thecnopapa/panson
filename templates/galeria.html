@@ -38,13 +38,13 @@
 </div>
 
         {% if filtres %}
-            <div class="inline-filtres">
-                <div class="filtre-buttons">
-			{% for filtre in loc.filtres %}
-			<div class="filtre" filterKey="{{ filtre["field"] }}" filterValue="{{ filtre["value"] }}" onclick="filterGaleria(this)">{{ loc[filtre["nom"]] }}</div>
-			{% endfor %}
-                </div>
+            <div class="filtre-buttons">
+                <div class="filtre-buttons-gradient"></div>
+                {% for filtre in loc.filtres %}
+                    <div class="filtre" filterKey="{{ filtre["field"] }}" filterValue="{{ filtre["value"] }}" onclick="filterGaleria(this)">{{ loc[filtre["nom"]] }}</div>
+                {% endfor %}
             </div>
+
         {% endif %}
     <div class="galeria-scroll scroll-left {{ 'inline' if inline }}" >
         <div class=" galeria-scroll-button scroll-left-button" onmousedown="startScrolling(this.parentElement.nextElementSibling.nextElementSibling, 'left')" onmouseup="stopScrolling(this.parentElement.nextElementSibling.nextElementSibling)"><div class="galeria-arrow left"></div></div>
