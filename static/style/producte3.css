@@ -351,8 +351,30 @@ body {
     width: 100%;
     min-height: 5vh;
     margin-top: 1vh;
-
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }
+.add-to-cart.loading{
+	color:transparent;
+}
+.add-to-cart.loading .cart-loading{
+	display:flex;
+	-webkit-animation:spin 4s linear infinite;                            -moz-animation:spin 4s linear infinite;
+        animation:spin 4s linear infinite;
+}
+.cart-loading{
+	display:none;
+	background-image: url("/static/media/panson_favicon.png");
+	background-size: contain;
+	background-position:center;
+	background-repeat: no-repeat;
+	filter: invert(100%);
+	height:3vh;
+	width:3vh;
+	position: absolute;
+}
+
 .missatge-enviament{
     display: none;
     flex-direction: column;

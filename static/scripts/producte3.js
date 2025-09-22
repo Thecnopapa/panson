@@ -157,6 +157,8 @@ function selectColour(trigger){
 
 
 async function submitToCart (trigger) {
+	trigger.classList.add("loading");
+	
     const theForm = document.getElementById("form");
     const missingInfo = document.getElementById("missing-info");
     const formData = new FormData(theForm);
@@ -184,13 +186,15 @@ async function submitToCart (trigger) {
             } else if (document.documentElement.lang === "en") {
                 //alert("Product added to cart!");
             }
-		reloadCart();
+		let r = await reloadCart();
             //window.location.reload();
         }
     } catch (error) {
         console.log(error);
         alert("Error:", error.message);
     }
+	trigger.classList.remove("loading");
+	
 }
 
 async function reloadCart(){
@@ -213,6 +217,7 @@ async function reloadCart(){
 	loadAllImages();
 	updateCartCounter();
 	openCart();
+	return "done"
 
 }
 

@@ -205,7 +205,9 @@
 
             </div>
              <div id="final-price"> <span class="preu-producte"></span> &#8364;</div>
-            <input class="add-to-cart black-button" type="button" value="AFEGIR AL CARRET" onclick="submitToCart(this)">
+	     <div class="add-to-cart black-button" onclick="submitToCart(this)">{{ loc.pro_afegir_carret}}
+		     <div class=cart-loading></div>
+	     </div>
             <div id="missatge-lent" class="missatge-enviament" style="display: none">{{ loc.pro_enviament_lent }}</div>
             <div id="missatge-rapid" class="missatge-enviament" style="display: none">{{ loc.pro_enviament_rapid }}</div>
             <div id="missing-info" class="popup-info"><p>Siusplau introdueix tots els detalls</p></div>
