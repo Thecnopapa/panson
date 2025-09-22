@@ -72,7 +72,9 @@ async function modifyItem(counterElement, pos, mode){
 
 function updateCartCounter(){
     const allCounters = document.getElementsByClassName('producte-carret-quantitat');
-    const cartCounter = document.getElementById("cart-counter");
+    const cartCounters = [...document.getElementsByClassName("cart-counter")];
+	const cartInfo = document.getElementsByClassName("cart-info")[0];
+	const emptyInfo = document.getElementsByClassName("no-cart-info")[0];
     const totalCart = document.getElementsByClassName("total-cart")[0];
     const totalCartValue = document.getElementsByClassName("total-cart-value")[0];
 	console.log(totalCart, totalCartValue);
@@ -85,13 +87,17 @@ function updateCartCounter(){
         allCounters[i].parentElement.previousElementSibling.innerHTML = String(newPrice) + "&#8364;";
     }
     totalCartValue.innerHTML = String(priceSum)+ "&#8364";
-    cartCounter.innerHTML = itemSum;
+    cartCounters.forEach(c => {c.innerHTML = itemSum});
     if (itemSum <= 0){
-        cartCounter.style.display = "none";
+        cartCounters.forEach(c => {c.style.display = "none"});
+	    cartInfo.style.display ="none";
         totalCart.parentElement.style.display = "none";
+	    emptyInfo.style.display = "flex";
     }else {
+	    cartInfo.style.display= "flex";
+	    emptyInfo.style.display = "none";
         totalCart.parentElement.style.display = "flex";
-        cartCounter.style.display = "flex";
+        cartCounters.forEach(c => {c.style.display = "flex"});
     }
 }
 

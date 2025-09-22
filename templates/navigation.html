@@ -102,7 +102,7 @@
         {% endfor %}
     <div class = "cart" id="cart-button" onclick="openCart()">
         <img class="shopping-cart" src="/static/media/bag-black.svg" alt="cart">
-        <div class="cercle-carret" id="cart-counter">{{ user.n_carret if user.n_carret > 0 }}</div>
+        <div class="cercle-carret cart-counter">{{ user.n_carret if user.n_carret > 0 }}</div>
 
         </div>
     </div>
@@ -111,6 +111,8 @@
 
     <div class="title-carret is-carret">{{ loc.car_carret }}</div>
 <div class="is-carret" id="close-carret" onclick="closeCart()">{{ loc.car_tancar }}</div>
+<div class="is-carret cart-info">{{loc.car_info_quantitat}}&nbsp;<div class=cart-counter></div></div>
+<div class="is-carret no-cart-info">{{loc.car_info_buit |safe}}<a class="is-carret" href="/{{lan}}/productes">{{loc.car_info_buit_boto}}</a></div>
     <div class="llista-carret is-carret">
         {% for n, item in utils.enumerate(cart.values()) if item.producte != None%}
 		{{ cart_macros.cart_item(item, n) }}
