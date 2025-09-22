@@ -211,6 +211,7 @@ async function reloadCart(){
 	console.log(newItems);
 	newItems.forEach(i => {cartList.appendChild(i)});
 	loadAllImages();
+	updateCartCounter();
 	openCart();
 
 }

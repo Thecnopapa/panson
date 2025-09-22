@@ -37,12 +37,12 @@ function closeCart(){
 
 
 async function deleteItem(productElement, pos){
-    productElement.remove();
     let link = "/productes/carret/"+ pos+"/0";
 	console.log(link);
 	let resp = await fetch(link, {method: "POST"});
 	if (resp.ok){
-    		updateCartCounter()
+		productElement.remove();
+		updateCartCounter();
 	}
 
 }
@@ -58,12 +58,13 @@ async function modifyItem(counterElement, pos, mode){
     if (newQty <= 0){
         deleteItem(counterElement.parentElement.parentElement.parentElement, pos);
     } else{
-        counterElement.innerHTML = newQty;
         let link = "/productes/carret/"+ pos+"/"+newQty;
         console.log(link);
         let resp = await fetch(link, {method: "POST"});
 	    if (resp.ok){
-        	updateCartCounter()
+		    counterElement.innerHTML = newQty;
+        	updateCartCounter();
+		   
 	    }
     }
 
