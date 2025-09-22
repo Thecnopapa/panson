@@ -1,7 +1,7 @@
 
 
 .is-carret {
-    font-size: 0.75rem;
+
     z-index: 20;
 }
 
@@ -45,6 +45,7 @@
     padding-top: var(--padding);
     position: relative;
     padding-bottom: var(--padding);
+    width: var(--padded-width);
 
 }
 
@@ -59,6 +60,7 @@
     align-items: center;
     max-height: 100%;
     overflow-y: scroll;
+    height: 100%
 }
 .producte-carret {
     position: relative;
@@ -88,9 +90,14 @@
     width: 100%;
 
 }
+
+.cart-info{
+    width: var(--padded-width);
+}
 .no-cart-info{
 	flex-direction:column;
-	align-items:center;
+	align-items:start;
+    width:var(--padded-width);
 }
 
 
