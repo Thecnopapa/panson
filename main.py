@@ -342,6 +342,12 @@ def afegir_al_carret():
     return redirect(request.referrer)
 
 @limiter.exempt
+@app.post("/<lan>/render_cart")
+def render_cart(lan):
+    return template(lan=lan, templates="cart")
+
+
+@limiter.exempt
 @app.post("/productes/carret/<pos>/<qty>")
 def alterar_carret(pos, qty):
     user = get_current_user()

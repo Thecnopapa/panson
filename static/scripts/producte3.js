@@ -69,13 +69,13 @@ function selectSize(trigger){
     }
 	var sizeList = document.getElementsByClassName("size-input");
 	for (let i = 0; i < sizeList.length; i++) {
-		sizeList[i].setAttribute("checked", false);
+		sizeList[i].removeAttribute("checked");
 		console.log(sizeList[i]);
 	}
 	trigger.setAttribute("checked", true);
     setTimeMessage(trigger);
 	for (let i = 0; i < sizeList.length; i++) {
-		if (sizeList[i].getAttribute("checked") === "false" && sizeList[i].classList.contains("multiple-input")){
+		if (sizeList[i].getAttribute("checked") !== "true" && sizeList[i].classList.contains("multiple-input")){
 			sizeList[i].value = "";
                 	sizeList[i].parentElement.style.display="none";
 			sizeList[i].parentElement.previousElementSibling.style.display="flex";
@@ -146,7 +146,7 @@ function selectColour(trigger){
     console.log(trigger);
 	var colourList = trigger.parentElement.getElementsByClassName("color-input");
 	for (let i = 0; i < colourList.length; i++) {
-		colourList[i].setAttribute("checked", false);
+		colourList[i].removeAttribute("checked");
 	}
     trigger.firstElementChild.setAttribute("checked", true);
 }
@@ -162,6 +162,7 @@ async function submitToCart (trigger) {
     const formData = new FormData(theForm);
     const fieldsets = form.querySelectorAll("fieldset");
     document.body.style.cursor = "progress !important";
+	console.log(formData);
     try {
         let response = await fetch("/carret/add", {
                 method: "POST",
@@ -179,20 +180,45 @@ async function submitToCart (trigger) {
         } else {
             console.log(document.documentElement.lang);
             if (document.documentElement.lang === "cat"){
-                alert("Producte afegit al carret!");
+                //alert("Producte afegit al carret!");
             } else if (document.documentElement.lang === "en") {
-                alert("Product added to cart!");
+                //alert("Product added to cart!");
             }
-            window.location.reload();
+		reloadCart();
+            //window.location.reload();
         }
     } catch (error) {
         console.log(error);
-        alert(error.message);
+        alert("Error:", error.message);
     }
+}
 
-
+async function reloadCart(){
+	let cartList = document.getElementsByClassName("llista-carret")[0];
+	//console.log(cartList);
+	//console.log(cartList.innerHTML);
+	[...cartList.children].forEach(c => {c.remove()});
+	let newItems = await fetch("/"+document.documentElement.lang+"/render_cart",
+		{
+			method:"POST",
+		}
+	).then(response => {return response.text();}).then(text => {
+		const parser = new DOMParser();
+		let html = parser.parseFromString(text, "text/html").documentElement;
+		console.log(html);
+		return [...html.getElementsByClassName("producte-carret")];
+	});
+	console.log(newItems);
+	newItems.forEach(i => {cartList.appendChild(i)});
+	loadAllImages();
+	openCart();
 
 }
+
+
+
+
+
 
 function showInfoDropdown(trigger, popupContent, arrow=undefined) {
     popupContent.style.display = "block";
