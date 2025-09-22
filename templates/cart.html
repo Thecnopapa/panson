@@ -1,0 +1,53 @@
+
+
+
+{% macro cart_item(item, n, template=False) %}
+
+            <div class="producte-carret is-carret">
+            {% if utils.len(item.producte.imatges) > 0 %}
+            <div class="producte-foto is-carret slow-image" background='{{ imgs.get_url("productes", item.producte.imatges[0]) }}'></div>
+            {% endif %}
+                <div class="detalls-carret is-carret">
+                    <div class="producte-carret-delete is-carret" onclick="deleteItem(this.parentElement.parentElement, {{ n }})">x</div>
+
+                    <div class="producte-carret-nom is-carret">{{ item.producte.nom }}</div>
+                    <div class="producte-carret-id is-carret hide">ID: {{ item.id2 }}</div>
+                    {% if item["talla"] %}
+                    {% if item["talla"] != "NA" %}
+                    <div class="producte-carret-talla is-carret {{ "hide" if item.talla == "null" }}">{{ "CUSTOM: " if "(" in utils.str(item.talla)}}{{ item.talla }}</div>
+                    {% endif %}
+                    {%endif%}
+                    {% if item["material"] %}
+                        <div class="producte-carret-material is-carret hide">{{ loc.car_talla }}: {{ item.material}}</div>
+                    {% endif %}
+                    {% if item["variacio"] %}
+                        <div class="producte-carret-variacio is-carret {{ "hide" if item.variacio == "null" }}">{{ loc.car_variacio }}: {{ item.variacio}}</div>
+                    {% endif %}
+                    {% if item["color"] %}
+                        <div class="producte-carret-color is-carret {{ "hide" if item.color == "null" }}">
+
+                            <div class="producte-carret-color is-carret">
+                            {% for n, col in utils.enumerate(item["color"]) %}
+                                <span class="producte-carret-cercle is-carret {{ item.producte.opcions.get("extra_colors", [])[n] }}" style="background-color: {{ loc["colours-"+col] }}"></span>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="producte-carret-preu is-carret">{{ item.preu[0]*item.quantity }}&#8364;</div>
+                    <div class="quantitats-carret is-carret">
+                        <img class="carret-minus add-item is-carret" src="/static/media/minus.svg" onclick="modifyItem(this.nextElementSibling, {{ n }}, 'decrease')" alt="decrease">
+                        <div class="producte-carret-quantitat is-carret" price="{{ item.preu[0] }}">{{ item.quantity }}</div>
+                                    <img class="carret-plus delete-item is-carret" src="/static/media/plus.svg" onclick="modifyItem(this.previousElementSibling,{{ n }}, 'increase')" alt="increase">
+                    </div>
+                </div>
+
+
+            </div>
+{%endmacro%}
+
+
+
+{% for n, item in utils.enumerate(cart.values()) if item.producte != None%}         {{ cart_item(item, n) }}                                            {% endfor %}
+
+
+
