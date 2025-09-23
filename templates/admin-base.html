@@ -18,15 +18,15 @@
 
 
 {% block body %}
-
+<div id="nav-color" navColor="opaque"></div>
 	<body>
 		<div id="admin-common">
-			<div id="admin-header">ADMIN</div>
+			<div id="admin-header"></div>
 			<div id=admin-menu>
                 <button onclick="window.location.href='/admin/productes/'">Productes</button>
-				<button onclick="window.location.href='/admin/bespoke/'">Bespoke</button>
+				<button onclick="window.location.href='/admin/bespoke/'">Fet a mida</button>
 				<button onclick="window.location.href='/admin/collecions/'">Collecions</button>
-				<button onclick="window.location.href='/admin/localisation/'">Localitzacio</button>
+				<button onclick="window.location.href='/admin/localisation/'">Gestio pagina</button>
 				{% if user.username == "iain" %}
 
                     <button onclick="window.location.href='/admin/imatges/'">Imatges</button>

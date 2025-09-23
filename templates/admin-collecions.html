@@ -3,7 +3,6 @@
 {% block content %}
 
     <div id="collecions" class="admin-content">
-{{ collecions }}
         {% for product in collecions %}
             {{ admin_container(product) }}
         {% endfor %}
