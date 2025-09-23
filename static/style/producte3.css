@@ -86,10 +86,10 @@ body {
     position: relative;
     height: max-content;
     width: 100%;
-    margin-bottom: 1.5vh;
-    margin-top: 3vh;
+    margin-bottom: 0.75rem;
+    margin-top: var(--padding);
     text-transform: uppercase;
-    font-weight: bold;
+    font-size: 1.2rem;
 
 }
 
