@@ -33,7 +33,7 @@ def stripe_checkout(items, lan, origin=None):
             #],
             mode='payment',
             success_url=DOMAIN + "success",
-            cancel_url=DOMAIN + "cancel",
+            cancel_url=request.headers["Referer"]
 
         )
     except Exception as e:
