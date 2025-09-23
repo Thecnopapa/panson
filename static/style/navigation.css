@@ -141,18 +141,20 @@ video {
     display: flex;
     background-color: #fff;
     position: fixed;
-    bottom: 2vh;
-    height: 3vh;
+    bottom: 0;
+    height: 2rem;
     align-items: center;
-    border-radius: 0.5vh;
-    padding: 1vh;
-    width: 40%;
-    justify-content: center;
+    padding: var(--padding);
+    width: var(--padded-width);
+    justify-content: space-between;
     z-index: 99;
-    left:29%;
+    font-size: 0.75rem;
+
 }
 .accept-cookies {
-    margin-left: 1vh;
+    padding: 0.5rem 2rem ;
+    min-height: 0;
+    height: fit-content;
 }
 
 
@@ -565,9 +567,5 @@ video {
     }
     .language {
         display: none;
-    }
-    .request-cookies{
-        width: 94%;
-        left: 2%;
     }
 }
