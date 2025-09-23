@@ -33,7 +33,6 @@
 
 #close-carret {
     position: absolute;
-    font-size: 2vh;
     top: var(--padding);
     right: var(--padding);
     text-decoration: underline;
@@ -41,7 +40,7 @@
     cursor: pointer;
 }
 .title-carret {
-    font-size: 3vh;
+    font-size: 1.5rem;
     padding-top: var(--padding);
     position: relative;
     padding-bottom: var(--padding);
@@ -56,6 +55,7 @@
     position: relative;
     width: var(--padded-width);
     margin: var(--padding);
+    margin-bottom:0;
     left: 0;
     align-items: center;
     max-height: 100%;
@@ -105,9 +105,11 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    margin-top: 10vh;
+    
+    
     align-items: center;
     width: 100%;
+    background: linear-gradient(to bottom,  transparent, white var(--padding));
 
 }
 .total-cart{
@@ -123,11 +125,13 @@
 }
 
 .producte-carret-nom {
-    font-size: 3vh;
+    font-size: 1rem;
     padding-bottom: 0.1rem;
 }
 .producte-carret-talla{
 	margin-bottom: 0.1rem;
+	font-size: 0.75rem;
+
 }
 .is-carret.producte-carret-color{
     display: flex;
