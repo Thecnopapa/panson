@@ -132,8 +132,8 @@
     width: 22.8dvw;
     padding-top:0.5rem;
     padding-bottom:1rem;
-    padding-right: 1dvw;
-    padding-left: 1dvw;
+    padding-right: var(--padding);
+    padding-left: var(--padding);
     user-select: inherit;
     background: linear-gradient(to top, rgba(255,255,255,0.6), rgba(255,255,255,0));
     display:flex;
@@ -298,9 +298,7 @@
     }
 
     .detalls-galeria{
-        padding-right: 2vh;
-        padding-left: 2vh;
-        width: calc(100% - 4vh);
+        width: var(--padded-width);
     }
     .detalls-principals{
         justify-content: start;

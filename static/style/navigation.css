@@ -127,6 +127,11 @@ video {
     text-underline-offset: 0.25rem;
 }
 
+.underlined{
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+}
+
 .black-button{
     background-color: #000000;
     color: white;
@@ -515,7 +520,7 @@ video {
 
     html{
         font-size: 16px;
-        --padding: 2vh;
+        --padding: 1vh;
     }
 
     .black-portrait{
@@ -538,6 +543,7 @@ video {
     .menu-simple {
         display: flex;
         padding: 0;
+        height: 6vh;
     }
     #menu-closer-landscape{
 	    display: none !important;
@@ -554,16 +560,19 @@ video {
         height: 3.5vh;
         width: 3.5vh;
     }
+    .cart{
+        height: 6vh;
+    }
 
     .navigation-left {
         display: flex;
         width: 100%;
         max-width: 100%;
         justify-content: flex-start;
-        padding-left: 2vh;
+        padding-left: var(--padding);
     }
     .navigation-right {
-        padding-right: 2vh;
+        padding-right: var(--padding);
     }
     .language {
         display: none;
