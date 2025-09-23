@@ -3,6 +3,7 @@
 	width: 100vw;
 	display: flex;
 	flex-direction: row;
+    margin-bottom: 3rem;
 }
 .intro-half{
 	display:flex;
@@ -13,7 +14,7 @@
 	width:100%;
 	background-position: center;
 	background-size: cover;
-	font-size: 2rem;
+	font-size:1.5rem;
 	color: white;
     cursor: pointer;
     transition: 1s;
