@@ -279,9 +279,9 @@
 	    height:calc(49.5dvw + 3rem);
         user-select: none;
     }
-    .producte:not(.inside){
-        margin-top: 5vh;
-    }
+    /*.producte:not(.inside){*/
+    /*    margin-top: 5vh;*/
+    /*}*/
 
     .producte.active .detalls-principals{
     	border-bottom: 1px black solid;

@@ -210,7 +210,7 @@ for (let i = 0; i < galleryElements.length; i++) {
     if (!galeria.classList.contains("inline")){
         const productElements = galeria.querySelectorAll(".producte.enabled:not(.inline)");
         for (let i = 0; i < productElements.length; i++) {
-            galleryObserver.observe(productElements[i]);
+            //galleryObserver.observe(productElements[i]);
         }
 
     }
