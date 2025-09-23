@@ -143,7 +143,7 @@ function galeriaPrev(galeria){
 }
 
 function filterGaleria(trigger){
-	const galeria = trigger.parentElement.parentElement.parentElement;
+	const galeria = trigger.parentElement.parentElement;
 	if (trigger.classList.contains("active")){
 		galeria.removeAttribute("filterKey");
 		galeria.removeAttribute("filterValue");
@@ -229,6 +229,21 @@ function galleryAnimation(triggers, ops) {
 }
 
 
+try{
+	let filterDiv = document.getElementsByClassName("filtre-buttons")[0];
+	let gradientDiv = document.getElementsByClassName("filtre-buttons-gradient")[0];
+	
+	function displayGradient(){
+		console.log(filterDiv.scrollLeft, filterDiv.offsetWidth, filterDiv.scrollWidth);
+		gradientDiv.classList.toggle("end-right", filterDiv.scrollLeft + filterDiv.offsetWidth >= filterDiv.scrollWidth);
+		gradientDiv.classList.toggle("end-left", filterDiv.scrollLeft <= 0);
+
+	}
+
+
+	filterDiv.addEventListener("scroll", displayGradient);
+	displayGradient()
+} catch(e) {console.log(e);}
 
 
 
