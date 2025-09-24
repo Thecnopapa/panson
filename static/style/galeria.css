@@ -236,7 +236,7 @@
 	cursor:pointer;
 }
 .galeria-arrow.left{
-	transform: translate(-25%,0) rotate(-135deg);
+	transform: translate(25%,0) rotate(-135deg);
 	-webkit-transform: translate(25%,0) rotate(-135deg) ;
 }
 .galeria-arrow.right{

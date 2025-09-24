@@ -236,7 +236,7 @@
         scroll-snap-align: start;
     }
 	#section-menu{
-        box-shadow: 0.2px 0px 8px rgb(115, 115, 115);
+        /*box-shadow: 0.2px 0px 8px rgb(115, 115, 115);*/
         position: fixed;
         background-color: white;
         top: 7vh;
@@ -262,6 +262,9 @@
     }
 	.fetamida-contact{
 		width:var(--padded-width);
+		top:7%;
+		height: 86%;
+		
 	}
     .section-text{
         width: 100%;

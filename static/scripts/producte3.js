@@ -482,12 +482,12 @@ imageSlideshow.addEventListener("touchmove", function (event) {if(imageSlideshow
 blackObserver.observe(imageSlideshow);
 
 
-document.documentElement.style.overflowY = "hidden";
+//document.documentElement.style.overflowY = "hidden";
 document.documentElement.scrollTo(0,0)
 
-document.addEventListener("scroll", preventDefaultScroll, false);
-document.addEventListener("wheel", preventDefaultScroll, false);
-document.addEventListener("touchmove", preventDefaultScroll, false);
+//document.addEventListener("scroll", preventDefaultScroll, false);
+//document.addEventListener("wheel", preventDefaultScroll, false);
+//document.addEventListener("touchmove", preventDefaultScroll, false);
 
 
 

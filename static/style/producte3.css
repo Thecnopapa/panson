@@ -71,8 +71,8 @@ body {
     height: 93vh;
     min-height: 93vh;
     padding-top:7vh;
-    padding-left:1vw;
-    padding-right:1vw;
+    padding-left:var(--padding);
+    padding-right: var(--padding);
     background-color: rgba(255, 255, 255, 0.7);
     overflow-y: scroll;
     max-height: 93vh;
@@ -560,7 +560,7 @@ tr:first-child {
 	flex-direction: column;
 	justify-content: center;
 	align-content: center;
-	margin-left:1vw;
+	margin-left: var(--padding);
 }
 .bubbles{
     mix-blend-mode: overlay;
@@ -626,10 +626,10 @@ tr:first-child {
 	.bubble-container{
 		position:relative;
 		margin-top: 0.5rem;
-		margin-left:2vh;
-		margin-right: 2vh;
+		margin-left:var(--padding);
+		margin-right: var(--padding);
 		flex-direction:row;
-		width:calc(100% - 4vh);
+		width:var(--padded-width);
 		justify-content: space-between;;
 		height:fit-content;
 		align-items:center;
@@ -659,6 +659,8 @@ tr:first-child {
 		width: fit-content;
 		height:2rem;
 		align-items:center;
+		width: 3rem;
+		justify-content:space-between;
 	}
 	.arrows .arrow{
 		height: 0.8rem;
@@ -671,13 +673,17 @@ tr:first-child {
 		cursor:pointer;
 	}
 	.arrows .arrow.left{
-		margin-right:1rem;
-		transform: rotate(-135deg);
-		-webkit-transform: rotate(-135deg);
+		/*margin-right:1rem;*/
+		transform: translate(25%,0) rotate(-135deg);
+       		-webkit-transform: translate(25%,0) rotate(-135deg) ;
+		/*transform: rotate(-135deg);
+		-webkit-transform: rotate(-135deg);*/
 	}
 	.arrows .arrow.right{
-                transform: rotate(45deg);
-		-webkit-transform: rotate(45deg);
+		transform: translate(-25%, 0) rotate(45deg);
+        	-webkit-transform:translate(-25%, 0) rotate(45deg) ;
+                /*transform: rotate(45deg);
+		-webkit-transform: rotate(45deg);*/
         }
 
 
@@ -698,10 +704,10 @@ tr:first-child {
         }
 
         #main-details{
-            width: calc(100% - 4vh);
-            max-width: calc(100% - 4vh);
-            padding-left:2vh;
-            padding-right:2vh;
+            width: var(--padded-width);
+            max-width: var(--padded-width);
+            padding-left:var(--padding);
+            padding-right: var(--padding);
             left:0;
             height: fit-content;
             min-height: fit-content;
