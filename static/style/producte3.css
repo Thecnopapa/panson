@@ -241,16 +241,17 @@ body {
     flex-wrap: wrap;
     align-content: center;
     align-items: center;
+    min-height:3vh;
 
 
 }
 .multiple-input-span{
 	display:flex;
-	flex-wrap:wrap;
-	max-width:100%;
+	
+	max-width:fit-content;
 	width:fit-content;
     align-items:flex-end;
-    height: 3vh;
+    min-height: 3vh;
 
 }
 .option{
@@ -275,13 +276,13 @@ body {
 	border-bottom:1px solid black;
 	outline-offset: 0;
 	width:6vh;
-	max-width:50%;
+	max-width:fit-content;
 	background-color:rgba(0,0,0,0);
 	color:black;
     height:100%;
+    min-height:3vh;
 }
 .multiple-input{
-    margin-right: 1dvw;
 }
 
 .color-selector{
