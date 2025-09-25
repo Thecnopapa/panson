@@ -189,7 +189,9 @@ function openMenu() {
 	    menuClosers[1].style.width = "20dvw";
        contacteMenu.style.display = "block";
         projecteMenu.style.display = "block";
+	    try{
 	    navTitle.classList.add("black");
+	    } catch {}
 }
     else {
         menu.style.width = String(navLeft.offsetWidth) + "px";
@@ -241,7 +243,9 @@ function closeMenu() {
         navButtons[i].classList.remove("black");
     }
     botoMenuSimple.classList.remove("black");
+	try{
 	navTitle.classList.remove("black");
+	} catch {}
     
     try{
         updateScroll()

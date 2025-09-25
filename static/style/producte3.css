@@ -753,7 +753,7 @@ tr:first-child {
     	}
 
     	.options{
-        	width:fit-content;
+        	width:100%;
     	}
 
     	.color-selector{

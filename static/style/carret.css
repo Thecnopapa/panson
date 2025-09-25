@@ -153,6 +153,9 @@
     border-color: #000000;
     border-width: 0.1rem;
 }
+.is-carret.producte-carret-cercle[style*="background-color:white"] {
+                background-color:lightgray !important;
+        }
 .is-carret.pro-pedra-gran{
     height: 0.65rem !important;
     width: 0.65rem !important;
