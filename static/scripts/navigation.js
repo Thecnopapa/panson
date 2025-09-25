@@ -173,7 +173,7 @@ const cartIcon = document.getElementsByClassName('shopping-cart');
 const cartCircle = document.getElementsByClassName('cercle-carret');
 const navTitle = document.getElementById("title")
 
-const camaleonElements = [...navButtons, ...lanButtons, navTitle, ...cartCircle, ...cartIcon, botoMenuSimple];
+const camaleonElements = [...navButtons, ...lanButtons, navTitle, ...cartCircle, ...cartIcon, botoMenuSimple, menu];
 
 menu.style.width = "0px";
 closeMenu();
@@ -241,7 +241,8 @@ function closeMenu() {
         navButtons[i].classList.remove("black");
     }
     botoMenuSimple.classList.remove("black");
-    checkColor()
+	navTitle.classList.remove("black");
+    
     try{
         updateScroll()
     } catch(e){}
@@ -489,7 +490,11 @@ function getImageBrightnessSO(image,callback) {
 
 
 
-let blackObserver = new IntersectionObserver((triggers) => {
+let blackObserver = new IntersectionObserver((triggers) => {colorScroll(triggers);} ,{threshold: 0.06}
+);
+
+
+function colorScroll(triggers){
     if (!triggers[0].isIntersecting) {
         goBlack();
         navigation.classList.add("opaque");
@@ -497,7 +502,8 @@ let blackObserver = new IntersectionObserver((triggers) => {
         checkColor();
         navigation.classList.remove("opaque");
     }
-},{threshold: 0.06,});
+}
+
 
 
 try{
