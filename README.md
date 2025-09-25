@@ -3,7 +3,7 @@
 
 ## Front-end:
 - HTML (jinja templates)
-- JS (pure)
+- JS (vanilla)
 - CSS
 
 ## Back-end:
