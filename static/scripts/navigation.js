@@ -189,6 +189,7 @@ function openMenu() {
 	    menuClosers[1].style.width = "20dvw";
        contacteMenu.style.display = "block";
         projecteMenu.style.display = "block";
+	    navTitle.classList.add("black");
 }
     else {
         menu.style.width = String(navLeft.offsetWidth) + "px";
