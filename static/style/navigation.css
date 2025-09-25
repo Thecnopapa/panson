@@ -411,7 +411,7 @@ video {
 
 }
 
-.item-submenu {
+.item-submenu{
     display: none;
     margin: var(--padding-horizontal);
     cursor: pointer;
@@ -490,7 +490,7 @@ video {
 .minus.dropdown-show {display: inline-block;}
 
 .no-line { border-top:none; }
-.menutop { margin-top: 8dvh;}
+.menutop { margin-top: 10vh;}
 .last-submenu{padding-bottom: 1rem}
 .less-padding { padding-top: 0.25rem; padding-bottom: 0.25rem}
 

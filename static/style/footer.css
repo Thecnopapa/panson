@@ -31,12 +31,12 @@ a{
 
 .footer-title{
     padding-left: var(--padding);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .footer-element{
     padding-left: var(--padding);
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.25rem;
 }
 
 .footer-button{
