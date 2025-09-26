@@ -412,7 +412,10 @@ def contatce(lan):
     html = template(lan=lan, templates="contacte")
     return html
 
-
+@app.route("/<lan>/info-talles/")
+def info_talles(lan):
+    html = template(lan=lan, templates="talles")
+    return html
 
 @limiter.exempt
 @app.route("/<lan>/admin/")

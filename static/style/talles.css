@@ -2,7 +2,10 @@
 
 
 
-
+.content-talles{
+	margin-top: 10vh;
+	padding: var(--padding);
+}
 
 
 

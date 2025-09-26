@@ -1,6 +1,4 @@
 {% macro info_talles() %}
-
-
                                 <h3>{{loc.pro_popup_talles_titol}}</h3>
                                 <p>{{loc.pro_popup_talles_p1 | safe}}</p>
                             <ol>
@@ -18,3 +16,23 @@
 
 
 {% endmacro %}
+
+{% extends "base.html" %}
+{% block imports %}
+<link href='/style/talles.css' as='style' rel='preload'>                                                                                                <link href='/style/talles.css' rel='stylesheet'>
+
+{% endblock %}
+
+
+{% block body %}
+    <div id="nav-color" navColor="opaque"></div>
+
+<div class="content-talles">
+	{{ info_talles() }}
+</div>
+
+
+
+{% endblock %}
+
+
