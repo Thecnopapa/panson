@@ -8,16 +8,19 @@
 {% block imports %}
     <link href='/style/galeria.css' as='style' rel='preload'>
     <link href='/scripts/galeria.js' as='script' rel='preload'>
+    <link href='/style/talles.css' as='style' rel='preload'>
     <link href='/style/producte3.css' as='style' rel='preload'>
     <link href='/scripts/producte3.js' as='script' rel='preload'>
 
     <link href='/style/galeria.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/scripts/galeria.js"></script>
+    <link href='/style/talles.css' rel='stylesheet'>
     <link href='/style/producte3.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/scripts/producte3.js"></script>
 {% endblock %}
 
 {% import 'galeria.html' as galeria with context%}
+{% import 'talles.html' as talles_macros with context%}
 
 {% block body %}
 {% if imgs.get_brightness("productes", producte.imatges[0]) <127 %}
@@ -169,18 +172,8 @@
                     </div>
                     <div id="info-talles" class="clickable under-hover" onclick="showPopup(this.nextElementSibling)">{{ loc.pro_graella_talles }}</div>
                         <div class="popup-info" id="popup-talles" onclick="event.stopPropagation()">
-				<h3>{{loc.pro_popup_talles_titol}}</h3>
-				<p>{{loc.pro_popup_talles_p1 | safe}}</p>
-                            <ol>
-				    <li><strong>{{loc.pro_talles_t1}}</strong>{{loc.pro_talles_c1 | safe}}</li>
-				    <li><strong>{{loc.pro_talles_t2}}</strong>{{loc.pro_talles_c2 | safe}}</li>
-				    <li><strong>{{loc.pro_talles_t3}}</strong>{{loc.pro_talles_c3 | safe}}</li>
-				    <li><strong>{{loc.pro_talles_t4}}</strong>{{loc.pro_talles_c4 | safe}}</li>
-				    <li><strong>{{loc.pro_talles_t5}}</strong>{{loc.pro_talles_c5 | safe}}</li>
-                            </ol>
-                            <div class="table-container">
-                                {{ utils.table("static/MIDES_PANSON.xlsx", onclick_cell='selectSizeTable(this);', skip_rows=[0])|safe }}
-                            </div>
+				{{ talles_macros.info_talles() }}
+				
                         </div>
 
                 </fieldset>
