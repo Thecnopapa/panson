@@ -21,7 +21,7 @@
 			<div class="contacte-emails">{{ loc.foo_email_bespoke }} <a href="mailto:{{ loc.email_bespoke }}">{{ loc.email_bespoke }}</a></div>
 		</div>
 		<div id=contacte-right>
-			{{ contact_form() }}
+			{{ contact_form(prefix=False, subject=False) }}
 		</div>
 	</div>
 </div>
@@ -32,11 +32,11 @@
 			<form class=email-form method=POST action="/{{ loc.lan }}/send_email/{{ target }}/">
 				<div class=sender-details>
                     {% if name %}
-					<label for=sender-name class=email-label>{{ loc.con_nom }}
+					<label for=sender-name class="email-label sender-name-label">{{ loc.con_nom }}
 						<input required type=text autocomplete=name class="email-input bottom-border-input sender-name" name="sender-name"></label>
                     {% endif %}
                 {% if email %}
-					<label for=sender-email class=email-label>{{ loc.con_email }}
+					<label for=sender-email class="email-label sender-email-label">{{ loc.con_email }}
 						<input required type=email autocomplete=email class="email-input bottom-border-input sender-email" name="sender-email"></label>
                 {% endif %}
 				</div>
