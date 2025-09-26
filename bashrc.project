@@ -140,7 +140,8 @@ alias top="echo -en \"\033]0;Top\a\" && top"
 
 alias please="sudo"
 
-
+gcloud config set project $PROJECT_NAME
+gcloud auth application-default set-quota-project $PROJECT_NAME
 
 pull(){
 	GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
