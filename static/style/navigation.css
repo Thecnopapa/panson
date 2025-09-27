@@ -2,8 +2,14 @@
 /* Add styles here */
 
 @font-face {
-  font-family: myFont;
-  src: url('/static/fonts/AlteHaasGroteskRegular.ttf');
+    font-family: myFont;
+    font-weight: normal;
+    src: url('/static/fonts/AlteHaasGroteskRegular.ttf');
+}
+@font-face {
+    font-family: myFont;
+    font-weight: bold;
+    src: url('/static/fonts/AlteHaasGroteskBold.ttf');
 }
 
 * {
@@ -67,6 +73,9 @@ html{
     -webkit-user-drag: none;
     -webkit-tap-highlight-color: transparent;
 
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
 }
 
 
@@ -97,8 +106,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+
     align-items: center;
 }
 
@@ -446,11 +454,12 @@ video {
     display: none;
     z-index: 50;
     border: black 0.2vh solid;
-    max-width: 80%;
     background-color: rgba(255, 255, 255, 100);
-    padding: var(--padding);
+    padding: calc(var(--padding) * 2);
+    width: calc(95% - 4 * var(--padding));
     overflow-y: scroll;
     height: fit-content;
+    max-height: calc(100% - 10vh);
 }
 
 
@@ -460,7 +469,7 @@ video {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     background-color: rgba(255, 255, 255, 0.8);
     justify-content: center;
     align-items: center;

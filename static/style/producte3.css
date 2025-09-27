@@ -171,8 +171,6 @@ body {
 }
 .popup-info{
 
-    max-width: calc(100% - 10vh);
-    max-height: calc(100% - 10vh);
 }
 #form .popup-cross{
     	display:none;
@@ -183,6 +181,7 @@ body {
     border: none;
     background-color: transparent;
     cursor: pointer;
+    color: black;
 }
 #form{
     height: fit-content;
@@ -772,9 +771,11 @@ body {
     	}
 
     .missatge-enviament{
-
-    width: 100%;
-
-}
+        width: 100%;
+    }
+    .popup-cross{
+    top: 3.7vh;
+    right:2vh;
+    }
 }
 
