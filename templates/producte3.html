@@ -86,7 +86,9 @@
                     {% endif %}
                     <div class="options">
                         {% for n in range(producte.opcions.get("n_colors", 1)) %}
-                            {{ "/" if n != 0 }}
+                            {% if n != 0 %}
+                            <div class=''>/</div>
+                            {% endif %}
                             <fieldset class="color-selector colors-producte#{{ n }}" onchange="updatePrice()">
                                 {% for color, info in producte.opcions["colors"].items() %}
                                     <label title="{{ loc["color-"+color] }}" class="colour-label {{ producte.opcions.get("extra_colors", []*n)[n] }}" style="background-color:{{ loc["colours_"+color] }};" onclick="selectColour(this)">

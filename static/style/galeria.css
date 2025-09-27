@@ -180,7 +180,7 @@
     justify-content: center;
     height: 2rem;
     width: 2rem;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 50%;
     cursor: pointer;
 }
@@ -234,6 +234,7 @@
 	border-bottom:transparent 0.1rem solid;
 	border-left: transparent 0.1rem solid;
 	cursor:pointer;
+
 }
 .galeria-arrow.left{
 	transform: translate(25%,0) rotate(-135deg);
@@ -288,10 +289,10 @@
 	}
     .detalls-principals{
 	    align-items:end;
-        font-size: 12px;
+        font-size: 0.9rem;
     }
     .preu-inline-slash{
-	    font-size: 9px;
+	    font-size: 0.8rem;
     }
     .galeria.inline .producte:not(.last){
         margin-right: calc(2dvw / 3);

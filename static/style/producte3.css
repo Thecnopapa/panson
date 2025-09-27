@@ -60,6 +60,7 @@ body {
 }
 
 #main-details{
+    font-size: 0.9rem;
 	position:absolute;
     left:58%;
 	width: 40%;
@@ -86,7 +87,7 @@ body {
     position: relative;
     height: max-content;
     width: 100%;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.25rem;
     margin-top: var(--padding);
     text-transform: uppercase;
     font-size: 1.2rem;
@@ -120,10 +121,10 @@ body {
 }
 
 #product-description {
+    font-size: 0.9rem;
     position: relative;
     height: fit-content;
-    margin-bottom: 2vh;
-    margin-top: 2vh;
+
     text-align: justify;
     width:100%;
     white-space: pre-line;
@@ -135,7 +136,8 @@ body {
 }
 .info{
 	width:100%;
-    padding-top: 5vh;
+    padding-top: 4vh;
+    font-size: 0.9rem;
 }
 
 .desplegable{
@@ -148,21 +150,24 @@ body {
     justify-content: space-between;
     align-items: center;
     height: fit-content;
-    margin-top: 0.2vh;
-    margin-bottom: 0.2vh;
     font-weight: normal;
 }
 
 .info-desplegable {
     display: none;
-    padding:1%;
+    width: 100%;
+    margin-top: 0.7rem;
+
+
 }
 .info-desplegable > p {
     margin-top: 0.25rem;
+    margin-bottom: 0;
 }
 .info-desplegable > ul {
     margin-top: 0.25rem;
     padding-left: 2.5vh;
+    padding-bottom: 0;
 }
 .subtitol-desplegable {
     margin-bottom: 0;
@@ -170,7 +175,7 @@ body {
 .titol-desplegable .arrow{
 }
 .popup-info{
-
+    font-size: 0.9rem;
 }
 #form .popup-cross{
     	display:none;
@@ -191,12 +196,12 @@ body {
     position: relative;
     align-items: center;
     justify-content: center;
-    padding-bottom: 2vh;
-    padding-top: 2vh;
+    padding-bottom: 4vh;
+    padding-top: 4vh;
 
 }
 #info-talles{
-    margin-top: 4vh;
+    margin-top: 2vh;
 
 }
 #buy-options{
@@ -204,12 +209,12 @@ body {
     position:relative;
 	display:flex;
     flex-direction: column;
-    padding-bottom: 2vh;
+
 }
 .option-field legend{
     padding:0;
     margin:0;
-    margin-bottom: 0.5vh;
+
 }
 
 .option-field{
@@ -365,7 +370,6 @@ body {
 .add-to-cart{
     width: 100%;
     min-height: 5vh;
-    margin-top: 1vh;
     display:flex;
     align-items: center;
     justify-content: center;
@@ -401,13 +405,13 @@ body {
 .missatge-enviament{
     display: none;
     flex-direction: column;
-    margin-top: 1.5vh;
+    margin-top: 1vh;
     font-size: 0.8rem;
-    width: 80%;
+    width: 90%;
 
     font-style: italic;
     text-align: center ;
-    justify-content: center
+    justify-content: center;
 }
 .no-border{
     border: none;
@@ -632,9 +636,9 @@ body {
 		justify-content:space-between;
 	}
 	.arrows .arrow{
-		height: 0.8rem;
-		width: 0.8rem;
-		min-width: 0.8rem;
+		height: 0.7rem;
+		width: 0.7rem;
+		min-width: 0.7rem;
 		border-top:black 0.1rem solid;
 		border-right: black 0.1rem solid;
 		border-bottom:transparent 0.1rem solid;
@@ -683,6 +687,7 @@ body {
             height:fit-content;
             position: revert;
             max-height: fit-content;
+            padding-top: 4vh;
 
         }
 
@@ -707,7 +712,7 @@ body {
 
     	#titol_producte{
         	font-size: 1.25rem;
-        	margin-bottom: 1rem;
+        	margin-bottom: 0.25rem;
     	}
 
     	.info{
@@ -715,11 +720,11 @@ body {
     	}
 
     	#product-description{
-        	margin-top: 0;
+
     	}
 
     	#initial-price{
-        	margin-bottom: 2rem;
+            font-size: 0.9rem;
     	}
 
     	.options{
@@ -727,9 +732,7 @@ body {
     	}
 
     	.color-selector{
-        	width:fit-content;
-        	min-width: 100%;
-        	justify-content: space-evenly;
+
     	}
 
     	.colour-label[style*="background-color:white"] {
@@ -771,11 +774,14 @@ body {
     	}
 
     .missatge-enviament{
-        width: 100%;
+        color: gray;
     }
     .popup-cross{
     top: 3.7vh;
     right:2vh;
+    }
+    #footer{
+        margin-top: 8vh;
     }
 }
 

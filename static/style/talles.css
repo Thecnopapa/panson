@@ -30,11 +30,12 @@ table {
 
 td, th{
     margin: 1%;
-    text-align: right;
+    text-align: center;
     width: min-content;
     min-width: min-content;;
     min-height: fit-content;
     border: 1px solid #000000;
+
 }
 tr{
 
