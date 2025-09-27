@@ -118,6 +118,8 @@ def upload_images(path_dict, bucket):
     print1("Uploaded images")
     return fnames
 
+
+
 class Storage:
     def __init__(self):
         self.base_url = "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/{}?alt=media"

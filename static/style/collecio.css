@@ -70,7 +70,7 @@
 }
 
 
-@media screen and (orientation: portrait) {
+@media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
 	.galeria-landscape{
 		display:none;
 	}

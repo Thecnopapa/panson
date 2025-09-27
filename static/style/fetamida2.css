@@ -178,7 +178,7 @@
 }
 
 
-@media screen and (orientation: portrait) {
+@media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
     #content-fetamida{
         margin-top: 10vh !important;
 

@@ -302,15 +302,19 @@ body {
     display: flex;
     flex-direction: row;
     border:none;
-    margin-right: 4vh;
+    margin-right: var(--padding);
+    margin-left: var(--padding);
     height: 3vh;
     align-items: center;
     width: fit-content;
     min-width: fit-content;
 }
+.color-selector:first-child{
+    margin-left: 0;
+}
 .colour-label{
-    height: 2vh;
-    width: 2vh;
+    height: 1rem;
+    width: 1rem;
     min-width:2vh;
     border-radius: 50%;
     margin-right: 0.5vh;
@@ -319,18 +323,18 @@ body {
 }
 
 .pro-pedra-gran{
-    height: 2.2vh;
-    width: 2.2vh;
-    min-width:2.2vh;
-    margin-right: 0.4vh;
-    margin-left: 0.4vh;
+    height: 1rem;
+    width: 1rem;
+    min-width:1rem;
+    margin-right: 0.1rem;
+    margin-left: 0.1rem;
 }
 .pro-pedra-petita{
-    height: 1.8vh;
-    width: 1.8vh;
-    min-width: 1.8vh;
-    margin-right: 0.6vh;
-    margin-left: 0.6vh;
+    height: .9rem;
+    width: .9rem;
+    min-width: .9rem;
+    margin-right: 0.2rem;
+    margin-left: 0.2rem;
 }
 
 .colour-label:has(> .hidden-input[checked=true]){
@@ -588,7 +592,7 @@ body {
 
 
 
-@media screen and (orientation: portrait) {
+@media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
 	.bubble-container{
 		position:relative;
 		margin-top: 0.5rem;

@@ -256,7 +256,7 @@
 
 
 
-@media screen and (orientation: portrait) {
+@media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
 
     .filtre-buttons{
         margin-top: calc(var(--padding) * 1.5);

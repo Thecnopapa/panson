@@ -153,7 +153,7 @@
 
 
 
-@media screen and (orientation: portrait) {
+@media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
 
 	#columnes-contacte{
 		flex-direction:column;

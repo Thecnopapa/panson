@@ -522,7 +522,7 @@ video {
     }
 }
 
-@media screen and (orientation: portrait) {
+@media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
 
     html{
         font-size: 16px;

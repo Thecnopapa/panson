@@ -234,7 +234,10 @@ async function miscUpdate(target, del=false, sure=false){
 
 
 async function uploadFiles(trigger, clone=undefined){
-	bucket = currentBucket;
+	let bucket = trigger.parentElement.attributes.bucket.value;
+    if (bucket === undefined){
+        bucket = currentBucket;
+    }
 	const files = trigger.files;
 	let uploadedFiles = []
 	for (let i = 0; i < files.length; i++){
@@ -435,14 +438,27 @@ async function showImgDetails(image){
     newImage.classList.add("img-details-img");
     newImage.addEventListener("mouseover", function(event){event.target.scrollIntoView();});
     newContainer.appendChild(newImage);
+    
     let newInfo = document.createElement("div");
     newInfo.classList.add("img-details-info");
     newInfo.addEventListener("mouseover", function(event){event.target.scrollIntoView({block: "end"});});
     newContainer.appendChild(newInfo);
+    let deleteButton = document.createElement("div");
+    deleteButton.addEventListener("click", e => {
+        deleteImage(e)
+        containerCloser.click();
+        image.remove()
+    })
+    deleteButton.classList.add("img-details-delete");
+    deleteButton.setAttribute("bucket", bucket);
+    deleteButton.setAttribute("filename", filename);
+    deleteButton.innerText = "ESBORRAR";
+    newInfo.appendChild(deleteButton);
     let newInfoTable = document.createElement("table");
     newInfoTable.classList.add("img-details-table");
     newInfo.addEventListener("mouseover", function(event){event.target.parentElement.scrollIntoView({block: "end"});});
     newInfo.appendChild(newInfoTable);
+
 
     let imgInfo = await fetch("/admin/files/info",{
         method: "POST",
@@ -460,6 +476,23 @@ async function showImgDetails(image){
         newInfo.addEventListener("mouseover", function(event){event.parentElement.parentElement.scrollIntoView({block: "end"});});
     }
 
+}
+
+async function deleteImage(event){
+    let filename = event.target.attributes.filename.value;
+    let bucket = event.target.attributes.bucket.value
+    if (filename === undefined || bucket === undefined){
+        return false
+    }
+    let r = await fetch("/admin/images/delete", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({bucket:bucket, filename: filename})
+    })
+    event.target.remove()
+    return true
 }
 
 

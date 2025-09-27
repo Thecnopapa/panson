@@ -78,7 +78,7 @@ a{
 }
 
 
-@media screen and (orientation: portrait) {
+@media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
     #footer {
         width: 100%;
         max-width: 100%;

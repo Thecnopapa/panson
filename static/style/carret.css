@@ -5,7 +5,7 @@
     z-index: 20;
 }
 
-@media screen and (orientation: portrait) {
+@media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
 
 }
 
@@ -211,7 +211,7 @@
 }
 
 
-@media screen and (orientation: portrait) {
+@media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
     #close-carret {
 
     }

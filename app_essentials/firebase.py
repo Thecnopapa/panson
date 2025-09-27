@@ -106,7 +106,7 @@ def get_cols(as_dict=False, amagats=False, esborrats=False):
     from app_essentials.products import Collection
     raw = collections.stream()
     cols = {c.id:c.to_dict() for c in raw}
-    print("COLS:", cols)
+    #print("COLS:", cols)
     if as_dict:
         return cols
     else:

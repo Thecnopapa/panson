@@ -678,6 +678,18 @@ def upload_image(bucket):
         return data["filename"]
 
 
+@app.post("/admin/images/delete")
+def delete_image():
+    if admin_check():
+        r = request.get_json()
+        from app_essentials.localisation import Images
+        imgs = Images()
+        filename = r["filename"]
+        bucket = r["bucket"]
+        imgs.delete(bucket, filename)
+        return "", 200
+
+
 
 @app.post("/admin/files/info")
 def get_file_info(data=None):
