@@ -169,10 +169,21 @@ body {
 }
 .titol-desplegable .arrow{
 }
+.popup-info{
 
+    max-width: calc(100% - 10vh);
+    max-height: calc(100% - 10vh);
+}
 #form .popup-cross{
     	display:none;
     }
+.popup-cross{
+    top: 4.3vh;
+    right:4.3vh;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
 #form{
     height: fit-content;
     display: flex;

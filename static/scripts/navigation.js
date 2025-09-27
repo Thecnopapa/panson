@@ -30,7 +30,7 @@ function loadAllImages() {
     loadImages("normal");
     loadImages("slow");
     loadImages("video");
-    preloadHiddenImages();
+    //preloadHiddenImages();
 }
 
 

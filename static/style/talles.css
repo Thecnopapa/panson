@@ -10,6 +10,7 @@
 
 
 .table-container{
+    margin-top: 1em;
     width: calc(100%);
     max-width: calc(100%);
     overflow-x: scroll;
