@@ -15,6 +15,7 @@
     max-width: calc(100%);
     overflow-x: scroll;
     min-height: fit-content;
+    height: fit-content;
 }
 
 table {
@@ -22,6 +23,7 @@ table {
     position: relative;
     height:fit-content;
     min-height: fit-content;
+    height: fit-content;
 
 }
 
@@ -29,8 +31,8 @@ table {
 td, th{
     margin: 1%;
     text-align: right;
-    width: 10%;
-    min-width: max-content;;
+    width: min-content;
+    min-width: min-content;;
     min-height: fit-content;
     border: 1px solid #000000;
 }
@@ -56,4 +58,9 @@ tr:first-child {
         position: sticky;
 
     }
+}
+
+
+@media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
+
 }

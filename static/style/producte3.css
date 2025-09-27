@@ -683,6 +683,7 @@ body {
             min-height: fit-content;
             height:fit-content;
             position: revert;
+            max-height: fit-content;
 
         }
 
@@ -769,9 +770,7 @@ body {
         	height:5%;
         	width:5%;;
     	}
-        .popup-info {
-            padding:2vh;
-        }
+
     .missatge-enviament{
 
     width: 100%;

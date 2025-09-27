@@ -306,7 +306,7 @@ function showPopup(popupContent, cross=true) {
 	console.log("Showing Popup");
     popupContent = popupContent.cloneNode(true);
     popupContent.addEventListener("click", function(event) {event.stopPropagation()});
-    popupContent.style.display = "flex";
+    popupContent.style.display = "block";
     document.body.style.cursor = undefined;
     hideBackgound(popupContent, cross);
     document.documentElement.style.overflow = "hidden";
