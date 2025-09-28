@@ -31,7 +31,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
-    width: 100%;
+    width: 60%;
     height: 100%;
     scroll-snap-type: both mandatory;
     
@@ -74,7 +74,7 @@ body {
     padding-top:7vh;
     padding-left:var(--padding);
     padding-right: var(--padding);
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: white;
     overflow-y: scroll;
     max-height: 93vh;
     scroll-behavior: smooth;
