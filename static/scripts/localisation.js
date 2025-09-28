@@ -47,12 +47,14 @@ async function editLoc(event){
 	locEditor.style.left = String(targetPosX) + "px";
 	locEditor.style.top = String(targetPosY) + "px";
 	target.after(locEditor);
+    locInput.focus();
 
 
 }
 
 
 async function updateLocElement(e){
+    e.preventDefault();
 	target = e.target.parentElement.previousElementSibling;
 	console.log(target);
 	let r = await updateLoc(target.attributes.loc.value, e.target.value, doc.lang );

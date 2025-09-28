@@ -34,8 +34,8 @@
 <div id="scroll-right" class="scroller" onclick="nextSection()"></div>
 <div id="content-fetamida">
     <div id="section-menu">
-            <div id="to-first" class="to-section left" onclick="toSection(0)">{{ loc.fam_boto_1 }}</div>
-            <div id="to-second" class="to-section center" onclick="toSection(1)">{{ loc.fam_boto_2 }}</div>
+            <div id="to-first" class="to-section left loc" onclick="toSection(0)" loc="fam_boto_1">{{ loc.fam_boto_1 }}</div>
+            <div id="to-second" class="to-section center loc" onclick="toSection(1)" loc="fam_boto_2">{{ loc.fam_boto_2 }}</div>
 	    <div class="to-section portrait" onclick="showEmailForm(document.getElementsByClassName('fetamida-contact')[0])">{{ loc.fam_contactens }}</div>
     </div>
     <div id="sections-fetamida">
@@ -48,9 +48,9 @@
 
         </div>
     </div>
-<div class="open-contact landscape" onclick="showEmailForm(this.nextElementSibling)">{{ loc.fam_contactens }}</div>
+<div class="open-contact landscape loc" onclick="showEmailForm(this.nextElementSibling)" loc="fam_contactens">{{ loc.fam_contactens }}</div>
 
-    <div class="fetamida-contact"><div class="contact-header">{{ loc.fam_contactens_titol }}</div>{{ contact.contact_form(target="bespoke", subject=False, prefix=False) }}</div>
+    <div class="fetamida-contact"><div class="contact-header loc" loc="fam_contactens_titol">{{ loc.fam_contactens_titol }}</div>{{ contact.contact_form(target="bespoke", subject=False, prefix=False) }}</div>
 </div>
 
 

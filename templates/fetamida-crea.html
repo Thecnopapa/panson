@@ -8,26 +8,26 @@
             </div>
         </div>
         <div id="crea-proces" class="fetamida-crea-page">
-            <div class="crea-proces-title">{{ loc.crea_proces_titol }}</div>
+            <div class="crea-proces-title loc" loc="crea_proces_titol">{{ loc.crea_proces_titol }}</div>
             <div class="crea-steps">
-                <div id="step-1" class="crea-step">
-                    <span><span class="step-number">1.</span><b>{{ loc.crea_pas_1_titol }}</b></span>
-                    <div class="crea-step-text">{{ loc.crea_pas_1 }}</div>
+                <div id="step-1" class="crea-step normal-image" background="{{ imgs.get_url("fetamida", "IMG_8363.JPG") }}">
+                    <span><span class="step-number" >1.</span><b class="loc" loc="crea_pas_1_titol">{{ loc.crea_pas_1_titol }}</b></span>
+                    <div class="crea-step-text loc" loc="crea_pas_1">{{ loc.crea_pas_1 }}</div>
                 </div>
-                <div id="step-1" class="crea-step">
-                    <span><span class="step-number">2.</span><b>{{ loc.crea_pas_2_titol }}</b></span>
-                    <div class="crea-step-text">{{ loc.crea_pas_2 }}</div>
+                <div id="step-1" class="crea-step normal-image" background="{{ imgs.get_url("fetamida", "IMG_8367.JPG") }}">
+                    <span><span class="step-number">2.</span><b class="loc" loc="crea_pas_2_titol">{{ loc.crea_pas_2_titol }}</b></span>
+                    <div class="crea-step-text loc" loc="crea_pas_2">{{ loc.crea_pas_2 }}</div>
                 </div>
-                <div id="step-1" class="crea-step">
-                    <span><span class="step-number">3.</span><b>{{ loc.crea_pas_3_titol }}</b></span>
-                    <div class="crea-step-text">{{ loc.crea_pas_3 }}</div>
+                <div id="step-1" class="crea-step normal-image">
+                    <span><span class="step-number">3.</span><b class="loc" loc="crea_pas_3_titol">{{ loc.crea_pas_3_titol }}</b></span>
+                    <div class="crea-step-text loc" loc="crea_pas_3">{{ loc.crea_pas_3 }}</div>
                 </div>
             </div>
         </div>
         <div id="crea-encarrec" class="fetamida-crea-page">
             <div class="encarrec-info">
-                <div class="encarrec-title">{{ loc.crea_encarrec_titol }}</div>
-                {{ loc.crea_encarrec_detalls | safe}}
+                <div class="encarrec-title loc" loc="crea_encarrec_titol">{{ loc.crea_encarrec_titol }}</div>
+                <div class="loc" loc="crea_encarrec_detalls">{{ loc.crea_encarrec_detalls | safe}}</div>
             </div>
             <div class="encarrec-image"></div>
         </div>
