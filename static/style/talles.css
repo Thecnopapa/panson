@@ -61,6 +61,12 @@ tr:first-child {
     }
 }
 
+@media screen and (orientation:landscape) {
+    .table-container{
+        margin-top:2em;
+    }
+
+}
 
 @media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
 
