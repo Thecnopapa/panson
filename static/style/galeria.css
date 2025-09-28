@@ -19,15 +19,19 @@
 
 .filtre-buttons{
     margin-top: calc(var(--padding) * 1.5);
-        margin-bottom: calc(var(--padding) * 1.5);
+    margin-bottom: calc(var(--padding) * 1.5);
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	width: fit-content;
-    max-width: 100%;
+    min-width: var(--padded-width);
+    max-width: var(--padded-width);
 	flex-direction:row;
 	align-items: center;
     height: fit-content;
 	overflow-x:scroll;
+    position: relative;
+    padding-left: var(--padding);
+    padding-right: var(--padding);
 }
 
 .filtre{
@@ -38,6 +42,13 @@
 	cursor:pointer;
 	pointer-events: auto;
 }
+.filtre.first{
+    margin-left:0;
+}
+.filtre.last{
+    margin-right:0;
+}
+
 
 .filtre.active{
 	border-bottom: 1px black solid;
@@ -262,10 +273,10 @@
     .filtre-buttons{
         margin-top: calc(var(--padding) * 1.5);
         margin-bottom: calc(var(--padding) * 1.5);
+        justify-content: start;
     }
     .filtre{
-        margin-right: var(--padding);
-        margin-left: var(--padding);
+
     }
     .galeria-scroll{
         display: none;

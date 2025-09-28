@@ -180,14 +180,7 @@ body {
 #form .popup-cross{
     	display:none;
     }
-.popup-cross{
-    top: 4.3vh;
-    right:4.3vh;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    color: black;
-}
+
 #form{
     height: fit-content;
     display: flex;
@@ -776,10 +769,7 @@ body {
     .missatge-enviament{
         color: gray;
     }
-    .popup-cross{
-    top: 3.7vh;
-    right:2vh;
-    }
+
     #footer{
         margin-top: 8vh;
     }

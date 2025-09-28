@@ -183,7 +183,7 @@ function openMenu() {
     closeCart()
     //console.log('Open menu');
     if(window.innerHeight > window.innerWidth){
-       menu.style.width = "80%";
+       menu.style.width = "100%";
 	    //print(menuClosers);
        menuClosers[0].style.width = "20dvw";
 	    menuClosers[1].style.width = "20dvw";

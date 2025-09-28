@@ -44,6 +44,7 @@ async function editLoc(event){
 
 
 	locEditor.appendChild(locInput);
+    locEditor.addEventListener("click", (e) => {e.stopPropagation()});
 	locEditor.style.left = String(targetPosX) + "px";
 	locEditor.style.top = String(targetPosY) + "px";
 	target.after(locEditor);

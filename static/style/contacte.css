@@ -30,6 +30,7 @@
 
 #contacte-right{
  width:50%;
+    margin:0;
  
 }
 
@@ -64,32 +65,34 @@
     position: relative;
     height: 100%;
     min-height: fit-content;
-    padding-left: 0;
+    /*padding-left: 0;*/
 }
 
 .contacte-emails{
-	margin-top:var(--padding);
+	margin-top:0;
 	width:100%;
 }
 
 .email-label{
 	display:flex;
 	flex-direction:column;
-    	min-width: 30%;
+    min-width: 30%;
 	margin:var(--padding);
 	width: 40%;
-    	margin-bottom: var(--padding);
+    margin-bottom: var(--padding);
 }
 
 
 .email-input{
-	width: calc(100% - var(--padding));
+    margin-top:0.5rem;
+	width: var(--padded-width);
     display:flex;
 
 }
 .message{
 	height:30vh;
 	resize: vertical;
+    margin-bottom: 2vh;
 }
 .sender-name-label{
 	width: calc(40% - 2 * var(--padding));
@@ -154,7 +157,11 @@
 
 
 @media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
-
+    #content-contacte{
+        height:fit-content;
+        min-height: fit-content;
+        margin-bottom: 10vh;
+    }
 	#columnes-contacte{
 		flex-direction:column;
 		
@@ -163,9 +170,9 @@
 		width:auto;
 	}
 	#contacte-left{
-		border-bottom: 1px black solid;
-		padding-bottom: 3vh;
+		padding-bottom: 5vh;
 	}
+
 }
 
 

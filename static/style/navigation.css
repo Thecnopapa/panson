@@ -110,10 +110,16 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-
+    overflow: hidden;
     align-items: center;
 }
 
+input, textarea, select {
+    border-radius: 0;
+    border-color: black;
+    color: black;
+    background-color: transparent;
+}
 
 video {
 	margin:auto;
@@ -460,10 +466,11 @@ video {
     border: black 0.2vh solid;
     background-color: rgba(255, 255, 255, 100);
     padding: calc(var(--padding) * 2);
-    width: calc(95% - 4 * var(--padding));
+    width: calc(100% - 10vh - var(--padding) * 2);
+
     overflow-y: scroll;
     height: fit-content;
-    max-height: calc(100% - 10vh);
+    max-height: calc(90% - var(--padding) * 2);
 }
 
 
@@ -481,10 +488,13 @@ video {
 }
 .popup-cross {
     position: absolute;
-    right: 0;
-    top: 0;
+    top: 4.1vh;
+    right:4.3vh;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: black;
 }
-
 
 
 
@@ -596,5 +606,12 @@ video {
         display: none;
     }
     .popup-info{
+        width: calc(100% - 5vh - var(--padding) * 2);
+        max-height: calc(95% - var(--padding) * 2);
+
+    }
+    .popup-cross{
+        top: 2vh;
+        right:2vh;
     }
 }

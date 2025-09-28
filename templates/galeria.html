@@ -40,8 +40,8 @@
         {% if filtres %}
             <div class="filtre-buttons">
                 <div class="filtre-buttons-gradient"></div>
-                {% for filtre in loc.filtres %}
-                    <div class="filtre" filterKey="{{ filtre["field"] }}" filterValue="{{ filtre["value"] }}" onclick="filterGaleria(this)">{{ loc[filtre["nom"]] }}</div>
+                {% for n, filtre in utils.enumerate(loc.filtres) %}
+                    <div class="filtre {{ "first" if n==0 }} {{ "last" if n+1 == utils.len(loc.filtres) }}" filterKey="{{ filtre["field"] }}" filterValue="{{ filtre["value"] }}" onclick="filterGaleria(this)">{{ loc[filtre["nom"]] }}</div>
                 {% endfor %}
             </div>
 
