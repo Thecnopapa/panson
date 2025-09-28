@@ -497,6 +497,27 @@ def update_field():
         localisation.document("languages").collection("text").document(data["page"]).update(new_data)
     return ""
 
+@limiter.exempt
+@app.post("/admin/loc/update")
+def update_loc():
+    if admin_check():
+        print("Updating loc")
+        data = request.get_json()
+        label = data["label"]
+        value = data["value"]
+        lan = data["lan"]
+        print(label, value, lan)
+        from app_essentials.utils import split_multiple
+        comps = split_multiple(label, "_", "-")
+        page = comps[0]
+        key = "-".join(comps[1:])
+        from app_essentials.firebase import localisation
+        prev_data = localisation.document("languages").collection("text").document(page).get().to_dict()
+        new_data = prev_data
+        new_data[key][lan] = value
+        localisation.document("languages").collection("text").document(page).update(new_data)
+        return "", 200
+
 
 @limiter.exempt
 @app.post("/admin/loc/delete-field")
