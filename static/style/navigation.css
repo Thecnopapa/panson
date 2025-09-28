@@ -172,13 +172,14 @@ video {
     justify-content: space-between;
     z-index: 99;
     font-size: 0.75rem;
-
 }
 .accept-cookies {
+    margin-left: 2rem;
     padding: 0.5rem 2rem ;
     min-height: 0;
     height: fit-content;
 }
+
 
 
 .navigation {
