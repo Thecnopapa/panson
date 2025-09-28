@@ -30,6 +30,12 @@ async function editLoc(event){
 	let locEditor = document.createElement("div");
 	locEditor.classList.add("loc-editor");
 	locEditor.setAttribute("draggable", true);
+
+	let locTitle = document.createElement("div");
+	locTitle.classList.add("loc-title");
+	locTitle.innerText = target.attributes.loc.value;
+	locEditor.appendChild(locTitle);
+
 	let locInput = document.createElement("textarea");
 	locInput.classList.add("loc-input");
 	locInput.innerText = target.innerText;

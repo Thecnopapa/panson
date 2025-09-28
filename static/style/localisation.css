@@ -9,11 +9,14 @@
 
 .loc-editor{
 	position:absolute;
-	padding-top:1rem;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: rgba(0, 0, 0, 0.3);
 	margin-top:-1rem;
-	field-sizing: content;
 
+}
+
+.loc-title{
+	height:1rem;
+	max-height:1rem;
 }
 .loc-input{
 	background-color:white;
