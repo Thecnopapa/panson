@@ -17,10 +17,10 @@
                     {% endif %}
                     {%endif%}
                     {% if item["material"] %}
-                        <div class="producte-carret-material is-carret hide">{{ loc.car_talla }}: {{ item.material}}</div>
+                        <div class="producte-carret-material is-carret hide loc" loc="car_talla">{{ loc.car_talla }}: {{ item.material}}</div>
                     {% endif %}
                     {% if item["variacio"] %}
-                        <div class="producte-carret-variacio is-carret {{ "hide" if item.variacio == "null" }}">{{ loc.car_variacio }}: {{ item.variacio}}</div>
+                        <div class="producte-carret-variacio is-carret {{ "hide" if item.variacio == "null" }}"><span class="is-carret loc" loc="car_variacio">{{ loc.car_variacio }}</span>{{ item.variacio}}</div>
                     {% endif %}
                     {% if item["color"] %}
                         <div class="producte-carret-color is-carret {{ "hide" if item.color == "null" }}">
@@ -36,7 +36,7 @@
                         <div class="producte-carret-quantitat is-carret" price="{{ item.preu[0] }}">{{ item.quantity }}</div>
                                     <img class="carret-plus delete-item is-carret" src="/static/media/plus.svg" onclick="modifyItem(this.previousElementSibling,{{ n }}, 'increase')" alt="increase">
                     </div>
-                                    <div class="producte-carret-delete is-carret" onclick="deleteItem(this.parentElement.parentElement, {{ n }})">{{ loc.car_eliminar }}</div>
+                                    <div class="producte-carret-delete is-carret loc" onclick="deleteItem(this.parentElement.parentElement, {{ n }})" loc="car_eliminar">{{ loc.car_eliminar }}</div>
 
                 </div>
 

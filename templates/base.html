@@ -17,6 +17,13 @@
     <link href='/style/carret.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/scripts/navigation.js"></script>
     <script defer type="text/javascript" src="/scripts/cart.js"></script>
+
+    {% if user.is_admin %}
+        <link href='/style/localisation.css' as='style' rel='preload'>
+        <link href='/style/localisation.css' rel='stylesheet'>
+        <script defer src="/scripts/localisation.js"></script>
+    {% endif %}
+
 {% block imports %}
 
 {% endblock %}

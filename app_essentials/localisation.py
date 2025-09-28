@@ -139,7 +139,11 @@ class Images:
 
 class Localisation2:
     def __init__(self, lan="cat"):
-        self.lan = lan
+        self.available_languages = ["cat", "en"]
+        if lan not in self.available_languages:
+            self.lan = self.available_languages[0]
+        else:
+            self.lan = lan
         self.db = localisation
         self.preloaded = {}
         self.misc_ref = localisation.document("misc")

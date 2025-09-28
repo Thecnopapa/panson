@@ -23,10 +23,10 @@
 		<div id="admin-common">
 			<div id="admin-header"></div>
 			<div id=admin-menu>
-                <button onclick="window.location.href='/admin/productes/'">Productes</button>
-				<button onclick="window.location.href='/admin/bespoke/'">Fet a mida</button>
-				<button onclick="window.location.href='/admin/collecions/'">Collecions</button>
-				<button onclick="window.location.href='/admin/localisation/'">Gestio pagina</button>
+                <button onclick="window.location.href='/admin/productes/'" class="loc" loc="admin-menu-productes">{{ loc.admin_menu_productes }}</button>
+				<button onclick="window.location.href='/admin/bespoke/'" class="loc" loc="admin-menu-bespoke">{{ loc.admin_menu_bespoke }}</button>
+				<button onclick="window.location.href='/admin/collecions/'" class="loc" loc="admin-menu-collecions">{{ loc.admin_menu_collecions }}</button>
+				<button onclick="window.location.href='/admin/localisation/'" class="loc" loc="admin-menu-localisation">{{ loc.admin_menu_localisation }}</button>
 				{% if user.username == "iain" %}
 
                     <button onclick="window.location.href='/admin/imatges/'">Imatges</button>
