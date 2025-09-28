@@ -11,6 +11,12 @@ class User(firebaseObject):
         self.preferits = []
         self.is_admin = False
         self.accepted_cookies = False
+        self.cookies = {
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'ad_storage': 'denied',
+            'analytics_storage': 'denied'
+        }
         self.username = None
         self.password = None
 

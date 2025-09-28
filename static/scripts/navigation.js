@@ -139,10 +139,30 @@ function scrollOnLoad(id) {
 
 
 
-function acceptCookies(){
-	fetch("/acceptar_cookies", {method:"POST"});
+async function acceptCookies(){
+    let acceptedAnalytics = "denied";
+    if(document.getElementById("accept-analytics").checked === true){
+        acceptedAnalytics = "granted";
+        consentAnalytics()
+    }
+    console.log(acceptedAnalytics);
+
+
+	await fetch("/acceptar_cookies", {
+        method:"POST",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify({"cookies":{
+          'ad_storage': 'denied',
+          'ad_user_data': 'denied',
+          'ad_personalization': 'denied',
+          'analytics_storage': acceptedAnalytics
+        }})
+    });
 	const banner = document.getElementById("cookies");
 	banner.style.display = "none";
+    //window.location.reload()
 }
 
 

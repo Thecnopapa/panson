@@ -29,7 +29,11 @@
 
 
 {% if not user.accepted_cookies %}
-        <div id=cookies class="request-cookies">{{ loc.nav_cookie_banner }}<button class="accept-cookies black-button" onclick="acceptCookies()">{{ loc.nav_cookie_button }}</button></div>
+        <div id=cookies class="request-cookies">
+            {{ loc.nav_cookie_banner }}
+            <span><input type=checkbox checked value="on" id="accept-analytics"><span class="loc" loc="nav_cookie_analytics">{{ loc.nav_cookie_analytics }}</span>
+            <button class="accept-cookies black-button" onclick="acceptCookies()">{{ loc.nav_cookie_button }}</button></span>
+        </div>
     {% endif %}
 
 {% if hide_title %}

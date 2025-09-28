@@ -115,7 +115,8 @@ limiter = Limiter(
 
 @app.before_request
 def make_session_permanent():
-    session.permanent = True
+    #session.permanent = True
+    pass
 
 
 def admin_check():
@@ -160,19 +161,27 @@ def get_talla():
 
 @app.post("/acceptar_cookies")
 def acceptar_cookies():
+    print("Accepting cookies")
     user = get_current_user()
+    r = request.get_json()
     user.accepted_cookies = True
+    user.cookies = r["cookies"]
+    print(user.cookies)
     user.update_db()
+    session.permanent = True
     return ""
 
 from werkzeug.utils import secure_filename
 from flask import url_for, send_from_directory
+
+
+
+@app.route("/<lan>/tic/")
+def tic(lan):
+    return template(templates="terms", lan=lan)
+
+
 @limiter.exempt
-
-
-#TODO: NOT SAFE!
-
-
 @app.route("/static/<folder>/<file>")
 @app.route("/static/<file>")
 def get_static(file, folder=None):
