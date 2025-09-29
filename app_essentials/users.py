@@ -23,10 +23,13 @@ class User(firebaseObject):
             'ad_storage': 'denied',
             'analytics_storage': 'denied'
         }
+        self.sessions = []
         self.username = None
         self.password = None
 
         super().__init__(data, id)
+        if self._id not in self.sessions:
+            self.sessions.append(self._id)
         self.recalculate()
 
     def recalculate(self):
@@ -45,7 +48,7 @@ class User(firebaseObject):
         name = product.nom
         price = product.calculate_price(**options)[0]
         imgs = Images()
-        images = [imgs.get_url("productes", i) for i in product.imatges[:min(8, len(product.imatges))]]
+        images = [imgs.get_url("productes", product.imatges[0])]
 
         description = ""
         if options.get("talla", None) is not None:
@@ -60,13 +63,16 @@ class User(firebaseObject):
             description = description[:-2]
 
         data = dict(
+            active = True,
             images = images,
             name=name,
             description=description,
-            metadata={
-                'id2': id2,
-                "product_id": product_id,
-            }
+            metadata=dict(
+                pagat="No",
+                id2= id2,
+                product_id= product_id,
+                **options
+            )
         )
         self.cart[id2] = dict(
             product_id=product_id,

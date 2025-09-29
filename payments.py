@@ -1,11 +1,13 @@
 
 import os
+import uuid
+
 from flask import request, redirect
 from app_essentials.session import get_current_user
 from app_essentials.mail import *
 
 import stripe
-
+currency="EUR"
 
 try:
     with open(os.environ["STRIPE_KEY"]) as f:
@@ -17,10 +19,28 @@ except:
 
 def create_items(user):
     cart = user.cart
-    return cart
+    items = []
+    for item in cart.values():
+        stripe_product = stripe.Product.create(
+            default_price_data = dict(
+                currency = currency,
+                unit_amount = item["price"]*100,
+            ),
+            **item["data"])
+        print("product ", stripe_product)
+        items.append(dict(price=stripe_product.default_price, quantity=item["quantity"]))
+    print("items", items)
+    return items
 
 def create_customer(user):
-    pass
+    user_id = user._id
+    try:
+        return stripe.Customer.retrieve(user_id)
+    except:
+        return stripe.Customer.create(
+            id=user_id,
+        )
+
 
 
 def init_checkout(lan):
@@ -28,8 +48,27 @@ def init_checkout(lan):
     items = create_items(user)
     customer = create_customer(user)
 
+    checkout_session = stripe.checkout.Session.create(
+        mode='payment',
+        customer=customer,
+        line_items=items,
 
-    return "<br>".join([str(user), str(items), str(customer)])
+        billing_address_collection="required",
+        shipping_address_collection={
+            "allowed_countries": ["ES"],
+        },
+        phone_number_collection={
+            "enabled": True,
+        },
+
+        success_url= request.url_root+"{}/checkout/success".format(lan),
+        cancel_url=request.headers["Referer"],
+    )
+    user.last_checkout = checkout_session.id
+    user.update_db()
+    return redirect(checkout_session.url, code=303)
+    #return "<br>".join([str(user), str(items), str(customer)])
+
 
 
 
@@ -77,34 +116,35 @@ def stripe_checkout(items, lan, origin=None):
 
 def process_payment(lan):
     user = get_current_user()
-    session = stripe.checkout.Session.retrieve(user.stripe_session["id"])
-    line_items = stripe.checkout.Session.list_line_items(user.stripe_session["id"], limit=100)
+    session = stripe.checkout.Session.retrieve(user.last_checkout)
+    line_items = stripe.checkout.Session.list_line_items(user.last_checkout, limit=100)
     print(session)
     print(line_items)
     if session["status"] == "complete" and session["payment_status"] == "paid":
-        send_email(
-            recipient="{}".format(session["customer_details"]["email"]),
-            subject="Compra realitzada amb exit",
-            sender="ventes",
-            temp="email_compra",
-            name="{}".format(session["customer_details"]["name"]),
-            cc="a_client",
-            details=session,
-            items = line_items,
-        )
-        send_email(
-                recipient="info_compra",
-                sender="ventes",
-                subject="Detalls de compra realitzada",
-                temp="email_compra_internal",
-                internal_recipient=True,
-                details=session,
-                items=line_items,
-                )
+        # send_email(
+        #     recipient="{}".format(session["customer_details"]["email"]),
+        #     subject="Compra realitzada amb exit",
+        #     sender="ventes",
+        #     temp="email_compra",
+        #     name="{}".format(session["customer_details"]["name"]),
+        #     cc="a_client",
+        #     details=session,
+        #     items = line_items,
+        # )
+        # send_email(
+        #         recipient="info_compra",
+        #         sender="ventes",
+        #         subject="Detalls de compra realitzada",
+        #         temp="email_compra_internal",
+        #         internal_recipient=True,
+        #         details=session,
+        #         items=line_items,
+        #         )
 
 
 
-        user.move_to_favourites()
+        #user.move_to_favourites()
+        pass
     else:
         return None
     return session
