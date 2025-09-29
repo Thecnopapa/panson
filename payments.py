@@ -16,6 +16,7 @@ except:
 
 
 
+
 def stripe_checkout(items, lan, origin=None):
     DOMAIN = request.url_root+"{}/checkout/".format(lan)
     user = get_current_user()
@@ -39,6 +40,9 @@ def stripe_checkout(items, lan, origin=None):
                 "allowed_countries": ["ES"],
             },
             client_reference_id=user._id,
+            phone_number_collection={
+                "enabled": True,
+            },
 
         )
     except Exception as e:
@@ -53,6 +57,9 @@ def stripe_checkout(items, lan, origin=None):
 def process_payment(lan):
     user = get_current_user()
     session = stripe.checkout.Session.retrieve(user.stripe_session["id"])
+    line_items = stripe.checkout.Session.list_line_items(user.stripe_session["id"], limit=100)
+    print(session)
+    print(line_items)
     if session["status"] == "complete" and session["payment_status"] == "paid":
         send_email(
             recipient="{}".format(session["customer_details"]["email"]),
@@ -61,7 +68,21 @@ def process_payment(lan):
             temp="email_compra",
             name="{}".format(session["customer_details"]["name"]),
             cc="a_client",
+            details=session,
+            items = line_items,
         )
+        send_email(
+                recipient="info_compra",
+                sender="ventes",
+                subject="Detalls de compra realitzada",
+                temp="email_compra_internal",
+                internal_recipient=True,
+                details=session,
+                items=line_items,
+                )
+
+
+
         user.move_to_favourites()
     else:
         return None

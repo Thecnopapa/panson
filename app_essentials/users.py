@@ -8,6 +8,7 @@ class User(firebaseObject):
     bucket = "usuaris"
     def __init__(self, data, id):
         self.carret = {}
+        self.cart ={}
         self.preferits = []
         self.is_admin = False
         self.accepted_cookies = False
@@ -23,6 +24,21 @@ class User(firebaseObject):
         super().__init__(data, id)
         self.n_carret = sum([item["quantity"] for item in self.carret.values()])
         self.total_carret = sum([item["quantity"] * item["preu"][0] for item in self.carret.values()])
+
+    def create_product(id, options, quantity=1):
+        prod = Products().get_single(id)
+        return stripe.Product.create(
+                name=prod.nom,
+                metadata={k:str(v) for k,v in options.items()},
+                )
+    def delete_product(id):
+        return stripeProduct.delete(id)
+
+
+
+
+
+
 
     def move_to_favourites(self):
         self.preferits = list(set(self.preferits + [i["id"].split("&")[0] for i in self.carret.values()]))
@@ -72,6 +88,7 @@ class User(firebaseObject):
             color = item.get("color", None)
             talla = item.get("talla", None)
             talla_es = item.get("talla_es", None)
+            talla_country = item.get("talla_country", None)
 
             price = product.calcular_preu(material, variacio, color)[0]*100
 
@@ -79,13 +96,13 @@ class User(firebaseObject):
             if talla is not None:
                 description += "Talla: {}/ ".format(talla)
             if talla_es is not None:
-                description += "TallaES: {} ".format(talla)
+                description += "TallaES: {} /".format(talla_es)
             if material is not None:
-                description += "Material: {}/ ".format(material)
+                description += "Material: {} / ".format(material)
             if variacio is not None:
-                description += "Variacio: {}/ ".format(variacio)
+                description += "Variacio: {} / ".format(variacio)
             if color is not None:
-                description += "Color: {}/".format(color)
+                description += "Color: {} /".format(color)
             if description[-1] == "/":
                 description = description[:-1]
 
@@ -97,12 +114,21 @@ class User(firebaseObject):
                     "product_data": {
                         "name": item["id"],
                         "description": description,
-                    }
+                        "metadata": dict(
+                            talla=talla,
+                            talla_es=talla_es,
+                            material=material,
+                            color=str(color),
+                            variacio=variacio,
+                            talla_country=talla_country,
+                            ),
+                        }
                 },
                 "quantity": item["quantity"],
                 "adjustable_quantity": {
                     "enabled": True,
-                }
+                },
+                
             }
             items.append(i)
         return items

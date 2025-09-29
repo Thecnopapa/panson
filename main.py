@@ -341,6 +341,7 @@ def afegir_al_carret():
             return resp
     opcions["talla"] = talla
     opcions["talla_es"] = talla_es
+    opcions["talla_country"] = talla_country
     print("OPCIONS: ", opcions)
     user.add_producte_carret(id=request.form["id"], opcions_seleccionades=opcions)
 
