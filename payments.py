@@ -33,11 +33,17 @@ def stripe_checkout(items, lan, origin=None):
             #],
             mode='payment',
             success_url=DOMAIN + "success",
-            cancel_url=request.headers["Referer"]
+            cancel_url=request.headers["Referer"],
+            billing_address_collection="required",
+            shipping_address_collection={
+                "allowed_countries": ["ES"],
+            },
+            client_reference_id=user._id,
 
         )
     except Exception as e:
-        return str(e)
+        print(e)
+        return "Error"
     user.stripe_session = checkout_session
     user.update_db()
     return redirect(checkout_session.url, code=303)
@@ -54,6 +60,7 @@ def process_payment(lan):
             sender="ventes",
             temp="email_compra",
             name="{}".format(session["customer_details"]["name"]),
+            cc="a_client",
         )
         user.move_to_favourites()
     else:

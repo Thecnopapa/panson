@@ -176,7 +176,7 @@ from flask import url_for, send_from_directory
 
 
 
-@app.route("/<lan>/tic/")
+@app.route("/<lan>/tic")
 def tic(lan):
     return template(templates="terms", lan=lan)
 
