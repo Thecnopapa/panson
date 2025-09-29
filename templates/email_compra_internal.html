@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<div class="email-body">
+
+	S'ha realitzat una comanda:<br>
+	<br>
+	- Nom: {{ details["customer_details"]["name"]}}<br>
+	- Correu {{ details["customer_details"]["email"]}}<br>
+	- Adreça:<br>
+	&#9;- Nom: {{ details["collected_information"]["shipping_details"]["name"] }}<br>
+	{% for k, v in details["collected_information"]["shipping_details"]["address"].items() %}
+	&#9;- {{k}}: {{v}}<br>
+	{% endfor %}
+	<br>
+	Productes:<br>
+	{% for item in items["data"] %}
+	&#9;- Nom: {{item["description"]}}<br>
+	&#9;&#9;- Quantitat: {{ item["quantity"]}}
+	&#9;&#9;- Detalls: {{item["metadata"]}}
+	{% endfor %}
+
+	
+
+	<br><br><br>
+	{{ items }}
+	<br><br><br>
+
+	{{details }}
+</div>
