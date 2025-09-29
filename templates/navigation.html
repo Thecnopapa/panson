@@ -106,7 +106,7 @@
         {% endfor %}
     <div class = "cart" id="cart-button" onclick="openCart()">
         <img class="shopping-cart" src="/static/media/bag-black.svg" alt="cart">
-        <div class="cercle-carret cart-counter">{{ user.n_carret if user.n_carret > 0 }}</div>
+        <div class="cercle-carret cart-counter">{{ user._n_cart if user._n_cart > 0 }}</div>
 
         </div>
     </div>

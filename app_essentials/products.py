@@ -35,7 +35,11 @@ class Product(firebaseObject):
             self._imatges2 *= 4//nimg
             self._imatges2 += self._imatges2[:nimg%nimg]
 
-
+    def generate_id2(self, options={}):
+        id2 = self._id
+        for key, value in sorted(options.items(), key=lambda item: item[0]):
+            id2 += "&{}:{}".format(key, value)
+        return id2
 
     def calcular_preu_minim(self):
         p = 0
@@ -49,7 +53,7 @@ class Product(firebaseObject):
             p += min([data["preu"] for color, data in self.opcions["colors"].items()]) * self.opcions.get("n_colors", 1)
         return p
 
-    def calcular_preu(self, material = None, variacio = None, color = None, **kwargs):
+    def calculate_price(self, material = None, variacio = None, color = None, **kwargs):
         p = 0
         nones = [None, "None", "none", "null", "[]", ""]
         if material in nones:

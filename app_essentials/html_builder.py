@@ -38,10 +38,10 @@ def common_kwargs(**kwargs):
     kwargs["productes_filtrats"] = kwargs["productes_filtrats"].get_all()
     kwargs["max_gallery"] = kwargs.get("max_gallery", len(kwargs["productes_filtrats"]))
     kwargs["user"] = get_current_user()
-    kwargs["cart"] = kwargs["user"].carret
-    for k, v in kwargs["cart"].items():
-        #print(v)
-        v["producte"] = kwargs["productes"].get_single(v["id"])
+    kwargs["cart"] = kwargs["user"].cart
+    # for k, v in kwargs["cart"].items():
+    #     #print(v)
+    #     v["producte"] = kwargs["productes"].get_single(v["product_id"])
 
     #print("##### USER ####")
     #print(kwargs["user"])

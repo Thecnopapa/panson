@@ -15,6 +15,27 @@ except:
     print("Stripe key could not be read")
 
 
+def create_items(user):
+    cart = user.cart
+    return cart
+
+def create_customer(user):
+    pass
+
+
+def init_checkout(lan):
+    user = get_current_user()
+    items = create_items(user)
+    customer = create_customer(user)
+
+
+    return "<br>".join([str(user), str(items), str(customer)])
+
+
+
+
+
+
 
 
 def stripe_checkout(items, lan, origin=None):

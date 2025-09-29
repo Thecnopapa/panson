@@ -2,13 +2,95 @@ from app_essentials.firebase import firebaseObject
 from app_essentials.products import Products, get_talla_es
 from app_essentials.utils import str_to_list
 import hashlib
+from app_essentials.localisation import Images
+
+
 
 
 class User(firebaseObject):
     bucket = "usuaris"
+
+    def __init__(self, data, id):
+        self.cart = {}
+        self._n_cart = 0
+        self._total_cart = 0
+        self.favourites = []
+        self.is_admin = False
+        self.accepted_cookies = False
+        self.cookies = {
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'ad_storage': 'denied',
+            'analytics_storage': 'denied'
+        }
+        self.username = None
+        self.password = None
+
+        super().__init__(data, id)
+        self.recalculate()
+
+    def recalculate(self):
+        self._n_cart = sum([item["quantity"] for item in self.cart.values()])
+        self._total_cart = sum([item["quantity"] * item["price"] for item in self.cart.values()])
+
+
+    def move_to_favourites(self):
+        self.favourites = list(set(self.favourites + [item["product_id"].split("&")[0] for item in self.cart.values()]))
+        self.cart = {}
+        self.update_db()
+
+    def add_to_cart(self, product_id, options={}, quantity=1):
+        product = Products().get_single(product_id)
+        id2 = product.generate_id2(options)
+        name = product.nom
+        price = product.calculate_price(**options)[0]
+        imgs = Images()
+        images = [imgs.get_url("productes", i) for i in product.imatges[:min(8, len(product.imatges))]]
+
+        description = ""
+        if options.get("talla", None) is not None:
+            description += "Talla: {}/ ".format(options["talla"])
+        if options.get("material", None) is not None:
+            description += "Material: {} / ".format(options["material"])
+        if options.get("variacio", None) is not None:
+            description += "Variacio: {} / ".format(options["variacio"])
+        if options.get("color", None) is not None:
+            description += "Color: {} /".format(options["color"])
+        if description[:-2] == "/ ":
+            description = description[:-2]
+
+        data = dict(
+            images = images,
+            name=name,
+            description=description,
+            metadata={
+                'id2': id2,
+                "product_id": product_id,
+            }
+        )
+        self.cart[id2] = dict(
+            product_id=product_id,
+            quantity=quantity,
+            price=price,
+            options=options,
+            data=data,
+        )
+        self.update_db()
+
+
+
+
+
+
+
+
+
+
+class UserOld(firebaseObject):
+    bucket = "usuaris"
     def __init__(self, data, id):
         self.carret = {}
-        self.cart ={}
+        self.cart = {}
         self.preferits = []
         self.is_admin = False
         self.accepted_cookies = False
@@ -32,10 +114,7 @@ class User(firebaseObject):
                 metadata={k:str(v) for k,v in options.items()},
                 )
     def delete_product(id):
-        return stripeProduct.delete(id)
-
-
-
+        return stripe.Product.delete(id)
 
 
 

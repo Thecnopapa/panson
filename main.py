@@ -32,7 +32,7 @@ try:
         print(" * Failed to read firestore secret")
     try:
         with open("secure/stripe_key", "w") as f:
-            f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/stripe_key_thecnopapa_test/versions/2"}).payload.data.decode("UTF-8"))
+            f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/stripe_key_thecnopapa_test/versions/1"}).payload.data.decode("UTF-8"))
     except:
         print(" * Failed to read stripe key")
     try:
@@ -335,15 +335,18 @@ def afegir_al_carret():
             talla = "{}({})".format(talla, talla_country)
             if talla_country != "es":
                 talla_es = "{}".format(get_talla_es(talla_country, talla_multi))
-            else: talla_es = talla_multi
+                opcions["talla_country"] = talla_country
+            else:
+                talla_es = talla
+            opcions["talla_es"] = talla_es
         else:
             resp.headers["missing-val"] = "unit"
             return resp
     opcions["talla"] = talla
-    opcions["talla_es"] = talla_es
-    opcions["talla_country"] = talla_country
+
+
     print("OPCIONS: ", opcions)
-    user.add_producte_carret(id=request.form["id"], opcions_seleccionades=opcions)
+    user.add_to_cart(request.form["id"], opcions)
 
     resp.status_code = 200
     resp.headers["refresh"] = 0
@@ -361,17 +364,17 @@ def render_cart(lan):
 @app.post("/productes/carret/<pos>/<qty>")
 def alterar_carret(pos, qty):
     user = get_current_user()
-    for n, (k, v) in enumerate(user.carret.items()):
+    for n, (k, v) in enumerate(user.cart.items()):
         if n == int(pos):
             if int(qty) <= 0:
-                user.carret.pop(k)
+                user.cart.pop(k)
 
                 break
             v["quantity"] = int(qty)
             break
     user.recalculate()
     user.update_db()
-    print(user.carret)
+    #print(user.cart)
     return "", 204
 
 
@@ -390,11 +393,8 @@ def eliminar_del_carret(lan, id2):
 @limiter.exempt
 @app.route("/<lan>/checkout/")
 def checkout(lan):
-    user = get_current_user()
-    items = user.generate_items()
-
-    from payments import stripe_checkout
-    return stripe_checkout(items, lan=lan)
+    from payments import init_checkout
+    return init_checkout(lan)
 
 @limiter.exempt
 @app.route("/<lan>/checkout/success/")

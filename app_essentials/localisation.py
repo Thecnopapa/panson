@@ -166,7 +166,7 @@ class Localisation2:
 
 
     def get_misc(self, label, value):
-        print("getting misc: {}:{}".format(label, value))
+        #print("getting misc: {}:{}".format(label, value))
         try: 
             field = self.misc[label]
             if value is None:
