@@ -32,7 +32,7 @@ try:
         print(" * Failed to read firestore secret")
     try:
         with open("secure/stripe_key", "w") as f:
-            f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/stripe_key_thecnopapa_test/versions/1"}).payload.data.decode("UTF-8"))
+            f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/stripe_key_thecnopapa_test/versions/2"}).payload.data.decode("UTF-8"))
     except:
         print(" * Failed to read stripe key")
     try:

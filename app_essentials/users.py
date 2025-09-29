@@ -67,6 +67,7 @@ class User(firebaseObject):
             images = images,
             name=name,
             description=description,
+            shippable=True,
             metadata=dict(
                 pagat="No",
                 id2= id2,
