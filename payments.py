@@ -22,18 +22,26 @@ def create_items(user):
     cart = user.cart
     items = []
     for item in cart.values():
+        print(item["data"])
         stripe_item = dict(
-            adjustable_quantity=True,
+            adjustable_quantity={
+                "enabled": True
+            },
+            quantity=item["quantity"],
             price_data = dict(
                 currency = currency,
                 unit_amount = item["price"]*100,
+                #product= product["id"],
                 product_data = dict(
-                    **item["data"]
-                )
+                    **item["data"],
+                    #name=item["data"]["name"],
+                    # description = item["data"]["description"],
+                    # images = item["data"]["images"],
+                    # metadata = item["data"]["metadata"],
+                ),
             ),
             # shippable=True,
             # active = True,
-
         )
         print("Stripe item: ", stripe_item)
         items.append(stripe_item)
