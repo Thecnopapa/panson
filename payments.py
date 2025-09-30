@@ -199,15 +199,18 @@ def process_payment(lan):
     line_items = stripe.checkout.Session.list_line_items(user.last_checkout, limit=100)
     print(session)
     print(line_items)
+    for line_item in line_items["data"]:
+        print(line_item)
+    #payment=session["payment"]
     if session["status"] == "complete" and session["payment_status"] == "paid":
         while session["invoice"] is None:
             print(session["invoice"])
             session = stripe.checkout.Session.retrieve(user.last_checkout)
             time.sleep(1)
-        print(session["invoice"])
+        #print(session["invoice"])
         invoice = stripe.Invoice.send_invoice(session["invoice"])
-        print("invoice:")
-        print(invoice)
+        #print("invoice:")
+        #print(invoice)
         # send_email(
         #         recipient="info_compra",
         #         sender="ventes",
@@ -235,4 +238,4 @@ def process_payment(lan):
         pass
     else:
         return None
-    return dict(session=session, invoice=invoice)
+    return dict(session=session, invoice=invoice, items=line_items)

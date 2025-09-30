@@ -135,7 +135,11 @@ video {
 
 
 
-
+.selectable{
+    user-select: text;
+    -moz-user-select: text;
+    -webkit-user-select: text;
+}
 
 .clickable{
     cursor: pointer;
