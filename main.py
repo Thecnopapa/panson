@@ -422,9 +422,9 @@ def calculate_shipping_options_route(lan):
 def stripe_success(lan):
     from payments import process_payment
 
-    customer_session = process_payment(lan=lan)
+    payment_data = process_payment(lan=lan)
 
-    html = template(lan=lan, templates="success", cs=customer_session)
+    html = template(lan=lan, templates="success", **payment_data)
     return html
 
 

@@ -6,17 +6,27 @@
 
 {% block imports %}
     <link href='/style/stripe.css' as='style' rel='preload'>
+    <link href='/scripts/success.js' as='script' rel='preload'>
 
     <link href='/style/stripe.css' rel='stylesheet'>
+    <script defer type="text/javascript" src="/scripts/success.js"></script>
 {% endblock %}
 
 {% block body %}
-
+<script>
+window.onload = function(){
+    showInvoice("{{ invoice['hosted_invoice_url'] }}");
+}
+</script>
   <div class="content-success">
-      Compra realitzada amb exit! Qualsevol dubte contacti amb:
-      <a href="mailto:panson.joieria@gmail.com">panson.joieria@gmail.com</a>.
-      <a href="/{{ loc.lan }}/productes/">Tornar a la botiga</a>.
-      {{ cs }}
+      <h4>Compra realitzada amb exit!</h4>
+      <p>En breus rebras la confirmacio de pagament a: {{ session["customer_details"]["email"] }}</p>
+      <p>Qualsevol dubte contacti amb:</p>
+      <a href="{{ loc.email_sales }}">{{ loc.email_sales }}</a>
+      <br><br>
+      <b><a href="/{{ loc.lan }}/productes/">Tornar a la botiga</a></b>
+      <br><br>
+      <span>ID de pagament: <a target="_blank" href="{{ invoice['hosted_invoice_url'] }}">{{ invoice["number"] }}</a></span>
   </div>
 
 {% endblock %}

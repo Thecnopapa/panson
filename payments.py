@@ -181,45 +181,6 @@ def init_checkout(lan):
 
 
 
-
-
-def stripe_checkout(items, lan, origin=None):
-    DOMAIN = request.url_root+"{}/checkout/".format(lan)
-    user = get_current_user()
-    user.stripe_session = None
-    try:
-        print(items)
-        checkout_session = stripe.checkout.Session.create(
-            line_items=items,
-            #line_items=[
-            #    {
-            #        # Provide the exact Price ID (for example, price_1234) of the product you want to sell
-            #        'price': '{{PRICE_ID}}',
-            #        'quantity': 1,
-            #    },
-            #],
-            mode='payment',
-            success_url=DOMAIN + "success",
-            cancel_url=request.headers["Referer"],
-            billing_address_collection="required",
-            shipping_address_collection={
-                "allowed_countries": ["ES"],
-            },
-            client_reference_id=user._id,
-            phone_number_collection={
-                "enabled": True,
-            },
-
-        )
-    except Exception as e:
-        print(e)
-        return "Error"
-    user.stripe_session = checkout_session
-    user.update_db()
-    return redirect(checkout_session.url, code=303)
-
-
-
 def process_payment(lan):
     user = get_current_user()
     session = stripe.checkout.Session.retrieve(user.last_checkout)
@@ -262,4 +223,4 @@ def process_payment(lan):
         pass
     else:
         return None
-    return session
+    return dict(session=session, invoice=invoice)
