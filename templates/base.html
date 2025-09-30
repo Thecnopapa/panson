@@ -28,6 +28,8 @@
 
 {% endblock %}
 </head>
+
+{% block tag %}
 <script>
 // Define dataLayer and the gtag function.
 window.dataLayer = window.dataLayer || [];
@@ -61,6 +63,7 @@ gtag('consent', 'default', {
     });
   }
 </script>
+{% endblock %}
 
 <body>
 	{% import 'cart.html' as cart_macros with context %}

@@ -2,7 +2,8 @@
 import os
 import uuid
 
-from flask import request, redirect
+
+from flask import request, redirect, jsonify
 from app_essentials.session import get_current_user
 from app_essentials.mail import *
 
@@ -21,14 +22,21 @@ def create_items(user):
     cart = user.cart
     items = []
     for item in cart.values():
-        stripe_product = stripe.Product.create(
-            default_price_data = dict(
+        stripe_item = dict(
+            adjustable_quantity=True,
+            price_data = dict(
                 currency = currency,
                 unit_amount = item["price"]*100,
+                product_data = dict(
+                    **item["data"]
+                )
             ),
-            **item["data"])
-        print("product ", stripe_product)
-        items.append(dict(price=stripe_product.default_price, quantity=item["quantity"]))
+            # shippable=True,
+            # active = True,
+
+        )
+        print("Stripe item: ", stripe_item)
+        items.append(stripe_item)
     print("items", items)
     return items
 
@@ -41,32 +49,117 @@ def create_customer(user):
             id=user_id,
         )
 
+shipping_areas = {
+    "spain": ["ES"],
+    "europe_a": ["AT", "BE", "DE", "FR", "IT", "PT", "LU", "PL", "NL"],
+    "europe_b":[],
+    "world":[],
+}
+
+
+
+
+
+# Return a boolean indicating whether the shipping details are valid
+def validate_shipping_details(shipping_details):
+    print("shipping details", shipping_details)
+    try:
+        print("Target Country: ", shipping_details["address"]["country"])
+        return True
+    except:
+        return False
+
+def get_area_shipping_rates(area=None):
+    all_rates = [r for r in stripe.ShippingRate.list(limit=20) if r["active"]]
+    target_rates = []
+    if area is None:
+        return all_rates
+    for rate in all_rates:
+        try:
+            if rate["metadata"]["area"] == area:
+                target_rates.append(rate.id)
+        except:
+            pass
+    return target_rates
+
+# Return an array of the updated shipping options or the original options if no update is needed
+def calculate_shipping_options(shipping_details):
+    shipping_area = None
+    country = shipping_details["address"]["country"]
+    for area, codes in shipping_areas.items():
+        if country in codes:
+            shipping_area = area
+            break
+    available_rates = get_area_shipping_rates(shipping_area)
+    return available_rates
+
+
+
+def update_shipping_options(shipping_details, checkout_session_id):
+
+    # 2. Validate the shipping details
+    if not validate_shipping_details(shipping_details):
+        print("Invalid Shipping Details")
+        return jsonify({'type': 'error', 'message': "Country not valid or not elegible for shipping. Please choose a different address or get in touch by email."}), 400
+
+    # 3. Calculate the shipping options
+    shipping_options = calculate_shipping_options(shipping_details)
+    if len(shipping_options) == 0:
+        print("No shipping options available")
+        return jsonify({'type': 'error', 'message': "We can't ship to your address. Please choose a different address or get in touch by email."}), 400
+
+    print("shipping options", shipping_options)
+    # 4. Update the Checkout Session with the customer's shipping details and shipping options
+    stripe.checkout.Session.modify(
+        checkout_session_id,
+        collected_information={'shipping_details': shipping_details},
+        shipping_options=[{"shipping_rate":so} for so in shipping_options]
+    )
+    print("Shipping options updated:")
+    [print(stripe.ShippingRate.retrieve(so)) for so in shipping_options]
+    return jsonify({'type': 'accept', 'value': {'succeeded': True}})
+
+    #return jsonify({'type': 'error', 'message': "We can't find shipping options. Please try again."}), 400
+
+
+
+
+
+
 
 
 def init_checkout(lan):
     user = get_current_user()
     items = create_items(user)
     customer = create_customer(user)
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            mode='payment',
+            ui_mode="embedded",
+            #customer=customer,
+            line_items=items,
+            permissions={"update_shipping_details": "server_only"},
+            billing_address_collection="required",
+            shipping_options=[{"shipping_rate":so} for so in  get_area_shipping_rates()],
+            shipping_address_collection={
+                "allowed_countries": shipping_areas["spain"] + shipping_areas["europe_a"] + shipping_areas["europe_b"] + shipping_areas["world"],
+            },
+            phone_number_collection={
+                "enabled": True,
+            },
 
-    checkout_session = stripe.checkout.Session.create(
-        mode='payment',
-        customer=customer,
-        line_items=items,
-
-        billing_address_collection="required",
-        shipping_address_collection={
-            "allowed_countries": ["ES"],
-        },
-        phone_number_collection={
-            "enabled": True,
-        },
-
-        success_url= request.url_root+"{}/checkout/success".format(lan),
-        cancel_url=request.headers["Referer"],
-    )
+            #success_url= request.url_root+"{}/checkout/success".format(lan),
+            #cancel_url=request.headers["Referer"],
+            return_url=request.url_root+"{}/checkout/success".format(lan),
+        )
+    except Exception as e:
+        print("ERROR")
+        print(e)
+        return str(e)
     user.last_checkout = checkout_session.id
     user.update_db()
-    return redirect(checkout_session.url, code=303)
+    return jsonify(clientSecret=checkout_session.client_secret)
+    #return redirect(checkout_session.url, code=303)
     #return "<br>".join([str(user), str(items), str(customer)])
 
 
@@ -122,6 +215,15 @@ def process_payment(lan):
     print(line_items)
     if session["status"] == "complete" and session["payment_status"] == "paid":
         # send_email(
+        #         recipient="info_compra",
+        #         sender="ventes",
+        #         subject="Detalls de compra realitzada",
+        #         temp="email_compra_internal",
+        #         internal_recipient=True,
+        #         details=session,
+        #         items=line_items,
+        #         )
+        # send_email(
         #     recipient="{}".format(session["customer_details"]["email"]),
         #     subject="Compra realitzada amb exit",
         #     sender="ventes",
@@ -131,15 +233,7 @@ def process_payment(lan):
         #     details=session,
         #     items = line_items,
         # )
-        # send_email(
-        #         recipient="info_compra",
-        #         sender="ventes",
-        #         subject="Detalls de compra realitzada",
-        #         temp="email_compra_internal",
-        #         internal_recipient=True,
-        #         details=session,
-        #         items=line_items,
-        #         )
+
 
 
 

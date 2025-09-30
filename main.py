@@ -5,7 +5,7 @@ import os
 from utilities import *
 
 # WEB-RELATED IMPORTS
-from flask import Flask, render_template, redirect, request, make_response, session
+from flask import Flask, render_template, redirect, request, make_response, session, jsonify
 import requests
 from werkzeug.middleware.proxy_fix import ProxyFix
 from google.cloud import secretmanager
@@ -32,7 +32,7 @@ try:
         print(" * Failed to read firestore secret")
     try:
         with open("secure/stripe_key", "w") as f:
-            f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/stripe_key_thecnopapa_test/versions/2"}).payload.data.decode("UTF-8"))
+            f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/stripe_key_thecnopapa_test/versions/1"}).payload.data.decode("UTF-8"))
     except:
         print(" * Failed to read stripe key")
     try:
@@ -390,13 +390,34 @@ def eliminar_del_carret(lan, id2):
 
 
 
-@limiter.exempt
-@app.route("/<lan>/checkout/")
+
+@app.post("/<lan>/checkout/init")
 def checkout(lan):
     from payments import init_checkout
     return init_checkout(lan)
 
-@limiter.exempt
+
+@app.route("/<lan>/checkout/stripe")
+def stripe_checkout(lan):
+    return template(lan=lan, templates="stripe_checkout")
+
+
+
+@app.post("/<lan>/checkout/update/shipping")
+def calculate_shipping_options_route(lan):
+    print("Calculating shipping options")
+    request_data = request.get_json()
+    checkout_session_id = request_data.get('checkout_session_id')
+    print("CHECKOUT SESSION ID: {}".format(checkout_session_id))
+    shipping_details = request_data.get('shipping_details')
+    from payments import update_shipping_options
+    return update_shipping_options(shipping_details, checkout_session_id)
+
+
+
+
+
+
 @app.route("/<lan>/checkout/success/")
 def stripe_success(lan):
     from payments import process_payment
@@ -800,6 +821,7 @@ def fetamida(lan):
     html = template(lan=lan, templates="fetamida4")
     return html
 
+@app.route("/<lan>/fetamida/intro")
 @app.route("/<lan>/fetamida/intro")
 def fetamida_intro(lan):
     html = template(lan=lan, templates="fetamida-intro")

@@ -26,7 +26,7 @@
                         <div class="producte-carret-color is-carret {{ "hide" if item["options"]["color"] == "null" }}">
 
                             {% for n, col in utils.enumerate(item["options"]["color"]) %}
-                                <span class="producte-carret-cercle is-carret {{ item["opcions"].get("extra_colors", [])[n] }}" style="background-color:{{ loc["colours-"+col] }}"></span>
+                                <span class="producte-carret-cercle is-carret {{ item["extras"].get("extra_colors", [])[n] }}" style="background-color:{{ loc["colours-"+col] }}"></span>
                             {% endfor %}
                         </div>
                     {% endif %}

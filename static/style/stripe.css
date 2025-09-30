@@ -8,3 +8,12 @@
   width: 100dvw;
 
 }
+
+
+
+
+#checkout {
+    margin-top: 10vh;
+    width: 100dvw;
+    min-height: calc(100dvh - 10vh);
+}

@@ -111,6 +111,7 @@
         </div>
     </div>
 </div>
+
 <div class="content-carret is-carret" id="carret"  >
     <div class="title-carret is-carret">{{ loc.car_carret }}</div>
     <div class="is-carret" id="close-carret" onclick="closeCart()">{{ loc.car_tancar }}</div>
@@ -125,7 +126,7 @@
     <div class="footer-carret is-carret">
         
 	<div class="total-cart is-carret"><div class="total-cart-title is-carret">{{ loc.car_total }}</div><div class="total-cart-value is-carret">{{ user.total_carret }}&#8364</div></div>
-        <button class="checkout-button is-carret black-button"  onclick="location.href='/{{ loc.lan }}/checkout/'">{{ loc.car_checkout }}</button>
+        <button class="checkout-button is-carret black-button"  onclick="location.href='/{{ loc.lan }}/checkout/stripe'">{{ loc.car_checkout }}</button>
 
     </div>
 </div>

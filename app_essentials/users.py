@@ -49,6 +49,10 @@ class User(firebaseObject):
         price = product.calculate_price(**options)[0]
         imgs = Images()
         images = [imgs.get_url("productes", product.imatges[0])]
+        extras = {}
+        if product.opcions.get("extra_colors", False):
+            extras["extra_colors"] = product.opcions["extra_colors"]
+
 
         description = ""
         if options.get("talla", None) is not None:
@@ -63,16 +67,15 @@ class User(firebaseObject):
             description = description[:-2]
 
         data = dict(
-            active = True,
+
             images = images,
             name=name,
             description=description,
-            shippable=True,
             metadata=dict(
                 pagat="No",
                 id2= id2,
                 product_id= product_id,
-                **options
+                **{k:str(v) for k,v in options.items()}
             )
         )
         self.cart[id2] = dict(
@@ -81,6 +84,7 @@ class User(firebaseObject):
             price=price,
             options=options,
             data=data,
+            extras=extras,
         )
         self.update_db()
 
