@@ -38,7 +38,9 @@ async function initialize() {
     if (response.type === 'error') {
       return Promise.resolve({type: "reject", errorMessage: response.message});
     } else {
-	    document.getElementById("checkout").scrollIntoView({"block": "start"});
+	    checkoutElement = document.getElementById("checkout");
+	    //checkoutElement.scrollIntoView({"block": "start"});
+	    document.documentElement.scrollTo({top:0});
 	    r = Promise.resolve({type: "accept"});
 	    console.log(r);
       return r;
