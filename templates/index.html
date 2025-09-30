@@ -38,7 +38,7 @@
     </div>
 
 <div id="index-subtitle">{{ loc.ind_subtitol }}</div>
-    <div id="index-subtitle-more" class="clickable underlined" onclick="window.href='/{{ lan }}/productes'">{{ loc.ind_veure_mes }}</div>
+    <div id="index-subtitle-more" class="clickable underlined" onclick="location.href='/{{ lan }}/productes/'">{{ loc.ind_veure_mes }}</div>
 
     {{ galeria.galeria("productes", max_prods=8, min_prods=8, min_row=4) }}
 {% endblock %}

@@ -473,8 +473,8 @@ body {
 	display: flex;
 	flex-direction:column;
 	position: relative;
-	width: 90%;
-	min-width:90%;
+	width: 50%;
+	min-width:50%;
 	height: 90%;
 	min-height: 90%;
 	overflow-y:scroll;
@@ -751,6 +751,9 @@ body {
         .enlarged-slideshow{
             min-height:60%;
             height:60%;
+            width: 90%;
+            min-width:90%;
+
 
         }
 

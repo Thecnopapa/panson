@@ -176,6 +176,7 @@ video {
     justify-content: space-between;
     z-index: 99;
     font-size: 0.75rem;
+    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.5);
 }
 .accept-cookies {
     margin-left: 2rem;
@@ -618,5 +619,11 @@ video {
     .popup-cross{
         top: 2vh;
         right:2vh;
+    }
+    .request-cookies{
+
+    }
+    .accept-cookies {
+
     }
 }

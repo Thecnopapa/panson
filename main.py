@@ -128,11 +128,8 @@ def admin_check():
 
 @app.route("/blank")
 def return_blank():
-    from app_essentials.localisation import Images
-    imgs = Images()
-    buckets = imgs.buckets
-    print(buckets)
-    return buckets
+    from app_essentials.firebase import get_areas
+    return get_areas()
 
 @app.route("/mailgun")
 def mailgun():

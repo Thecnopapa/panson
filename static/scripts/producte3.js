@@ -306,7 +306,9 @@ function enlargeImg(img, all=true){
 	
     const newContainer = document.createElement("div");
     newContainer.classList.add("enlarged-container");
-    newContainer.addEventListener("click", function (event){newContainer.remove(); document.body.style.overflow = "unset"; newObserver.disconnect()});
+    newContainer.addEventListener("click", function (event){event.preventDefault(); event.stopPropagation(); newContainer.remove(); document.body.style.overflow = "unset"; newObserver.disconnect();});
+    newContainer.addEventListener("scroll", function (event){event.preventDefault(); event.stopPropagation();});
+
     document.body.appendChild(newContainer);
 
 	let newObserver = new IntersectionObserver(newBubbleChange, {

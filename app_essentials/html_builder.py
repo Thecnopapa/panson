@@ -63,9 +63,9 @@ def template(html="", templates=None, navigation=True, **kwargs):
             try:
                 html+= render_template(t+".html",no_head=n!=0, **kwargs)
             except:
-                kwargs["user"].cart = {}
+                kwargs["user"].remove()
+                kwargs["user"] = get_current_user()
                 kwargs["cart"] = kwargs["user"].cart
-                kwargs["user"].update_db()
                 html += render_template(t + ".html", no_head=n != 0, **kwargs)
 
 

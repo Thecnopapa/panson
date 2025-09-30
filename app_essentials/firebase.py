@@ -82,6 +82,10 @@ class firebaseObject(object):
     def __getitem__(self, key):
         return self.__getattribute__(key)
 
+    def delete(self):
+        db.collection(self.bucket).document(self._id).delete()
+
+
 def check_if_admin(username, password):
     raw = admins.where(filter=FieldFilter("username", "==", username )).where(filter=FieldFilter("password", "==", password )).stream()
     match = [a for a in raw]
@@ -89,6 +93,11 @@ def check_if_admin(username, password):
         return True
     else:
         return False
+
+def get_areas():
+    raw = localisation.document("areas").get().to_dict()
+    print(raw)
+    return raw
 
 def get_products():
     raw = prods.where(filter=FieldFilter("esborrat", "==", False, )).stream()
@@ -127,6 +136,8 @@ def get_user_data(id):
         new_user.update_db()
         return new_user
     return User(usuaris.document(id).get().to_dict(),id)
+
+
 
 
 

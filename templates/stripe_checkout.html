@@ -13,10 +13,11 @@
 
 {% block body %}
     <div id="nav-color" navColor="opaque"></div>
-
-<div id="checkout">
-        <!-- Checkout will insert the payment form here -->
-</div>
+    <div class="checkout-container">
+    <div id="checkout">
+            <!-- Checkout will insert the payment form here -->
+    </div>
     <a style="display: none" id=change_email href="/checkout/checkout/stripe/force_new">Use another Email</a>
+</div>
 
 {% endblock %}

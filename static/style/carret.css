@@ -112,6 +112,7 @@
     align-items: center;
     width: 100%;
     background: linear-gradient(to bottom,  transparent, white var(--padding));
+    min-height: fit-content;
 
 }
 .total-cart{
@@ -124,6 +125,12 @@
 }
 .total-cart-value{
 	/*font-weight: bold;*/
+}
+.detalls_pagament{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
 }
 
 .producte-carret-nom {

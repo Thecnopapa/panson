@@ -7,6 +7,7 @@ import time
 from flask import request, redirect, jsonify
 from app_essentials.session import get_current_user
 from app_essentials.mail import *
+from app_essentials.firebase import get_areas
 
 import stripe
 currency="EUR"
@@ -59,12 +60,8 @@ def create_customer(user):
         )
     return customer["id"], customer["email"]
 
-shipping_areas = {
-    "spain": ["ES"],
-    "europe_a": ["AT", "BE", "DE", "FR", "IT", "PT", "LU", "PL", "NL"],
-    "europe_b":[],
-    "world":[],
-}
+
+
 
 
 
@@ -94,9 +91,10 @@ def get_area_shipping_rates(area=None):
 
 # Return an array of the updated shipping options or the original options if no update is needed
 def calculate_shipping_options(shipping_details):
+
     shipping_area = None
     country = shipping_details["address"]["country"]
-    for area, codes in shipping_areas.items():
+    for area, codes in get_areas().items():
         if country in codes:
             shipping_area = area
             break
@@ -139,6 +137,7 @@ def update_shipping_options(shipping_details, checkout_session_id):
 
 
 def init_checkout(lan, force_new=False):
+    shipping_areas=get_areas()
     user = get_current_user()
     items = create_items(user)
     has_email = False
