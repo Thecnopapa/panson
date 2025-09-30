@@ -52,11 +52,12 @@ def create_items(user):
 def create_customer(user):
     user_id = user._id
     try:
-        return stripe.Customer.retrieve(user_id)
+        customer = stripe.Customer.retrieve(user_id)
     except:
-        return stripe.Customer.create(
+        customer = stripe.Customer.create(
             id=user_id,
         )
+    return customer["id"], customer["email"]
 
 shipping_areas = {
     "spain": ["ES"],
@@ -137,16 +138,27 @@ def update_shipping_options(shipping_details, checkout_session_id):
 
 
 
-def init_checkout(lan):
+def init_checkout(lan, force_new=False):
     user = get_current_user()
     items = create_items(user)
-    customer = create_customer(user)
+    has_email = False
+    print("force_new", force_new)
+    if force_new:
+        print("Forcing new customer")
+        customer = {"customer_creation": "always"}
+    else:
+        print("Retriving customer")
+        c = create_customer(user)
+        customer = {"customer":c[0]}
+        has_email = c[1] is not None
+        print("Customer has email?", has_email, c[1])
     try:
         checkout_session = stripe.checkout.Session.create(
             mode='payment',
             ui_mode="embedded",
+            **customer,
             #customer=customer,
-            customer_creation="always",
+            #customer_creation="if_required",
             invoice_creation={
                 "enabled": True,
                 },
@@ -171,7 +183,7 @@ def init_checkout(lan):
         return str(e)
     user.last_checkout = checkout_session.id
     user.update_db()
-    return jsonify(clientSecret=checkout_session.client_secret)
+    return jsonify(clientSecret=checkout_session.client_secret, has_email=has_email)
     #return redirect(checkout_session.url, code=303)
     #return "<br>".join([str(user), str(items), str(customer)])
 

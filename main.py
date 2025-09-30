@@ -394,12 +394,21 @@ def eliminar_del_carret(lan, id2):
 @app.post("/<lan>/checkout/init")
 def checkout(lan):
     from payments import init_checkout
-    return init_checkout(lan)
+    return init_checkout(lan, force_new=False)
+
+@app.post("/<lan>/checkout/init/force_new")
+def checkout_force(lan):
+    from payments import init_checkout
+    return init_checkout(lan, force_new=True)
 
 
 @app.route("/<lan>/checkout/stripe")
 def stripe_checkout(lan):
-    return template(lan=lan, templates="stripe_checkout")
+    return template(lan=lan, templates="stripe_checkout", force_new=False)
+
+@app.route("/<lan>/checkout/stripe/force_new")
+def stripe_checkout_force(lan):
+    return template(lan=lan, templates="stripe_checkout", force_new=True)
 
 
 
@@ -423,7 +432,8 @@ def stripe_success(lan):
     from payments import process_payment
 
     payment_data = process_payment(lan=lan)
-
+    if payment_data is None:
+        return redirect("/{}".format(lan))
     html = template(lan=lan, templates="success", **payment_data)
     return html
 

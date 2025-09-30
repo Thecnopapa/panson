@@ -27,6 +27,8 @@ window.onload = function(){
       <b><a href="/{{ loc.lan }}/productes/">Tornar a la botiga</a></b>
       <br><br>
       <span>ID de pagament: <a target="_blank" href="{{ invoice['hosted_invoice_url'] }}">{{ invoice["number"] }}</a></span>
+  <br><br> <br><br> <br><br>
+      <p>Recarregar aquesta pagina re-enviara el correu i re-mostrara el rebut.</p>
   </div>
 
 {% endblock %}

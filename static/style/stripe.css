@@ -21,3 +21,17 @@
     justify-content: center;
     align-items: center;
 }
+
+#change_email{
+    position: fixed;
+    flex-direction: column;
+    bottom:var(--padding);
+    padding-left: var(--padding);
+    padding-right: var(--padding);
+    min-height: 2rem;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--padding);
+    border: 1px solid black;
+}

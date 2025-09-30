@@ -14,10 +14,21 @@ initialize();
 async function initialize() {
   console.log("Initializing Stripe");
   const fetchClientSecret = async () => {
-    const response = await fetch("/"+document.documentElement.lang+"/checkout/init", {
+      let serverUrl = "/"+document.documentElement.lang+"/checkout/init";
+      console.log(location.pathname);
+      if (location.pathname.endsWith("/force_new")) {
+          serverUrl = serverUrl + "/force_new";
+      }
+    const response = await fetch(serverUrl, {
       method: "POST",
     });
-    const { clientSecret } = await response.json();
+      let resp = await response.json();
+    const { clientSecret } = resp;
+    if (resp["has_email"]){
+        console.log(resp);
+        console.log(resp["has_email"]);
+        document.getElementById("change_email").style.display = "flex";
+    }
     return clientSecret;
   };
 
