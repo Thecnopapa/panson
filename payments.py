@@ -145,6 +145,10 @@ def init_checkout(lan):
             mode='payment',
             ui_mode="embedded",
             #customer=customer,
+            customer_creation="always",
+            invoice_creation={
+                "enabled": True,
+                },
             line_items=items,
             permissions={"update_shipping_details": "server_only"},
             billing_address_collection="required",
@@ -222,6 +226,10 @@ def process_payment(lan):
     print(session)
     print(line_items)
     if session["status"] == "complete" and session["payment_status"] == "paid":
+        print(session["invoice"])
+        invoice = stripe.Invoice.send_invoice(session["invoice"])
+        print("invoice:")
+        print(invoice)
         # send_email(
         #         recipient="info_compra",
         #         sender="ventes",
