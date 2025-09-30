@@ -34,11 +34,14 @@ async function initialize() {
         shipping_details: shippingDetails,
       })
     })
-
+	console.log(response);
     if (response.type === 'error') {
       return Promise.resolve({type: "reject", errorMessage: response.message});
     } else {
-      return Promise.resolve({type: "accept"});
+	    document.getElementById("checkout").scrollIntoView({"block": "start"});
+	    r = Promise.resolve({type: "accept"});
+	    console.log(r);
+      return r;
     }
   };
 
@@ -49,4 +52,6 @@ async function initialize() {
 
   // Mount Checkout
   checkout.mount('#checkout');
+
 }
+

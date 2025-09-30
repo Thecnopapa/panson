@@ -1,6 +1,7 @@
 
 import os
 import uuid
+import time
 
 
 from flask import request, redirect, jsonify
@@ -226,6 +227,10 @@ def process_payment(lan):
     print(session)
     print(line_items)
     if session["status"] == "complete" and session["payment_status"] == "paid":
+        while session["invoice"] is None:
+            print(session["invoice"])
+            session = stripe.checkout.Session.retrieve(user.last_checkout)
+            time.sleep(1)
         print(session["invoice"])
         invoice = stripe.Invoice.send_invoice(session["invoice"])
         print("invoice:")
