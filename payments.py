@@ -148,7 +148,7 @@ def init_checkout(lan):
             line_items=items,
             permissions={"update_shipping_details": "server_only"},
             billing_address_collection="required",
-            shipping_options=[{"shipping_rate":so} for so in  get_area_shipping_rates()],
+            shipping_options=[{"shipping_rate":so} for so in get_area_shipping_rates("spain")],
             shipping_address_collection={
                 "allowed_countries": shipping_areas["spain"] + shipping_areas["europe_a"] + shipping_areas["europe_b"] + shipping_areas["world"],
             },
