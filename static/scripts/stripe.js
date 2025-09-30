@@ -46,7 +46,7 @@ async function initialize() {
       return r;
     }
   };
-
+  
   const checkout = await stripe.initEmbeddedCheckout({
       fetchClientSecret,
       onShippingDetailsChange,
