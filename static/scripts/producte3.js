@@ -301,13 +301,15 @@ function enlargeImg(img, all=true){
     const productName = img.attributes["product"].value;
     print(productName);
 
-    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
 
 	
     const newContainer = document.createElement("div");
     newContainer.classList.add("enlarged-container");
-    newContainer.addEventListener("click", function (event){event.preventDefault(); event.stopPropagation(); newContainer.remove(); document.body.style.overflow = "unset"; newObserver.disconnect();});
-    newContainer.addEventListener("scroll", function (event){event.preventDefault(); event.stopPropagation();});
+    newContainer.addEventListener("click", function (event){event.preventDefault(); event.stopPropagation(); newContainer.remove(); document.documentElement.style.overflow = "unset"; newObserver.disconnect();});
+    newContainer.addEventListener("scroll", function (event){event.stopPropagation();});
+    newContainer.addEventListener("touchmove", function (event){event.stopPropagation();});
+    newContainer.addEventListener("wheel", function (event){event.stopPropagation();});
 
     document.body.appendChild(newContainer);
 

@@ -467,6 +467,7 @@ body {
     align-items: center;
     cursor: zoom-out;
     overflow-y: scroll;
+
 }
 
 .enlarged-slideshow{
@@ -477,7 +478,7 @@ body {
 	min-width:50%;
 	height: 90%;
 	min-height: 90%;
-	overflow-y:scroll;
+    overflow-y: scroll;
 	scroll-snap-type: y mandatory;
 	
 }
@@ -746,7 +747,6 @@ body {
 	.producte{
 		margin-top:0 !important;
 	}
-
     
         .enlarged-slideshow{
             min-height:60%;
