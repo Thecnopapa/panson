@@ -9,8 +9,8 @@
     top: 0;
     z-index: 100;
     padding-top: 0;
-    transition: left 1s ease;
-    box-shadow: 0.2px 0px 8px rgb(115, 115, 115);
+    transition: left 400ms;
+
 }
 
 #menu.black{
@@ -22,6 +22,9 @@
 }
 #menu.open{
     left: 0;
+}
+#menu:not(.closed){
+    box-shadow: 0.2px 0px 8px rgb(115, 115, 115);
 }
 
 

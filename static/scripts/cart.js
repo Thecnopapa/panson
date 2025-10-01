@@ -14,14 +14,18 @@ function openCart(){
         cartItems[i].classList.add('open');
         cartButton.setAttribute("onclick", "closeCart()");
     }
-    if (cartIcon.length > 0){
-            cartIcon[0].src = "/static/media/bag-black.svg";
+    if (cartIcon){
+            cartIcon.src = "/static/media/bag-black.svg";
 
     }
-    if (cartCircle.length != 0){
-        	cartCircle[0].style.color = "black";
-        	cartCircle[0].style.backgroundColor = "white";
+    if (cartCircle){
+        	cartCircle.style.color = "black";
+        	cartCircle.style.backgroundColor = "white";
 	}
+    if (window.innerHeight > window.innerWidth){
+        console.log(document.documentElement)
+        document.documentElement.style.overflow = "hidden";
+    }
 }
 
 
@@ -32,6 +36,7 @@ async function closeCart(){
         cartItems[i].classList.remove('open');
         cartButton.setAttribute("onclick", "openCart()");
     }
+    document.documentElement.style.overflow = "unset";
 }
 
 

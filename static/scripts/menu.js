@@ -29,6 +29,7 @@ async function openMenu() {
         try{
             navTitle.classList.add("black");
         } catch {}
+        document.documentElement.style.overflow = "hidden";
     } else {
         targetWidth = navLeft.offsetWidth;
         menu.style.width = String(targetWidth) + "px";
@@ -39,6 +40,7 @@ async function openMenu() {
     }
     menu.style.left = "0";
     menu.classList.add('open');
+    menu.classList.remove('closed');
     botoMenuSimple.classList.add('open');
     botoMenuSimple.classList.add("black");
     navButtons.forEach(button => {
@@ -60,6 +62,7 @@ function closeMenu(override=true) {
     if (window.innerHeight > window.innerWidth){
         targetWidth =  window.innerWidth;
         menu.style.width = String(targetWidth) + "px";
+        document.documentElement.style.overflow = "unset";
     } else {
         targetWidth = navLeft.offsetWidth;
         menu.style.width = String(targetWidth) + "px";
@@ -89,6 +92,7 @@ function closeMenu(override=true) {
         hideDropdown(submenu);
     });
     menuOpen = false;
+    setTimeout(() => {menu.classList.add("closed");}, 1000)
 
 }
 
@@ -126,7 +130,7 @@ if (window.innerHeight > window.innerWidth){
     targetWidth = navLeft.offsetWidth;
     menu.style.width = String(targetWidth) + "px";
 }
-menu.style.left = String(-targetWidth) + "px";
+menu.style.left = String(-targetWidth+1) + "px";
 
 
 window.addEventListener('load', function(){
