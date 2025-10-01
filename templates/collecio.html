@@ -24,9 +24,9 @@
 {% if col.fons_blanc %}
     <div id="nav-color" color="white"></div>
 {% endif %}
-{% if imgs.get_brightness("collecions", col.imatges[0]) <127 %}
+
     <div id="nav-color" color="white"></div>
-{% endif %}
+
     <div class="collecio">
         <div class="imatge-collecio fast-image" background='{{ imgs.get_url("collecions", col.imatges[0]) }}'>
 
@@ -40,7 +40,7 @@
     {{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=col._id, min_row=1, min_prods=4, inline=True) }}
 	</div>
 	<div class=galeria-portrait>
-    {{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=col._id, min_row=1, min_prods=2, inline=True) }}
+    {{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=col._id, min_row=1, min_prods=2, inline=False) }}
         </div>
     </div>
 
