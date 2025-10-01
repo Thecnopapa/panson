@@ -28,11 +28,16 @@
 </div>
 
 
-{% if not user.accepted_cookies %}
+{% if not user.accepted_cookies or True%}
         <div id=cookies class="request-cookies">
-            <span><span class="loc" loc="nav_cookie_banner">{{ loc.nav_cookie_banner }}</span><a href="/{{ loc.lan }}/tic#tic-cookies" class="loc" loc="cookie_link">{{ loc.nav_cookie_link }}</a></span>
-            <span><input type=checkbox checked value="on" id="accept-analytics"><span class="loc" loc="nav_cookie_analytics">{{ loc.nav_cookie_analytics }}</span>
-            <button class="accept-cookies black-button" onclick="acceptCookies()">{{ loc.nav_cookie_button }}</button></span>
+            <span class="info"><span class="loc" loc="nav_cookie_banner">{{ loc.nav_cookie_banner }}</span><a href="/{{ loc.lan }}/tic#tic-cookies" class="loc" loc="cookie_link">{{ loc.nav_cookie_link }}</a></span>
+            <span class="inputs">
+		    <span>
+			    <input type=checkbox checked value="on" id="accept-analytics">
+			    <span class="loc" loc="nav_cookie_analytics">{{ loc.nav_cookie_analytics }}</span>
+		    </span>
+		    <button class="accept-cookies black-button" onclick="acceptCookies()">{{ loc.nav_cookie_button }}</button>
+	    </span>
         </div>
     {% endif %}
 

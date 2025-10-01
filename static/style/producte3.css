@@ -318,7 +318,9 @@ body {
     margin-left:0.5vh;
     font-size:0.5rem;
 }
-
+.colour-label[style*="background-color:white"] {
+                background-color:lightgray !important;
+        }
 .pro-pedra-gran{
     height: 1rem;
     width: 1rem;

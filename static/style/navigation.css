@@ -623,9 +623,22 @@ video {
         right:2vh;
     }
     .request-cookies{
-
+	    flex-direction: column;
+	    height: fit-content;
+    }
+    .request-cookies .info{
+	    text-align: justify;
+    }
+    .request-cookies .inputs{
+		    display:flex;
+		    flex-direction:column;
+		    width:100%;
+		    align-items:center;
     }
     .accept-cookies {
+	    margin-top: 2vh;
+	    margin-left:0;
+	    width:100%;
 
     }
 }

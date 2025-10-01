@@ -38,9 +38,11 @@
 			<span class="cookie-span"><input type=checkbox {{ "checked" if user.essential_cookies }} value=on class="essential"><div class="cookie-label loc" loc="tic_cookie_essencial">{{ loc.tic_cookie_essencial }}</div></span>
 			<div class="update-cookies black-button loc" loc="tic_actualitzar_cookies" onclick="updateCookiesTic(this.parentElement)">{{ loc.tic_actualitzar_cookies }}</div>
 		</div>
-		
-
         </div>
+	<div id=info-enviaments class="tic-page">
+		<div class="tic-subtitle loc" loc="tic_enviaments_titol">{{ loc.tic_enviaments_titol }}</div>
+		<div class="tic-info loc" loc="tic_enviaments_info">{{ loc.tic_enviaments_info | safe }}</div>
+	</div>
 </div>
 
 
