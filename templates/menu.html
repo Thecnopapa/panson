@@ -41,7 +41,6 @@
     {% if user.is_admin %}
     <div class="titol-submenu menu-content under-hover clickable" id="admin-menu" onclick="location.href='/admin/'">{{ loc.nav_admin }}</div>
     <div class="titol-submenu menu-content under-hover clickable" id="logout-menu" onclick="location.href='/admin/logout'">{{ loc.nav_tancar_sessio }}</div>
-        <input type="number" class="text-size-input titol-submenu menu-content" value="16" oninput="document.documentElement.style.fontSize = this.value+'px';">
     {% endif %}
 
 

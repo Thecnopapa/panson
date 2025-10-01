@@ -35,7 +35,7 @@
 }
 
 .crea-title{
-    font-size: 2rem;
+    font-size: var(--font-size-extra-large);
 
 }
 .crea-main-text{
@@ -49,7 +49,7 @@
 }
 .crea-proces-title{
     width: 100%;
-    font-size: 2rem;
+    font-size: var(--font-size-extra-large);
 }
 .crea-steps{
     display: flex;
@@ -70,7 +70,7 @@
 }
 
 .step-number{
-    font-size: 2rem;
+    font-size: var(--font-size-extra-large);
 }
 .crea-step-text{
     text-align: justify;
@@ -86,7 +86,7 @@
 
 
 .encarrec-title{
-    font-size: 2rem;
+    font-size: var(--font-size-extra-large);
 
 }
 .encarrec-info{

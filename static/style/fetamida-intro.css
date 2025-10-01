@@ -14,7 +14,7 @@
 	width:100%;
 	background-position: center;
 	background-size: cover;
-	font-size:1.5rem;
+	font-size: var(--font-size-extra-large);
 	color: white;
     cursor: pointer;
     transition: 1s;
@@ -24,7 +24,6 @@
 
 .intro-half:hover{
     filter: brightness(120%);
-    /*font-size: 2.3rem;*/
 }
 
 .intro-title{

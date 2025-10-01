@@ -42,7 +42,7 @@
     cursor: pointer;
 }
 .title-carret {
-    font-size: 1.5rem;
+    font-size: var(--font-size-large);
     padding-top: var(--padding);
     position: relative;
     padding-bottom: var(--padding);
@@ -132,18 +132,18 @@
     width: calc(90% - var(--padding) * 2);
     text-align: center;
     height: fit-content;
-    font-size: 0.8rem;
+    font-size: var(--font-size-extra-small);
     margin-top: 1vh;
     margin-bottom: var(--padding);
 }
 
 .producte-carret-nom {
-    font-size: 1rem;
+    font-size: var(--font-size-medium);
     padding-bottom: 0.1rem;
 }
 .producte-carret-talla{
 	margin-bottom: 0.1rem;
-	font-size: 0.75rem;
+	font-size: var(--font-size-extra-small);
 
 }
 .is-carret.producte-carret-color{
@@ -176,7 +176,7 @@
     min-height: 0.65rem !important;
 }
 .producte-carret-delete{
-    font-size: 0.75rem;
+    font-size: var(--font-size-extra-small);
 
     position: relative;
     z-index: 30;
@@ -191,7 +191,7 @@
 }
 
 .producte-carret-preu {
-    font-size: 0.9rem;
+    font-size: var(--font-size-small);
     position: absolute;
     padding-bottom: 0.1rem;
     top: 0;
@@ -208,7 +208,7 @@
 
 }
 .producte-carret-quantitat{
-    font-size: 0.75rem;
+    font-size: var(--font-size-extra-small);
     padding-right: 0.5rem;
     padding-left: 0.5rem;
 }

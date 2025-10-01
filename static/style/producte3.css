@@ -60,7 +60,7 @@ body {
 }
 
 #main-details{
-    font-size: 0.9rem;
+    font-size: var(--font-size-small);
 	position:absolute;
     left:58%;
 	width: 40%;
@@ -90,7 +90,7 @@ body {
     margin-bottom: 0.25rem;
     margin-top: var(--padding);
     text-transform: uppercase;
-    font-size: 1.2rem;
+    font-size: var(--font-size-large);
 
 }
 
@@ -121,7 +121,7 @@ body {
 }
 
 #product-description {
-    font-size: 0.9rem;
+    font-size: var(--font-size-small);
     position: relative;
     height: fit-content;
 
@@ -137,7 +137,7 @@ body {
 .product-info{
 	width:100%;
     padding-top: 4vh;
-    font-size: 0.9rem;
+    font-size: var(--font-size-small);
 }
 
 .desplegable{
@@ -175,7 +175,7 @@ body {
 .titol-desplegable .arrow{
 }
 .popup-info{
-    font-size: 0.9rem;
+    font-size: var(--font-size-small);
 }
 #form .popup-cross{
     	display:none;
@@ -316,7 +316,6 @@ body {
     border-radius: 50%;
     margin-right: 0.5vh;
     margin-left:0.5vh;
-    font-size:0.5rem;
 }
 .colour-label[style*="background-color:white"] {
                 background-color:lightgray !important;
@@ -385,23 +384,23 @@ body {
 	background-repeat: no-repeat;
 	filter: invert(100%);*/
 	color: white;
-	height:1.5rem;
-	width:1.5rem;
-	font-size: 2rem;
+	height:var(--font-size-extra-large);
+	width:var(--font-size-extra-large);
+	font-size: var(--font-size-extra-large);
 	position: absolute;
 	align-items: start;
 	justify-content: center;
 	text-align: center;
 	vertical-align: middle;
-	line-height: 1rem;
-	
+	line-height: var(--font-size-extra-large);
+
 }
 
 .missatge-enviament{
     display: none;
     flex-direction: column;
     margin-top: 1vh;
-    font-size: 0.8rem;
+    font-size: var(--font-size-extra-small);
     width: 90%;
 
     font-style: italic;
@@ -509,7 +508,7 @@ body {
 	align-items: center;
 	z-index: 2000;
 	position: absolute;
-	font-size: 2.5vw;
+	font-size: var(--font-size-extra-extra-large);
     top:5%;
     right:0;
     height:5%;
@@ -707,7 +706,7 @@ body {
         }
 
     	#titol_producte{
-        	font-size: 1.25rem;
+        	font-size: var(--font-size-large);
         	margin-bottom: 0.25rem;
     	}
 
@@ -720,7 +719,7 @@ body {
     	}
 
     	#initial-price{
-            font-size: 0.9rem;
+            font-size: var(--font-size-small);
     	}
 
     	.options{
@@ -764,7 +763,6 @@ body {
     	}
 	
     	.close-enlarged-container{
-        	font-size: 2.5vh;
         	top:15%;
         	right:5%;
         	height:5%;

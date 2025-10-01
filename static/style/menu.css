@@ -81,7 +81,7 @@
 .submenu:first-of-type{
     margin-top: 10vh;
 }
-.submenu:last-of-type{
+.item-submenu:last-of-type{
     padding-bottom: 1rem;
 }
 

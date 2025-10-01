@@ -17,7 +17,7 @@
 }
 .bucket-title{
     font-weight: bold;
-    font-size: 2rem;
+    font-size: var(--font-size-large);
 
 }
 .bucket-data{

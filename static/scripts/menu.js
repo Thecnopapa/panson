@@ -30,6 +30,7 @@ async function openMenu() {
             navTitle.classList.add("black");
         } catch {}
         document.documentElement.style.overflow = "hidden";
+        goBlack()
     } else {
         targetWidth = navLeft.offsetWidth;
         menu.style.width = String(targetWidth) + "px";
@@ -37,15 +38,16 @@ async function openMenu() {
             closer.style.width = String(window.innerWidth - targetWidth) + "px";
             closer.style.display = "flex";
         });
+        navButtons.forEach(button => {
+            button.classList.add("black");
+        });
     }
     menu.style.left = "0";
     menu.classList.add('open');
     menu.classList.remove('closed');
     botoMenuSimple.classList.add('open');
     botoMenuSimple.classList.add("black");
-    navButtons.forEach(button => {
-        button.classList.add("black");
-    });
+
 
     menuContent.forEach(item => {
         item.classList.add('shown');
@@ -62,10 +64,13 @@ function closeMenu(override=true) {
     if (window.innerHeight > window.innerWidth){
         targetWidth =  window.innerWidth;
         menu.style.width = String(targetWidth) + "px";
-        document.documentElement.style.overflow = "unset";
+        checkColor()
     } else {
         targetWidth = navLeft.offsetWidth;
         menu.style.width = String(targetWidth) + "px";
+        navButtons.forEach(button => {
+            button.classList.remove("black");
+        });
     }
     //console.log('Close menu');
     menu.style.left = String(-targetWidth) + "px";
@@ -78,9 +83,8 @@ function closeMenu(override=true) {
     menu.classList.remove('open');
     botoMenuSimple.classList.remove('open');
     botoMenuSimple.classList.remove("black");
-    navButtons.forEach(button => {
-        button.classList.remove("black");
-    });
+    document.documentElement.style.overflow = "";
+
 
     menuContent.forEach(item => {
         item.classList.remove('shown');

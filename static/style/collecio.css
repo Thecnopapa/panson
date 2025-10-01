@@ -24,7 +24,7 @@
     min-height: 100vh;
 }
 .titol-collecio{
-    font-size: 1.75rem;
+    font-size: var(--font-size-large);
     position: absolute;
     bottom: 0;
     left: 0;

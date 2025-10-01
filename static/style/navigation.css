@@ -43,7 +43,9 @@
 
 html{
     --padding: 1vw;
+    --font-size-extra-extra-large: 32px;
     --font-size-extra-large: 24px;
+    --font-size-extra-small: 12px;
     --font-size-medium: 17px;
     --font-size-small: 14px;
     --font-size-large: 19px;
@@ -189,7 +191,7 @@ video {
     width: var(--padded-width);
     justify-content: space-between;
     z-index: 99;
-    font-size: 0.75rem;
+    font-size: var(--font-size-extra-small);
     box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.5);
 }
 .accept-cookies {
@@ -257,8 +259,6 @@ video {
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-size: 5rem;
-    font-weight: bold;
     color: rgba(240, 248, 255, 0.9);
     height: 7vh;
     user-select: none;
@@ -326,7 +326,7 @@ video {
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 0.75rem;
+    font-size: var(--font-size-extra-small);
     transition: 1s;
 }
 
@@ -452,7 +452,12 @@ video {
 @media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
 
     html{
-        font-size: 16px;
+        --font-size-extra-extra-large: 32px;
+        --font-size-extra-large: 24px;
+        --font-size-extra-small: 12px;
+        --font-size-medium: 17px;
+        --font-size-small: 14px;
+        --font-size-large: 19px;
         --padding: 1vh;
     }
 

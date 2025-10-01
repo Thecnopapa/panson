@@ -12,7 +12,7 @@
 .page-name{
     text-align: center;
     font-weight: bold;
-    font-size: 2rem;
+    font-size: var(--font-size-large);
     cursor: pointer;
     min-height: 1rem;
 }

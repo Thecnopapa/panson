@@ -306,10 +306,10 @@
 	}
     .detalls-principals{
 	    align-items:end;
-        font-size: 0.9rem;
+        font-size: var(--font-size-small);
     }
     .preu-inline-slash{
-	    font-size: 0.8rem;
+	    font-size: var(--font-size-extra-small);
     }
     .galeria.inline .producte:not(.last){
         margin-right: calc(2dvw / 3);

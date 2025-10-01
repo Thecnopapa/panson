@@ -35,7 +35,7 @@
 .mini-gallery-title{
     width: 100%;
     display: flex;
-    font-size: 1.25rem;
+    font-size: var(--font-size-large);
     font-weight: bold;
     text-transform: capitalize;
 
@@ -94,7 +94,7 @@
 
 .slideshow-button{
     position: absolute;
-    font-size: x-large;
+    font-size: var(--font-size-extra-large);
     z-index: 20;
     width: 20dvw;
     height: 100%;

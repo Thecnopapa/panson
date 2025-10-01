@@ -36,7 +36,7 @@ async function closeCart(){
         cartItems[i].classList.remove('open');
         cartButton.setAttribute("onclick", "openCart()");
     }
-    document.documentElement.style.overflow = "unset";
+    document.documentElement.style.overflow = "";
 }
 
 
