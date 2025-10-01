@@ -51,45 +51,9 @@
         <button class="menu-simple" id="menu-button-simple" onclick="switchMenu()"><img class="icon-menu-simple" src="/static/media/menu-black.svg" alt="cart"><br> </button>
 	<div class="menu-closer" id=menu-closer-landscape onmouseover="event.stopPropagation(closeMenu())"></div>
 	<div class="menu-closer" id=menu-closer-portrait onclick="event.stopPropagation(closeMenu())"></div>
-        <div class="menu" id="menu" >
-
-            <div class="submenu menu-content menutop " id="collecions-menu" onclick="showDropdown(this)" >
-                <div class="titol-submenu menu-content no-line">{{ loc.nav_collecions }}
-                <span><img class="plus menu-content menu-indicator" src="/static/media/plus.svg"><img class="minus menu-content menu-indicator" src="/static/media/minus.svg"></span></div>
-                {% if productes %}
-                    {% for col in productes.col_names %}
-                        <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/collecio/{{ utils.lower(col) }}'">{{ col }}</div>
-                    {% endfor %}
-                {% endif %}
-            </div>
-            <div class="submenu menu-content" id="peces-menu" onclick="showDropdown(this)">
-                <div class="titol-submenu menu-content">{{ loc.nav_peces_uniques }}
-                    <span><img class="plus menu-content menu-indicator" src="/static/media/plus.svg"><img class="minus menu-content menu-indicator" src="/static/media/minus.svg"></span></div>
-                {% for prod in productes.uniques()[:-1] %}
-                        <div class="item-submenu menu-content"  onclick="location.href='/{{ loc.lan }}/productes/{{ prod._id }}'">{{ prod.nom }}</div>
-                    {% endfor %}
-                <div class="item-submenu menu-content last-submenu"  onclick="location.href='/{{ loc.lan }}/productes/{{ productes.uniques()[-1]._id }}'">{{ productes.uniques()[-1].nom }}</div>
-            </div>
-            <div class="submenu menu-content" id="peces-menu" onclick="showDropdown(this)">
-                <div class="titol-submenu menu-content" onclick="location.href='/{{ loc.lan }}/productes/'">{{ loc.nav_peces }}</div>
-                {% if productes %}
-                    {% for tipus in productes.tipus %}
-                        <div class="titol-submenu menu-content no-line"  onclick="location.href='/{{ loc.lan }}/productes/?filterKey=tipus&filterValue={{ tipus }}'">{{ loc["tip-"+tipus+"-plural"]}}</div>
-                    {% endfor %}
-                {% endif %}
-            </div>
-	    <div class="titol-submenu menu-content button-menu" id="fetamida-menu" onclick="location.href='/{{ loc.lan }}/fetamida/intro'">{{ loc.nav_fetamida_mobil }}</div>
-            <div class="titol-submenu menu-content button-menu" id="projecte-menu" onclick="location.href='/{{ loc.lan }}/projecte/'">{{ loc.nav_projecte_mobil }}</div>
-            <div class="titol-submenu menu-content button-menu" id="contacte-menu" onclick="location.href='/{{ loc.lan }}/contacte/'">{{ loc.nav_contacte_mobil }}</div>
-	    {% if user.is_admin %}
-	    <div class="titol-submenu menu-content button-menu" id="admin-menu" onclick="location.href='/admin/'">{{ loc.nav_admin }}</div>
-	    <div class="titol-submenu menu-content button-menu" id="logout-menu" onclick="location.href='/admin/logout'">{{ loc.nav_tancar_sessio }}</div>
-            <input type="number" class="text-size-input titol-submenu menu-content button-menu" value="16" oninput="document.documentElement.style.fontSize = this.value+'px';">
-	    {% endif %}
-        </div>
+        {{ menu.render_menu() }}
 	<button class="dropbtn" id="projecte" onclick="location.href='/{{ loc.lan }}/projecte/'"> {{ loc.nav_projecte}}</button>
         <button class="dropbtn last" id="fetamida" onclick="location.href='/{{ loc.lan }}/fetamida/intro'"> {{ loc.nav_fetamida }}</button>
-        <button class="dropbtn" id="contacte" onclick="location.href='/{{ loc.lan }}/contacte/'">{{ loc.nav_contacte }}</button>
     </div>
 
     <div class = "navigation-right">

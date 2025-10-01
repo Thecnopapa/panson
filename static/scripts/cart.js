@@ -3,8 +3,7 @@ const cartButton = document.getElementById('cart-button');
 const cartItems = document.getElementsByClassName('is-carret');
 const cart = document.getElementById("carret")
 
-closeCart();
-updateCartCounter();
+
 
 
 function openCart(){
@@ -26,7 +25,7 @@ function openCart(){
 }
 
 
-function closeCart(){
+async function closeCart(){
     //console.log("Closing Cart");
     cart.classList.remove('open');
     for (let i = 0; i < cartItems.length; i++) {
@@ -107,6 +106,19 @@ function updateCartCounter(){
         cartCounters.forEach(c => {c.style.display = "flex"});
     }
 }
+
+
+
+closeCart();
+updateCartCounter();
+
+window.addEventListener('orientationchange', function () {
+	console.log("Rotation change!");
+	closeCart();
+    closeMenu();
+})
+
+
 
 print(" * Cart JS ready")
 

@@ -1,0 +1,52 @@
+
+
+
+{% macro render_menu() %}
+
+<div class="menu" id="menu">
+
+    <div class="menu-content submenu" onclick="showDropdown(this)">
+        <div class="titol-submenu menu-content under-hover clickable">{{ loc.nav_collecions }}
+            <span><img class="plus menu-content menu-indicator" src="/static/media/plus.svg"><img class="minus menu-content menu-indicator" src="/static/media/minus.svg"></span>
+        </div>
+        {% if productes %}
+            {% for col in productes.col_names %}
+                <div class="item-submenu menu-content under-hover clickable"  onclick="location.href='/{{ loc.lan }}/collecio/{{ utils.lower(col) }}'">{{ col }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="menu-content submenu" onclick="showDropdown(this)">
+        <div class="titol-submenu menu-content under-hover clickable">{{ loc.nav_peces_uniques }}
+            <span><img class="menu-content plus menu-indicator" src="/static/media/plus.svg"><img class="menu-content minus menu-indicator" src="/static/media/minus.svg"></span>
+        </div>
+        {% for prod in productes.uniques() %}
+                <div class="item-submenu menu-content under-hover clickable"  onclick="location.href='/{{ loc.lan }}/productes/{{ prod._id }}'">{{ prod.nom }}</div>
+            {% endfor %}
+    </div>
+
+    <div class="menu-content submenu" onclick="showDropdown(this)">
+        <div class="titol-submenu menu-content" onclick="location.href='/{{ loc.lan }}/productes/'">{{ loc.nav_peces }}</div>
+        {% if productes %}
+            {% for tipus in productes.tipus %}
+                <div class="titol-submenu menu-content under-hover clickable"  onclick="location.href='/{{ loc.lan }}/productes/?filterKey=tipus&filterValue={{ tipus }}'">{{ loc["tip-"+tipus+"-plural"]}}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="titol-submenu menu-content under-hover clickable" id="fetamida-menu" onclick="location.href='/{{ loc.lan }}/fetamida/intro'">{{ loc.nav_fetamida_mobil }}</div>
+        <div class="titol-submenu menu-content under-hover clickable" id="projecte-menu" onclick="location.href='/{{ loc.lan }}/projecte/'">{{ loc.nav_projecte_mobil }}</div>
+        <div class="titol-submenu menu-content under-hover clickable" id="contacte-menu" onclick="location.href='/{{ loc.lan }}/contacte/'">{{ loc.nav_contacte_mobil }}</div>
+
+    {% if user.is_admin %}
+    <div class="titol-submenu menu-content under-hover clickable" id="admin-menu" onclick="location.href='/admin/'">{{ loc.nav_admin }}</div>
+    <div class="titol-submenu menu-content under-hover clickable" id="logout-menu" onclick="location.href='/admin/logout'">{{ loc.nav_tancar_sessio }}</div>
+        <input type="number" class="text-size-input titol-submenu menu-content" value="16" oninput="document.documentElement.style.fontSize = this.value+'px';">
+    {% endif %}
+
+
+</div>
+
+
+
+{% endmacro %}

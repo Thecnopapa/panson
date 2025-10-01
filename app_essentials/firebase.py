@@ -82,7 +82,7 @@ class firebaseObject(object):
     def __getitem__(self, key):
         return self.__getattribute__(key)
 
-    def delete(self):
+    def remove(self):
         db.collection(self.bucket).document(self._id).delete()
 
 

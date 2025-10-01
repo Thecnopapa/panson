@@ -12,7 +12,11 @@ def get_current_user():
     print("getting current user")
     if "user_id" in session:
         print("getting from usr_id")
-        return User(usuaris.document(session["user_id"]).get().to_dict(), session["user_id"])
+        user_data = usuaris.document(session["user_id"]).get().to_dict()
+        if user_data is None:
+            print("user_id not found in database")
+            user_data = {}
+        return User(user_data, session["user_id"])
     if "session_id" not in session:
         print("getting from new session_id")
         new_id = str(uuid.uuid4())

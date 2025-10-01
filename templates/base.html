@@ -6,17 +6,33 @@
 {% block head %}
     <title>PANSON</title>
 {% endblock %}
+    <link href='/style/base.css' as='style' rel='preload'>
+    <link href='/style/menu.css' as='style' rel='preload'>
     <link href='/style/navigation.css' as='style' rel='preload'>
-    <link href='/style/footer.css' as='style' rel='preload'>
     <link href='/style/carret.css' as='style' rel='preload'>
+    <link href='/style/footer.css' as='style' rel='preload'>
+
+
+    <link href='/scripts/base.js' as='script' rel='preload'>
     <link href='/scripts/navigation.js' as='script' rel='preload'>
+    <link href='/scripts/menu.js' as='script' rel='preload'>
     <link href='/scripts/cart.js' as='script' rel='preload'>
 
+
+
+    <link href='/style/base.css' rel='stylesheet'>
     <link href='/style/navigation.css' rel='stylesheet'>
-    <link href='/style/footer.css' rel='stylesheet'>
+    <link href='/style/menu.css' rel='stylesheet'>
     <link href='/style/carret.css' rel='stylesheet'>
+    <link href='/style/footer.css' rel='stylesheet'>
+
+
+    <script defer type="text/javascript" src="/scripts/base.js"></script>
     <script defer type="text/javascript" src="/scripts/navigation.js"></script>
+    <script defer type="text/javascript" src="/scripts/menu.js"></script>
     <script defer type="text/javascript" src="/scripts/cart.js"></script>
+
+
 
     {% if user.is_admin %}
         <link href='/style/localisation.css' as='style' rel='preload'>
@@ -65,6 +81,7 @@ gtag('consent', 'default', {
 
 <body>
 	{% import 'cart.html' as cart_macros with context %}
+    {% import 'menu.html' as menu with context %}
 {% include "navigation.html" %}
 
 {% block body %}

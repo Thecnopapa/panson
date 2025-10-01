@@ -43,7 +43,11 @@
 
 html{
     --padding: 1vw;
-	font-size: 16px;
+    --font-size-extra-large: 24px;
+    --font-size-medium: 17px;
+    --font-size-small: 14px;
+    --font-size-large: 19px;
+    font-size: var(--font-size-medium);
     overflow: scroll;
     --padding-horizontal: 0 var(--padding);
     --padding-vertical: var(--padding) 0;
@@ -75,6 +79,8 @@ html{
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+
 
     background-size: cover;
     background-repeat: no-repeat;
@@ -240,75 +246,6 @@ video {
 
 
 
-.dropbtn, .menu-simple {
-    color: #000000;
-    border: none;
-    user-select: none;
-    z-index: 110;
-    background-color: rgba(0, 0, 0, 0);
-    height: 7vh;
-    transition: 0.3s ease;
-    margin-right: var(--padding) ;
-    cursor: pointer;
-    padding-right: var(--padding);
-    padding-left: var(--padding);
-
-}
-
-.dropbtn.last{
-    margin-right: var(--padding);
-}
-
-.menu-simple {
-    display: none;
-    flex-direction: row;
-    align-items: center;
-}
-
-#contacte{
-	display:none;
-}
-#menu {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    position: fixed;
-    width: 0;
-    height: 100%;
-    left: 0;
-    top: 0;
-    z-index: 100;
-    padding-top: 0;
-    transition: width 1s ease;
-    box-shadow: 0.2px 0px 8px rgb(115, 115, 115);
-}
-
-#menu.black{
-	background-color: white;
-}
-#menu.white{
-	background-color: rgba(255, 255, 255, 0.7);
-	filter: unset !important;
-}
-.menu-closer{
-	display: none;
-	background-color: rgba(0,0,0,0);
-	position: fixed;
-	right:0;
-	top:0;
-	height: 100dvh;
-	width:20dvw;
-	z-index: 100;
-}
-
-
-.button-menu {
-    display: none;
-    background-color: rgba(0, 0, 0, 0);
-
-    height: fit-content;
-    align-items: center;
-}
 
 
 
@@ -394,80 +331,6 @@ video {
 }
 
 
-.icon-menu-simple {
-    position: relative;
-    display: block;
-    align-content: center;
-    text-align: center;
-    vertical-align: center;
-    height: 3vh;
-    width: 3vh;
-    transition: 1s ease;
-
-}
-
-.submenu {
-
-}
-
-.titol-submenu, .item-submenu {
-    transition: color 0.5s ease;
-}
-.menu-content {
-    user-select: none;
-    width: 100%;
-}
-.titol-submenu {
-    display: none;
-    color: rgba(0, 0, 0, 0);
-    margin-left: var(--padding);
-    margin-right: calc(var(--padding) * 2);
-    padding-bottom: 0.5rem;
-    padding-top: 0.5rem;
-    border: none;
-    width: auto;
-}
-
-.titol-submenu:hover {
-    text-decoration-line: underline;
-    text-underline-offset: 0.25rem;
-    cursor: pointer;
-
-}
-
-
-
-.titol-submenu {
-    color: rgba(0, 0, 0, 0);
-    justify-content: space-between;
-
-}
-
-.item-submenu{
-    display: none;
-    margin: var(--padding-horizontal);
-    cursor: pointer;
-    padding-bottom: 0.5rem;
-    text-underline-offset: 0.25rem;
-    width: auto;
-}
-.item-submenu:hover {
-    text-decoration-line: underline
-
-}
-.shown {
-    display: flex;
-
-}
-.dropdown-show {
-    display: block;
-}
-
-
-#contacte-menu, #projecte-menu {
-        display: none;
-    }
-
 
 
 
@@ -513,23 +376,50 @@ video {
 
 
 
-
-
-
-.plus, .minus {
-    height: 1rem;
-    width: 1rem;
-    padding: 0;
+.dropbtn, .menu-simple {
+    color: #000000;
+    border: none;
+    user-select: none;
+    z-index: 110;
+    background-color: rgba(0, 0, 0, 0);
+    height: 7vh;
+    transition: 0.3s ease;
+    margin-right: var(--padding) ;
+    cursor: pointer;
+    padding-right: var(--padding);
+    padding-left: var(--padding);
 }
-.plus {display: inline-block}
-.plus.dropdown-show {display: none;}
-.minus {display: none}
-.minus.dropdown-show {display: inline-block;}
 
-.no-line { border-top:none; }
-.menutop { margin-top: 10vh;}
-.last-submenu{padding-bottom: 1rem}
-.less-padding { padding-top: 0.25rem; padding-bottom: 0.25rem}
+.dropbtn.last{
+    margin-right: var(--padding);
+}
+
+.menu-simple {
+    display: none;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+
+
+
+.icon-menu-simple {
+    position: relative;
+    display: block;
+    align-content: center;
+    text-align: center;
+    vertical-align: center;
+    height: 3vh;
+    width: 3vh;
+    transition: 1s ease;
+
+}
+
+
+
+
+
 
 
 
