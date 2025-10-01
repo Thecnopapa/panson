@@ -27,7 +27,7 @@
 #index-subtitle-more{
     padding-bottom:2%;
     width: var(--padded-width);
-    text-decoration: underline black solid;
+    text-decoration-line: underline;
 }
 
 

@@ -47,13 +47,13 @@ a{
 }
 
 .footer-element:hover{
-    text-decoration: underline;
+    text-decoration-line: underline;
 }
 .footer-email:hover{
     text-decoration: none;
 }
 .footer-email:hover a{
-    text-decoration: underline;
+    text-decoration-line: underline;
 }
 
 #credits{

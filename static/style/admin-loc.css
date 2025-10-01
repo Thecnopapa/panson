@@ -37,7 +37,7 @@
 }
 
 .loc-key{
-    text-decoration: underline;
+    text-decoration-line: underline;
     font-weight: bold;
     min-width:fit-content;
 }

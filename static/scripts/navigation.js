@@ -209,7 +209,7 @@ function openMenu() {
        menu.style.width = "100%";
 	    //print(menuClosers);
        menuClosers[0].style.width = "20dvw";
-	    menuClosers[1].style.width = "20dvw";
+       menuClosers[1].style.width = "20dvw";
        contacteMenu.style.display = "block";
         projecteMenu.style.display = "block";
 	    try{

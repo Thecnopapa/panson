@@ -236,7 +236,7 @@ body {
 
 .option-field .text-label:has(> .hidden-input[checked=true]){
     font-weight: bold;
-    text-decoration: underline;
+    text-decoration-line: underline;
     text-underline-offset: 0.25rem;
 }
 

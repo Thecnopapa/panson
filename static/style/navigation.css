@@ -147,13 +147,19 @@ video {
     cursor: pointer;
 }
 .under-hover:hover{
-    text-decoration: underline;
     text-underline-offset: 0.25rem;
+    text-decoration-line: underline;
+    text-decoration-color: black;
+    text-decoration-style: solid;
+
 }
 
 .underlined{
-    text-decoration: underline;
     text-underline-offset: 0.25rem;
+    text-decoration-line: underline;
+    text-decoration-color: black;
+    text-decoration-style: solid;
+
 }
 
 .black-button{
@@ -418,13 +424,13 @@ video {
     margin-right: calc(var(--padding) * 2);
     padding-bottom: 0.5rem;
     padding-top: 0.5rem;
-    text-underline-offset: 0.25rem;
     border: none;
     width: auto;
 }
 
 .titol-submenu:hover {
-    text-decoration: underline;
+    text-decoration-line: underline;
+    text-underline-offset: 0.25rem;
     cursor: pointer;
 
 }
@@ -446,7 +452,7 @@ video {
     width: auto;
 }
 .item-submenu:hover {
-    text-decoration: underline;
+    text-decoration-line: underline
 
 }
 .shown {
