@@ -548,11 +548,18 @@ def update_loc():
         from app_essentials.utils import split_multiple
         comps = split_multiple(label, "_", "-")
         page = comps[0]
+        print("Page: ", page)
         key = "-".join(comps[1:])
         from app_essentials.firebase import localisation
         prev_data = localisation.document("languages").collection("text").document(page).get().to_dict()
         new_data = prev_data
+        if new_data is None:
+            localisation.document("languages").collection("text").document(page).set({})
+            new_data= {}
+        if key not in new_data.keys():
+            new_data[key]={"cat":"$empty$", "en": "$empty"}
         new_data[key][lan] = value
+        print(new_data)
         localisation.document("languages").collection("text").document(page).update(new_data)
         return "", 200
 

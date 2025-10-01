@@ -28,7 +28,7 @@
 	</div>
 	<div id=cookie-preferences class="tic-page">
 		<div class="tic-subtitle loc" loc="tic_cookies_titol">{{ loc.tic_cookies_titol }}</div>
-		<div class="tic-info loc" loc="loc_cookies_info">{{ loc.tic_cookies_info | safe }}</div>
+		<div class="tic-info loc" loc="tic_cookies_info">{{ loc.tic_cookies_info | safe }}</div>
 		<div class="cookie-selector">
 			<span class="cookie-span"><input type=checkbox {{ "checked" if user.cookies["analytics_storage"] }} value={{"on" if user.cookies["analytics_storage"] }}><div class="cookie-label loc" loc="tic_cookie_analitica">{{ loc.tic_cookie_analitica }}</div></span>
 			<span class="cookie-span"><input type=checkbox {{ "checked" if user.accepted_cookies }} value={{"on" if user.accepted_cookies }}><div class="cookie-label loc" loc="tic_cookie_essencial">{{ loc.tic_cookie_essencial }}</div></span>
