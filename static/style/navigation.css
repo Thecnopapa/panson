@@ -475,6 +475,7 @@ video {
     background-color: rgba(255, 255, 255, 100);
     padding: calc(var(--padding) * 2);
     width: calc(100% - 10vh - var(--padding) * 2);
+    /*max-width: calc(100% - 10vh - var(--padding) * 2);*/
 
     overflow-y: scroll;
     height: fit-content;
@@ -487,7 +488,7 @@ video {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100dvw;
     height: 100dvh;
     background-color: rgba(255, 255, 255, 0.8);
     justify-content: center;

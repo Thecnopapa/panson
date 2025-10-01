@@ -5,6 +5,7 @@
 .content-talles{
 	margin-top: 10vh;
 	padding: var(--padding);
+	width:var(--padded-width);
 }
 
 

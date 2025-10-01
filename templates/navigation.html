@@ -28,7 +28,7 @@
 </div>
 
 
-{% if not user.accepted_cookies or True%}
+{% if not user.accepted_cookies %}
         <div id=cookies class="request-cookies">
             <span class="info"><span class="loc" loc="nav_cookie_banner">{{ loc.nav_cookie_banner }}</span><a href="/{{ loc.lan }}/tic#tic-cookies" class="loc" loc="cookie_link">{{ loc.nav_cookie_link }}</a></span>
             <span class="inputs">
