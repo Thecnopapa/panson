@@ -148,18 +148,21 @@ async function acceptCookies(){
     console.log(acceptedAnalytics);
 
 
-	await fetch("/acceptar_cookies", {
-        method:"POST",
-        headers: {
-            "content-type": "application/json"
-        },
-        body: JSON.stringify({"cookies":{
-          'ad_storage': 'denied',
-          'ad_user_data': 'denied',
-          'ad_personalization': 'denied',
-          'analytics_storage': acceptedAnalytics
-        }})
-    });
+	await fetch("/accept-cookies", {
+        	method:"POST",
+        	headers: {
+            		"content-type": "application/json"
+        	},
+       		body: JSON.stringify({
+			"cookies":{
+          			'ad_storage': 'denied',
+          			'ad_user_data': 'denied',
+          			'ad_personalization': 'denied',
+          			'analytics_storage': acceptedAnalytics
+        		},
+			"essential": true,
+		})
+    	});
 	const banner = document.getElementById("cookies");
 	banner.style.display = "none";
     //window.location.reload()

@@ -17,6 +17,7 @@ class User(firebaseObject):
         self.favourites = []
         self.is_admin = False
         self.accepted_cookies = False
+        self.essential_cookies = False
         self.cookies = {
             'ad_user_data': 'denied',
             'ad_personalization': 'denied',

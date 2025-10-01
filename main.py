@@ -156,16 +156,19 @@ def get_talla():
     return "<form action='/size/calculator/' method=POST><input name='unit' placeholder='unit'><br><input name='talla' placeholder='size'><br><button>SUBMIT</button></form><br>Result: {}".format(result)
 
 
-@app.post("/acceptar_cookies")
+@app.post("/accept-cookies")
 def acceptar_cookies():
     print("Accepting cookies")
     user = get_current_user()
     r = request.get_json()
+    print(r["essential"])
     user.accepted_cookies = True
+    user.essential_cookies = r["essential"]
     user.cookies = r["cookies"]
-    print(user.cookies)
+    print("essential: ", user.essential_cookies)
+    print("cookies: \n", user.cookies)
     user.update_db()
-    session.permanent = True
+    session.permanent = r["essential"]
     return ""
 
 from werkzeug.utils import secure_filename

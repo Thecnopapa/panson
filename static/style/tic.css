@@ -1,18 +1,21 @@
 
-
-
 .tic-content{
 	height:fit-content;
-	min-height: 90vh;
-	margin-top: 10vh;
+	min-height: calc(90vh - 3rem);
+	
 	width: var(--padded-width);
 	display: flex;
 	flex-direction: column;
 	padding: var(--padding);
+	padding-top: 3vh;
+	padding-bottom: 3vh;
 }
 .tic-title{
-	font-size:2rem;
-	margin-bottom: 4vh;
+	font-size:1.5rem;
+	min-height:3rem;
+	max-height:3rem;
+	margin-top: 10vh;
+	width: var(--padded-width);
 }
 
 .tic-page{

@@ -10,9 +10,10 @@
         </div>
         <div class="footer-col">
             <div class="footer-title">{{ loc.foo_title_empresa }}</div>
-            <a class="footer-element footer-button" onclick="location.href='/{{ loc.lan }}/projecte/'">{{ loc.foo_sobre_panson }}</a>
-            <a class="footer-element footer-button" onclick="location.href='/{{ loc.lan }}/tic'">{{ loc.foo_sobre_tic }}</a>
-	    <a class="footer-element footer-button" onclick="location.href='/{{ loc.lan }}/tic#info-cookies'">{{ loc.foo_cookies }}</a>
+            <a class="footer-element footer-button loc" onclick="location.href='/{{ loc.lan }}/projecte/'" loc="foo_sobre_panson">{{ loc.foo_sobre_panson }}</a>
+            <a class="footer-element footer-button loc" onclick="location.href='/{{ loc.lan }}/tic#info-tic'" loc="foo_sobre_tic">{{ loc.foo_sobre_tic }}</a>
+	    <a class="footer-element footer-button loc" onclick="location.href='/{{ loc.lan }}/tic#info-privacy'" loc="foo_privacitat">{{ loc.foo_privacitat }}</a>
+	    <a class="footer-element footer-button loc" onclick="location.href='/{{ loc.lan }}/tic#cookie-preferences'" loc="foo_cookies">{{ loc.foo_cookies }}</a>
         </div>
         <div class="footer-col">
             <div class="footer-title">{{ loc.foo_title_customer }}</div>

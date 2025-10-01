@@ -6,8 +6,11 @@
 
 {% block imports %}
     <link href='/style/tic.css' as='style' rel='preload'>
+    <link href='/script/tic.js' as='script' rel='preload'>
+
 
     <link href='/style/tic.css' rel='stylesheet'>
+    <script defer type="text/javascript" src="/scripts/tic.js"></script>
 
 {% endblock %}
 
@@ -16,8 +19,9 @@
 
 {% block body %}
     <div id="nav-color" navColor="opaque"></div>
+    <div class="tic-title loc" loc="tic_titol"l>{{ loc.tic_titol }}</div>
 <div id=terms class="tic-content">
-	<div class="tic-title loc" loc="tic_titol"l>{{ loc.tic_titol }}</div>
+	
 	<div id=info-tic class="tic-page">
 		<div class="tic-subtitle loc" loc="tic_tic_titol">{{ loc.tic_tic_titol }}</div>
 		<div class="tic-info loc" loc="tic_tic_info">{{ loc.tic_tic_info | safe }}</div>
@@ -30,9 +34,9 @@
 		<div class="tic-subtitle loc" loc="tic_cookies_titol">{{ loc.tic_cookies_titol }}</div>
 		<div class="tic-info loc" loc="tic_cookies_info">{{ loc.tic_cookies_info | safe }}</div>
 		<div class="cookie-selector">
-			<span class="cookie-span"><input type=checkbox {{ "checked" if user.cookies["analytics_storage"] }} value={{"on" if user.cookies["analytics_storage"] }}><div class="cookie-label loc" loc="tic_cookie_analitica">{{ loc.tic_cookie_analitica }}</div></span>
-			<span class="cookie-span"><input type=checkbox {{ "checked" if user.accepted_cookies }} value={{"on" if user.accepted_cookies }}><div class="cookie-label loc" loc="tic_cookie_essencial">{{ loc.tic_cookie_essencial }}</div></span>
-			<div class="update-cookies black-button loc" loc="tic_actualitzar_cookies">{{ loc.tic_actualitzar_cookies }}</div>
+			<span class="cookie-span"><input type=checkbox {{ "checked" if user.cookies["analytics_storage"] == "granted"}} value=on class="analytic"><div class="cookie-label loc" loc="tic_cookie_analitica">{{ loc.tic_cookie_analitica }}</div></span>
+			<span class="cookie-span"><input type=checkbox {{ "checked" if user.essential_cookies }} value=on class="essential"><div class="cookie-label loc" loc="tic_cookie_essencial">{{ loc.tic_cookie_essencial }}</div></span>
+			<div class="update-cookies black-button loc" loc="tic_actualitzar_cookies" onclick="updateCookiesTic(this.parentElement)">{{ loc.tic_actualitzar_cookies }}</div>
 		</div>
 		
 
