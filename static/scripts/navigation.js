@@ -309,11 +309,12 @@ function switchMenu(){
 
 
 function showDropdown (submenu) {
-    let submenuContent = submenu.getElementsByClassName('item-submenu');
+    let submenuContent = [...submenu.getElementsByClassName('item-submenu')];
+    let submenuIndicators = [...submenu.getElementsByClassName('menu-indicator')];
     submenu.setAttribute("onclick", "hideDropdown(this)");
-    for (let i = 0; i < submenuContent.length; i++) {
-        submenuContent[i].classList.add('dropdown-show');
-    }
+    submenuContent.forEach(submenuItem => {submenuItem.classList.add('dropdown-show');})
+    submenuIndicators.forEach(submenuIndicator => {submenuIndicator.classList.add('dropdown-show');})
+
 
 }
 function hideDropdown (submenu) {
