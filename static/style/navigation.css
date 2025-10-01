@@ -629,6 +629,7 @@ video {
     }
     .request-cookies .info{
 	    text-align: justify;
+        margin-bottom: var(--padding);
     }
     .request-cookies .inputs{
 		    display:flex;

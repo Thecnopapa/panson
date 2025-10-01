@@ -95,6 +95,13 @@ function updateCartCounter(){
 	    emptyInfo.style.display = "flex";
     }else {
 	    cartInfo.style.display= "flex";
+        if (itemSum === 1){
+            [...cartInfo.getElementsByClassName("plural")].forEach(e => {e.style.display = "none"});
+            [...cartInfo.getElementsByClassName("singular")].forEach(e => {e.style.display = "flex"});
+        } else {
+            [...cartInfo.getElementsByClassName("plural")].forEach(e => {e.style.display = "flex"});
+            [...cartInfo.getElementsByClassName("singular")].forEach(e => {e.style.display = "none"});
+        }
 	    emptyInfo.style.display = "none";
         totalCart.parentElement.style.display = "flex";
         cartCounters.forEach(c => {c.style.display = "flex"});

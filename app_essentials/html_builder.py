@@ -1,5 +1,5 @@
 import jinja2
-from flask import render_template
+from flask import render_template, session
 
 from app_essentials import products
 from app_essentials.localisation import Localisation2 as localisation, Images
@@ -62,8 +62,13 @@ def template(html="", templates=None, navigation=True, **kwargs):
             print("Rendering template: {}.html".format(t))
             try:
                 html+= render_template(t+".html",no_head=n!=0, **kwargs)
-            except:
+            except Exception as e:
+                print("#######################################")
+                print("Failed to render template: {}".format(t))
+                print(e)
                 kwargs["user"].remove()
+                session.pop("session_id")
+                session.pop("user_id")
                 kwargs["user"] = get_current_user()
                 kwargs["cart"] = kwargs["user"].cart
                 html += render_template(t + ".html", no_head=n != 0, **kwargs)

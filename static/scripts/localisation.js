@@ -22,6 +22,7 @@ function initLocalisation(){
 
 async function editLoc(event){
 	console.log(event.target);
+    event.preventDefault();
 	let target = event.target;
 	let targetPosX = target.offsetLeft;
 	let targetPosY = target.offsetTop;

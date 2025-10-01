@@ -120,7 +120,9 @@
 <div class="content-carret is-carret" id="carret"  >
     <div class="title-carret is-carret">{{ loc.car_carret }}</div>
     <div class="is-carret" id="close-carret" onclick="closeCart()">{{ loc.car_tancar }}</div>
-    <div class="is-carret cart-info"><div class=cart-counter></div>&nbsp;{{loc.car_info_quantitat}}</div>
+    <div class="is-carret cart-info"><div class=cart-counter></div>&nbsp;
+        <div class="cart-counter-text is-carret plural loc" loc="car_info_quantitat">{{loc.car_info_quantitat }}</div>
+        <div class="cart-counter-text is-carret singular loc" loc="car_info_quantitat_singular">{{loc.car_info_quantitat_singular }}</div></div>
     <div class="is-carret no-cart-info">{{loc.car_info_buit |safe}}<a class="is-carret" href="/{{lan}}/productes">{{loc.car_info_buit_boto}}</a></div>
     <div class="llista-carret is-carret" onscroll="event.stopPropagation()" onwheel="event.stopPropagation()" >
         {% for n, item in utils.enumerate(cart.values()) if item.producte != None%}

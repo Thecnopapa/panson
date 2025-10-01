@@ -134,7 +134,7 @@ body {
     width:100%;
     white-space: pre-line;
 }
-.info{
+.product-info{
 	width:100%;
     padding-top: 4vh;
     font-size: 0.9rem;
@@ -711,7 +711,7 @@ body {
         	margin-bottom: 0.25rem;
     	}
 
-    	.info{
+    	.product-info{
         	padding-top: 2vh;
     	}
 

@@ -169,6 +169,7 @@ def acceptar_cookies():
     print("cookies: \n", user.cookies)
     user.update_db()
     session.permanent = r["essential"]
+    print(user)
     return ""
 
 from werkzeug.utils import secure_filename

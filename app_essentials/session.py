@@ -10,7 +10,11 @@ def get_current_user():
     from app_essentials.firebase import usuaris
     from google.cloud.firestore import FieldFilter
     print("getting current user")
+    if "user_id" in session:
+        print("getting from usr_id")
+        return User(usuaris.document(session["user_id"]).get().to_dict(), session["user_id"])
     if "session_id" not in session:
+        print("getting from new session_id")
         new_id = str(uuid.uuid4())
         print("new id", new_id)
         matching_ids = usuaris.where(filter=FieldFilter("sessions", "array_contains", new_id)).stream()
@@ -19,15 +23,21 @@ def get_current_user():
             new_id = str(uuid.uuid4())
             matching_ids = usuaris.where(filter=FieldFilter("sessions", "array_contains", new_id)).stream()
         session["session_id"] = str(uuid.uuid4())
+        session["user_id"] = session["session_id"]
         return User({}, session["session_id"])
     else:
+        print("getting from session_id")
         print("current id", session["session_id"])
         matching_user = list(usuaris.where(filter=FieldFilter("sessions", "array_contains", session["session_id"])).stream())
         print("matching_user", matching_user)
         if len(matching_user) == 1:
+            print("user found")
             target_id = matching_user[0].id
+            session["user_id"] = session["session_id"]
             return User(usuaris.document(target_id).get().to_dict(), target_id)
         else:
+            print("user not found")
+            session["user_id"] = session["session_id"]
             return User({}, session["session_id"])
 
 

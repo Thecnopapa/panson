@@ -199,6 +199,7 @@ async function submitToCart (trigger) {
 
 async function reloadCart(){
 	let cartList = document.getElementsByClassName("llista-carret")[0];
+    console.log("Reloading cart");
 	//console.log(cartList);
 	//console.log(cartList.innerHTML);
 	[...cartList.children].forEach(c => {c.remove()});
