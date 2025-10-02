@@ -85,7 +85,7 @@
 
 .email-input{
     margin-top:0.5rem;
-	width: var(--padded-width);
+	width:100%;
     display:flex;
 
 }
@@ -150,8 +150,9 @@
 
 .submit-email{
         width:fit-content;
-        padding: var(--padding-horizontal);
-        margin:auto;
+        padding: var(--padding) 2rem;
+        margin-left: auto;
+        margin-right: auto;
 }
 
 

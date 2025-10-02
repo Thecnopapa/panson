@@ -592,13 +592,22 @@ body {
 }
 
 
+.phone-number-label{
+    width:var(--padded-width);
+}
+.message{
+    height:20vh;
+}
+
+
+
 
 @media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
 
 	
 	.bubble-container{
 		position:relative;
-		margin-top: 0.5rem;
+		margin-top: 0.25rem;
 		margin-left:var(--padding);
 		margin-right: var(--padding);
 		flex-direction:row;
@@ -613,6 +622,8 @@ body {
 		height: fit-content;
 	}
 	.bubble{
+        height: 0.25rem;
+        width:0.25rem;
         border: black 0.1rem solid;
         background-color:white;
 		margin-left:0.25rem;
@@ -623,6 +634,9 @@ body {
         -webkit-filter: none;
         filter: none;
 	}
+    .bubble:first-of-type{
+        margin-left:0;
+    }
     .bubble.active{
         background-color:black;
     }
@@ -685,7 +699,7 @@ body {
             padding-left:var(--padding);
             padding-right: var(--padding);
             left:0;
-	    top:0;
+            top:0;
             height: fit-content;
             min-height: fit-content;
             height:fit-content;

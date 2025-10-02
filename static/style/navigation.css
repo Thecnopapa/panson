@@ -18,29 +18,6 @@
 
 
 
-@property --padding-horizontal {
-    syntax: "<length>{1:4}";
-    inherits: true;
-    initial-value: 0;
-}
-
-@property --padding-vertical {
-    syntax: "<length>{1:4}";
-    inherits: true;
-    initial-value: 0;
-}
-
-
-@property --padded-width {
-    syntax: "<length>";
-    inherits: true;
-    initial-value: 100%;
-}
-
-:root{
-
-}
-
 html{
     --padding: 1vw;
     --font-size-extra-extra-large: 32px;
@@ -56,7 +33,12 @@ html{
     --padded-width: calc(100% - var(--padding) * 2);
     margin:0px;
     padding:0px;
-    background-color: orange;
+    width:100dvw;
+    height: 100dvh;
+
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
 }
 
 
@@ -118,9 +100,7 @@ html{
 }
 
 body {
-	position:absolute;
-	top: 0;
-	left:0;
+
     padding: 0px;
     margin: 0px;
     width: 100vw;
@@ -129,6 +109,9 @@ body {
     flex-direction: column;
     overflow: hidden;
     align-items: center;
+     -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
 }
 
 input, textarea, select {
