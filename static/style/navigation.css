@@ -119,6 +119,8 @@ input, textarea, select {
     border-color: black;
     color: black;
     background-color: transparent;
+    padding: 0;
+    margin: 0;
 }
 
 video {
