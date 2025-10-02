@@ -211,6 +211,8 @@ video {
 
 
 .navigation-left {
+    width: fit-content;
+    max-width: 100%;
     display: flex;
     width: fit-content;
     left: 0;
@@ -494,7 +496,7 @@ video {
 
     .navigation-left {
         display: flex;
-        width: 100%;
+        width: fit-content;
         max-width: 100%;
         justify-content: flex-start;
         padding-left: var(--padding);

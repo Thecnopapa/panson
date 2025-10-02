@@ -134,7 +134,7 @@ if (window.innerHeight > window.innerWidth){
     targetWidth = navLeft.offsetWidth;
     menu.style.width = String(targetWidth) + "px";
 }
-menu.style.left = String(-targetWidth+1) + "px";
+menu.style.left = String(-targetWidth-1) + "px";
 
 
 window.addEventListener('load', function(){

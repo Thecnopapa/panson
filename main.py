@@ -129,7 +129,7 @@ def admin_check():
 @app.route("/blank")
 def return_blank():
     from app_essentials.firebase import get_areas
-    return get_areas()
+    return '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1,0"></head><style>html{background-color:red;overflow:scroll;}</style>'
 
 @app.route("/mailgun")
 def mailgun():
