@@ -30,7 +30,7 @@
 <div class="content-producte">
     <div id="producte-images">
     {% for n, imatge in utils.enumerate(producte.imatges) %}
-            <div class="main-foto normal-image {{ 'fast-image' if n ==0 }}" draggable=false product="{{ producte.nom }}" onclick="enlargeImg(this)" background='{{ imgs.get_url(producte.bucket, imatge) }}'></div>
+            <div class="main-foto normal-image {{ 'fast-image' if n ==0 }}"  product="{{ producte.nom }}" onclick="enlargeImg(this)" background='{{ imgs.get_url(producte.bucket, imatge) }}'></div>
     {% endfor %}
     </div>
     <div class="bubble-container {{ 'hidden' if utils.len(producte.imatges) <= 1 }}">

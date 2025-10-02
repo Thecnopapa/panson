@@ -50,10 +50,13 @@ html{
     --font-size-small: 14px;
     --font-size-large: 19px;
     font-size: var(--font-size-medium);
-    overflow: scroll;
+    overflow:scroll;
     --padding-horizontal: 0 var(--padding);
     --padding-vertical: var(--padding) 0;
     --padded-width: calc(100% - var(--padding) * 2);
+    margin:0px;
+    padding:0px;
+    background-color: orange;
 }
 
 
@@ -87,6 +90,7 @@ html{
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    -webkit-backface-visibility: hidden;
 
     /*white-space: pre-line;*/
 
@@ -114,8 +118,11 @@ html{
 }
 
 body {
-    padding: 0 0;
-    margin: 0 0;
+	position:absolute;
+	top: 0;
+	left:0;
+    padding: 0px;
+    margin: 0px;
     width: 100vw;
     min-height: 100vh;
     display: flex;
