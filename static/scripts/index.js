@@ -27,10 +27,10 @@ function updateScroll() {
         title.style.width = String(50 - (0 * scroll / maxScroll)).concat("vw");
         title.style.left = String(25 + (0 * scroll / maxScroll)).concat("vw");
 	    }else {
-        title.style.top = String(35 - (35 * scroll / maxScroll)).concat("dvh");
-        title.style.height = String(20 - (13 * scroll / maxScroll)).concat("dvh");
-        title.style.width = String(60 - (40 * scroll / maxScroll)).concat("dvw");
-        title.style.left = String(20 + (20 * scroll / maxScroll)).concat("dvw");
+        title.style.top = String(35 - (35 * scroll / maxScroll)).concat("vh");
+        title.style.height = String(20 - (13 * scroll / maxScroll)).concat("vh");
+        title.style.width = String(60 - (40 * scroll / maxScroll)).concat("vw");
+        title.style.left = String(20 + (20 * scroll / maxScroll)).concat("vw");
     }
 
 

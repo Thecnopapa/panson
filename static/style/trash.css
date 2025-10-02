@@ -108,13 +108,13 @@
 .slideshow-left{
     left: 0;
     justify-content:flex-start;
-    padding-left: 0.7dvh;
+    padding-left: 0.7vh;
 
 }
 .slideshow-right{
     right: 0;
     justify-content:flex-end;
-    padding-right: 0.7dvh;
+    padding-right: 0.7vh;
 
 
 }

@@ -591,9 +591,20 @@ body {
 	display:none;
 }
 
-
+.email-label:first-of-type{
+    margin-left: 0;
+}
+.email-label:last-of-type{
+    margin-right: 0;
+}
+.email-form{
+    width:100%;
+}
 .phone-number-label{
-    width:var(--padded-width);
+    width:100%;
+}
+.message-label{
+    width:100%;
 }
 .message{
     height:20vh;
