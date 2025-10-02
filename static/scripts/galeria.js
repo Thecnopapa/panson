@@ -177,10 +177,11 @@ function changeProduct(element, product, bucket) {
     element.classList.remove("empty");
     element.getElementsByClassName("imatge primera")[0].setAttribute("background", imageUrl(bucket, info.img1.value));
     element.getElementsByClassName("imatge segona")[0].setAttribute("background", imageUrl(bucket, info.img2.value));
+    element.onclick = function () { location.href = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value }
 	if (bucket === "bespoke"){
 		element.getElementsByClassName("per-a")[0].innerHTML = info.per_a.value;
 	} else{
-            element.onclick = function () { location.href = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value }
+
     		element.getElementsByClassName("nom")[0].innerHTML = info.nom.value;
             [...element.getElementsByClassName("preu-inline")].forEach(e => {e.innerHTML = info.preu.value;});
 	}
