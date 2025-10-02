@@ -27,8 +27,8 @@
 </div>
 {% endblock %}
 
-
 {% macro contact_form(target="contacte", name=True, email=True, prefix=True, phone=True, subject=True, message=True) %}
+
 			<form class=email-form method=POST action="/{{ loc.lan }}/send_email/{{ target }}/">
 				<div class=sender-details>
                     {% if name %}

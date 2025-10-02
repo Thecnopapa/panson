@@ -468,7 +468,7 @@ function slideshowScroll(container, mode, axis="both"){
     container.scrollTo(targetScrollX, targetScrollY);
 
 }
-let alwaysBlackInProduct = [...lanButtons, ...cartIcon, ...cartCircle]
+let alwaysBlackInProduct = [...lanButtons, cartIcon, cartCircle]
 console.log(alwaysBlackInProduct);
 alwaysBlackInProduct.forEach(el => {
 

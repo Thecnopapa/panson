@@ -262,7 +262,15 @@ def mostrar_peca(lan, id):
     print(producte)
     html = template(lan=lan, templates="producte3", producte=producte)
     return html
+@app.route("/<lan>/bespoke/<id>/")
+def mostrar_bedpoke(lan, id):
+    from app_essentials.firebase import bespoke
+    from app_essentials.products import Bespoke
 
+    product = Bespoke(bespoke.document(id).get().to_dict(), id)
+    print(bespoke)
+    html = template(lan=lan, templates="producte3", producte=product)
+    return html
 
 
 

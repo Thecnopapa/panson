@@ -6,12 +6,14 @@
 {% endblock %}
 
 {% block imports %}
+    <link href='/style/contacte.css' as='style' rel='preload'>
     <link href='/style/galeria.css' as='style' rel='preload'>
     <link href='/scripts/galeria.js' as='script' rel='preload'>
     <link href='/style/talles.css' as='style' rel='preload'>
     <link href='/style/producte3.css' as='style' rel='preload'>
     <link href='/scripts/producte3.js' as='script' rel='preload'>
-
+    
+    <link href='/style/contacte.css' rel='stylesheet'>
     <link href='/style/galeria.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/scripts/galeria.js"></script>
     <link href='/style/talles.css' rel='stylesheet'>
@@ -25,11 +27,10 @@
 {% block body %}
 
 
-
 <div class="content-producte">
     <div id="producte-images">
     {% for n, imatge in utils.enumerate(producte.imatges) %}
-            <div class="main-foto normal-image {{ 'fast-image' if n ==0 }}" draggable=false product="{{ producte.nom }}" onclick="enlargeImg(this)" background='{{ imgs.get_url('productes', imatge) }}'></div>
+            <div class="main-foto normal-image {{ 'fast-image' if n ==0 }}" draggable=false product="{{ producte.nom }}" onclick="enlargeImg(this)" background='{{ imgs.get_url(producte.bucket, imatge) }}'></div>
     {% endfor %}
     </div>
     <div class="bubble-container {{ 'hidden' if utils.len(producte.imatges) <= 1 }}">
@@ -49,6 +50,9 @@
 
     <div id="main-details">
         <div id="titol_producte">{{ producte.nom }}</div>
+    {% if producte.bucket == "bespoke" %}
+    <div class="pro-per-a"><span class="loc" loc="pro_per_a">{{ loc.pro_per_a }}</span>{{ producte.per_a }}</div>
+    {% endif %}
 
     {% if producte.bucket == "productes" %}
 
@@ -228,6 +232,11 @@
                 </div>
             </div>
         </div>
+    {% endif %}
+    {% if producte.bucket == "bespoke" %}
+    <div class="explicacio-contacte loc" loc="pro_explicacio_contacte">{{ loc.pro_explicacio_contacte }}</div>
+    	{% import 'contacte.html' as contacte with context%}
+	{{ contacte.contact_form(prefix=False, subject=False) }}
     {% endif %}
     </div>
 </div>
