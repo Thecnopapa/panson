@@ -202,3 +202,18 @@ body {
     right:0;
     background-color: rgba(255, 0, 0, 0.8);
 }
+
+
+
+.color-circle{
+	border-radius: 0.5rem;
+	height: 1rem;
+	width:fit-content;
+	padding-right: 0.5rem;
+	padding-left:0.5rem;
+	font-size: var(--font-size-extra-small);
+
+}
+.color-circle.selected{
+	border: 2px solid black;
+}

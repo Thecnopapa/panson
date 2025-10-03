@@ -23,14 +23,14 @@
 		<div id="admin-common">
 			<div id="admin-header"></div>
 			<div id=admin-menu>
-                <button onclick="window.location.href='/admin/productes/'" class="loc" loc="admin-menu-productes">{{ loc.admin_menu_productes }}</button>
-				<button onclick="window.location.href='/admin/bespoke/'" class="loc" loc="admin-menu-bespoke">{{ loc.admin_menu_bespoke }}</button>
-				<button onclick="window.location.href='/admin/collecions/'" class="loc" loc="admin-menu-collecions">{{ loc.admin_menu_collecions }}</button>
-				<button onclick="window.location.href='/admin/localisation/'" class="loc" loc="admin-menu-localisation">{{ loc.admin_menu_localisation }}</button>
+                <button onclick="window.location.href='/admin/productes'" class="loc" loc="admin-menu-productes">{{ loc.admin_menu_productes }}</button>
+				<button onclick="window.location.href='/admin/bespoke'" class="loc" loc="admin-menu-bespoke">{{ loc.admin_menu_bespoke }}</button>
+				<button onclick="window.location.href='/admin/collecions'" class="loc" loc="admin-menu-collecions">{{ loc.admin_menu_collecions }}</button>
+				<button onclick="window.location.href='/admin/localisation'" class="loc" loc="admin-menu-localisation">{{ loc.admin_menu_localisation }}</button>
 				{% if user.username == "iain" %}
 
-                    <button onclick="window.location.href='/admin/imatges/'">Imatges</button>
-                    <button onclick="window.location.href='/admin/misc/'">Misc</button>
+                    <button onclick="window.location.href='/admin/imatges'">Imatges</button>
+                    <button onclick="window.location.href='/admin/misc'">Misc</button>
 
 				{% endif %}
 			</div>
@@ -62,10 +62,10 @@
             <div class="product-snapshot normal-image" background='{{ imgs.get_url(product.bucket, product.imatges[0]) }}'></div>
         </div>
         <div class="product-data hide">
-            <div class="product-element name">Nom: <input product="{{product._id}}" field="nom" class="product-input" value="{{product.nom}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; this.parentElement.parentElement.parentElement.getElementsByClassName('product-title')[0].innerHTML=this.value"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
-            <div class="product-element description">Descripcio: <textarea product="{{product._id}}" field="descripcio" class="product-input" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';">{{product.descripcio}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
+            <div class="product-element name">Nom: <input product="{{product._id}}" field="nom" class="product-input" value="{{product.nom}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; this.parentElement.parentElement.parentElement.getElementsByClassName('product-title')[0].innerHTML=this.value" colorcode="next"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
+            <div class="product-element description">Descripcio: <textarea product="{{product._id}}" field="descripcio" class="product-input" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';" colorcode="next">{{product.descripcio}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
 	    {% if product.bucket == "productes" %}
-            <div class="product-element description">Info: <textarea product="{{product._id}}" field="info" class="product-input" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';">{{product.info}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
+            <div class="product-element description">Info: <textarea product="{{product._id}}" field="info" class="product-input" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';" colorcode="next">{{product.info}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
 	    {% endif %}
 
             {% if product.bucket == "productes" %}
@@ -152,12 +152,15 @@
                             {% endfor %}
                 </select><div></div>
                 </div>
-                <div class="product-element talles">Talles:<ul>
+
+                <div class="product-element talles">Talles:
+			
 			{% if product.opcions.get("talles") == None %}
 				{% set talles = {"": {"":""}} %}
 			{% else %}
 				{% set talles = product.opcions.get("talles") %}
 			{% endif %}
+			<ul>
                             {% for n, (subkey, info) in utils.enumerate(utils.list(talles.items())) %}
                                 <li>
                                     <input type="{{ "hidden" if product.opcions["talles"] }}" subdict="talles" class="dict-key" product="{{product._id}}" field="opcions" dataType="dict:text" value="{{ subkey }}"><span>{{ subkey }}</span>
@@ -166,12 +169,42 @@
                                     <button class="product-update" onclick="productUpdateDict(this.parentElement, 'remove')">✖</button>
                                 </li>
                             {% endfor %}
-                        </ul><button type="button" onclick="addListElement(this.previousElementSibling, 'text')">+</button>
+                        </ul>
+			<button type="button" onclick="addListElement(this.previousElementSibling, 'text')">+</button>
                 </div>
 
 
 
+
+		{{ product.opcions.colors }}
+		<div class="product-element colors">Colors:
+			<input class="n-colors-input" type="number" value={{product.opcions.get("n_colors", 0) }} product="{{product._id}}"  field="opcions" key="n_colors">
+			
+			{% if product.opcions.get("colors") == None %}
+				{% set colors = {"":{"":""}} %}
+			{% else %}
+				{% set colors = product.opcions.get("colors") %}
+			{% endif %}
+			
+			<div class="all-colors" product={{product._id}} field="opcions" key="colors">
+			{% for c_name, c in loc.misc["colours"].items() %}
+			<div class="color-circle {{"selected" if c_name in colors.keys()}}" style="background-color: {{c}}" onclick="this.classList.toggle('selected');" value="{{c_name}}">{{c_name}}</div>
+			{%endfor%}
+			</div>
+			<button class="product-update" onclick="productUpdateColors(this.parentElement)">&#10004;</button>
+		</div>
+		<div class="product-element extra-colors hidden">Detalls colors:
+			<ol>
+				<li></li>
+			</ol>
+		</div>
+
+
                 <!-- TODO: colors input -->
+
+
+
+
 
 
             {% elif product.bucket == "bespoke" %}
@@ -226,7 +259,7 @@
 
 
 {% macro image_selector() %}
-DiALoG
+
 <dialog class="image-selector container-closer hidden" onclick="this.classList.toggle('hidden');">
     <div class="image-selector-content img-details" onclick="event.stopPropagation();">
         <div class="image-selector-title">Bucket</div>

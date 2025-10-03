@@ -624,6 +624,9 @@ def update_product(bucket):
         try:
             print(request.json)
             data = request.json.copy()
+            dry = False
+            if "dry" in data.keys():
+                dry = data["dry"]
             if bucket == "productes":
                 from app_essentials.firebase import prods
                 from app_essentials.products import Product
@@ -713,7 +716,7 @@ def update_product(bucket):
                         target_dict[s] = {}
                         target_dict = target_dict[s]
                     print("target_dict[{}]: {}".format(s,target_dict))
-                print("target dict: {}, subficts: {}".format( target_dict, subdicts))
+                print("target dict: {}, subdicts: {}".format( target_dict, subdicts))
                 print("key = {}, value = {}".format(data["key"], value))
                 if data["mode"] == "add":
                     print("adding")
@@ -730,8 +733,11 @@ def update_product(bucket):
                 p.__setattr__(data["field"], value)
 
             sprint("Updating DB")
-            p.update_db()
-            print1("DB updated")
+            if not dry:
+                p.update_db()
+                print1("DB updated")
+            else: 
+                sprint("Dry run")
             return p.__dict__
         except Exception as e:
             print(e)

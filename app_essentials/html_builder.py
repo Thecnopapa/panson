@@ -63,14 +63,15 @@ def template(html="", templates=None, navigation=True, **kwargs):
             try:
                 html+= render_template(t+".html",no_head=n!=0, **kwargs)
             except Exception as e:
-                print("#######################################")
-                print("Failed to render template: {}".format(t))
-                print(e)
-                kwargs["user"].remove()
-                session.pop("session_id")
-                session.pop("user_id")
-                kwargs["user"] = get_current_user()
-                kwargs["cart"] = kwargs["user"].cart
+                if False:
+                    print("#######################################")
+                    print("Failed to render template: {}".format(t))
+                    print(e)
+                    kwargs["user"].remove()
+                    session.pop("session_id")
+                    session.pop("user_id")
+                    kwargs["user"] = get_current_user()
+                    kwargs["cart"] = kwargs["user"].cart
                 html += render_template(t + ".html", no_head=n != 0, **kwargs)
 
 

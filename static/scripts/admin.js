@@ -309,13 +309,15 @@ function productImageDelete(image){
 
 
 
-async function productUpdate(trigger, value=undefined, type=undefined, mode="add",  key=undefined,  subdict=undefined, subkey=undefined) {
+async function productUpdate(trigger, value=undefined, type=undefined, mode="add",  key=undefined,  subdict=undefined, subkey=undefined, dry=false) {
 	const field = trigger.attributes.field.value;
 	const product = trigger.attributes.product.value;
-    let colorcode = trigger.getAttribute("colorcode");
+    	let colorcode = trigger.getAttribute("colorcode");
+	let colorElement = trigger;
     if (colorcode === undefined || colorcode === null){
-        //colorcode = "next";
-	colorcode = undefined;
+	
+    } else if(colorcode === "next"){
+	    colorElement = trigger.nextElementSibling;
     }
     let bucket = window.location.href.split("/");
 
@@ -346,20 +348,22 @@ async function productUpdate(trigger, value=undefined, type=undefined, mode="add
 
 
 	print("With value: ", value);
+	if (dry){
+		console.log("dry");
+	}
 	let resp = await fetch("/admin/update/"+bucket,
 		{
 			headers: {'Accept': 'application/json',
 				'Content-Type': 'application/json'
 			},
 			method: "POST",
-			body: JSON.stringify({product: product, field: field, value: value, type:type, mode:mode, key:key, subdict:subdict, subkey:subkey} ),
+			body: JSON.stringify({product: product, field: field, value: value, type:type, mode:mode, key:key, subdict:subdict, subkey:subkey, dry:dry} ),
                 }).then(response => {return response;});
-    if (colorcode !== undefined && colorcode !== null) {
-	    console.log(colorcode);
+    if (colorElement !== undefined && colorElement !== null) {
         if (resp.ok) {
-            trigger.nextElementSibling.style.backgroundColor = "lightgreen";
+            colorElement.style.backgroundColor = "lightgreen";
         } else {
-            trigger.nextElementSibling.style.backgroundColor = "red";
+            colorElement.style.backgroundColor = "red";
         }
     }
     return resp;
@@ -397,14 +401,46 @@ async function productUpdateDict(container, mode){
             if (!responses[i].ok) {
                 container.style.backgroundColor = "red";
                 return false;
-            }
-        }
+            } else {
+		    container.style.backgroundColor = "green";
+		    return true;
+	    }
+	}
         container.style.backgroundColor = "lightgreen";
         keyElement.type = "hidden";
         labelElement.innerHTML = "";
         return true;
     }
 }
+
+
+async function productUpdateColors(container){
+	let nColorsInput = container.getElementsByClassName("n-colors-input")[0];
+	let colorsDiv = container.getElementsByClassName("all-colors")[0];
+	let selectedElements = [...colorsDiv.querySelectorAll(".colorCircles,.selected")];
+	let nColors = nColorsInput.value;
+	console.log("nColors: ", nColors);
+	let selectedColors ={};
+	if (nColors === "0"){
+		console.log("no colors");
+	}
+	selectedElements.forEach(el => {
+		selectedColors[el.attributes.value.value] = {"preu":0};
+	});
+	console.log(selectedColors);
+	let resps = [];
+	resps.push(await productUpdate(nColorsInput, nColors, "dict:int", "add", "n_colors", undefined,  undefined));
+	
+	resps.push(await productUpdate(colorsDiv, selectedColors, "dict:dict", "add", "colors", undefined, undefined));
+
+
+	console.log(resps);
+
+
+
+}
+
+
 
 
 function addListElement(trigger, typeOfFirst){
@@ -414,7 +450,7 @@ function addListElement(trigger, typeOfFirst){
     const inputs = newElement.getElementsByTagName("input");
     inputs[0].type = typeOfFirst;
     for (let i = 0; i < inputs.length; i++) {
-        inputs[i].value = ""
+        inputs[i].value = "";
     }
     trigger.lastElementChild.after(newElement);
 }
