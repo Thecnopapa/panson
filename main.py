@@ -1,7 +1,7 @@
 # ESSENTIAL IMPORTS
 import json
 import os
-
+import datetime
 from utilities import *
 
 # WEB-RELATED IMPORTS
@@ -12,7 +12,7 @@ from google.cloud import secretmanager
 from google.oauth2 import service_account
 
 ### START APP CONFIG ###################################################################################################
-print(" * Inititlising...")
+print(" * Initiatlising...")
 project_id = "panson"
 os.makedirs("secure", exist_ok=True)
 try:
@@ -104,19 +104,47 @@ def handle_exception(e):
     return render_template("ERROR.html", code=e.code, name=e.name, description=e.description, request=request), e.code
 
 
-from flask_limiter import Limiter
-limiter = Limiter(
-        app=app,
-        default_limits=["3 per second"],
-        key_func=get_session_id,
-        )
 
+
+origin = datetime.datetime.now()
 
 
 @app.before_request
-def make_session_permanent():
-    #session.permanent = True
-    pass
+def check_limit(max_reqs=10, seconds=10):
+    #print("Checking limit")
+    #print(session)
+    now = (datetime.datetime.now() - origin).total_seconds()
+    #print("Now: ", now)
+    usage = 0
+    if "usage" in session:
+        usage = session["usage"]
+    if "window" not in session:
+        session["window"] = now
+    window = session["window"]
+    delta = now - window
+    #print("delta: ", delta)
+    if delta >= seconds or delta < 0:
+        window = now
+        session["window"] = window
+        usage = 0
+        session["usage"] = usage
+        print("Window renewed, delta: ", delta)
+    #print(window)
+    #print(usage)
+    if usage > max_reqs:
+        print("Usage exceded: ", usage)
+        return "", 429
+    else:
+        pass
+
+def use(amount=1):
+    print("Using: ", amount, "current: ", session["usage"])
+    if "usage" not in session:
+        session["usage"] = 0
+    session["usage"] += amount
+    
+
+
 
 
 def admin_check():
@@ -128,21 +156,23 @@ def admin_check():
 
 @app.route("/blank")
 def return_blank():
+    use(0.1)
     from app_essentials.firebase import get_areas
     return '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1,0"></head><style>html{background-color:red;overflow:scroll;}</style>'
 
 @app.route("/mailgun")
 def mailgun():
+    use(0.1)
     from app_essentials.mail import send_email
     m = send_email("iainvisa@gmail.com", "Configuracio d'email", "Que et sembla aquest email automatic?\n\nEs podia fins i tot enviar desde:\n<el-que-tu-vulguis>@pansonjoieria.com")
     print(m)
     return str(m)
 
-@limiter.exempt
+
 @app.route("/size/calculator/", methods=["POST", "GET"])
 def get_talla():
+    use(0.01)
     es_talla =""
-
 
     f_talla = request.form.get("talla")
     f_unit = request.form.get("unit")
@@ -158,6 +188,7 @@ def get_talla():
 
 @app.post("/accept-cookies")
 def acceptar_cookies():
+    use(0.1)
     print("Accepting cookies")
     user = get_current_user()
     r = request.get_json()
@@ -179,13 +210,15 @@ from flask import url_for, send_from_directory
 
 @app.route("/<lan>/tic")
 def tic(lan):
+    use()
     return template(templates="terms", lan=lan)
 
 
-@limiter.exempt
+
 @app.route("/static/<folder>/<file>")
 @app.route("/static/<file>")
 def get_static(file, folder=None):
+    use(0.01)
     try:
         raise Exception()
         file = secure_filename(file)
@@ -198,16 +231,20 @@ def get_static(file, folder=None):
             return send_from_directory("static", file)
         return send_from_directory("static", folder + "/" + file)
 
-@limiter.exempt
+
 @app.route("/style/<file>")
 def get_style(file):
+    use(0.01)
     return redirect("/static/style/"+secure_filename(file))
-@limiter.exempt
+
 @app.route("/scripts/<file>")
 def get_script(file):
+    use(0.01)
     return redirect("/static/scripts/"+secure_filename(file))
+
 @app.route("/fonts/<file>")
 def get_font(file):
+    use(0.01)
     return redirect("/static/scripts/"+secure_filename(file))
 
 
@@ -216,18 +253,24 @@ def get_font(file):
 def index(lan ="cat", favicon = True):
     # Special urls #######################################
     if lan == "favicon.ico":
+        use(0.01)
         if favicon:
             return redirect("/static/media/favicon.ico")
         else:
             return ""
+
     elif lan == "robots.txt":
+        use()
         return redirect("/static/robots.txt")
+
     elif lan == "sitemap":
+        use()
         with open("static/sitemap.xml") as f:
             sitemap = f.read()
         return sitemap
     ######################################################
     # TODO: Revisit firebase access
+    use()
     slides = list_blobs("portada")
     slide_list = [[slide, storage_url.format("portada", slide.split("/")[-1])] for slide in slides if
                   slide.split("/")[-1] != ""]
@@ -238,32 +281,37 @@ def index(lan ="cat", favicon = True):
 
 @app.route("/<lan>/collecio/<id>")
 def collections(lan,id):
+    use()
     col = [c for c in get_cols() if c._id == id][0]
     html = template(lan=lan, templates=["collecio"], col=col)
     return html
 
 
 
-
 @app.route("/<lan>/productes/")
 def productes(lan):
+    use()
     filters = {"esborrat": False, "amagat": False}
     html = template(lan=lan,templates="all_products")
     return html
 
 @app.route("/<lan>/peces_uniques/")
 def peces_uniques(lan):
+    use()
     html = template(lan=lan, templates="uniques", filters={"unica":True, "collecio":[], "tipus":"totes"}, titol="gal_totes")
     return html
 
 @app.route("/<lan>/productes/<id>/")
 def mostrar_peca(lan, id):
+    use()
     producte = Products(lan=lan).get_single(id)
     print(producte)
     html = template(lan=lan, templates="producte3", producte=producte)
     return html
+
 @app.route("/<lan>/bespoke/<id>/")
 def mostrar_bedpoke(lan, id):
+    use()
     from app_essentials.firebase import bespoke
     from app_essentials.products import Bespoke
 
@@ -274,9 +322,10 @@ def mostrar_bedpoke(lan, id):
 
 
 
-@limiter.exempt
+
 @app.post("/carret/add")
 def afegir_al_carret():
+    use(0.1)
     user = get_current_user()
     material= None
     variacio = None
@@ -363,15 +412,17 @@ def afegir_al_carret():
     #return redirect("/{}/productes/{}/".format(lan, request.form["id"]))
     return redirect(request.referrer)
 
-@limiter.exempt
+
 @app.post("/<lan>/render_cart")
 def render_cart(lan):
+    use(0.1)
     return template(lan=lan, templates="cart")
 
 
-@limiter.exempt
+
 @app.post("/productes/carret/<pos>/<qty>")
 def alterar_carret(pos, qty):
+    use(0.01)
     user = get_current_user()
     for n, (k, v) in enumerate(user.cart.items()):
         if n == int(pos):
@@ -387,9 +438,10 @@ def alterar_carret(pos, qty):
     return "", 204
 
 
-@limiter.exempt
+
 @app.post("/<lan>/carret/id2/eliminar_del_carret")
 def eliminar_del_carret(lan, id2):
+    use(0.01)
     opcions = get_opcions()
     user = get_current_user()
     user.add_producte_carret(id2, delete=True)
@@ -402,27 +454,32 @@ def eliminar_del_carret(lan, id2):
 
 @app.post("/<lan>/checkout/init")
 def checkout(lan):
+    use(0.1)
     from payments import init_checkout
     return init_checkout(lan, force_new=False)
 
 @app.post("/<lan>/checkout/init/force_new")
 def checkout_force(lan):
+    use(0.1)
     from payments import init_checkout
     return init_checkout(lan, force_new=True)
 
 
 @app.route("/<lan>/checkout/stripe")
 def stripe_checkout(lan):
+    use()
     return template(lan=lan, templates="stripe_checkout", force_new=False)
 
 @app.route("/<lan>/checkout/stripe/force_new")
 def stripe_checkout_force(lan):
+    use()
     return template(lan=lan, templates="stripe_checkout", force_new=True)
 
 
 
 @app.post("/<lan>/checkout/update/shipping")
 def calculate_shipping_options_route(lan):
+    use(0.01)
     print("Calculating shipping options")
     request_data = request.get_json()
     checkout_session_id = request_data.get('checkout_session_id')
@@ -438,8 +495,8 @@ def calculate_shipping_options_route(lan):
 
 @app.route("/<lan>/checkout/success/")
 def stripe_success(lan):
+    use(0.01)
     from payments import process_payment
-
     payment_data = process_payment(lan=lan)
     if payment_data is None:
         return redirect("/{}".format(lan))
@@ -449,38 +506,44 @@ def stripe_success(lan):
 
 @app.route("/<lan>/checkout/cancel/")
 def stripe_cancel(lan):
+    use()
     html = template(lan=lan, templates="cancel")
     return html
 
 @app.route("/<lan>/projecte/")
 def projecte(lan):
+    use()
     html = template(lan=lan, templates="projecte")
     return html
 
 @app.route("/<lan>/contacte/")
 def contatce(lan):
+    use()
     html = template(lan=lan, templates="contacte")
     return html
 
 @app.route("/<lan>/info-talles/")
 def info_talles(lan):
+    use()
     html = template(lan=lan, templates="talles")
     return html
 
-@limiter.exempt
+
 @app.route("/<lan>/admin/")
 @app.route("/<lan>/admin/<page>/")
 @app.route("/admin/")
 @app.route("/admin/<page>/")
 def admin(lan="cat", page="base"):
+    use()
     if admin_check():
         return template(lan=lan, imgs=Images().load(), templates="admin-{}".format(page), amagats=True, footer=False, collecions = get_cols(amagats=True))
     else:
         return template(lan=lan, templates="login")
 
-@limiter.exempt
+
 @app.post("/login")
 def login():
+    use()
     print("loging in...")
     from app_essentials.firebase import check_if_admin
     #print(request.form["username"], request.form["password"])
@@ -496,9 +559,10 @@ def login():
         print("login failed")
     return redirect("/admin/")
 
-@limiter.exempt
+
 @app.route("/admin/logout")
 def logout():
+    use(0.01)
     user = get_current_user()
     user.username = None
     user.password = None
@@ -508,9 +572,9 @@ def logout():
 
 
 
-@limiter.exempt
 @app.post("/admin/misc/update")
 def misc_update():
+    use(0.01)
     if admin_check():
         data = request.json
         from app_essentials.firebase import localisation
@@ -532,9 +596,9 @@ def misc_update():
 
 
 
-@limiter.exempt
 @app.post("/admin/loc/update-field")
 def update_field():
+    use(0.01)
     if admin_check():
         print(request.json)
         data = request.json
@@ -547,9 +611,10 @@ def update_field():
         localisation.document("languages").collection("text").document(data["page"]).update(new_data)
     return ""
 
-@limiter.exempt
+
 @app.post("/admin/loc/update")
 def update_loc():
+    use(0.01)
     if admin_check():
         print("Updating loc")
         data = request.get_json()
@@ -576,9 +641,10 @@ def update_loc():
         return "", 200
 
 
-@limiter.exempt
+
 @app.post("/admin/loc/delete-field")
 def delete_field():
+    use(0.01)
     user = get_current_user()
     if check_if_admin(user.username, user.password):
         print(request.json)
@@ -595,10 +661,9 @@ def delete_field():
 
 
 
-
-@limiter.exempt
 @app.post("/admin/create/<bucket>")
 def create_product(bucket):
+    use(0.01)
     user = get_current_user()
     if check_if_admin(user.username, user.password):
         print(request.form)
@@ -616,9 +681,10 @@ def create_product(bucket):
         return redirect("/admin/{}/".format(bucket))
 
 
-@limiter.exempt
+
 @app.post("/admin/update/<bucket>")
 def update_product(bucket):
+    use(0.01)
     user = get_current_user()
     if check_if_admin(user.username, user.password):
         try:
@@ -744,9 +810,10 @@ def update_product(bucket):
             return str(e), 500
 
 
-@limiter.exempt
+
 @app.post("/admin/images/upload/<bucket>")
 def upload_image(bucket):
+    use(0.01)
     user = get_current_user()
     if check_if_admin(user.username, user.password):
         from app_essentials.localisation import Images
@@ -764,6 +831,7 @@ def upload_image(bucket):
 
 @app.post("/admin/images/delete")
 def delete_image():
+    use(0.01)
     if admin_check():
         r = request.get_json()
         from app_essentials.localisation import Images
@@ -777,6 +845,7 @@ def delete_image():
 
 @app.post("/admin/files/info")
 def get_file_info(data=None):
+    use(0.01)
     if admin_check():
         imgs = Images()
         if data is None:
@@ -801,6 +870,7 @@ def get_file_info(data=None):
 
 @app.post("/admin/files/list")
 def get_file_list():
+    use(0.01)
     print("admin/files/list")
     if admin_check():
         imgs = Images()
@@ -815,6 +885,7 @@ def get_file_list():
 
 @app.post("/<lan>/send_email/<target>/")
 def send_contact_email(lan, target="contacte"):
+    use(10)
     from app_essentials.mail import send_email
     form = request.form
 
@@ -850,12 +921,13 @@ def send_contact_email(lan, target="contacte"):
 
 @app.route("/<lan>/fetamida/")
 def fetamida(lan):
+    use()
     html = template(lan=lan, templates="fetamida4")
     return html
 
 @app.route("/<lan>/fetamida/intro")
-@app.route("/<lan>/fetamida/intro")
 def fetamida_intro(lan):
+    use()
     html = template(lan=lan, templates="fetamida-intro")
     return html
 
