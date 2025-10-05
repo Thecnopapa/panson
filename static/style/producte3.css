@@ -376,16 +376,16 @@ body {
 }
 .add-to-cart.loading .cart-loading{
 	display:flex;
-	-webkit-animation:spin 4s linear infinite;                            -moz-animation:spin 4s linear infinite;
-        animation:spin 4s linear infinite;
+	/*-webkit-animation:spin 4s linear infinite;                            -moz-animation:spin 4s linear infinite;
+        animation:spin 4s linear infinite;*/
 }
 .cart-loading{
 	display:none;
 	/*background-image: url("/static/media/panson_favicon.png");
 	background-size: contain;
 	background-position:center;
-	background-repeat: no-repeat;
-	filter: invert(100%);*/
+	background-repeat: no-repeat; */
+	filter: invert(100%);
 	color: white;
 	height:var(--font-size-extra-large);
 	width:var(--font-size-extra-large);
