@@ -10,7 +10,7 @@ let currentSection = 1;
 window.addEventListener("orientationchange", () => {setTimeout( toSection, 2000,currentSection);});
 
 
-function toSection(targetSection) {
+function toSectionOld(targetSection) {
     if (targetSection === null) {
         targetSection = 1;
     }
@@ -59,7 +59,7 @@ menuContainer.addEventListener("touchend", function(event){
 });
 */
 
-sectionContainer.addEventListener("scroll", (event) => {document.documentElement.scrollTo(0,0);});
+//sectionContainer.addEventListener("scroll", (event) => {document.documentElement.scrollTo(0,0);});
 
 
 function showEmailForm(content){
@@ -74,7 +74,26 @@ function showEmailForm(content){
 
 
 
+function toSection(target){
+	let buttons = [...document.getElementsByClassName("to-section")];
+	window.history.replaceState(document.title, "", document.location.pathname+"?page=" + target);
+	buttons[target].click();
+}
 
 
-print(" * Bespoke JS ready")
+function closeSections(trigger){
+	let buttons = [...document.getElementsByClassName("to-section")];
+	let sections = [...document.getElementsByClassName("fetamida-section")];
+
+	buttons.forEach(b => {b.classList.add("closed");});
+	sections.forEach(s => {s.classList.add("hidden");});
+
+	trigger.classList.remove("closed");
+	trigger.nextElementSibling.classList.remove("hidden");
+	trigger.nextElementSibling.scrollTo({top:0});
+
+
+}
+
+print(" * Fetamida JS ready")
 

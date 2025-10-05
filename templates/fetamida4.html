@@ -33,25 +33,23 @@
 <div id="scroll-left" class="scroller" onclick="prevSection()"></div>
 <div id="scroll-right" class="scroller" onclick="nextSection()"></div>
 <div id="content-fetamida">
-    <div id="section-menu">
-            <div id="to-first" class="to-section left loc" onclick="toSection(0)" loc="fam_boto_1">{{ loc.fam_boto_1 }}</div>
-            <div id="to-second" class="to-section center loc" onclick="toSection(1)" loc="fam_boto_2">{{ loc.fam_boto_2 }}</div>
-	    <div class="to-section portrait" onclick="showEmailForm(document.getElementsByClassName('fetamida-contact')[0])">{{ loc.fam_contactens }}</div>
-    </div>
-    <div id="sections-fetamida">
-        <div id="fetamida-left" class="fetamida-section">
+	<div id="to-first" class="to-section left loc" onclick="closeSections(this)" loc="fam_boto_1">{{ loc.fam_boto_1 }}</div>
+	<div id="fetamida-left" class="fetamida-section hidden">
             {{ crea.fetamida_crea() }}
         </div>
 
-        <div id="fetamida-centre" class="fetamida-section">
+        <div id="to-second" class="to-section center loc" onclick="closeSections(this)" loc="fam_boto_2">{{ loc.fam_boto_2 }}</div>
+        <div id="fetamida-centre" class="fetamida-section hidden">
             {{ galeria.galeria("bespoke", max_prods=8,min_row=4, min_prods=8, pages=True) }}
-
         </div>
-    </div>
-<div class="open-contact landscape loc" onclick="showEmailForm(this.nextElementSibling)" loc="fam_contactens">{{ loc.fam_contactens }}</div>
 
-    <div class="fetamida-contact"><div class="contact-header loc" loc="fam_contactens_titol">{{ loc.fam_contactens_titol }}</div>{{ contact.contact_form(target="bespoke", subject=False, prefix=False) }}</div>
-</div>
+	<div id="to-third" class="to-section right loc" onclick="closeSections(this)" loc="fam_boto_3">{{ loc.fam_boto_3 }}</div>
+	<div id="fetamina-right" class="fetamida-section hidden">
+		{{ contact.contact_form(subject=False, prefix=False) }}
+	</div>
+
+
+    </div>
 
 
 {% endblock %}

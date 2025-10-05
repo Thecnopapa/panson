@@ -3,7 +3,8 @@
     display: flex;
     flex-direction: column;
     height: fit-content;
-    min-height: 100dvh;
+    max-height:93vh;
+    min-height: 93vh;
     width: 100dvw;
     max-width: 100dvw;
     scroll-behavior: smooth;
@@ -92,21 +93,24 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding:1vw;
-    width: calc(100dvw - 2dvw);
-    max-width: calc(100dvw - 2vw);
-    min-width: calc(100dvw - 2vw);
+    padding: var(--padding);
+    width: var(--padded-width);
+    max-width: var(--padded-width);
+    min-width: var(--padded-width);
     /*
     height:  calc(100% - 8vh);
     max-height:  calc(100% - 8vh);
     min-height: calc(100% - 8vh);
     */
-    height: fit-content;
-    max-height: fit-content;
-    min-height: 80vh;
-    overflow: hidden;
+    height: 100%;
+    max-height: 100%;
+    min-height: 100%;
+    overflow: scroll;
     align-items: center;
 
+}
+.fetamida-section.hidden{
+	display: none;
 }
 #fetamida-centre{
     padding-right: 0;
@@ -181,6 +185,8 @@
 @media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
     #content-fetamida{
         margin-top: 10vh !important;
+	max-height: 90vh;
+	min-height: 90vh;
 
     }
     #sections-fetamida{
@@ -215,6 +221,7 @@
         flex-direction: column;
         align-items: center;
         margin-bottom: 0;
+	padding-bottom: 0;
         height: fit-content;
 	}
     .to-section{
@@ -222,8 +229,11 @@
         left: unset !important;
         width: 100% !important;
         max-width: 100% !important;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
+	margin-top: 0.5rem;
         justify-content: start !important;
+	padding-left: var(--padding);
+	padding-right: var(--padding);
     }
     .galeria{
         margin-top: 0;
