@@ -234,10 +234,12 @@ async function miscUpdate(target, del=false, sure=false){
 
 
 async function uploadFiles(trigger, clone=undefined){
-	let bucket = trigger.parentElement.attributes.bucket.value;
-    if (bucket === undefined){
-        bucket = currentBucket;
-    }
+	try{
+		let bucket = trigger.parentElement.attributes.bucket.value;
+    
+	} catch {
+        	bucket = currentBucket;
+    	}
 	const files = trigger.files;
 	let uploadedFiles = []
 	for (let i = 0; i < files.length; i++){

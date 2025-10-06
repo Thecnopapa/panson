@@ -138,9 +138,9 @@ def check_limit(max_reqs=10, seconds=10):
         pass
 
 def use(amount=1):
-    print("Using: ", amount, "current: ", session["usage"])
     if "usage" not in session:
         session["usage"] = 0
+    print("Using: ", amount, "current: ", session["usage"])
     session["usage"] += amount
     
 
