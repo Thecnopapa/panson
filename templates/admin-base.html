@@ -59,7 +59,7 @@
 
             <div class="product-title" >{{product.nom}} {{ "(Amagat)" if product.amagat }}</div>
             <div class="product-id">{{product._id}}</div>
-            <div class="product-snapshot normal-image" background='{{ imgs.get_url(product.bucket, product.imatges[0]) }}'></div>
+	    <div class="product-snapshot normal-image" background='{{ imgs.get_url(product.bucket, product.imatges[0]) }}' onclick="location.href='/{{loc.lan}}/{{product.bucket}}/{{product._id}}'"></div>
         </div>
         <div class="product-data hide">
             <div class="product-element name">Nom: <input product="{{product._id}}" field="nom" class="product-input" value="{{product.nom}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; this.parentElement.parentElement.parentElement.getElementsByClassName('product-title')[0].innerHTML=this.value" colorcode="next"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
@@ -178,7 +178,7 @@
 
 		{{ product.opcions.colors }}
 		<div class="product-element colors">Colors:
-			<input class="n-colors-input" type="number" value={{product.opcions.get("n_colors", 0) }} product="{{product._id}}"  field="opcions" key="n_colors">
+			<input class="n-colors-input" type="number" value={{product.opcions.get("n_colors", 0) }} product="{{product._id}}"  field="opcions" key="n_colors" onchange="updateExtraColors(this, this.parentElement.nextElementSibling)">
 			
 			{% if product.opcions.get("colors") == None %}
 				{% set colors = {"":{"":""}} %}
@@ -193,15 +193,29 @@
 			</div>
 			<button class="product-update" onclick="productUpdateColors(this.parentElement)">&#10004;</button>
 		</div>
-		<div class="product-element extra-colors hidden">Detalls colors:
+		<div class="product-element extra-colors {{"hidden" if product.opcions.get("n_colors", 0) == 0}}" colorcode="this" product="{{product._id}}" field="opcions" key="extra_colors">Detalls colors:
 			<ol>
-				<li></li>
+				<li class="extra-color template">
+					<select class="extra-color-input template">
+						<option value="">Normal</option>
+						{% for pedra in ["pro-pedra-gran", "pro-pedra-petita"] %}
+							<option value="{{ pedra }}">{{ loc[pedra] }}</option>
+						{% endfor %}
+					</select>
+				</li>
+				{% for c in product.opcions.get("extra_colors", [""]*product.opcions.get("n_colors", 0)) %}
+				<li class="extra-color">
+					<select class="extra-color-input">
+						<option value="">Normal</option>
+						{% for pedra in ["pro-pedra-gran", "pro-pedra-petita"] %}
+						<option {{ "selected" if c == pedra }} value="{{ pedra }}">{{ loc[pedra] }}</option>
+						{% endfor %}
+					</select>
+				</li>
+				{% endfor %}
 			</ol>
+				<button class="product-update" onclick="productUpdateExtraColors(this.parentElement)">&#10004;</button>
 		</div>
-
-
-                <!-- TODO: colors input -->
-
 
 
 

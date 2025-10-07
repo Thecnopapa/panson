@@ -438,8 +438,51 @@ async function productUpdateColors(container){
 
 	console.log(resps);
 
+}
 
 
+async function productUpdateExtraColors(container){
+	let extraSelectors = [...container.querySelectorAll(".extra-color-input:not(.template")];
+	//console.log(extraSelectors);
+	let values = [];
+	extraSelectors.forEach(sel => {
+		values.push(sel.value)
+	});
+	//console.log(values);
+	r = await productUpdate(container, values, "dict:list", "add", "extra_colors", undefined, undefined);
+	//console.log(r);
+}
+
+
+
+function updateExtraColors(trigger, container){
+	let listElement = container.getElementsByTagName("ol")[0];
+	//console.log(listElement);
+	let templateElement = container.querySelectorAll(".extra-color.template")[0];
+	let currentSelectors = [...container.querySelectorAll(".extra-color:not(.template)")];
+	console.log(templateElement);
+	console.log(currentSelectors);
+	let targetNumber = Number(trigger.value);
+	let currentNumber = currentSelectors.length;
+	console.log(targetNumber);
+	
+	if (currentNumber > targetNumber){
+		console.log("removing extra");
+		currentSelectors.slice(targetNumber, currentNumber).forEach(sel => {sel.remove()});
+		container.style.backgroundColor = "orange";
+	} else if (currentNumber < targetNumber){
+		console.log("adding extra");
+		for (let i = 0; i < (targetNumber - currentNumber); i++){
+			console.log(i);
+			let newElement = templateElement.cloneNode(true);
+			newElement.classList.remove("template");
+			newElement.firstElementChild.classList.remove("template");
+			listElement.appendChild(newElement);
+		}
+		container.style.backgroundColor = "orange";
+
+
+	}
 }
 
 
