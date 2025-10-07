@@ -34,9 +34,9 @@
         {% endif %}
     </div>
 
-    <div class="titol-submenu menu-content under-hover clickable" id="fetamida-menu" onclick="location.href='/{{ loc.lan }}/fetamida/intro'">{{ loc.nav_fetamida_mobil }}</div>
-        <div class="titol-submenu menu-content under-hover clickable" id="projecte-menu" onclick="location.href='/{{ loc.lan }}/projecte/'">{{ loc.nav_projecte_mobil }}</div>
-        <div class="titol-submenu menu-content under-hover clickable" id="contacte-menu" onclick="location.href='/{{ loc.lan }}/contacte/'">{{ loc.nav_contacte_mobil }}</div>
+    <div class="titol-submenu menu-content under-hover clickable portrait" id="fetamida-menu" onclick="location.href='/{{ loc.lan }}/fetamida/intro'">{{ loc.nav_fetamida_mobil }}</div>
+        <div class="titol-submenu menu-content under-hover clickable portrait" id="projecte-menu" onclick="location.href='/{{ loc.lan }}/projecte/'">{{ loc.nav_projecte_mobil }}</div>
+        <div class="titol-submenu menu-content under-hover clickable portrait" id="contacte-menu" onclick="location.href='/{{ loc.lan }}/contacte/'">{{ loc.nav_contacte_mobil }}</div>
 
     {% if user.is_admin %}
     <div class="titol-submenu menu-content under-hover clickable" id="admin-menu" onclick="location.href='/admin/'">{{ loc.nav_admin }}</div>

@@ -188,7 +188,9 @@ try{
     console.log(2)
 } catch {}
 
-
+window.addEventListener("load", (e) =>{
+	checkColor()
+});
 
 
 console.log(" * Navigation JS ready")

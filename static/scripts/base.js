@@ -180,7 +180,9 @@ async function loadImages(selection){
 		} else {
 			//console.log("image: ", url);
             		selectedImages[i].style.backgroundImage = "url('"+url+"')";
-	    		imagesToPreload.push(url);
+			if (selectedImages[i].classList.contains("preload")){
+	    			imagesToPreload.push(url);
+			}
 			changedImages++;
 		}
 		    selectedImages[i].removeAttribute("background");
@@ -219,7 +221,7 @@ function loadAllImages() {
     loadImages("normal");
     loadImages("slow");
     loadImages("video");
-    //preloadHiddenImages();
+    preloadHiddenImages();
 }
 
 
