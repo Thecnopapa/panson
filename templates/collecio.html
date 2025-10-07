@@ -36,6 +36,14 @@
                 </div>
             {% endif %}
         </div>
+	<div class="imatges-collecio">
+		<div class="doble-imatge normal-image" background="{{ imgs.get_url("collecions", col.imatges[1]) }}"></div>
+		<div class="doble-imatge normal-image" background="{{ imgs.get_url("collecions", col.imatges[2]) }}"></div>
+	</div>
+	<div class="descripcio-collecio">{{ col["descripcio"] | safe }}
+	</div>
+	<div class="ultima-imatge normal-image" background="{{ imgs.get_url("collecions", col.imatges[3]) }}">
+	</div>
 	<div class=galeria-landscape>
     {{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=col._id, min_row=1, min_prods=4, inline=True) }}
 	</div>
