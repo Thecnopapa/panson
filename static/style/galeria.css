@@ -263,8 +263,10 @@
 
 
 @media screen and (orientation: landscape) {
-	.producte.active .nom, .producte.active .preu-inline{
-    		border-bottom: 1px black solid;
+	.producte.active .nom {
+		text-underline-offset: 0.25rem;
+    		text-decoration-line: underline;
+    		/*border-bottom: 1px black solid;*/
 	}
 }
 
@@ -301,8 +303,10 @@
     /*    margin-top: 5vh;*/
     /*}*/
 
-    .producte.active .detalls-principals{
-    	border-bottom: 1px black solid;
+    .producte.active .nom{
+	text-underline-offset: 0.25rem;
+   	text-decoration-line: underline;
+    	/*border-bottom: 1px black solid;*/
 	}
     .detalls-principals{
 	    align-items:end;
