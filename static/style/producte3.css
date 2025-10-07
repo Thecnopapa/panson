@@ -476,29 +476,32 @@ body {
 
 .enlarged-slideshow{
 	display: flex;
-	flex-direction:column;
+	flex-direction:row;
 	position: relative;
 	width: 50%;
 	min-width:50%;
 	height: 90%;
 	min-height: 90%;
-    overflow-y: scroll;
-	scroll-snap-type: y mandatory;
+    	overflow-x: scroll;
+    	overflow-y:hidden;
+	scroll-snap-type: x mandatory;
+	align-items: center;
 	
 }
 .enlarged-img{
     display: flex;
     flex-direction: column;
     position: relative;
-    width: 100%;
-    min-height:100%;
+    width: calc(100% + 2px);
+    min-width: calc(100% + 2px);
+    min-height:calc(100% + 2px);
     height: 100%;
     cursor: zoom-in;
     overflow: hidden;
     background-size: cover;
     background-position: center, left, 0, top, 0;
     background-repeat: no-repeat;
-    scroll-snap-align: start;
+    scroll-snap-align: center;
     scroll-snap-stop: always;
 }
 .enlarged-img.zoomed{
@@ -511,8 +514,8 @@ body {
 	align-items: center;
 	z-index: 2000;
 	position: absolute;
-	font-size: var(--font-size-extra-extra-large);
-    top:5%;
+	font-size: var(--font-size-extra-large);
+    top:2%;
     right:0;
     height:5%;
     width:5%;
@@ -525,11 +528,11 @@ body {
 .bubble-container{
 	position:absolute;
 	left:0;
-	top:0;
-	height:100vh;
+	bottom: var(--padding);
+	height:fit-content;
 	display:flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: end;
 	align-content: center;
 	margin-left: var(--padding);
 }
@@ -548,12 +551,13 @@ body {
 }
 .enlarged-bubbles{
 	margin-left:0;
-	width: 5dvw;
+	height: 5vh;
     position: absolute;
     left:0;
     bottom:0;
-    height:100vh;
+    width:100vw;
     z-index:2500;
+    flex-direction: row;
 }
 
 .bubble-container.hidden, .enlarged-bubbles.hidden{
@@ -568,8 +572,9 @@ body {
 	margin-bottom:0.25rem;
 	margin-top:0.25rem;
 	transition: 1s;
-    border: black 0.1rem solid;
+    /*border: black 0.1rem solid;*/
     cursor: pointer;
+
 }
 .bubble{
     background-color: rgb(0, 0, 0);
@@ -579,9 +584,12 @@ body {
 }
 
 .enlarged-bubble{
+	border: black 0.1rem solid;
+	margin-right:0.25rem;
 }
 .bubble.active{
 	background-color: rgb(255, 255, 255);
+	border: none;
 }
 .enlarged-bubble.active{
     background-color: black;
@@ -651,6 +659,11 @@ body {
     .bubble.active{
         background-color:black;
     }
+	.enlarged-bubbles{
+		display: none;
+	}
+	
+
     	.arrows{
 		display:flex;
 		flex-direction: row;
@@ -799,11 +812,12 @@ body {
     	}
 	
     	.close-enlarged-container{
-        	top:15%;
+        	top:1%;
         	right:5%;
         	height:5%;
         	width:5%;;
     	}
+
 
     .missatge-enviament{
         color: gray;
