@@ -172,6 +172,28 @@ video {
     min-height: 5vh;
 }
 
+
+.main-arrow{
+	height:2rem;
+	width:fit-content;
+	object-fit: contain;
+	object-position: center;
+}
+.main-arrow.left{
+	transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+}
+.main-arrow.right{
+}
+
+.main-arrow.disabled{
+	visibility: hidden;
+}
+
+
+
+
+
 .request-cookies{
     display: flex;
     background-color: #fff;

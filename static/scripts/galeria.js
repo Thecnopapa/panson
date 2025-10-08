@@ -61,6 +61,8 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
 	}
 
 	targetPage=Number(targetPage);
+
+
 	galeria.setAttribute("page", targetPage);
 	if (filterKey === undefined && galeria.hasAttribute("filterKey")){filterKey = galeria.attributes.filterKey.value;}
 	if (filterValue === undefined && galeria.hasAttribute("filterValue")){filterValue = galeria.attributes.filterValue.value}
@@ -107,8 +109,8 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
 	const pageNav = galeria.getElementsByClassName("galeria-navigation")[0];
 	if (pageNav.attributes.show.value === "True"){
 		const pageCounter = galeria.getElementsByClassName("galeria-counter")[0];
-		const leftArrow = galeria.getElementsByClassName("galeria-arrow left")[0];
-		const rightArrow = galeria.getElementsByClassName("galeria-arrow right")[0];
+		const leftArrow = galeria.getElementsByClassName("page-arrow left")[0];
+		const rightArrow = galeria.getElementsByClassName("page-arrow right")[0];
 	        targetPage=Number(targetPage);
 		let maxPages = Math.round(Math.ceil(filteredProducts.length / maxProds));
 		console.log("MAX: ", maxPages);

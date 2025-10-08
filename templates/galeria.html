@@ -47,10 +47,10 @@
 
         {% endif %}
     <div class="galeria-scroll scroll-left {{ 'inline' if inline }}" >
-        <div class=" galeria-scroll-button scroll-left-button" onmousedown="startScrolling(this.parentElement.nextElementSibling.nextElementSibling, 'left')" onmouseup="stopScrolling(this.parentElement.nextElementSibling.nextElementSibling)" onmouseout="stopScrolling(this.parentElement.nextElementSibling.nextElementSibling)"><div class="galeria-arrow left"></div></div>
+        <div class=" galeria-scroll-button scroll-left-button" onmousedown="startScrolling(this.parentElement.nextElementSibling.nextElementSibling, 'left')" onmouseup="stopScrolling(this.parentElement.nextElementSibling.nextElementSibling)" onmouseout="stopScrolling(this.parentElement.nextElementSibling.nextElementSibling)"><img class="main-arrow left" src="/static/media/arrow.svg"></div>
     </div>
     <div class="galeria-scroll scroll-right {{ 'inline' if inline }}" >
-        <div class=" galeria-scroll-button scroll-right-button" onmousedown="startScrolling(this.parentElement.nextElementSibling, 'right')" onmouseup="stopScrolling(this.parentElement.nextElementSibling)" onmouseout="stopScrolling(this.parentElement.nextElementSibling)"><div class="galeria-arrow right"></div></div>
+        <div class=" galeria-scroll-button scroll-right-button" onmousedown="startScrolling(this.parentElement.nextElementSibling, 'right')" onmouseup="stopScrolling(this.parentElement.nextElementSibling)" onmouseout="stopScrolling(this.parentElement.nextElementSibling)"><img class="main-arrow right" src="/static/media/arrow.svg"></div>
     </div>
     <div class="galeria {{ 'inline' if inline }}">
         {% for n in range(max_prods) %}
@@ -91,9 +91,9 @@
     </div>
 
     <div class="galeria-navigation" show="{{ pages }}">
-	    <div class="galeria-arrow left" onclick="galeriaPrev(this.parentElement.parentElement)"></div>
+	    <img class="main-arrow page-arrow left" src="/static/media/arrow.svg" onclick="galeriaPrev(this.parentElement.parentElement)">
 	    <div class="galeria-counter"></div>
-	    <div class="galeria-arrow right" onclick="galeriaNext(this.parentElement.parentElement)"></div>
+	    <img class="main-arrow page-arrow right" src="/static/media/arrow.svg" onclick="galeriaNext(this.parentElement.parentElement)">
     </div>
 </div>
 {% endmacro %}

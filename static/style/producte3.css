@@ -478,13 +478,10 @@ body {
 	display: flex;
 	flex-direction:row;
 	position: relative;
-	width: 50%;
-	min-width:50%;
-	height: 90%;
-	min-height: 90%;
+	width: 100%;
+	height: 100%;
     	overflow-x: scroll;
     	overflow-y:hidden;
-	scroll-snap-type: x mandatory;
 	align-items: center;
 	
 }
@@ -492,17 +489,14 @@ body {
     display: flex;
     flex-direction: column;
     position: relative;
-    width: calc(100% + 2px);
+    min-height: calc(100% + 2px);
     min-width: calc(100% + 2px);
-    min-height:calc(100% + 2px);
-    height: 100%;
     cursor: zoom-in;
     overflow: hidden;
     background-size: cover;
     background-position: center, left, 0, top, 0;
     background-repeat: no-repeat;
-    scroll-snap-align: center;
-    scroll-snap-stop: always;
+    
 }
 .enlarged-img.zoomed{
         background-size: 150%;
@@ -539,7 +533,7 @@ body {
 .bubbles{
     mix-blend-mode: overlay;
 }
-.bubbles, .enlarged-bubbles{
+.bubbles{
 	position:relative;
 	display:flex;
 	flex-direction:column;
@@ -550,21 +544,31 @@ body {
 	z-index:10;
 }
 .enlarged-bubbles{
-	margin-left:0;
-	height: 5vh;
-    position: absolute;
-    left:0;
-    bottom:0;
-    width:100vw;
-    z-index:2500;
-    flex-direction: row;
+	position: fixed;
+    	left:5vh;
+    	bottom:5%;
+    	z-index:2500;
+    	flex-direction: row;
+}
+
+.enlarged-bubble{
+	height:0.5rem;
+	width: 0.5rem;
+	border-radius: 50%;
+	background-color: transparent;
+	border: black 0.1rem solid;
+	transition: 1s;
+	cursor: pointer;
+}
+.enlarged-bubble.active{
+	background-color: black;
 }
 
 .bubble-container.hidden, .enlarged-bubbles.hidden{
 	display:none;
 }
 
-.bubble, .enlarged-bubble{
+.bubble{
 	height:0.5rem;
 	width:0.5rem;
 	border-radius:50%;
@@ -572,28 +576,16 @@ body {
 	margin-bottom:0.25rem;
 	margin-top:0.25rem;
 	transition: 1s;
-    /*border: black 0.1rem solid;*/
-    cursor: pointer;
-
-}
-.bubble{
-    background-color: rgb(0, 0, 0);
-    mix-blend-mode: color-dodge;
-    -webkit-filter: invert(100%);
-    filter: invert(100%);
+    	border: black 0.1rem solid;
+    	cursor: pointer;
 }
 
-.enlarged-bubble{
-	border: black 0.1rem solid;
-	margin-right:0.25rem;
-}
+
 .bubble.active{
-	background-color: rgb(255, 255, 255);
-	border: none;
+	background-color: black;
 }
-.enlarged-bubble.active{
-    background-color: black;
-}
+
+
 
 .arrows{
 	display:none;
@@ -641,26 +633,33 @@ body {
 		height: fit-content;
 	}
 	.bubble{
-        height: 0.25rem;
-        width:0.25rem;
-        border: black 0.1rem solid;
-        background-color:white;
+        	height: 0.4rem;
+        	width:0.4rem;
+        	border: black 0.1rem solid;
 		margin-left:0.25rem;
-        margin-right:0.25rem;
+        	margin-right:0.25rem;
 		margin-bottom:0;
 		margin-top:0;
-        mix-blend-mode: normal;
-        -webkit-filter: none;
-        filter: none;
 	}
-    .bubble:first-of-type{
-        margin-left:0;
-    }
-    .bubble.active{
-        background-color:black;
-    }
+    	.bubble:first-of-type{
+        	margin-left:0;
+    	}
+    	.bubble.active{
+        	background-color:black;
+		height: 0.4rem;
+		width: 0.4rem;
+    	}
 	.enlarged-bubbles{
-		display: none;
+		flex-direction:column;
+		bottom: 5vw;
+		left: 5%;
+	}
+	.enlarged-bubble{
+		margin-top: 0.25rem;
+		margin-bottom: 0.25rem;
+	}
+	.enlarged-bubble:last-of-type{
+		margin-bottom: 0;
 	}
 	
 
@@ -670,7 +669,7 @@ body {
 		width: fit-content;
 		height:2rem;
 		align-items:center;
-		width: 3rem;
+		width: fit-content;
 		justify-content:space-between;
 	}
 	.arrows .arrow{
@@ -799,13 +798,22 @@ body {
 	}
     
         .enlarged-slideshow{
-            min-height:60%;
-            height:60%;
-            width: 90%;
+            min-height:100%;
+            height:100%;
+            width: 100%;
             min-width:90%;
+	    background-color: purple;
+	    flex-direction: column;
+	    overflow-y: scroll;
+	    overflow-x: hidden;
+	    align-items: center;
 
 
         }
+	.enlarged-img{
+		min-width:100%;
+		min-height:125vw;
+	}
 
     	.enlarged-img.zoomed{
         	background-size: 200%;
