@@ -42,59 +42,39 @@
 .menu-content{
     display: none;
 }
-.menu-content.shown:not(.item-submenu){
+.menu-content.shown{
     display: flex;
 }
 
 
-.titol-submenu {
+.menu-subtitol {
     margin-left: var(--padding);
-    margin-right: calc(var(--padding) * 1.8);
     padding-bottom: 0.5rem;
     padding-top: 0.5rem;
-    border: none;
-    width: auto;
-    cursor: pointer;
-    justify-content: space-between;
+    color:gray;
+    width: fit-content;
+    
 }
 
-
-.menu-content.menu-indicator:not(.item-submenu) {
-    display: none;
-    height: 1rem;
-    width: 1rem;
-    padding: 0;
-}
-.menu-content.plus:not(.dropdown-show) {
-    display: flex
-}
-.menu-content.minus.dropdown-show {
-    display: flex
-}
-
-.submenu{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.submenu:first-of-type{
+.menu-element:first-of-type{
     margin-top: 10vh;
 }
-.item-submenu:last-of-type{
-    padding-bottom: 1rem;
+
+
+
+
+.menu-element{
+	margin-left: var(--padding);
+	padding-bottom: 0.5rem;
+	width:fit-content;
 }
 
-.menu-content.item-submenu{
-    display: none;
-    margin: var(--padding-horizontal);
-    padding-bottom: 0.5rem;
-    width: fit-content;
-}
-.menu-content.item-submenu.dropdown-show{
-    display: flex;
-}
 
+
+
+#fetamida-menu{
+	margin-top:2rem;
+}
 
 #admin-menu{
     margin-top: auto;
