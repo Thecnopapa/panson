@@ -316,7 +316,7 @@ function enlargeImg(img, all=true){
 
 	let newObserver = new IntersectionObserver(newBubbleChange, {
 		root: newContainer,
-		threshold: 0.5,
+		threshold: 0.7,
 	});
 
 	function newBubbleChange(triggers, opts){

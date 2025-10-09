@@ -39,7 +39,8 @@ async function editLoc(event){
 
 	let locInput = document.createElement("textarea");
 	locInput.classList.add("loc-input");
-	locInput.innerText = target.innerText;
+	locInput.textContent = target.innerText;
+	locInput.innerHTML = locInput.innerHTML.replace(/\n/g, '\n');
 	locInput.addEventListener("focusout", updateLocElement);
 
 

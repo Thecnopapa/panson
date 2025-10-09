@@ -34,5 +34,6 @@
 	margin:0;
 	field-sizing: content;
     display: flex !important;
+    white-space: pre-wrap;
 	
 }
