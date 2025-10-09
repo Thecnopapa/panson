@@ -357,7 +357,9 @@ function enlargeImg(img, all=true){
 
 	const newSlideshow = document.createElement("div");
 	newSlideshow.classList.add("enlarged-slideshow");
+    newSlideshow.classList.add("horizontal-scroll");
 	newContainer.appendChild(newSlideshow);
+    detectHorizontal();
 
 
 

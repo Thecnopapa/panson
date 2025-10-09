@@ -28,6 +28,26 @@ function dynamicallyLoadCSS(url) {
 }
 
 
+function verticalToHorizontal(element){
+    if (window.innerHeight < window.innerWidth){
+        element.addEventListener("wheel", e => {
+                console.log("Wheel");
+                if (Math.abs(e.deltaY) > 0 && e.deltaX === 0){
+                    element.scrollLeft += e.deltaY*2;
+                    console.log(e.deltaY, element.scrollLeft);
+                }
+            });
+            /*element.addEventListener("scrollend", e => {
+                console.log(document.elementFromPoint(document.body.offsetWidth / 2, document.body.offsetHeight / 2));
+
+                document.elementFromPoint(document.body.offsetWidth / 2, document.body.offsetHeight / 2).scrollIntoView({block: "center", inline: "center"});
+            })*/
+            //element.addEventListener("touchend", e => {console.log("touchend");document.elementFromPoint(document.body.offsetWidth / 2, document.body.offsetHeight / 2).scrollIntoView({block: "center", inline: "center"});})
+    }
+}
+
+
+
 
 async function acceptCookies(){
     let acceptedAnalytics = "denied";
@@ -231,9 +251,15 @@ function loadAllImages() {
 loadImages("fast");
 
 
+async function detectHorizontal(){
+    let horizontalScrollElements = [...document.getElementsByClassName("horizontal-scroll")];
+    horizontalScrollElements.forEach(element => {verticalToHorizontal(element);});
+}
+
 
 window.addEventListener('load', function () {
 	console.log(" * Page loaded!");
+    detectHorizontal();
     console.log(" * "+ String(camaleonElements.length) + "camaleon elements");
     loadAllImages();
 })

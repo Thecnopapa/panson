@@ -25,8 +25,6 @@
     <div id="nav-color" color="white"></div>
 {% endif %}
 
-    <div id="nav-color" color="white"></div>
-
     <div class="collecio">
         <div class="imatge-collecio fast-image" background='{{ imgs.get_url("collecions", col.imatges[0]) }}'>
 
@@ -45,7 +43,7 @@
 	<div class="ultima-imatge normal-image" background="{{ imgs.get_url("collecions", col.imatges[3]) }}">
 	</div>
 	<div class=galeria-landscape>
-    {{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=col._id, min_row=1, min_prods=4, inline=True) }}
+    {{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=col._id, min_row=1, min_prods=4, inline=False) }}
 	</div>
 	<div class=galeria-portrait>
     {{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=col._id, min_row=1, min_prods=2, inline=False) }}
