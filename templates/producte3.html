@@ -66,10 +66,10 @@
 
             {% if producte.opcions["materials"] != None %}
                 <fieldset class="materials-producte {{ "hide" if utils.len(producte.opcions["materials"].keys()) == 1 }}" >
-                    <legend>Seleciona un material</legend>
+			<legend class="loc" loc="pro_material">{{loc.pro_material }}</legend>
                     {% for n, (material, info) in utils.enumerate(producte.opcions["materials"].items()) %}
                         <div>
-                            <input type="radio" name="material" price="{{ info.get("preu", 0) }}" class="material-input" value="{{ material }}" {{ "checked" if n==0 }}  onchange="updatePrice()"/>
+                            <input type="radio" name="material" price="{{ info.get("preu", 0) }}" class="material-input" value="{{ material }}" {{ "checked" if n==0 }}>
                             <label>{{ material }}</label>
                         </div>
                     {% endfor %}
@@ -81,17 +81,13 @@
 
             {% if producte.opcions.get("n_colors", 0) >0 %}
                 <div class="colors-producte option-field">
-                    {% if producte.opcions.get("n_colors", 1) >1 %}
-                        <legend>{{ loc.pro_color_plural }}</legend>
-                    {% else %}
-                        <legend>{{ loc.pro_color_singular}}</legend>
-                    {% endif %}
+                    
                     <div class="options">
                         {% for n in range(producte.opcions.get("n_colors", 1)) %}
-                            {% if n != 0 %}
-                            <div class=''>/</div>
-                            {% endif %}
-                            <fieldset class="color-selector colors-producte#{{ n }}" onchange="updatePrice()">
+			<legend class="pro_color_titol"><span class="loc" loc="pro_color_singular">{{loc.pro_color_singular}}</span> {{n+1}}:
+				{{ "("+loc[producte.opcions.get("extra_colors", [""]*n)[n]]+")" if producte.opcions.get("extra_colors", [""]*(n+1))[n] != "" }}</legend>
+
+                            <fieldset class="color-selector colors-producte#{{ n }}">
                                 {% for color, info in producte.opcions["colors"].items() %}
                                     <label title="{{ loc["color-"+color] }}" class="colour-label {{ producte.opcions.get("extra_colors", []*n)[n] }}" style="background-color:{{ loc["colours_"+color] }};" onclick="selectColour(this)">
                                     <input type="radio" name="color#{{ n }}" class="hidden-input color-input" price="{{ info.get("preu", 0) }}" value="{{ color }}">
@@ -107,13 +103,13 @@
             {% endif %}
 
             {% if producte.opcions["variacions"] != None %}
-                <fieldset class="option-field variacions-producte {{ "hide" if utils.len(producte.opcions["variacions"].keys()) == 1 }}" >
-                    <legend>loc.pro_variacio</legend>
+                <fieldset class="option-field variacions-producte {{ "hide" if utils.len(producte.opcions["variacions"].keys()) == 1 }}">
+			<legend class="loc" loc="pro_variacio">{{loc.pro_variacio}}</legend>
                     <div class="options variations">
                     {% for n, (variacio, info) in utils.enumerate(utils.sort_by_keys(producte.opcions["variacions"], ["preu", "ordre"]).items()) %}
                         <div class="option variation">
-                            <label class="text-label">
-                                <input type="radio" name="variacio" price="{{ info.get("preu", 0) }}" class="hidden-input variation-input" value="{{ variacio }}" {{ "checked" if n == 0 }}  onchange="updatePrice()"/>
+                            <label class="text-label" onclick="selectVariation(this)">
+                                <input type="radio" name="variacio" price="{{ info.get("preu", 0) }}" class="hidden-input variation-input" value="{{ variacio }}" {{ "checked=true" if n == 0 }}>
                             {{ variacio }}
                             </label>
                         </div>
@@ -127,7 +123,7 @@
 
             {% if producte.opcions["talles"] != None or producte["totes_talles"] %}
                 <fieldset class="talles-producte option-field" name="text:talla">
-                <legend>{{ loc.pro_talla }}</legend>
+                <legend class="loc" loc="pro_talla">{{ loc.pro_talla }}</legend>
                     <div class="options talles">
 
                     {% if producte.opcions["talles"] %}

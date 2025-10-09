@@ -10,11 +10,14 @@ let form = document.getElementById('form');
 
 function updatePrice(){
     let price = 0
+	console.log("Updating price");
 
     const variationList = document.getElementsByClassName("variation-input");
+	
     for (let i = 0; i < variationList.length; i++) {
         if (variationList[i].checked && variationList[i].attributes.price) {
-            price += Number(variationList[i].attributes.price.value);
+            console.log(variationList[i].attributes.price.value);
+		price += Number(variationList[i].attributes.price.value);
         }
     }
 
@@ -81,6 +84,7 @@ function selectSize(trigger){
 			sizeList[i].parentElement.previousElementSibling.style.display="flex";
         }
 	}
+	updatePrice();
 }
 
 function resizeSelector(trigger){
@@ -144,15 +148,23 @@ function selectSizeTable(trigger) {
 
 function selectColour(trigger){
     console.log(trigger);
-	var colourList = trigger.parentElement.getElementsByClassName("color-input");
+	let colourList = trigger.parentElement.getElementsByClassName("color-input");
 	for (let i = 0; i < colourList.length; i++) {
 		colourList[i].removeAttribute("checked");
 	}
     trigger.firstElementChild.setAttribute("checked", true);
+	updatePrice();
 }
 
 
-
+function selectVariation(trigger){
+	console.log(trigger);
+	let varList = [...trigger.parentElement.parentElement.getElementsByTagName("input")];
+	console.log(varList);
+	varList.forEach(v => {v.removeAttribute("checked");});
+	trigger.firstElementChild.setAttribute("checked", true);
+	updatePrice();
+}
 
 
 

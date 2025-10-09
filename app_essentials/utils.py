@@ -45,14 +45,14 @@ class Utils:
         return delimiter.join(iterable)
 
     @staticmethod
-    def sort_by_keys(data:dict, keys=None) -> dict:
-        r = {k:v for k,v in sorted(data.items(), key=lambda x: x[0])}
+    def sort_by_keys(data:dict, keys=None, reverse=False) -> dict:
+        r = {k:v for k,v in sorted(data.items(), key=lambda x: x[0], reverse=reverse)}
         if keys is not None:
             if type(keys) is not list:
                 keys = [keys]
             for key in keys:
                 print(r, key)
-                r = {k:v for k,v in sorted(r.items(), key=lambda x: x[1].get(key, False))}
+                r = {k:v for k,v in sorted(r.items(), key=lambda x: x[1].get(key, False), reverse=reverse)}
         return r
 
 
