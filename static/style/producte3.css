@@ -31,7 +31,6 @@ body {
     flex-direction: column;
     overflow-y: scroll;
     width: 60%;
-    padding-right: 40%;
     height: fit-content;
     max-height: 100dvh;
     line-height: 0;
@@ -511,14 +510,11 @@ body {
 	
 }
 .enlarged-img{
-    display: flex;
-    flex-direction: column;
-    position: relative;
     min-height: 100%;
     min-width: 80%;
     cursor: zoom-in;
     background-size: cover;
-    background-position: center, left, 0, top, 0;
+    background-position: center;
     background-repeat: no-repeat;
     
 }
@@ -538,8 +534,7 @@ body {
     height:5%;
     width:5%;
     font-weight: normal;
-    -webkit-text-stroke: 0.05rem white;
-    text-stroke: 0.05rem white;
+    cursor: pointer;
 }
 
 
@@ -555,7 +550,7 @@ body {
 	margin-left: var(--padding);
 }
 .bubbles{
-    mix-blend-mode: overlay;
+    /*mix-blend-mode: overlay;*/
 }
 .bubbles{
 	position:relative;
@@ -747,14 +742,17 @@ body {
             flex-direction: row;
             flex-wrap: nowrap;
             overflow-x: scroll;
+            height: 100vw;
 	    
         }
 
         .main-foto{
-            height:100vw;
-            max-height:100vw;
-            width:100vw;
-            min-width:100vw;
+            height:100%;
+            max-height:100%;
+            min-height:100%;
+            width:100%;
+            min-width:100%;
+            max-width: 100%;
 	    
         }
 
@@ -803,11 +801,10 @@ body {
 		margin-top:0 !important;
 	}
     
-        .enlarged-slideshow{
+    .enlarged-slideshow{
 		height: fit-content;
 		max-height: 100%;
 		width:100%;
-	    background-color: purple;
 	    flex-direction: column;
 	    overflow-y: scroll;
 	    overflow-x: hidden;
@@ -815,22 +812,19 @@ body {
 	    justify-content: start;
 
 
-        }
+    }
 	.enlarged-img{
 		min-width:100%;
 		min-height:125vw;
 	}
 
-    	.enlarged-img.zoomed{
-        	background-size: cover;
-    	}
 	
-    	.close-enlarged-container{
-        	top:1%;
-        	right:5%;
-        	height:5%;
-        	width:5%;;
-    	}
+    .close-enlarged-container{
+        top:1%;
+        right:5%;
+        height:5%;
+        width:5%;;
+    }
 
 
     .missatge-enviament{

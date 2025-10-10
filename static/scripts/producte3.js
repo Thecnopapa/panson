@@ -342,7 +342,11 @@ function enlargeImg(img, all=true){
         }
 	}
 
-
+    const newCross = document.createElement("div");
+	newCross.innerHTML ="&#10005;";
+	newCross.classList.add("close-enlarged-container");
+	newCross.addEventListener("click", function (event){newContainer.remove(); document.body.style.overflow = "unset"; newObserver.disconnect()});
+	newContainer.appendChild(newCross);
 
 	const newBubbles = document.createElement("div");
 	newBubbles.classList.add("enlarged-bubbles");
@@ -350,14 +354,11 @@ function enlargeImg(img, all=true){
 	newContainer.appendChild(newBubbles);
 
   
-	const newCross = document.createElement("div");
-	newCross.innerHTML ="&#10005;";
-	newCross.classList.add("close-enlarged-container");
-	newCross.addEventListener("click", function (event){newContainer.remove(); document.body.style.overflow = "unset"; newObserver.disconnect()});
-	newContainer.appendChild(newCross);
+
 
 	const newSlideshow = document.createElement("div");
 	newSlideshow.classList.add("enlarged-slideshow");
+    newSlideshow.classList.add("slideshow");
     newSlideshow.classList.add("horizontal-scroll");
 	newContainer.appendChild(newSlideshow);
     detectHorizontal();
@@ -367,7 +368,7 @@ function enlargeImg(img, all=true){
     for (let i = 0; i < images.length; i++){
         //const productName = img.attributes["product"].value;
         //print(productName);
-    	const newImg = document.createElement("img");
+    	const newImg = document.createElement("div");
     	newImg.classList.add("enlarged-img");
     	//newImg.src = imgUrl;
     	newImg.style.backgroundImage = images[i].style.backgroundImage;
@@ -378,6 +379,7 @@ function enlargeImg(img, all=true){
         newObserver.observe(newImg);
         const newBubble = document.createElement("div");
         newBubble.classList.add("enlarged-bubble");
+        newBubble.addEventListener("click", (e) => {e.stopPropagation(); slideshowScroll(e.target.parentElement.nextElementSibling, i, "both");})
         newBubbles.appendChild(newBubble);
     }
 
@@ -390,20 +392,21 @@ function enlargeImg(img, all=true){
 
 
 function startZoom(event){
-    image = event.target;
+    let image = event.target;
     event.stopPropagation();
 		if (window.innerHeight >= window.innerWidth) {return}
     print("Starting zoom");
     //print("image", image);
     image.classList.add("zoomed");
-    image.addEventListener("click", stopZoom);
     image.removeEventListener("click", startZoom);
-    image.addEventListener("mousemove", moveImg);
+    image.addEventListener("click", stopZoom);
+    image.addEventListener("mousemove", moveImg, {passive: false});
+
     moveImg(event);
 }
 
 function stopZoom(event) {
-    image = event.target;
+    let image = event.target;
     event.stopPropagation();
     print("Ending zoom");
     //print("image", image);
@@ -418,8 +421,11 @@ function stopZoom(event) {
 function moveImg(event){
     const image = event.target;
 	let pos = image.getBoundingClientRect();
-    clickX = (1-(image.width - event.clientX + pos.left)/image.width)*100;
-    clickY = (1-(image.height -  event.clientY + pos.top)/image.height)*100;
+    let imgHeight = image.offsetHeight;
+    let imgWidth = image.offsetWidth;
+    clickX = (1-(imgWidth - event.clientX + pos.left)/imgWidth)*100;
+    clickY = (1-(imgHeight -  event.clientY + pos.top)/imgHeight)*100;
+    //console.log(clickX, clickY);
     image.style.backgroundPosition = String(clickX)+ "% "+String(clickY)+"%";
     console.log(image.style.backgroundPosition);
 }
@@ -457,15 +463,22 @@ function slideshowScroll(container, mode, axis="both"){
     let targetScrollY = 0;
 	let incrementX = 0;
     let incrementY = 0;
+    let containerWidth = container.offsetWidth;
+    let containerHeight = container.offsetHeight;
+    console.log(containerWidth, containerHeight);
+    let childWidth = container.firstElementChild.offsetWidth;
+    let childHeight = container.firstElementChild.offsetHeight;
+    console.log(childWidth, childHeight);
+
 	if (axis === "X" || axis === "both"){
 		targetScrollX = container.scrollLeft;
-		incrementX = container.offsetWidth;
+		incrementX = childWidth ;
 	}
     if (axis === "Y" || axis === "both") {
 		targetScrollY = container.scrollTop;
-		incrementY = container.offsetHeight;
+		incrementY = childHeight ;
 	}
-
+    console.log("Increment:", incrementX, incrementY);
 	if (mode === "prev"){
 		targetScrollX = targetScrollX - incrementX;
         targetScrollY = targetScrollY - incrementY;
@@ -475,8 +488,8 @@ function slideshowScroll(container, mode, axis="both"){
     } else{
         try{
             mode = Number(mode)
-            targetScrollX = incrementX*mode;
-            targetScrollY = incrementY*mode;
+            targetScrollX = incrementX*mode - (containerWidth - childWidth) / 2;
+            targetScrollY = incrementY*mode - (containerHeight - childHeight) / 2;
             console.log(mode, targetScrollX, targetScrollY);
         } catch(err){console.log(err)}
     }

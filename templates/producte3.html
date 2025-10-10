@@ -28,7 +28,7 @@
 
 
 <div class="content-producte">
-    <div id="producte-images">
+    <div id="producte-images" class="slideshow">
     {% for n, imatge in utils.enumerate(producte.imatges) %}
             <div class="main-foto normal-image {{ 'fast-image' if n ==0 }}"  product="{{ producte.nom }}" onclick="enlargeImg(this)" background='{{ imgs.get_url(producte.bucket, imatge) }}'></div>
     {% endfor %}
