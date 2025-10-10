@@ -27,9 +27,10 @@
 				<button onclick="window.location.href='/admin/bespoke'" class="loc" loc="admin-menu-bespoke">{{ loc.admin_menu_bespoke }}</button>
 				<button onclick="window.location.href='/admin/collecions'" class="loc" loc="admin-menu-collecions">{{ loc.admin_menu_collecions }}</button>
 				<button onclick="window.location.href='/admin/localisation'" class="loc" loc="admin-menu-localisation">{{ loc.admin_menu_localisation }}</button>
-				{% if user.username == "iain" %}
+			
 
                     <button onclick="window.location.href='/admin/imatges'">Imatges</button>
+		    {% if user.username == "iain" %}
                     <button onclick="window.location.href='/admin/misc'">Misc</button>
 
 				{% endif %}
