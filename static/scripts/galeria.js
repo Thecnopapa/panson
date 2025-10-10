@@ -3,7 +3,7 @@
 
 
 
-function scrollGallery(galeria, direction, amount){
+async function scrollGallery(galeria, direction, amount){
     var targetScroll = galeria.scrollLeft;
 	console.log("scrolling", galeria);
 	if (amount.includes("%")){
@@ -26,15 +26,19 @@ function scrollGallery(galeria, direction, amount){
         targetScroll -= amount;
     }
 	console.log("final:", targetScroll);
-	galeria.scrollTo({left: targetScroll, top: 0, behaviour:"smooth"});
+	galeria.scrollTo(targetScroll, 0);
+	
+	
 	
 }
 
 async function hideScrollArrows(event){
 	galeria = event.target;
 	console.log("hiding arrows");
-	console.log(galeria.scrollLeft);
-	galeria.parentElement.getElementsByClassName("scroll-left-button")[0].classList.toggle("disabled", galeria.scrollLeft <= 0);
+	console.log(galeria.scrollLeft, galeria.scrollLeft <= 1);
+	let leftArrow = galeria.parentElement.getElementsByClassName("scroll-left-button")[0];
+	console.log(leftArrow);
+	leftArrow.classList.toggle("disabled", galeria.scrollLeft <= 1);
 	console.log((galeria.scrollLeft+galeria.offsetWidth), galeria.scrollWidth-1);
 	galeria.parentElement.getElementsByClassName("scroll-right-button")[0].classList.toggle("disabled",  (galeria.scrollLeft + galeria.offsetWidth) >= galeria.scrollWidth -1)
 

@@ -75,7 +75,7 @@
     justify-content: space-between;
     overflow-y: hidden;
     width: 100%;
-    scroll-behaviour: smooth;
+    scroll-behavior: smooth;
 }
 
 .producte{
@@ -213,7 +213,7 @@
 }
 
 .galeria-scroll-button.disabled{
-	display:none;
+	display:none !important;
 }
 .galeria.inline{
 	flex-direction:row;
