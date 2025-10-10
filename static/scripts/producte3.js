@@ -2,7 +2,8 @@
 let oldUrl = new URL(window.location.href);
 let form = document.getElementById('form');
 
-
+let mainDetails = document.getElementById('main-details');
+let productImages = document.getElementById('producte-images');
 
 
 
@@ -505,23 +506,38 @@ blackObserver.observe(imageSlideshow);
 //document.documentElement.style.overflowY = "hidden";
 document.documentElement.scrollTo(0,0)
 
-//document.addEventListener("scroll", preventDefaultScroll, false);
-//document.addEventListener("wheel", preventDefaultScroll, false);
-//document.addEventListener("touchmove", preventDefaultScroll, false);
+mainDetails.addEventListener("scroll", preventDefaultScroll, {passive: false});
+mainDetails.addEventListener("wheel", preventDefaultScroll, {passive: false});
+mainDetails.addEventListener("touchmove", preventDefaultScroll, {passive: false});
 
 
 
 
 function preventDefaultScroll(event) {
     //event.preventDefault();
-    if( imageSlideshow.scrollTop === (imageSlideshow.scrollHeight - imageSlideshow.offsetHeight)){
+    if (window.innerHeight >= window.innerWidth){return;}
+    console.log("preventDefaultScroll");
+    console.log(productImages.scrollTop+productImages.offsetHeight > productImages.scrollHeight);
+    console.log(event.deltaY)
+    if (productImages.scrollTop+productImages.offsetHeight >= productImages.scrollHeight && event.deltaY >= 0){
+      return;
+    } else {
+        console.log(productImages);
+        event.preventDefault();
+        if(event.deltaY <= 0){document.documentElement.scrollTo(0,0);}
+        console.log(event);
+        productImages.scrollTo(0, productImages.scrollTop + event.deltaY )
+
+    }
+    //event.preventDefault();
+    /*if( imageSlideshow.scrollTop === (imageSlideshow.scrollHeight - imageSlideshow.offsetHeight)){
         document.documentElement.style.overflowY = "unset";
     } else {
         event.preventDefault();
         document.documentElement.style.overflowY = "hidden";
         imageSlideshow.scrollTo(imageSlideshow.scrollWidth, imageSlideshow.scrollTop+imageSlideshow.offsetHeight/2);
         //document.documentElement.scrollTo(0,0);
-    }
+    }*/
 }
 
 
