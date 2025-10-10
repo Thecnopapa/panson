@@ -516,6 +516,9 @@ mainDetails.addEventListener("touchmove", preventDefaultScroll, {passive: false}
 function preventDefaultScroll(event) {
     //event.preventDefault();
     if (window.innerHeight >= window.innerWidth){return;}
+    console.log(mainDetails.scrollTop + mainDetails.offsetHeight, mainDetails.scrollHeight)
+    if (mainDetails.scrollTop + mainDetails.offsetHeight < mainDetails.scrollHeight && event.deltaY >= 0){return;}
+    //if (productImages.scrollTop > 0 && event.deltaY <= 0){return;}
     console.log("preventDefaultScroll");
     console.log(productImages.scrollTop+productImages.offsetHeight > productImages.scrollHeight);
     console.log(event.deltaY)
