@@ -401,7 +401,7 @@ function enlargeImg(img, all=true){
 function startZoom(event){
     let image = event.target;
     event.stopPropagation();
-		if (window.innerHeight >= window.innerWidth) {return}
+    if (window.innerHeight >= window.innerWidth) {image.scrollIntoView({block: "center", inline: "center"});return;}
     print("Starting zoom");
     //print("image", image);
     if (image.classList.contains("visible")) {
