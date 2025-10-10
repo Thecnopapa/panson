@@ -178,13 +178,15 @@
 .galeria-scroll{
     height: 24.8dvw;
     position: absolute;
-    width: 5%;
+    width: 10%;
     min-width: 2rem;
     top: 0;
     z-index: 30;
     display: none;
     justify-content: center;
     align-items: center;
+    padding-left: var(--padding);
+    padding-right: var(--padding);
 }
 .galeria-scroll-button{
     display: none;
@@ -198,9 +200,11 @@
 }
 
 .scroll-left{
+    justify-content: start;
     left:0;
 }
 .scroll-right{
+    justify-content: end;
     right:0;
 }
 .galeria-scroll:hover .galeria-scroll-button{
