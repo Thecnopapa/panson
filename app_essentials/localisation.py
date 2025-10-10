@@ -117,8 +117,10 @@ class Images:
             print("Failed to calculate brightness")
             return 100
 
-
-
+    @staticmethod
+    def get_fixed(img_id=None):
+        from app_essentials.firebase import get_static_images
+        return get_static_images(img_id)
 
 
 

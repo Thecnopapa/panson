@@ -1,9 +1,31 @@
 {% extends "admin-base.html" %}
 
 
+
+
+
 {% block content %}
-    <link href='/style/admin-img.css' rel='stylesheet'>
+
     <div id="imatges" class="admin-content">
+	
+        {% for product in imgs.get_fixed() %}
+            {{ admin_container(product) }}
+        {% endfor %}
+
+        {{ new_container("imatges") }}
+
+    </div>
+
+
+
+{% endblock %}
+
+
+
+{% block unused %}
+    {% if False %}
+    <link href='/style/admin-img.css' rel='stylesheet'>
+    <div id="imatges2" class="admin-content">
         {% for bucket in imgs.buckets %}
             <div class="bucket-container">
                 <div class="bucket-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
@@ -21,6 +43,8 @@
 
 
     </div>
+{% endif%}
+
 {% endblock %}
 
 

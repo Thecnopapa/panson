@@ -280,6 +280,16 @@ class Collection(firebaseObject):
             self.new = True
         
 
+class StaticImage(firebaseObject):
+    bucket = "imatges"
+    def __init__(self, data={}, id=None):
+        self.data = {}
+        self.nom = ""
+        self.imatges = []
+
+        super().__init__(data, id)
+        if self._id is None:
+            self.new = True
 
 
 

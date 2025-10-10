@@ -42,6 +42,7 @@ collections = db.collection("collecions")
 admins = db.collection("admins")
 localisation = db.collection("localisation")
 bespoke = db.collection("bespoke")
+images = db.collection("imatges")
 
 print(" * Firebase initialized")
 
@@ -109,6 +110,19 @@ def get_bespoke():
     raw = bespoke.where(filter=FieldFilter("esborrat", "==",False, )).stream()
     ps = {p.id:p.to_dict() for p in raw}
     return ps
+
+def get_static_images(img_id=None):
+    from app_essentials.products import StaticImage
+    if img_id is None:
+        raw = images.stream()
+    else:
+        return StaticImage(images.document(img_id).get().to_dict(), img_id)
+    imatges = {c.id:c.to_dict() for c in raw}
+    imatges = [StaticImage(data, id) for id, data in imatges.items()]
+    return imatges
+
+
+
 
 
 def get_cols(as_dict=False, amagats=False, esborrats=False):

@@ -26,7 +26,7 @@
     <div id="title-logo" class="white" onclick="scrollToTop()"></div>
     <div class="content-index">
         <div class = "slideshow">
-            {% for n, (image) in utils.enumerate(imgs.get_names("portada"))  %}
+            {% for n, (image) in utils.enumerate(imgs.get_fixed("portada").imatges)  %}
                 {% if n == 0 %}
                     <div class="slide-content"><div class="slide fast-image" background="{{ imgs.get_url("portada", image) }}"></div></div>
                 {% else %}

@@ -708,6 +708,11 @@ def update_product(bucket):
                 from app_essentials.products import Collection
                 prev_data = collections.document(data["product"]).get().to_dict()
                 p = Collection(prev_data, data["product"])
+            elif bucket == "imatges":
+                from app_essentials.firebase import images
+                from app_essentials.products import StaticImage
+                prev_data = images.document(data["product"]).get().to_dict()
+                p = StaticImage(prev_data, data["product"])
             else:
                 print("Unknown bucket: ", bucket)
                 return "Unknown bucket", 500
