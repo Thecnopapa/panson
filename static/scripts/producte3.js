@@ -391,6 +391,7 @@ function enlargeImg(img, all=true){
 function startZoom(event){
     image = event.target;
     event.stopPropagation();
+		if (window.innerHeight >= window.innerWidth) {return}
     print("Starting zoom");
     //print("image", image);
     image.classList.add("zoomed");

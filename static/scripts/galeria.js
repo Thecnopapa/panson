@@ -3,13 +3,25 @@
 
 
 
-function scrollGallery(galeria, direction){
+function scrollGallery(galeria, direction, amount){
     var targetScroll = galeria.scrollLeft;
+	console.log("scrolling", galeria);
+	if (amount.includes("%")){
+		amount = Number(amount.replace("%", ""));
+		console.log(amount, galeria.offsetWidth);
+		amount = amount * galeria.offsetWidth / 100;
+		console.log(amount);
+	} else {
+		amount = Number(amount);
+	}
+	console.log("Scrolling: ", targetScroll, amount);
+
     if (direction === "right"){
-        targetScroll += 2;
+        targetScroll += amount;
     } else if (direction === "left"){
-        targetScroll -= 2;
+        targetScroll -= amount;
     }
+	console.log("final:", targetScroll);
     galeria.scrollTo(targetScroll, 0);
 }
 
@@ -21,7 +33,7 @@ function startScrolling(galeria, direction) {
 
     } else{
         //console.log("startScrolling");
-        const intervalId = setInterval(scrollGallery, 1, galeria, direction);
+        const intervalId = setInterval(scrollGallery, 1, galeria, direction, "2");
         galeria.setAttribute("intervalId", intervalId);
         //console.log("scrollId:", intervalId);
     }

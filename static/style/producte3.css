@@ -61,10 +61,11 @@ body {
 
 #main-details{
     font-size: var(--font-size-small);
-	position:absolute;
-    left:58%;
+	position:sticky;
+	top: 0;
+    	left:58%;
 	width: 40%;
-    max-width: 40%;
+    	max-width: 40%;
 	z-index:30;
 	display:flex;
     flex-direction: column;
@@ -581,6 +582,11 @@ body {
 	border: black 0.1rem solid;
 	transition: 1s;
 	cursor: pointer;
+	margin-right: 0.25rem;
+	margin-left: 0.25rem;
+}
+.enlarged-bubble:first-of-type{
+	margin-left: 0;
 }
 .enlarged-bubble.active{
 	background-color: black;
@@ -677,6 +683,7 @@ body {
 		left: 5%;
 	}
 	.enlarged-bubble{
+		margin: 0;
 		margin-top: 0.25rem;
 		margin-bottom: 0.25rem;
 	}
@@ -813,7 +820,7 @@ body {
 	}
 
     	.enlarged-img.zoomed{
-        	background-size: 200%;
+        	background-size: cover;
     	}
 	
     	.close-enlarged-container{
