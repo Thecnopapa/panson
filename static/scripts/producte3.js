@@ -327,9 +327,15 @@ function enlargeImg(img, all=true){
 
     document.body.appendChild(newContainer);
 
+
+    let enlargedObserverThreshold = 0.7;
+    if (window.innerWidth <= window.innerHeight) {
+        enlargedObserverThreshold = 0.8;
+    }
+
 	let newObserver = new IntersectionObserver(newBubbleChange, {
 		root: newContainer,
-		threshold: 0.7,
+		threshold: enlargedObserverThreshold,
 	});
 
 	function newBubbleChange(triggers, opts){
@@ -339,6 +345,7 @@ function enlargeImg(img, all=true){
                 	const targetIndex = [...newSlideshow.children].indexOf(trigger);
                 	const targetBubble = newBubbles.children[targetIndex];
                 	targetBubble.classList.toggle("active", triggers[i].isIntersecting);
+                    trigger.classList.toggle("visible", triggers[i].isIntersecting);
         }
 	}
 
@@ -397,12 +404,17 @@ function startZoom(event){
 		if (window.innerHeight >= window.innerWidth) {return}
     print("Starting zoom");
     //print("image", image);
-    image.classList.add("zoomed");
-    image.removeEventListener("click", startZoom);
-    image.addEventListener("click", stopZoom);
-    image.addEventListener("mousemove", moveImg, {passive: false});
+    if (image.classList.contains("visible")) {
+        image.classList.add("zoomed");
+        image.removeEventListener("click", startZoom);
+        image.addEventListener("click", stopZoom);
+        image.addEventListener("mousemove", moveImg, {passive: false});
+        moveImg(event);
+    } else {
+        image.scrollIntoView({block: "center", inline: "center"});
+    }
 
-    moveImg(event);
+
 }
 
 function stopZoom(event) {

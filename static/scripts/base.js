@@ -104,7 +104,7 @@ async function updateCookiesTic(container){
                         "essential": inputEssential.checked,
                 })
         });
-        location.reload();
+        //location.reload();
 
 }
 

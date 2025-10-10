@@ -214,6 +214,15 @@ video {
     min-height: 0;
     height: fit-content;
 }
+.request-cookies .info{
+    text-align: justify;
+
+}
+.request-cookies .inputs{
+        display:flex;
+        flex-direction:row;
+        align-items:center;
+}
 
 
 
@@ -547,15 +556,14 @@ video {
         margin-bottom: var(--padding);
     }
     .request-cookies .inputs{
-		    display:flex;
-		    flex-direction:column;
-		    width:100%;
-		    align-items:center;
+        display:flex;
+        flex-direction:column;
+        width:100%;
+        align-items:center;
     }
     .accept-cookies {
 	    margin-top: 2vh;
 	    margin-left:0;
 	    width:100%;
-
     }
 }

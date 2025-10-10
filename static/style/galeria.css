@@ -224,7 +224,6 @@
 	flex-wrap:nowrap;
 	overflow-x: scroll;
 	justify-content: start;
-    scroll-behavior: unset;
 }
 
 .galeria.inline .producte:not(.last){

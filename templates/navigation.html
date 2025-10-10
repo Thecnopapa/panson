@@ -5,19 +5,19 @@
 	    <link href='/style/tic.css' rel='stylesheet'>
         <div id=cookies class="request-cookies">
             <span class="info"><span class="loc" loc="nav_cookie_banner">{{ loc.nav_cookie_banner }}</span><a href="/{{ loc.lan }}/tic#tic-cookies" class="loc" loc="cookie_link">{{ loc.nav_cookie_link }}</a></span>
-            <span class="inputs">
-		    <span>
-			<div class="preferences-button loc" onclick="showPopup(this.nextElementSibling)" loc="nav_cookies_preferencies">{{ loc.nav_cookies_preferencies }}</div>
-			<div class="popup-info cookies-popup">
-				<div class="tic-subtitle loc" loc="tic_cookies_titol">{{ loc.tic_cookies_titol }}</div>
-				<div class="tic-info loc" loc="tic_cookies_info">{{ loc.tic_cookies_info | safe }}</div>
-				<div class="cookie-selector">
-					<span class="cookie-span"><input type=checkbox checked  value=on class="analytic"><div class="cookie-label loc" loc="tic_cookie_analitica">{{ loc.tic_cookie_analitica }}</div></span>
-					<span class="cookie-span"><input type=checkbox checked value=on class="essential"><div class="cookie-label loc" loc="tic_cookie_essencial">{{ loc.tic_cookie_essencial }}</div></span>
-				</div>
-			</div>
-		    <button class="accept-cookies black-button" onclick="updateCookiesTic(this.previousElementSibling)">{{ loc.nav_cookie_button }}</button>
-	    </span>
+            <div class="inputs">
+
+                <div class="preferences-button clickable under-hover loc" onclick="showPopup(this.nextElementSibling)" loc="nav_cookies_preferencies">{{ loc.nav_cookies_preferencies }}</div>
+                <div class="popup-info cookies-popup">
+                    <div class="tic-subtitle loc" loc="tic_cookies_titol">{{ loc.tic_cookies_titol }}</div>
+                    <div class="tic-info loc" loc="tic_cookies_info">{{ loc.tic_cookies_info | safe }}</div>
+                    <div class="cookie-selector">
+                        <span class="cookie-span"><input type=checkbox checked  value=on class="analytic"><div class="cookie-label loc" loc="tic_cookie_analitica">{{ loc.tic_cookie_analitica }}</div></span>
+                        <span class="cookie-span"><input type=checkbox checked value=on class="essential"><div class="cookie-label loc" loc="tic_cookie_essencial">{{ loc.tic_cookie_essencial }}</div></span>
+                    </div>
+                </div>
+                <button class="accept-cookies black-button" onclick="updateCookiesTic(this.previousElementSibling);document.getElementById('cookies').remove();">{{ loc.nav_cookie_button }}</button>
+            </div>
         </div>
     {% endif %}
 
