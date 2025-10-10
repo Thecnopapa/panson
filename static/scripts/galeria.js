@@ -11,6 +11,10 @@ function scrollGallery(galeria, direction, amount){
 		console.log(amount, galeria.offsetWidth);
 		amount = amount * galeria.offsetWidth / 100;
 		console.log(amount);
+	} else if (amount.includes("u")){
+		amount = Number(amount.replace("u", ""));
+		let p_width = galeria.getElementsByClassName("producte")[0].offsetWidth;
+		amount = amount * p_width;
 	} else {
 		amount = Number(amount);
 	}
@@ -22,7 +26,19 @@ function scrollGallery(galeria, direction, amount){
         targetScroll -= amount;
     }
 	console.log("final:", targetScroll);
-    galeria.scrollTo(targetScroll, 0);
+	galeria.scrollTo({left: targetScroll, top: 0, behaviour:"smooth"});
+	
+}
+
+async function hideScrollArrows(event){
+	galeria = event.target;
+	console.log("hiding arrows");
+	console.log(galeria.scrollLeft);
+	galeria.parentElement.getElementsByClassName("scroll-left-button")[0].classList.toggle("disabled", galeria.scrollLeft <= 0);
+	console.log((galeria.scrollLeft+galeria.offsetWidth), galeria.scrollWidth-1);
+	galeria.parentElement.getElementsByClassName("scroll-right-button")[0].classList.toggle("disabled",  (galeria.scrollLeft + galeria.offsetWidth) >= galeria.scrollWidth -1)
+
+
 }
 
 
@@ -64,7 +80,12 @@ function reverseProduct(trigger) {
 }
 
 function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterValue=undefined) {
-    print(" * Initialising galeria")
+    console.log(" * Initialising galeria");
+	let galeriaElement = galeria.getElementsByClassName("galeria")[0];
+	if (galeriaElement.classList.contains("inline")){
+		galeriaElement.addEventListener("scroll", hideScrollArrows);
+		
+	}
 	const currentPage = Number(galeria.attributes.page.value);
 	if (targetPage === undefined){
 		targetPage = currentPage;

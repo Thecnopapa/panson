@@ -75,7 +75,7 @@
     justify-content: space-between;
     overflow-y: hidden;
     width: 100%;
-    scroll-snap-type: both mandatory;
+    scroll-behaviour: smooth;
 }
 
 .producte{
@@ -211,6 +211,10 @@
 .galeria-scroll.inline{
 	display:flex;
 }
+
+.galeria-scroll-button.disabled{
+	display:none;
+}
 .galeria.inline{
 	flex-direction:row;
 	flex-wrap:nowrap;
@@ -218,6 +222,7 @@
 	justify-content: start;
     scroll-behavior: unset;
 }
+
 .galeria.inline .producte:not(.last){
         margin-right: calc(0.8dvw / 3);
 }
