@@ -672,6 +672,10 @@ def create_product(bucket):
             from app_essentials.products import Product as P
         elif bucket == "bespoke":
             from app_essentials.products import Bespoke as P
+        elif bucket == "collecions":
+            from app_essentials.products import Collection as P
+        elif bucket == "imatges":
+            from app_essentials.products import StaticImage as P
         else:
             return "Unknown bucket", 500
 
