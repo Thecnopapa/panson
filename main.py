@@ -162,7 +162,7 @@ def use(amount=1):
         usage_ips[req_ip] = dict(window=now, usage=session["usage"] + amount)
     session["usage"] = usage_ips[req_ip]["usage"]
     print(" - Window: ", usage_ips[req_ip]["window"])
-    print(" - Usage: ", usage_ips[req_ip]["window"])
+    print(" - Usage: ", usage_ips[req_ip]["usage"])
     if usage_ips[req_ip]["usage"] >= 10:
         abort(429)
         #raise Exception("Usage exceded")
