@@ -112,7 +112,7 @@ usage_ips = {}
 
 @app.before_request
 def check_limit(max_reqs=10, seconds=10):
-    print("* Checking limit (session):")
+    #print("* Checking limit (session):")
     #print(session)
     now = (datetime.datetime.now() - origin).total_seconds()
     #print("Now: ", now)
@@ -123,7 +123,7 @@ def check_limit(max_reqs=10, seconds=10):
         session["window"] = now
     window = session["window"]
     delta = now - window
-    print(" - Delta: ", delta)
+    #print(" - Delta: ", delta)
     if delta >= seconds or delta < 0:
         window = now
         session["window"] = window
@@ -131,8 +131,8 @@ def check_limit(max_reqs=10, seconds=10):
         session["usage"] = usage
         print(" - Window renewed, delta: ", delta)
         
-    print(" - Window: ", window)
-    print(" - Usage: ", usage)
+    #print(" - Window: ", window)
+    #print(" - Usage: ", usage)
     if usage > max_reqs:
         print(" - Usage exceded: ", usage)
         return "", 429
@@ -140,18 +140,18 @@ def check_limit(max_reqs=10, seconds=10):
         pass
 
 def use(amount=1):
-    print("* Checking limit (local):")
+    #print("* Checking limit (local):")
     global usage_ips
     if "usage" not in session:
         session["usage"] = 0
         print(" - Usage not in session")
     req_ip = request.remote_addr
-    print(" - Request IP: ", req_ip)
+    #print(" - Request IP: ", req_ip)
     now = (datetime.datetime.now() - origin).total_seconds()
     
     if req_ip in usage_ips.keys():
         delta = now - usage_ips[req_ip]["window"]
-        print(" - Delta: ", delta)
+        #print(" - Delta: ", delta)
         usage_ips[req_ip]["usage"] += amount
         usage_ips[req_ip]["delta"] = delta
         if delta < 0 or delta >= 10:
@@ -161,8 +161,8 @@ def use(amount=1):
         print(" - IP not in dict")
         usage_ips[req_ip] = dict(window=now, usage=session["usage"] + amount)
     session["usage"] = usage_ips[req_ip]["usage"]
-    print(" - Window: ", usage_ips[req_ip]["window"])
-    print(" - Usage: ", usage_ips[req_ip]["usage"])
+    #print(" - Window: ", usage_ips[req_ip]["window"])
+    #print(" - Usage: ", usage_ips[req_ip]["usage"])
     if usage_ips[req_ip]["usage"] >= 10:
         abort(429)
         #raise Exception("Usage exceded")
