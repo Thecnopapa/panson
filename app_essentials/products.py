@@ -44,12 +44,12 @@ class Product(firebaseObject):
     def calcular_preu_minim(self):
         p = 0
         if self.opcions["materials"] is not None:
-            print(self.opcions["materials"].values())
+            #print(self.opcions["materials"].values())
             p += min([material["preu"] for material in self.opcions["materials"].values()])
         if self.opcions["variacions"] is not None  and self.opcions.get("vars_exclusivament", False):
             p += min([variacio["preu"] for variacio in self.opcions["variacions"].values()])
         if self.opcions["colors"] is not None:
-            print(self.opcions["colors"].values())
+            #print(self.opcions["colors"].values())
             p += min([data["preu"] for color, data in self.opcions["colors"].items()]) * self.opcions.get("n_colors", 1)
         return p
 
@@ -63,8 +63,8 @@ class Product(firebaseObject):
         if color in nones:
             color = None
         incomplet = False
-        print(material, variacio, color)
-        print(type(material), type(variacio), type(color))
+        #print(material, variacio, color)
+        #print(type(material), type(variacio), type(color))
 
         if material is None:
             if self.opcions["materials"] is not None:
@@ -89,7 +89,7 @@ class Product(firebaseObject):
                 incomplet = True
                 p += min([data["preu"] for color,data in self.opcions["colors"].items()])* self.opcions.get("n_colors",1)
         else:
-            print(color, type(color))
+            #print(color, type(color))
             if "[" in color:
                 color = str_to_list(color)
             if type(color) is str:
@@ -98,12 +98,12 @@ class Product(firebaseObject):
                 if color != "n_colors":
                     continue
                 c = c.replace("\'", "")
-                print("#", c)
-                print(c == "None" , c == "")
+                #print("#", c)
+                #print(c == "None" , c == "")
                 if c == "None" or c == "":
                     p += min([data["preu"] for color, data in self.opcions["colors"].items()])
                 else:
-                    print(self.opcions["colors"], c)
+                    #print(self.opcions["colors"], c)
                     p += self.opcions["colors"][c]["preu"]
         return p, incomplet
 

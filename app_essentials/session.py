@@ -10,7 +10,7 @@ def get_current_user():
     from app_essentials.firebase import usuaris
     from google.cloud.firestore import FieldFilter
     print("getting current user")
-    print(session)
+    #print(session)
     if "user_id" in session.keys():
         print("getting from usr_id")
         user_data = usuaris.document(session["user_id"]).get().to_dict()

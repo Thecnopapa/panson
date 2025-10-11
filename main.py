@@ -114,17 +114,19 @@ usage_ips = {}
 def check_limit(max_reqs=10, seconds=10):
     #print("* Checking limit (session):")
     #print(session)
-    #now = (datetime.datetime.now() - origin).total_seconds()
+    now = (datetime.datetime.now() - origin).total_seconds()
     #print("Now: ", now)
     usage = 0
+    window = now
     if "usage" in session:
         usage = session["usage"]
-    #if "window" not in session:
-    #    session["window"] = now
+    if "window" in session:
+        window = session["window"]
     #window = session["window"]
-    #delta = now - window
+    delta = now - window
     #print(" - Delta: ", delta)
-    #if delta >= seconds or delta < 0:
+    if delta >= seconds or delta < 0:
+        pass
     #    window = now
     #    session["window"] = window
     #    usage = 0
@@ -133,7 +135,7 @@ def check_limit(max_reqs=10, seconds=10):
         
     #print(" - Window: ", window)
     #print(" - Usage: ", usage)
-    if usage > max_reqs:
+    elif usage > max_reqs:
         print(" - Usage exceded: ", usage)
         return "", 429
     else:
@@ -161,11 +163,12 @@ def use(amount=1):
         print(" - IP not in dict")
         usage_ips[req_ip] = dict(window=now, usage = amount, delta=0)
     session["usage"] = usage_ips[req_ip]["usage"]
+    session["window"] = usage_ips[req_ip]["window"]
     #print(" - Window: ", usage_ips[req_ip]["window"])
     #print(" - Usage: ", usage_ips[req_ip]["usage"])
     if usage_ips[req_ip]["usage"] >= 10:
         abort(429)
-        #raise Exception("Usage exceded")
+        raise Exception("Usage exceded")
 
     if len(usage_ips.keys()) >100:
         usage_ips = {}

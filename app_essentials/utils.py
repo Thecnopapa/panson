@@ -96,12 +96,12 @@ class Utils:
 
     @staticmethod
     def filter_by_attr(obj_list, keys, values, mode="&", exclude=False):
-        sprint("Filtering: ", keys, values)
+        #sprint("Filtering: ", keys, values)
         if keys is None:
-            print1("Skipping filter: ", keys)
+            #print1("Skipping filter: ", keys)
             return obj_list
         if keys == "":
-            print1("Skipping filter: ", keys)
+            #print1("Skipping filter: ", keys)
             return obj_list
         if values is None:
             values = "None"
@@ -121,7 +121,7 @@ class Utils:
             key= str(key)
         for value in values:
             value = str(value)
-        print1(list(zip(keys, values)))
+        #print1(list(zip(keys, values)))
         r = []
 
         for o in obj_list:
