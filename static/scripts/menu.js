@@ -14,6 +14,7 @@ const submenus = [...document.getElementsByClassName('submenu')];
 
 
 camaleonElements.push(menu, botoMenuSimple);
+checkColor();
 
 
 

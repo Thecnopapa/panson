@@ -5,7 +5,7 @@ import datetime
 from utilities import *
 
 # WEB-RELATED IMPORTS
-from flask import Flask, render_template, redirect, request, make_response, session, jsonify
+from flask import Flask, render_template, redirect, request, make_response, session, jsonify, abort
 import requests
 from werkzeug.middleware.proxy_fix import ProxyFix
 from google.cloud import secretmanager
@@ -107,11 +107,12 @@ def handle_exception(e):
 
 
 origin = datetime.datetime.now()
+usage_ips = {}
 
 
 @app.before_request
 def check_limit(max_reqs=10, seconds=10):
-    #print("Checking limit")
+    print("* Checking limit (session):")
     #print(session)
     now = (datetime.datetime.now() - origin).total_seconds()
     #print("Now: ", now)
@@ -122,26 +123,57 @@ def check_limit(max_reqs=10, seconds=10):
         session["window"] = now
     window = session["window"]
     delta = now - window
-    #print("delta: ", delta)
+    print(" - Delta: ", delta)
     if delta >= seconds or delta < 0:
         window = now
         session["window"] = window
         usage = 0
         session["usage"] = usage
-        print("Window renewed, delta: ", delta)
-    #print(window)
-    #print(usage)
+        print(" - Window renewed, delta: ", delta)
+        
+    print(" - Window: ", window)
+    print(" - Usage: ", usage)
     if usage > max_reqs:
-        print("Usage exceded: ", usage)
+        print(" - Usage exceded: ", usage)
         return "", 429
     else:
         pass
 
 def use(amount=1):
+    print("* Checking limit (local):")
+    global usage_ips
     if "usage" not in session:
         session["usage"] = 0
-    print("Using: ", amount, "current: ", session["usage"])
-    session["usage"] += amount
+        print(" - Usage not in session")
+    req_ip = request.remote_addr
+    print(" - Request IP: ", req_ip)
+    now = (datetime.datetime.now() - origin).total_seconds()
+    
+    if req_ip in usage_ips.keys():
+        delta = now - usage_ips[req_ip]["window"]
+        print(" - Delta: ", delta)
+        usage_ips[req_ip]["usage"] += amount
+        usage_ips[req_ip]["delta"] = delta
+        if delta < 0 or delta >= 10:
+            usage_ips[req_ip]["window"] = now
+            usage_ips[req_ip]["usage"] =0
+    else:
+        print(" - IP not in dict")
+        usage_ips[req_ip] = dict(window=now, usage=session["usage"] + amount)
+    session["usage"] = usage_ips[req_ip]["usage"]
+    print(" - Window: ", usage_ips[req_ip]["window"])
+    print(" - Usage: ", usage_ips[req_ip]["window"])
+    if usage_ips[req_ip]["usage"] >= 10:
+        abort(429)
+        #raise Exception("Usage exceded")
+
+    if len(usage_ips.keys()) >100:
+        usage_ips = {}
+
+    print("Using: ", amount, "total: ", session["usage"])
+    #session["usage"] += amount
+    
+
     
 
 
@@ -157,8 +189,8 @@ def admin_check():
 @app.route("/blank")
 def return_blank():
     use(0.1)
-    from app_essentials.firebase import get_areas
-    return '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1,0"></head><style>html{background-color:red;overflow:scroll;}</style>'
+    
+    return usage_ips
 
 @app.route("/mailgun")
 def mailgun():
@@ -305,7 +337,7 @@ def peces_uniques(lan):
 def mostrar_peca(lan, id):
     use()
     producte = Products(lan=lan).get_single(id)
-    print(producte)
+    #print(producte)
     html = template(lan=lan, templates="producte3", producte=producte)
     return html
 

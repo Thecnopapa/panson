@@ -175,17 +175,17 @@ function colorScroll(triggers){
 
 try{
     blackObserver.observe(document.getElementById("producte-images"));
-    console.log(1)
+    
 } catch {}
 
 try{
     blackObserver.observe(document.getElementsByClassName("imatge-collecio")[0]);
-    camaleonElements.push(document.getElementsByClassName("titol-collecio")[0])
+    /*camaleonElements.push(document.getElementsByClassName("titol-collecio")[0])
     document.getElementsByClassName("titol-collecio")[0].addEventListener("click", function() {
         let galleries = [...document.getElementsByClassName('content-galeria')];
         galleries.forEach(g => {if (g.offsetParent !== null){g.scrollIntoView({block: 'end'})}});
-    });
-    console.log(2)
+    });*/
+    
 } catch {}
 
 window.addEventListener("load", (e) =>{

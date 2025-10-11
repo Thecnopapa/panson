@@ -25,16 +25,13 @@
 }
 .titol-collecio{
     font-size: var(--font-size-large);
-    position: absolute;
-    bottom: 32px;
+    position: relative;
+    margin-top: 16px;
     left: 0;
     width: 100%;
     margin-right: 0;
-    cursor: pointer;
     text-align: center;
-    transition: color 0.3s ease;
-    padding-top: 2%;
-    padding-bottom: 2%;
+    
 }
 
 .titol-collecio:hover {
@@ -43,7 +40,7 @@
 
 .imatges-collecio{
 	width:100%;
-	margin-top: 32px;
+	margin-top: 16px;
 	display:flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -71,8 +68,8 @@
 
 
 .content-galeria{
-    margin-top: 32px;
-    margin-bottom: 32px;
+    margin-top: 16px;
+    margin-bottom: 16px;
 }
 .galeria{
     margin-top: 0;

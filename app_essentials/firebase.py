@@ -43,6 +43,7 @@ admins = db.collection("admins")
 localisation = db.collection("localisation")
 bespoke = db.collection("bespoke")
 images = db.collection("imatges")
+ips = db.collection("ips")
 
 print(" * Firebase initialized")
 
@@ -86,6 +87,9 @@ class firebaseObject(object):
     def remove(self):
         db.collection(self.bucket).document(self._id).delete()
 
+
+class IP(firebaseObject):
+    pass
 
 def check_if_admin(username, password):
     raw = admins.where(filter=FieldFilter("username", "==", username )).where(filter=FieldFilter("password", "==", password )).stream()

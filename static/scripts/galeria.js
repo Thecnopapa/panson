@@ -281,7 +281,7 @@ try{
 	}
 
 
-	filterDiv.addEventListener("scroll", displayGradient);
+	filterDiv.addEventListener("scroll", displayGradient, {passive: false});
 	displayGradient()
 } catch(e) {console.log(e);}
 

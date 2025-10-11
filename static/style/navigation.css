@@ -251,11 +251,12 @@ video {
     left: 0;
     top: 0;
     position: fixed;
-    height: fit-content;
+    height: 7vh;
     transition: 0.3s ease;
     flex-wrap: wrap;
     padding-right: 0;
     justify-content: flex-start;
+    align-content: center;
 }
 
 .navigation-right {
@@ -390,6 +391,7 @@ video {
     z-index: 999;
 }
 .popup-cross {
+	visibility:hidden;
     position: absolute;
     top: 4.1vh;
     right:4.3vh;
@@ -435,8 +437,8 @@ video {
     align-content: center;
     text-align: center;
     vertical-align: center;
-    height: 3vh;
-    width: 3vh;
+    height: 100%;
+    width: 1.5rem;
     transition: 1s ease;
 
 }
@@ -544,6 +546,7 @@ video {
 
     }
     .popup-cross{
+	visibility: visible;
         top: 2vh;
         right:2vh;
     }
