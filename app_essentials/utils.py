@@ -51,7 +51,7 @@ class Utils:
             if type(keys) is not list:
                 keys = [keys]
             for key in keys:
-                print(r, key)
+                #print(r, key)
                 r = {k:v for k,v in sorted(r.items(), key=lambda x: x[1].get(key, False), reverse=reverse)}
         return r
 
