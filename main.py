@@ -114,22 +114,22 @@ usage_ips = {}
 def check_limit(max_reqs=10, seconds=10):
     #print("* Checking limit (session):")
     #print(session)
-    now = (datetime.datetime.now() - origin).total_seconds()
+    #now = (datetime.datetime.now() - origin).total_seconds()
     #print("Now: ", now)
     usage = 0
     if "usage" in session:
         usage = session["usage"]
-    if "window" not in session:
-        session["window"] = now
-    window = session["window"]
-    delta = now - window
+    #if "window" not in session:
+    #    session["window"] = now
+    #window = session["window"]
+    #delta = now - window
     #print(" - Delta: ", delta)
-    if delta >= seconds or delta < 0:
-        window = now
-        session["window"] = window
-        usage = 0
-        session["usage"] = usage
-        print(" - Window renewed, delta: ", delta)
+    #if delta >= seconds or delta < 0:
+    #    window = now
+    #    session["window"] = window
+    #    usage = 0
+    #    session["usage"] = usage
+    #    print(" - Window renewed, delta: ", delta)
         
     #print(" - Window: ", window)
     #print(" - Usage: ", usage)
@@ -156,10 +156,10 @@ def use(amount=1):
         usage_ips[req_ip]["delta"] = delta
         if delta < 0 or delta >= 10:
             usage_ips[req_ip]["window"] = now
-            usage_ips[req_ip]["usage"] =0
+            usage_ips[req_ip]["usage"] = amount
     else:
         print(" - IP not in dict")
-        usage_ips[req_ip] = dict(window=now, usage=session["usage"] + amount)
+        usage_ips[req_ip] = dict(window=now, usage = amount, delta=0)
     session["usage"] = usage_ips[req_ip]["usage"]
     #print(" - Window: ", usage_ips[req_ip]["window"])
     #print(" - Usage: ", usage_ips[req_ip]["usage"])
@@ -170,7 +170,7 @@ def use(amount=1):
     if len(usage_ips.keys()) >100:
         usage_ips = {}
 
-    print("Using: ", amount, "total: ", session["usage"])
+    print("IP:", req_ip, "Using:", amount, "Total:", usage_ips[req_ip]["usage"], "Delta:", usage_ips[req_ip]["delta"])
     #session["usage"] += amount
     
 
@@ -184,12 +184,13 @@ def admin_check():
     return check_if_admin(user.username, user.password)
 
 
-
-
 @app.route("/blank")
 def return_blank():
+    return ""
+
+@app.route("/ips")
+def return_ips():
     use(0.1)
-    
     return usage_ips
 
 @app.route("/mailgun")
