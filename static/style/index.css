@@ -62,7 +62,7 @@ body{
     align-items: center;
     text-align: center;
     color: rgba(240, 248, 255, 0.9);
-    padding: 5dvh 0dvh 5dvh 0dvh;
+    /*padding: 5dvh 0dvh 5dvh 0dvh;*/
     position: fixed;
     /*mix-blend-mode: difference;*/
 }
@@ -92,7 +92,7 @@ body{
       	font-size: var(--font-size-medium);
         display: flex;
         width: var(--padded-width);
-        padding-top: 1rem;
+        /*padding-top: 1rem;*/
         margin-right: 0;
         padding-bottom: 1.5rem;
 
