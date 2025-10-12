@@ -180,24 +180,30 @@ def split_multiple(string, *delimiters):
     return re.split("|".join(delimiters), string)
 
 
-def table_to_html(path, onclick_row="", onclick_cell="", skip_rows=[]):
+def table_to_html(path, onclick_row="", onclick_cell="", skip_rows=[], ref_row=None):
     df = pd.read_excel(path)
     html = "<table>"
     html += "<tr>"
     for col in df.columns:
         html += f"<th>{col}</th>"
     html += "</tr>"
+    ref_vals=None
     for r, row in enumerate(df.itertuples()):
+        if r == ref_row:
+            ref_vals = row[1:]
+            print("Ref vals:", ref_vals)
         if r in skip_rows:
             continue
         html += f"<tr row={row[0]} onclick={onclick_row}>"
         for n, col in enumerate(row[1:]):
+            if ref_vals is not None:
+                ref_col = ref_vals[n]
             if str(col) == "nan":
                 val = "NA"
                 col = ""
             else:
                 val = str(col)
-            html += f"<td col={n} val='{val}' onclick='{onclick_cell}'>{col}</td>"
+            html += f"<td col={ref_col} val='{val}' onclick='{onclick_cell}'>{col}</td>"
         html += "</tr>"
     html += "</table>"
     return html

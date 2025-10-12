@@ -547,8 +547,10 @@ video {
     }
     .popup-cross{
 	visibility: visible;
-        top: 2vh;
-        right:2vh;
+	height:5vh;
+	width: 5vh;
+        top: 2.5vh;
+        right:1.5vh;
     }
     .request-cookies{
 	    flex-direction: column;

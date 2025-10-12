@@ -89,15 +89,15 @@ function selectSize(trigger){
 }
 
 function resizeSelector(trigger){
-    print("TRIGGER: ", trigger);
+    //print("TRIGGER: ", trigger);
     const selectedOption = trigger.selectedOptions[0];
     const targetWidth =  ((1.7+selectedOption.text.length) * 1.7 * window.innerHeight / 100);
-    print("TARGET: ", targetWidth, "CURRENT: ", trigger.offsetWidth);
+    //print("TARGET: ", targetWidth, "CURRENT: ", trigger.offsetWidth);
     trigger.style.width =  String(targetWidth)+"px";
     //print(trigger.style);
     //trigger.style.minWidth = String(targetWidth)+"px !important";
     //trigger.style.maxWidth = String(targetWidth)+"px !important";
-    print("NEW: ", trigger.offsetWidth, trigger.width);
+    //print("NEW: ", trigger.offsetWidth, trigger.offsetWidth);
 }
 
 
@@ -107,25 +107,30 @@ function selectSizeTable(trigger) {
     console.log(selectedVal, selectedCol);
     try {
         const targetContainer = document.getElementsByClassName("talles")[0]
-        const targetInput = targetContainer.getElementsByTagName("input");
-        if (selectedCol in ["0","1"] && selectedVal !== "NA") {
-            for (let i = 0; i < targetInput.length; i++) {
-                print(targetInput[i].value)
-                if (targetInput[i].value === selectedVal) {
-                    //targetInput[i].setAttribute("checked", true);
-                    print(targetInput[i].parentElement);
-                    targetInput[i].dispatchEvent(new Event("change"));
+        const targetInputs = [...targetContainer.getElementsByTagName("input")];
+	    console.log(targetInputs);
+	    console.log(["panson", "es"].includes(selectedCol));
+        if (["panson","es"].includes(selectedCol) && selectedVal !== "NA") {
+            targetInputs.forEach(input => {
+                console.log(input.value, selectedVal, input.value === selectedVal)
+                if (input.value === selectedVal) {
+                    input.setAttribute("checked", true);
+                    console.log(input.parentElement);
+                    input.dispatchEvent(new Event("change"));
                     throw new Error("found");
                 }
-            }
+            });
         }
         throw new Error("Size not found on displayed options");
     } catch (error) {
         print(error);
         if (error.message !== "found") {
-            if (selectedVal === "NA"){
-                selectedCol = "1";
-                selectedVal = trigger.parentElement.children[1].attributes.val.value;
+            if (selectedVal === "NA" || selectedCol === "panson"){
+		    console.log("val is NA");
+		    selectedCol = "es";
+		    selectedVal = undefined;
+		[...trigger.parentElement.children].forEach(el => {if (el.getAttribute("col", undefined) === selectedCol){selectedVal = el.attributes.val.value;}});
+		    console.log("selected val: ", selectedVal);
             }
             const multipleInput = document.getElementById("size-multiple-input");
             const customSize = document.getElementById("custom-size");
@@ -133,8 +138,9 @@ function selectSizeTable(trigger) {
             const countrySelector = document.getElementById("size-country");
             multipleInput.value = selectedVal;
             multipleInput.dispatchEvent(new Event("input"));
-            //print(countrySelector.options, Number(selectedCol));
-            countrySelector.options[Number(selectedCol)-1].selected = true;
+		console.log("options");
+            console.log(countrySelector, selectedCol);
+            countrySelector.getElementsByClassName(selectedCol)[0].selected = true;
             countrySelector.dispatchEvent(new Event("change"));
         }
     }

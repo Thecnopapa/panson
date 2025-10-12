@@ -159,7 +159,7 @@ function hideBackgound(popupContent, cross=true) {
 function addPopupCross(popupContent) {
     var cross = document.createElement("button");
     cross.className = "popup-cross";
-    cross.innerHTML = "x";
+    cross.innerHTML = "&#10005;";
     cross.type = "button";
     cross.setAttribute("onclick","hidePopup('cross', this)")
     popupContent.appendChild(cross);
