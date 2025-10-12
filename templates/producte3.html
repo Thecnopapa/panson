@@ -197,9 +197,9 @@
 	     <div class="add-to-cart black-button" onclick="submitToCart(this)">{{ loc.pro_afegir_carret}}
 		     <div class="cart-loading slow-image" background="/static/media/loading.gif"></div>
 	     </div>
-            <div id="missatge-lent" class="missatge-enviament" style="display: none">{{ loc.pro_enviament_lent }}</div>
-            <div id="missatge-rapid" class="missatge-enviament" style="display: none">{{ loc.pro_enviament_rapid }}</div>
-            <div id="missing-info" class="popup-info"><p>Siusplau introdueix tots els detalls</p></div>
+            <div id="missatge-lent" class="missatge-enviament loc" style="display: none" loc="pro_enviament_lent">{{ loc.pro_enviament_lent }}</div>
+            <div id="missatge-rapid" class="missatge-enviament loc" style="display: none" loc="pro_enviament_rapid">{{ loc.pro_enviament_rapid }}</div>
+	    <div id="missing-info" class="popup-info loc" loc="pro_missing_details"><p>{{ loc.pro_missing_details }}</p></div>
         </form>
     {% endif %}
     <div id="product-description" >{{ producte.descripcio | safe}}</div>
@@ -207,24 +207,24 @@
     {% if producte.bucket == "productes" %}
     <div class="product-info">
             <div class="desplegable">
-                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover">{{ loc.pro_info_titol }}</div><div class="arrow">+</div></div>
+                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover loc" loc="pro_info_titol">{{ loc.pro_info_titol }}</div><div class="arrow">+</div></div>
                 <div class="info-desplegable">
                     <p class="extra-info"> {{ producte.info | safe }}</p>
-                    <p>{{ loc.pro_info_text | safe}}</p>
+                    <p class="loc" loc="pro_info_text">{{ loc.pro_info_text | safe}}</p>
                 </div>
             </div>
             <div class="desplegable">
-                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover">{{ loc.pro_cura_titol }}</div><div class="arrow">+</div></div>
+                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover loc" loc="pro_cura_titol">{{ loc.pro_cura_titol }}</div><div class="arrow">+</div></div>
                 <div class="info-desplegable">
-                    <p>{{ loc.pro_cura_text_1 | safe}}</p>
-                    <div class="subtitol-desplegable">{{ loc.pro_cura_subtitol }}</div>
-                    <p>{{ loc.pro_cura_text_2 | safe}}</p>
+                    <p class="loc" loc="pro_cura_text_1">{{ loc.pro_cura_text_1 | safe}}</p>
+                    <div class="subtitol-desplegable loc" loc="pro_cura_subtitol">{{ loc.pro_cura_subtitol }}</div>
+		    <p class="loc" loc="pro_cura_text_2">{{ loc.pro_cura_text_2 | safe}}</p>
                 </div>
             </div>
             <div class="desplegable">
-                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover">{{ loc.pro_enviament_titol }}</div><div class="arrow">+</div></div>
+                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover loc" loc="pro_enviament_titol">{{ loc.pro_enviament_titol }}</div><div class="arrow">+</div></div>
                 <div class="info-desplegable">
-                    <p>{{ loc.pro_enviament_text_1 | safe}}</p>
+                    <p vlass="loc" loc="pro_enviament_text">{{ loc.pro_enviament_text_1 | safe}}</p>
                 </div>
             </div>
         </div>
@@ -238,7 +238,7 @@
 </div>
 
     {% if producte.bucket == "productes" %}
-<div class="subtitol-galeria">{{ loc.pro_tiol_galeria }}</div>
+<div class="subtitol-galeria loc" loc="pro_titol_galeria">{{ loc.pro_tiol_galeria }}</div>
 
     <div class="producte-galeria galeries-landscape">
         {{ galeria.galeria("productes", filtres=False, filterKey="collecio;tipus", filterValue=utils.str(producte.collecio)+";"+utils.str(producte.tipus), min_row=1, min_prods=4, exclude=producte._id, filter_mode="|", inline=True) }}

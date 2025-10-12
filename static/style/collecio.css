@@ -24,7 +24,7 @@
     min-height: 100vh;
 }
 .titol-collecio{
-    font-size: var(--font-size-large);
+    font-size: var(--font-size-extra-large);
     position: relative;
     margin-top: 16px;
     left: 0;
@@ -104,5 +104,8 @@
 	.doble-imatge{
 		height: 49.5vw;
 		width: 49.5vw;
+	}
+	.ultima-imatge{
+		margin-top:100px;
 	}
 }
