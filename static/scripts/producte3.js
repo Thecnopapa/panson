@@ -561,20 +561,25 @@ mainDetails.addEventListener("touchmove", preventDefaultScroll, {passive: false}
 function preventDefaultScroll(event) {
     //event.preventDefault();
     if (window.innerHeight >= window.innerWidth){return;}
-    console.log(mainDetails.scrollTop + mainDetails.offsetHeight, mainDetails.scrollHeight)
+    //console.log(mainDetails.scrollTop + mainDetails.offsetHeight, mainDetails.scrollHeight)
     if (mainDetails.scrollTop + mainDetails.offsetHeight < mainDetails.scrollHeight && event.deltaY >= 0){return;}
     //if (productImages.scrollTop > 0 && event.deltaY <= 0){return;}
-    console.log("preventDefaultScroll");
-    console.log(productImages.scrollTop+productImages.offsetHeight > productImages.scrollHeight);
-    console.log(event.deltaY)
+    //console.log("preventDefaultScroll");
+    //console.log(productImages.scrollTop+productImages.offsetHeight > productImages.scrollHeight);
+    //console.log(event.deltaY)
     if (productImages.scrollTop+productImages.offsetHeight >= productImages.scrollHeight && event.deltaY >= 0){
       return;
     } else {
-        console.log(productImages);
+        //console.log(productImages);
         event.preventDefault();
-        if(event.deltaY <= 0){document.documentElement.scrollTo(0,0);}
-        console.log(event);
-        productImages.scrollTo(0, productImages.scrollTop + event.deltaY )
+        if (event.deltaY <= 0){
+            document.documentElement.scrollTo(0,0);
+        }
+        //console.log(event);
+        if (document.documentElement.scrollTop <= 0) {
+            productImages.scrollTo(0, productImages.scrollTop + event.deltaY)
+        }
+
 
     }
     //event.preventDefault();
