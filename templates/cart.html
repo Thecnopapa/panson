@@ -20,7 +20,7 @@
                         <div class="producte-carret-material is-carret hide loc" loc="car_talla">{{ loc.car_talla }}: {{ item["options"]["material"]}}</div>
                     {% endif %}
                     {% if item["options"]["variacio"] %}
-                        <div class="producte-carret-variacio is-carret {{ "hide" if item["options"]["variacio"]== "null" }}"><span class="is-carret loc" loc="car_variacio">{{ loc.car_variacio }}</span>{{ item["options"]["variacio"] }}</div>
+                        <div class="producte-carret-variacio is-carret {{ "hide" if item["options"]["variacio"]== "null" }}">{{ item["options"]["variacio"] }}</div>
                     {% endif %}
                     {% if item["options"]["color"] %}
                         <div class="producte-carret-color is-carret {{ "hide" if item["options"]["color"] == "null" }}">

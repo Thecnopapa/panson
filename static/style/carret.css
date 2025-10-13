@@ -144,8 +144,16 @@
 .producte-carret-talla{
 	margin-bottom: 0.1rem;
 	font-size: var(--font-size-extra-small);
-
 }
+.producte-carret-variacio{
+	margin-bottom: 0.1rem;
+	font-size: var(--font-size-extra-small);
+}
+.producte-carret-material{
+	margin-bottom: 0.1rem;
+	font-size: var(--font-size-extra-small);
+}
+
 .is-carret.producte-carret-color{
     display: flex;
     flex-direction: row;

@@ -64,7 +64,7 @@ body {
     font-size: var(--font-size-small);
 	position:absolute;
 	top: 0;
-    	left:calc(60%- 2 * var(--padding));
+    	left:calc(60% - var(--padding) * 2);
 	width: 40%;
    	max-width: 40%;
 	z-index:30;
