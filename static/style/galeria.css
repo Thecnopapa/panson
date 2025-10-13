@@ -10,7 +10,7 @@
     width: 100%;
     position: relative;
     align-items:center;
-    margin-top: 7vh;
+    margin-top: 10vh;
     margin-bottom: 8vh;
     z-index: 10;
 }
@@ -18,7 +18,7 @@
 
 
 .filtre-buttons{
-    margin-top: calc(var(--padding) * 1.5);
+
     margin-bottom: calc(var(--padding) * 1.5);
 	display: flex;
 	justify-content: center;
@@ -283,7 +283,7 @@
 @media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
 
     .filtre-buttons{
-        margin-top: calc(var(--padding) * 1.5);
+
         margin-bottom: calc(var(--padding) * 1.5);
         justify-content: start;
     }
@@ -331,10 +331,10 @@
     .detalls-galeria{
         width: var(--padded-width);
     }
-    .detalls-principals{
+    /*.detalls-principals{
         justify-content: start;
 	width: fit-content;
-    }
+    }*/
 
     .imatge{
         height: 49.5dvw;

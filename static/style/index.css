@@ -16,8 +16,8 @@
     position: relative;
     display: flex;
     height: fit-content;
-    font-size: var(--font-size-extra-large);
-    padding-top:2%;
+    font-size: var(--font-size-extra-extra-large);
+    padding-top:2rem;
     padding-bottom:1.5rem;
 
     background-color: white;
@@ -25,7 +25,7 @@
 }
 
 #index-subtitle-more{
-    padding-bottom:2%;
+    padding-bottom:1rem;
     width: var(--padded-width);
     text-decoration-line: underline;
 }
@@ -89,18 +89,19 @@ body{
     }
 
     #index-subtitle{
-      	font-size: var(--font-size-medium);
+      	font-size: var(--font-size-large);
         display: flex;
         width: var(--padded-width);
         /*padding-top: 1rem;*/
         margin-right: 0;
         padding-bottom: 1.5rem;
+        padding-top: 1rem;
 
     }
     #index-subtitle-more{
         padding-bottom: 1rem;
         justify-content: center;
-        font-size: var(--font-size-extra-small);
+        font-size: var(--font-size-small);
 
 
     }

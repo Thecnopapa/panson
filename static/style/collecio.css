@@ -24,7 +24,7 @@
     min-height: 100vh;
 }
 .titol-collecio{
-    font-size: var(--font-size-extra-large);
+    font-size: var(--font-size-extra-extra-large);
     position: relative;
     margin-top: 16px;
     left: 0;
@@ -34,8 +34,11 @@
     
 }
 
-.titol-collecio:hover {
-    color: rgba(0, 0, 0, 0.9);
+
+
+.subtitol-collecio{
+	font-size: var(--font-size-medium);
+	color: #888888;
 }
 
 .imatges-collecio{

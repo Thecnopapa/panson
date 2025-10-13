@@ -33,16 +33,16 @@
             <div class="main-foto normal-image {{ 'fast-image' if n ==0 }}"  product="{{ producte.nom }}" onclick="enlargeImg(this)" background='{{ imgs.get_url(producte.bucket, imatge) }}'></div>
     {% endfor %}
     </div>
+    <div class="arrows">
+		<img class="main-arrow left" src="/static/media/arrow.svg" onclick="slideshowScroll(this.parentElement.previousElementSibling, 'prev')">
+		<img class="main-arrow right" src="/static/media/arrow.svg" onclick="slideshowScroll(this.parentElement.previousElementSibling, 'next')">
+	</div>
     <div class="bubble-container {{ 'hidden' if utils.len(producte.imatges) <= 1 }}">
     	<div class="bubbles">
 	    {% for n, imatge in utils.enumerate(producte.imatges) %}
 	    	<div class="bubble" onclick="slideshowScroll(this.parentElement.parentElement.previousElementSibling, '{{ n }}')"></div>
 	    {% endfor %}
     	</div>
-	<div class="arrows">
-		<img class="main-arrow left" src="/static/media/arrow.svg" onclick="slideshowScroll(this.parentElement.parentElement.previousElementSibling, 'prev')">
-		<img class="main-arrow right" src="/static/media/arrow.svg" onclick="slideshowScroll(this.parentElement.parentElement.previousElementSibling, 'next')">
-	</div>
 
     </div>
 
@@ -84,8 +84,8 @@
                     
                     <div class="options">
                         {% for n in range(producte.opcions.get("n_colors", 1)) %}
-			<legend class="pro_color_titol"><span class="loc" loc="pro_color_singular">{{loc.pro_color_singular}}</span> {{n+1}}:
-				{{ "("+loc[producte.opcions.get("extra_colors", [""]*n)[n]]+")" if producte.opcions.get("extra_colors", [""]*(n+1))[n] != "" }}</legend>
+			<legend class="pro_color_titol"><span class="loc" loc="pro_color_singular">{{loc.pro_color_singular}}</span>
+				{{ loc[producte.opcions.get("extra_colors", [""]*n)[n]] if producte.opcions.get("extra_colors", [""]*(n+1))[n] != "" }}:</legend>
 
                             <fieldset class="color-selector colors-producte#{{ n }}">
                                 {% for color, info in producte.opcions["colors"].items() %}
@@ -207,14 +207,14 @@
     {% if producte.bucket == "productes" %}
     <div class="product-info">
             <div class="desplegable">
-                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover loc" loc="pro_info_titol">{{ loc.pro_info_titol }}</div><div class="arrow">+</div></div>
+                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover loc" loc="pro_info_titol">{{ loc.pro_info_titol }}</div><div class="desplegable-indicator">+</div></div>
                 <div class="info-desplegable">
                     <p class="extra-info"> {{ producte.info | safe }}</p>
                     <p class="loc" loc="pro_info_text">{{ loc.pro_info_text | safe}}</p>
                 </div>
             </div>
             <div class="desplegable">
-                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover loc" loc="pro_cura_titol">{{ loc.pro_cura_titol }}</div><div class="arrow">+</div></div>
+                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover loc" loc="pro_cura_titol">{{ loc.pro_cura_titol }}</div><div class="desplegable-indicator">+</div></div>
                 <div class="info-desplegable">
                     <p class="loc" loc="pro_cura_text_1">{{ loc.pro_cura_text_1 | safe}}</p>
                     <div class="subtitol-desplegable loc" loc="pro_cura_subtitol">{{ loc.pro_cura_subtitol }}</div>
@@ -222,7 +222,7 @@
                 </div>
             </div>
             <div class="desplegable">
-                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover loc" loc="pro_enviament_titol">{{ loc.pro_enviament_titol }}</div><div class="arrow">+</div></div>
+                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover loc" loc="pro_enviament_titol">{{ loc.pro_enviament_titol }}</div><div class="desplegable-indicator">+</div></div>
                 <div class="info-desplegable">
                     <p vlass="loc" loc="pro_enviament_text">{{ loc.pro_enviament_text_1 | safe}}</p>
                 </div>
