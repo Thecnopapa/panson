@@ -35,6 +35,7 @@ body {
     max-height: 100vh;
     line-height: 0;
     font-size:0;
+    scroll-behavior: auto;
     
     
 }
