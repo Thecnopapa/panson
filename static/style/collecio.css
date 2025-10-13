@@ -101,6 +101,9 @@
 	.collecio{
 		min-height: 50vh;
 	}
+	.titol-collecio{
+		font-size: var(--font-size-extra-large);
+	}
 	.imatge-collecio{
 		min-height: 50vh;
 	}

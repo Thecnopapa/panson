@@ -284,7 +284,7 @@
 
     .filtre-buttons{
 
-        margin-bottom: calc(var(--padding) * 1.5);
+        margin-bottom: calc(var(--padding) * 3);
         justify-content: start;
     }
     .filtre{
@@ -299,6 +299,16 @@
     }
     .galeria {
         justify-content: space-between;
+    }
+    .galeria-navigation{
+        font-size: var(--font-size-small);
+    }
+    .page-arrow{
+        height: 1.5rem;
+    }
+    .galeria-counter{
+        margin-right: 0.5rem;
+        margin-left: 0.5rem;
     }
     .producte{
         min-width:  49.5dvw;

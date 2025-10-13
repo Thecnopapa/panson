@@ -89,7 +89,7 @@ body{
     }
 
     #index-subtitle{
-      	font-size: var(--font-size-large);
+      	font-size: var(--font-size-extra-large);
         display: flex;
         width: var(--padded-width);
         /*padding-top: 1rem;*/

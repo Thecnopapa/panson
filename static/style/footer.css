@@ -101,6 +101,9 @@ a{
         max-width: 100%;
         min-width: 100%;
     }
+    .footer-title{
+        font-size: var(--font-size-small);
+    }
     #credits{
         width: var(--padded-width);
     }
