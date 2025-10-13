@@ -298,14 +298,19 @@ body {
 	border:none;
 	border-bottom:1px solid black;
 	outline-offset: 0;
-	width:6vh;
+	width:calc(var(--font-size-extra-small) * 3);
 	max-width:fit-content;
 	background-color:rgba(0,0,0,0);
 	color:black;
     height:100%;
     min-height:3vh;
 }
-.multiple-input{
+.multiple-input {
+    text-align: center;
+    width:calc(var(--font-size-extra-small) * 3);
+/*    max-width:calc(var(--font-size-extra-small) * 3);
+    min-width:calc(var(--font-size-extra-small) * 3);*/
+
 }
 
 .color-selector{

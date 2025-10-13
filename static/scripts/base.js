@@ -31,10 +31,10 @@ function dynamicallyLoadCSS(url) {
 function verticalToHorizontal(element){
     if (window.innerHeight < window.innerWidth){
         element.addEventListener("wheel", e => {
-                console.log("Wheel");
+                //console.log("Wheel");
                 if (Math.abs(e.deltaY) > 0 && e.deltaX === 0){
                     element.scrollLeft += e.deltaY*2;
-                    console.log(e.deltaY, element.scrollLeft);
+                    //console.log(e.deltaY, element.scrollLeft);
                 }
             });
             /*element.addEventListener("scrollend", e => {
@@ -115,6 +115,16 @@ function showPopup(popupContent, cross=true) {
 	console.log("Showing Popup");
     popupContent = popupContent.cloneNode(true);
     popupContent.addEventListener("click", function(event) {event.stopPropagation()});
+    function closePopupEscape(event){
+        if (event.key === "Escape" || event.key === "Backspace"){
+            event.preventDefault();
+            hidePopup(popupContent);
+            document.documentElement.style.overflow = "";
+            document.documentElement.removeEventListener("keydown", closePopupEscape);
+
+        }
+    }
+    document.documentElement.addEventListener("keydown", closePopupEscape);
     popupContent.style.display = "block";
     document.body.style.cursor = undefined;
     hideBackgound(popupContent, cross);

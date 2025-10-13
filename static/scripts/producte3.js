@@ -323,16 +323,7 @@ function enlargeImg(img, all=true){
 
     document.documentElement.style.overflow = "hidden";
 
-	
     const newContainer = document.createElement("div");
-    newContainer.classList.add("enlarged-container");
-    newContainer.addEventListener("click", function (event){event.preventDefault(); event.stopPropagation(); newContainer.remove(); document.documentElement.style.overflow = "unset"; newObserver.disconnect();});
-    newContainer.addEventListener("scroll", function (event){event.stopPropagation();});
-    newContainer.addEventListener("touchmove", function (event){event.stopPropagation();});
-    newContainer.addEventListener("wheel", function (event){event.stopPropagation();});
-
-    document.body.appendChild(newContainer);
-
 
     let enlargedObserverThreshold = 0.7;
     if (window.innerWidth <= window.innerHeight) {
@@ -343,6 +334,29 @@ function enlargeImg(img, all=true){
 		root: newContainer,
 		threshold: enlargedObserverThreshold,
 	});
+	
+
+    newContainer.classList.add("enlarged-container");
+    newContainer.addEventListener("click", function (event){event.preventDefault(); event.stopPropagation(); newContainer.remove(); document.documentElement.style.overflow = ""; newObserver.disconnect();});
+    newContainer.addEventListener("scroll", function (event){event.stopPropagation();});
+    newContainer.addEventListener("touchmove", function (event){event.stopPropagation();});
+    newContainer.addEventListener("wheel", function (event){event.stopPropagation();});
+    function closeWithEscape(event) {
+        //console.log(event.key);
+        if (event.key === "Escape" || event.key === "Backspace"){
+            event.preventDefault()
+            newContainer.remove();
+            newObserver.disconnect();
+            document.documentElement.style.overflow = "";
+            document.documentElement.removeEventListener("keydown", closeWithEscape);
+
+        }
+    }
+
+    document.documentElement.addEventListener("keydown", closeWithEscape);
+
+    document.body.appendChild(newContainer);
+
 
 	function newBubbleChange(triggers, opts){
 		for (let i = 0; i < triggers.length; i++){
@@ -358,7 +372,7 @@ function enlargeImg(img, all=true){
     const newCross = document.createElement("div");
 	newCross.innerHTML ="&#10005;";
 	newCross.classList.add("close-enlarged-container");
-	newCross.addEventListener("click", function (event){newContainer.remove(); document.body.style.overflow = "unset"; newObserver.disconnect()});
+	newCross.addEventListener("click", function (event){newContainer.remove(); document.body.style.overflow = ""; newObserver.disconnect()});
 	newContainer.appendChild(newCross);
 
 	const newBubbles = document.createElement("div");
