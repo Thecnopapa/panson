@@ -6,7 +6,7 @@
 
 {% block content %}
 
-    <div id="imatges" class="admin-content">
+    <div id="imatges" class="admin-content product-list">
 	
         {% for product in imgs.get_fixed() %}
             {{ admin_container(product) }}
@@ -25,7 +25,7 @@
 {% block unused %}
     {% if False %}
     <link href='/style/admin-img.css' rel='stylesheet'>
-    <div id="imatges2" class="admin-content">
+    <div id="imatges2" class="admin-content product-list">
         {% for bucket in imgs.buckets %}
             <div class="bucket-container">
                 <div class="bucket-header" onclick="this.nextElementSibling.classList.toggle('hidden')">

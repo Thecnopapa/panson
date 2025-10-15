@@ -896,10 +896,7 @@ def get_file_info(data=None):
         if data is None:
             target = request.get_json()
             data = imgs.get(target["bucket"], target["filename"])
-        try:
-            prods = Products().__getattribute__(data["bucket"])
-        except:
-            prods = []
+
 
         return json.dumps(dict(
             bucket=data["bucket"],
@@ -908,7 +905,7 @@ def get_file_info(data=None):
             content_type=data["content_type"],
             full_path=data["blob"].name,
             url = imgs(target["bucket"], data["filename"]),
-            usage = [p._id for p in prods if data["filename"] in p.imatges],
+            usage = imgs.get_usage(target["bucket"], data["filename"]),
             brightess = imgs.get_brightness(data["bucket"], data["filename"])
         ))
 

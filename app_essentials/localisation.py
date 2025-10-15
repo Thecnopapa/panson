@@ -1,6 +1,8 @@
 import json
 import os
 
+from google.cloud.firestore_v1 import FieldFilter
+
 from app_essentials.utils import *
 from app_essentials.firebase import localisation
 from werkzeug.utils import secure_filename
@@ -97,13 +99,15 @@ class Images:
         return new_data
 
     def get_usage(self, bucket, filename):
-        from app_essentials.products import Products
-        try:
-            prods = Products().__getattribute__(bucket)
-            return [p._id for p in prods if filename in p.imatges]
-
-        except:
+        from app_essentials.firebase import db
+        print("Getting usage for {}".format(filename))
+        collection = db.collection(bucket)
+        print(collection)
+        raw =  collection.where(filter=FieldFilter("imatges", "array_contains", filename)).stream()
+        print(raw)
+        if raw is None:
             return []
+        return [i.id for i in raw]
 
     def get_brightness(self, bucket, filename):
         try:

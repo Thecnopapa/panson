@@ -516,12 +516,12 @@ async function showImgDetails(image){
     containerCloser.appendChild(newContainer);
     let newImage = document.createElement("img");
     newImage.classList.add("img-details-img");
-    newImage.addEventListener("mouseover", function(event){event.target.scrollIntoView();});
+    //newImage.addEventListener("mouseover", function(event){event.target.scrollIntoView();});
     newContainer.appendChild(newImage);
     
     let newInfo = document.createElement("div");
     newInfo.classList.add("img-details-info");
-    newInfo.addEventListener("mouseover", function(event){event.target.scrollIntoView({block: "end"});});
+    //newInfo.addEventListener("mouseover", function(event){event.target.scrollIntoView({block: "end"});});
     newContainer.appendChild(newInfo);
     let deleteButton = document.createElement("div");
     deleteButton.addEventListener("click", e => {
@@ -536,7 +536,7 @@ async function showImgDetails(image){
     newInfo.appendChild(deleteButton);
     let newInfoTable = document.createElement("table");
     newInfoTable.classList.add("img-details-table");
-    newInfo.addEventListener("mouseover", function(event){event.target.parentElement.scrollIntoView({block: "end"});});
+    //newInfo.addEventListener("mouseover", function(event){event.target.parentElement.scrollIntoView({block: "end"});});
     newInfo.appendChild(newInfoTable);
 
 
@@ -553,7 +553,7 @@ async function showImgDetails(image){
         let newRow = document.createElement("tr");
         newInfoTable.appendChild(newRow);
         newRow.innerHTML = "<th class='key'>"+key+"</th><th>"+imgInfo[key]+"</th>";
-        newInfo.addEventListener("mouseover", function(event){event.parentElement.parentElement.scrollIntoView({block: "end"});});
+        //newInfo.addEventListener("mouseover", function(event){event.parentElement.parentElement.scrollIntoView({block: "end"});});
     }
 
 }
