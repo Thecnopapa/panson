@@ -2,11 +2,22 @@
 
 {% block content %}
 
-    <div id="productes" class="admin-content product-list">
+    <div id="productes" class="admin-content">
+        {% for col in productes.col_names %}
 
-        {% for product in productes.get_all() %}
-            {{ admin_container(product) }}
+            <div class="col_col product-list {{ col }}">
+            <div class="productes-titol-col">{{ col }}</div>
+                {% for product in productes.filter({"collecio":col}) %}
+                    {{ admin_container(product) }}
+                {% endfor %}
+            </div>
         {% endfor %}
+        <div class="col_col product-list {{ "altres" }}">
+        <div class="productes-titol-col">Altres</div>
+                {% for product in productes.filter({"collecio":None}) %}
+                    {{ admin_container(product) }}
+                {% endfor %}
+        </div>
 
         {{ new_container("productes") }}
 

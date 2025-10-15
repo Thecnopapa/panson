@@ -71,62 +71,79 @@
 
 	<div class="product-data popup-info {{product._id}}">
 		<div>ID: {{product._id}}</div>
-		<div class="product-element name">Nom: <input product="{{product._id}}" field="nom" class="product-input" value="{{product.nom}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; document.documentElement.querySelector('.product-title.{{product._id}}').innerHTML=this.value" colorcode="next"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
-	    {% if product.bucket != "imatges" %}
-            <div class="product-element description">Descripcio: <textarea product="{{product._id}}" field="descripcio" class="product-input" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';" colorcode="next">{{product.descripcio}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
-	    {% endif %}
-	    {% if product.bucket == "productes" %}
-            <div class="product-element description">Info: <textarea product="{{product._id}}" field="info" class="product-input" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';" colorcode="next">{{product.info}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
-	    {% endif %}
+        <div class="horizontal wrapper">
+            <div class="vertical wrapper">
+                <div class="horizontal wrapper">
+                    <div class="product-element name">Nom: <input product="{{product._id}}" field="nom" class="product-input" value="{{product.nom}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; document.documentElement.querySelector('.product-title.{{product._id}}').innerHTML=this.value" colorcode="next"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
+                    {% if product.bucket == "productes" %}
+                        <div class="product-element info">Info: <textarea product="{{product._id}}" field="info" class="product-input" onmouseenter="resizeArea(this)" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; resizeArea(this)" colorcode="next">{{product.info}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
+                    {% endif %}
+                </div>
 
             {% if product.bucket == "productes" %}
                 <div class="product-element subtitle">Subtitol: <input product="{{product._id}}" field="subtitol" class="product-input" value="{{product.subtitol}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
-                <div class="product-element type">Tipus:
-                    <select product="{{product._id}}" field="tipus" class="product-input" oninput="productUpdate(this)">
-                            <option value=""></option>
-                            {% for tipus in loc.misc["types"] %}
-                                <option value="{{ tipus }}" {{ "selected=selected" if tipus == product.tipus }}>{{ tipus }}</option>
-                            {% endfor %}
-                    </select><div></div>
+                <div class="horizontal wrapper">
+                    <div class="product-element type">Tipus:
+                        <select product="{{product._id}}" field="tipus" class="product-input" oninput="productUpdate(this)">
+                                <option value=""></option>
+                                {% for tipus in loc.misc["types"] %}
+                                    <option value="{{ tipus }}" {{ "selected=selected" if tipus == product.tipus }}>{{ tipus }}</option>
+                                {% endfor %}
+                        </select><div></div>
+                    </div>
                 </div>
-                <div class="product-element collection">Collecio:
-                    <select product="{{product._id}}" field="collecio" class="product-input" oninput="productUpdate(this)">
-                <option value=""></option>
+                <div class="horizontal wrapper">
+                    <div class="product-element collection">Collecio:
+                        <select product="{{product._id}}" field="collecio" class="product-input" oninput="productUpdate(this)">
+                            <option value=""></option>
                             {% for collecio in productes.col_names %}
                                 <option value="{{ collecio.lower() }}" {{ "selected=selected" if collecio.lower() == product.collecio }}>{{ collecio }}</option>
                             {% endfor %}
-                    </select><div></div>
-                </div>
-                <div class="product-element collection">Unica:
-                <select product="{{product._id}}" field="unica" dataType="bool" class="product-input" oninput="productUpdate(this);">
+                        </select>
+                    </div>
+                    <div class="product-element unica">Unica:
+                        <select product="{{product._id}}" field="unica" dataType="bool" class="product-input" oninput="productUpdate(this);">
                             {% for b in [True, False] %}
                                 <option value="{{ b }}" {{ "selected=selected" if product.unica == b }}>{{ loc.misc["bools"]["{}".format(b)] }}</option>
                             {% endfor %}
-                </select><div></div>
+                        </select>
+                    </div>
                 </div>
-		<div class="product-element collection">Novetat:
-                <select product="{{product._id}}" field="novetat" dataType="bool" class="product-input" oninput="productUpdate(this);">
+                <div class="horizontal wrapper">
+                    <div class="product-element new-in">Novetat:
+                        <select product="{{product._id}}" field="novetat" dataType="bool" class="product-input" oninput="productUpdate(this);">
                             {% for b in [True, False] %}
                                 <option value="{{ b }}" {{ "selected=selected" if product.novetat == b }}>{{ loc.misc["bools"]["{}".format(b)] }}</option>
                             {% endfor %}
-                </select><div></div>
-                </div>
-		<div class="product-element collection">Popular:
-                <select product="{{product._id}}" field="popular" dataType="bool" class="product-input" oninput="productUpdate(this);">
+                        </select>
+                    </div>
+                    <div class="product-element popular">Popular:
+                        <select product="{{product._id}}" field="popular" dataType="bool" class="product-input" oninput="productUpdate(this);">
                             {% for b in [True, False] %}
                                 <option value="{{ b }}" {{ "selected=selected" if product.popular == b }}>{{ loc.misc["bools"]["{}".format(b)] }}</option>
                             {% endfor %}
-                </select><div></div>
+                        </select>
+                    </div>
                 </div>
+        {% endif %}
 
 
-                <div class="product-element material">Material:<ul>
+
+            </div>
+            {% if product.bucket != "imatges" %}
+                <div class="product-element description">Descripcio: <textarea product="{{product._id}}" field="descripcio" class="product-input" onmouseenter="resizeArea(this)" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; resizeArea(this)" colorcode="next">{{product.descripcio}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
+            {% endif %}
+        </div>
+
+
+                    {% if product.bucket == "productes" %}
+
+			     <div class="product-element material">Material:<ul>
 			{% if product.opcions.get("materials") == None %}
 				{% set materials = {"": {"":""}} %}
 			{% else %}
 				{% set materials = product.opcions.get("materials") %}
 			{% endif %}
-			
                             {% for n, (subkey, info) in utils.enumerate(utils.list(materials.items())) %}
                                 <li>
                                     <input type="{{ "hidden" if product.opcions["materials"] }}" subdict="materials" class="dict-key" product="{{product._id}}" field="opcions" dataType="dict:text" value="{{ subkey }}"><span>{{ subkey }}</span>
