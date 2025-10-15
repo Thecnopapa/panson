@@ -151,7 +151,7 @@
                 </div>
 
 
-                <div class="product-element totes-talles">Talles SML:
+                <div class="product-element totes-talles">Talles Predefinides:
                 <select product="{{product._id}}" field="totes_talles" dataType="bool" class="product-input" oninput="productUpdate(this);">
                             {% for b in [True, False] %}
                                 <option value="{{ b }}" {{ "selected=selected" if product.totes_talles == b }}>{{ loc.misc["bools"]["{}".format(b)] }}</option>

@@ -137,7 +137,12 @@
                             {% endfor %}
                         {% endif %}
                     {% if producte["totes_talles"]  %}
-                        {% for talla in ["XS", "S", "M", "L", "XL"] %}
+		    	{% if producte.tipus == "anell" %}
+				{% set llista_talles = ["XS", "S", "M", "L", "XL"] %}
+			{% elif producte.tipus %}
+				{% set llista_talles = ["45cm" ,"50cm"] %}
+			{% endif %}
+                        {% for talla in llista_talles %}
                             <div class="option size">
                                 <label class="text-label">
                                 {% if producte.opcions["talles"] != None %}
@@ -155,7 +160,7 @@
                         {% endfor %}
                     {% endif %}
 
-                    {% if producte["totes_talles"] %}
+                    {% if producte["totes_talles"] and producte.tipus == "anell" %}
                             <div id=custom-size class="show-size-selector option size" onclick="this.nextElementSibling.style.display='flex'; this.style.display='none';resizeSelector(this.nextElementSibling.lastElementChild);">{{ loc.pro_personalitza_talla }}</div>
                             <div class="multiple-input-span" style="display: none;"><input type="text" name="talla-multi" id=size-multiple-input class="talla talla-unica size-input multiple-input" oninput="selectSize(this); updatePrice();" placeholder="{{ loc.pro_talla_input }}" maxlength="4">
                                 <select id=size-country name="talla-country" style="width: fit-content" onchange="resizeSelector(this);selectSize(this.previousElementSibling); updatePrice();">
@@ -171,11 +176,13 @@
                     {% endif %}
 
                     </div>
+		    {% if producte.tipus in ["anell"] %}
                     <div id="info-talles" class="clickable under-hover" onclick="showPopup(this.nextElementSibling)">{{ loc.pro_graella_talles }}</div>
-                        <div class="popup-info" id="popup-talles" onclick="event.stopPropagation()">
-				{{ talles_macros.info_talles() }}
+                    <div class="popup-info" id="popup-talles" onclick="event.stopPropagation()">
+			{{ talles_macros.info_talles() }}
 				
-                        </div>
+                    </div>
+		    {% endif %}
 
                 </fieldset>
             {% else %}
