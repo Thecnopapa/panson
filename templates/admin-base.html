@@ -53,7 +53,7 @@
 
 {% macro admin_container(product) %}
 <div class="product-container" id={{product._id}}>
-        <div class="product-header" onclick="showData(this)">
+	<div class="product-header {{product._id}}" onclick="showPopup(this.nextElementSibling)">
 		
 		{% if product.bucket != "imatges" %}
             <button type="button" class="product-button product-hide {{ "hide" if product.amagat }}" product="{{product._id}}" field="amagat" value="True" dataType="bool" onclick="event.stopPropagation(productUpdate(this)); this.style.display='none'; this.nextElementSibling.style.display = 'block'; this.parentElement.getElementsByClassName('product-title')[0].innerHTML = this.parentElement.parentElement.getElementsByClassName('name')[0].firstElementChild.value + ' (Amagat)'">Amagar</button>
@@ -61,12 +61,16 @@
             <button type="button" class="product-button product-delete {{ "hide" if product.esborrat }}" product="{{product._id}}" field="esborrat" value="True" dataType="bool" onclick="event.stopPropagation(productUpdate(this)); this.parentElement.parentElement.remove()">ESBORRAR</button>
 	    {% endif%}
 
-            <div class="product-title" >{{product.nom}} {{ "(Amagat)" if product.amagat }}</div>
+	    <div class="product-title {{product._id}}" >{{product.nom}} {{ "(Amagat)" if product.amagat }}</div>
             <div class="product-id">{{product._id}}</div>
-	    <div class="product-snapshot normal-image" background='{{ imgs.get_url(product.bucket, product.imatges[0]) }}' onclick="location.href='/{{loc.lan}}/{{product.bucket}}/{{product._id}}'"></div>
+	    <div class="product-snapshot normal-image" background='{{ imgs.get_url(product.bucket, product.imatges[0]) }}'></div>
+	    <button type="button" class="product-button go-to-product" onclick="window.open('/{{loc.lan}}/{{product.bucket}}/{{product._id}}', "_blank")">Veure a la botiga</button>
         </div>
-        <div class="product-data hide">
-            <div class="product-element name">Nom: <input product="{{product._id}}" field="nom" class="product-input" value="{{product.nom}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; this.parentElement.parentElement.parentElement.getElementsByClassName('product-title')[0].innerHTML=this.value" colorcode="next"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
+
+
+
+	<div class="product-data popup-info {{product._id}}">
+		<div class="product-element name">Nom: <input product="{{product._id}}" field="nom" class="product-input" value="{{product.nom}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; document.documentElement.querySelector('.product-title.{{product._id}}').innerHTML=this.value" colorcode="next"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
 	    {% if product.bucket != "imatges" %}
             <div class="product-element description">Descripcio: <textarea product="{{product._id}}" field="descripcio" class="product-input" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';" colorcode="next">{{product.descripcio}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
 	    {% endif %}

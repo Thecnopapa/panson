@@ -111,12 +111,14 @@ async function updateCookiesTic(container){
 
 
 
-function showPopup(popupContent, cross=true) {
+function showPopup(popupContent, cross=true, clone=true) {
 	console.log("Showing Popup");
-    popupContent = popupContent.cloneNode(true);
+    if (clone){
+    	popupContent = popupContent.cloneNode(true);
+	}
     popupContent.addEventListener("click", function(event) {event.stopPropagation()});
     function closePopupEscape(event){
-        if (event.key === "Escape" || event.key === "Backspace"){
+        if (event.key === "Escape"){
             event.preventDefault();
             hidePopup(popupContent);
             document.documentElement.style.overflow = "";
@@ -125,7 +127,8 @@ function showPopup(popupContent, cross=true) {
         }
     }
     document.documentElement.addEventListener("keydown", closePopupEscape);
-    popupContent.style.display = "block";
+    popupContent.style.display = "flex";
+    popupContent.style.flexDirection = "column";
     document.body.style.cursor = undefined;
     hideBackgound(popupContent, cross);
     document.documentElement.style.overflow = "hidden";
@@ -143,8 +146,10 @@ function hidePopup(source, sourceElement) {
     }
     popupContent.style.display = "none";
     let template = document.getElementsByClassName(popupContent.className);
+	console.log(template);
     console.log(template);
     if (template.length === 2) {
+	    console.log("placing popup back to its place");
         popupContent.parentElement.remove();
         template[0].after(popupContent);
         template[0].remove();

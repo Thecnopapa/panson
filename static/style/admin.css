@@ -50,6 +50,12 @@ body {
     align-items: center;
 }
 
+.product-list{
+	flex-direction: row;
+	flex-wrap:wrap;
+	width:100%;
+	justify-content: space-evenly;
+}
 
 
 
@@ -57,9 +63,9 @@ body {
 
 
 .product-container{
-	width: 94%;
-	max-width: 96%;
+	width: 45%;
 	padding: 2%;
+	height: 45vw;
 	background-color: rgba(0, 255, 255, 0.1);
     position: relative;
     border: black solid 1px;
@@ -69,7 +75,7 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 10vh;
+    height: 100%;
     width: 100%;
     background-color: #ffffff;
     align-items: center;
@@ -83,11 +89,14 @@ body {
 
 .product-button{
     position: absolute;
-    left: 1%;
+    z-index: 4;
+    font-size: var(--font-size-small);
+    
 }
 .product-show, .product-hide{
-    bottom:5%;
-    font-size: var(--font-size-large);
+    bottom:0;
+    
+    
 }
 .product-hide{
     background-color: coral;
@@ -96,31 +105,44 @@ body {
     background-color: lightgreen;
 }
 .product-delete{
-    top: 5%;
+    
+    top:0;
     background-color: orangered;
     color: white;
+    font-size: 4px;
+}
+.go-to-product{
+	bottom:2rem;
+	
 }
 
 
 .product-title{
     font-size: var(--font-size-extra-large);
     font-weight: bold;
+    z-index: 5;
+    max-width:100%;
+    background-color: rgba(255,255,255,0.5);
+    overflow-wrap:break-word;
 }
 
 .product-snapshot{
     position: absolute;
-    right: 1%;
-    height: 10vh;
-    width: 10vh;
+    height: 80%;
+    width: 80%;
     background-size: cover;
     background-position: center;
+    background-color: lightgray;
+    z-index:0;
 
 }
 .product-data{
-    display: flex;
+    display:none;
+    background-color: rgba(255, 255, 255, 1);
     flex-direction: column;
     height: fit-content;
     padding-top: 2%;
+    max-height: 50%;
 }
 .product-data.hide{
     display: none;
