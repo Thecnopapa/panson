@@ -124,7 +124,6 @@ function resizeArea(target){
     console.log("TEXTAREA");
     console.log(target);
     target.style.height = target.scrollHeight + "px";
-    target.nextElementSibling.style.backgroundColor = "yellow";
 }
 
 async function updateField(target){
