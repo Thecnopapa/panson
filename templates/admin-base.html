@@ -126,124 +126,127 @@
                     </div>
                 </div>
         {% endif %}
-
-
-
-            </div>
-            {% if product.bucket != "imatges" %}
-                <div class="product-element description">Descripcio: <textarea product="{{product._id}}" field="descripcio" class="product-input" onmouseenter="resizeArea(this)" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; resizeArea(this)" colorcode="next">{{product.descripcio}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
-            {% endif %}
         </div>
 
+        {% if product.bucket != "imatges" %}
+                <div class="product-element description">Descripcio: <textarea product="{{product._id}}" field="descripcio" class="product-input" onmouseenter="resizeArea(this)" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; resizeArea(this)" colorcode="next">{{product.descripcio}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
+        {% endif %}
 
-                    {% if product.bucket == "productes" %}
+    </div>
+    <div class="vertical wrapper">
 
-			     <div class="product-element material">Material:<ul>
-			{% if product.opcions.get("materials") == None %}
-				{% set materials = {"": {"":""}} %}
-			{% else %}
-				{% set materials = product.opcions.get("materials") %}
-			{% endif %}
-                            {% for n, (subkey, info) in utils.enumerate(utils.list(materials.items())) %}
-                                <li>
-                                    <input type="{{ "hidden" if product.opcions["materials"] }}" subdict="materials" class="dict-key" product="{{product._id}}" field="opcions" dataType="dict:text" value="{{ subkey }}"><span>{{ subkey }}</span>
-                                    Preu: <input type="number" dataType="int" class="product-input dict-input" key="preu" value="{{ info["preu"] }}">
-                                    <button class="product-update" onclick="productUpdateDict(this.parentElement, 'add')">&#10004;</button>
-                                    <button class="product-update" onclick="productUpdateDict(this.parentElement, 'remove')">✖</button>
-                                </li>
-                            {% endfor %}
-                        </ul><button type="button" onclick="addListElement(this.previousElementSibling, 'text')">+</button>
+        {% if product.bucket == "productes" %}
+            <div class="horizontal wrapper">
+                <div class="product-element material">Material:
+                    <ul>
+                        {% if product.opcions.get("materials") == None %}
+                            {% set materials = {"": {"":""}} %}
+                        {% else %}
+                            {% set materials = product.opcions.get("materials") %}
+                        {% endif %}
+                        {% for n, (subkey, info) in utils.enumerate(utils.list(materials.items())) %}
+                            <li>
+                                <input type="{{ "hidden" if product.opcions["materials"] }}" subdict="materials" class="dict-key" product="{{product._id}}" field="opcions" dataType="dict:text" value="{{ subkey }}"><span>{{ subkey }}</span>
+                                Preu: <input type="number" dataType="int" class="product-input dict-input" key="preu" value="{{ info["preu"] }}">
+                                <button class="product-update" onclick="productUpdateDict(this.parentElement, 'add')">&#10004;</button>
+                                <button class="product-update" onclick="productUpdateDict(this.parentElement, 'remove')">✖</button>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <button type="button" onclick="addListElement(this.previousElementSibling, 'text')">+</button>
                 </div>
 
-                <div class="product-element variacio">Variacio:<ul>
-			{% if product.opcions.get("variacions") == None %}
-				{% set variacions = {"": {"":""}} %}
-			{% else %}
-				{% set variacions = product.opcions.get("variacions") %}
-			{% endif %}
-                            {% for n, (subkey, info) in utils.enumerate(utils.list(variacions.items())) %}
-                                <li>
-                                    <input type="{{ "hidden" if product.opcions["variacions"] }}" subdict="variacions" class="dict-key" product="{{product._id}}" field="opcions" dataType="dict:text" value="{{ subkey }}"><span>{{ subkey }}</span>
-                                    Preu: <input type="number" dataType="int" class="product-input dict-input" key="preu" value="{{ info["preu"] }}">
-                                    <button class="product-update" onclick="productUpdateDict(this.parentElement, 'add')">&#10004;</button>
-                                    <button class="product-update" onclick="productUpdateDict(this.parentElement, 'remove')">✖</button>
-                                </li>
-                            {% endfor %}
-                        </ul><button type="button" onclick="addListElement(this.previousElementSibling, 'text')">+</button>
+                <div class="product-element variacio">Variacions:
+                    <ul>
+                        {% if product.opcions.get("variacions") == None %}
+                            {% set variacions = {"": {"":""}} %}
+                        {% else %}
+                            {% set variacions = product.opcions.get("variacions") %}
+                        {% endif %}
+                        {% for n, (subkey, info) in utils.enumerate(utils.list(variacions.items())) %}
+                            <li>
+                                <input type="{{ "hidden" if product.opcions["variacions"] }}" subdict="variacions" class="dict-key" product="{{product._id}}" field="opcions" dataType="dict:text" value="{{ subkey }}"><span>{{ subkey }}</span>
+                                Preu: <input type="number" dataType="int" class="product-input dict-input" key="preu" value="{{ info["preu"] }}">
+                                <button class="product-update" onclick="productUpdateDict(this.parentElement, 'add')">&#10004;</button>
+                                <button class="product-update" onclick="productUpdateDict(this.parentElement, 'remove')">✖</button>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <button type="button" onclick="addListElement(this.previousElementSibling, 'text')">+</button>
                 </div>
+            </div>
 
-
+            <div class="horizontal wrapper">
                 <div class="product-element totes-talles">Talles Predefinides:
-                <select product="{{product._id}}" field="totes_talles" dataType="bool" class="product-input" oninput="productUpdate(this);">
-                            {% for b in [True, False] %}
-                                <option value="{{ b }}" {{ "selected=selected" if product.totes_talles == b }}>{{ loc.misc["bools"]["{}".format(b)] }}</option>
-                            {% endfor %}
-                </select><div></div>
+                    <select product="{{product._id}}" field="totes_talles" dataType="bool" class="product-input" oninput="productUpdate(this);">
+                        {% for b in [True, False] %}
+                            <option value="{{ b }}" {{ "selected=selected" if product.totes_talles == b }}>{{ loc.misc["bools"]["{}".format(b)] }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
 
                 <div class="product-element talles">Talles:
-			
-			{% if product.opcions.get("talles") == None %}
-				{% set talles = {"": {"":""}} %}
-			{% else %}
-				{% set talles = product.opcions.get("talles") %}
-			{% endif %}
-			<ul>
-                            {% for n, (subkey, info) in utils.enumerate(utils.list(talles.items())) %}
-                                <li>
-                                    <input type="{{ "hidden" if product.opcions["talles"] }}" subdict="talles" class="dict-key" product="{{product._id}}" field="opcions" dataType="dict:text" value="{{ subkey }}"><span>{{ subkey }}</span>
-                                    Quantitat: <input type="number" dataType="int" class="product-input dict-input" key="qty" value="{{ info["qty"] }}">
-                                    <button class="product-update" onclick="productUpdateDict(this.parentElement, 'add')">&#10004;</button>
-                                    <button class="product-update" onclick="productUpdateDict(this.parentElement, 'remove')">✖</button>
-                                </li>
-                            {% endfor %}
-                        </ul>
-			<button type="button" onclick="addListElement(this.previousElementSibling, 'text')">+</button>
+                    {% if product.opcions.get("talles") == None %}
+                        {% set talles = {"": {"":""}} %}
+                    {% else %}
+                        {% set talles = product.opcions.get("talles") %}
+                    {% endif %}
+                    <ul>
+                        {% for n, (subkey, info) in utils.enumerate(utils.list(talles.items())) %}
+                            <li>
+                                <input type="{{ "hidden" if product.opcions["talles"] }}" subdict="talles" class="dict-key" product="{{product._id}}" field="opcions" dataType="dict:text" value="{{ subkey }}"><span>{{ subkey }}</span>
+                                Quantitat: <input type="number" dataType="int" class="product-input dict-input" key="qty" value="{{ info["qty"] }}">
+                                <button class="product-update" onclick="productUpdateDict(this.parentElement, 'add')">&#10004;</button>
+                                <button class="product-update" onclick="productUpdateDict(this.parentElement, 'remove')">✖</button>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <button type="button" onclick="addListElement(this.previousElementSibling, 'text')">+</button>
+                </div>
+            </div>
+
+            <div class="horizontal wrapper">
+                <div class="product-element colors">Colors:
+                    <input class="n-colors-input" type="number" value={{product.opcions.get("n_colors", 0) }} product="{{product._id}}"  field="opcions" key="n_colors" onchange="updateExtraColors(this, this.parentElement.nextElementSibling)">
+
+                    {% if product.opcions.get("colors") == None %}
+                        {% set colors = {"":{"":""}} %}
+                    {% else %}
+                        {% set colors = product.opcions.get("colors") %}
+                    {% endif %}
+
+                    <div class="all-colors" product={{product._id}} field="opcions" key="colors">
+                    {% for c_name, c in loc.misc["colours"].items() %}
+                    <div class="color-circle {{"selected" if c_name in colors.keys()}}" style="background-color: {{c}}" onclick="this.classList.toggle('selected');" value="{{c_name}}">{{c_name}}</div>
+                    {% endfor %}
+                    </div>
+                    <button class="product-update" onclick="productUpdateColors(this.parentElement)">&#10004;</button>
                 </div>
 
-
-
-
-		{{ product.opcions.colors }}
-		<div class="product-element colors">Colors:
-			<input class="n-colors-input" type="number" value={{product.opcions.get("n_colors", 0) }} product="{{product._id}}"  field="opcions" key="n_colors" onchange="updateExtraColors(this, this.parentElement.nextElementSibling)">
-			
-			{% if product.opcions.get("colors") == None %}
-				{% set colors = {"":{"":""}} %}
-			{% else %}
-				{% set colors = product.opcions.get("colors") %}
-			{% endif %}
-			
-			<div class="all-colors" product={{product._id}} field="opcions" key="colors">
-			{% for c_name, c in loc.misc["colours"].items() %}
-			<div class="color-circle {{"selected" if c_name in colors.keys()}}" style="background-color: {{c}}" onclick="this.classList.toggle('selected');" value="{{c_name}}">{{c_name}}</div>
-			{%endfor%}
-			</div>
-			<button class="product-update" onclick="productUpdateColors(this.parentElement)">&#10004;</button>
-		</div>
-		<div class="product-element extra-colors {{"hidden" if product.opcions.get("n_colors", 0) == 0}}" colorcode="this" product="{{product._id}}" field="opcions" key="extra_colors">Detalls colors:
-			<ol>
-				<li class="extra-color template">
-					<select class="extra-color-input template">
-						<option value="">Normal</option>
-						{% for pedra in ["pro-pedra-gran", "pro-pedra-petita"] %}
-							<option value="{{ pedra }}">{{ loc[pedra] }}</option>
-						{% endfor %}
-					</select>
-				</li>
-				{% for c in product.opcions.get("extra_colors", [""]*product.opcions.get("n_colors", 0)) %}
-				<li class="extra-color">
-					<select class="extra-color-input">
-						<option value="">Normal</option>
-						{% for pedra in ["pro-pedra-gran", "pro-pedra-petita"] %}
-						<option {{ "selected" if c == pedra }} value="{{ pedra }}">{{ loc[pedra] }}</option>
-						{% endfor %}
-					</select>
-				</li>
-				{% endfor %}
-			</ol>
-				<button class="product-update" onclick="productUpdateExtraColors(this.parentElement)">&#10004;</button>
-		</div>
+                <div class="product-element extra-colors {{"hidden" if product.opcions.get("n_colors", 0) == 0}}" colorcode="this" product="{{product._id}}" field="opcions" key="extra_colors">Detalls colors:
+                    <ol>
+                        <li class="extra-color template">
+                            <select class="extra-color-input template">
+                                <option value="">Normal</option>
+                                {% for pedra in ["pro-pedra-gran", "pro-pedra-petita"] %}
+                                    <option value="{{ pedra }}">{{ loc[pedra] }}</option>
+                                {% endfor %}
+                            </select>
+                        </li>
+                        {% for c in product.opcions.get("extra_colors", [""]*product.opcions.get("n_colors", 0)) %}
+                        <li class="extra-color">
+                            <select class="extra-color-input">
+                                <option value="">Normal</option>
+                                {% for pedra in ["pro-pedra-gran", "pro-pedra-petita"] %}
+                                <option {{ "selected" if c == pedra }} value="{{ pedra }}">{{ loc[pedra] }}</option>
+                                {% endfor %}
+                            </select>
+                        </li>
+                        {% endfor %}
+                    </ol>
+                        <button class="product-update" onclick="productUpdateExtraColors(this.parentElement)">&#10004;</button>
+                </div>
+            </div>
 
 
 
@@ -266,7 +269,7 @@
             {% endif %}
 
 
-
+        </div>
             <div class="product-images">
                 {% for n, image in utils.enumerate(product.imatges) %}
 		
