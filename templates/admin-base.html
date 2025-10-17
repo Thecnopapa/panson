@@ -175,7 +175,7 @@
 				Link: <select dataType="text" key="link" class="product-input dict-input">
 					<option value=""></option>
 					{% for p in productes.filter({"collecio":product.collecio}) %}
-					<option value="{{ "/"+p.bucket+"/"+p._id }}" {{"selected" if "/"+p.bucket+"/"+p._id== info.get("link","") }}>{{"/"+p.bucket+"/"+p._id}}</option>
+					<option value="{{ "/"+p.bucket+"/"+p._id }}" {{"selected" if "/"+p.bucket+"/"+p._id== info.get("link","") }}>{{p._id}}</option>
 					{% endfor %}
 				</select><br>
                                 <button class="product-update" onclick="productUpdateDict(this.parentElement, 'add')">&#10004;</button>

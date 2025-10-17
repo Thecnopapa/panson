@@ -319,7 +319,14 @@ body {
 	margin-bottom: 2vw;
         height: 45vw;
     }
+    .product-data{
+	    max-width: 80% !important;
+	    min-width:0;
+    }
     .horizontal.wrapper{
 	    flex-direction: column;
+    }
+    .product-image-upload, .product-image-select{
+	    font-size: var(--font-size-extra-small);
     }
 }
