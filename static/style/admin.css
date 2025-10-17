@@ -314,8 +314,12 @@ body {
 
 @media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
     .product-container {
-        width: 20%;
-        padding: 2%;
-        height: 20vw;
+        width: 45vw;
+        padding: 1vw;
+	margin-bottom: 2vw;
+        height: 45vw;
+    }
+    .horizontal.wrapper{
+	    flex-direction: column;
     }
 }

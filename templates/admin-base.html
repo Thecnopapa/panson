@@ -171,7 +171,13 @@
                         {% for n, (subkey, info) in utils.enumerate(utils.list(variacions.items())) %}
                             <li>
                                 <input type="{{ "hidden" if product.opcions["variacions"] }}" subdict="variacions" class="dict-key" product="{{product._id}}" field="opcions" dataType="dict:text" value="{{ subkey }}"><span>{{ subkey }}</span>
-                                Preu: <input type="number" dataType="int" class="product-input dict-input" key="preu" value="{{ info["preu"] }}">
+				Preu: <input type="number" dataType="int" class="product-input dict-input" key="preu" value="{{ info["preu"] }}"><br>
+				Link: {{info.get("link")}}<select dataType="text" key="link" class="product-input dict-input">
+					<option value=""></option>
+					{% for p in productes.filter({"collecio":product.collecio}) %}
+					<option value="{{ "/"+p.bucket+"/"+p._id }}" {{"selected" if "/"+p.bucket+"/"+p._id== info.get("link","") }}>{{"/"+p.bucket+"/"+p._id}}</option>
+					{% endfor %}
+				</select><br>
                                 <button class="product-update" onclick="productUpdateDict(this.parentElement, 'add')">&#10004;</button>
                                 <button class="product-update" onclick="productUpdateDict(this.parentElement, 'remove')">✖</button>
                             </li>

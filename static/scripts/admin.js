@@ -373,13 +373,13 @@ async function productUpdate(trigger, value=undefined, type=undefined, mode="add
 async function productUpdateDict(container, mode){
     const labelElement = container.getElementsByTagName("span")[0];
     const keyElement = container.getElementsByClassName("dict-key")[0];
-    const inputElements = container.getElementsByClassName("dict-input");
+    const inputElements = [...container.getElementsByClassName("dict-input")];
     const subdict = keyElement.attributes.subdict.value;
     const subkey = keyElement.value;
     let responses = []
-    print("Updating dict..")
+    console.log("Updating dict..")
     if (mode === "remove"){
-        print(keyElement, undefined, "dict:text", "remove", subdict);
+        console.log(keyElement, undefined, "dict:text", "remove", subdict);
         let resp = await productUpdate(keyElement, undefined, "dict:text", "remove", subdict).then(response => {return response;});
         if (resp.ok) {
             container.remove();
@@ -388,13 +388,13 @@ async function productUpdateDict(container, mode){
         }
     } else if (mode === "add"){
 
-        for (let i = 0; i < inputElements.length; i++) {
-            const input = inputElements[i];
-            print(input.attributes.key.value);
+        for (let i = 0; i < inputElements.length; i++){
+		input = inputElements[i]
+            console.log(input.attributes.key.value);
             const value =  input.value;
             const key = input.attributes.key.value;
             const dataType = input.attributes.dataType.value
-            print(keyElement, value, "dict:"+dataType, "add", key, subdict, subkey);
+            console.log(keyElement, value, "dict:"+dataType, "add", key, subdict, subkey);
             let resp = await productUpdate(keyElement, value, "dict:"+dataType, "add", key, subdict, subkey).then(response => {return response;});
                 responses.push(resp);
         }
