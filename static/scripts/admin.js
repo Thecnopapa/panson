@@ -549,6 +549,9 @@ async function showImgDetails(image){
     }).then(response => {return response.json();});
     newImage.src = imgInfo.url;
     //imgInfo.push({key:"brighness", value: getImageBrightness(imgInfo.url)});
+    if (imgInfo["usage"] != ""){
+	    deleteButton.remove()
+    }
     for (const key in imgInfo) {
         let newRow = document.createElement("tr");
         newInfoTable.appendChild(newRow);

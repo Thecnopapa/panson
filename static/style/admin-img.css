@@ -72,7 +72,7 @@
     max-width: 50%;
     min-width: 50%;
     max-height: 100%;
-    background-size: contain;
+    background-size: 100% 100%;
     background-position: center;
     background-color: lightgray;
 }
@@ -160,7 +160,21 @@
 
 
 
+@media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
+	.img-details{
+		flex-direction: column;
+	}
+	.img-details-img{
+		width:100%;
+		max-width: 100%;
 
+	}
+	.img-details-info{
+		width:100%;
+		max-width: 100%;
+	}
+
+}
 
 
 
