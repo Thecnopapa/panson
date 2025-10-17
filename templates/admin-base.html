@@ -285,9 +285,9 @@
                 {% for n, image in utils.enumerate(product.imatges) %}
 		
 		<div class="product-image slow-image clickable {{ 'as-template' if n==utils.len(product.imatges)-1  }}" product="{{product._id}}" field="imatges" value="{{ image }}" background='{{ imgs.get_url(product.bucket, image) }}' filename="{{ image }}" bucket="{{ product.bucket }}" onclick='showImgDetails(this)'>
-                        <button type=button class=product-image-left  onclick="productImageMove(this.parentElement, false)">&larr;</button>
-                        <button type=button class=product-image-right onclick="productImageMove(this.parentElement, true)">&rarr;</button>
-                        <button type=button class=product-image-delete onclick="productImageDelete(this.parentElement)">&#10008;</button>
+                        <button type=button class=product-image-left  onclick="event.stopPropagation(); productImageMove(this.parentElement, false)">&larr;</button>
+                        <button type=button class=product-image-right onclick="event.stopPropagation(); productImageMove(this.parentElement, true)">&rarr;</button>
+                        <button type=button class=product-image-delete onclick="event.stopPropagation(); productImageDelete(this.parentElement)">&#10008;</button>
                     </div>
                 {% endfor %}
 		<button class="product-image-upload" onclick="this.lastElementChild.click()">&#9729;<br>&#8613;<br>&#10133;<br>Pujar<input type="file" multiple class="product-image-input" oninput="uploadFiles(this, this.parentElement.previousElementSibling)" field="imatges" product="{{product._id}}" ></button>
