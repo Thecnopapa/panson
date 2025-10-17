@@ -109,7 +109,7 @@
                     {% for n, (variacio, info) in utils.enumerate(utils.sort_by_keys(producte.opcions["variacions"], ["preu", "ordre"]).items()) %}
                         <div class="option variation">
                             <label class="text-label" onclick="selectVariation(this)">
-                                <input type="radio" name="variacio" price="{{ info.get("preu", 0) }}" class="hidden-input variation-input" value="{{ variacio }}" {{ "checked=true" if n == 0 }}>
+				    <input type="radio" name="variacio" price="{{ info.get("preu", 0) }}" class="hidden-input variation-input" value="{{ variacio }}" {{ "checked=true" if n == 0 }} link="{{ info.get("link", "") }}">
                             {{ variacio }}
                             </label>
                         </div>
@@ -119,7 +119,18 @@
             {% else %}
                         <input name="variacio" type="hidden" value="NA">
             {% endif %}
-
+	
+	    {% if producte["totes_talles"]  %}
+	    	{% if producte.tipus == "anell" %}
+			{% set llista_talles = ["XS", "S", "M", "L", "XL"] %}
+		{% elif producte.tipus %}
+			{% set llista_talles = ["45cm" ,"50cm"] %}
+		{% else %}
+			{% set llista_talles = [] %}
+		{% endif %}
+	    {% else %}
+	    	{% set llista_talles = [] %}
+	    {%endif%}
 
             {% if producte.opcions["talles"] != None or producte["totes_talles"] %}
                 <fieldset class="talles-producte option-field" name="text:talla">
@@ -127,7 +138,7 @@
                     <div class="options talles">
 
                     {% if producte.opcions["talles"] %}
-                            {% for n, (talla, info) in utils.enumerate(utils.sort_by_keys(producte.opcions["talles"], ["preu","ordre"]).items()) if talla not in ["XS", "S", "M", "L", "XL"] %}
+                            {% for n, (talla, info) in utils.enumerate(utils.sort_by_keys(producte.opcions["talles"], ["preu","ordre"]).items()) if talla not in llista_talles%}
                                 <div class="option size">
                                     <label class="text-label">
                                         <input  type="radio" name="talla" price="{{ info.get("preu", 0) }}" qty="{{ info.get("qty", 0) }}" class="hidden-input size-input" value="{{ talla }}" onchange="selectSize(this);updatePrice()">
@@ -137,11 +148,6 @@
                             {% endfor %}
                         {% endif %}
                     {% if producte["totes_talles"]  %}
-		    	{% if producte.tipus == "anell" %}
-				{% set llista_talles = ["XS", "S", "M", "L", "XL"] %}
-			{% elif producte.tipus %}
-				{% set llista_talles = ["45cm" ,"50cm"] %}
-			{% endif %}
                         {% for talla in llista_talles %}
                             <div class="option size">
                                 <label class="text-label">

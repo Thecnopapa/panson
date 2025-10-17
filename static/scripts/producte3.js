@@ -155,6 +155,10 @@ function selectSizeTable(trigger) {
 
 function selectColour(trigger){
     console.log(trigger);
+	let link = trigger.firstElementChild.getAttribute("link", "");
+        if (link != ""){
+		alocation.href = "/"+document.documentElement.lang +link;
+        }
 	let colourList = trigger.parentElement.getElementsByClassName("color-input");
 	for (let i = 0; i < colourList.length; i++) {
 		colourList[i].removeAttribute("checked");
@@ -166,11 +170,28 @@ function selectColour(trigger){
 
 function selectVariation(trigger){
 	console.log(trigger);
+	let link = trigger.firstElementChild.getAttribute("link", "");
+	if (link != ""){
+		location.href = "/"+document.documentElement.lang +link;
+	}
 	let varList = [...trigger.parentElement.parentElement.getElementsByTagName("input")];
 	console.log(varList);
 	varList.forEach(v => {v.removeAttribute("checked");});
 	trigger.firstElementChild.setAttribute("checked", true);
 	updatePrice();
+}
+
+function selectMaterial(trigger){
+        console.log(trigger);
+        let link = trigger.firstElementChild.getAttribute("link", "");
+        if (link != ""){
+                location.href = "/"+document.documentElement.lang +link;
+	}
+        let varList = [...trigger.parentElement.parentElement.getElementsByTagName("input")];
+        console.log(varList);
+	varList.forEach(v => {v.removeAttribute("checked");});
+        trigger.firstElementChild.setAttribute("checked", true);
+        updatePrice();
 }
 
 
