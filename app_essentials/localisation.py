@@ -145,7 +145,7 @@ class Images:
 
 class Localisation2:
     def __init__(self, lan="cat"):
-        self.available_languages = ["cat", "en"]
+        self.available_languages = ["cat", "en", "es"]
         if lan not in self.available_languages:
             self.lan = self.available_languages[0]
         else:
@@ -248,7 +248,7 @@ class Localisation2:
 
     def get_values_by_page(self, page):
         doc = self.texts.document(page).get()
-        return {k:v for k,v in sorted(doc.to_dict().items(), key = lambda x: x[0])}
+        return {k:v for k,v in sorted(doc.to_dict().items(), key = lambda x: x[0]) if not k.startswith("_")}
 
     def get_all_values_by_page(self):
         data = {}
@@ -263,7 +263,7 @@ class Localisation2:
             self.create_empy_page(page)
         try:
             doc = self.texts.document(page)
-            doc.update({name:{"cat":"$empty$", "en":"$empty$"}})
+            doc.update({name:{l:"$empty$" for l in self.available_languages}})
         except:
             print("ERROR creating empty text ({}-{})".format(page,name))
 

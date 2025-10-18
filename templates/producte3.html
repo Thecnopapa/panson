@@ -70,7 +70,7 @@
                     {% for n, (material, info) in utils.enumerate(producte.opcions["materials"].items()) %}
                         <div>
                             <input type="radio" name="material" price="{{ info.get("preu", 0) }}" class="material-input" value="{{ material }}" {{ "checked" if n==0 }}>
-                            <label>{{ material }}</label>
+			    <label>{{ loc["mat_"+material] }}</label>
                         </div>
                     {% endfor %}
                 </fieldset>
@@ -118,7 +118,7 @@
                         <div class="option variation">
                             <label class="text-label" onclick="selectVariation(this)">
 				    <input type="radio" name="variacio" price="{{ info.get("preu", 0) }}" class="hidden-input variation-input" value="{{ variacio }}" {{ "checked=true" if select_this}} link="{{ info.get("link", "") }}">
-                            {{ variacio }}
+                            {{ loc["var_"+variacio] }}
                             </label>
                         </div>
                     {% endfor %}

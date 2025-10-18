@@ -12,7 +12,7 @@
         		{% for key, value in data.items() if key[0] != "_" %}
                     <div class="loc-block">
                         <div class="loc-key"><em>{{ page }} - </em>{{ key }}</div>
-                        {% for lan in ["cat", "en"] %}
+                        {% for lan in ["cat", "en", "es"] %}
                                 <div class="lan-block">
                                     <label class="lan-name">{{ lan }}:</label>
                                     <textarea page="{{ page }}" key="{{ key }}" lan="{{ lan }}" oninput="resizeArea(this)" style="{{ 'background-color: orange' if value[lan] == "$empty$"}} {{ 'background-color: salmon' if not value[lan] }}"  rows="1" class="lan-value">{{ value[lan] }}</textarea>

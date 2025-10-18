@@ -151,7 +151,13 @@
                         {% endif %}
                         {% for n, (subkey, info) in utils.enumerate(utils.list(materials.items())) %}
                             <li>
-                                <input type="{{ "hidden" if product.opcions["materials"] }}" subdict="materials" class="dict-key" product="{{product._id}}" field="opcions" dataType="dict:text" value="{{ subkey }}"><span>{{ subkey }}</span>
+                                <select class="dict-key {{ "hidden" if subkey !="" }}" subdict="materials" product="{{product._id}}" field="opcions" dataType="dict:text">
+					<option value=""></option>
+					{% for m in loc.get_values_by_page("mat").keys() %}
+					<option value="{{m}}" {{"selected" if subkey == m}}>{{m}}</option>
+					{% endfor %}
+				</select>
+					<span>{{ subkey }}</span>
                                 Preu: <input type="number" dataType="int" class="product-input dict-input" key="preu" value="{{ info["preu"] }}">
                                 <button class="product-update" onclick="productUpdateDict(this.parentElement, 'add')">&#10004;</button>
                                 <button class="product-update" onclick="productUpdateDict(this.parentElement, 'remove')">✖</button>
@@ -170,7 +176,13 @@
                         {% endif %}
                         {% for n, (subkey, info) in utils.enumerate(utils.list(variacions.items())) %}
                             <li>
-                                <input type="{{ "hidden" if product.opcions["variacions"] }}" subdict="variacions" class="dict-key" product="{{product._id}}" field="opcions" dataType="dict:text" value="{{ subkey }}"><span>{{ subkey }}</span>
+				    <select class="dict-key {{"hidden" if subkey != "" }}" subdict="variacions" product="{{product._id}}" field="opcions" dataType="dict:text">
+					    <option value=""></option>
+					    {% for v in loc.get_values_by_page("var") %}
+					    <option value="{{v}}" {{ "selected" if subkey == v }}>{{v}}</option>
+					    {% endfor %}
+				    </select>
+					    <span>{{ subkey }}</span><br>
 				Preu: <input type="number" dataType="int" class="product-input dict-input" key="preu" value="{{ info["preu"] }}"><br>
 				Link: <select dataType="text" key="link" class="product-input dict-input">
 					<option value=""></option>

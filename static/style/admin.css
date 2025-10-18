@@ -311,6 +311,9 @@ body {
 	border: 2px solid black;
 }
 
+.hidden{
+	display:none !important;
+}
 
 @media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
     .product-container {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 
 
 {% if not user.accepted_cookies %}
@@ -27,7 +27,7 @@
 {% endif %}
 <div class = "navigation">
     <div class = "navigation-left" id="nav-left">
-        <button class="dropbtn" id="menu-button" onmouseover="openMenu()"> {{ loc.nav_botiga }} </button>
+        <button class="dropbtn" id="menu-button" onmouseover="openMenu()">{{ loc.nav_botiga }}</button>
         <button class="menu-simple" id="menu-button-simple" onclick="switchMenu()"><img class="icon-menu-simple" src="/static/media/menu-black.svg" alt="cart"><br> </button>
 	<div class="menu-closer" id=menu-closer-landscape onmouseover="event.stopPropagation(closeMenu())"></div>
 	<div class="menu-closer" id=menu-closer-portrait onclick="event.stopPropagation(closeMenu())"></div>
@@ -37,23 +37,20 @@
     </div>
 
     <div class = "navigation-right">
-    {% if user.is_admin %}
-    <div class="language" onclick="location.href='/admin/'" oncontextmenu="window.open('/admin/', '_blank')">{{ loc.nav_admin }}</div>
-    {% endif %}
-    {% if user.is_admin %}
-    <div class="language" onclick="location.href='/admin/logout'">{{ loc.nav_tancar_sessio }}</div>
-    {% endif %}
-        {% for lang in loc.all_langs %}
-            {% if lang == loc.lan %}
-                <div class="language" id="current" onclick="location.href='/{{ lang }}/'">
-                    {{ utils.upper(lang) }}
-                </div>
-            {% else %}
-                <div class="language" onclick="location.href='/{{ lang }}/'">
-                    {{ utils.upper(lang) }}
-                </div>
-            {% endif %}
-        {% endfor %}
+    	{% if user.is_admin %}
+    		<div class="language admin" onclick="location.href='/admin'" oncontextmenu="window.open('/admin/', '_blank')">{{ loc.nav_admin }}</div>
+    		<div class="language admin" onclick="location.href='/admin/logout'">{{ loc.nav_tancar_sessio }}</div>
+    	{% endif %}
+
+	<div class="language-dropdown" onmouseover="this.classList.toggle('open', true)" onmouseleave="this.classList.toggle('open', false)">
+		<div class="language current clickable loc" loc="{{'lans_'+loc.lan}}" onclick="this.parentElement.classList.toggle('open')", onmouseover="this.classList.toggle('open', true)">{{ loc["lans_"+loc.lan] }}</div>
+        	{% for lang in loc.all_langs %}
+            		{% if lang != loc.lan %}
+			<div class="language not-current clickable under-hover loc" loc="{{'lans_'+lang}}" onclick="location.href='/{{ lang }}/'">{{ loc["lans_"+lang] }}</div>
+            		{% endif %}
+        	{% endfor %}
+	</div>
+
     <div class = "cart" id="cart-button" onclick="openCart()">
         <img class="shopping-cart" src="/static/media/bag-black.svg" alt="cart">
         <div class="cercle-carret cart-counter">{{ user._n_cart if user._n_cart > 0 }}</div>

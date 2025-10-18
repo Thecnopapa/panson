@@ -491,10 +491,11 @@ function addListElement(trigger, typeOfFirst){
     let newElement = trigger.lastElementChild.cloneNode(true);
     newElement.getElementsByTagName("span")[0].innerHTML = "";
     newElement.style.backgroundColor = "";
-    const inputs = newElement.getElementsByTagName("input");
+    const inputs = [...newElement.getElementsByTagName("input"), ...newElement.getElementsByTagName("select")];
     inputs[0].type = typeOfFirst;
     for (let i = 0; i < inputs.length; i++) {
         inputs[i].value = "";
+	inputs[i].classList.remove("hidden");
     }
     trigger.lastElementChild.after(newElement);
 }
