@@ -85,12 +85,14 @@
                     <div class="options">
                         {% for n in range(producte.opcions.get("n_colors", 1)) %}
 			<legend class="pro_color_titol"><span class="loc" loc="pro_color_singular">{{loc.pro_color_singular}}</span>
-				{{ loc[producte.opcions.get("extra_colors", [""]*n)[n]] if producte.opcions.get("extra_colors", [""]*(n+1))[n] != "" }}:</legend>
+				{{ loc[producte.opcions.get("extra_colors", [""]*n)[n]] if producte.opcions.get("extra_colors", [""]*(n+1))[n] != "" }}:
+			<span class="selected-color-text"></span>
+			</legend>
 
                             <fieldset class="color-selector colors-producte#{{ n }}">
                                 {% for color, info in producte.opcions["colors"].items() %}
-                                    <label title="{{ loc["color-"+color] }}" class="colour-label {{ producte.opcions.get("extra_colors", []*n)[n] }}" style="background-color:{{ loc["colours_"+color] }};" onclick="selectColour(this)">
-                                    <input type="radio" name="color#{{ n }}" class="hidden-input color-input" price="{{ info.get("preu", 0) }}" value="{{ color }}">
+				<label title="{{ loc["color-"+color] }}" class="colour-label {{ producte.opcions.get("extra_colors", []*n)[n] }}" style="background-color:{{ loc["colours_"+color] }};" onclick="selectColour(this, '{{ loc["color_"+color] }}')">
+                                    <input type="radio" name="color#{{ n }}" class="hidden-input color-input" price="{{ info.get("preu", 0) }}" value="{{ color  }}">
                                     </label>
                                 {% endfor %}
                             <input type="hidden" name="color#{{ n }}" class="color-input" value="" checked="true">

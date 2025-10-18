@@ -153,17 +153,14 @@ function selectSizeTable(trigger) {
 }
 
 
-function selectColour(trigger){
+function selectColour(trigger, color=""){
     console.log(trigger);
-	let link = trigger.firstElementChild.getAttribute("link", "");
-        if (link != ""){
-		alocation.href = "/"+document.documentElement.lang +link;
-        }
 	let colourList = trigger.parentElement.getElementsByClassName("color-input");
 	for (let i = 0; i < colourList.length; i++) {
 		colourList[i].removeAttribute("checked");
 	}
-    trigger.firstElementChild.setAttribute("checked", true);
+	trigger.firstElementChild.setAttribute("checked", true)
+	trigger.parentElement.previousElementSibling.lastElementChild.innerText = color;
 	updatePrice();
 }
 
@@ -506,9 +503,9 @@ function initialBubbleChange(triggers, opts){
 
 
 
-for (let i = 0; i < initialSlideshowElements.length; i++){
-	initialSlideshowObserver.observe(initialSlideshowElements[i]);
-}
+//for (let i = 0; i < initialSlideshowElements.length; i++){
+//	initialSlideshowObserver.observe(initialSlideshowElements[i]);
+//}
 
 
 function slideshowScroll(container, mode, axis="both"){

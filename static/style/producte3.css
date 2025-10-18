@@ -317,6 +317,14 @@ body {
 
 }
 
+.selected-color-text{
+	display: inline-block;
+}
+
+.selected-color-text:first-letter{
+	text-transform: uppercase;
+}
+
 .color-selector{
     padding: 0;
     margin: 0;
