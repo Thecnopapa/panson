@@ -5,7 +5,11 @@
 {% block content %}
 <link href='/style/admin-loc.css' rel='stylesheet'>
 <div id=localisation class="admin-content">
-	{% for page, data in loc.get_all_values_by_page(get_hidden=True).items() %}
+	{% set all_data = loc.get_all_values_by_page(get_hidden=True) %}
+	{% for category in ["common", "page", "dynamic", "config", "options", ""] %}
+	<div class="loc-category">
+		<div class="loc-category-title loc" loc="{{"categories_"+category}}">{{ loc["categories_"+category] }}</div>
+	{% for page, data in all_data.items() if data.get("_category", "") == category%}
     		<div class="page-block">
         		<div class="page-name" onclick="this.nextElementSibling.classList.toggle('hidden')">{{ data["_name"] }}</div>
                 <div class="page-data hidden">
@@ -19,12 +23,20 @@
                                     <button onclick="updateField(this.previousElementSibling)">&#10003;</button>
                                 </div>
                         {% endfor %}
-					<button onclick="deleteField(this)" page="{{page}}" key="{{key}}" style="background-color:red; margin-left:10%;">&#10008;</button>
+			{% if data.get("_allow_remove", True) %}
+				<button onclick="deleteField(this)" page="{{page}}" key="{{key}}" style="background-color:red; margin-left:10%;">&#10008;</button>
+			{% endif %}
                     </div>
         		{% endfor %}
+			{% if data.get("_allow_add", False) %}
+				<button type=button>+</button>
+			{% endif %}
                 </div>
     		</div>
 	{% endfor %}
+	</div>
+	{% endfor %}
+	
 </div>
 {% endblock %}
 

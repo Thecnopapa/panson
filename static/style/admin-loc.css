@@ -1,5 +1,14 @@
 
 
+
+
+.loc-category{
+	display:flex;
+	flex-direction:column;
+	width:100%;
+}
+
+
 .page-block{
     display: flex;
     flex-direction: column;
