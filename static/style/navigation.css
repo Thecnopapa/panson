@@ -285,11 +285,11 @@ video {
     align-items: center;
     text-align: center;
     color: rgba(240, 248, 255, 0.9);
-    height: 7vh;
+    height: 6vh;
     user-select: none;
     position: fixed;
     width: 20vw;
-    top:0;
+    top:0.5vh;
     z-index: 60;
     transition: height 0.3s ease-out;
     cursor: pointer;
