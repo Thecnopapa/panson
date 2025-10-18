@@ -5,7 +5,7 @@
 {% block content %}
 <link href='/style/admin-loc.css' rel='stylesheet'>
 <div id=localisation class="admin-content">
-	{% for page, data in loc.get_all_values_by_page().items() %}
+	{% for page, data in loc.get_all_values_by_page(get_hidden=True).items() %}
     		<div class="page-block">
         		<div class="page-name" onclick="this.nextElementSibling.classList.toggle('hidden')">{{ data["_name"] }}</div>
                 <div class="page-data hidden">

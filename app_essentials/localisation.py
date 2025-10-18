@@ -246,14 +246,14 @@ class Localisation2:
     def __getattr__(self, item):
         return self.__getitem__(item)
 
-    def get_values_by_page(self, page):
+    def get_values_by_page(self, page, get_hidden=False):
         doc = self.texts.document(page).get()
-        return {k:v for k,v in sorted(doc.to_dict().items(), key = lambda x: x[0]) if not k.startswith("_")}
+        return {k:v for k,v in sorted(doc.to_dict().items(), key = lambda x: x[0]) if (not k.startswith("_")) or get_hidden}
 
-    def get_all_values_by_page(self):
+    def get_all_values_by_page(self, get_hidden=False):
         data = {}
         for page in sorted(self.pages):
-            data[page] = self.get_values_by_page(page)
+            data[page] = self.get_values_by_page(page, get_hidden=get_hidden)
         return data
 
     def create_empty_text(self, page, name):
