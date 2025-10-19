@@ -964,7 +964,7 @@ def send_contact_email(lan, target="contacte"):
 @app.route("/<lan>/fetamida/")
 def fetamida(lan):
     use()
-    html = template(lan=lan, templates="fetamida4")
+    html = template(lan=lan, templates="fetamida5")
     return html
 
 @app.route("/<lan>/fetamida/intro")

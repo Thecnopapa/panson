@@ -1,0 +1,96 @@
+
+
+
+
+#fetamida-content{
+	position:relative;
+	display:flex;
+	flex-direction: column;
+	width:100%;
+	margin-top:10vh;
+	align-items:center;
+	height:max-content;
+}
+
+.fetamida-menu{
+	display:flex;
+	flex-direction: row;
+	width:100%;
+	align-items:center;
+	height:max-content;
+}
+
+
+.fetamida-dropdown{
+	display:flex;
+	flex-direction: column;
+	width: var(--padded-width);
+	margin-bottom: 2rem;
+	height:max-content;
+}
+.fetamida-dropdown-head{
+	display:flex;
+	flex-direction:row;
+	width:100%;
+	justify-content:space-between;
+}
+
+.fetamida-subtitle{
+}
+
+.fetamida-info{
+	display:none;
+}
+
+.email-form{
+	display:none;
+	margin: 0;
+	margin-top:1rem;
+}
+
+.fetamida-dropdown.shown{
+	.fetamida-info{
+		display:flex;
+	}
+	.main-arrow{
+		transform: rotate(-90deg);
+       		-webkit-transform: rotate(-90deg);
+	}
+	.email-form{
+		display:flex;
+	}
+}
+
+.fetamida-galeria-titol{
+	margin-bottom:1rem;
+}
+
+.content-galeria{
+	margin-top:0;
+}
+
+#footer{
+	margin-top:0;
+}
+
+
+@media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
+	#fetamida-content{
+	}
+
+        .fetamida-menu{
+		flex-direction:column;
+	}
+
+
+	.fetamida-dropdown{
+	}
+	
+	.fetamida-subtitle{
+	}
+	
+	.fetamida-info{
+	}
+
+
+

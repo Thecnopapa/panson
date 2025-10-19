@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block head %}
+    <title>PANSON: {{ loc.nav_fetamida }}</title>
+{% endblock %}
+
+{% block imports %}
+
+    <link href='/style/contacte.css' as='style' rel='preload'>
+    <link href='/style/galeria.css' as='style' rel='preload'>
+    <link href='/scripts/galeria.js' as='script' rel='preload'>
+    <link href='/style/fetamida5.css' as='style' rel='preload'>
+    <link href='/scripts/fetamida5.js' as='script' rel='preload'>
+
+    <link href='/style/contacte.css' rel='stylesheet'>
+    <link href='/style/galeria.css' rel='stylesheet'>
+    <script defer type="text/javascript" src="/scripts/galeria.js"></script>
+    <link href='/style/fetamida5.css' rel='stylesheet'>
+    <script defer type="text/javascript" src="/scripts/fetamida5.js"></script>
+
+{% endblock %}
+
+{% import 'galeria.html' as galeria with context %}
+{% import 'contacte.html' as contact with context %}
+
+
+
+{% block body %}
+<div id="nav-color" navColor="opaque"></div>
+<div id="fetamida-content">
+	<div class="fetamida-menu">
+		<div class="fetamida-dropdown">
+			<div class="fetamida-dropdown-head" onclick="this.parentElement.classList.toggle('shown')">
+				<div class="fetamida-subtitle loc" loc="fam_intro_titol">{{ loc.fam_intro_titol }}</div>
+				<img class="main-arrow page-arrow down" src="/static/media/arrow.svg">
+			</div>
+			<div class="fetamida-info loc"loc="fam_intro_info">{{ loc.fam_intro_info }}</div>
+		</div>
+
+		<div class="fetamida-dropdown">
+			<div class="fetamida-dropdown-head" onclick="this.parentElement.classList.toggle('shown')">
+				<div class="fetamida-subtitle loc" loc="fam_proces_titol">{{ loc.fam_proces_titol }}</div>
+				<img class="main-arrow page-arrow down" src="/static/media/arrow.svg">
+			</div>
+                        <div class="fetamida-info loc"loc="fam_proces_info">{{ loc.fam_proces_info }}</div>
+		</div>
+
+		<div class="fetamida-dropdown">
+			<div class="fetamida-dropdown-head" onclick="this.parentElement.classList.toggle('shown')">
+				<div class="fetamida-subtitle loc" loc="fam_contacte_titol">{{ loc.fam_contacte_titol }}</div>
+				<img class="main-arrow page-arrow down" src="/static/media/arrow.svg">
+			</div>
+                        <div class="fetamida-info loc"loc="fam_contacte_info">{{ loc.fam_contacte_info }}</div>
+			{{ contact.contact_form(subject=False, prefix=False)}}
+		</div>
+
+
+
+	</div>
+	<div class="fetamida-galeria-titol loc" loc="fam_galeria_titol">{{ loc.fam_galeria_titol }}</div>
+	{{ galeria.galeria("bespoke", max_prods=None,min_row=4, min_prods=2, pages=True) }}
+	
+
+
+
+</div>
+
+
+{% endblock %}
