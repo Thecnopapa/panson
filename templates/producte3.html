@@ -28,14 +28,14 @@
 
 
 <div class="content-producte">
-    <div id="producte-images" class="slideshow">
+    <div id="producte-images" class="slideshow" onscroll="updateProductSlideshow(this, this.nextElementSibling)">
     {% for n, imatge in utils.enumerate(producte.imatges) %}
             <div class="main-foto normal-image {{ 'fast-image' if n ==0 }}"  product="{{ producte.nom }}" onclick="enlargeImg(this)" background='{{ imgs.get_url(producte.bucket, imatge) }}'></div>
     {% endfor %}
     </div>
     <div class="arrows">
-		<img class="main-arrow left" src="/static/media/arrow.svg" onclick="slideshowScroll(this.parentElement.previousElementSibling, 'prev')">
-		<img class="main-arrow right" src="/static/media/arrow.svg" onclick="slideshowScroll(this.parentElement.previousElementSibling, 'next')">
+		<img class="main-arrow left disabled{{ 'disabled' if utils.len(producte.imatges) <= 1 }}" src="/static/media/arrow.svg" onclick="slideshowScroll(this.parentElement.previousElementSibling, 'prev')">
+		<img class="main-arrow right {{ 'disabled' if utils.len(producte.imatges) <= 1 }}" src="/static/media/arrow.svg" onclick="slideshowScroll(this.parentElement.previousElementSibling, 'next')">
 	</div>
     <div class="bubble-container {{ 'hidden' if utils.len(producte.imatges) <= 1 }}">
     	<div class="bubbles">
@@ -263,12 +263,12 @@
 <div class="subtitol-galeria loc" loc="pro_titol_galeria">{{ loc.pro_tiol_galeria }}</div>
 
     <div class="producte-galeria galeries-landscape">
-        {{ galeria.galeria("productes", filtres=False, filterKey="collecio;tipus", filterValue=utils.str(producte.collecio)+";"+utils.str(producte.tipus), min_row=1, min_prods=4, exclude=producte._id, filter_mode="|", inline=True) }}
+        {{ galeria.galeria("productes", filtres=False, filterKey="collecio;tipus", filterValue=utils.str(producte.collecio)+";"+utils.str(producte.tipus), min_row=4, min_prods=4, exclude=producte._id, filter_mode="|", inline=True) }}
     </div>
 
     <div class="producte-galeria galeries-portrait">
-        {{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=utils.str(producte.collecio), min_row=1, min_prods=2, exclude=producte._id, inline=True) }}
-        {{ galeria.galeria("productes", filtres=False, filterKey="tipus", filterValue=utils.str(producte.tipus), min_row=1, min_prods=2, exclude=producte._id, inline=True) }}
+        {{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=utils.str(producte.collecio), min_row=2, min_prods=2, exclude=producte._id, inline=True) }}
+        {{ galeria.galeria("productes", filtres=False, filterKey="tipus", filterValue=utils.str(producte.tipus), min_row=2, min_prods=2, exclude=producte._id, inline=True) }}
     </div>
     {% endif %}
 

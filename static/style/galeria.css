@@ -224,6 +224,7 @@
 	flex-wrap:nowrap;
 	overflow-x: scroll;
 	justify-content: start;
+	
 }
 
 .galeria.inline .producte:not(.last){
@@ -334,7 +335,7 @@
 	    font-size: var(--font-size-extra-small);
     }
     .galeria.inline .producte:not(.last){
-        margin-right: calc(2dvw / 3);
+        margin-right: 1dvw;
     }
 
 

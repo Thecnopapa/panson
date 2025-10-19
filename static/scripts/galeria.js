@@ -13,7 +13,9 @@ async function scrollGallery(galeria, direction, amount){
 		console.log(amount);
 	} else if (amount.includes("u")){
 		amount = Number(amount.replace("u", ""));
-		let p_width = galeria.getElementsByClassName("producte")[0].offsetWidth;
+		let refEl = galeria.getElementsByClassName("producte")[0];
+		let p_width = refEl.offsetWidth + parseFloat(window.getComputedStyle(refEl).marginRight);
+		console.log(p_width);
 		amount = amount * p_width;
 	} else {
 		amount = Number(amount);

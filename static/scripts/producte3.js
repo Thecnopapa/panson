@@ -512,6 +512,19 @@ function initialBubbleChange(triggers, opts){
 //}
 
 
+function updateProductSlideshow(target, arrows){
+	console.log("scrolling images");
+	arrows.classList.toggle("scroll-start", target.scrollTop === 0 && target.scrollLeft === 0);
+	if (target.scrollLeft != 0){
+		arrows.classList.toggle("scroll-end", target.scrollLeft+target.offsetWidth === target.scrollWidth);
+	}
+	if (target.scrollTop != 0){
+		arrows.classList.toggle("scroll-end", target.scrollTop+target.offsetHeight === target.scrollHeight);
+	}
+}
+
+
+
 function slideshowScroll(container, mode, axis="both"){
 	let targetScrollX = 0;
     let targetScrollY = 0;
@@ -563,6 +576,7 @@ alwaysBlackInProduct.forEach(el => {
 updatePrice();
 
 imageSlideshow = document.getElementById("producte-images");
+updateProductSlideshow(imageSlideshow, imageSlideshow.nextElementSibling);
 imageSlideshow.addEventListener("scroll", function (event) {if(imageSlideshow.scrollTop !== (imageSlideshow.scrollHeight - imageSlideshow.offsetHeight)){event.stopPropagation()}});
 imageSlideshow.addEventListener("wheel", function (event) {if(imageSlideshow.scrollTop !== (imageSlideshow.scrollHeight - imageSlideshow.offsetHeight)){event.stopPropagation()}});
 imageSlideshow.addEventListener("touchmove", function (event) {if(imageSlideshow.scrollTop !== (imageSlideshow.scrollHeight - imageSlideshow.offsetHeight)){event.stopPropagation()}});
