@@ -149,7 +149,7 @@
                             {% for n, (talla, info) in utils.enumerate(utils.sort_by_keys(producte.opcions["talles"], ["preu","ordre"]).items()) if talla not in llista_talles%}
                                 <div class="option size">
                                     <label class="text-label">
-                                        <input  type="radio" name="talla" price="{{ info.get("preu", 0) }}" qty="{{ info.get("qty", 0) }}" class="hidden-input size-input" value="{{ talla }}" onchange="selectSize(this);updatePrice()">
+                                        <input  type="radio" name="talla" price="{{ info.get("preu", 0) }}" qty="{{ info.get("qty", 0) }}" link="{{ info.get("link", "") }}" class="hidden-input size-input" value="{{ talla }}" onchange="selectSize(this);updatePrice()">
                                     {{ talla }}
                                     </label>
                                 </div>
@@ -161,7 +161,8 @@
                                 <label class="text-label">
                                 {% if producte.opcions["talles"] != None %}
                                     {% if talla in producte.opcions.get("talles", {}).keys() %}
-                                        <input  type="radio" name="talla" price="{{ producte.opcions["talles"][talla].get("preu", 0) }}" qty="{{ producte.opcions["talles"][talla].get("qty", 0) }}" class="hidden-input size-input" value="{{ talla }}" onchange="selectSize(this);updatePrice();">
+				    {% set info = producte.opcions["talles"][talla] %}
+                                        <input  type="radio" name="talla" price="{{ info.get("preu", 0) }}" link="{{ info.get("link", "") }}"  qty="{{ info.get("qty", 0) }}" class="hidden-input size-input" value="{{ talla }}" onchange="selectSize(this);updatePrice();">
                                     {% else %}
                                         <input  type="radio" name="talla" price="0" qty="0" class="hidden-input size-input" value="{{ talla }}" onchange="selectSize(this);updatePrice();">
                                     {% endif %}

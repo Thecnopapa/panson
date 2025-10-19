@@ -189,7 +189,7 @@
 					{% for p in productes.filter({"collecio":product.collecio}) %}
 					<option value="{{ "/"+p.bucket+"/"+p._id }}" {{"selected" if "/"+p.bucket+"/"+p._id== info.get("link","") }}>{{p._id}}</option>
 					{% endfor %}
-				</select><br>
+				</select>
                                 <button class="product-update" onclick="productUpdateDict(this.parentElement, 'add')">&#10004;</button>
                                 <button class="product-update" onclick="productUpdateDict(this.parentElement, 'remove')">✖</button>
                             </li>
@@ -219,6 +219,10 @@
                             <li>
                                 <input type="{{ "hidden" if product.opcions["talles"] }}" subdict="talles" class="dict-key" product="{{product._id}}" field="opcions" dataType="dict:text" value="{{ subkey }}"><span>{{ subkey }}</span>
                                 Quantitat: <input type="number" dataType="int" class="product-input dict-input" key="qty" value="{{ info["qty"] }}">
+				Link: <select dataType="text" key="link" class="product-input dict-input">
+					<option value=""></option>
+                                        {% for p in productes.filter({"collecio":product.collecio}) %}
+                                        <option value="{{ "/"+p.bucket+"/"+p._id }}" {{"selected" if "/"+p.bucket+"/"+p._id== info.get("link","") }}>{{p._id}}</option>                                                                 {% endfor %}                                                                            </select>
                                 <button class="product-update" onclick="productUpdateDict(this.parentElement, 'add')">&#10004;</button>
                                 <button class="product-update" onclick="productUpdateDict(this.parentElement, 'remove')">✖</button>
                             </li>

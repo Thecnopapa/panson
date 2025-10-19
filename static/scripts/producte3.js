@@ -68,6 +68,10 @@ function setTimeMessage(trigger){
 }
 
 function selectSize(trigger){
+    let link = trigger.getAttribute("link", null);
+	if (link != "" && link != null){
+		location.href = "/"+document.documentElement.lang +link;
+        }
     if (trigger.value === ""){
         return;
     }
@@ -167,8 +171,8 @@ function selectColour(trigger, color=""){
 
 function selectVariation(trigger){
 	console.log(trigger);
-	let link = trigger.firstElementChild.getAttribute("link", "");
-	if (link != ""){
+	let link = trigger.firstElementChild.getAttribute("link", null);
+	if (link != "" && link != null){
 		location.href = "/"+document.documentElement.lang +link;
 	}
 	let varList = [...trigger.parentElement.parentElement.getElementsByTagName("input")];
@@ -180,8 +184,8 @@ function selectVariation(trigger){
 
 function selectMaterial(trigger){
         console.log(trigger);
-        let link = trigger.firstElementChild.getAttribute("link", "");
-        if (link != ""){
+        let link = trigger.firstElementChild.getAttribute("link", null);
+        if (link != "" && link != null){
                 location.href = "/"+document.documentElement.lang +link;
 	}
         let varList = [...trigger.parentElement.parentElement.getElementsByTagName("input")];
