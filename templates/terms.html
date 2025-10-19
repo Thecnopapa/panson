@@ -21,32 +21,43 @@
     <div id="nav-color" navColor="opaque"></div>
     <div class="tic-title loc" loc="tic_titol"l>{{ loc.tic_titol }}</div>
 <div id=terms class="tic-content">
-	
+{% if tic_page == "tic" %}
 	<div id=info-tic class="tic-page">
 		<div class="tic-subtitle loc" loc="tic_tic_titol">{{ loc.tic_tic_titol }}</div>
 		<div class="tic-info loc" loc="tic_tic_info">{{ loc.tic_tic_info | safe }}</div>
 	</div>
+{% elif tic_page == "privacy" %}
 	<div id=info-privacy class="tic-page">
 		<div class="tic-subtitle loc" loc="tic_privacitat_titol">{{ loc.tic_privacitat_titol }}</div>
 		<div class="tic-info loc" loc="tic_privacitat_info">{{ loc.tic_privacitat_info | safe }}</div>
 	</div>
+{% elif tic_page == "cookies" %}
 	<div id=cookie-preferences class="tic-page">
 		<div class="tic-subtitle loc" loc="tic_cookies_titol">{{ loc.tic_cookies_titol }}</div>
 		<div class="tic-info loc" loc="tic_cookies_info">{{ loc.tic_cookies_info | safe }}</div>
+        <div class="cookie-label loc" loc="tic_cookie_queson">{{ loc.tic_cookie_queson }}</div>
+        <div class="tic-info loc" loc="tic_cookies_info2">{{ loc.tic_cookies_info2 | safe }}</div>
 		<div class="cookie-selector">
-			<span class="cookie-span"><input type=checkbox {{ "checked" if user.cookies["analytics_storage"] == "granted"}} value=on class="analytic"><div class="cookie-label loc" loc="tic_cookie_analitica">{{ loc.tic_cookie_analitica }}</div></span>
+			<div class="cookie-label loc" loc="tic_cookie_analitica">{{ loc.tic_cookie_analitica }}</div>
 			<div class="tic-info loc" loc="tic_cookies_info_analytic">{{ loc.tic_cookies_info_analytic | safe }}</div>
 
-			<span class="cookie-span"><input type=checkbox {{ "checked" if user.essential_cookies }} value=on class="essential"><div class="cookie-label loc" loc="tic_cookie_essencial">{{ loc.tic_cookie_essencial }}</div></span>
+			<div class="cookie-label loc" loc="tic_cookie_essencial">{{ loc.tic_cookie_essencial }}</div>
 			<div class="tic-info loc" loc="tic_cookies_info_essential">{{ loc.tic_cookies_info_essential | safe }}</div>
-
-			<div class="update-cookies black-button loc" loc="tic_actualitzar_cookies" onclick="updateCookiesTic(this.parentElement)">{{ loc.tic_actualitzar_cookies }}</div>
 		</div>
-        </div>
+
+        <div class="cookie-label loc" loc="tic_cookies_desconfigurar">{{ loc.tic_cookies_desconfigurar | safe }}</div>
+        <div class="tic-info loc" loc="tic_cookies_info_desconfigurar">{{ loc.tic_cookies_info_desconfigurar | safe }}</div>
+        <div class="cookie-label loc" loc="tic_cookies_actualitzar">{{ loc.tic_cookies_actualitzar | safe }}</div>
+        <div class="tic-info loc" loc="tic_cookies_info_actualitzar">{{ loc.tic_cookies_info_actualitzar | safe }}</div>
+        <div class="cookie-label loc" loc="tic_cookies_contacte">{{ loc.tic_cookies_contacte| safe }}</div>
+        <div class="tic-info loc" loc="tic_cookies_info_contacte">{{ loc.tic_cookies_info_contacte | safe }}</div>
+    </div>
+{% elif tic_page == "enviaments" %}
 	<div id=info-enviaments class="tic-page">
 		<div class="tic-subtitle loc" loc="tic_enviaments_titol">{{ loc.tic_enviaments_titol }}</div>
 		<div class="tic-info loc" loc="tic_enviaments_info">{{ loc.tic_enviaments_info | safe }}</div>
 	</div>
+{% endif %}
 </div>
 
 

@@ -194,7 +194,6 @@
 
 .checkout-button{
     width: var(--padded-width);
-    min-height: 2.5rem;
     margin-bottom:0;
 }
 

@@ -244,10 +244,10 @@ from flask import url_for, send_from_directory
 
 
 
-@app.route("/<lan>/tic")
-def tic(lan):
+@app.route("/<lan>/tic/<tic_page>")
+def tic(lan,tic_page):
     use()
-    return template(templates="terms", lan=lan)
+    return template(templates="terms", lan=lan, tic_page=tic_page )
 
 
 

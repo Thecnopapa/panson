@@ -41,6 +41,7 @@
 
 .fetamida-info{
 	display:none;
+    white-space: pre-line;
 }
 
 .email-form{
@@ -48,6 +49,11 @@
 	margin: 0;
 	margin-top:1rem;
     padding: 0;
+}
+.submit-email{
+    padding:0;
+    padding-right:1rem;
+    padding-left: 1rem;
 }
 
 .fetamida-dropdown.shown{

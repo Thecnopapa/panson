@@ -237,3 +237,16 @@
             </div>
         </div>
 
+<div id=cookie-preferences class="tic-page">
+		<div class="tic-subtitle loc" loc="tic_cookies_titol">{{ loc.tic_cookies_titol }}</div>
+		<div class="tic-info loc" loc="tic_cookies_info">{{ loc.tic_cookies_info | safe }}</div>
+		<div class="cookie-selector">
+			<span class="cookie-span"><input type=checkbox {{ "checked" if user.cookies["analytics_storage"] == "granted"}} value=on class="analytic"><div class="cookie-label loc" loc="tic_cookie_analitica">{{ loc.tic_cookie_analitica }}</div></span>
+			<div class="tic-info loc" loc="tic_cookies_info_analytic">{{ loc.tic_cookies_info_analytic | safe }}</div>
+
+			<span class="cookie-span"><input type=checkbox {{ "checked" if user.essential_cookies }} value=on class="essential"><div class="cookie-label loc" loc="tic_cookie_essencial">{{ loc.tic_cookie_essencial }}</div></span>
+			<div class="tic-info loc" loc="tic_cookies_info_essential">{{ loc.tic_cookies_info_essential | safe }}</div>
+
+			<div class="update-cookies black-button loc" loc="tic_actualitzar_cookies" onclick="updateCookiesTic(this.parentElement)">{{ loc.tic_actualitzar_cookies }}</div>
+		</div>
+    </div>

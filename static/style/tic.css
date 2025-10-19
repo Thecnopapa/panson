@@ -1,29 +1,33 @@
 
 .tic-content{
 	height:fit-content;
-	min-height: calc(90vh - 3rem);
+	min-height: calc(90vh);
 	
-	width: var(--padded-width);
+	width: 50%;
 	display: flex;
 	flex-direction: column;
 	padding: var(--padding);
 	padding-top: 3vh;
 	padding-bottom: 3vh;
+    font-size: var(--font-size-small);
 }
 .tic-title{
-	font-size: var(--font-size-extra-large);
+	font-size: var(--font-size-large);
 	min-height:3rem;
 	max-height:3rem;
-	margin-top: 10vh;
-	width: var(--padded-width);
+	margin-top: 15vh;
+	width: fit-content;
+    display: none;
 }
 
 .tic-page{
-	margin-bottom:3vh;
+    margin-top: 15vh;
 }
 .tic-subtitle{
-	margin-bottom:1vh;
+	margin-bottom:2rem;
 	font-size: var(--font-size-large);
+    width: 100%;
+    text-align: center;
 }
 
 .tic-info{
@@ -48,6 +52,8 @@
 }
 .cookie-label{
 	width: fit-content;
+    font-weight: bold;
+    padding-bottom: 0.25rem;
 
 }
 
@@ -61,3 +67,11 @@
 	min-height: fit-content;
 }
 
+@media only screen and (max-width: 1025px) {
+    .tic-content{
+        width: var(--padded-width);
+    }
+    .tic-title{
+        width: var(--padded-width);
+    }
+}

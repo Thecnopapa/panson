@@ -21,12 +21,12 @@
 html {
     --desktop: false;
     --padding: 1vw;
-    --font-size-extra-extra-large: 32px;
-    --font-size-extra-large: 24px;
+    --font-size-extra-extra-large: 30px;
+    --font-size-extra-large: 22px;
     --font-size-extra-small: 12px;
-    --font-size-medium: 17px;
-    --font-size-small: 14px;
-    --font-size-large: 19px;
+    --font-size-medium: 15px;
+    --font-size-small: 13px;
+    --font-size-large: 17px;
     font-size: var(--font-size-medium);
     overflow: scroll;
     --padding-horizontal: 0 var(--padding);
@@ -169,7 +169,8 @@ video {
     cursor: pointer;
     min-width:fit-content;
     border: none;
-    min-height: 5vh;
+    min-height: 0;
+    padding: 1rem 0 1rem 0;
 }
 
 
@@ -218,7 +219,7 @@ video {
 }
 .accept-cookies {
     margin-left: 2rem;
-    padding: 0.5rem 2rem ;
+
     min-height: 0;
     height: fit-content;
 }
@@ -293,11 +294,11 @@ video {
     align-items: center;
     text-align: center;
     color: rgba(240, 248, 255, 0.9);
-    height: 5vh;
+    height: 5.5vh;
     user-select: none;
     position: fixed;
     width: 20vw;
-    top:1vh;
+    top:0.75vh;
     z-index: 60;
     transition: height 0.3s ease-out;
     cursor: pointer;

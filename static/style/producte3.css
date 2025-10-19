@@ -179,6 +179,7 @@ body {
 .subtitol-desplegable {
     margin-top: 0.25rem;
     margin-bottom: 0;
+    font-weight: bold;
 }
 .titol-desplegable .arrow{
 }
@@ -319,6 +320,8 @@ body {
 
 .selected-color-text{
 	display: inline-block;
+    font-weight: bold;
+    /*color:gray;*/
 }
 
 .selected-color-text:first-letter{
@@ -409,7 +412,6 @@ body {
 
 .add-to-cart{
     width: 100%;
-    min-height: 5vh;
     display:flex;
     align-items: center;
     justify-content: center;
@@ -533,7 +535,7 @@ body {
 }
 .enlarged-img{
     min-height: 100%;
-    min-width: 80%;
+    min-width: 100vh;
     cursor: zoom-in;
     background-size: cover;
     background-position: center;

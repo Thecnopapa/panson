@@ -239,14 +239,17 @@
                 <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover loc" loc="pro_cura_titol">{{ loc.pro_cura_titol }}</div><div class="desplegable-indicator">+</div></div>
                 <div class="info-desplegable">
                     <p class="loc" loc="pro_cura_text_1">{{ loc.pro_cura_text_1 | safe}}</p>
-                    <div class="subtitol-desplegable loc" loc="pro_cura_subtitol">{{ loc.pro_cura_subtitol }}</div>
-		    <p class="loc" loc="pro_cura_text_2">{{ loc.pro_cura_text_2 | safe}}</p>
+                    {%  if producte.opcions["variacions"]["xapat-or"] %}
+                        <div class="subtitol-desplegable loc" loc="pro_cura_subtitol">{{ loc.pro_cura_subtitol }}</div>
+                        <p class="loc" loc="pro_cura_text_2">{{ loc.pro_cura_text_2 | safe}}</p>
+                    {%  endif %}
+
                 </div>
             </div>
             <div class="desplegable">
                 <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover loc" loc="pro_enviament_titol">{{ loc.pro_enviament_titol }}</div><div class="desplegable-indicator">+</div></div>
                 <div class="info-desplegable">
-                    <p vlass="loc" loc="pro_enviament_text">{{ loc.pro_enviament_text_1 | safe}}</p>
+                    <p class="loc" loc="pro_enviament_text">{{ loc.pro_enviament_text_1 | safe}}</p>
                 </div>
             </div>
         </div>
