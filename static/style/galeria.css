@@ -217,7 +217,9 @@
 }
 
 .galeria-scroll-button.disabled{
-	display:none !important;
+	/*display:none !important;*/
+	opacity:0.25;
+
 }
 .galeria.inline{
 	flex-direction:row;

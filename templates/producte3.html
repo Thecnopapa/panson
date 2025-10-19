@@ -33,9 +33,9 @@
             <div class="main-foto normal-image {{ 'fast-image' if n ==0 }}"  product="{{ producte.nom }}" onclick="enlargeImg(this)" background='{{ imgs.get_url(producte.bucket, imatge) }}'></div>
     {% endfor %}
     </div>
-    <div class="arrows">
-		<img class="main-arrow left disabled{{ 'disabled' if utils.len(producte.imatges) <= 1 }}" src="/static/media/arrow.svg" onclick="slideshowScroll(this.parentElement.previousElementSibling, 'prev')">
-		<img class="main-arrow right {{ 'disabled' if utils.len(producte.imatges) <= 1 }}" src="/static/media/arrow.svg" onclick="slideshowScroll(this.parentElement.previousElementSibling, 'next')">
+    <div class="arrows {{ 'invisible' if utils.len(producte.imatges) <= 1 }}">
+		<img class="main-arrow left" src="/static/media/arrow.svg" onclick="slideshowScroll(this.parentElement.previousElementSibling, 'prev')">
+		<img class="main-arrow right" src="/static/media/arrow.svg" onclick="slideshowScroll(this.parentElement.previousElementSibling, 'next')">
 	</div>
     <div class="bubble-container {{ 'hidden' if utils.len(producte.imatges) <= 1 }}">
     	<div class="bubbles">

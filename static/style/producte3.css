@@ -737,12 +737,14 @@ body {
     	}
 	.arrows.scroll-start{
 		.main-arrow.left {
-			visibility:hidden;
+			/*visibility:hidden;*/
+			opacity: 0.25;
 		}
 	}
 	.arrows.scroll-end{
 		.main-arrow.right{
-			visibility:hidden;
+			/*visibility:hidden;*/
+			opacity:0.25;
 		}
 	}
 	
