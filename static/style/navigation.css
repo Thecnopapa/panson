@@ -310,7 +310,7 @@ video {
     padding-right:0.5rem;
     padding-left:0.5rem;
     cursor: pointer;
-    min-width: 4vh;
+    min-width: 5vh;
     text-align: center;
     user-select: none;
     color: rgb(0, 0, 0);
@@ -318,19 +318,24 @@ video {
     display:flex;
     min-height:3vh;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     width:calc(100% - 1rem);
     /*text-transform: uppercase;*/
     
 }
 
 .language.not-current {
-	display: none;
+	display: flex;
+	visibility:hidden;
 }
 
 
 .language.current{
 	display: flex;
+	flex-direction:row;
+	justify-content:space-between;
+	flex-wrap:nowrap;
+	width: fit-content;
 }
 
 .language-dropdown{
@@ -343,8 +348,13 @@ video {
 }
 .language-dropdown.open{
 	.language.not-current{
-		display: flex;
+		visibility: visible;
 	}
+	.main-arrow{
+		transform: rotate(-90deg);
+        	-webkit-transform: rotate(-90deg);
+	}
+
 }
 
 
