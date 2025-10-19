@@ -91,7 +91,7 @@
 }
 
 
-@media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
+@media only screen and (max-width: 1025px) {
 	.galeria-landscape{
 		display:none;
 	}

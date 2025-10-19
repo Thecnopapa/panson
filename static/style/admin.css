@@ -315,7 +315,7 @@ body {
 	display:none !important;
 }
 
-@media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
+@media only screen and (max-width: 1025px) {
     .product-container {
         width: 45vw;
         padding: 1vw;

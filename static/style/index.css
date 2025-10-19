@@ -79,7 +79,7 @@ body{
     margin-top: 0;
 }
 
-@media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
+@media only screen and (max-width: 1025px) {
     .content-index{
         max-height: 75vh;
         height: 75vh;

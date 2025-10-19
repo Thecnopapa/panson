@@ -22,7 +22,7 @@ function openCart(){
         	cartCircle.style.color = "black";
         	cartCircle.style.backgroundColor = "white";
 	}
-    if (window.innerHeight > window.innerWidth){
+    if (window.innerWidth <= desktopThreshold){
         //console.log(document.documentElement)
         document.documentElement.style.overflow = "hidden";
     }

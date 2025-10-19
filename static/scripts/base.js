@@ -4,7 +4,7 @@
 let camaleonElements = [];
 let imagesToPreload = [];
 
-
+let desktopThreshold = 1025;
 
 
 function print(...args){
@@ -29,7 +29,7 @@ function dynamicallyLoadCSS(url) {
 
 
 function verticalToHorizontal(element){
-    if (window.innerHeight < window.innerWidth){
+    if (window.innerWidth > desktopThreshold){
         element.addEventListener("wheel", e => {
                 //console.log("Wheel");
                 if (Math.abs(e.deltaY) > 0 && e.deltaX === 0){

@@ -62,13 +62,12 @@ tr:first-child {
     }
 }
 
-@media screen and (orientation:landscape) {
+@media only screen and (min-width: 1026px) {
     .table-container{
         margin-top:2em;
     }
 
 }
 
-@media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
-
+@media only screen and (max-width: 1025px) {
 }

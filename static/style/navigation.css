@@ -18,7 +18,8 @@
 
 
 
-html{
+html {
+    --desktop: false;
     --padding: 1vw;
     --font-size-extra-extra-large: 32px;
     --font-size-extra-large: 24px;
@@ -27,20 +28,19 @@ html{
     --font-size-small: 14px;
     --font-size-large: 19px;
     font-size: var(--font-size-medium);
-    overflow:scroll;
+    overflow: scroll;
     --padding-horizontal: 0 var(--padding);
     --padding-vertical: var(--padding) 0;
     --padded-width: calc(100% - var(--padding) * 2);
-    margin:0px;
-    padding:0px;
-    width:100dvw;
+    margin: 0px;
+    padding: 0px;
+    width: 100dvw;
     height: 100dvh;
 
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
 }
-
 
 *{
 	font-size: 1em;
@@ -508,11 +508,10 @@ video {
 
 
 
-@media screen and (orientation: landscape) {
+@media only screen and (min-width: 1026px) {
     .black-landscape{
            filter: unset;
     }
-
 
 	#menu-closer-portrait{
 		display: none !important;
@@ -522,9 +521,10 @@ video {
     }
 }
 
-@media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
+@media only screen and (max-width: 1025px) {
 
     html{
+        --desktop: true;
         --font-size-extra-extra-large: 32px;
         --font-size-extra-large: 24px;
         --font-size-extra-small: 12px;

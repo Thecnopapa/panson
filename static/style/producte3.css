@@ -664,7 +664,7 @@ body {
 
 
 
-@media screen and (orientation: portrait), (pointer:none), (pointer:coarse) {
+@media only screen and (max-width: 1025px) {
 
 	
 	.bubble-container{

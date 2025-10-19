@@ -21,7 +21,7 @@ function updateScroll() {
     }
 
 
-    if (window.innerHeight > window.innerWidth){
+    if (window.innerWidth <= 1025){
         title.style.top = String(26.5 - (25.5 * scroll / maxScroll)).concat("vh");
         title.style.height = String(20 - (15 * scroll / maxScroll)).concat("vh");
         title.style.width = String(50 - (0 * scroll / maxScroll)).concat("vw");
@@ -42,7 +42,7 @@ function updateScroll() {
     } else {
         title.style.zIndex = 40;
     }
-    if ((oscroll >= windowHeight*0.94) && (window.innerHeight <= window.innerWidth) || (oscroll >= windowHeight*0.69) && (window.innerHeight > window.innerWidth)) {
+    if ((oscroll >= windowHeight*0.94) && (window.innerWidth > desktopThreshold) || (oscroll >= windowHeight*0.69) && (window.innerWidth <= desktopThreshold)) {
         goBlack();
         title.classList.remove('white');
         //title.style.backgroundImage = "url(\"/static/media/logo-complet.png\")";

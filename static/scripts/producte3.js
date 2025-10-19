@@ -348,7 +348,7 @@ function enlargeImg(img, all=true){
     const newContainer = document.createElement("div");
 
     let enlargedObserverThreshold = 0.7;
-    if (window.innerWidth <= window.innerHeight) {
+    if (window.innerWidth <= desktopThreshold) {
         enlargedObserverThreshold = 0.8;
     }
 
@@ -443,7 +443,7 @@ function enlargeImg(img, all=true){
 function startZoom(event){
     let image = event.target;
     event.stopPropagation();
-    if (window.innerHeight >= window.innerWidth) {image.scrollIntoView({block: "center", inline: "center"});return;}
+    if (window.innerWidth <= desktopThreshold) {image.scrollIntoView({block: "center", inline: "center"});return;}
     print("Starting zoom");
     //print("image", image);
     if (image.classList.contains("visible")) {
@@ -596,7 +596,7 @@ mainDetails.addEventListener("touchmove", preventDefaultScroll, {passive: false}
 
 function preventDefaultScroll(event) {
     //event.preventDefault();
-    if (window.innerHeight >= window.innerWidth){return;}
+    if (window.innerWidth <= desktopThreshold){return;}
     //console.log(mainDetails.scrollTop + mainDetails.offsetHeight, mainDetails.scrollHeight)
     if (mainDetails.scrollTop + mainDetails.offsetHeight < mainDetails.scrollHeight && event.deltaY >= 0){return;}
     //if (productImages.scrollTop > 0 && event.deltaY <= 0){return;}

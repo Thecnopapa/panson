@@ -24,7 +24,7 @@ async function openMenu() {
     closeCart();
     menuOpen = true;
     let targetWidth = undefined;
-    if (window.innerHeight > window.innerWidth){
+    if (window.innerWidth <= desktopThreshold){
         targetWidth =  window.innerWidth;
         menu.style.width = String(targetWidth) + "px";
         try{
@@ -62,7 +62,7 @@ async function openMenu() {
 function closeMenu(override=true) {
     if (!override && menuOpen) {return;}
     let targetWidth = undefined;
-    if (window.innerHeight > window.innerWidth){
+    if (window.innerWidth <= desktopThreshold){
         targetWidth =  window.innerWidth;
         menu.style.width = String(targetWidth) + "px";
         checkColor()
@@ -128,7 +128,7 @@ function hideDropdown (submenu) {
 
 
 
-if (window.innerHeight > window.innerWidth){
+if (window.innerWidth <= desktopThreshold){
     targetWidth =  window.innerWidth;
     menu.style.width = String(targetWidth) + "px";
 } else {
