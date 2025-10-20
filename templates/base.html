@@ -79,6 +79,33 @@ gtag('consent', 'default', {
 </script>
 {% endblock %}
 
+
+<style>
+html{
+	--font-size-extra-extra-large: {{loc.fontP_extra_extra_large}}px;
+	--font-size-extra-large: {{loc.fontP_extra_large}}px;
+	--font-size-extra-small: {{loc.fontP_extra_small}}px;
+	--font-size-medium: {{loc.fontP_medium}}px;
+        --font-size-small: {{loc.fontP_small}}px;
+        --font-size-large: {{loc.fontP_large}}px;
+}
+
+@media only screen and (max-width: 1025px) {
+html{
+	--font-size-extra-extra-large: {{loc.fontP_extra_extra_large}}px;
+	--font-size-extra-large: {{loc.fontP_extra_large}}px;
+	--font-size-extra-small: {{loc.fontP_extra_small}}px;
+	--font-size-medium: {{loc.fontP_medium}}px;
+	--font-size-small: {{loc.fontP_small}}px;
+	--font-size-large: {{loc.fontP_large}}px;
+}
+}
+
+</style>
+
+
+
+
 <body>
 	{% import 'cart.html' as cart_macros with context %}
     {% import 'menu.html' as menu with context %}

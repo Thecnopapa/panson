@@ -42,7 +42,7 @@
     		<div class="language admin" onclick="location.href='/admin/logout'">{{ loc.nav_tancar_sessio }}</div>
     	{% endif %}
 
-	<div class="language-dropdown">
+	<div class="language-dropdown landscape">
 		<div class="language current" onclick="toggleLanguages(this.parentElement)"><span class="loc" loc="{{'lans_'+loc.lan}}">{{ loc["lans_"+loc.lan] }}</span><img class="main-arrow page-arrow down" src="/static/media/arrow.svg"></div>
         	{% for lang in loc.all_langs %}
             		{% if lang != loc.lan %}

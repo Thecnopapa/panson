@@ -11,16 +11,114 @@ function initLocalisation(){
 	let locElements = [...document.getElementsByClassName("loc")];
 	console.log(locElements);
 	locElements.forEach(el => {
-		el.addEventListener("contextmenu", editLoc);
-		el.addEventListener("select", editLoc);
+		el.addEventListener("contextmenu", makeEditable);
+		el.addEventListener("select", makeEditable);
 	});
 	
 
 }
 
 
+function makeEditable(event) {
+	let target = event.target;
+	while (!target.classList.contains("loc")) {
+		target = target.parentElement;
+		if (target === doc){cancelEditable(event);}
+	}
+	target.focus();
+	target.style.color = "blue";
+	console.log(target.innerText);
+	console.log(target.textContent);
+	console.log(target.innerHTML);
+	//target.textContent = target.textContent.replace(/\n/g, '<br>');
+	target.textContent = target.innerHTML;
+	target.textContent = target.textContent.replace(/<br>/g, '<br>\n');
+	target.textContent = target.textContent.replace(/<\/li>/g, '</li>\n');
+	target.textContent = target.textContent.replace(/<ol>/g, '<ol>\n');
+	target.textContent = target.textContent.replace(/<\/ol>/g, '</ol>\n');
+	target.addEventListener("click", editLoc);
+	target.contentEditable = "true";
+	[...target.children].forEach(c => {
+		c.contentEditable = "false";
+	});
+	target.removeEventListener("contextmenu", makeEditable);
+	target.removeEventListener("select", makeEditable);
+	target.addEventListener("mouseleave", cancelEditable);
+	
+}
 
-async function editLoc(event){
+
+function editLoc(event) {
+	let target = event.target;
+	while (!target.classList.contains("loc")) {
+                target = target.parentElement;
+                if (target === doc){cancelEditable(event);}
+        }
+	target.style.color = "black";
+	target.style.backgroundColor = "lightyellow";
+	target.removeEventListener("click", editLoc);
+	target.addEventListener("focusout", saveEdits);
+	target.removeEventListener("mouseleave", cancelEditable);
+	
+}
+
+function cancelEditable(event){
+	console.log("cancel editable");
+	let target = event.target;
+	while (!target.classList.contains("loc")) {
+		target = target.parentElement;
+                if (target === doc){cancelEditable(event);}
+        }
+	target.removeEventListener("click", editLoc);
+	target.removeEventListener("mouseleave", cancelEditable);
+	target.removeEventListener("focusout", saveEdits);
+	target.style.backgroundColor = "";
+        target.style.color = "";
+	target.addEventListener("contextmenu", makeEditable);
+        target.addEventListener("select", makeEditable);
+	//target.textContent = target.textContent.replace(/\n/g, '<br>');
+	target.textContent = target.textContent.replace(/>\n/g, '>');
+	target.innerText = target.innerText.replace(/\n/g, '<br>');
+	target.innerHTML = target.textContent;
+
+}
+
+
+async function saveEdits(event) {
+	let target = event.target;
+	while (!target.classList.contains("loc")) {
+                target = target.parentElement;
+                if (target === doc){cancelEditable(event);}
+        }
+	target.contentEditable = "false";
+	console.log("--");
+	console.log(target.innerText);
+	target.textContent = target.textContent.replace(/>\n/g, '>');
+	//target.textContent = target.textContent.replace(/<\/li>\n/g, '</li>');
+	//target.textContent = target.textContent.replace(/<ol>\n/g, '<ol>');
+	//target.textContent = target.textContent.replace(/<\/ol>\n/g, '</ol>');
+	target.innerText = target.innerText.replace(/\n/g, '<br>');
+	
+	console.log(target.innerText);
+	//target.textContent = target.textContent.replace(/\r\n/g, '<br>');
+	
+	let resp = await updateLoc(target.attributes.loc.value, target.textContent, doc.lang);
+	if (resp.ok) {
+		target.style.backgroundColor = "";
+		target.style.color = "";
+	} else {
+		target.style.backgroundColor = "red";
+		target.style.color = "white";
+	}
+	target.removeEventListener("focusout", saveEdits);
+	target.removeEventListener("mouseleave", cancelEditable);
+	target.addEventListener("contextmenu", makeEditable);
+        target.addEventListener("select", makeEditable);
+	//target.textContent = target.textContent.replace(/\n/g, '<br>');
+	target.innerHTML = target.textContent;
+}
+
+async function editLocOld(event){
 	console.log(event.target);
     event.preventDefault();
 	let target = event.target;

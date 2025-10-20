@@ -13,7 +13,7 @@
 				<div class="misc-block-title">{{ field }}</div>
 				<div class="misc-block-data">
                 {% if utils.type(data, as_str=True) == "dict" %}
-					{% for key, value in data.items() %}
+					{% for key, value in data.items() if key[0] != "_"%}
 					<div class=misc-key-value field="{{field}}">
                         <div class="misc-key-name">{{key}}</div>:<input type=hidden class="misc-key colorcoded" value="{{key}}" oninput="this.style.backgroundColor = 'yellow';">
 						<input type=text class="misc-value" value="{{value}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';">
@@ -24,7 +24,7 @@
                 {% elif utils.type(data, as_str=True) == "list" %}
                     {% for n, item in utils.enumerate(data) %}
                         <div class="misc-block-subtitle">{{ n }}</div>
-                        {% for key, value in item.items() %}
+                        {% for key, value in item.items() if key[0] != "_"%}
                         <div class=misc-key-value position="{{ n }}" field="{{field}}">
                             <div class="misc-key-name">{{key}}</div>:<input type=hidden class="misc-key colorcoded" value="{{key}}" oninput="this.style.backgroundColor = 'yellow';">
                             <input type=text class="misc-value" value="{{value}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';">

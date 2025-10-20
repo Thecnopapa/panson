@@ -35,6 +35,14 @@
 
         </div>
         <div id="credits-right">
+		<div class="language-dropdown portrait">
+                	<div class="language current" onclick="toggleLanguages(this.parentElement)"><span class="loc" loc="{{'lans_'+loc.lan}}">{{ loc["lans_"+loc.lan] }}</span><img class="main-arrow page-arrow up" src="/static/media/arrow.svg"></div>
+                	{% for lang in loc.all_langs %}
+                            {% if lang != loc.lan %}
+                        	<div class="language not-current clickable under-hover loc" loc="{{'lans_'+lang}}" onclick="location.href='/{{ lang }}/'">{{ loc["lans_"+lang] }}</div>
+                	    {% endif %}
+                	{% endfor %}
+        </div>
             <div class="currency-swap" id="footer-currency">
                 <select class="currency-select">
                     <option value="EUR" selected="selected">EUR</option>
