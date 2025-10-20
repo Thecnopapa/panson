@@ -188,6 +188,31 @@ try{
     
 } catch {}
 
+
+
+function toggleLanguages(trigger){
+	let notCurrent = [...trigger.getElementsByClassName("not-current")];
+	if (trigger.classList.contains("open")) {
+		trigger.classList.remove("open");
+		notCurrent.forEach(el => {
+			//el.style.visibility = "hidden";
+			el.style.display = "none";
+		});
+	} else {
+		trigger.classList.add("open");
+		notCurrent.forEach(el => {
+			//el.style.visibility = "visible";
+			el.style.display = "flex";
+		});
+	}
+}
+
+
+
+
+
+
+
 window.addEventListener("load", (e) =>{
 	checkColor()
 });

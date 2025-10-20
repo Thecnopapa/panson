@@ -42,8 +42,8 @@
     		<div class="language admin" onclick="location.href='/admin/logout'">{{ loc.nav_tancar_sessio }}</div>
     	{% endif %}
 
-	<div class="language-dropdown" onmouseenter="console.log('mouseenter');this.classList.add('open')" onmouseleave="console.log('mouseleave');this.classList.remove('open')">
-		<div class="language current" onclick="//console.log('click');this.parentElement.classList.toggle('open')"><span class="loc" loc="{{'lans_'+loc.lan}}">{{ loc["lans_"+loc.lan] }}</span><img class="main-arrow page-arrow down" src="/static/media/arrow.svg"></div>
+	<div class="language-dropdown">
+		<div class="language current" onclick="toggleLanguages(this.parentElement)"><span class="loc" loc="{{'lans_'+loc.lan}}">{{ loc["lans_"+loc.lan] }}</span><img class="main-arrow page-arrow down" src="/static/media/arrow.svg"></div>
         	{% for lang in loc.all_langs %}
             		{% if lang != loc.lan %}
 			<div class="language not-current clickable under-hover loc" loc="{{'lans_'+lang}}" onclick="location.href='/{{ lang }}/'">{{ loc["lans_"+lang] }}</div>

@@ -326,8 +326,8 @@ video {
 }
 
 .language.not-current {
-	display: flex;
-	visibility:hidden;
+	display: none;
+	//visibility:hidden;
 }
 
 
@@ -349,7 +349,7 @@ video {
 }
 .language-dropdown.open{
 	.language.not-current{
-		visibility: visible;
+		/*visibility: visible;*/
 	}
 	.main-arrow{
 		transform: rotate(-90deg);
