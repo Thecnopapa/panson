@@ -353,6 +353,7 @@ body {
     width: .85rem;
     border-radius: 0;
     margin-right:0.4rem !important;
+    background-color: var(--color);
     
 }
 .colour-label[style*="background-color:white"] {
@@ -373,18 +374,29 @@ body {
 
 
 .colour-label:has(> .hidden-input[checked=true]){
-    border: black solid 0.05rem;
-    height: .75rem;
-    width: .75rem;
+    /*border: white solid 0.05rem;*/
+    /*background-color: transparent;*/
+    box-shadow:
+        /*0 0 0 0 var(--color),*/
+	inset 0.5px 0 0 black,
+        inset -0.5px 0 0 black,
+        inset 0 0.5px 0 black,
+        inset 0 -0.5px 0 black,
+    	inset 1.5px 0 0 white, 
+    	inset -1.5px 0 0 white,
+	inset 0 1.5px 0 white,
+	inset 0 -1.5px 0 white;
+    /*height: .75rem;
+    width: .75rem;*/
 
 }
 .pro-pedra-petita:has(> .hidden-input[checked=true]){
-        height: .6rem;
-	width: .6rem;
+        /*height: .6rem;
+	width: .6rem;*/
     }
 .pro-pedra-gran:has(> .hidden-input[checked=true]){
-        height: .75rem;
-	width: .75rem;
+        /*height: .75rem;
+	width: .75rem;*/
     }
 
 
