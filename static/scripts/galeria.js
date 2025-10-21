@@ -146,7 +146,7 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
     }
 
 	const pageNav = galeria.getElementsByClassName("galeria-navigation")[0];
-	if (pageNav.attributes.show.value === "True"){
+	if (pageNav.attributes.pages.value === "True"){
 		const pageCounter = galeria.getElementsByClassName("galeria-counter")[0];
 		const leftArrow = galeria.getElementsByClassName("page-arrow left")[0];
 		const rightArrow = galeria.getElementsByClassName("page-arrow right")[0];
@@ -157,7 +157,11 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
 		pageCounter.innerHTML = String(targetPage+1)+" / "+String(maxPages);
 		leftArrow.classList.toggle("disabled", targetPage === 0);
 		rightArrow.classList.toggle("disabled", (targetPage + 1) === maxPages);
-	} else{
+	} else if (pageNav.attributes.more.value === "True"){
+
+	} else if (pageNav.attributes.goToShop.value === "True"){
+
+	}else{
 		console.log("disabled");
 		console.log(pageNav);
 		pageNav.classList.add("disabled");

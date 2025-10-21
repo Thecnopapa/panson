@@ -1,7 +1,7 @@
 
 
 
-{% macro galeria(bucket, double=False, filtres=False, max_prods=None, filterKey=None, filterValue=None, min_row=4, min_prods=4, exclude=None, filter_mode="&", pages=False, inline=False) %}
+{% macro galeria(bucket, double=False, filtres=False, max_prods=None, filterKey=None, filterValue=None, min_row=4, min_prods=4, exclude=None, filter_mode="&", pages=False, inline=False, load_more=False, go_to_shop=False) %}
 
 
 {% set productes = productes.__getattribute__(bucket) %}
@@ -90,10 +90,16 @@
 	{% endif %}
     </div>
 
-    <div class="galeria-navigation" show="{{ pages }}">
+    <div class="galeria-navigation" pages="{{pages}}" more="{{load_more }}" goToShop="{{go_to_shop}}">
+	{% if pages %}
 	    <img class="main-arrow page-arrow left" src="/static/media/arrow.svg" onclick="galeriaPrev(this.parentElement.parentElement)">
 	    <div class="galeria-counter"></div>
 	    <img class="main-arrow page-arrow right" src="/static/media/arrow.svg" onclick="galeriaNext(this.parentElement.parentElement)">
+	{% elif load_more %}
+	    <div class="galeria-load-more black-button loc" loc="gal_carregar_mes">{{ loc.gal_carregar_mes }}</div>
+	{% elif go_to_shop %}
+	    <div class="galeria-go-to-shop black-button loc" loc="gal_anar_botiga">{{ loc.gal_anar_botiga}}</div>
+	{% endif %}
     </div>
 </div>
 {% endmacro %}

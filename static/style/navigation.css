@@ -170,7 +170,7 @@ video {
     min-width:fit-content;
     border: none;
     min-height: 0;
-    padding: 1em 0 1em 0;
+    padding: 0.5em 1em 0.5em 1em;
 }
 
 
