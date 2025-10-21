@@ -364,9 +364,9 @@ body {
 
 }
 .pro-pedra-petita{
-    height: .8rem;
-    width: .8rem;
-    margin-right: 0.5rem !important;
+    height: .7rem;
+    width: .7rem;
+    margin-right: 0.6rem !important;
     margin-left: 0.0rem;
     
 }
@@ -379,8 +379,8 @@ body {
 
 }
 .pro-pedra-petita:has(> .hidden-input[checked=true]){
-        height: .65rem;
-	width: .65rem;
+        height: .6rem;
+	width: .6rem;
     }
 .pro-pedra-gran:has(> .hidden-input[checked=true]){
         height: .75rem;

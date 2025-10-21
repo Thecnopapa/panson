@@ -170,7 +170,7 @@ video {
     min-width:fit-content;
     border: none;
     min-height: 0;
-    padding: 1rem 0 1rem 0;
+    padding: 1em 0 1em 0;
 }
 
 
@@ -413,6 +413,7 @@ video {
 
 .popup-info {
     flex-direction: column;
+    position:relative;
     display: none;
     z-index: 50;
     /*border: black 0.2vh solid;*/
@@ -440,10 +441,10 @@ video {
     z-index: 999;
 }
 .popup-cross {
-	visibility:hidden;
-    position: absolute;
-    top: 4.1vh;
-    right:4.3vh;
+	visibility:visible;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -602,8 +603,8 @@ video {
 	visibility: visible;
 	height:5vh;
 	width: 5vh;
-        top: 2.5vh;
-        right:1.5vh;
+        top: 1rem;
+        right: 1rem;
     }
     .request-cookies{
 	    flex-direction: column;
