@@ -26,7 +26,7 @@ function makeEditable(event) {
 		target = target.parentElement;
 		if (target === doc){cancelEditable(event);}
 	}
-	target.focus();
+
 	target.style.color = "blue";
 	console.log(target.innerText);
 	console.log(target.textContent);
@@ -42,6 +42,7 @@ function makeEditable(event) {
 	[...target.children].forEach(c => {
 		c.contentEditable = "false";
 	});
+    target.focus();
 	target.removeEventListener("contextmenu", makeEditable);
 	target.removeEventListener("select", makeEditable);
 	//target.addEventListener("mouseleave", cancelEditable);
