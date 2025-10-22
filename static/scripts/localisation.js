@@ -20,6 +20,7 @@ function initLocalisation(){
 
 
 function makeEditable(event) {
+    event.preventDefault();
 	let target = event.target;
 	while (!target.classList.contains("loc")) {
 		target = target.parentElement;
@@ -44,6 +45,7 @@ function makeEditable(event) {
 	target.removeEventListener("contextmenu", makeEditable);
 	target.removeEventListener("select", makeEditable);
 	//target.addEventListener("mouseleave", cancelEditable);
+    editLoc(event);
 	
 }
 
@@ -55,14 +57,25 @@ function editLoc(event) {
                 target = target.parentElement;
                 if (target === doc){cancelEditable(event);}
         }
+    target.focus();
 	target.style.color = "black";
 	target.style.backgroundColor = "lightyellow";
 	target.removeEventListener("click", editLoc);
 	target.addEventListener("focusout", saveEdits);
-	target.removeEventListener("mouseleave", cancelEditable);
+	//target.removeEventListener("mouseleave", cancelEditable);
+
+   target.addEventListener("keydown", closeLocWithEscape);
 	
 }
 
+function closeLocWithEscape(event) {
+        //console.log(event.key);
+        if (event.key === "Escape" || event.key === "Backspace"){
+            event.preventDefault()
+            cancelEditable(event);
+
+        }
+    }
 function cancelEditable(event){
 	console.log("cancel editable");
 	let target = event.target;
@@ -71,12 +84,12 @@ function cancelEditable(event){
                 if (target === doc){cancelEditable(event);}
         }
 	target.removeEventListener("click", editLoc);
-	target.removeEventListener("mouseleave", cancelEditable);
+	target.removeEventListener("keydown", closeLocWithEscape);
 	target.removeEventListener("focusout", saveEdits);
 	target.style.backgroundColor = "";
         target.style.color = "";
 	target.addEventListener("contextmenu", makeEditable);
-        target.addEventListener("select", makeEditable);
+    target.addEventListener("select", makeEditable);
 	//target.textContent = target.textContent.replace(/\n/g, '<br>');
 	target.textContent = target.textContent.replace(/>\n/g, '>');
 	target.innerText = target.innerText.replace(/\n/g, '<br>');

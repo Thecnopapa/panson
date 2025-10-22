@@ -96,9 +96,9 @@
 	    <div class="galeria-counter"></div>
 	    <img class="main-arrow page-arrow right" src="/static/media/arrow.svg" onclick="galeriaNext(this.parentElement.parentElement)">
 	{% elif load_more %}
-	    <div class="galeria-load-more black-button loc" loc="gal_carregar_mes">{{ loc.gal_carregar_mes }}</div>
+	    <div class="galeria-load-more galeria-nav-button black-button loc" loc="gal_carregar_mes" onclick="location.href='/{{ loc.lan }}/productes'">{{ loc.gal_carregar_mes}}</div>
 	{% elif go_to_shop %}
-	    <div class="galeria-go-to-shop black-button loc" loc="gal_anar_botiga">{{ loc.gal_anar_botiga}}</div>
+	    <div class="galeria-go-to-shop galeria-nav-button black-button loc" loc="gal_anar_botiga" onclick="location.href='/{{ loc.lan }}/productes'">{{ loc.gal_anar_botiga}}</div>
 	{% endif %}
     </div>
 </div>

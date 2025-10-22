@@ -1,36 +1,32 @@
-{% macro info_talles() %}
-                                <h3 class="loc" loc="pro_popup_talles_titol">{{loc.pro_popup_talles_titol}}</h3>
-                                <p class="loc" loc="pro_popup_talles_p1">{{loc.pro_popup_talles_p1 | safe}}</p>
-                            <ol>
-				    <li><b class="loc" loc="pro_talles_t1">{{loc.pro_talles_t1}}</b><span class="loc" loc="pro_talles_c1">{{loc.pro_talles_c1 | safe}}</span></li>
-				    <li><b class="loc" loc="pro_talles_t2">{{loc.pro_talles_t2}}</b><span class="loc" loc="pro_talles_c2">{{loc.pro_talles_c2 | safe}}</span></li>
-                                    <li><b class="loc" loc="pro_talles_t3">{{loc.pro_talles_t3}}</b><span class="loc" loc="pro_talles_c3">{{loc.pro_talles_c3 | safe}}</span></li>
-                            </ol>
-                            <div class="table-container">
-                                {{ utils.table("static/sizes.xlsx", onclick_cell='selectSizeTable(this);', skip_rows=[0], ref_row=0)|safe }}
-                            </div>
-                    <p class="loc" loc="pro_popup_talles_ajuda">{{loc.pro_popup_talles_ajuda | safe}}</p>
-
-
-
+{% macro info_talles(onclick_cell="") %}
+    <div class="talles-title loc" loc="pro_popup_talles_titol">{{loc.pro_popup_talles_titol}}</div>
+    <div class="talles-info loc" loc="pro_popup_talles_p1">{{loc.pro_popup_talles_p1 | safe}}</div>
+        <ol>
+            <li><b class="loc" loc="pro_talles_t1">{{loc.pro_talles_t1}}</b><span class="loc" loc="pro_talles_c1">{{loc.pro_talles_c1 | safe}}</span></li>
+            <li><b class="loc" loc="pro_talles_t2">{{loc.pro_talles_t2}}</b><span class="loc" loc="pro_talles_c2">{{loc.pro_talles_c2 | safe}}</span></li>
+            <li><b class="loc" loc="pro_talles_t3">{{loc.pro_talles_t3}}</b><span class="loc" loc="pro_talles_c3">{{loc.pro_talles_c3 | safe}}</span></li>
+        </ol>
+        <div class="table-container">
+            {{ utils.table("static/sizes.xlsx", onclick_cell=onclick_cell, skip_rows=[0], ref_row=0)|safe }}
+        </div>
+        <p class="loc" loc="pro_popup_talles_ajuda">{{loc.pro_popup_talles_ajuda | safe}}</p>
 
 {% endmacro %}
 
 {% extends "base.html" %}
-{% block imports %}
-<link href='/style/talles.css' as='style' rel='preload'>                                                                                                <link href='/style/talles.css' rel='stylesheet'>
 
+{% block imports %}
+    <link href='/style/talles.css' as='style' rel='preload'>
+    <link href='/style/talles.css' rel='stylesheet'>
 {% endblock %}
 
 
 {% block body %}
     <div id="nav-color" navColor="opaque"></div>
 
-<div class="content-talles">
-	{{ info_talles() }}
-</div>
-
-
+    <div class="content-talles">
+        {{ info_talles() }}
+    </div>
 
 {% endblock %}
 
