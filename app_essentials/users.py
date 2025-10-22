@@ -73,7 +73,7 @@ class User(firebaseObject):
             name=name,
             description=description,
             metadata=dict(
-                pagat="No",
+                status="unpaid",
                 id2= id2,
                 product_id= product_id,
                 **{k:str(v) for k,v in options.items()}

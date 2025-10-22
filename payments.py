@@ -25,6 +25,15 @@ def create_items(user):
     items = []
     for item in cart.values():
         print(item["data"])
+        product_data = dict(
+                    **item["data"],
+                    #name=item["data"]["name"] +" ("+ item["data"]["description"]+")",
+                    #description = item["data"]["description"],
+                    #images = item["data"]["images"],
+                    #metadata = item["data"]["metadata"],
+        )
+        #product_data.update({"name": item["data"]["name"] +" ("+ item["data"]["description"]+")" }),
+        print(product_data)
         stripe_item = dict(
             adjustable_quantity={
                 "enabled": True
@@ -34,13 +43,7 @@ def create_items(user):
                 currency = currency,
                 unit_amount = item["price"]*100,
                 #product= product["id"],
-                product_data = dict(
-                    #**item["data"],
-                    name=item["data"]["name"] +" ("+ item["data"]["description"]+")",
-                    # description = item["data"]["description"],
-                    images = item["data"]["images"],
-                    # metadata = item["data"]["metadata"],
-                ),
+                product_data = product_data,
             ),
             # shippable=True,
             # active = True,
@@ -194,8 +197,8 @@ def init_checkout(lan, force_new=False):
 
 def process_payment(lan):
     user = get_current_user()
-    session = stripe.checkout.Session.retrieve(user.last_checkout)
-    line_items = stripe.checkout.Session.list_line_items(user.last_checkout, limit=100)
+    session = stripe.checkout.Session.retrieve(user.last_checkout, expand=["line_items"])
+    line_items = session["line_items"]
     print(session)
     print(line_items)
     
@@ -204,28 +207,43 @@ def process_payment(lan):
     if session["status"] == "complete" and session["payment_status"] == "paid":
         for line_item in line_items["data"]:
             print(line_item)
-            try:
-                stripe.Product.create(
-                id= "pro_"+line_item["id"],
-                name=line_item["description"],
-                description="Client: {} ({} - {})".format(
-                    session["customer_details"]["name"],
-                    session["customer_details"]["email"],
-                    session["customer_details"]["phone"]
+            auto_product = stripe.Product.retrieve(line_item["price"]["product"])
+            print(auto_product)
+            old_metadata = auto_product["metadata"]
+            print("old_metadata", old_metadata)
+            new_metadata = old_metadata
+            new_metadata.update(dict(
+                order_id=session["id"],
+                customer_id=session["customer"],
+                payment_id=session["payment_intent"],
+                status=session["payment_status"],
+                line_id=line_item["id"],
+                auto_id=auto_product["id"],
+                adress=str(session["collected_information"]["shipping_details"]["address"]),
+                recipient=session["collected_information"]["shipping_details"]["name"],
+                quantity=line_item["quantity"],
+                email = session["customer_details"]["email"],
+                client_name = session["customer_details"]["name"],
+            )),
 
-                    ),
-                metadata = dict(
-                    order_id = session["id"],
-                    customer_id = session["customer"],
-                    payment_id = session["payment_intent"],
-                    status = session["payment_status"],
-                    line_id = line_item["id"],
-                    adress=str(session["collected_information"]["shipping_details"]["address"]),
-                    recipient=session["collected_information"]["shipping_details"]["name"],
+            new_data = dict(
+                id="product_" + auto_product["id"],
+                name=line_item["description"],
+                description="Client: {} ({} - {}) \n Detalls peca: {}".format(
+              session["customer_details"]["name"],
+                    session["customer_details"]["email"],
+                    session["customer_details"]["phone"],
+                    auto_product["description"],
+
                 ),
-                )
+                metadata=new_metadata,
+                images=auto_product["images"],
+            )
+
+            try:
+                stripe.Product.create(**new_data)
             except:
-                pass
+                stripe.Product.modify(**new_data)
 
 
         while session["invoice"] is None:
