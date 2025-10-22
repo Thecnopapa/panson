@@ -97,8 +97,8 @@
                     <div class="product-element collection">Collecio:
                         <select product="{{product._id}}" field="collecio" class="product-input" oninput="productUpdate(this)">
                             <option value=""></option>
-                            {% for collecio in productes.col_names %}
-                                <option value="{{ collecio.lower() }}" {{ "selected=selected" if collecio.lower() == product.collecio }}>{{ collecio }}</option>
+                            {% for collecio in collecions %}
+                                <option value="{{ collecio._id }}" {{ "selected=selected" if collecio._id == product.collecio }}>{{ collecio.nom }}</option>
                             {% endfor %}
                         </select>
                     </div>

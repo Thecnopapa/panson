@@ -3,11 +3,11 @@
 {% block content %}
 
     <div id="productes" class="admin-content">
-        {% for col in productes.col_names %}
+        {% for col in collecions %}
 
-            <div class="col_col product-list {{ col }}">
-            <div class="productes-titol-col">{{ col }}</div>
-                {% for product in productes.filter({"collecio":col}) %}
+            <div class="col_col product-list {{ col._id }}">
+            <div class="productes-titol-col">{{ col.nom }}</div>
+                {% for product in productes.filter({"collecio":col._id}) %}
                     {{ admin_container(product) }}
                 {% endfor %}
             </div>
