@@ -57,13 +57,13 @@ class User(firebaseObject):
 
         description = ""
         if options.get("talla", None) is not None:
-            description += "Talla: {}/ ".format(options["talla"])
+            description += "Talla: {} / ".format(options["talla"])
         if options.get("material", None) is not None:
             description += "Material: {} / ".format(options["material"])
         if options.get("variacio", None) is not None:
             description += "Variacio: {} / ".format(options["variacio"])
         if options.get("color", None) is not None:
-            description += "Color: {} /".format(options["color"])
+            description += "Color: {} / ".format(options["color"])
         if description[:-2] == "/ ":
             description = description[:-2]
 

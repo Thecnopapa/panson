@@ -35,10 +35,10 @@ def create_items(user):
                 unit_amount = item["price"]*100,
                 #product= product["id"],
                 product_data = dict(
-                    **item["data"],
-                    #name=item["data"]["name"],
+                    #**item["data"],
+                    name=item["data"]["name"] +" ("+ item["data"]["description"]+")",
                     # description = item["data"]["description"],
-                    # images = item["data"]["images"],
+                    images = item["data"]["images"],
                     # metadata = item["data"]["metadata"],
                 ),
             ),
@@ -198,10 +198,33 @@ def process_payment(lan):
     line_items = stripe.checkout.Session.list_line_items(user.last_checkout, limit=100)
     print(session)
     print(line_items)
-    for line_item in line_items["data"]:
-        print(line_item)
+    
+            
     #payment=session["payment"]
     if session["status"] == "complete" and session["payment_status"] == "paid":
+        for line_item in line_items["data"]:
+            print(line_item)
+            stripe.Product.create(
+                id= "pro_"+line_item["id"],
+                name=line_item["description"],
+                description="Client: {} ({} - {})".format(
+                    session["customer_details"]["name"],
+                    session["customer_details"]["email"],
+                    session["customer_details"]["phone"]
+
+                    ),
+                metadata = dict(
+                    order_id = session["id"],
+                    customer_id = session["customer"],
+                    payment_id = session["payment_intent"],
+                    status = session["payment_status"],
+                    line_id = line_item["id"],
+                    adress=str(session["collected_information"]["shipping_details"]["address"]),
+                    recipient=session["collected_information"]["shipping_details"]["name"],
+                ),
+            )
+
+
         while session["invoice"] is None:
             print(session["invoice"])
             session = stripe.checkout.Session.retrieve(user.last_checkout)
