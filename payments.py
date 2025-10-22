@@ -204,7 +204,8 @@ def process_payment(lan):
     if session["status"] == "complete" and session["payment_status"] == "paid":
         for line_item in line_items["data"]:
             print(line_item)
-            stripe.Product.create(
+            try:
+                stripe.Product.create(
                 id= "pro_"+line_item["id"],
                 name=line_item["description"],
                 description="Client: {} ({} - {})".format(
@@ -222,7 +223,9 @@ def process_payment(lan):
                     adress=str(session["collected_information"]["shipping_details"]["address"]),
                     recipient=session["collected_information"]["shipping_details"]["name"],
                 ),
-            )
+                )
+            except:
+                pass
 
 
         while session["invoice"] is None:
