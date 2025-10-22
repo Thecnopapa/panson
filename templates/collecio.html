@@ -26,12 +26,12 @@
 {% endif %}
 
     <div class="collecio">
-	    <div class="imatge-collecio fast-image" background='{{ imgs.get_url("collecions", col.imatges[0]) }}'></div>
+	    <div class="imatge-collecio fast-image" background='{{ imgs.get_url("collecions", col.imatges[0]) }}'>
 
             {% if col["nom"] %}
-                <div class = "titol-collecio">{{ col.nom }}</div>
-                <div class="subtitol-collecio loc" loc="col_subtitol">{{ loc.col_subtitol }}</div>
+                <div class = "titol-collecio"><span class="subtitol-collecio loc" loc="col_subtitol">{{ loc.col_subtitol }}</span>{{ col.nom }}</div>
             {% endif %}
+	    </div>
         
 	<div class="imatges-collecio">
 		<div class="doble-imatge normal-image" background="{{ imgs.get_url("collecions", col.imatges[1]) }}"></div>

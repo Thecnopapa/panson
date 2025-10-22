@@ -77,12 +77,16 @@ function stopScrolling(galeria) {
 
 function highlightProduct(trigger) {
     trigger.classList.add("active");
+    trigger.children[0].style.visibility = "hidden";
+    trigger.style.webkitTransform = 'scale(1)';
 
 
 }
 
 function reverseProduct(trigger) {
     trigger.classList.remove("active");
+    trigger.children[0].style.visibility = "visible";
+    trigger.style.webkitTransform = 'scale(1)';
 }
 
 function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterValue=undefined) {

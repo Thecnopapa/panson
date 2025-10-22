@@ -126,14 +126,20 @@
     transition-timing-function: ease, ease;
 }
 .primera{
-    display: block;
+    display: flex;
+    z-index:5;
+}
+.segona{
+	display: flex;
+	position: absolute;
+	top: 0;
+	z-index:4;
 }
 
 .producte.active .segona{
-        display: block;
 }
 .producte.active .primera{
-        display: none;
+        visibility:hidden;
     }
 
 

@@ -378,14 +378,14 @@ body {
     /*background-color: transparent;*/
     box-shadow:
         /*0 0 0 0 var(--color),*/
-	inset 0.5px 0 0 black,
-        inset -0.5px 0 0 black,
-        inset 0 0.5px 0 black,
-        inset 0 -0.5px 0 black,
-    	inset 1.5px 0 0 white, 
-    	inset -1.5px 0 0 white,
-	inset 0 1.5px 0 white,
-	inset 0 -1.5px 0 white;
+	inset 1px 0 0 black,
+        inset -1px 0 0 black,
+        inset 0 1px 0 black,
+        inset 0 -1px 0 black,
+    	inset 2px 0 0 white, 
+    	inset -2px 0 0 white,
+	inset 0 2px 0 white,
+	inset 0 -2px 0 white;
     /*height: .75rem;
     width: .75rem;*/
 
@@ -423,37 +423,34 @@ body {
 }
 
 .add-to-cart{
-    width: 100%;
+	padding-right: var(--padding);
+	padding-left: var(--padding);
+    width: var(--padded-width);
     display:flex;
     align-items: center;
     justify-content: center;
+    position:relative;
 }
 .add-to-cart.loading{
 	color:transparent;
 }
-.add-to-cart.loading .cart-loading{
-	display:flex;
-	/*-webkit-animation:spin 4s linear infinite;                            -moz-animation:spin 4s linear infinite;
-        animation:spin 4s linear infinite;*/
-}
+
 .cart-loading{
 	display:none;
-	/*background-image: url("/static/media/panson_favicon.png");
-	background-size: contain;
-	background-position:center;
-	background-repeat: no-repeat; */
 	filter: invert(100%);
-	color: white;
+	/*color: white;*/
 	height:var(--font-size-extra-large);
 	width:var(--font-size-extra-large);
-	font-size: var(--font-size-extra-large);
+	/*font-size: var(--font-size-extra-large);*/
 	position: absolute;
-	align-items: start;
-	justify-content: center;
-	text-align: center;
-	vertical-align: middle;
-	line-height: var(--font-size-extra-large);
+	/*align-items: start;
+	justify-content: center;*/
+	/*text-align: center;*/
+	/*vertical-align: middle;*/
+	/*line-height: var(--font-size-extra-large);*/
+}
 
+.add-to-cart.loading .cart-loading{                                                 display:flex;
 }
 
 .missatge-enviament{

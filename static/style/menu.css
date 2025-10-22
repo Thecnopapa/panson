@@ -24,7 +24,7 @@
     left: 0;
 }
 #menu:not(.closed){
-    box-shadow: 0.2px 0px 8px rgb(115, 115, 115);
+    /*box-shadow: 0.2px 0px 8px rgb(115, 115, 115);*/
 }
 
 

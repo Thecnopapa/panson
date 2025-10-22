@@ -81,12 +81,14 @@ function selectSize(trigger){
 		console.log(sizeList[i]);
 	}
 	trigger.setAttribute("checked", true);
+	trigger.style.webkitTransform = 'scale(1)';
     setTimeMessage(trigger);
 	for (let i = 0; i < sizeList.length; i++) {
 		if (sizeList[i].getAttribute("checked") !== "true" && sizeList[i].classList.contains("multiple-input")){
 			sizeList[i].value = "";
                 	sizeList[i].parentElement.style.display="none";
 			sizeList[i].parentElement.previousElementSibling.style.display="flex";
+			sizeList[i].style.webkitTransform = 'scale(1)';
         }
 	}
 	updatePrice();
@@ -162,8 +164,10 @@ function selectColour(trigger, color=""){
 	let colourList = trigger.parentElement.getElementsByClassName("color-input");
 	for (let i = 0; i < colourList.length; i++) {
 		colourList[i].removeAttribute("checked");
+		colourList[i].style.webkitTransform = 'scale(1)';
 	}
-	trigger.firstElementChild.setAttribute("checked", true)
+	trigger.firstElementChild.setAttribute("checked", true);
+	trigger.style.webkitTransform = 'scale(1)';
 	trigger.parentElement.previousElementSibling.lastElementChild.innerText = color;
 	updatePrice();
 }
@@ -177,8 +181,10 @@ function selectVariation(trigger){
 	}
 	let varList = [...trigger.parentElement.parentElement.getElementsByTagName("input")];
 	console.log(varList);
-	varList.forEach(v => {v.removeAttribute("checked");});
+	varList.forEach(v => {v.removeAttribute("checked"); v.style.webkitTransform = 'scale(1)';});
 	trigger.firstElementChild.setAttribute("checked", true);
+	trigger.style.webkitTransform = 'scale(1)';
+
 	updatePrice();
 }
 

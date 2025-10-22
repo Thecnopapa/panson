@@ -43,12 +43,13 @@ function makeEditable(event) {
 	});
 	target.removeEventListener("contextmenu", makeEditable);
 	target.removeEventListener("select", makeEditable);
-	target.addEventListener("mouseleave", cancelEditable);
+	//target.addEventListener("mouseleave", cancelEditable);
 	
 }
 
 
 function editLoc(event) {
+	event.preventDefault();
 	let target = event.target;
 	while (!target.classList.contains("loc")) {
                 target = target.parentElement;
