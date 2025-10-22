@@ -13,7 +13,7 @@ async function scrollGallery(galeria, direction, amount){
 		console.log(amount);
 	} else if (amount.includes("u")){
 		amount = Number(amount.replace("u", ""));
-		let refEl = galeria.getElementsByClassName("producte")[0];
+		let refEl = galeria.querySelector(".producte:not(.template)");
 		let p_width = refEl.offsetWidth + parseFloat(window.getComputedStyle(refEl).marginRight);
 		console.log(p_width);
 		amount = amount * p_width;
@@ -92,16 +92,17 @@ function reverseProduct(trigger) {
 
 function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterValue=undefined) {
     console.log(" * Initialising galeria");
+    console.log("To page: ", targetPage);
 	let galeriaElement = galeria.getElementsByClassName("galeria")[0];
 	if (galeriaElement.classList.contains("inline")){
 		galeriaElement.addEventListener("scroll", hideScrollArrows);
-		
+
 	}
 	const currentPage = Number(galeria.attributes.page.value);
 	if (targetPage === undefined){
 		targetPage = currentPage;
 	} else{
-		galeria.parentElement.scrollIntoView({block: "start"})
+		//galeria.parentElement.scrollIntoView({block: "start"})
 	}
 
 	targetPage=Number(targetPage);
@@ -110,20 +111,21 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
 	galeria.setAttribute("page", targetPage);
 	if (filterKey === undefined && galeria.hasAttribute("filterKey")){filterKey = galeria.attributes.filterKey.value;}
 	if (filterValue === undefined && galeria.hasAttribute("filterValue")){filterValue = galeria.attributes.filterValue.value}
-	
+
 	console.log(filterKey, filterValue);
 
 	galeria.setAttribute("filterKey", filterKey);
 	galeria.setAttribute("filterValue", filterValue);
-	
 
-	galeria.scrollTo(0,0);
+
+	//galeria.scrollTo(0,0);
 	const infoElement = galeria.getElementsByClassName("gallery-info")[0];
 	const maxProds = Number(infoElement.attributes.maxProds.value);
+    const minRow = Number(infoElement.attributes.minRow.value);
 	const bucket = infoElement.attributes.bucket.value;
 	const key = infoElement.attributes.filterKey.value;
 	const value = infoElement.attributes.filterValue.value;
-	
+
 	if (key !== "None" && value !== "None"){
 		console.log("Filters from div")
 		filterKey = key;
@@ -139,30 +141,36 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
     if (filterKey !== undefined  && filterValue !== undefined){
         for (let i = 0; i < allProducts.length; i++) {
 		try{
-			
+
             		if (allProducts[i].attributes[filterKey].value.includes(filterValue)){
                 		filteredProducts.push(allProducts[i]);
             		}
 		} catch (e){}
-		
+
         }
     } else {
         filteredProducts = allProducts;
     }
+    targetPage=Number(targetPage);
+    let maxPages = Math.round(Math.ceil(filteredProducts.length / maxProds));
+    console.log("MAX PAGES: ", maxPages);
 
 	const pageNav = galeria.getElementsByClassName("galeria-navigation")[0];
 	if (pageNav.attributes.pages.value === "True"){
+
 		const pageCounter = galeria.getElementsByClassName("galeria-counter")[0];
 		const leftArrow = galeria.getElementsByClassName("page-arrow left")[0];
 		const rightArrow = galeria.getElementsByClassName("page-arrow right")[0];
-	        targetPage=Number(targetPage);
-		let maxPages = Math.round(Math.ceil(filteredProducts.length / maxProds));
-		console.log("MAX: ", maxPages);
+
 		pageNav.classList.toggle("disabled", maxPages <=1);
 		pageCounter.innerHTML = String(targetPage+1)+" / "+String(maxPages);
 		leftArrow.classList.toggle("disabled", targetPage === 0);
 		rightArrow.classList.toggle("disabled", (targetPage + 1) === maxPages);
+
 	} else if (pageNav.attributes.more.value === "True"){
+
+        const moreButton = galeria.getElementsByClassName("galeria-load-more")[0];
+        moreButton.classList.toggle("disabled", (targetPage + 1) === maxPages);
 
 	} else if (pageNav.attributes.goToShop.value === "True"){
 
@@ -174,18 +182,24 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
 
 
 
-    const productElements = galeria.getElementsByClassName("producte enabled");
-
+    const templateElement = galeria.getElementsByClassName("producte template")[0];
+    console.log("generating new Products: ", targetPage,maxProds);
     for (let i = 0; i < maxProds; i++) {
         const targetProductNo = i + targetPage*maxProds;
-        changeProduct(productElements[i], filteredProducts[targetProductNo], bucket);
+        console.log("producte producte: ", filteredProducts[targetProductNo], i % minRow);
+        if ((filteredProducts[targetProductNo] === undefined) && (i % minRow === 0 )){break;}
+        let newElement = templateElement.cloneNode(true);
+        templateElement.parentElement.appendChild(newElement);
+        changeProduct(newElement, filteredProducts[targetProductNo], bucket);
+
     }
+
     loadAllImages()
 }
 
 
 function galeriaNext(galeria){
-	console.log(galeria);
+	//console.log(galeria);
 	initGaleria(galeria, Number(galeria.attributes.page.value)+1);
 }
 function galeriaPrev(galeria){
@@ -194,6 +208,9 @@ function galeriaPrev(galeria){
 
 function filterGaleria(trigger){
 	const galeria = trigger.parentElement.parentElement;
+    [...galeria.getElementsByClassName("galeria")[0].children].forEach((p) => {
+        if (!p.classList.contains("template")) {p.remove();}
+    })
 	if (trigger.classList.contains("active")){
 		galeria.removeAttribute("filterKey");
 		galeria.removeAttribute("filterValue");
@@ -215,6 +232,8 @@ function filterGaleria(trigger){
 
 
 function changeProduct(element, product, bucket) {
+    console.log("changing product");
+    element.classList.remove("template");
     let info = undefined;
     try {
         info = product.attributes;
@@ -222,9 +241,10 @@ function changeProduct(element, product, bucket) {
         //print(e);
         element.classList.add("empty");
         return}
-    //print(element);
-    //print(info);
+    print(element);
+    print(info);
     element.classList.remove("empty");
+
     element.getElementsByClassName("imatge primera")[0].setAttribute("background", imageUrl(bucket, info.img1.value));
     element.getElementsByClassName("imatge segona")[0].setAttribute("background", imageUrl(bucket, info.img2.value));
     element.onclick = function () { location.href = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value }

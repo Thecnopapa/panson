@@ -16,7 +16,7 @@
 
 <div class="content-galeria" page=0>
 <div class="hidden-product-list">
-	<div class="gallery-info" double="{{ doble_galeria }}" maxProds="{{ max_prods }}" bucket="{{ bucket }}" filterKey="None" filterValue="None"></div>
+	<div class="gallery-info" double="{{ doble_galeria }}" maxProds="{{ max_prods }}" minRow="{{ min_row }}" bucket="{{ bucket }}" filterKey="None" filterValue="None"></div>
     {% for n, producte in utils.enumerate(prods) %}
     <div class="hidden-info-producte" 
 	    id="{{ producte._id }}" 
@@ -53,11 +53,7 @@
 	    <div class="galeria-scroll-button scroll-right-button {{ "invisible" if utils.len(prods) <= min_row }}" onclick="scrollGallery(this.parentElement.nextElementSibling, 'right', '1u')"><img class="main-arrow right" src="/static/media/arrow.svg"></div>
     </div>
     <div class="galeria {{ 'inline' if inline }}">
-        {% for n in range(max_prods) %}
-            {% if (double and n % 2 == 0) %}
-               <div class="producte-doble">
-            {% endif %}
-            <div class="producte empty enabled {{ 'last' if n==max_prods-1 }} {{ 'inline' if inline }}" onmouseover="highlightProduct(this)" onmouseout="reverseProduct(this)">
+            <div class="producte template empty {{ 'last' if n==max_prods-1 }} {{ 'inline' if inline }}" onmouseover="highlightProduct(this)" onmouseout="reverseProduct(this)">
                <div class="imatge primera normal-image" onmouseover="//highlightProduct(this)"></div>
                <div class="imatge segona slow-image preload" onmouseout="//reverseProduct(this)"></div>
                <div class="detalls-galeria">
@@ -72,22 +68,6 @@
                     </div>
                 </div>
            </div>
-           {% if (double and n % 2 == 1) %}
-               </div>
-           {% endif %}
-        {% endfor %}
-        {% for n in range(utils.mod(max_prods, min_row)+min_prods-utils.min(max_prods, min_prods)) %}
-            {% if (double and (n+max_prods) % 2 == 0) %}
-                <div class="producte-doble">
-            {% endif %}
-            <div class="producte empty disabled"></div>
-            {% if (double and (n+max_prods) % 2 == 1) %}
-                </div>
-            {% endif %}
-        {% endfor %}
-	{% if (double and (max_prods+range(utils.mod(max_prods, min_row))) % 2 == 1) %}
-		</div>
-	{% endif %}
     </div>
 
     <div class="galeria-navigation" pages="{{pages}}" more="{{load_more }}" goToShop="{{go_to_shop}}">
@@ -96,7 +76,7 @@
 	    <div class="galeria-counter"></div>
 	    <img class="main-arrow page-arrow right" src="/static/media/arrow.svg" onclick="galeriaNext(this.parentElement.parentElement)">
 	{% elif load_more %}
-	    <div class="galeria-load-more galeria-nav-button black-button loc" loc="gal_carregar_mes" onclick="location.href='/{{ loc.lan }}/productes'">{{ loc.gal_carregar_mes}}</div>
+	    <div class="galeria-load-more galeria-nav-button black-button loc" loc="gal_carregar_mes" onclick="galeriaNext(this.parentElement.parentElement)">{{ loc.gal_carregar_mes}}</div>
 	{% elif go_to_shop %}
 	    <div class="galeria-go-to-shop galeria-nav-button black-button loc" loc="gal_anar_botiga" onclick="location.href='/{{ loc.lan }}/productes'">{{ loc.gal_anar_botiga}}</div>
 	{% endif %}
