@@ -70,7 +70,7 @@ function editLoc(event) {
 
 function closeLocWithEscape(event) {
         //console.log(event.key);
-        if (event.key === "Escape" || event.key === "Backspace"){
+        if (event.key === "Escape"){
             event.preventDefault()
             cancelEditable(event);
 
