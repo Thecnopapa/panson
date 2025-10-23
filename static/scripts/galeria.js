@@ -76,7 +76,7 @@ function stopScrolling(galeria) {
 }
 
 function highlightProduct(trigger) {
-    if (window.innerWidth > desktopThreshold) {return;}
+    if (window.innerWidth <= desktopThreshold) {return;}
     trigger.classList.add("active");
     trigger.children[0].style.visibility = "hidden";
     trigger.style.webkitTransform = 'scale(1)';
