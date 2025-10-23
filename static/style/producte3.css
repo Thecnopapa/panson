@@ -431,26 +431,24 @@ body {
     justify-content: center;
     position:relative;
 }
-.add-to-cart.loading{
-	color:transparent;
-}
+
 
 .cart-loading{
-	display:none;
+        display:none;
 	filter: invert(100%);
-	/*color: white;*/
-	height:var(--font-size-extra-large);
-	width:var(--font-size-extra-large);
-	/*font-size: var(--font-size-extra-large);*/
-	position: absolute;
-	/*align-items: start;
-	justify-content: center;*/
-	/*text-align: center;*/
-	/*vertical-align: middle;*/
-	/*line-height: var(--font-size-extra-large);*/
+        height:var(--font-size-extra-large);
+        width:var(--font-size-extra-large);
+        position: absolute;
 }
 
-.add-to-cart.loading .cart-loading{                                                 display:flex;
+.add-to-cart.loading{
+	.add-to-cart-text {
+		visibility: hidden;
+	}
+
+	.cart-loading{
+		display:flex;
+	}
 }
 
 .missatge-enviament{

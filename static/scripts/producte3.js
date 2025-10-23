@@ -210,7 +210,7 @@ async function submitToCart (trigger) {
     const missingInfo = document.getElementById("missing-info");
     const formData = new FormData(theForm);
     const fieldsets = form.querySelectorAll("fieldset");
-    document.body.style.cursor = "progress !important";
+    document.documentElement.style.cursor = "progress !important";
 	console.log(formData);
     try {
         let response = await fetch("/carret/add", {
@@ -241,6 +241,7 @@ async function submitToCart (trigger) {
         alert("Error:", error.message);
     }
 	trigger.classList.remove("loading");
+	document.documentElement.style.cursor = "";
 	
 }
 
