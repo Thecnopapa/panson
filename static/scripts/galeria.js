@@ -187,12 +187,18 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
     for (let i = 0; i < maxProds; i++) {
         const targetProductNo = i + targetPage*maxProds;
         console.log("producte producte: ", filteredProducts[targetProductNo], i % minRow);
-        if ((filteredProducts[targetProductNo] === undefined) && (i % minRow === 0 )){break;}
+
+        if (filteredProducts[targetProductNo] === undefined){
+		if (i % minRow === 0 ){
+			break;
+		}
+	}
         let newElement = templateElement.cloneNode(true);
         templateElement.parentElement.appendChild(newElement);
         changeProduct(newElement, filteredProducts[targetProductNo], bucket);
 
     }
+	templateElement.parentElement.lastElementChild.classList.add("last");
 
     loadAllImages()
 }

@@ -61,6 +61,10 @@ class Utils:
         return float(*args, **kwargs)
 
     @staticmethod
+    def int(*args, **kwargs):
+        return int(*args, **kwargs)
+
+    @staticmethod
     def mod(num1, num2):
         return num1 % num2
 
