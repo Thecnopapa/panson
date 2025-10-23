@@ -354,9 +354,9 @@ function enlargeImg(img, all=true){
 
     const newContainer = document.createElement("div");
 
-    let enlargedObserverThreshold = 0.7;
+    let enlargedObserverThreshold = 0.5;
     if (window.innerWidth <= desktopThreshold) {
-        enlargedObserverThreshold = 0.8;
+        enlargedObserverThreshold = 0.5;
     }
 
 	let newObserver = new IntersectionObserver(newBubbleChange, {
@@ -366,7 +366,7 @@ function enlargeImg(img, all=true){
 	
 
     newContainer.classList.add("enlarged-container");
-    newContainer.addEventListener("click", function (event){event.preventDefault(); event.stopPropagation(); newContainer.remove(); document.documentElement.style.overflow = ""; newObserver.disconnect();});
+    //newContainer.addEventListener("click", function (event){event.preventDefault(); event.stopPropagation(); newContainer.remove(); document.documentElement.style.overflow = ""; newObserver.disconnect();});
     newContainer.addEventListener("scroll", function (event){event.stopPropagation();});
     newContainer.addEventListener("touchmove", function (event){event.stopPropagation();});
     newContainer.addEventListener("wheel", function (event){event.stopPropagation();});
@@ -409,15 +409,35 @@ function enlargeImg(img, all=true){
 	if (images.length <= 1){newBubbles.classList.add("hidden");}
 	newContainer.appendChild(newBubbles);
 
-  
-
 
 	const newSlideshow = document.createElement("div");
 	newSlideshow.classList.add("enlarged-slideshow");
-    newSlideshow.classList.add("slideshow");
-    newSlideshow.classList.add("horizontal-scroll");
+    	newSlideshow.classList.add("slideshow");
+    	newSlideshow.classList.add("horizontal-scroll");
+	newSlideshow.addEventListener("scroll", updateProductSlideshow);
 	newContainer.appendChild(newSlideshow);
-    detectHorizontal();
+    	detectHorizontal();
+
+	const newArrows = document.createElement("div");
+	newArrows.classList.add("enlarged-arrows");
+	if (images.length <= 1){newArrows.classList.add("hidden");}
+	newContainer.appendChild(newArrows);
+
+	const leftArrow = document.createElement("img");
+	const rightArrow = document.createElement("img");
+
+	leftArrow.className = "main-arrow left enlarged-arrow";
+	rightArrow.className = "main-arrow right enlarged-arrow";
+	leftArrow.src = "/static/media/arrow.svg";
+	rightArrow.src = "/static/media/arrow.svg";
+
+	leftArrow.addEventListener("click", slideshowScroll);
+	rightArrow.addEventListener("click", slideshowScroll);
+
+	
+	newArrows.appendChild(leftArrow);
+	newArrows.appendChild(rightArrow);
+
 
 
 
@@ -429,8 +449,10 @@ function enlargeImg(img, all=true){
     	//newImg.src = imgUrl;
     	newImg.style.backgroundImage = images[i].style.backgroundImage;
     	newImg.setAttribute('draggable', false);
-    	newImg.addEventListener("click", startZoom);
-        newImg.addEventListener("mouseleave", stopZoom);
+	if (window.innerWidth > desktopThreshold){
+    		newImg.addEventListener("click", startZoom);
+        	newImg.addEventListener("mouseleave", stopZoom);
+	}
     	newSlideshow.appendChild(newImg);
         newObserver.observe(newImg);
         const newBubble = document.createElement("div");
@@ -519,9 +541,15 @@ function initialBubbleChange(triggers, opts){
 //}
 
 
-function updateProductSlideshow(target, arrows){
-	console.log("scrolling images");
+function updateProductSlideshow(target=undefined, arrows=undefined){
+	//console.log("scrolling images");
+	if (target instanceof Event){
+		target = target.target;
+		arrows = target.parentElement.querySelector(".arrows, .enlarged-arrows");
+	}
+
 	arrows.classList.toggle("scroll-start", target.scrollTop === 0 && target.scrollLeft === 0);
+	//console.log(target.scrollLeft);
 	if (target.scrollLeft != 0){
 		arrows.classList.toggle("scroll-end", target.scrollLeft+target.offsetWidth === target.scrollWidth);
 	}
@@ -532,19 +560,27 @@ function updateProductSlideshow(target, arrows){
 
 
 
-function slideshowScroll(container, mode, axis="both"){
-	let targetScrollX = 0;
+function slideshowScroll(container, mode=undefined, axis="both"){
+    let targetScrollX = 0;
     let targetScrollY = 0;
-	let incrementX = 0;
+    let incrementX = 0;
     let incrementY = 0;
+    let trigger = undefined;
+    if (container instanceof Event) {
+	    trigger = container.target;
+	    container = trigger.parentElement.parentElement.querySelector(".slideshow");
+    
+    	    if (trigger.classList.contains("left")){mode="prev";} else if (trigger.classList.contains("right")){mode="next";}
+    }
     let containerWidth = container.offsetWidth;
     let containerHeight = container.offsetHeight;
     console.log(containerWidth, containerHeight);
     let childWidth = container.firstElementChild.offsetWidth;
     let childHeight = container.firstElementChild.offsetHeight;
     console.log(childWidth, childHeight);
+    console.log(axis, mode);
 
-	if (axis === "X" || axis === "both"){
+    if (axis === "X" || axis === "both"){
 		targetScrollX = container.scrollLeft;
 		incrementX = childWidth ;
 	}
@@ -553,21 +589,22 @@ function slideshowScroll(container, mode, axis="both"){
 		incrementY = childHeight ;
 	}
     console.log("Increment:", incrementX, incrementY);
-	if (mode === "prev"){
+    if (mode === "prev"){
 		targetScrollX = targetScrollX - incrementX;
-        targetScrollY = targetScrollY - incrementY;
-	} else if (mode === "next") {
+        	targetScrollY = targetScrollY - incrementY;
+    } else if (mode === "next") {
 		targetScrollX = targetScrollX + incrementX;
-        targetScrollY = targetScrollY + incrementY;
+        	targetScrollY = targetScrollY + incrementY;
     } else{
-        try{
-            mode = Number(mode)
+    	try{
+            mode = Number(mode);
+	    console.log("scrolling to: ", mode);
             targetScrollX = incrementX*mode - (containerWidth - childWidth) / 2;
             targetScrollY = incrementY*mode - (containerHeight - childHeight) / 2;
             console.log(mode, targetScrollX, targetScrollY);
-        } catch(err){console.log(err)}
+    	} catch(e){console.log(e)}
     }
-	console.log(axis, targetScrollX, targetScrollY);
+    console.log(axis, targetScrollX, targetScrollY);
     container.scrollTo(targetScrollX, targetScrollY);
 
 }
