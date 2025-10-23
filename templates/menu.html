@@ -10,7 +10,7 @@
         <div class="menu-subtitol menu-content loc" loc="nav_collecions">{{ loc.nav_collecions }}</div>
         {% if productes %}
             {% for col in productes.cols %}
-                <div class="menu-element menu-content under-hover clickable"  onclick="location.href='/{{ loc.lan }}/collecio/{{ col._id }}'">{{ col.nom }}</div>
+                <div class="menu-element menu-content under-hover clickable"  onclick="location.href='/{{ loc.lan }}/collecio/{{ col._id }}'">{{ col.nom_menu }}</div>
             {% endfor %}
         {% endif %}
    

@@ -268,6 +268,7 @@ class Collection(firebaseObject):
     def __init__(self, data={}, id=None):
         self.data ={}
         self.nom = ""
+        self.nom_menu = ""
         self.descripcio = ""
         self.imatges =[]
         self.ordre = 10
