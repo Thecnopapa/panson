@@ -75,7 +75,7 @@ body {
     height: 100%;
     max-height: 93vh;
     min-height: 93vh;
-    padding-top:7vh;
+    padding-top: max(var(--header-height), var(--min-header-height));
     padding-left:var(--padding);
     padding-right: var(--padding);
     background-color: white;
@@ -569,8 +569,9 @@ body {
 }
 
 .enlarged-arrows{
+    cursor: pointer;
 	position: absolute;
-	width: 100%;
+	width: 100vh;
 	display:flex;
 	flex-direction: row;
 	pointer-events: none;
@@ -715,25 +716,26 @@ body {
 		flex-direction:row;
 		width:fit-content;
 		height: fit-content;
-        	display: none;
+        display: none;
 	}
 	.bubble{
-        	height: 0.4rem;
-        	width:0.4rem;
-        	border: black 0.1rem solid;
+        height: 0.4rem;
+        width:0.4rem;
+        border: black 0.1rem solid;
 		margin-left:0.25rem;
-        	margin-right:0.25rem;
+        margin-right:0.25rem;
 		margin-bottom:0;
 		margin-top:0;
 	}
-    	.bubble:first-of-type{
-        	margin-left:0;
-    	}
-    	.bubble.active{
-        	background-color:black;
+    .bubble:first-of-type{
+        margin-left:0;
+    }
+
+    .bubble.active{
+        background-color:black;
 		height: 0.4rem;
 		width: 0.4rem;
-    	}
+    }
 	.enlarged-bubbles{
 	}
 	.enlarged-bubble{
@@ -742,129 +744,125 @@ body {
 	}
 	
 
-    	.arrows{
-        	top:0;
-        	position: absolute;
-		display:flex;
-		flex-direction: row;
-		width: 100%;
-		height:100vw;
-		align-items:center;
-		justify-content:space-between;
-        	pointer-events: none;
-        	* {
-            		pointer-events: auto;
-        	}
+    .arrows{
+        top:0;
+        position: absolute;
+        display:flex;
+        flex-direction: row;
+        width: 100%;
+        height:100vw;
+        align-items:center;
+        justify-content:space-between;
+        pointer-events: none;
+        * {
+            pointer-events: auto;
+            cursor: pointer;
+        }
 	}
-    	.arrows .main-arrow{
+    .arrows .main-arrow{
         	height: 45px;
+    }
 
-    	}
 	.arrows.scroll-start{
 		.main-arrow.left {
-			/*visibility:hidden;*/
 			opacity: 0.25;
 		}
 	}
 	.arrows.scroll-end{
 		.main-arrow.right{
-			/*visibility:hidden;*/
 			opacity:0.25;
 		}
 	}
 	
 
 
-        .galeries-landscape{
-            display: none;
-        }
-        .galeries-portrait{
-            display: flex;
-        }
-        .content-producte {
-            flex-direction: column;
-            max-height:fit-content;
-	    min-height:100vh;
-            height: fit-content;
-            width: 100vw;
-            max-width:100vw;
-            overflow-x: hidden;
-	    
-	    
+    .galeries-landscape{
+        display: none;
+    }
+    .galeries-portrait{
+        display: flex;
+    }
+    .content-producte {
+        flex-direction: column;
+        max-height:fit-content;
+        min-height:100vh;
+        height: fit-content;
+        width: 100vw;
+        max-width:100vw;
+        overflow-x: hidden;
+    }
 
-        }
+    #main-details{
+        width: var(--padded-width);
+        max-width: var(--padded-width);
+        padding-left:var(--padding);
+        padding-right: var(--padding);
+        left:0;
+        top:0;
+        height: fit-content;
+        min-height: fit-content;
+        height:fit-content;
+        position: relative;
+        max-height: fit-content;
+        padding-top: 4vh;
 
-        #main-details{
-            width: var(--padded-width);
-            max-width: var(--padded-width);
-            padding-left:var(--padding);
-            padding-right: var(--padding);
-            left:0;
-            top:0;
-            height: fit-content;
-            min-height: fit-content;
-            height:fit-content;
-            position: relative;
-            max-height: fit-content;
-            padding-top: 4vh;
+    }
 
-        }
+    #producte-images{
+        width: 100%;
+        max-width: 100%;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+        height: 100vw;
+        scroll-behavior: smooth;
 
-        #producte-images{
-            width: 100%;
-            max-width: 100%;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            overflow-x: scroll;
-            height: 100vw;
-            scroll-behavior: smooth;
-	    
-        }
+    }
 
-        .main-foto{
-            height:100%;
-            max-height:100%;
-            min-height:100%;
-            width:100%;
-            min-width:100%;
-            max-width: 100%;
-	    
-        }
+    .main-foto{
+        height:100%;
+        max-height:100%;
+        min-height:100%;
+        width:100%;
+        min-width:100%;
+        max-width: 100%;
 
-        #main-details{
-            background-color:white;
-        }
+    }
 
-    	#titol_producte{
-        	font-size: var(--font-size-large);
-        	margin-bottom: 0.25rem;
-    	}
+    #main-details{
+        background-color:white;
+    }
 
-    	.product-info{
+    #titol_producte{
+        font-size: var(--font-size-large);
+        margin-bottom: 0.25rem;
+    }
 
-    	}
+    .product-info{
 
-    	#product-description{
+    }
 
-    	}
+    #product-description{
 
-    	#initial-price{
-            font-size: var(--font-size-small);
-    	}
+    }
 
-    	.options{
-        	width:100%;
-    	}
+    #initial-price{
+        font-size: var(--font-size-small);
+    }
 
-    	.color-selector{
+    .options{
+        width:100%;
+    }
 
-    	}
+    .color-selector{
+
+    }
 
 
-    	.subtitol-galeria{
-    		margin-top: 4rem;
-            font-size: var(--font-size-small);
-    	}
+    .subtitol-galeria{
+        margin-top: 4rem;
+        font-size: var(--font-size-small);
+    }
 
     	
 	.galeria{
@@ -873,17 +871,23 @@ body {
 	.producte{
 		margin-top:0 !important;
 	}
-    
-    	.enlarged-slideshow{
+    .enlarged-container{
+        cursor: default;
+    }
+    .enlarged-slideshow{
 		height: 100vw;
 		max-height: 100vw;
 		width:100%;
-	    	max-width:100%;
-    	}
+        max-width:100%;
+    }
 	.enlarged-img{
 		min-width:100%;
 		min-height:100%;
+        cursor: default;
 	}
+    .enlarged-arrows{
+        width:100%;
+    }
 
 	
     .close-enlarged-container{

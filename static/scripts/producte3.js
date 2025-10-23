@@ -366,7 +366,9 @@ function enlargeImg(img, all=true){
 	
 
     newContainer.classList.add("enlarged-container");
-    //newContainer.addEventListener("click", function (event){event.preventDefault(); event.stopPropagation(); newContainer.remove(); document.documentElement.style.overflow = ""; newObserver.disconnect();});
+    if (window.innerWidth > desktopThreshold) {
+        newContainer.addEventListener("click", function (event){event.preventDefault(); event.stopPropagation(); newContainer.remove(); document.documentElement.style.overflow = ""; newObserver.disconnect();});
+    }
     newContainer.addEventListener("scroll", function (event){event.stopPropagation();});
     newContainer.addEventListener("touchmove", function (event){event.stopPropagation();});
     newContainer.addEventListener("wheel", function (event){event.stopPropagation();});
@@ -561,6 +563,7 @@ function updateProductSlideshow(target=undefined, arrows=undefined){
 
 
 function slideshowScroll(container, mode=undefined, axis="both"){
+    event.stopPropagation();
     let targetScrollX = 0;
     let targetScrollY = 0;
     let incrementX = 0;
