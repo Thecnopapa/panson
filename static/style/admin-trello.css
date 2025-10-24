@@ -13,15 +13,35 @@
     flex-direction: row;
     margin-bottom: 2rem;
     min-width: max-content;
+    flex-wrap: wrap;
+    span{
+        padding: 0.25rem;
+        margin-left: 1rem;
+        width: max-content;
+    }
 }
 
 .trello-field-header{
     min-width: max-content;
 }
-
-.trello-field-select, .trello-field-input {
-    margin-left: 1rem;
+.trello-field-label{
+    display: inline;
+    font-weight: bold;
+    font-size: var(--font-size-large);
+    background-color: white;
+}
+.trello-field-select, .trello-field-label {
+    margin-left: auto;
+    width: 80%;
+}
+.trello-field-input-text{
     width: 100%;
+    min-width: max-content;
+}
+.trello-field-input-checkbox{
+    width: fit-content;
+
+
 }
 
 .trello-field-select{

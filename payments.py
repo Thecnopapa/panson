@@ -35,6 +35,7 @@ class Trello():
         self.board_id = None
         self.list_id = None
         self._db_ref = None
+        self.labels = []
         self.setup()
 
 
@@ -64,30 +65,53 @@ class Trello():
             return False
 
     def get_available_boards(self):
-        method = "GET"
-        url = "https://api.trello.com/1/members/me/boards"
-        headers = {"Accept": "application/json"}
-        query = {
-            "key": self.api_key,
-            "token": self._token,
-            "fields": ["id", "name"],
-        }
-        response = requests.request(method, url, headers=headers, params=query)
-        return response.json()
+        try:
+            method = "GET"
+            url = "https://api.trello.com/1/members/me/boards"
+            headers = {"Accept": "application/json"}
+            query = {
+                "key": self.api_key,
+                "token": self._token,
+                "fields": ["id", "name"],
+            }
+            response = requests.request(method, url, headers=headers, params=query)
+            return response.json()
+        except:
+            return None
 
     def get_available_lists(self, board_id=None):
-        if board_id is None:
-            board_id = self.board_id
-        method = "GET"
-        url = "https://api.trello.com/1/boards/{}/lists".format(board_id)
-        headers = {"Accept": "application/json"}
-        query = {
-            "key": self.api_key,
-            "token": self._token,
-            "fields": ["id", "name"],
-        }
-        response = requests.request(method, url, headers=headers, params=query)
-        return response.json()
+        try:
+            if board_id is None:
+                board_id = self.board_id
+            method = "GET"
+            url = "https://api.trello.com/1/boards/{}/lists".format(board_id)
+            headers = {"Accept": "application/json"}
+            query = {
+                "key": self.api_key,
+                "token": self._token,
+                "fields": ["id", "name"],
+            }
+            response = requests.request(method, url, headers=headers, params=query)
+            return response.json()
+        except:
+            return None
+
+    def get_available_labels(self, board_id=None):
+        try:
+            if board_id is None:
+                board_id = self.board_id
+            method = "GET"
+            url = "https://api.trello.com/1/boards/{}/labels".format(board_id)
+            headers = {"Accept": "application/json"}
+            query = {
+                "key": self.api_key,
+                "token": self._token,
+                "fields": ["id", "name", "color"],
+            }
+            response = requests.request(method, url, headers=headers, params=query)
+            return response.json()
+        except:
+            return None
 
     def card_create(self, name, description, items=None):
         now = datetime.datetime.now()
@@ -102,6 +126,7 @@ class Trello():
             "desc": description,
             "start": now,
             "due": now + datetime.timedelta(days=30),
+            "idLabels": ",".join(self.labels),
         }
         response = requests.request(method, url, headers=headers, params=query)
         card_id = response.json()["id"]

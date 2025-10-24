@@ -630,11 +630,17 @@ def trello_update():
     use(0.01)
     if admin_check():
         trello = Trello()
-        trello.api_key = request.form["api_key"]
-        trello.board_id = request.form["board_id"]
-        trello.list_id = request.form["list_id"]
+        print(request.get_json())
+        data = request.get_json()
+        trello.api_key = data["api_key"]
+        trello.board_id = data["board_id"]
+        trello.list_id = data["list_id"]
+        try:
+            trello.labels = data["labels"]
+        except:
+            trello.labels = []
         trello.update()
-        return redirect("/admin/trello")
+        return jsonify({"success": True}), 200
 
 @app.post("/admin/trello/get-lists")
 def trello_get_lists():
@@ -650,12 +656,15 @@ def trello_test():
     use(0.01)
     if admin_check():
         trello = Trello()
-        print("Request:")
-        print(request.get_json())
         data = request.get_json()
+        print(data)
         trello.api_key = data["api_key"]
         trello.board_id = data["board_id"]
         trello.list_id = data["list_id"]
+        try:
+            trello.labels = data["labels"]
+        except:
+            trello.labels = []
         print(trello)
         r = trello.test()
         print(r)

@@ -4,10 +4,12 @@
 
     <div id="trello" class="admin-content">
     <div class="trello-title">Trello</div>
-        <form class="trello-form" action="/admin/trello/update" method="POST">
+        <div class="trello-form">
             <div class="trello-field trello-key">
                 <div class="trello-field-header">API key</div>
-                <input type="text" class="trello-field-input trello-key-input loaded" name="api_key" value="{{ trello.api_key }}">
+                <div class="trello-field-label">
+                    <input type="text" class="trello-field-input-text trello-key-input" name="api_key" value="{{ trello.api_key }}">
+                </div>
 
             </div>
             <div class="trello-field trello-board">
@@ -26,11 +28,21 @@
                     {% endfor %}
                 </select>
             </div>
+            <div class="trello-field trello-labels">
+                <div class="trello-field-header">Labels</div>
+                    {% for label in trello.get_available_labels() %}
+                        <span style="background-color: {{ label["color"] }}; width:max-content;">
+                            <input type="checkbox" class="trello-field-input-checkbox trello-label-input" {{ "checked" if label["id"] in trello.labels }} name="labels" value="{{ label["id"] }}">
+                            <div class="trello-field-label" >{{ label["name"] }}</div>
+                        </span>
+
+                    {% endfor %}
+            </div>
             <div class="trello-buttons">
-            <button type="submit" class="trello-submit-button" {{ "disabled" if (trello.board_id == "" or trello.board_id == None) }}>Actualitzar</button>
+            <button type="button" class="trello-submit-button" {{ "disabled" if (trello.board_id == "" or trello.board_id == None) }} onclick="updateTrello()">Actualitzar</button>
             <button type="button" class="trello-test-button" {{ "disabled" if (trello.board_id == "" or trello.board_id == None) }} onclick="testTrello()">Prova</button>
             </div>
-        </form>
+        </div>
 
 
     </div>

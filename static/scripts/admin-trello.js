@@ -47,6 +47,13 @@ async function testTrello(){
     console.log("Board: ", trelloBoardSelect.value );
     console.log("List: ", trelloListSelect.value );
     trelloTestButton.style.backgroundColor = "orange";
+    let labelInputs = [...document.getElementsByClassName("trello-label-input")];
+    let labels = []
+    labelInputs.forEach((label) => {
+        if (label.checked) {
+            labels.push(label.value);
+        }
+    });
 
     let resp = await fetch("/admin/trello/test", {
         method: "POST",
@@ -54,7 +61,7 @@ async function testTrello(){
             "Content-Type": "application/json",
             "Accept": "application/json",
         },
-        body: JSON.stringify({"api_key": trelloApiKey.value, "board_id":trelloBoardSelect.value, "list_id":trelloListSelect.value}),
+        body: JSON.stringify({"api_key": trelloApiKey.value, "board_id":trelloBoardSelect.value, "list_id":trelloListSelect.value, "labels":labels}),
     }).then((res) => {return res});
     console.log(resp);
     if (resp.ok) {
@@ -71,4 +78,38 @@ async function testTrello(){
         trelloTestButton.style.backgroundColor = "purple";
     }
 }
+
+async function updateTrello(){
+    console.log("Testing trello");
+    console.log("Key: ", trelloApiKey.value );
+    console.log("Board: ", trelloBoardSelect.value );
+    console.log("List: ", trelloListSelect.value );
+    trelloSubmitButton.style.backgroundColor = "orange";
+    let labelInputs = [...document.getElementsByClassName("trello-label-input")];
+    let labels = []
+    labelInputs.forEach((label) => {
+        if (label.checked) {
+            labels.push(label.value);
+        }
+    });
+
+    let resp = await fetch("/admin/trello/update", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        body: JSON.stringify({"api_key": trelloApiKey.value, "board_id":trelloBoardSelect.value, "list_id":trelloListSelect.value, "labels":labels }),
+    }).then((res) => {return res});
+    console.log(resp);
+    if (resp.ok) {
+        let data = await resp.json()
+        console.log(data);
+        trelloSubmitButton.style.backgroundColor = "green";
+    }
+    else {
+        trelloSubmitButton.style.backgroundColor = "red";
+    }
+}
+
 
