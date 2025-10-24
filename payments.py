@@ -2,8 +2,10 @@
 import os
 import uuid
 import time
+import datetime
 
-
+import requests
+import json
 from flask import request, redirect, jsonify
 from app_essentials.session import get_current_user
 from app_essentials.mail import *
@@ -11,6 +13,76 @@ from app_essentials.firebase import get_areas
 
 import stripe
 currency="EUR"
+
+
+trello_api_key = "59850621c8aa9f502e403a232d736954"
+trello_board_id = "68fb6bcf2163e1de70359a87"
+trello_list_id = "68fb7d2ac91b9fc82567f3b7"
+
+try:
+    with open(os.environ["TRELLO_KEY"]) as f:
+        trello_key = f.read()
+except:
+    print("Trello key could not be read")
+
+
+def create_card(name, description, items=None, address=""):
+    now = datetime.datetime.now()
+    method = "POST"
+    url = "https://api.trello.com/1/cards"
+    headers = {"Accept": "application/json"}
+    query = {
+            "key": trello_api_key,
+            "token": trello_key,
+            "desc": description,
+            "name": name,
+            "idList": trello_list_id,
+            "start": now,
+            "due": now + datetime.timedelta(days=30),
+            "address": address,
+            }
+    response = requests.request(method, url, headers=headers, params=query)
+    card_id = response.json()["id"]
+    if items is not None:
+        card_add_checklist(card_id, "Items", items)
+    return card_id
+
+def card_add_checklist(card, name, items=None):
+    method="POST"
+    url = "https://api.trello.com/1/cards/{}/checklists".format(card)
+    headers = {"Accept": "application/json"}
+    query = {
+            "key": trello_api_key,
+            "token": trello_key,
+            "name": name,
+            "checkItems": items,
+            }
+    response = requests.request(method, url, headers=headers, params=query)
+    checklist_id = response.json()["id"]
+    if items is not None:
+        for i in items:
+            card_add_checklist_item(checklist_id, i)
+    return checklist_id
+
+def card_add_checklist_item(checklist, name):
+    method="POST"
+    url = "https://api.trello.com/1/checklists/{}/checkItems".format(checklist)
+    headers = {"Accept": "application/json"}
+    query = {
+            "key": trello_api_key,
+            "token": trello_key,
+            "name": name,
+            }
+    response = requests.request(method, url, headers=headers, params=query)
+    item_id = response.json()["id"]
+    return item_id
+
+
+
+def get_trello():
+    data = requests.post("https://api.trello.com/1/cards?idList={}key={}&token={}".format(trello_list_id,trello_api_key, trello_key))
+    return data.json()
+
 
 try:
     with open(os.environ["STRIPE_KEY"]) as f:
@@ -205,6 +277,13 @@ def process_payment(lan):
             
     #payment=session["payment"]
     if session["status"] == "complete" and session["payment_status"] == "paid":
+        new_items =[]
+        customer_name = session["customer_details"]["name"]
+        customer_email = session["customer_details"]["email"]
+        customer_tel = session["customer_details"]["phone"]
+        ad = session["collected_information"]["shipping_details"]["address"]
+        address = ", ".join([ad["line1"], ad["line2"], ad["city"], ad["postal_code"], ad["country"]])
+        recipient = session["collected_information"]["shipping_details"]["name"]
         for line_item in line_items["data"]:
             print(line_item)
             auto_product = stripe.Product.retrieve(line_item["price"]["product"])
@@ -219,31 +298,53 @@ def process_payment(lan):
                 status=session["payment_status"],
                 line_id=line_item["id"],
                 auto_id=auto_product["id"],
-                adress=str(session["collected_information"]["shipping_details"]["address"]),
-                recipient=session["collected_information"]["shipping_details"]["name"],
+                adress=address,
+                recipient=recipient,
                 quantity=line_item["quantity"],
-                email = session["customer_details"]["email"],
-                client_name = session["customer_details"]["name"],
+                email = customer_email,
+                client_name = customer_name,
+                details = auto_product["description"],
             )),
 
             new_data = dict(
                 id="product_" + auto_product["id"],
                 name=line_item["description"],
                 description="Client: {} ({} - {}) \n Detalls peca: {}".format(
-              session["customer_details"]["name"],
-                    session["customer_details"]["email"],
-                    session["customer_details"]["phone"],
+                    customer_name,
+                    customer_email,
+                    customer_tel,
                     auto_product["description"],
 
                 ),
                 metadata=new_metadata,
                 images=auto_product["images"],
             )
+            new_items.append(new_data)
 
             try:
                 stripe.Product.create(**new_data)
             except:
                 stripe.Product.modify(**new_data)
+
+
+        card_name = "{} ({})".format(customer_name, len(new_items))
+        card_description="""
+        Client: {}
+        Email: {}
+        Telefon: {}
+        ---
+        Adreça: 
+        {}
+        {}
+        ---
+        """.format(
+               customer_name,
+               customer_email,
+               customer_tel,
+               recipient,
+               address)
+        card_items = [ "{} ({})".format(i["name"], i["metadata"]["details"]) for i in new_items]
+        create_card(card_name, card_description, card_items, address)
 
 
         while session["invoice"] is None:

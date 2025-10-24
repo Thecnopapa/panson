@@ -14,39 +14,47 @@ from google.oauth2 import service_account
 ### START APP CONFIG ###################################################################################################
 print(" * Initiatlising...")
 project_id = "panson"
-os.makedirs("secure", exist_ok=True)
-try:
-    secret_client = secretmanager.SecretManagerServiceClient()
-    print(" * Secret manager initialised")
 
+if os.environ.get("SECRETS", 1) != 0:
+    os.makedirs("secure", exist_ok=True)
 
     try:
-        with open("secure/firebase_service_account_info.json", "w") as f:
-            f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firebase_credentials/versions/1"}).payload.data.decode("UTF-8"))
+        secret_client = secretmanager.SecretManagerServiceClient()
+        print(" * Secret manager initialised")
+
+
+        try:
+            with open("secure/firebase_service_account_info.json", "w") as f:
+                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firebase_credentials/versions/1"}).payload.data.decode("UTF-8"))
+        except:
+            print(" * Failed to read firebase secret")
+        try:
+            with open("secure/firestore_service_account_info.json", "w") as f:
+                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firestore_credentials/versions/1"}).payload.data.decode("UTF-8"))
+        except:
+            print(" * Failed to read firestore secret")
+        try:
+            with open("secure/stripe_key", "w") as f:
+                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/stripe_key_thecnopapa_test/versions/2"}).payload.data.decode("UTF-8"))
+        except:
+            print(" * Failed to read stripe key")
+        try:
+            with open("secure/flask_key", "w") as f:
+                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/flask_secret_key/versions/1"}).payload.data.decode("UTF-8"))
+        except:
+            print(" * Failed to read flask secret")
+        try:
+            with open("secure/mailgun_key", "w") as f:
+                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/mailgun_sending_key/versions/2"}).payload.data.decode("UTF-8"))
+        except:
+            print(" * Failed to read mailgun sending key")
+        try:
+            with open("secure/trello_key", "w") as f:
+                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/trello_key/versions/2"}).payload.data.decode("UTF-8"))
+        except:
+            print(" * Failed to read trello key")
     except:
-        print(" * Failed to read firebase secret")
-    try:
-        with open("secure/firestore_service_account_info.json", "w") as f:
-            f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firestore_credentials/versions/1"}).payload.data.decode("UTF-8"))
-    except:
-        print(" * Failed to read firestore secret")
-    try:
-        with open("secure/stripe_key", "w") as f:
-            f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/stripe_key_thecnopapa_test/versions/2"}).payload.data.decode("UTF-8"))
-    except:
-        print(" * Failed to read stripe key")
-    try:
-        with open("secure/flask_key", "w") as f:
-            f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/flask_secret_key/versions/1"}).payload.data.decode("UTF-8"))
-    except:
-        print(" * Failed to read flask secret")
-    try:    
-        with open("secure/mailgun_key", "w") as f:
-            f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/mailgun_sending_key/versions/2"}).payload.data.decode("UTF-8"))
-    except:
-        print(" * Failed to read mailgun sending key")
-except:
-    print(" * Failed to initialise secret manager")
+        print(" * Failed to initialise secret manager")
 
 
 os.environ["FIREBASE_CREDENTIALS"] = "secure/firebase_service_account_info.json"
@@ -54,6 +62,8 @@ os.environ["FIRESTORE_CREDENTIALS"] = "secure/firestore_service_account_info.jso
 os.environ["STRIPE_KEY"] = "secure/stripe_key"
 os.environ["FLASK_KEY"] = "secure/flask_key"
 os.environ["MAILGUN_KEY"] = "secure/mailgun_key"
+os.environ["TRELLO_KEY"] = "secure/trello_key"
+
 
 app = Flask(__name__)
 app.config['STATIC_FOLDER'] = "static"
@@ -189,7 +199,9 @@ def admin_check():
 
 @app.route("/blank")
 def return_blank():
-    return ""
+    from payments import create_card, card_add_checklist
+    card = create_card("test", "this is a test", ["item1", "item2"])
+    return card
 
 @app.route("/ips")
 def return_ips():

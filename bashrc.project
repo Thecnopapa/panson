@@ -168,6 +168,13 @@ test (){
     else
         export START_NGROK=0
     fi
+
+    if [[ "$*" == *"no-secrets"* ]]; then
+	    export SECRETS=0
+    else
+	    export SECRETS=1
+    fi
+
     if [[ "$*" == *"debug"* ]]; then
         local title="$title --debug"
         echo -en "\033]0;$title\a"
