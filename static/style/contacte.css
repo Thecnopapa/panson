@@ -152,9 +152,8 @@
 
 .submit-email{
         width:fit-content;
-        padding: var(--padding) 2rem;
-        margin-left: auto;
-        margin-right: auto;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 
@@ -164,16 +163,24 @@
         height:fit-content;
         min-height: fit-content;
         margin-bottom: 10vh;
+	align-items: center;
+	flex-direction: column;
     }
 	#columnes-contacte{
 		flex-direction:column;
+		align-items: center;
 		
 	}
 	#contacte-left, #contacte-right{
-		width:auto;
+		width:var(--padded-width);
+		align-items:center;
 	}
 	#contacte-left{
 		padding-bottom: 5vh;
+	}
+	
+	.message{
+		height:20vh;
 	}
 
 }

@@ -38,7 +38,7 @@
 
 
 .subtitol-collecio{
-	font-size: var(--font-size-small);
+	font-size: var(--font-size-large);
 	margin-right: 0.5em;
 }
 
@@ -106,6 +106,9 @@
 	.titol-collecio{
 		font-size: var(--font-size-extra-large);
 	}
+	.subtitol-collecio{
+		font-size: var(--font-size-medium);
+	}
 	.imatges-collecio{
 		margin-top: 16px;
 	}
@@ -118,7 +121,9 @@
 	}
 	.descripcio-collecio{
 		font-size: var(--font-size-medium);
+	}
 	.ultima-imatge{
 		margin-top:100px;
+		height: calc(100vw * 5 / 4);
 	}
 }
