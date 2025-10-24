@@ -36,18 +36,12 @@ try:
         #storage_client = storage.Client(credentials=credentials, project="panson")
     # except:
     #    storage_client = storage.Client(project="panson")
-    try:
-        credentials = service_account.Credentials.from_service_account_file(
-            "secure/firestore_service_account_info.json")
-        print(" * Firestore credentials loaded (secret)")
-    except:
-        credentials = service_account.Credentials.from_service_account_file(
-            os.environ.get('FIRESTORE_CREDENTIALS'))
-        print(" * Firestore credentials loaded (local)")
+
+    credentials = service_account.Credentials.from_service_account_file(os.environ.get('FIRESTORE_CREDENTIALS'))
+    print(" * Firestore credentials loaded")
 
     storage_client = storage.Client(credentials=credentials, project="panson")
     db = storage_client.bucket("panson.firebasestorage.app")
-
 
     print(" * Firestore initialized")
 except Exception as e:

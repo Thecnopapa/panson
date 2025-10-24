@@ -7,6 +7,7 @@ import datetime
 import firebase_admin
 from google.cloud.firestore import FieldFilter
 from firebase_admin import credentials, firestore
+
 from google.oauth2 import service_account
 #if "FIREBASE_CREDENTIALS" in os.environ:
 _scopes = [
@@ -27,12 +28,10 @@ _scopes = [
 #cred = credentials.ApplicationDefault()
 
 
-try:
-    cred = credentials.Certificate("secure/firebase_service_account_info.json")
-    print(" * Firebase credentials loaded (secret)")
-except:
-    cred = credentials.Certificate(os.environ.get('FIREBASE_CREDENTIALS'))
-    print(" * Firebase credentials loaded (local)")
+
+cred = credentials.Certificate("secure/firebase_service_account_info.json")
+print(" * Firebase credentials loaded")
+
 app = firebase_admin.initialize_app(cred)
 # projects/746452924859/secrets/firestore_credentials
 db = firestore.client(app, database_id="productes")

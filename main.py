@@ -3,7 +3,6 @@ import json
 import os
 import datetime
 
-from payments import Trello
 from utilities import *
 
 # WEB-RELATED IMPORTS
@@ -16,11 +15,17 @@ from google.oauth2 import service_account
 ### START APP CONFIG ###################################################################################################
 print(" * Initiatlising...")
 project_id = "panson"
+FETCH_SECRETS = True
 
-if os.environ.get("SECRETS", "1") in [1, "1", True]:
+
+if "SECRETS" in os.environ:
+    if os.environ["SECRETS"] in [0, "0", False]:
+        FETCH_SECRETS = False
+        print(" * NOT Updating secrets (SECRETS={})".format(os.environ["SECRETS"]))
+
+if FETCH_SECRETS:
     print(" * Updating secrets")
     os.makedirs("secure", exist_ok=True)
-
     try:
         secret_client = secretmanager.SecretManagerServiceClient()
         print(" * Secret manager initialised")
@@ -58,8 +63,7 @@ if os.environ.get("SECRETS", "1") in [1, "1", True]:
             print(" * Failed to read trello key")
     except:
         print(" * Failed to initialise secret manager")
-else:
-    print(" * NOT updating secrets (SECRETS={})".format(os.environ.get("SECRETS", 1)))
+
 
 os.environ["FIREBASE_CREDENTIALS"] = "secure/firebase_service_account_info.json"
 os.environ["FIRESTORE_CREDENTIALS"] = "secure/firestore_service_account_info.json"
@@ -100,6 +104,7 @@ from app_essentials.firestore import list_blobs, upload_images, load_files
 from app_essentials.html_builder import template
 from app_essentials.utils import get_opcions
 from app_essentials.localisation import Images
+from payments import Trello
 
 
 from werkzeug.exceptions import HTTPException
