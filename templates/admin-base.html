@@ -7,11 +7,16 @@
 
 {% block imports %}
     <link href='/style/admin.css' as='style' rel='preload'>
+    <link href='/style/admin-img.css' as='style' rel='preload'>
+    <link href='/style/admin-trello.css' as='style' rel='preload'>
     <link href='/scripts/admin.js' as='script' rel='preload'>
+    <link href='/scripts/admin-trello.js' as='script' rel='preload'>
 
     <script defer type="text/javascript" src="/scripts/admin.js"></script>
+    <script defer type="text/javascript" src="/scripts/admin-trello.js"></script>
     <link href='/style/admin.css' rel='stylesheet'>
     <link href='/style/admin-img.css' rel='stylesheet'>
+    <link href='/style/admin-trello.css' rel='stylesheet'>
 
 {% endblock %}
 
@@ -27,13 +32,12 @@
 				<button onclick="window.location.href='/admin/bespoke'" class="loc" loc="admin-menu-bespoke">{{ loc.admin_menu_bespoke }}</button>
 				<button onclick="window.location.href='/admin/collecions'" class="loc" loc="admin-menu-collecions">{{ loc.admin_menu_collecions }}</button>
 				<button onclick="window.location.href='/admin/localisation'" class="loc" loc="admin-menu-localisation">{{ loc.admin_menu_localisation }}</button>
-			
+                <button onclick="window.location.href='/admin/imatges'"  class="loc" loc="admin-menu-imatges">{{ loc.admin_menu_imatges }}</button>
+                <button onclick="window.location.href='/admin/trello'" class="loc" loc="admin-menu-trello">{{ loc.admin_menu_trello }}</button>
+                <button onclick="window.location.href='/admin/misc'" class="loc" loc="admin-menu-avancat">{{ loc.admin_menu_avancat }}</button>
 
-                    <button onclick="window.location.href='/admin/imatges'">Imatges</button>
-		    {% if user.username == "iain" %}
-                    <button onclick="window.location.href='/admin/misc'">Misc</button>
-
-				{% endif %}
+                {% if user.username == "iain" %}
+                {% endif %}
 			</div>
 		</div>
 		<div id=admin-page>

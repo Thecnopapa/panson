@@ -7,6 +7,8 @@ import datetime
 import requests
 import json
 from flask import request, redirect, jsonify
+
+from app_essentials import firebase
 from app_essentials.session import get_current_user
 from app_essentials.mail import *
 from app_essentials.firebase import get_areas
@@ -15,74 +17,6 @@ import stripe
 currency="EUR"
 
 
-trello_api_key = "59850621c8aa9f502e403a232d736954"
-trello_board_id = "68fb6bcf2163e1de70359a87"
-trello_list_id = "68fb7d2ac91b9fc82567f3b7"
-
-try:
-    with open(os.environ["TRELLO_KEY"]) as f:
-        trello_key = f.read()
-except:
-    print("Trello key could not be read")
-
-
-def create_card(name, description, items=None, address=""):
-    now = datetime.datetime.now()
-    method = "POST"
-    url = "https://api.trello.com/1/cards"
-    headers = {"Accept": "application/json"}
-    query = {
-            "key": trello_api_key,
-            "token": trello_key,
-            "desc": description,
-            "name": name,
-            "idList": trello_list_id,
-            "start": now,
-            "due": now + datetime.timedelta(days=30),
-            "address": address,
-            }
-    response = requests.request(method, url, headers=headers, params=query)
-    card_id = response.json()["id"]
-    if items is not None:
-        card_add_checklist(card_id, "Items", items)
-    return card_id
-
-def card_add_checklist(card, name, items=None):
-    method="POST"
-    url = "https://api.trello.com/1/cards/{}/checklists".format(card)
-    headers = {"Accept": "application/json"}
-    query = {
-            "key": trello_api_key,
-            "token": trello_key,
-            "name": name,
-            "checkItems": items,
-            }
-    response = requests.request(method, url, headers=headers, params=query)
-    checklist_id = response.json()["id"]
-    if items is not None:
-        for i in items:
-            card_add_checklist_item(checklist_id, i)
-    return checklist_id
-
-def card_add_checklist_item(checklist, name):
-    method="POST"
-    url = "https://api.trello.com/1/checklists/{}/checkItems".format(checklist)
-    headers = {"Accept": "application/json"}
-    query = {
-            "key": trello_api_key,
-            "token": trello_key,
-            "name": name,
-            }
-    response = requests.request(method, url, headers=headers, params=query)
-    item_id = response.json()["id"]
-    return item_id
-
-
-
-def get_trello():
-    data = requests.post("https://api.trello.com/1/cards?idList={}key={}&token={}".format(trello_list_id,trello_api_key, trello_key))
-    return data.json()
-
 
 try:
     with open(os.environ["STRIPE_KEY"]) as f:
@@ -90,6 +24,124 @@ try:
 
 except:
     print("Stripe key could not be read")
+
+
+
+
+class Trello():
+    def __init__(self):
+        self._token = None
+        self.api_key = None
+        self.board_id = None
+        self.list_id = None
+        self._db_ref = None
+        self.setup()
+
+
+    def setup(self):
+        from app_essentials.firebase import db
+        try:
+            with open(os.environ["TRELLO_KEY"]) as f:
+                self._token = f.read()
+        except:
+            print("Trello key could not be read")
+
+        self._db_ref=db.collection("localisation").document("trello")
+
+        raw_data = self._db_ref.get().to_dict()
+        for k,v in raw_data.items():
+            setattr(self,k,v)
+
+    def update(self):
+        self._db_ref.update({k:v for k,v in self.__dict__.items() if not k.startswith("_")})
+
+    def test(self):
+        print("Testing trello")
+        try:
+            self.card_create("prova", "aixo es una prova")
+            return True
+        except:
+            return False
+
+    def get_available_boards(self):
+        method = "GET"
+        url = "https://api.trello.com/1/members/me/boards"
+        headers = {"Accept": "application/json"}
+        query = {
+            "key": self.api_key,
+            "token": self._token,
+            "fields": ["id", "name"],
+        }
+        response = requests.request(method, url, headers=headers, params=query)
+        return response.json()
+
+    def get_available_lists(self, board_id=None):
+        if board_id is None:
+            board_id = self.board_id
+        method = "GET"
+        url = "https://api.trello.com/1/boards/{}/lists".format(board_id)
+        headers = {"Accept": "application/json"}
+        query = {
+            "key": self.api_key,
+            "token": self._token,
+            "fields": ["id", "name"],
+        }
+        response = requests.request(method, url, headers=headers, params=query)
+        return response.json()
+
+    def card_create(self, name, description, items=None):
+        now = datetime.datetime.now()
+        method = "POST"
+        url = "https://api.trello.com/1/cards"
+        headers = {"Accept": "application/json"}
+        query = {
+            "key": self.api_key,
+            "token": self._token,
+            "idList": self.list_id,
+            "name": name,
+            "desc": description,
+            "start": now,
+            "due": now + datetime.timedelta(days=30),
+        }
+        response = requests.request(method, url, headers=headers, params=query)
+        card_id = response.json()["id"]
+        if items is not None:
+            self.card_add_checklist(card_id, "Items", items)
+        return card_id
+
+    def card_add_checklist(self, card, name, items=None):
+        method = "POST"
+        url = "https://api.trello.com/1/cards/{}/checklists".format(card)
+        headers = {"Accept": "application/json"}
+        query = {
+            "key": self.api_key,
+            "token": self._token,
+            "name": name,
+        }
+        response = requests.request(method, url, headers=headers, params=query)
+        checklist_id = response.json()["id"]
+        if items is not None:
+            for i in items:
+                self.card_checklist_add_item(checklist_id, i)
+        return checklist_id
+
+    def card_checklist_add_item(self, checklist, name):
+        method = "POST"
+        url = "https://api.trello.com/1/checklists/{}/checkItems".format(checklist)
+        headers = {"Accept": "application/json"}
+        query = {
+            "key": self.api_key,
+            "token": self._token,
+            "name": name,
+        }
+        response = requests.request(method, url, headers=headers, params=query)
+        item_id = response.json()["id"]
+        return item_id
+
+
+
+
+
 
 
 def create_items(user):
@@ -344,7 +396,8 @@ def process_payment(lan):
                recipient,
                address)
         card_items = [ "{} ({})".format(i["name"], i["metadata"]["details"]) for i in new_items]
-        create_card(card_name, card_description, card_items, address)
+        trello = Trello()
+        trello.card_create(card_name, card_description, card_items)
 
 
         while session["invoice"] is None:

@@ -2,6 +2,8 @@
 import json
 import os
 import datetime
+
+from payments import Trello
 from utilities import *
 
 # WEB-RELATED IMPORTS
@@ -153,7 +155,7 @@ def check_limit(max_reqs=10, seconds=10):
     else:
         pass
 
-def use(amount=1):
+def use(amount=1.0):
     #print("* Checking limit (local):")
     global usage_ips
     if "usage" not in session:
@@ -585,8 +587,9 @@ def info_talles(lan):
 @app.route("/admin/<page>/")
 def admin(lan="cat", page="base"):
     use()
+    from payments import Trello
     if admin_check():
-        return template(lan=lan, imgs=Images().load(), templates="admin-{}".format(page), amagats=True, footer=False, collecions = get_cols(amagats=True))
+        return template(lan=lan, imgs=Images().load(), templates="admin-{}".format(page), amagats=True, footer=False, collecions = get_cols(amagats=True), trello=Trello())
     else:
         return template(lan=lan, templates="login")
 
@@ -619,6 +622,44 @@ def logout():
     user.is_admin = False
     user.update_db()
     return redirect("/")
+
+
+
+@app.post("/admin/trello/update")
+def trello_update():
+    use(0.01)
+    if admin_check():
+        trello = Trello()
+        trello.api_key = request.form["api_key"]
+        trello.board_id = request.form["board_id"]
+        trello.list_id = request.form["list_id"]
+        trello.update()
+        return redirect("/admin/trello")
+
+@app.post("/admin/trello/get-lists")
+def trello_get_lists():
+    use(0.01)
+    if admin_check():
+        trello = Trello()
+        print(request.get_json())
+        lists = trello.get_available_lists(request.get_json()["board_id"])
+        return jsonify(lists), 200
+
+@app.post("/admin/trello/test")
+def trello_test():
+    use(0.01)
+    if admin_check():
+        trello = Trello()
+        print("Request:")
+        print(request.get_json())
+        data = request.get_json()
+        trello.api_key = data["api_key"]
+        trello.board_id = data["board_id"]
+        trello.list_id = data["list_id"]
+        print(trello)
+        r = trello.test()
+        print(r)
+        return {"success": r}, 200
 
 
 

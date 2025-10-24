@@ -1,0 +1,37 @@
+{% extends "admin-base.html" %}
+
+{% block content %}
+
+    <div id="trello" class="admin-content">
+    <div class="trello-title">Trello</div>
+        <form class="trello-form" action="/admin/trello/update" method="POST">
+            <div class="trello-field trello-key">
+                <div class="trello-field-header">API key</div>
+                <input type="text" class="trello-field-input trello-key-input loaded" name="api_key" value="{{ trello.api_key }}">
+
+            </div>
+            <div class="trello-field trello-board">
+                <div class="trello-field-header">Board</div>
+                <select class="trello-field-select trello-board-select {{ "loaded" if not (trello.board_id == "" or trello.board_id == None) }}" name="board_id"  onchange="getTrelloLists()">
+                    {% for board in trello.get_available_boards() %}
+                        <option value="{{ board["id"] }}" {{ "selected" if board["id"] == trello.board_id }}>{{ board["name"] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="trello-field trello-list">
+                <div class="trello-field-header">List</div>
+                <select class="trello-field-select trello-list-select {{ "loaded" if not (trello.board_id == "" or trello.board_id == None) }}" name="list_id" current="{{ trello.list_id }}">
+                    {% for list in trello.get_available_lists() %}
+                            <option value="{{ list["id"] }}" {{ "selected" if list["id"] == trello.list_id }}>{{ list["name"] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="trello-buttons">
+            <button type="submit" class="trello-submit-button" {{ "disabled" if (trello.board_id == "" or trello.board_id == None) }}>Actualitzar</button>
+            <button type="button" class="trello-test-button" {{ "disabled" if (trello.board_id == "" or trello.board_id == None) }} onclick="testTrello()">Prova</button>
+            </div>
+        </form>
+
+
+    </div>
+{% endblock %}

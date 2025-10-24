@@ -1,0 +1,43 @@
+#trello{
+
+}
+.trello-title{
+    font-size: var(--font-size-extra-large);
+}
+.trello-form{
+    width:30%;
+}
+.trello-field{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2rem;
+    min-width: max-content;
+}
+
+.trello-field-header{
+    min-width: max-content;
+}
+
+.trello-field-select, .trello-field-input {
+    margin-left: 1rem;
+    width: 100%;
+}
+
+.trello-field-select{
+    visibility: hidden;
+
+}
+
+.trello-field-select.loaded{
+    visibility: visible;
+}
+
+
+
+
+@media only screen and (max-width: 1025px) {
+    .trello-form{
+        width: var(--padded-width);
+    }
+}
