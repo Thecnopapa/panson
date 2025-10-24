@@ -113,7 +113,7 @@ class Trello():
         except:
             return None
 
-    def card_create(self, name, description, items=None):
+    def card_create(self, name, description, items=None, link=None):
         now = datetime.datetime.now()
         method = "POST"
         url = "https://api.trello.com/1/cards"
@@ -128,6 +128,8 @@ class Trello():
             "due": now + datetime.timedelta(days=30),
             "idLabels": ",".join(self.labels),
         }
+        if link is not None:
+            query["urlSource"] = link
         response = requests.request(method, url, headers=headers, params=query)
         card_id = response.json()["id"]
         if items is not None:
@@ -346,10 +348,10 @@ def init_checkout(lan, force_new=False):
 
 def process_payment(lan):
     user = get_current_user()
-    session = stripe.checkout.Session.retrieve(user.last_checkout, expand=["line_items"])
+    session = stripe.checkout.Session.retrieve(user.last_checkout, expand=["line_items", "payment_intent", "shipping_rate"])
     line_items = session["line_items"]
     print(session)
-    print(line_items)
+    #print(line_items)
     
             
     #payment=session["payment"]
@@ -362,16 +364,16 @@ def process_payment(lan):
         address = ", ".join([ad["line1"], ad["line2"], ad["city"], ad["postal_code"], ad["country"]])
         recipient = session["collected_information"]["shipping_details"]["name"]
         for line_item in line_items["data"]:
-            print(line_item)
+            #print(line_item)
             auto_product = stripe.Product.retrieve(line_item["price"]["product"])
-            print(auto_product)
+            #print(auto_product)
             old_metadata = auto_product["metadata"]
-            print("old_metadata", old_metadata)
+            #print("old_metadata", old_metadata)
             new_metadata = old_metadata
             new_metadata.update(dict(
                 order_id=session["id"],
                 customer_id=session["customer"],
-                payment_id=session["payment_intent"],
+                payment_id=session["payment_intent"]["id"],
                 status=session["payment_status"],
                 line_id=line_item["id"],
                 auto_id=auto_product["id"],
@@ -406,20 +408,40 @@ def process_payment(lan):
 
         card_name = "{} ({})".format(customer_name, len(new_items))
         card_description="""
+        ----- Dades client -------------
         Client: {}
         Email: {}
         Telefon: {}
-        ---
+        
+        ----- Enviament ----------------
         Adreça: 
         {}
         {}
-        ---
+        
+        --- Pagament -------------------
+        Preu: {} {}
+        Enviament: {} + {} = {} {}
+        Total: {} + {} + {} = {} {}
+        
+        --- Stripe ---------------------
+        customer_id: {}
+        payment_id: {}
+        product_id: {}
+        
+        --- {} ----------------
         """.format(
-               customer_name,
-               customer_email,
-               customer_tel,
-               recipient,
-               address)
+            customer_name,
+            customer_email,
+            customer_tel,
+            recipient,
+            address,
+            session["amount_subtotal"]/100,
+            session["payment_intent"]["currency"],
+            session["shipping_cost"]["amount_subtotal"]/100, session["shipping_cost"]["amount_tax"]/100,session["shipping_cost"]["amount_total"]/100, session["payment_intent"]["currency"],
+            session["amount_subtotal"]/100, session["payment_intent"]["amount_details"]["shipping"]["amount"]/100, session["payment_intent"]["amount_details"]["tax"]["total_tax_amount"]/100, session["payment_intent"]["amount_received"]/100, session["payment_intent"]["currency"],
+            session["customer"], session["payment_intent"]["id"], ", ".join(d["id"] for d in new_items),
+            datetime.date.today()
+        )
         card_items = [ "{} ({})".format(i["name"], i["metadata"]["details"]) for i in new_items]
         trello = Trello()
         trello.card_create(card_name, card_description, card_items)
