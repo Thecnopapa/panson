@@ -15,7 +15,8 @@ from google.oauth2 import service_account
 print(" * Initiatlising...")
 project_id = "panson"
 
-if os.environ.get("SECRETS", 1) != 0:
+if os.environ.get("SECRETS", "1") in [1, "1", True]:
+    print(" * Updating secrets")
     os.makedirs("secure", exist_ok=True)
 
     try:
@@ -55,7 +56,8 @@ if os.environ.get("SECRETS", 1) != 0:
             print(" * Failed to read trello key")
     except:
         print(" * Failed to initialise secret manager")
-
+else:
+    print(" * NOT updating secrets (SECRETS={})".format(os.environ.get("SECRETS", 1)))
 
 os.environ["FIREBASE_CREDENTIALS"] = "secure/firebase_service_account_info.json"
 os.environ["FIRESTORE_CREDENTIALS"] = "secure/firestore_service_account_info.json"
