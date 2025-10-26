@@ -37,7 +37,7 @@ html {
     width: 100dvw;
     height: 100dvh;
     --header-height: 7vh;
-    --min-header-height: 60px;
+    --min-header-height: 42px;
 
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
