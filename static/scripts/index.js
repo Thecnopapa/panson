@@ -22,13 +22,13 @@ function updateScroll() {
 
 
     if (window.innerWidth <= 1025){
-        title.style.top = String(26.5 - (25.5 * scroll / maxScroll)).concat("vh");
-        title.style.height = String(20 - (15 * scroll / maxScroll)).concat("vh");
+        title.style.top = String(26.5 - (25.75 * scroll / maxScroll)).concat("vh");
+        title.style.height = String(20 - (14.5 * scroll / maxScroll)).concat("vh");
         title.style.width = String(50 - (0 * scroll / maxScroll)).concat("vw");
         title.style.left = String(25 + (0 * scroll / maxScroll)).concat("vw");
 	    }else {
-        title.style.top = String(40 - (39 * scroll / maxScroll)).concat("vh");
-        title.style.height = String(20 - (15 * scroll / maxScroll)).concat("vh");
+        title.style.top = String(40 - (39.25 * scroll / maxScroll)).concat("vh");
+        title.style.height = String(20 - (15.5 * scroll / maxScroll)).concat("vh");
         title.style.width = String(60 - (40 * scroll / maxScroll)).concat("vw");
         title.style.left = String(20 + (20 * scroll / maxScroll)).concat("vw");
     }
