@@ -392,7 +392,6 @@ video {
     min-height: calc(var(--min-header-height) / 2.5);
     width: calc(var(--header-height) / 2.5);
     min-width: calc(var(--min-header-height) / 2.5);
-
     transition: 1s;
 }
 
@@ -599,6 +598,15 @@ video {
         padding-right: var(--padding);
     }
 
+    .shopping-cart {
+
+    height: calc(var(--header-height) / 2);
+    min-height: calc(var(--min-header-height) / 2);
+    width: calc(var(--header-height) / 2);
+    min-width: calc(var(--min-header-height) / 2);
+}
+
+
     .popup-info{
         width: calc(100% - 5vh - var(--padding) * 2);
         max-height: calc(95% - var(--padding) * 2);
@@ -630,4 +638,5 @@ video {
 	    margin-left:0;
 	    width:100%;
     }
+
 }
