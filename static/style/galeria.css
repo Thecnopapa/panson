@@ -114,7 +114,7 @@
 
 .imatge{
     display: none;
-    position: relative;
+    position: absolute;
     background-size: cover;
     background-position: center;
     width: 24.8dvw;
@@ -128,6 +128,7 @@
 .primera{
     display: flex;
     z-index:5;
+    top:0;
 }
 .segona{
 	display: flex;
@@ -150,6 +151,7 @@
 
 .detalls-galeria{
 	position:relative;
+    margin-top: 24.8dvw;
     width: 22.8dvw;
     padding-top:0.5rem;
     padding-bottom:1rem;
@@ -317,6 +319,9 @@
     /*    margin-top: 5vh;*/
     /*}*/
 
+    .detalls-galeria{
+        margin-top: 49.5dvw;
+    }
     .producte.active .nom{
 	text-underline-offset: 0.25rem;
    	text-decoration-line: underline;
@@ -345,6 +350,9 @@
     .imatge{
         height: 49.5dvw;
         width: inherit;
+    }
+    .segona{
+        display: none;
     }
 
 
