@@ -29,7 +29,6 @@
 }
 
 #contacte-right{
- width:50%;
     margin:0;
  
 }
@@ -83,7 +82,9 @@
 	width: 40%;
 
 }
-
+.email-label:last-of-type{
+    margin-right: 0;
+}
 
 .email-input{
     margin-top:0.5rem;
@@ -145,7 +146,7 @@
 }
 
 .message-label{
-    width: var(--padded-width);
+    width: 100%;
 }
 
 

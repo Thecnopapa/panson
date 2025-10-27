@@ -388,11 +388,11 @@ video {
     align-content: center;
     text-align: center;
     vertical-align: center;
-    height: calc(var(--header-height) / 2);
-    min-height: calc(var(--min-header-height) / 2);
-    width: calc(var(--header-height) / 2);
-    min-width: calc(var(--min-header-height) / 2);
-    padding-bottom: 0.5vh;
+    height: calc(var(--header-height) / 2.5);
+    min-height: calc(var(--min-header-height) / 2.5);
+    width: calc(var(--header-height) / 2.5);
+    min-width: calc(var(--min-header-height) / 2.5);
+
     transition: 1s;
 }
 
@@ -497,10 +497,10 @@ video {
     align-content: center;
     text-align: center;
     vertical-align: center;
-    height: calc(var(--header-height) / 2);
-    min-height: calc(var(--min-header-height) / 2);
-    width: calc(var(--header-height) / 2);
-    min-width: calc(var(--min-header-height) / 2);
+    height: calc(var(--header-height) / 2.5);
+    min-height: calc(var(--min-header-height) / 2.5);
+    width: calc(var(--header-height) / 2.5);
+    min-width: calc(var(--min-header-height) / 2.5);
     transition: 1s ease;
 
 }
@@ -586,13 +586,6 @@ video {
     #title{
         display: flex;
         width: 30vw;
-    }
-    .shopping-cart{
-        height: 3.5vh;
-        width: 3.5vh;
-    }
-    .cart{
-        height: 6vh;
     }
 
     .navigation-left {

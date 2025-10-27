@@ -29,44 +29,39 @@
 
 {% macro contact_form(target="contacte", name=True, email=True, prefix=True, phone=True, subject=True, message=True) %}
 
-			<form class=email-form method=POST action="/{{ loc.lan }}/send_email/{{ target }}/">
-				<div class=sender-details>
-                    {% if name %}
-					<label for=sender-name class="email-label sender-name-label loc" loc="con_nom">{{ loc.con_nom }}
-						<input required type=text autocomplete=name class="email-input bottom-border-input sender-name" name="sender-name"></label>
-                    {% endif %}
-                {% if email %}
-					<label for=sender-email class="email-label sender-email-label loc" loc="con_email">{{ loc.con_email }}
-						<input required type=email autocomplete=email class="email-input bottom-border-input sender-email" name="sender-email"></label>
-                {% endif %}
-				</div>
-				<div class=long-inputs>
-                    {% if phone %}
-                    <div class="phone-input">
-                        {% if prefix %}
-                        <label for=sender-phone-prefix class="email-label phone-prefix-label loc" loc="con_prefixe">{{ loc.con_prefixe }}
-                            <span class="phone-prefix">+<input type=number autocomplete=tel-country-code class="phone-prefix-input email-input bottom-border-input sender-tel-prefix" name=sender-tel-prefix placeholder="34"></span></label>
-                        {% endif %}
-                        <label for=sender-phone class="email-label phone-number-label loc" loc="con_telefon">{{ loc.con_telefon}}
-                            <input required type=tel autocomplete=tel-national class="email-input bottom-border-input sender-tel" name=sender-tel></label>
-					</div>
-                {% endif %}
-                    {% if subject %}
-                    <label for=subject class="email-label loc" loc="con_assumpte">{{ loc.con_assumpte }}
-						<input required type=text autocomplete=subject class="email-input bottom-border-input subject" name=subject></label>
-                    {% endif %}
-                    {% if message %}
-                    <label for=message class="email-label message-label loc" loc="con_missatge">{{ loc.con_missatge}}
-                        <textarea required type=text autocomplete=message class="email-input bottom-border-input message" name=message></textarea></label>
-                {% endif %}
-				</div>
-                <button type=submit class="button black-button submit-email loc" loc="con_enviar">{{ loc.con_enviar }}</button>
-			</form>
-		</div>
-	</div>
-
-
-</div>
+<form class=email-form method=POST action="/{{ loc.lan }}/send_email/{{ target }}/">
+    <div class=sender-details>
+        {% if name %}
+        <label for=sender-name class="email-label sender-name-label"><span class="loc" loc="con_nom">{{ loc.con_nom }}</span>
+            <input required type=text autocomplete=name class="email-input bottom-border-input sender-name" name="sender-name"></label>
+        {% endif %}
+    {% if email %}
+        <label for=sender-email class="email-label sender-email-label"><span class="loc" loc="con_email">{{ loc.con_email }}</span>
+            <input required type=email autocomplete=email class="email-input bottom-border-input sender-email" name="sender-email"></label>
+    {% endif %}
+    </div>
+    <div class=long-inputs>
+        {% if phone %}
+        <div class="phone-input">
+            {% if prefix %}
+                <label for=sender-phone-prefix class="email-label phone-prefix-label"><span class="loc" loc="con_prefixe">{{ loc.con_prefixe }}</span>
+                <span class="phone-prefix">+<input type=number autocomplete=tel-country-code class="phone-prefix-input email-input bottom-border-input sender-tel-prefix" name=sender-tel-prefix placeholder="34"></span></label>
+            {% endif %}
+            <label for=sender-phone class="email-label phone-number-label"><span class="loc" loc="con_telefon">{{ loc.con_telefon}}</span>
+                <input required type=tel autocomplete=tel-national class="email-input bottom-border-input sender-tel" name=sender-tel></label>
+        </div>
+    {% endif %}
+        {% if subject %}
+            <label for=subject class="email-label"><span class="loc" loc="con_assumpte">{{ loc.con_assumpte }}</span>
+            <input required type=text autocomplete=subject class="email-input bottom-border-input subject" name=subject></label>
+        {% endif %}
+        {% if message %}
+            <label for=message class="email-label message-label"><span class="loc" loc="con_missatge">{{ loc.con_missatge}}</span>
+            <textarea required type=text autocomplete=message class="email-input bottom-border-input message" name=message></textarea></label>
+    {% endif %}
+    </div>
+    <button type=submit class="button black-button submit-email loc" loc="con_enviar">{{ loc.con_enviar }}</button>
+</form>
 
 
 {% endmacro %}
