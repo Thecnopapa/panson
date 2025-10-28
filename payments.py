@@ -361,7 +361,7 @@ def process_payment(lan):
         customer_email = session["customer_details"]["email"]
         customer_tel = session["customer_details"]["phone"]
         ad = session["collected_information"]["shipping_details"]["address"]
-        address = ", ".join([ad["line1"], ad["line2"], ad["city"], ad["postal_code"], ad["country"]])
+        address = ", ".join([ad["line1"], ad["line2"],  ad["postal_code"], ad["city"], ad["state"], ad["country"]])
         recipient = session["collected_information"]["shipping_details"]["name"]
         for line_item in line_items["data"]:
             #print(line_item)
