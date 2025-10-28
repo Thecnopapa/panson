@@ -7,6 +7,7 @@ import datetime
 import firebase_admin
 from google.cloud.firestore import FieldFilter
 from firebase_admin import credentials, firestore
+from werkzeug.utils import secure_filename
 
 from google.oauth2 import service_account
 #if "FIREBASE_CREDENTIALS" in os.environ:
@@ -91,6 +92,11 @@ class IP(firebaseObject):
     pass
 
 def check_if_admin(username, password):
+    if username is None or username == "":
+        return False
+    username = "".join([l for l in username if (l.isalpha() or l.isdigit() or l in ["-","_"])])
+    password = "".join([l for l in password if (l.isalpha() or l.isdigit() or l in ["-","_"])])
+    print(username, password)
     raw = admins.where(filter=FieldFilter("username", "==", username )).where(filter=FieldFilter("password", "==", password )).stream()
     match = [a for a in raw]
     if len(match) == 1:

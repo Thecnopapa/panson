@@ -11,12 +11,15 @@
 
 {% block body %}
 
+<div id="nav-color" navColor="opaque"></div>
+<div id=login>
+<h2 class="login-title">Admin login</h2>
 
-<h2 style="margin-top: 20%;">Admin login</h2>
 
-<form method=post action=/login>
-    Usuari:<input type=text name=username id=usuari value="" >
-    Contrasenya:<input type=password name=password value="" id=contrasenya autocomplete=password>
+<form id=login-form method=post action=/login>
+	Usuari:<input type=text name=username id=usuari value="" ><br>
+	Contrasenya:<input type=password name=password value="" id=contrasenya autocomplete=password><br>
     <input type=submit name=save value=Accedir id=accedir>
 </form>
+</div>
 {% endblock %}
