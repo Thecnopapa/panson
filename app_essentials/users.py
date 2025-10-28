@@ -105,6 +105,7 @@ class UserOld(firebaseObject):
         self.cart = {}
         self.preferits = []
         self.is_admin = False
+        self.super = False
         self.accepted_cookies = False
         self.cookies = {
             'ad_user_data': 'denied',
