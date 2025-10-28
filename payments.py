@@ -133,7 +133,7 @@ class Trello():
         response = requests.request(method, url, headers=headers, params=query)
         card_id = response.json()["id"]
         if items is not None:
-            self.card_add_checklist(card_id, "Items", items)
+            self.card_add_checklist(card_id, "Productes", items)
         return card_id
 
     def card_add_checklist(self, card, name, items=None):
@@ -442,7 +442,7 @@ def process_payment(lan):
             session["customer"], session["payment_intent"]["id"], ", ".join(d["id"] for d in new_items),
             datetime.date.today()
         )
-        card_items = [ "{} ({})".format(i["name"], i["metadata"]["details"]) for i in new_items]
+        card_items = [ "{} ({}) x{}".format(i["name"], i["metadata"]["details"], i["quantity"]) for i in new_items]
         trello = Trello()
         trello.card_create(card_name, card_description, card_items)
 
