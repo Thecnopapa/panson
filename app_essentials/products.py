@@ -244,15 +244,20 @@ class Products():
 
 import pandas as pd
 def get_talla_es(unit, value, target_unit="es"):
-    df = pd.read_excel("static/MIDES_PANSON.xlsx", header = 1).astype(str)
-    unit = unit.lower()
-    value = str(value)
-    #print(df)
-    #print(df[unit])
-    #print(df[df[unit] == value])
-    value_row = [t for t in df[df[unit] == value].itertuples()][0]
-    target_value = value_row.__getattribute__(target_unit)
-    return target_value
+    try:
+        df = pd.read_excel("static/sizes.xlsx", header = 1).astype(str)
+        unit = unit.lower()
+        value = str(value)
+        #print(unit, value)
+        #print(df)
+        #print(df.loc[:,unit])
+        #print(df[df[unit] == value])
+        value_row = [t for t in df[df[unit] == value].itertuples()][0]
+        #print(value_row)
+        target_value = value_row.__getattribute__(target_unit)
+        return target_value
+    except:
+        return "NA"
 
 
 class Bespoke(Product):
