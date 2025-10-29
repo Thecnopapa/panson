@@ -276,7 +276,7 @@
 
 .launch-time-cover{
 	position:absolute;
-	height: 24.8dvh;
+	height: 24.8dvw;
 	z-index:10;
 	width:100%;
 	display: flex;

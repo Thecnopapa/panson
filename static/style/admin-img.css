@@ -124,10 +124,17 @@
     cursor: pointer;
 }
 
-
+.image-selector{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .image-selector-content{
 	display:flex;
 	flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .image-selector-gallery{
@@ -152,6 +159,9 @@
 .image-selector-confirm{
     position: absolute;
     top:0;
+    background-color: white;
+    font-size: var(--font-size-large);
+    padding: var(--padding);
 }
 
 .image-bucket{
