@@ -21,6 +21,10 @@ async function updateDeltas(){
 	now = Date.now();
 	deltaElements.forEach(element => {
 		let deltaLaunch = Number(element.getAttribute("launchTime")) - now;
+		if (deltaLaunch < 0){
+			element.classList.add("hidden");
+			element.parentElement.onclick = function () {location.href = element.getAttribute("link");}
+		}
 		let deltaTime = miliToTime(deltaLaunch);
 		let timeElements = element.querySelectorAll(".launch-time");
 		for (let i=0; i < timeElements.length; i++){
@@ -294,6 +298,7 @@ function changeProduct(element, product, bucket) {
 	    let tElement = element.querySelector(".launch-time-cover");
 	    tElement.classList.remove("hidden");
 	    tElement.setAttribute("launchTime", launchTime);
+	    tElement.link = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value;
 	    
     } else {
     	element.onclick = function () { location.href = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value }
