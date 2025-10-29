@@ -19,7 +19,7 @@
                         {% for lan in ["cat", "en", "es"] %}
                                 <div class="lan-block">
                                     <label class="lan-name">{{ lan }}:</label>
-                                    <textarea page="{{ page }}" key="{{ key }}" lan="{{ lan }}" oninput="resizeArea(this)" style="{{ 'background-color: orange' if value[lan] == "$empty$"}} {{ 'background-color: salmon' if not value[lan] }}"  rows="1" class="lan-value">{{ value[lan] }}</textarea>
+                                    <textarea page="{{ page }}" key="{{ key }}" lan="{{ lan }}" oninput="resizeArea(this);this.style.backgroundColor= 'lightyellow';" style="{{ 'background-color: orange' if value[lan] == "$empty$"}} {{ 'background-color: salmon' if not value[lan] }}"  rows="1" class="lan-value">{{ value[lan] }}</textarea>
                                     <button onclick="updateField(this.previousElementSibling)">&#10003;</button>
                                 </div>
                         {% endfor %}

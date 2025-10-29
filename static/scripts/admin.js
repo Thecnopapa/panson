@@ -141,7 +141,9 @@ async function updateField(target){
             body: JSON.stringify(payload),
     }).then((response) => {return response});
     if (resp.ok) {
-        target.nextElementSibling.style.backgroundColor = "revert";
+        target.nextElementSibling.style.backgroundColor = "lightgreen";
+        target.style.backgroundColor = "";
+        setTimeout(() => {target.nextElementSibling.style.backgroundColor = "revert";}, 5000);
     } else {
         target.nextElementSibling.style.backgroundColor = "red";
     }

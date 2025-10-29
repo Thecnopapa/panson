@@ -125,6 +125,10 @@ input, textarea, select {
     margin: 0;
 }
 
+li{
+    margin-left: var(--padding);
+}
+
 video {
 	margin:auto;
 	height:100%;
