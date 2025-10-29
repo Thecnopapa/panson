@@ -15,44 +15,6 @@
         {{ new_container("imatges") }}
 
     </div>
-    <div id="totes-imatges">
-    {% for bucket in imgs.get_folders(None, with_prefix=True) %}
-        <div class="image-bucket">
-            <div class="image-bucket-title">{{ bucket }}</div>
-                {% for image in imgs.get_names(bucket) %}
-                    <div class="image under-hover clickable" filename="{{ image }}" bucket="{{ bucket }}" onclick="showImgDetails(this)">{{ image }} &nbsp;&nbsp;&nbsp;/ {{ imgs.get_usage(bucket, image) }}</div>
-                {% endfor %}
-        </div>
-    {% endfor %}
-    </div>
-
-
 
 {% endblock %}
-
-
-
-{% block unused %}
-    {% if False %}
-    <link href='/style/admin-img.css' rel='stylesheet'>
-    <div id="imatges2" class="admin-content product-list">
-        {% for bucket in imgs.buckets %}
-            <div class="bucket-container">
-                <div class="bucket-header" onclick="this.nextElementSibling.classList.toggle('hidden')">
-                    <div class="bucket-title">{{ bucket }}</div>
-                </div>
-                <div class="bucket-data hidden">
-                    {% for file in imgs.get_names(bucket) %}
-                        <div class="bucket-image normal-image" filename="{{ file }}" bucket="{{ bucket }}" background="{{ imgs.get_url(bucket, file) }}" onclick="showImgDetails(this)">{{ utils.len(imgs.get_usage(bucket, file)) }}</div>
-                    {% endfor %}
-                    <div class="bucket-image" bucket="{{ bucket }}" onclick="this.firstElementChild.click()"><input multiple class="hidden" type="file" oninput="uploadFiles(this, this.parentElement.previousElementSibling);"/>&#10133;</div>
-                </div>
-            </div>
-    {% endfor %}
-    </div>
-{% endif%}
-
-{% endblock %}
-
-
 

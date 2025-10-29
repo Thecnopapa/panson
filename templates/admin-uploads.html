@@ -1,0 +1,28 @@
+{% extends "admin-base.html" %}
+
+
+
+
+
+{% block content %}
+
+    <div id="totes-imatges" class="admin-content">
+    {% for bucket in imgs.buckets %}
+        <div class="image-bucket">
+            <div class="image-bucket-title">{{ bucket }}</div>
+                {% for image in imgs.get_names(bucket) %}
+                    {% set usage = imgs.get_usage(bucket, image) %}
+                    <div class="image clickable" onclick="this.lastElementChild.classList.toggle('hidden');">
+                        <div class="image-name {{ "editable" if not utils.len(usage) > 0 }}" filename="{{ image }}" bucket="{{ bucket }}" oncontextmenu="event.preventDefault(); renameFile(this)">{{ image }}</div>
+                        <div class="image-usage">/ {{ usage }}</div>
+                        <div class="image-delete {{ "invisible" if utils.len(usage) > 0 }}" filename="{{ image }}" bucket="{{ bucket }}" onclick="event.stopPropagation(); if (deleteImage(event)) { this.parentElement.remove(); };" >&#10008;</div><br>
+                        <div class="image-img slow-image hidden" filename="{{ image }}" bucket="{{ bucket }}" oncontextmenu="event.preventDefault(); showImgDetails(this)" background="{{ imgs.get_url(bucket, image) }}"></div>
+                    </div>
+
+                {% endfor %}
+        </div>
+    {% endfor %}
+    </div>
+
+{% endblock %}
+

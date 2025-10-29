@@ -955,7 +955,18 @@ def delete_image():
         imgs.delete(bucket, filename)
         return "", 200
 
-
+@app.post("/admin/images/rename")
+def rename_image():
+    use(0.01)
+    if admin_check():
+        r = request.get_json()
+        from app_essentials.localisation import Images
+        imgs = Images()
+        filename = r["filename"]
+        bucket = r["bucket"]
+        newname = r["newFilename"]
+        imgs.rename(bucket, filename, newname)
+        return "", 200
 
 @app.post("/admin/files/info")
 def get_file_info(data=None):

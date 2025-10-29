@@ -166,6 +166,35 @@
 .image{
     padding-left: var(--padding);
     width: var(--padded-width);
+    max-width: var(--padded-width);
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    flex-wrap: wrap;
+    margin-top: 0.1rem;
+    .image-name {
+        min-width: 50%;
+    }
+    .image-usage{
+        min-width: 45%;
+    }
+    .image-delete{
+        min-width: 5%;
+        background-color: lightcoral;
+    }
+    .image-delete:hover{
+        background-color: red;
+    }
+    .image-img{
+        background-size: contain;
+        min-height: 300px;
+        width: 50%;
+        min-width: 300px;
+    }
+}
+.image:hover{
+    border-bottom: 1px solid black;
+    background-color: lightcyan;
 }
 
 

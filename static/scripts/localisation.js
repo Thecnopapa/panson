@@ -84,11 +84,13 @@ function cancelEditable(event){
 		target = target.parentElement;
                 if (target === doc){cancelEditable(event);}
         }
+
 	target.removeEventListener("click", editLoc);
 	target.removeEventListener("keydown", closeLocWithEscape);
 	target.removeEventListener("focusout", saveEdits);
 	target.style.backgroundColor = "";
-        target.style.color = "";
+    target.style.color = "";
+    target.contentEditable = "false";
 	target.addEventListener("contextmenu", makeEditable);
     target.addEventListener("select", makeEditable);
 	//target.textContent = target.textContent.replace(/\n/g, '<br>');

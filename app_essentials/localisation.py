@@ -26,7 +26,8 @@ class Images:
             bucket = self.folder.format(secure_filename(bucket))+"/"
         else:
             bucket = self.folder_name+"/"
-        l = [b for b in db.list_blobs(prefix=bucket)]
+        l = [b for b in db.list_blobs(prefix=bucket, page_size=1000, max_results=1000)]
+        #[print(b.name) for b in l]
         if folders is None:
             return l
         elif folders:
@@ -98,13 +99,18 @@ class Images:
         new_data = self.upload(new_bucket, data["filename"], data["filedata"], data["content_type"], replace)
         return new_data
 
+    def rename(self, bucket, old_filename, new_filename, replace=False):
+        data = self.delete(bucket, old_filename)
+        new_data = self.upload(bucket, new_filename, data["filedata"], data["content_type"], replace)
+        return new_data
+
     def get_usage(self, bucket, filename):
         from app_essentials.firebase import db
-        print("Getting usage for {}".format(filename))
+        #print("Getting usage for {}".format(filename))
         collection = db.collection(bucket)
-        print(collection)
+        #print(collection)
         raw =  collection.where(filter=FieldFilter("imatges", "array_contains", filename)).stream()
-        print(raw)
+        #print(raw)
         if raw is None:
             return []
         return [i.id for i in raw]

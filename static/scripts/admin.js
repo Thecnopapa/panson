@@ -558,28 +558,64 @@ async function showImgDetails(image){
     for (const key in imgInfo) {
         let newRow = document.createElement("tr");
         newInfoTable.appendChild(newRow);
-        newRow.innerHTML = "<th class='key'>"+key+"</th><th>"+imgInfo[key]+"</th>";
+        if (key==="url"){
+            newRow.innerHTML = "<th class='key'>"+key+"</th><th><a href='"+imgInfo[key]+"' rel='noopener noreferrer' target='_blank' download='"+imgInfo["filename"]+"'>"+imgInfo[key]+"</th>";
+        } else {
+            newRow.innerHTML = "<th class='key'>" + key + "</th><th>" + imgInfo[key] + "</th>";
+        }
         //newInfo.addEventListener("mouseover", function(event){event.parentElement.parentElement.scrollIntoView({block: "end"});});
     }
 
 }
 
-async function deleteImage(event){
-    let filename = event.target.attributes.filename.value;
-    let bucket = event.target.attributes.bucket.value
+async function deleteImage(target=undefined, mode="delete", newFilename=undefined){
+    if (target instanceof Event){
+        target = target.target;
+    }
+    let filename = target.attributes.filename.value;
+    let bucket = target.attributes.bucket.value
     if (filename === undefined || bucket === undefined){
         return false
     }
-    let r = await fetch("/admin/images/delete", {
+    let r = await fetch("/admin/images/"+mode, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({bucket:bucket, filename: filename})
+        body: JSON.stringify({bucket:bucket, filename: filename, newFilename:newFilename}),
     })
-    event.target.remove()
-    return true
+    if (r.ok) {
+        target.style.backgroundColor = "lightgreen";
+        if (mode === "delete"){
+            event.target.remove()
+        }
+        return true
+    } else {
+        target.style.backgroundColor = "red";
+        return false
+    }
 }
+
+
+function renameFile(trigger){
+    if (!trigger.classList.contains("editable")){
+        return;
+    }
+    trigger.style.backgroundColor = "lightyellow";
+    trigger.contentEditable = "true";
+    trigger.focus();
+    //trigger.setAttribute("filename", trigger.innerText);
+    trigger.addEventListener("focusout", (event) => {
+        event.target.contentEditable = "false";
+        if(deleteImage(event.target, "rename", event.target.innerHTML)){
+            trigger.style.backgroundColor = "lightgreen";
+        } else {
+            trigger.style.backgroundColor = "red";
+        }
+
+    });
+}
+
 
 
 let lastSelectedTrigger = undefined;
@@ -686,8 +722,6 @@ async function confirmSelection(trigger){
 	
 	dialog.classList.add("hidden");
 
-
-	
 }
 
 
@@ -697,6 +731,12 @@ function selectThis(trigger){
 }
 
 
+
+
+
+
+
+loadAllImages()
 
 
 
