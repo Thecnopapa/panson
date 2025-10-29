@@ -345,7 +345,7 @@
     <div class="image-selector-content img-details" onclick="event.stopPropagation();">
         <div class="image-selector-title">Bucket</div>
         <div class="image-selector-gallery">
-            <div class="image-selector-image template" onclick="selectThis(this)"></div>
+            <div class="image-selector-image template" onclick="selectThis(this)" oncontextmenu="event.preventDefault(); showImgDetails(this)"></div>
         </div>
         <div class="image-selector-confirm" dataType="list:text" onclick="confirmSelection(this)">Confirmar</div>
     </div>

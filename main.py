@@ -988,7 +988,7 @@ def get_file_list():
         data = request.get_json()
         print(data)
         bucket = data["bucket"]
-        print("Fetching list feom bucket: " ,bucket)
+        print("Fetching list from bucket: " ,bucket)
         return json.dumps(dict(filenames=imgs.get_names(bucket)))
 
 

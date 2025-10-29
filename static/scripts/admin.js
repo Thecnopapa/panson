@@ -632,6 +632,7 @@ async function initImageSelector(dialog, product, trigger){
 			newElement.classList.add("selected");
 		}
 		newElement.setAttribute("filename", file);
+        newElement.setAttribute("bucket", bucket);
 		//console.log(imageUrl(bucket, file))
 		newElement.setAttribute("background", imageUrl(bucket, file));
 		gallery.appendChild(newElement);

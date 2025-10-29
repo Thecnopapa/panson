@@ -131,14 +131,15 @@
 }
 
 .image-selector-gallery{
+    position: relative;
     display: flex;
     flex-direction: row;
     width: 100%;
     flex-wrap: wrap;
 }
 .image-selector-image{
-    height: 25vw;
-    width: 25vw;
+    height: 10vw;
+    width: 10vw;
     margin: 2vw;
     background-position:center;
     background-size: contain;
@@ -148,14 +149,26 @@
 }
 
 
-
-
-
-
-
-.image-selector{
-	
+.image-selector-confirm{
+    position: absolute;
+    top:0;
 }
+
+.image-bucket{
+    padding-left: var(--padding);
+    width: var(--padded-width);
+}
+.image-bucket-title{
+    margin-top: var(--padding);
+    font-weight: bold;
+    font-size: var(--font-size-large);
+}
+.image{
+    padding-left: var(--padding);
+    width: var(--padded-width);
+}
+
+
 
 
 
