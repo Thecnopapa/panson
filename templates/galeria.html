@@ -1,7 +1,7 @@
 
 
 
-{% macro galeria(bucket, double=False, filtres=False, max_prods=None, filterKey=None, filterValue=None, min_row=4, min_prods=4, exclude=None, filter_mode="&", pages=False, inline=False, load_more=False, go_to_shop=False, range=(0,1)) %}
+{% macro galeria(bucket, double=False, filtres=False, max_prods=None, filterKey=None, filterValue=None, min_row=4, min_prods=4, exclude=None, filter_mode="&", pages=False, inline=False, load_more=False, go_to_shop=False, range=(0,1), second_hover=True) %}
 
 
 {% set productes = productes.__getattribute__(bucket) %}
@@ -61,9 +61,9 @@
 	    <div class="galeria-scroll-button scroll-right-button {{ "invisible" if final_prods_length <= min_row }}" onclick="scrollGallery(this.parentElement.nextElementSibling, 'right', '1u')"><img class="main-arrow right" src="/static/media/arrow.svg"></div>
     </div>
     <div class="galeria {{ 'inline' if inline }}">
-            <div class="producte template empty {{ 'inline' if inline }}" onmouseover="highlightProduct(this)" onmouseout="reverseProduct(this)">
-               <div class="imatge primera normal-image" onmouseover="//highlightProduct(this)"></div>
-               <div class="imatge segona slow-image preload" onmouseout="//reverseProduct(this)"></div>
+	    <div class="producte template empty {{ 'inline' if inline }}" {{'onmouseover="highlightProduct(this)" onmouseout="reverseProduct(this)"' if second_hover}}>
+               <div class="imatge primera normal-image"></div>
+               <div class="imatge segona slow-image preload"></div>
                <div class="detalls-galeria">
                     <div class="detalls-principals">
                         {% if bucket == "bespoke" %}

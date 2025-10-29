@@ -262,6 +262,14 @@
     margin: 1rem;
 }
 
+.galeria-nav-button{
+	background-color:transparent;
+	border: 1px black solid;
+	color: black;
+}
+.galeria-nav-button:hover{
+	background-color: lightgray;
+}
 .galeria-nav-button.disabled{
     display: none;
 }

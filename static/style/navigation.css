@@ -95,10 +95,10 @@ html {
 }
 
 .hidden{
-	display: none;
+	display: none !important;
 }
 .invisible{
-    visibility: hidden;
+    visibility: hidden !important;
 }
 
 body {
@@ -496,6 +496,7 @@ video {
     align-content: center;
     text-align: center;
     vertical-align: center;
+    top:0.3vh;
     height: calc(var(--header-height) / 2.5);
     min-height: calc(var(--min-header-height) / 2.5);
     width: calc(var(--header-height) / 2.5);

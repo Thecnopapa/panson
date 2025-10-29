@@ -125,7 +125,7 @@ class Trello():
             "name": name,
             "desc": description,
             "start": now,
-            "due": now + datetime.timedelta(days=30),
+            "due": now + datetime.timedelta(days=21),
             "idLabels": ",".join(self.labels),
         }
         if link is not None:

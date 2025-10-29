@@ -162,18 +162,19 @@ body {
 
 .info-desplegable {
     display: none;
-    width: 100%;
+    width: var(--padded-width);
     margin-top: 0.7rem;
-
+    padding-left: var(--padding);
+    padding-right: var(--padding);
 
 }
 .info-desplegable > p {
     margin-top: 0.25rem;
     margin-bottom: 0;
 }
-.info-desplegable > ul {
+.info-desplegable > li {
     margin-top: 0.25rem;
-    padding-left: 2.5vh;
+    margin-left: calc(var(--padding) * 2);;
     padding-bottom: 0;
 }
 .subtitol-desplegable {
@@ -401,9 +402,9 @@ body {
 
 
 .variation{
-	/*border: 1px black solid;*/
-	/*padding-right:0.5rem;
-	padding-left: 0.5rem;*/
+	border: 1px black solid;
+	padding-right:0.5rem;
+	padding-left: 0.5rem;
 }
 
 

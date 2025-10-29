@@ -270,8 +270,8 @@
     </div>
 
     <div class="producte-galeria galeries-portrait">
-        {{ galeria.galeria("productes", filtres=False, filterKey="collecio;tipus", filterValue=utils.str(producte.collecio)+";"+utils.str(producte.tipus), filter_mode="|", min_row=2, min_prods=2, exclude=producte._id, inline=True, range=(0,0.5)) }}
-        {{ galeria.galeria("productes", filtres=False, filterKey="collecio;tipus", filterValue=utils.str(producte.collecio)+";"+utils.str(producte.tipus), filter_mode="|", min_row=2, min_prods=2, exclude=producte._id, inline=True, range=(0.5,1)) }}
+        {{ galeria.galeria("productes", filtres=False, filterKey="collecio;tipus", filterValue=utils.str(producte.collecio)+";"+utils.str(producte.tipus), filter_mode="|", min_row=2, min_prods=2, exclude=producte._id, inline=True, range=(0,0.5), second_hover=False) }}
+        {{ galeria.galeria("productes", filtres=False, filterKey="collecio;tipus", filterValue=utils.str(producte.collecio)+";"+utils.str(producte.tipus), filter_mode="|", min_row=2, min_prods=2, exclude=producte._id, inline=True, range=(0.5,1), second_hover=False) }}
     </div>
     {% endif %}
 
