@@ -98,6 +98,9 @@
                                 {% endfor %}
                         </select><div></div>
                     </div>
+		    <div class="product-element start-date">Estrena:
+			    <input type="datetime-local" product="{{product._id}}" field="start_date" class="product-input" value="{{product.start_date}}" oninput="productUpdate(this)">
+		    </div>
                 </div>
                 <div class="horizontal wrapper">
                     <div class="product-element collection">Collecio:
