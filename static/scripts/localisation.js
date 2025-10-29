@@ -9,7 +9,7 @@ window.addEventListener("load", initLocalisation);
 function initLocalisation(){
 	console.log(" * Initialising Localisation");
 	let locElements = [...document.getElementsByClassName("loc")];
-	console.log(locElements);
+	console.log(locElements.length, " Elements");
 	locElements.forEach(el => {
 		el.addEventListener("contextmenu", makeEditable);
 		el.addEventListener("select", makeEditable);

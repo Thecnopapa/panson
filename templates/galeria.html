@@ -38,6 +38,7 @@
 	    material="{{ utils.join("&", producte.opcions["materials"].keys()) if producte.opcions['materials'] != None}}"
 	    img1="{{ producte.imatges[0] }}" 
 	    img2="{{ producte.imatges[1] }}"
+	    startDate="{{producte.start_date}}"
 	    {% if bucket == "bespoke" %}
 	    per_a="{{ loc.fam_per_a }} {{ producte.per_a }}"
 	    {% endif %}
@@ -75,6 +76,20 @@
                         {% endif %}
                     </div>
                 </div>
+		<div class="launch-time-cover hidden">
+			<div class="launch-time-text loc" loc="gal_falta_temps">{{loc.gal_falta_temps}}</div>
+			<div class="launch-time-value">
+				<div class="launch-time days"></div>
+				<div class="launch-time-days loc" loc="gal_falta_dies">{{loc.gal_falta_dies |safe}}</div>
+				<div class="launch-time hours"></div>
+				<div class="launch-time-hours loc" loc="gal_falta_hores">{{loc.gal_falta_hores |safe}}</div>
+				<div class="launch-time minutes"></div>
+				<div class="launch-time-minutes loc" loc="gal_falta_minuts">{{loc.gal_falta_minuts |safe}}</div>
+				<div class="launch-time seconds"></div>
+				<div class="launch-time-seconds loc" loc="gal_falta_segons">{{loc.gal_falta_segons |safe}}</div>
+			</div>
+
+		</div>
            </div>
     </div>
 

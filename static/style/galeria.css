@@ -274,6 +274,27 @@
     display: none;
 }
 
+.launch-time-cover{
+	position:absolute;
+	height: 24.8dvh;
+	z-index:10;
+	width:100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	backdrop-filter: blur(5px);
+}
+.launch-time-value{
+	width:90%;
+	display:flex;
+	flex-wrap:wrap;
+	align-items: center;
+	justify-content: center;
+	* {
+		min-width: max-content;
+	}
+}
 
 
 @media only screen and (min-width: 1026px) {
@@ -361,6 +382,9 @@
     }
     .segona{
         display: none;
+    }
+    .launch-time-cover{
+	    height:49.5dvw;
     }
 
 

@@ -1,6 +1,35 @@
 
 
+let now = Date.now()
+console.log("NOW: ", now);
 
+function miliToTime(miliseconds){
+	let days = Math.floor(miliseconds /  86400000);
+	miliseconds -= days * 86400000;
+	let hours = Math.floor(miliseconds / 3600000);
+	miliseconds -= hours * 3600000;
+	let minutes = Math.floor(miliseconds / 60000);
+	miliseconds -= minutes * 60000;
+	let seconds = Math.floor(miliseconds / 1000);
+	return [days, hours, minutes, seconds]
+}
+
+
+
+async function updateDeltas(){
+	deltaElements = document.querySelectorAll(".launch-time-cover:not(.hidden)");
+	now = Date.now();
+	deltaElements.forEach(element => {
+		let deltaLaunch = Number(element.getAttribute("launchTime")) - now;
+		let deltaTime = miliToTime(deltaLaunch);
+		let timeElements = element.querySelectorAll(".launch-time");
+		for (let i=0; i < timeElements.length; i++){
+			let t = String(deltaTime[i]);
+			if (t.length === 1){t="0"+t;}
+			timeElements[i].innerText = t;
+		}
+	});
+}
 
 
 async function scrollGallery(galeria, direction, amount){
@@ -186,7 +215,7 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
     console.log("generating new Products: ", targetPage,maxProds);
     for (let i = 0; i < maxProds; i++) {
         const targetProductNo = i + targetPage*maxProds;
-        console.log("producte producte: ", filteredProducts[targetProductNo], i % minRow);
+        //console.log("producte producte: ", filteredProducts[targetProductNo], i % minRow);
 
         if (filteredProducts[targetProductNo] === undefined){
 		if (i % minRow === 0 ){
@@ -247,13 +276,28 @@ function changeProduct(element, product, bucket) {
         //print(e);
         element.classList.add("empty");
         return}
-    print(element);
-    print(info);
+    //print(element);
+    //print(info);
     element.classList.remove("empty");
-
+    let deltaLaunch = 0;
+    let launchTime = undefined;
+    if (info.startDate.value !== ""){
+	console.log(info.startDate.value);
+    	launchTime = Date.parse(info.startDate.value);
+	console.log(launchTime);
+	deltaLaunch = launchTime - now;
+    }
+    console.log(deltaLaunch);
     element.getElementsByClassName("imatge primera")[0].setAttribute("background", imageUrl(bucket, info.img1.value));
     element.getElementsByClassName("imatge segona")[0].setAttribute("background", imageUrl(bucket, info.img2.value));
-    element.onclick = function () { location.href = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value }
+    if (deltaLaunch > 0){
+	    let tElement = element.querySelector(".launch-time-cover");
+	    tElement.classList.remove("hidden");
+	    tElement.setAttribute("launchTime", launchTime);
+	    
+    } else {
+    	element.onclick = function () { location.href = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value }
+    }
 	if (bucket === "bespoke"){
 		element.getElementsByClassName("per-a")[0].innerHTML = info.per_a.value;
 	} else{
@@ -263,6 +307,7 @@ function changeProduct(element, product, bucket) {
 	}
 
 }
+
 
 
 let galleryObserver = new IntersectionObserver(galleryAnimation, {
@@ -330,7 +375,7 @@ try{
 
 
 
-
+setInterval(updateDeltas, 1000);
 
 
 
