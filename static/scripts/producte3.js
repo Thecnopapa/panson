@@ -374,12 +374,13 @@ function enlargeImg(img, all=true){
     newContainer.addEventListener("wheel", function (event){event.stopPropagation();});
     function closeWithEscape(event) {
         //console.log(event.key);
-        if (event.key === "Escape" || event.key === "Backspace"){
+        if (event.key === "Escape"){
             event.preventDefault()
             newContainer.remove();
             newObserver.disconnect();
             document.documentElement.style.overflow = "";
             document.documentElement.removeEventListener("keydown", closeWithEscape);
+	    
 
         }
     }
@@ -440,6 +441,18 @@ function enlargeImg(img, all=true){
 	newArrows.appendChild(leftArrow);
 	newArrows.appendChild(rightArrow);
 
+	function scrollWithArrows(event){
+            console.log(event.key);
+	    if (event.key === "ArrowLeft"){
+		    event.preventDefault();
+		    leftArrow.click();
+	    } else if (event.key === "ArrowRight"){
+		    event.preventDefault();
+		    rightArrow.click();
+	    }
+	}
+
+	newContainer.addEventListener("keydown", scrollWithArrows);
 
 
 
