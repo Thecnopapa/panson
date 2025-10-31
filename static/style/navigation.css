@@ -455,9 +455,9 @@ video {
 }
 .popup-cross {
 	visibility:visible;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+    position: fixed;
+    /*top: 1rem;*/
+    /*right: 1rem;*/
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -621,8 +621,8 @@ video {
     .popup-cross{
         position: fixed;
         visibility: visible;
-        top: 1rem;
-        right: 1rem;
+        /*top: 1rem;*/
+        /*right: 1rem;*/
     }
     .request-cookies{
 	    flex-direction: column;

@@ -148,6 +148,7 @@ function hidePopup(source, sourceElement) {
     let template = document.getElementsByClassName(popupContent.className);
 	console.log(template);
     console.log(template);
+    popupContent.querySelectorAll(".popup-cross").forEach(c => {c.remove();});
     if (template.length === 2) {
 	    console.log("placing popup back to its place");
         popupContent.parentElement.remove();
@@ -176,7 +177,10 @@ function addPopupCross(popupContent) {
     cross.className = "popup-cross";
     cross.innerHTML = "&#10005;";
     cross.type = "button";
-    cross.setAttribute("onclick","hidePopup('cross', this)")
+    cross.setAttribute("onclick","hidePopup('cross', this)");
+	console.log(window.innerWidth - popupContent.offsetWidth);
+    cross.style.right = String((window.innerWidth - popupContent.offsetWidth) / 2) + "px";
+    cross.style.top = String((window.innerHeight - popupContent.offsetHeight) / 2) + "px";
     popupContent.appendChild(cross);
 }
 
