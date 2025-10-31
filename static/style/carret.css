@@ -22,7 +22,6 @@
     right: -31dvw;
     top: 0;
     background-color: white;
-    box-shadow: -0.2px 0px 8px rgb(115, 115, 115);
     z-index: 100;
     transition: right ease-in-out 400ms;
 
@@ -30,6 +29,7 @@
 
 #carret.open {
     right: 0;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
 
 }
 
@@ -230,14 +230,20 @@
 
 
 @media only screen and (max-width: 1025px) {
+    #cart-closer{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 10%;
+    }
     #close-carret {
 
     }
     #carret {
-        width: 100%;
-        min-width: 100%;
-        max-width: 100%;
-        right: -101dvw;
+        width: 90%;
+        min-width: 90%;
+        max-width: 90%;
+        right: -91dvw;
     }
     .llista-carret {
 

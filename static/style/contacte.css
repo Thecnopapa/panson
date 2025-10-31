@@ -125,7 +125,7 @@
     min-width: max(20%, fit-content);
 }
 .phone-number-label{
-    width:calc(60% - 2 * var(--padding));
+    width:100%;
     margin-left:auto;
 }
 

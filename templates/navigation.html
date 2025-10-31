@@ -4,10 +4,10 @@
 {% if not user.accepted_cookies %}
 	    <link href='/style/tic.css' rel='stylesheet'>
         <div id=cookies class="request-cookies">
-            <span class="info"><span class="loc" loc="nav_cookie_banner">{{ loc.nav_cookie_banner }}</span><a href="/{{ loc.lan }}/tic#tic-cookies" class="loc" loc="cookie_link">{{ loc.nav_cookie_link }}</a></span>
+            <span class="info"><span class="loc" loc="nav_cookie_banner">{{ loc.nav_cookie_banner }}</span><a href="/{{ loc.lan }}/tic/privacy" class="loc" loc="cookie_link">{{ loc.nav_cookie_link }}</a></span>
             <div class="inputs">
 
-                <div class="preferences-button clickable under-hover loc" onclick="showPopup(this.nextElementSibling)" loc="nav_cookies_preferencies">{{ loc.nav_cookies_preferencies }}</div>
+                <div class="preferences-button clickable underlined loc" onclick="showPopup(this.nextElementSibling)" loc="nav_cookies_preferencies">{{ loc.nav_cookies_preferencies }}</div>
                 <div class="popup-info cookies-popup">
                     <div class="tic-subtitle loc" loc="tic_cookies_titol">{{ loc.tic_cookies_titol }}</div>
                     <div class="tic-info loc" loc="tic_cookies_info">{{ loc.tic_cookies_info | safe }}</div>
@@ -59,6 +59,7 @@
     </div>
 </div>
 
+<div class="cart-closer"></div>
 <div class="content-carret is-carret" id="carret"  >
     <div class="title-carret is-carret">{{ loc.car_carret }}</div>
     <div class="is-carret" id="close-carret" onclick="closeCart()">{{ loc.car_tancar }}</div>
@@ -75,7 +76,7 @@
     <div class="footer-carret is-carret">
         
 	<div class="total-cart is-carret"><div class="total-cart-title is-carret">{{ loc.car_total }}</div><div class="total-cart-value is-carret">{{ user.total_carret }}&#8364</div></div>
-        <button class="checkout-button is-carret black-button"  onclick="location.href='/{{ loc.lan }}/checkout/stripe'">{{ loc.car_checkout |safe }}</button>
+        <button class="checkout-button is-carret black-button loc" loc="car_checkout"  onclick="location.href='/{{ loc.lan }}/checkout/stripe'">{{ loc.car_checkout |safe }}</button>
         <div class="detalls_pagament is-carret loc" loc="car_detalls_pagament">{{ loc.car_detalls_pagament }}</div>
 
     </div>

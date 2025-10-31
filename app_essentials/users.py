@@ -1,3 +1,5 @@
+from pyparsing import countedArray
+
 from app_essentials.firebase import firebaseObject
 from app_essentials.products import Products, get_talla_es
 from app_essentials.utils import str_to_list
@@ -46,6 +48,12 @@ class User(firebaseObject):
     def add_to_cart(self, product_id, options={}, quantity=1):
         product = Products().get_single(product_id)
         id2 = product.generate_id2(options)
+        if id2 in self.cart.keys():
+            self.cart[id2]["quantity"] += quantity
+            self.update_db()
+            return
+
+
         name = product.nom
         price = product.calculate_price(**options)[0]
         imgs = Images()
@@ -87,6 +95,7 @@ class User(firebaseObject):
             data=data,
             extras=extras,
         )
+        print(self.cart)
         self.update_db()
 
 

@@ -39,8 +39,10 @@ async function closeCart(){
     document.documentElement.style.overflow = "";
 }
 
-
+let deleting = false;
 async function deleteItem(productElement, pos){
+    if (deleting){return;}
+    deleting = true;
     let link = "/productes/carret/"+ pos+"/0";
 	console.log(link);
 	let resp = await fetch(link, {method: "POST"});
@@ -48,6 +50,9 @@ async function deleteItem(productElement, pos){
 		productElement.remove();
 		updateCartCounter();
 	}
+    await reloadCart();
+    deleting = false;
+
 
 }
 

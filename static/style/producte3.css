@@ -174,7 +174,6 @@ body {
 }
 .info-desplegable > li {
     margin-top: 0.25rem;
-    margin-left: calc(var(--padding) * 2);;
     padding-bottom: 0;
 }
 .subtitol-desplegable {

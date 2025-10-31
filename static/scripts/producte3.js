@@ -223,7 +223,7 @@ async function submitToCart (trigger) {
         if (response.status == "206") {
             const missingField = response.headers.get("missing-val", undefined);
             const targetFieldset = document.getElementsByClassName(missingField)[0];
-            targetFieldset.setAttribute("onmousedown", "this.style.border = 'none'");
+            targetFieldset.setAttribute("onclick", "this.style.border = 'none'");
             targetFieldset.style.border = "1px solid red";
 
         } else {
@@ -367,7 +367,12 @@ function enlargeImg(img, all=true){
 
     newContainer.classList.add("enlarged-container");
     if (window.innerWidth > desktopThreshold) {
-        newContainer.addEventListener("click", function (event){event.preventDefault(); event.stopPropagation(); newContainer.remove(); document.documentElement.style.overflow = ""; newObserver.disconnect();});
+        newContainer.addEventListener("click", function (event){
+            event.preventDefault();
+            event.stopPropagation();
+            newContainer.remove();
+            document.documentElement.style.overflow = "";
+            newObserver.disconnect();});
     }
     newContainer.addEventListener("scroll", function (event){event.stopPropagation();});
     newContainer.addEventListener("touchmove", function (event){event.stopPropagation();});

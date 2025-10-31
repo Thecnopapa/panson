@@ -50,15 +50,11 @@
 	margin-top:1rem;
     padding: 0;
 }
-.submit-email{
-    padding:0;
-    padding-right:1rem;
-    padding-left: 1rem;
-}
+
 
 .fetamida-dropdown.shown{
 	.fetamida-info{
-		display:flex;
+		display:block;
 	}
 	.main-arrow{
 		transform: rotate(-90deg);
