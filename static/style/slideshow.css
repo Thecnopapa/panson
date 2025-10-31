@@ -2,9 +2,10 @@
 .slide-content{
     width: 100%;
     height: 100%;
-    display: block;
+    display: none;
     position: absolute;
 }
+
 
 .slideshow {
     height: 100%;
@@ -19,6 +20,11 @@
 .slide-content {
     z-index: -10;
     transition: 2s ease-in;
+    background-color:white;
+}
+
+.slide-content:first-of-type{
+	display: block;
 }
 .slide {
     width: 100%;
