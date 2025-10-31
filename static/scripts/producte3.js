@@ -659,6 +659,10 @@ function preventDefaultScroll(event) {
     if (window.innerWidth <= desktopThreshold){return;}
     //console.log(mainDetails.scrollTop + mainDetails.offsetHeight, mainDetails.scrollHeight)
     if (mainDetails.scrollTop + mainDetails.offsetHeight < mainDetails.scrollHeight && event.deltaY >= 0){return;}
+    if (mainDetails.scrollTop != 0 && event.deltaY <= 0){
+	    document.documentElement.scrollTo(0,0);
+	    return;
+    }
     //if (productImages.scrollTop > 0 && event.deltaY <= 0){return;}
     //console.log("preventDefaultScroll");
     //console.log(productImages.scrollTop+productImages.offsetHeight > productImages.scrollHeight);
