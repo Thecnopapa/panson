@@ -315,6 +315,10 @@ def index(lan ="cat", favicon = True):
             return redirect("/static/media/favicon.ico")
         else:
             return ""
+    elif lan == "apple-touch-icon-precomposed.png":
+        return redirect("/static/media/apple-touch-icon-precomposed.png")
+    elif lan == "apple-touch-icon-120x120.png":
+        return redirect("/static/media/apple-touch-icon-120x120.png")
 
     elif lan == "robots.txt":
         use()
