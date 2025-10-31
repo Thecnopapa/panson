@@ -62,7 +62,7 @@
 	    <div class="galeria-scroll-button scroll-right-button {{ "invisible" if final_prods_length <= min_row }}" onclick="scrollGallery(this.parentElement.nextElementSibling, 'right', '1u')"><img class="main-arrow right" src="/static/media/arrow.svg"></div>
     </div>
     <div class="galeria {{ 'inline' if inline }}">
-	    <div class="producte template empty {{ 'inline' if inline }}" {{'onmouseover="highlightProduct(this)" onmouseout="reverseProduct(this)"' if second_hover}}>
+	    <div class="producte template empty {{ 'inline' if inline }}" onmouseover={{"highlightProduct(this)"  if second_hover }} onmouseout={{ "reverseProduct(this)" if second_hover }}>
                <div class="imatge primera normal-image"></div>
                <div class="imatge segona slow-image preload"></div>
                <div class="detalls-galeria">

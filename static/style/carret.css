@@ -38,7 +38,7 @@
     top: var(--padding);
     right: var(--padding);
     text-decoration-line: underline;
-    text-underline-offset: 0.25rem;
+    text-underline-offset: var(--underline-offset);
     cursor: pointer;
 }
 .title-carret {

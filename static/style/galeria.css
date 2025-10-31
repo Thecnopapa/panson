@@ -299,7 +299,7 @@
 
 @media only screen and (min-width: 1026px) {
 	.producte.active .nom {
-		text-underline-offset: 0.25rem;
+		text-underline-offset: var(--underline-offset);
     		text-decoration-line: underline;
     		/*border-bottom: 1px black solid;*/
 	}
@@ -352,7 +352,7 @@
         margin-top: 49.5dvw;
     }
     .producte.active .nom{
-	text-underline-offset: 0.25rem;
+	text-underline-offset: var(--underline-offset);
    	text-decoration-line: underline;
     	/*border-bottom: 1px black solid;*/
 	}

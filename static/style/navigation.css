@@ -32,6 +32,7 @@ html {
     --padding-horizontal: 0 var(--padding);
     --padding-vertical: var(--padding) 0;
     --padded-width: calc(100% - var(--padding) * 2);
+    --underline-offset:2px;
     margin: 0px;
     padding: 0px;
     width: 100dvw;
@@ -153,7 +154,7 @@ video {
     cursor: pointer;
 }
 .under-hover:hover{
-    text-underline-offset: 0.25rem;
+    text-underline-offset: var(--underline-offset);
     text-decoration-line: underline;
     text-decoration-color: black;
     text-decoration-style: solid;
@@ -161,7 +162,7 @@ video {
 }
 
 .underlined{
-    text-underline-offset: 0.25rem;
+    text-underline-offset: var(--underline-offset);
     text-decoration-line: underline;
     text-decoration-color: black;
     text-decoration-style: solid;
@@ -454,7 +455,7 @@ video {
 }
 .popup-cross {
 	visibility:visible;
-    position: fixed;
+    position: absolute;
     top: 1rem;
     right: 1rem;
     border: none;
@@ -609,7 +610,7 @@ video {
     min-height: calc(var(--min-header-height) / 2);
     width: calc(var(--header-height) / 2);
     min-width: calc(var(--min-header-height) / 2);
-}
+    }
 
 
     .popup-info{
@@ -618,9 +619,8 @@ video {
 
     }
     .popup-cross{
-	visibility: visible;
-	height:5vh;
-	width: 5vh;
+        position: fixed;
+        visibility: visible;
         top: 1rem;
         right: 1rem;
     }

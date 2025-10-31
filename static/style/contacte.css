@@ -94,7 +94,7 @@
 }
 .message{
 	height:30vh;
-	resize: vertical;
+	resize: none;
     margin-bottom: 2vh;
 }
 .sender-name-label{

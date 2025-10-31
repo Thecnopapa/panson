@@ -43,7 +43,7 @@ a{
 
 .footer-button{
     cursor: pointer;
-    text-underline-offset: 0.25rem;
+    text-underline-offset: var(--underline-offset);
 }
 
 .footer-element:hover{

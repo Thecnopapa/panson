@@ -248,7 +248,7 @@ body {
 .option-field .size .text-label:has(> .hidden-input[checked=true]){
     font-weight: bold;
     text-decoration-line: underline;
-    text-underline-offset: 0.25rem;
+    text-underline-offset: var(--underline-offset);
 }
 
 .option-field .variation .text-label:has(> .hidden-input[checked=true]){
