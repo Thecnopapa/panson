@@ -78,9 +78,11 @@ function selectSize(trigger){
 	var sizeList = document.getElementsByClassName("size-input");
 	for (let i = 0; i < sizeList.length; i++) {
 		sizeList[i].removeAttribute("checked");
+		sizeList[i].parentElement.classList.remove("underlined");
 		console.log(sizeList[i]);
 	}
 	trigger.setAttribute("checked", true);
+	trigger.parentElement.classList.add("underlined");
 	trigger.style.webkitTransform = 'scale(1)';
     setTimeMessage(trigger);
 	for (let i = 0; i < sizeList.length; i++) {
@@ -699,6 +701,11 @@ function preventDefaultScroll(event) {
 }
 
 
+let firstSize = document.querySelector(".size-input");
+if (firstSize != undefined){
+	selectSize(firstSize);
+	updatePrice();
+}
 
 
 
