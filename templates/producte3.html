@@ -115,7 +115,7 @@
 				{% set select_this = True %}
 				{% if selected.append(True) %}{% endif %}
 			{% endif %}
-                        <div class="option variation">
+                        <div class="option variation" style="background-color:{{loc.misc["colours"][loc["var_"+variacio+"_color"]] }}">
                             <label class="text-label" onclick="selectVariation(this)">
 				    <input type="radio" name="variacio" price="{{ info.get("preu", 0) }}" class="hidden-input variation-input" value="{{ variacio }}" {{ "checked=true" if select_this}} link="{{ info.get("link", "") }}">
                             {{ loc["var_"+variacio] }}

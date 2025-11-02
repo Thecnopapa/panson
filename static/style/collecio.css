@@ -58,6 +58,7 @@
 .poema{
 	margin-left:8px;
 	margin-right:8px;
+	background-position: left;
 }
 
 .descripcio-collecio{
@@ -74,11 +75,14 @@
 	height: calc(100vw * 13 / 12);
 }
 
-
+.galeria-subtitle{
+	margin-top:16px;
+}
 .content-galeria{
-    margin-top: 16px;
+    margin-top: 8px;
     margin-bottom: 16px;
 }
+
 .galeria{
     margin-top: 0;
 }
@@ -136,4 +140,8 @@
 		margin-top:100px;
 		height: calc(100vw * 5 / 4);
 	}
+	.content-galeria{
+		margin-top: 8px;
+	}
+
 }

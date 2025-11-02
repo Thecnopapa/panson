@@ -35,12 +35,12 @@
         
 	<div class="imatges-collecio">
 		<div class="doble-imatge normal-image" background="{{ imgs.get_url("collecions", col.imatges[1]) }}"></div>
-		<div class="doble-imatge normal-image poema landscape" background="{{ imgs.get_url("collecions", col.imatges[5]) }}"></div>
+		<div class="doble-imatge normal-image poema landscape" background="{{ imgs.get_url("collecions", col.imatges[3]) }}"></div>
 		<div class="doble-imatge normal-image" background="{{ imgs.get_url("collecions", col.imatges[2]) }}"></div>
 	</div>
-	<div class="doble-imatge normal-image poema portrait" background="{{ imgs.get_url("collecions", col.imatges[5]) }}"></div>
-	<div class="ultima-imatge normal-image" background="{{ imgs.get_url("collecions", col.imatges[3]) }}">
+	<div class="doble-imatge normal-image poema portrait" background="{{ imgs.get_url("collecions", col.imatges[3]) }}"></div>
 	</div>
+	<div class="galeria-subtitle loc" loc="col_subtitol_galeria">{{ loc.col_subtitol_galeria }}</div>
 	<div class=galeria-landscape>
     {{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=col._id, min_row=1, min_prods=4, inline=False) }}
 	</div>
