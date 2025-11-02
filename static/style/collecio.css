@@ -25,13 +25,12 @@
 }
 .titol-collecio{
     font-size: var(--font-size-extra-extra-large);
-    color:white;
-    position: absolute;
-    bottom: 10%;
-    width: 100%;
-    margin-right: 0;
-    text-align: center;
-    vertical-align: middle;
+    color:black;
+    position: relative;
+    width: var(--padded-width);
+    text-align: start;
+    vertical-align: top;
+    margin-top: 8px;
     
 }
 
@@ -56,6 +55,10 @@
 	background-color:lightgray;
 }
 
+.poema{
+	margin-left:8px;
+	margin-right:8px;
+}
 
 .descripcio-collecio{
 	margin-top: 32px;
@@ -104,7 +107,10 @@
 		min-height: 50vh;
 	}
 	.titol-collecio{
-		font-size: var(--font-size-extra-large);
+		font-size: var(--font-size-large);
+		margin-top: 16px;
+		text-align:center;
+		vertical-align: middle;
 	}
 	.subtitol-collecio{
 		font-size: var(--font-size-medium);
@@ -118,6 +124,10 @@
 	.doble-imatge{
 		height: 49.5vw;
 		width: 49.5vw;
+	}
+	.poema{
+		margin-top: 1vw;
+		width: 100%;
 	}
 	.descripcio-collecio{
 		font-size: var(--font-size-medium);

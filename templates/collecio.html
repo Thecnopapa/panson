@@ -26,19 +26,19 @@
 {% endif %}
 
     <div class="collecio">
-	    <div class="imatge-collecio fast-image" background='{{ imgs.get_url("collecions", col.imatges[0]) }}'>
+	    <div class="imatge-collecio fast-image" background='{{ imgs.get_url("collecions", col.imatges[0]) }}'></div>
 
             {% if col["nom"] %}
                 <div class = "titol-collecio"><span class="subtitol-collecio loc" loc="col_subtitol">{{ loc.col_subtitol }}</span>{{ col.nom }}</div>
             {% endif %}
-	    </div>
+	    
         
 	<div class="imatges-collecio">
 		<div class="doble-imatge normal-image" background="{{ imgs.get_url("collecions", col.imatges[1]) }}"></div>
+		<div class="doble-imatge normal-image poema landscape" background="{{ imgs.get_url("collecions", col.imatges[5]) }}"></div>
 		<div class="doble-imatge normal-image" background="{{ imgs.get_url("collecions", col.imatges[2]) }}"></div>
 	</div>
-	<div class="descripcio-collecio">{{ col["descripcio"] | safe }}
-	</div>
+	<div class="doble-imatge normal-image poema portrait" background="{{ imgs.get_url("collecions", col.imatges[5]) }}"></div>
 	<div class="ultima-imatge normal-image" background="{{ imgs.get_url("collecions", col.imatges[3]) }}">
 	</div>
 	<div class=galeria-landscape>
