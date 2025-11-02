@@ -91,7 +91,7 @@
 
                             <fieldset class="color-selector colors-producte#{{ n }}">
                                 {% for color, info in producte.opcions["colors"].items() %}
-				<label title="{{ loc["color-"+color] }}" class="colour-label {{ producte.opcions.get("extra_colors", []*n)[n] }}" style="/*background-color:{{ loc["colours_"+color] }};*/ --color: {{ loc["colours_"+color] }};" onclick="selectColour(this, '{{ loc["color_"+color] }}')">
+				<label title="{{ loc["color-"+color] }}" class="colour-label {{ producte.opcions.get("extra_colors", []*n)[n] }}" style="/*background-color:{{ loc["colours_"+color] }};*/ --color: {{ loc["colours_"+color] }};" color={{loc["color_"+color]}} onclick="selectColour(this, '{{ loc["color_"+color] }}')">
                                     <input type="radio" name="color#{{ n }}" class="hidden-input color-input" price="{{ info.get("preu", 0) }}" value="{{ color  }}">
                                     </label>
                                 {% endfor %}

@@ -253,7 +253,7 @@ body {
 .option-field .size .text-label:has(> .hidden-input[checked=true]){
     font-weight: bold !important;
     text-decoration-line: underline !important;
-    text-underline-offset: var(--underline-offset) !important;
+    text-underline-offset: 2px !important;
     text-decoration-thickness: 1px !important;
 }
 
@@ -303,7 +303,6 @@ body {
     margin-bottom: 2vh;
     margin-top:2vh;
 }
-
 .multiple-input, #size-country {
         margin:0;
         padding:0;

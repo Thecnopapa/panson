@@ -32,7 +32,7 @@ html {
     --padding-horizontal: 0 var(--padding);
     --padding-vertical: var(--padding) 0;
     --padded-width: calc(100% - var(--padding) * 2);
-    --underline-offset:2px;
+    --underline-offset: 0.25rem;
     margin: 0px;
     padding: 0px;
     width: 100dvw;

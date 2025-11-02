@@ -162,6 +162,11 @@ function selectSizeTable(trigger) {
 
 
 function selectColour(trigger, color=""){
+	if (color===undefined || color === ""){
+		try{
+			color = trigger.getAttribute("color");
+		} catch{}
+	}
     console.log(trigger);
 	let colourList = trigger.parentElement.getElementsByClassName("color-input");
 	for (let i = 0; i < colourList.length; i++) {
@@ -704,6 +709,13 @@ function preventDefaultScroll(event) {
 let firstSize = document.querySelector(".size-input");
 if (firstSize != undefined){
 	selectSize(firstSize);
+	updatePrice();
+}
+let colorSels = document.querySelectorAll(".color-selector");
+if (colorSels != undefined){
+	colorSels.forEach(sel =>{
+		selectColour(sel.querySelector(".colour-label"));
+	});
 	updatePrice();
 }
 
