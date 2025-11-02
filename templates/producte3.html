@@ -192,7 +192,7 @@
 
                     </div>
 		    {% if producte.tipus in ["anell"] %}
-                    <div id="info-talles" class="clickable under-hover" onclick="showPopup(this.nextElementSibling)">{{ loc.pro_graella_talles }}</div>
+                    <div id="info-talles" class="clickable underlined" onclick="showPopup(this.nextElementSibling)">{{ loc.pro_graella_talles }}</div>
                     <div class="popup-info" id="popup-talles" onclick="event.stopPropagation()">
 			{{ talles_macros.info_talles(onclick_cell="selectSizeTable(this);") }}
 				

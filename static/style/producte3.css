@@ -166,6 +166,7 @@ body {
     margin-top: 0.7rem;
     padding-left: var(--padding);
     padding-right: var(--padding);
+    font-size: var(--font-size-small);
 
 }
 .info-desplegable > p {

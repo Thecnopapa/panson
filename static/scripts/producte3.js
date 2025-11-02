@@ -411,7 +411,7 @@ function enlargeImg(img, all=true){
     const newCross = document.createElement("div");
 	newCross.innerHTML ="&#10005;";
 	newCross.classList.add("close-enlarged-container");
-	newCross.addEventListener("click", function (event){newContainer.remove(); document.body.style.overflow = ""; newObserver.disconnect()});
+	newCross.addEventListener("click", function (event){newContainer.remove(); document.documentElement.style.overflow = ""; newObserver.disconnect()});
 	newContainer.appendChild(newCross);
 
 	const newBubbles = document.createElement("div");
