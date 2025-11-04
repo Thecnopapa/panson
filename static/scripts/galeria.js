@@ -246,7 +246,7 @@ function galeriaPrev(galeria){
 }
 
 function filterGaleria(trigger){
-	const galeria = trigger.parentElement.parentElement;
+	const galeria = trigger.parentElement.parentElement.parentElement;
     [...galeria.getElementsByClassName("galeria")[0].children].forEach((p) => {
         if (!p.classList.contains("template")) {p.remove();}
     })
