@@ -230,11 +230,14 @@
 
 
 @media only screen and (max-width: 1025px) {
-    #cart-closer{
+    .cart-closer{
+        display: none;
         position: fixed;
         top: 0;
         left: 0;
         width: 10%;
+        height: 100%;
+        z-index: 99;
     }
     #close-carret {
 

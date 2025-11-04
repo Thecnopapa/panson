@@ -25,7 +25,7 @@ async function openMenu() {
     menuOpen = true;
     let targetWidth = undefined;
     if (window.innerWidth <= desktopThreshold){
-        targetWidth =  window.innerWidth;
+        targetWidth =  window.innerWidth * 0.9;
         menu.style.width = String(targetWidth) + "px";
         try{
             navTitle.classList.add("black");
@@ -63,7 +63,7 @@ function closeMenu(override=true) {
     if (!override && menuOpen) {return;}
     let targetWidth = undefined;
     if (window.innerWidth <= desktopThreshold){
-        targetWidth =  window.innerWidth;
+        targetWidth =  window.innerWidth * 0.9;
         menu.style.width = String(targetWidth) + "px";
         checkColor()
     } else {

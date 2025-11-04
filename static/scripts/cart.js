@@ -2,6 +2,7 @@
 const cartButton = document.getElementById('cart-button');
 const cartItems = document.getElementsByClassName('is-carret');
 const cart = document.getElementById("carret")
+const cartClosers = document.querySelectorAll('.cart-closer');
 
 
 
@@ -26,17 +27,23 @@ function openCart(){
         //console.log(document.documentElement)
         document.documentElement.style.overflow = "hidden";
     }
+    cartClosers.forEach(closer => {
+        closer.style.display = "block";
+    });
 }
 
 
 async function closeCart(){
-    //console.log("Closing Cart");
+    console.log("Closing Cart");
     cart.classList.remove('open');
     for (let i = 0; i < cartItems.length; i++) {
         cartItems[i].classList.remove('open');
         cartButton.setAttribute("onclick", "openCart()");
     }
     document.documentElement.style.overflow = "";
+    cartClosers.forEach(closer => {
+        closer.style.display = "none";
+    });
 }
 
 let deleting = false;

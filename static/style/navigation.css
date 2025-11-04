@@ -521,8 +521,6 @@ video {
 
 
 
-
-
 .white{
        filter: invert(100%);
 }
@@ -594,6 +592,9 @@ video {
     }
     #menu-closer-landscape{
 	    display: none !important;
+    }
+    #menu-closer-portrait{
+        display: block !important;
     }
     .titol-submenu {
         margin-right: var(--padding);
