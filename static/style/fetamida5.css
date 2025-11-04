@@ -47,16 +47,19 @@
 }
 
 .email-form{
+    font-size: var(--font-size-small);
 	display:none;
 	margin: 0;
 	margin-top:1rem;
     padding: 0;
 }
 
-
+.fetamida-info.shown{
+		display:block;
+	}
 .fetamida-dropdown.shown{
 	.fetamida-info{
-		display:block;
+		/*display:block;*/
 	}
 	.main-arrow{
 		transform: rotate(-90deg);
