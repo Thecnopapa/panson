@@ -129,6 +129,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
 }
 .image-selector-content{
 	display:flex;
@@ -143,6 +144,7 @@
     flex-direction: row;
     width: 100%;
     flex-wrap: wrap;
+    max-height: 90%;
 }
 .image-selector-image{
     height: 10vw;
