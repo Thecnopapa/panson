@@ -21,8 +21,8 @@ class Product(firebaseObject):
         self.popular = False
         self.novetat = False
         self.info = ""
-        self.es = ""
-        self.en = ""
+        self.info_es = ""
+        self.info_en = ""
         self.start_date = ""
 
 

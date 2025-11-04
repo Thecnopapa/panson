@@ -361,7 +361,6 @@ try{
 	let gradientDiv = document.getElementsByClassName("filtre-buttons-gradient")[0];
 	
 	function displayGradient(){
-		gradientDiv.style.height = String(filterDiv.offsetHeight) + "px";
 		console.log(filterDiv.scrollLeft, filterDiv.offsetWidth, filterDiv.scrollWidth);
 		gradientDiv.classList.toggle("end-right", filterDiv.scrollLeft + filterDiv.offsetWidth >= filterDiv.scrollWidth);
 		gradientDiv.classList.toggle("end-left", filterDiv.scrollLeft <= 0);
