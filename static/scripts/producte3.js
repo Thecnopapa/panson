@@ -78,9 +78,11 @@ function selectSize(trigger){
 	var sizeList = document.getElementsByClassName("size-input");
 	for (let i = 0; i < sizeList.length; i++) {
 		sizeList[i].removeAttribute("checked");
+		sizeList[i].parentElement.classList.remove("underlined");
 		console.log(sizeList[i]);
 	}
 	trigger.setAttribute("checked", true);
+	trigger.parentElement.classList.add("underlined");
 	trigger.style.webkitTransform = 'scale(1)';
     setTimeMessage(trigger);
 	for (let i = 0; i < sizeList.length; i++) {
@@ -160,6 +162,11 @@ function selectSizeTable(trigger) {
 
 
 function selectColour(trigger, color=""){
+	if (color===undefined || color === ""){
+		try{
+			color = trigger.getAttribute("color");
+		} catch{}
+	}
     console.log(trigger);
 	let colourList = trigger.parentElement.getElementsByClassName("color-input");
 	for (let i = 0; i < colourList.length; i++) {
@@ -409,7 +416,7 @@ function enlargeImg(img, all=true){
     const newCross = document.createElement("div");
 	newCross.innerHTML ="&#10005;";
 	newCross.classList.add("close-enlarged-container");
-	newCross.addEventListener("click", function (event){newContainer.remove(); document.body.style.overflow = ""; newObserver.disconnect()});
+	newCross.addEventListener("click", function (event){newContainer.remove(); document.documentElement.style.overflow = ""; newObserver.disconnect()});
 	newContainer.appendChild(newCross);
 
 	const newBubbles = document.createElement("div");
@@ -699,6 +706,18 @@ function preventDefaultScroll(event) {
 }
 
 
+let firstSize = document.querySelector(".size-input");
+if (firstSize != undefined){
+	selectSize(firstSize);
+	updatePrice();
+}
+let colorSels = document.querySelectorAll(".color-selector");
+if (colorSels != undefined){
+	colorSels.forEach(sel =>{
+		selectColour(sel.querySelector(".colour-label"));
+	});
+	updatePrice();
+}
 
 
 

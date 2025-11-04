@@ -25,13 +25,12 @@
 }
 .titol-collecio{
     font-size: var(--font-size-extra-extra-large);
-    color:white;
-    position: absolute;
-    bottom: 10%;
-    width: 100%;
-    margin-right: 0;
-    text-align: center;
-    vertical-align: middle;
+    color:black;
+    position: relative;
+    width: var(--padded-width);
+    text-align: start;
+    vertical-align: top;
+    margin-top: 8px;
     
 }
 
@@ -39,7 +38,7 @@
 
 .subtitol-collecio{
 	font-size: var(--font-size-large);
-	margin-right: 0.5em;
+	margin-right: 0.25em;
 }
 
 .imatges-collecio{
@@ -56,6 +55,11 @@
 	background-color:lightgray;
 }
 
+.poema{
+	margin-left:8px;
+	margin-right:8px;
+	background-position: left;
+}
 
 .descripcio-collecio{
 	margin-top: 32px;
@@ -71,11 +75,15 @@
 	height: calc(100vw * 13 / 12);
 }
 
-
+.galeria-subtitle{
+	margin-top:64px;
+	font-size: var(--font-size-small);
+}
 .content-galeria{
-    margin-top: 16px;
+    margin-top: 8px;
     margin-bottom: 16px;
 }
+
 .galeria{
     margin-top: 0;
 }
@@ -104,7 +112,10 @@
 		min-height: 50vh;
 	}
 	.titol-collecio{
-		font-size: var(--font-size-extra-large);
+		font-size: var(--font-size-large);
+		margin-top: 16px;
+		text-align:center;
+		vertical-align: middle;
 	}
 	.subtitol-collecio{
 		font-size: var(--font-size-medium);
@@ -119,6 +130,10 @@
 		height: 49.5vw;
 		width: 49.5vw;
 	}
+	.poema{
+		margin-top: 1vw;
+		width: 100%;
+	}
 	.descripcio-collecio{
 		font-size: var(--font-size-medium);
 	}
@@ -126,4 +141,8 @@
 		margin-top:100px;
 		height: calc(100vw * 5 / 4);
 	}
+	.content-galeria{
+		margin-top: 8px;
+	}
+
 }

@@ -91,7 +91,7 @@
 
                             <fieldset class="color-selector colors-producte#{{ n }}">
                                 {% for color, info in producte.opcions["colors"].items() %}
-				<label title="{{ loc["color-"+color] }}" class="colour-label {{ producte.opcions.get("extra_colors", []*n)[n] }}" style="/*background-color:{{ loc["colours_"+color] }};*/ --color: {{ loc["colours_"+color] }};" onclick="selectColour(this, '{{ loc["color_"+color] }}')">
+				<label title="{{ loc["color-"+color] }}" class="colour-label {{ producte.opcions.get("extra_colors", []*n)[n] }}" style="/*background-color:{{ loc["colours_"+color] }};*/ --color: {{ loc["colours_"+color] }};" color={{loc["color_"+color]}} onclick="selectColour(this, '{{ loc["color_"+color] }}')">
                                     <input type="radio" name="color#{{ n }}" class="hidden-input color-input" price="{{ info.get("preu", 0) }}" value="{{ color  }}">
                                     </label>
                                 {% endfor %}
@@ -115,7 +115,7 @@
 				{% set select_this = True %}
 				{% if selected.append(True) %}{% endif %}
 			{% endif %}
-                        <div class="option variation">
+                        <div class="option variation" style="background-color:{{loc.misc["colours"][loc["var_"+variacio+"_color"]] }}">
                             <label class="text-label" onclick="selectVariation(this)">
 				    <input type="radio" name="variacio" price="{{ info.get("preu", 0) }}" class="hidden-input variation-input" value="{{ variacio }}" {{ "checked=true" if select_this}} link="{{ info.get("link", "") }}">
                             {{ loc["var_"+variacio] }}
@@ -192,7 +192,7 @@
 
                     </div>
 		    {% if producte.tipus in ["anell"] %}
-                    <div id="info-talles" class="clickable under-hover" onclick="showPopup(this.nextElementSibling)">{{ loc.pro_graella_talles }}</div>
+                    <div id="info-talles" class="clickable underlined" onclick="showPopup(this.nextElementSibling)">{{ loc.pro_graella_talles }}</div>
                     <div class="popup-info" id="popup-talles" onclick="event.stopPropagation()">
 			{{ talles_macros.info_talles(onclick_cell="selectSizeTable(this);") }}
 				

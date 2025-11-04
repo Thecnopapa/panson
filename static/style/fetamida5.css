@@ -37,11 +37,13 @@
 }
 
 .fetamida-subtitle{
+	font-size: var(--font-size-small);
 }
 
 .fetamida-info{
 	display:none;
     white-space: pre-line;
+    font-size: var(--font-size-small);
 }
 
 .email-form{

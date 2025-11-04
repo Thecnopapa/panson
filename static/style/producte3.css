@@ -166,6 +166,7 @@ body {
     margin-top: 0.7rem;
     padding-left: var(--padding);
     padding-right: var(--padding);
+    font-size: var(--font-size-small);
 
 }
 .info-desplegable > p {
@@ -244,10 +245,16 @@ body {
 }
 
 
+.option-field .size .text-label{
+	font-weight: normal;
+	
+}
+
 .option-field .size .text-label:has(> .hidden-input[checked=true]){
-    font-weight: bold;
-    text-decoration-line: underline;
-    text-underline-offset: var(--underline-offset);
+    font-weight: bold !important;
+    text-decoration-line: underline !important;
+    text-underline-offset: 2px !important;
+    text-decoration-thickness: 1px !important;
 }
 
 .option-field .variation .text-label:has(> .hidden-input[checked=true]){
@@ -296,7 +303,6 @@ body {
     margin-bottom: 2vh;
     margin-top:2vh;
 }
-
 .multiple-input, #size-country {
         margin:0;
         padding:0;
@@ -689,6 +695,19 @@ body {
 
 
 @media only screen and (max-width: 1025px) {
+
+
+    .colour-label:has(> .hidden-input[checked=true]){
+	    box-shadow:
+        	inset 1.5px 0 0 black,
+        	inset -1.5px 0 0 black,
+        	inset 0 1.5px 0 black,
+        	inset 0 -1.5px 0 black,
+		inset 2.5px 0 0 white,
+       		inset -2.5px 0 0 white,
+        	inset 0 2.5px 0 white,
+  	     	inset 0 -2.5px 0 white;
+	}
 
 	
 	.bubble-container{
