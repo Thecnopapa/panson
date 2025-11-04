@@ -731,6 +731,21 @@ function selectThis(trigger){
 }
 
 
+function changeLang(trigger){
+    let varElements = trigger.parentElement.querySelectorAll(".var-lang");
+    let newLan = trigger.value;
+    console.log(newLan);
+    console.log(varElements);
+    varElements.forEach(el => {
+        if (el.attributes.lan.value === newLan){
+            el.classList.add("active-lang");
+        } else {
+            el.classList.remove("active-lang");
+        }
+    })
+
+
+}
 
 
 

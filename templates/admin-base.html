@@ -58,7 +58,7 @@
 
 {% macro admin_container(product) %}
 <div class="product-container" id={{product._id}}>
-	<div class="product-header {{product._id}}" onclick="showPopup(this.nextElementSibling)">
+	<div class="product-header {{product._id}}" onclick="let p = showPopup(this.nextElementSibling); changeLang(p.querySelector('.lang-selector'));">
 		
 		{% if product.bucket != "imatges" %}
             <button type="button" class="product-button product-hide {{ "hide" if product.amagat }}" product="{{product._id}}" field="amagat" value="True" dataType="bool" onclick="event.stopPropagation(productUpdate(this)); this.style.display='none'; this.nextElementSibling.style.display = 'block'; this.parentElement.getElementsByClassName('product-title')[0].innerHTML = this.parentElement.parentElement.getElementsByClassName('name')[0].firstElementChild.value + ' (Amagat)'">Amagar</button>
@@ -76,13 +76,21 @@
 
 
 	<div class="product-data popup-info {{product._id}}">
+        <select class="lang-selector" onchange="changeLang(this)" value={{loc.lang}}>
+            <option value="cat">CAT</option>
+            <option value="es">ES</option>
+            <option value="en">EN</option>
+        </select>
 		<div>ID: {{product._id}}</div>
         <div class="horizontal wrapper">
             <div class="vertical wrapper">
                 <div class="horizontal wrapper">
                     <div class="product-element name">Nom: <input product="{{product._id}}" field="nom" class="product-input" value="{{product.nom}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; document.documentElement.querySelector('.product-title.{{product._id}}').innerHTML=this.value" colorcode="next"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
                     {% if product.bucket == "productes" %}
-                        <div class="product-element info">Info: <textarea product="{{product._id}}" field="info" class="product-input" onmouseenter="resizeArea(this)" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; resizeArea(this)" colorcode="next">{{product.info}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
+                        <div class="product-element info var-lang" lan="cat">Info(cat): <textarea product="{{product._id}}" field="info" class="product-input" onmouseenter="resizeArea(this)" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; resizeArea(this)" colorcode="next">{{product.info}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
+                        <div class="product-element info var-lang" lan="es">Info(es): <textarea product="{{product._id}}" field="info_es" class="product-input" onmouseenter="resizeArea(this)" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; resizeArea(this)" colorcode="next">{{product.info_es}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
+                        <div class="product-element info var-lang" lan="en">Info(en): <textarea product="{{product._id}}" field="info_en" class="product-input" onmouseenter="resizeArea(this)" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; resizeArea(this)" colorcode="next">{{product.info_en}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
+
                     {% elif product.bucket == "collecions" %}
                         <div class="product-element name">Nom Menu: <input product="{{product._id}}" field="nom_menu" class="product-input" value="{{product.nom_menu}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';" colorcode="next"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
                     {% endif %}
@@ -143,7 +151,10 @@
         <div class="horizontal spacer"></div>
 
         {% if product.bucket != "imatges" %}
-                <div class="product-element description">Descripcio: <textarea product="{{product._id}}" field="descripcio" class="product-input" onmouseenter="resizeArea(this)" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; resizeArea(this)" colorcode="next">{{product.descripcio}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
+                <div class="product-element description var-lang" lan="cat">Descripcio(cat): <textarea product="{{product._id}}" field="descripcio" class="product-input" onmouseenter="resizeArea(this)" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; resizeArea(this)" colorcode="next">{{product.descripcio}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
+                <div class="product-element description var-lang" lan="es">Descripcio(es): <textarea product="{{product._id}}" field="descripcio_es" class="product-input" onmouseenter="resizeArea(this)" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; resizeArea(this)" colorcode="next">{{product.descripcio_es}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
+                <div class="product-element description var-lang" lan="en">Descripcio(en): <textarea product="{{product._id}}" field="descripcio_en" class="product-input" onmouseenter="resizeArea(this)" oninput="this.nextElementSibling.style.backgroundColor = 'yellow'; resizeArea(this)" colorcode="next">{{product.descripcio_en}}</textarea><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
+
         {% endif %}
 
     </div>
