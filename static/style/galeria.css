@@ -15,7 +15,13 @@
     z-index: 10;
 }
 
-
+.gallery-filtres{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    position: relative;
+}
 
 .filtre-buttons{
 
@@ -60,6 +66,7 @@
     height: 100%;
     background: linear-gradient(to right,white, transparent 10%,  transparent 90%, white 100%);
     pointer-events: none;
+    z-index: 1;
 }
 .filtre-buttons-gradient.end-right{
 	background: linear-gradient(to right,white,  transparent 10%);

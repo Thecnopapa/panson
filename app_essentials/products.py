@@ -10,6 +10,8 @@ class Product(firebaseObject):
         self.esborrat = False
         self.collecio = "None"
         self.descripcio = ""
+        self.descripcio_es = ""
+        self.descripcio_en = ""
         self.subtitol = ""
         self.imatges = []
         self._imatges2 = []
@@ -19,6 +21,8 @@ class Product(firebaseObject):
         self.popular = False
         self.novetat = False
         self.info = ""
+        self.es = ""
+        self.en = ""
         self.start_date = ""
 
 
@@ -276,6 +280,8 @@ class Collection(firebaseObject):
         self.nom = ""
         self.nom_menu = ""
         self.descripcio = ""
+        self.descripcio_es = ""
+        self.descripcio_en = ""
         self.imatges =[]
         self.ordre = 10
         self.fons_blanc = False
