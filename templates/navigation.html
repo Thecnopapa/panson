@@ -46,7 +46,7 @@
 		<div class="language current" onclick="toggleLanguages(this.parentElement)"><span class="loc" loc="{{'lans_'+loc.lan}}">{{ loc["lans_"+loc.lan] }}</span><img class="main-arrow page-arrow down" src="/static/media/arrow.svg"></div>
         	{% for lang in loc.all_langs %}
             		{% if lang != loc.lan %}
-			<div class="language not-current clickable under-hover loc" loc="{{'lans_'+lang}}" onclick="location.href='/{{ lang }}/'">{{ loc["lans_"+lang] }}</div>
+			<div class="language not-current clickable under-hover loc" loc="{{'lans_'+lang}}" onclick="location.href='/{{ lang }}/'+ location.pathname.split('/').slice(2).join('/')">{{ loc["lans_"+lang] }}</div>
             		{% endif %}
         	{% endfor %}
 	</div>
