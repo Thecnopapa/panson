@@ -32,6 +32,7 @@
 			<div class="fetamida-dropdown-head clickable" onclick="
                 this.parentElement.classList.toggle('shown');
                 this.nextElementSibling.classList.toggle('shown');
+                this.lastElementChild.classList.toggle('shown');
             ">
 				<div class="fetamida-subtitle loc" loc="fam_intro_titol">{{ loc.fam_intro_titol | safe }}</div>
 				<img class="main-arrow page-arrow down" src="/static/media/arrow.svg">
@@ -43,6 +44,7 @@
 			<div class="fetamida-dropdown-head clickable" onclick="
                 this.parentElement.classList.toggle('shown');
                 this.nextElementSibling.classList.toggle('shown');
+                this.lastElementChild.classList.toggle('shown');
                ">
 				<div class="fetamida-subtitle loc" loc="fam_proces_titol">{{ loc.fam_proces_titol | safe }}</div>
 				<img class="main-arrow page-arrow down" src="/static/media/arrow.svg">
@@ -54,11 +56,13 @@
 			<div class="fetamida-dropdown-head clickable" onclick="
                 this.parentElement.classList.toggle('shown');
                 this.nextElementSibling.classList.toggle('shown');
+                this.nextElementSibling.nextElementSibling.classList.toggle('shown');
+                this.lastElementChild.classList.toggle('shown');
             ">
 				<div class="fetamida-subtitle loc" loc="fam_contacte_titol">{{ loc.fam_contacte_titol | safe }}</div>
 				<img class="main-arrow page-arrow down" src="/static/media/arrow.svg">
 			</div>
-                        <div class="fetamida-info loc" loc="fam_contacte_info">{{ loc.fam_contacte_info | safe }}</div>
+            <div class="fetamida-info loc" loc="fam_contacte_info">{{ loc.fam_contacte_info | safe }}</div>
 			{{ contact.contact_form(subject=False, prefix=False)}}
 		</div>
 

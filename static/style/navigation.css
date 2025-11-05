@@ -127,7 +127,8 @@ input, textarea, select {
 }
 
 li{
-    margin-left: var(--padding);
+
+    list-style-position: inside;
 }
 
 video {

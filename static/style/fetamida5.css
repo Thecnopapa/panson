@@ -37,7 +37,7 @@
 }
 
 .fetamida-subtitle{
-	font-size: var(--font-size-small);
+	font-size: var(--font-size-medium);
 }
 
 .fetamida-info{
@@ -53,21 +53,19 @@
 	margin-top:1rem;
     padding: 0;
 }
+.email-form.shown{
+    display:flex
+}
 
 .fetamida-info.shown{
 		display:block;
 	}
-.fetamida-dropdown.shown{
-	.fetamida-info{
-		/*display:block;*/
-	}
-	.main-arrow{
-		transform: rotate(-90deg);
-       		-webkit-transform: rotate(-90deg);
-	}
-	.email-form{
-		display:flex;
-	}
+.main-arrow.shown{
+
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+
+
 }
 
 .fetamida-galeria-titol{
@@ -96,6 +94,7 @@
     }
 
     .fetamida-subtitle {
+        font-size: var(--font-size-small);
     }
 
     .fetamida-info {
