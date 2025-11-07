@@ -106,19 +106,14 @@
 
             {% if producte.opcions["variacions"] != None %}
                 <fieldset class="option-field variacions-producte {{ "hide" if utils.len(producte.opcions["variacions"].keys()) == 1 }}">
-			<legend class="loc" loc="pro_variacio">{{loc.pro_variacio}}</legend>
+			        <legend class="loc" loc="pro_variacio">{{loc.pro_variacio}}</legend>
                     <div class="options variations">
-		    {% set selected = [] %}
+
                     {% for n, (variacio, info) in utils.enumerate(utils.sort_by_keys(producte.opcions["variacions"], ["preu", "ordre"]).items()) %}
-		    	{% set select_this = False %}
-		    	{% if not (True in selected) and info.get("link", "") == ""%}
-				{% set select_this = True %}
-				{% if selected.append(True) %}{% endif %}
-			{% endif %}
                         <div class="option variation" style="background-color:{{loc.misc["colours"][loc["var_"+variacio+"_color"]] }}">
                             <label class="text-label" onclick="selectVariation(this)">
-				    <input type="radio" name="variacio" price="{{ info.get("preu", 0) }}" class="hidden-input variation-input" value="{{ variacio }}" {{ "checked=true" if select_this}} link="{{ info.get("link", "") }}">
-                            {{ loc["var_"+variacio] }}
+				                <input type="radio" name="variacio" price="{{ info.get("preu", 0) }}" class="hidden-input variation-input" value="{{ variacio }}" {{ "checked=true" if info.get("link", "") == "" }} link="{{ info.get("link", "") }}">
+                                {{ loc["var_"+variacio] }}
                             </label>
                         </div>
                     {% endfor %}

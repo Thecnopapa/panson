@@ -257,9 +257,7 @@ body {
     text-decoration-thickness: 1px !important;
 }
 
-.option-field .variation .text-label:has(> .hidden-input[checked=true]){
-	font-weight: bold;
-}
+
 
 
 
@@ -380,20 +378,17 @@ body {
 
 
 .colour-label:has(> .hidden-input[checked=true]){
-    /*border: white solid 0.05rem;*/
-    /*background-color: transparent;*/
+
     box-shadow:
-        /*0 0 0 0 var(--color),*/
-	inset 1px 0 0 black,
+        inset 1px 0 0 black,
         inset -1px 0 0 black,
         inset 0 1px 0 black,
         inset 0 -1px 0 black,
-    	inset 2px 0 0 white, 
-    	inset -2px 0 0 white,
-	inset 0 2px 0 white,
-	inset 0 -2px 0 white;
-    /*height: .75rem;
-    width: .75rem;*/
+        inset 2px 0 0 white,
+        inset -2px 0 0 white,
+        inset 0 2px 0 white,
+        inset 0 -2px 0 white;
+
 
 }
 .pro-pedra-petita:has(> .hidden-input[checked=true]){
@@ -407,13 +402,29 @@ body {
 
 
 .variation{
-	border: 1px black solid;
-	padding-right:0.5rem;
-	padding-left: 0.5rem;
+	/*border: 1px black solid;*/
+	min-width: 1rem;
+    min-height: 1rem;
+}
+.variation .text-label{
+    min-width: 1rem;
+    min-height: 1rem;
 }
 
 
+.option-field .variation[checked=true]{
+	font-weight: bold;
 
+    box-shadow:
+        inset 1px 0 0 black,
+        inset -1px 0 0 black,
+        inset 0 1px 0 black,
+        inset 0 -1px 0 black,
+        inset 2px 0 0 white,
+        inset -2px 0 0 white,
+        inset 0 2px 0 white,
+        inset 0 -2px 0 white;
+}
 
 
 

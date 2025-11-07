@@ -188,9 +188,14 @@ function selectVariation(trigger){
 	}
 	let varList = [...trigger.parentElement.parentElement.getElementsByTagName("input")];
 	console.log(varList);
-	varList.forEach(v => {v.removeAttribute("checked"); v.style.webkitTransform = 'scale(1)';});
+	varList.forEach(v => {
+        v.removeAttribute("checked");
+        v.parentElement.removeAttribute("checked");
+        v.parentElement.parentElement.removeAttribute("checked");
+    });
 	trigger.firstElementChild.setAttribute("checked", true);
-	trigger.style.webkitTransform = 'scale(1)';
+    trigger.setAttribute("checked", true);
+    trigger.parentElement.setAttribute("checked", true);
 
 	updatePrice();
 }
@@ -706,11 +711,39 @@ function preventDefaultScroll(event) {
 }
 
 
-let firstSize = document.querySelector(".size-input");
-if (firstSize != undefined){
-	selectSize(firstSize);
-	updatePrice();
-}
+let sizeInputs = document.querySelectorAll(".size-input");
+let hasSelectedSize = false;
+sizeInputs.forEach(el => {
+
+    if (!hasSelectedSize){
+        if (!el.hasAttribute("link")){
+            selectSize(el);
+            updatePrice();
+            hasSelectedSize = true;
+        } else if (el.attributes.link.value === undefined || el.attributes.link.value === null || el.attributes.link.value === ""){
+            selectSize(el);
+            updatePrice();
+            hasSelectedSize = true;
+        }
+    }
+})
+
+let variationInputs = document.querySelectorAll(".variation-input");
+let hasSelectedVariation = false;
+variationInputs.forEach(el => {
+    if (!hasSelectedVariation){
+        if (!el.hasAttribute("link")){
+            selectVariation(el.parentElement);
+            updatePrice();
+            hasSelectedVariation = true;
+        } else if (el.attributes.link.value === undefined || el.attributes.link.value === null || el.attributes.link.value === ""){
+            selectVariation(el.parentElement);
+            updatePrice();
+            hasSelectedVariation = true;
+        }
+    }
+})
+
 let colorSels = document.querySelectorAll(".color-selector");
 if (colorSels != undefined){
 	colorSels.forEach(sel =>{
