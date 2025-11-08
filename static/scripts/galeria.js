@@ -267,7 +267,7 @@ function filterGaleria(trigger){
 
 	const key = trigger.attributes.filterKey.value;
 	const value = trigger.attributes.filterValue.value;
-	window.history.replaceState(document.title, "", document.location.pathname+"?filterKey=" + key + "&filterValue=" + value + "&page=0");
+	window.history.replaceState(document.title, "", document.location.pathname+"?filterKey=" + key + "&filterValue=" + value);
 	initGaleria(galeria, 0, key, value);
 	trigger.classList.add("active");
 	}

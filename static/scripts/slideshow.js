@@ -4,6 +4,9 @@ showSlides();
 function showSlides() {
   let i;
   let slides = document.getElementsByClassName("slide-content");
+  if (slides.length < 3){
+	return;
+  }
 
   if (slideIndex == 0) {
     slides[slides.length - 2].style.display = "none";
