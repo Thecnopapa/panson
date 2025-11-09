@@ -24,6 +24,7 @@ class Product(firebaseObject):
         self.info_es = ""
         self.info_en = ""
         self.start_date = ""
+        self.fons_blanc = False
 
 
         self.tipus = None

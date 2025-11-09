@@ -304,14 +304,16 @@
 
                 <div class="product-element for">Per a: <input product="{{product._id}}" field="per_a"  class="product-input" value="{{product.per_a}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
 
-            {% elif product.bucket == "collecions" %}
-
-                <div class="product-element background">Navegacio blanca:
-                    <select product="{{product._id}}" field="fons_blanc" dataType="bool" class="product-input" oninput="productUpdate(this);">
-                                {% for b in [True, False] %}
-                                    <option value="{{ b }}" {{ "selected=selected" if product.unica == b }}>{{ loc.misc["bools"]["{}".format(b)] }}</option>
-                                {% endfor %}
-                    </select><div></div>
+            {% endif %}
+            {% if product.bucket in ["productes", "bespoke", "collecions"] %}
+                <div class="horizontal wrapper">
+                    <div class="product-element background">Menu/Logo BLANCS:
+                        <select product="{{product._id}}" field="fons_blanc" dataType="bool" class="product-input" oninput="productUpdate(this);">
+                                    {% for b in [True, False] %}
+                                        <option value="{{ b }}" {{ "selected=selected" if product.fons_blanc == b }}>{{ loc.misc["bools"]["{}".format(b)] }}</option>
+                                    {% endfor %}
+                        </select><div></div>
+                    </div>
                 </div>
 
             {% endif %}

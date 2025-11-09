@@ -1009,6 +1009,15 @@ def get_file_info(data=None):
             brightess = imgs.get_brightness(data["bucket"], data["filename"])
         ))
 
+@app.post("/admin/files/rightness")
+def get_file_brightness():
+    use(0.01)
+    imgs = Images()
+    target = request.get_json()
+    data = imgs.get(target["bucket"], target["filename"])
+    return jsonify(dict(brightness = imgs.get_brightness(data["bucket"], data["filename"])))
+
+
 
 @app.post("/admin/files/list")
 def get_file_list():

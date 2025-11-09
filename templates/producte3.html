@@ -26,6 +26,9 @@
 
 {% block body %}
 
+{% if producte.fons_blanc %}
+    <div id="nav-color" color="white"></div>
+{% endif %}
 
 <div class="content-producte">
     <div id="producte-images" class="slideshow" onscroll="updateProductSlideshow(this, this.nextElementSibling)">
