@@ -111,6 +111,10 @@ from werkzeug.exceptions import HTTPException
 @app.errorhandler(HTTPException)
 def handle_exception(e):
     """Return JSON instead of HTML for HTTP errors."""
+
+    if e.code == 403:
+        return redirect("/admin")
+
     # start with the correct headers and status code from the error
     response = e.get_response()
     # replace the body with JSON
@@ -156,7 +160,7 @@ def check_limit(max_reqs=10, seconds=10):
     #print(" - Usage: ", usage)
     elif usage > max_reqs:
         print(" - Usage exceded: ", usage)
-        return "", 429
+        abort(492)
     else:
         pass
 
@@ -194,6 +198,16 @@ def use(amount=1.0):
 
     print("IP:", req_ip, "Using:", amount, "Total:", usage_ips[req_ip]["usage"], "Delta:", usage_ips[req_ip]["delta"])
     #session["usage"] += amount
+
+    print(request.path)
+
+    if "test." in request.host:
+        if request.path.split("/")[1] not in ["static", "style", "media", "scripts"]:
+            if not (request.path == "/admin/" or request.path == "/login"):
+                if admin_check():
+                    pass
+                else:
+                    abort(403)
     
 
     
