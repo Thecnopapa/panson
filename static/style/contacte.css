@@ -164,13 +164,13 @@
         height:fit-content;
         min-height: fit-content;
         margin-bottom: 10vh;
-	align-items: center;
-	flex-direction: column;
+        align-items: center;
+        flex-direction: column;
     }
+
 	#columnes-contacte{
 		flex-direction:column;
 		align-items: center;
-		
 	}
 	#contacte-left, #contacte-right{
 		width:var(--padded-width);

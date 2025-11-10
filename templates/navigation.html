@@ -4,7 +4,7 @@
 {% if not user.accepted_cookies %}
 	    <link href='/style/tic.css' rel='stylesheet'>
         <div id=cookies class="request-cookies">
-            <span class="info"><span class="loc" loc="nav_cookie_banner">{{ loc.nav_cookie_banner }}</span><a href="/{{ loc.lan }}/tic/privacy" class="loc" loc="cookie_link">{{ loc.nav_cookie_link }}</a></span>
+            <span class="cookies-info"><span class="loc" loc="nav_cookie_banner">{{ loc.nav_cookie_banner }}</span><a href="/{{ loc.lan }}/tic/privacy" class="loc" loc="cookie_link">{{ loc.nav_cookie_link }}</a></span>
             <div class="inputs">
 
                 <div class="preferences-button clickable underlined loc" onclick="showPopup(this.nextElementSibling)" loc="nav_cookies_preferencies">{{ loc.nav_cookies_preferencies }}</div>

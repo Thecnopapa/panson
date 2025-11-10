@@ -250,7 +250,7 @@ body {
 	
 }
 
-.option-field .size .text-label:has(> .hidden-input[checked=true]){
+.size > .text-label:has(> .hidden-input[checked=true]){
     font-weight: bold !important;
     text-decoration-line: underline !important;
     text-underline-offset: 2px !important;
@@ -302,8 +302,8 @@ body {
     margin-top:2vh;
 }
 .multiple-input, #size-country {
-        margin:0;
-        padding:0;
+    margin:0;
+    padding:0;
 	border:none;
 	border-bottom:1px solid black;
 	outline-offset: 0;
@@ -352,17 +352,18 @@ body {
 .color-selector:last-of-type{
     margin-bottom: 0;
 }
+
 .colour-label{
     height: .85rem;
     width: .85rem;
     border-radius: 0;
     margin-right:0.4rem !important;
     background-color: var(--color);
-    
 }
+
 .colour-label[style*="background-color:white"] {
-                background-color:lightgray !important;
-        }
+    background-color:lightgray !important;
+}
 .pro-pedra-gran{
     height: .9rem;
     width: .9rem;
@@ -451,22 +452,21 @@ body {
 
 
 .cart-loading{
-        display:none;
-	filter: invert(100%);
-        height:var(--font-size-extra-large);
-        width:var(--font-size-extra-large);
-        position: absolute;
+    display:none;
+    filter: invert(100%);
+    height:var(--font-size-extra-large);
+    width:var(--font-size-extra-large);
+    position: absolute;
 }
 
-.add-to-cart.loading{
-	.add-to-cart-text {
-		visibility: hidden;
-	}
+.add-to-cart.loading > .add-to-cart-text {
 
-	.cart-loading{
-		display:flex;
-	}
+    visibility: hidden;
 }
+.add-to-cart.loading > .cart-loading{
+    display:flex;
+}
+
 
 .missatge-enviament{
     display: none;
@@ -593,20 +593,18 @@ body {
 	flex-direction: row;
 	pointer-events: none;
 	justify-content:space-between;
-	* {
-		pointer-events: auto;
-		height: 45px;
-	}
+
 }
-.enlarged-arrows.scroll-start{
-	.enlarged-arrow.left{
-		opacity: 0.25;
-	}
+.enlarged-arrows > * {
+    pointer-events: auto;
+    height: 45px;
 }
-.enlarged-arrows.scroll-end{
-	.enlarged-arrow.right{
-		opacity: 0.25;
-	}
+
+.enlarged-arrows.scroll-start > .enlarged-arrow.left{
+    opacity: 0.25;
+}
+.enlarged-arrows.scroll-end > .enlarged-arrow.right{
+    opacity: 0.25;
 }
 
 .bubble-container{
@@ -714,7 +712,7 @@ body {
         	inset -1.5px 0 0 black,
         	inset 0 1.5px 0 black,
         	inset 0 -1.5px 0 black,
-		inset 2.5px 0 0 white,
+            inset 2.5px 0 0 white,
        		inset -2.5px 0 0 white,
         	inset 0 2.5px 0 white,
   	     	inset 0 -2.5px 0 white;
@@ -774,25 +772,23 @@ body {
         align-items:center;
         justify-content:space-between;
         pointer-events: none;
-        * {
-            pointer-events: auto;
-            cursor: pointer;
-        }
+
 	}
+    .arrows > * {
+        pointer-events: auto;
+        cursor: pointer;
+    }
     .arrows .main-arrow{
         	height: 45px;
     }
 
-	.arrows.scroll-start{
-		.main-arrow.left {
-			opacity: 0.25;
-		}
-	}
-	.arrows.scroll-end{
-		.main-arrow.right{
-			opacity:0.25;
-		}
-	}
+	.arrows.scroll-start > .main-arrow.left {
+        opacity: 0.25;
+    }
+
+	.arrows.scroll-end > .main-arrow.right{
+        opacity:0.25;
+    }
 	
 
 

@@ -58,14 +58,12 @@
 }
 
 .fetamida-info.shown{
-		display:block;
-	}
-.main-arrow.shown{
+    display:block;
+}
 
+.main-arrow.shown{
     transform: rotate(-90deg);
     -webkit-transform: rotate(-90deg);
-
-
 }
 
 .fetamida-galeria-titol{
