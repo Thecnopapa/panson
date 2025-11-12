@@ -359,9 +359,12 @@ def index(lan ="cat", favicon = True):
 @app.route("/<lan>/collecio/<id>")
 def collections(lan,id):
     use()
-    col = [c for c in get_cols() if c._id == id][0]
-    html = template(lan=lan, templates=["collecio"], col=col)
-    return html
+    try:
+        col = [c for c in get_cols() if c._id == id][0]
+        html = template(lan=lan, templates=["collecio"], col=col)
+        return html
+    except:
+        return ""
 
 
 

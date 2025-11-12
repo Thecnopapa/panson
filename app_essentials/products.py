@@ -25,6 +25,7 @@ class Product(firebaseObject):
         self.info_en = ""
         self.start_date = ""
         self.fons_blanc = False
+        self.prio = 0
 
 
         self.tipus = None
@@ -40,6 +41,11 @@ class Product(firebaseObject):
         if nimg != 0:
             self._imatges2 *= 4//nimg
             self._imatges2 += self._imatges2[:nimg%nimg]
+
+        if self.popular:
+            self.prio += 1
+        if self.novetat:
+            self.prio += 1
 
     def generate_id2(self, options={}):
         id2 = self._id
@@ -128,7 +134,7 @@ class Products():
     def setup(self):
         self.cols = get_cols()
         self.tipus = sorted(set([c.tipus for c in self.products.values() if c.tipus is not None]))
-        self.productes = [p for p in  self.get_all() if not (p.esborrat or p.amagat)]
+        self.productes = sorted([p for p in  self.get_all() if not (p.esborrat or p.amagat)], key=lambda p: p.prio)
         self.bespoke = [p for p in self.bespoke if not (p.esborrat or p.amagat)]
         
 
