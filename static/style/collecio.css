@@ -24,21 +24,21 @@
     min-height: 100vh;
 }
 .titol-collecio{
-    font-size: var(--font-size-extra-extra-large);
+    font-size: 36px;
     color:black;
     position: relative;
     width: var(--padded-width);
     text-align: start;
     vertical-align: top;
-    margin-top: 8px;
-    padding-bottom: 128px;
+    margin-top: 1em;
+    padding-bottom: 3em;
     
 }
 
 
 
 .subtitol-collecio{
-	font-size: var(--font-size-extra-extra-large);
+	font-size: 36px;
 	margin-right: 0.25em;
 }
 

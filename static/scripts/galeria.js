@@ -155,8 +155,10 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
 
 	//galeria.scrollTo(0,0);
 	const infoElement = galeria.getElementsByClassName("gallery-info")[0];
-	const maxProds = Number(infoElement.attributes.maxProds.value);
+	let maxProds = Number(infoElement.attributes.maxProds.value);
     const minRow = Number(infoElement.attributes.minRow.value);
+    maxProds += maxProds % minRow
+
 	const bucket = infoElement.attributes.bucket.value;
 	const key = infoElement.attributes.filterKey.value;
 	const value = infoElement.attributes.filterValue.value;

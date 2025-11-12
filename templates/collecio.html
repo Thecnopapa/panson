@@ -25,29 +25,27 @@
     <div id="nav-color" color="white"></div>
 {% endif %}
 
-    <div class="collecio">
-	    <div class="imatge-collecio fast-image" background='{{ imgs.get_url("collecions", col.imatges[0]) }}'></div>
-
-            {% if col["nom"] %}
-                <div class = "titol-collecio"><span class="subtitol-collecio loc" loc="col_subtitol">{{ loc.col_subtitol }}</span>{{ col.nom }}</div>
-            {% endif %}
-	    
-        
+<div class="collecio">
+    <div class="imatge-collecio fast-image" background='{{ imgs.get_url("collecions", col.imatges[0]) }}'></div>
+        {% if col["nom"] %}
+            <div class = "titol-collecio"><span class="subtitol-collecio loc" loc="col_subtitol">{{ loc.col_subtitol }}</span>{{ col.nom }}</div>
+        {% endif %}
 	<div class="imatges-collecio">
 		<div class="doble-imatge normal-image" background="{{ imgs.get_url("collecions", col.imatges[1]) }}"></div>
 		<div class="doble-imatge normal-image poema landscape" background="{{ imgs.get_url("collecions", col.imatges[3]) }}"></div>
 		<div class="doble-imatge normal-image" background="{{ imgs.get_url("collecions", col.imatges[2]) }}"></div>
 	</div>
 	<div class="doble-imatge normal-image poema portrait" background="{{ imgs.get_url("collecions", col.imatges[4]) }}"></div>
-	</div>
-	<div class="galeria-subtitle loc" loc="col_subtitol_galeria">{{ loc.col_subtitol_galeria }}</div>
-	<div class=galeria-landscape>
-    {{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=col._id, min_row=1, min_prods=4, inline=False) }}
-	</div>
-	<div class=galeria-portrait>
-    {{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=col._id, min_row=1, min_prods=2, inline=False) }}
-        </div>
-    </div>
+</div>
+
+<div class="galeria-subtitle loc" loc="col_subtitol_galeria">{{ loc.col_subtitol_galeria }}</div>
+
+<div class=galeria-landscape>
+    {{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=col._id, min_row=4, min_prods=4, inline=False) }}
+</div>
+<div class=galeria-portrait>
+    {{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=col._id, min_row=2, min_prods=2, inline=False) }}
+</div>
 
 
 {% endblock %}
