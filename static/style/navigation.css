@@ -78,6 +78,7 @@ html {
     -webkit-backface-visibility: hidden;
 
     /*white-space: pre-line;*/
+    accent-color: lightgray;
 
 }
 
@@ -636,16 +637,16 @@ video {
 	    height: fit-content;
     }
     .cookies-info{
-	    text-align: justify;
-        margin-bottom: 1em;
-        margin-top: 2em;
+
+        margin-bottom: 2em;
+        margin-top: 1em;
     }
     .request-cookies .inputs{
         display:flex;
         flex-direction:column-reverse;
         width:100%;
         align-items:center;
-        margin-bottom: 2em;
+        margin-bottom: 1em;
     }
     .accept-cookies {
 	    margin-bottom: 1em;
@@ -653,6 +654,12 @@ video {
 	    width:100%;
         padding-top:1em;
         padding-bottom:1em;
+    }
+    .cookies-popup{
+        font-size: var(--font-size-extra-small);
+    }
+    .cookies-popup > .tic-subtitle{
+        font-size: var(--font-size-medium);
     }
 
 }

@@ -12,8 +12,8 @@
                     <div class="tic-subtitle loc" loc="tic_cookies_titol">{{ loc.tic_cookies_titol }}</div>
                     <div class="tic-info loc" loc="tic_cookies_info">{{ loc.tic_cookies_info | safe }}</div>
                     <div class="cookie-selector">
-                        <span class="cookie-span"><input type=checkbox checked  value=on class="analytic"><div class="cookie-label loc" loc="tic_cookie_analitica">{{ loc.tic_cookie_analitica }}</div></span>
-                        <span class="cookie-span"><input type=checkbox checked value=on class="essential"><div class="cookie-label loc" loc="tic_cookie_essencial">{{ loc.tic_cookie_essencial }}</div></span>
+                        <span class="cookie-span"><input type=checkbox checked  value=on class="analytic"><div class="cookie-label loc" loc="tic_cookie_analitica" onclick="this.previousElementSibling.click()">{{ loc.tic_cookie_analitica }}</div></span>
+                        <span class="cookie-span"><input type=checkbox checked value=on class="essential"><div class="cookie-label loc" loc="tic_cookie_essencial" onclick="this.previousElementSibling.click()">{{ loc.tic_cookie_essencial }}</div></span>
                     </div>
                 </div>
                 <button class="accept-cookies black-button" onclick="updateCookiesTic(this.previousElementSibling);document.getElementById('cookies').remove();">{{ loc.nav_cookie_button }}</button>
