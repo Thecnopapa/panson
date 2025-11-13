@@ -130,7 +130,7 @@ class Products():
     def setup(self):
         self.cols = get_cols()
         self.tipus = sorted(set([c.tipus for c in self.products.values() if c.tipus is not None]))
-        self.productes = sorted([p for p in  self.get_all() if not (p.esborrat or p.amagat)], key=lambda p: p.prio)
+        self.productes = sorted([p for p in  self.get_all() if not (p.esborrat or p.amagat)], key=lambda p: p.prio, reverse=True)
         self.bespoke = [p for p in self.bespoke if not (p.esborrat or p.amagat)]
         
 
