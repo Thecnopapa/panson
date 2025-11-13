@@ -70,7 +70,10 @@
 
 	    <div class="product-title {{product._id}}" >{{product.nom}} {{ "(Amagat)" if product.amagat }}</div>
         <div class="product-id">{{product._id}}</div>
-	    <div class="product-snapshot normal-image" background='{{ imgs.get_url(product.bucket, product.imatges[0]) }}'></div>
+
+	    <div class="product-snapshot normal-image" background='{{ imgs.get_url(product.bucket, product.imatges[0]) }}'>
+            <div class="product-prio">({{product.prio}})</div>
+        </div>
         </div>
 
 
