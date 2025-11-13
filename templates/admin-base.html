@@ -312,7 +312,12 @@
                                     {% for b in [True, False] %}
                                         <option value="{{ b }}" {{ "selected=selected" if product.fons_blanc == b }}>{{ loc.misc["bools"]["{}".format(b)] }}</option>
                                     {% endfor %}
-                        </select><div></div>
+                        </select>
+                    </div>
+                    <div class="product-element priority">Prioritat:
+
+                        <input class="product-input" dataType="int" value={{product.prio}} product="{{product._id}}" field="prio" oninput="productUpdate(this);">
+
                     </div>
                 </div>
 

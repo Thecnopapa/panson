@@ -25,7 +25,7 @@ class Product(firebaseObject):
         self.info_en = ""
         self.start_date = ""
         self.fons_blanc = False
-        self.prio = 0
+        self.prio = 1
 
 
         self.tipus = None
@@ -42,10 +42,6 @@ class Product(firebaseObject):
             self._imatges2 *= 4//nimg
             self._imatges2 += self._imatges2[:nimg%nimg]
 
-        if self.popular:
-            self.prio += 1
-        if self.novetat:
-            self.prio += 1
 
     def generate_id2(self, options={}):
         id2 = self._id
@@ -292,6 +288,7 @@ class Collection(firebaseObject):
         self.imatges =[]
         self.ordre = 10
         self.fons_blanc = False
+        self.prio = 1
 
         self.amagat=False
         self.esborrat=False
