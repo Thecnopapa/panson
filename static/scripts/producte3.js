@@ -469,7 +469,7 @@ function enlargeImg(img, all=true){
 	    }
 	}
 
-	newContainer.addEventListener("keydown", scrollWithArrows);
+	newContainer.addEventListener("keyup", scrollWithArrows);
 
 
 
