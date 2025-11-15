@@ -29,8 +29,8 @@
     <div class = "navigation-left" id="nav-left">
         <button class="dropbtn" id="menu-button" onmouseover="openMenu()">{{ loc.nav_botiga }}</button>
         <button class="menu-simple" id="menu-button-simple" onclick="switchMenu()"><img class="icon-menu-simple" src="/static/media/menu-black.svg" alt="cart"><br> </button>
-	<div class="menu-closer" id=menu-closer-landscape onmouseover="event.stopPropagation(closeMenu())"></div>
-	<div class="menu-closer" id=menu-closer-portrait onclick="event.stopPropagation(closeMenu())"></div>
+	<div class="menu-closer landscape" id=menu-closer-landscape onmouseover="event.stopPropagation(closeMenu())"></div>
+	<div class="menu-closer portrait" id=menu-closer-portrait onclick="event.stopPropagation(closeMenu())"></div>
         {{ menu.render_menu() }}
 	<button class="dropbtn hidden" id="projecte" onclick="location.href='/{{ loc.lan }}/projecte/'"> {{ loc.nav_projecte}}</button>
         <button class="dropbtn last" id="fetamida" onclick="location.href='/{{ loc.lan }}/fetamida'"> {{ loc.nav_fetamida }}</button>

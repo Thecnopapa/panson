@@ -35,6 +35,7 @@ async function openMenu() {
     } else {
         targetWidth = navLeft.offsetWidth;
         menu.style.width = String(targetWidth) + "px";
+    }
         menuClosers.forEach(closer => {
             closer.style.width = String(window.innerWidth - targetWidth) + "px";
             closer.style.display = "flex";
@@ -42,7 +43,7 @@ async function openMenu() {
         navButtons.forEach(button => {
             button.classList.add("black");
         });
-    }
+    
     menu.style.left = "0";
     menu.classList.add('open');
     menu.classList.remove('closed');
@@ -139,5 +140,6 @@ menu.style.left = String(-targetWidth-1) + "px";
 
 
 window.addEventListener('load', function(){
+	closeMenu();
 
 })
