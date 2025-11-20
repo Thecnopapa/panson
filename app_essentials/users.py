@@ -57,7 +57,10 @@ class User(firebaseObject):
         name = product.nom
         price = product.calculate_price(**options)[0]
         imgs = Images()
-        images = [imgs.get_url("productes", product.imatges[0])]
+        try:
+            images = [imgs.get_url("productes", product.imatges[0])]
+        except:
+            images = []
         extras = {}
         if product.opcions.get("extra_colors", False):
             extras["extra_colors"] = product.opcions["extra_colors"]

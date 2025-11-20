@@ -351,7 +351,7 @@ def process_payment(lan):
     session = stripe.checkout.Session.retrieve(user.last_checkout, expand=["line_items", "payment_intent", "shipping_rate"])
     line_items = session["line_items"]
     print(session)
-    #print(line_items)
+    print(line_items)
     
             
     #payment=session["payment"]
@@ -363,6 +363,21 @@ def process_payment(lan):
         ad = session["collected_information"]["shipping_details"]["address"]
         address = ", ".join([ad["line1"], ad["line2"],  ad["postal_code"], ad["city"], ad["state"], ad["country"]])
         recipient = session["collected_information"]["shipping_details"]["name"]
+        if session["payment_intent"] is None:
+            pi = payment_intent = {"id":"NA",
+                                   "amount_received":0,
+                                   "currency": "eur",
+                                   "amount_details": {
+                                       "tax":{"total_tax_amount":0},
+                                       "shipping":{"amount":0},
+                                       }
+                                   }
+        else:
+            pi = session["payment_intent"]
+        print(pi)
+
+
+
         for line_item in line_items["data"]:
             #print(line_item)
             auto_product = stripe.Product.retrieve(line_item["price"]["product"])
@@ -373,7 +388,7 @@ def process_payment(lan):
             new_metadata.update(dict(
                 order_id=session["id"],
                 customer_id=session["customer"],
-                payment_id=session["payment_intent"]["id"],
+                payment_id=pi["id"],
                 status=session["payment_status"],
                 line_id=line_item["id"],
                 auto_id=auto_product["id"],
@@ -407,6 +422,7 @@ def process_payment(lan):
 
 
         card_name = "{} ({})".format(customer_name, len(new_items))
+
         card_description="""
         ----- Dades client -------------
         Client: {}
@@ -415,7 +431,7 @@ def process_payment(lan):
         
         ----- Enviament ----------------
         Adreça: 
-        {}
+        {}"
         {}
         
         --- Pagament -------------------
@@ -436,13 +452,14 @@ def process_payment(lan):
             recipient,
             address,
             session["amount_subtotal"]/100,
-            session["payment_intent"]["currency"],
-            session["shipping_cost"]["amount_subtotal"]/100, session["shipping_cost"]["amount_tax"]/100,session["shipping_cost"]["amount_total"]/100, session["payment_intent"]["currency"],
-            session["amount_subtotal"]/100, session["payment_intent"]["amount_details"]["shipping"]["amount"]/100, session["payment_intent"]["amount_details"]["tax"]["total_tax_amount"]/100, session["payment_intent"]["amount_received"]/100, session["payment_intent"]["currency"],
-            session["customer"], session["payment_intent"]["id"], ", ".join(d["id"] for d in new_items),
+            pi["currency"],
+            session["shipping_cost"]["amount_subtotal"]/100, session["shipping_cost"]["amount_tax"]/100,session["shipping_cost"]["amount_total"]/100, pi["currency"],
+            session["amount_subtotal"]/100, pi["amount_details"]["shipping"]["amount"]/100, pi["amount_details"]["tax"]["total_tax_amount"]/100, pi["amount_received"]/100, pi["currency"],
+            session["customer"], pi["id"], ", ".join(d["id"] for d in new_items),
             datetime.date.today()
         )
-        card_items = [ "{} ({}) x{}".format(i["name"], i["metadata"]["details"], i["quantity"]) for i in new_items]
+        [print(i) for i in new_items]
+        card_items = [ "{} ({}) x{}".format(i["name"], i["metadata"]["details"], i["metadata"]["quantity"]) for i in new_items]
         trello = Trello()
         trello.card_create(card_name, card_description, card_items)
 
