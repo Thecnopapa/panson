@@ -58,7 +58,8 @@ class Product(firebaseObject):
             p += min([variacio["preu"] for variacio in self.opcions["variacions"].values()])
         if self.opcions["colors"] is not None:
             #print(self.opcions["colors"].values())
-            p += min([data["preu"] for color, data in self.opcions["colors"].items()]) * self.opcions.get("n_colors", 1)
+            if int(self.opcions.get("n_colors", 0)) > 0:
+                p += min([data["preu"] for color, data in self.opcions["colors"].items()]) * self.opcions.get("n_colors", 1)
         return p
 
     def calculate_price(self, material = None, variacio = None, color = None, **kwargs):
