@@ -126,7 +126,7 @@ class Trello():
             "desc": description,
             "start": now,
             "due": now + datetime.timedelta(days=21),
-            "idLabels": ",".join(self.labels),
+            "idLabels": ",".join([str(l) for l in self.labels]),
         }
         if link is not None:
             query["urlSource"] = link
@@ -455,7 +455,7 @@ def process_payment(lan):
             pi["currency"],
             session["shipping_cost"]["amount_subtotal"]/100, session["shipping_cost"]["amount_tax"]/100,session["shipping_cost"]["amount_total"]/100, pi["currency"],
             session["amount_subtotal"]/100, pi["amount_details"]["shipping"]["amount"]/100, pi["amount_details"]["tax"]["total_tax_amount"]/100, pi["amount_received"]/100, pi["currency"],
-            session["customer"], pi["id"], ", ".join(d["id"] for d in new_items),
+            session["customer"], pi["id"], ", ".join(str(d["id"]) for d in new_items),
             datetime.date.today()
         )
         [print(i) for i in new_items]
