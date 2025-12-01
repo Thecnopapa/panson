@@ -155,7 +155,7 @@ def check_limit(max_reqs=10, seconds=10):
     #    usage = 0
     #    session["usage"] = usage
     #    print(" - Window renewed, delta: ", delta)
-        
+
     #print(" - Window: ", window)
     #print(" - Usage: ", usage)
     elif usage > max_reqs:
@@ -173,7 +173,7 @@ def use(amount=1.0):
     req_ip = request.remote_addr
     #print(" - Request IP: ", req_ip)
     now = (datetime.datetime.now() - origin).total_seconds()
-    
+
     if req_ip in usage_ips.keys():
         delta = now - usage_ips[req_ip]["window"]
         #print(" - Delta: ", delta)
@@ -208,9 +208,9 @@ def use(amount=1.0):
                     pass
                 else:
                     abort(403)
-    
 
-    
+
+
 
 
 
@@ -576,12 +576,44 @@ def calculate_shipping_options_route(lan):
 @app.route("/<lan>/checkout/success/")
 def stripe_success(lan):
     use(0.01)
-    from payments import process_payment
-    payment_data = process_payment(lan=lan)
-    if payment_data is None:
-        return redirect("/{}".format(lan))
-    html = template(lan=lan, templates="success", **payment_data)
+    try:
+        from payments import process_payment
+        payment_data = process_payment(lan=lan)
+        if payment_data is None:
+            return redirect("/{}".format(lan))
+        html = template(lan=lan, templates="success", **payment_data)
+    except:
+        return """<div style='width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;'>
+        <p>Your payment has been processed correctly and your order has been placed.<br>
+        You should recive an email with your order soon.<br>
+        <br>
+        If you are seeing this is due to some technical issues on our side.<br>
+        If you have any doubts please contact us at <b>help@pansonjoieria.com</b></p>
+        <br><br>
+        <a href="/">HOME</a>
+        </div>
+        
+        """
     return html
+
+@app.route("/<lan>/checkout/success/test")
+def stripe_success_test(lan):
+    use(0.01)
+    from payments import process_payment
+    session = {
+        "customer_details": {
+            "email": "test@pansonjoieria.com"
+        }
+    }
+    invoice = {
+                "hosted_invoice_url": "https://stripe.com",
+                "number": "12345"
+    }
+    html = template(lan=lan, templates="success", invoice=invoice, session=session)
+    return html
+
+
+
 
 
 @app.route("/<lan>/checkout/cancel/")
@@ -939,7 +971,7 @@ def update_product(bucket):
             if not dry:
                 p.update_db()
                 print1("DB updated")
-            else: 
+            else:
                 sprint("Dry run")
             return p.__dict__
         except Exception as e:

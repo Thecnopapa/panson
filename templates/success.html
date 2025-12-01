@@ -19,16 +19,16 @@ window.onload = function(){
 }
 </script>
   <div class="content-success">
-      <h4>Compra realitzada amb exit!</h4>
-      <p>En breus rebras la confirmacio de pagament a: {{ session["customer_details"]["email"] }}</p>
-      <p>Qualsevol dubte contacti amb:</p>
-      <a class="selectable under-hover" href="mailto:{{ loc.email_sales }}">{{ loc.email_sales }}</a>
+      <h4 class = "loc" loc="conf_titol">{{ loc.conf_titol }}</h4>
+      <p><span class="loc" loc="conf_text_1">{{ loc.conf_text_1 }}</span> {{ session["customer_details"]["email"] }}</p>
+      <p class="loc" loc="conf_text_2">{{ loc.conf_text_2 }}</p>
+      <a class="selectable underlined" href="mailto:{{ loc.email_sales }}">{{ loc.email_sales }}</a>
       <br><br>
-      <b><a href="/{{ loc.lan }}/productes/">Tornar a la botiga</a></b>
+      <b class="underlined"><a href="/{{ loc.lan }}/productes/">{{ loc.conf_tornar }}</a></b>
       <br><br>
-      <span class="selectable">ID de pagament: <a class="selectable under-hover" target="_blank" href="{{ invoice['hosted_invoice_url'] }}">{{ invoice["number"] }}</a></span>
+      <span class="selectable"><span class="loc" loc="conf_id_pagament">{{ loc.conf_id_pagament }}</span> <a class="selectable under-hover" target="_blank" href="{{ invoice['hosted_invoice_url'] }}">{{ invoice["number"] }}</a></span>
   <br><br> <br><br> <br><br>
-      <p>Recarregar aquesta pagina re-mostrara el rebut.</p>
+      <p class="loc" loc="conf_ultim">{{ loc.conf_ultim }}</p>
   </div>
 
 {% endblock %}
