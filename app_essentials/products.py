@@ -59,7 +59,10 @@ class Product(firebaseObject):
         if self.opcions["colors"] is not None:
             #print(self.opcions["colors"].values())
             if int(self.opcions.get("n_colors", 0)) > 0:
-                p += min([data["preu"] for color, data in self.opcions["colors"].items()]) * self.opcions.get("n_colors", 1)
+                try:
+                    p += min([data["preu"] for color, data in self.opcions["colors"].items()]) * self.opcions.get("n_colors", 1)
+                except:
+                    pass
         return p
 
     def calculate_price(self, material = None, variacio = None, color = None, **kwargs):
@@ -133,7 +136,7 @@ class Products():
         self.tipus = sorted(set([c.tipus for c in self.products.values() if c.tipus is not None]))
         self.productes = sorted([p for p in  self.get_all() if not (p.esborrat or p.amagat)], key=lambda p: p.prio)
         self.bespoke = [p for p in self.bespoke if not (p.esborrat or p.amagat)]
-        
+
 
 
     def __repr__(self):
@@ -296,7 +299,7 @@ class Collection(firebaseObject):
         super().__init__(data, id)
         if self._id is None:
             self.new = True
-        
+
 
 class StaticImage(firebaseObject):
     bucket = "imatges"

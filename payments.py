@@ -352,8 +352,8 @@ def process_payment(lan):
     line_items = session["line_items"]
     print(session)
     print(line_items)
-    
-            
+
+
     #payment=session["payment"]
     if session["status"] == "complete" and session["payment_status"] == "paid":
         new_items =[]
@@ -361,7 +361,7 @@ def process_payment(lan):
         customer_email = session["customer_details"]["email"]
         customer_tel = session["customer_details"]["phone"]
         ad = session["collected_information"]["shipping_details"]["address"]
-        address = ", ".join([ad["line1"], ad["line2"],  ad["postal_code"], ad["city"], ad["state"], ad["country"]])
+        address = ", ".join([str(ad["line1"]), str(ad["line2"]),  str(ad["postal_code"]), str(ad["city"]), str(ad["state"]), str(ad["country"])])
         recipient = session["collected_information"]["shipping_details"]["name"]
         if session["payment_intent"] is None:
             pi = payment_intent = {"id":"NA",
