@@ -62,9 +62,9 @@ async function scrollGallery(galeria, direction, amount){
     }
 	console.log("final:", targetScroll);
 	galeria.scrollTo(targetScroll, 0);
-	
-	
-	
+
+
+
 }
 
 async function hideScrollArrows(event){
@@ -305,7 +305,7 @@ function changeProduct(element, product, bucket) {
 	    tElement.classList.remove("hidden");
 	    tElement.setAttribute("launchTime", launchTime);
 	    tElement.link = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value;
-	    
+
     } else {
     	element.onclick = function () { location.href = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value }
     }
@@ -314,7 +314,13 @@ function changeProduct(element, product, bucket) {
 	} else{
 
     		element.getElementsByClassName("nom")[0].innerHTML = info.nom.value;
-            [...element.getElementsByClassName("preu-inline")].forEach(e => {e.innerHTML = info.preu.value;});
+            [...element.getElementsByClassName("preu-inline")].forEach(e => {
+				let t = "";
+				if (Number(info.descompte.value > 0)){
+					t = "<span class='strikethrough'>"+info.preu_antic.value+"</span>&nbsp;"
+				}
+				e.innerHTML = t+info.preu.value;
+			});
 	}
 
 }
@@ -372,7 +378,7 @@ function galleryAnimation(triggers, ops) {
 try{
 	let filterDiv = document.getElementsByClassName("filtre-buttons")[0];
 	let gradientDiv = document.getElementsByClassName("filtre-buttons-gradient")[0];
-	
+
 	function displayGradient(){
 		console.log(filterDiv.scrollLeft, filterDiv.offsetWidth, filterDiv.scrollWidth);
 		gradientDiv.classList.toggle("end-right", filterDiv.scrollLeft + filterDiv.offsetWidth >= filterDiv.scrollWidth);

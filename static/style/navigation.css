@@ -105,7 +105,9 @@ html {
 .bold{
     font-weight: bold;
 }
-
+.strikethrough{
+    text-decoration: line-through;
+}
 body {
 
     padding: 0px;

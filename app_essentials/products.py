@@ -51,7 +51,7 @@ class Product(firebaseObject):
             id2 += "&{}:{}".format(key, value)
         return id2
 
-    def calcular_preu_minim(self):
+    def calcular_preu_minim(self, discount=True):
         p = 0
         if self.opcions["materials"] is not None:
             #print(self.opcions["materials"].values())
@@ -66,7 +66,7 @@ class Product(firebaseObject):
                 except:
                     pass
         print("before:", p)
-        if self.descompte > 0 and p > 0:
+        if discount and self.descompte > 0 and p > 0:
             p = ceil(p * (1 - (self.descompte / 100)))
             print("after:", p)
         return p
