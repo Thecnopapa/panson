@@ -185,7 +185,9 @@ function addPopupCross(popupContent) {
 }
 
 
+function closeBanner(target){
 
+}
 
 
 

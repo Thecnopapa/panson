@@ -20,6 +20,12 @@
             </div>
         </div>
     {% endif %}
+{% if loc.banner_text != "" and show_banner%}
+    <div class="banner" style="background-color: {{ loc.banner_color_fons }}; font-size: {{ loc.banner_font_size }}">
+        <div class="banner-text loc" loc="banner_text">{{ loc.banner_text | safe}}</div>
+        <div class="banner-cross hidden" onclick="this.parentElement.remove();closeBanner();">&#10005;</div>
+    </div>
+{% endif %}
 
 {% if hide_title %}
 {% else %}
@@ -74,7 +80,7 @@
     </div>
 
     <div class="footer-carret is-carret">
-        
+
 	<div class="total-cart is-carret"><div class="total-cart-title is-carret">{{ loc.car_total }}</div><div class="total-cart-value is-carret">{{ user.total_carret }}&#8364</div></div>
         <button class="checkout-button is-carret black-button loc" loc="car_checkout"  onclick="location.href='/{{ loc.lan }}/checkout/stripe'">{{ loc.car_checkout |safe }}</button>
         <div class="detalls_pagament is-carret loc" loc="car_detalls_pagament">{{ loc.car_detalls_pagament }}</div>

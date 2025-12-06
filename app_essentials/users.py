@@ -26,6 +26,7 @@ class User(firebaseObject):
             'ad_storage': 'denied',
             'analytics_storage': 'denied'
         }
+        self.closed_banner = False
         self.sessions = []
         self.username = None
         self.password = None
@@ -232,7 +233,7 @@ class UserOld(firebaseObject):
                 "adjustable_quantity": {
                     "enabled": True,
                 },
-                
+
             }
             items.append(i)
         return items

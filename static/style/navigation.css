@@ -190,6 +190,19 @@ video {
 }
 
 
+.banner{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-width: fit-content;
+    position: fixed;
+    bottom: var(--header-height);
+    z-index: 100;
+    padding: var(--padding);
+}
+
+
 .main-arrow{
 	height:2rem;
 	width:fit-content;

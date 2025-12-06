@@ -352,7 +352,7 @@ def index(lan ="cat", favicon = True):
     slide_list = [[slide, storage_url.format("portada", slide.split("/")[-1])] for slide in slides if
                   slide.split("/")[-1] != ""]
 
-    html = template(lan=lan, templates=["index", "galeria"], slides= slide_list, hide_title=True, title=False, max_gallery=8)
+    html = template(lan=lan, templates=["index", "galeria"], slides= slide_list, hide_title=True, title=False, max_gallery=8, show_banner=True)
     return html
 
 
@@ -529,6 +529,10 @@ def eliminar_del_carret(lan, id2):
     resp = redirect("/{}/productes/{}/?{}".format(lan, id, opcions))
     return resp
 
+
+@app.post("/close_banner")
+def close_banner():
+    pass
 
 
 
