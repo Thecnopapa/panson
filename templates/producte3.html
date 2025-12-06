@@ -12,7 +12,7 @@
     <link href='/style/talles.css' as='style' rel='preload'>
     <link href='/style/producte3.css' as='style' rel='preload'>
     <link href='/scripts/producte3.js' as='script' rel='preload'>
-    
+
     <link href='/style/contacte.css' rel='stylesheet'>
     <link href='/style/galeria.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/scripts/galeria.js"></script>
@@ -60,7 +60,7 @@
     {% if producte.bucket == "productes" %}
 
         <div id="initial-price"> <span class="preu-producte"></span> &#8364;</div>
-
+        <div id="extra-info" discount="{{ producte.descompte }}"></div>
 
         <form method="post" enctype="multipart/form-data" id="form">
             <input value="{{ producte._id }}" name="id" style="display: none">
@@ -84,7 +84,7 @@
 
             {% if producte.opcions.get("n_colors", 0) >0 %}
                 <div class="colors-producte option-field">
-                    
+
                     <div class="options">
                         {% for n in range(producte.opcions.get("n_colors", 1)) %}
 			<legend class="pro_color_titol"><span class="loc" loc="pro_color_singular">{{loc.pro_color_singular}}</span>
@@ -125,7 +125,7 @@
             {% else %}
                         <input name="variacio" type="hidden" value="NA">
             {% endif %}
-	
+
 	    {% if producte["totes_talles"]  %}
 	    	{% if producte.tipus == "anell" %}
 			{% set llista_talles = ["XS", "S", "M", "L", "XL"] %}
@@ -182,7 +182,7 @@
                                     <option class="mm-c" value="mm-c">mm (circumference)</option>
                                     <option class="mm-d" value="mm-d">mm (diametre)</option>
                                     <option class="us" value="us">US</option>
-                                    
+
 
                                 </select>
                             </div>
@@ -193,7 +193,7 @@
                     <div id="info-talles" class="clickable underlined" onclick="showPopup(this.nextElementSibling)">{{ loc.pro_graella_talles }}</div>
                     <div class="popup-info" id="popup-talles" onclick="event.stopPropagation()">
 			{{ talles_macros.info_talles(onclick_cell="selectSizeTable(this);") }}
-				
+
                     </div>
 		    {% endif %}
 

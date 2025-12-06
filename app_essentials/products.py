@@ -1,5 +1,6 @@
 from app_essentials.firebase import get_products, firebaseObject, get_cols, get_bespoke
 from app_essentials.utils import str_to_list
+from math import floor, ceil
 
 
 class Product(firebaseObject):
@@ -26,6 +27,7 @@ class Product(firebaseObject):
         self.start_date = ""
         self.fons_blanc = False
         self.prio = 1
+        self.descompte = 0
 
 
         self.tipus = None
@@ -63,6 +65,10 @@ class Product(firebaseObject):
                     p += min([data["preu"] for color, data in self.opcions["colors"].items()]) * self.opcions.get("n_colors", 1)
                 except:
                     pass
+        print("before:", p)
+        if self.descompte > 0 and p > 0:
+            p = ceil(p * (1 - (self.descompte / 100)))
+            print("after:", p)
         return p
 
     def calculate_price(self, material = None, variacio = None, color = None, **kwargs):
@@ -117,6 +123,10 @@ class Product(firebaseObject):
                 else:
                     #print(self.opcions["colors"], c)
                     p += self.opcions["colors"][c]["preu"]
+        print("before:", p)
+        if self.descompte > 0 and p > 0:
+            p = ceil(p*(1-(self.descompte/100)))
+            print("after:", p)
         return p, incomplet
 
 

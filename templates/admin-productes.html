@@ -4,9 +4,8 @@
 
     <div id="productes" class="admin-content">
         {% for col in collecions %}
-
             <div class="col_col product-list {{ col._id }}">
-            <div class="productes-titol-col">{{ col.nom }}</div>
+                <div class="productes-titol-col">{{ col.nom }}</div>
                 {% for product in productes.filter({"collecio":col._id}) %}
                     {{ admin_container(product) }}
                 {% endfor %}
@@ -20,6 +19,13 @@
         </div>
 
         {{ new_container("productes") }}
+        <div class="productes-titol-col">Actualitzar tot</div>
+            <div class="global-discount">
+                <input type="number"> % (num del 0 al 100 / 0 = no descompte / 100 = gratis)<br>
+                <input type="checkbox"> (si: totes / no: nomes les que tinguin un descompte)<br>
+                <button class="discount-update">Actualitzar</button>
+            </div>
+        </div>
 
     </div>
 {% endblock %}

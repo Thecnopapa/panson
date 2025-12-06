@@ -14,7 +14,7 @@ function updatePrice(){
 	console.log("Updating price");
 
     const variationList = document.getElementsByClassName("variation-input");
-	
+
     for (let i = 0; i < variationList.length; i++) {
         if (variationList[i].checked && variationList[i].attributes.price) {
             console.log(variationList[i].attributes.price.value);
@@ -44,14 +44,49 @@ function updatePrice(){
 			price += Number(sizeList[i].attributes.price.value);
 		}
 	}
-    	
-    const priceTags = document.getElementsByClassName("preu-producte");
-    //console.log(priceTags, price);
+    let discount = 0
+    let o_price = 0
     try {
-        for (let i = 0; i < priceTags.length; i++) {
-            priceTags[i].innerHTML = price.toFixed(2);
+        discount = Number(document.getElementById("extra-info").getAttribute("discount"))
+        if (discount > 0) {
+            o_price = price
+            price = price * (1 - (discount / 100))
         }
     } catch (error) {}
+    const priceTags = document.getElementsByClassName("preu-producte");
+    console.log(priceTags, price, o_price);
+    try {
+        for (let i = 0; i < priceTags.length; i++) {
+            console.log(priceTags);
+            if (priceTags[i].classList.contains("old-price")){
+                continue;
+            }
+            priceTags[i].innerHTML = price.toFixed(2);
+            if (discount > 0){
+                let new_tag= undefined;
+                if (priceTags[i].previousElementSibling !== null) {
+                    if (priceTags[i].previousElementSibling.classList.contains("old-price")) {
+                        new_tag = priceTags[i].previousElementSibling;
+                    }
+                }
+                if (new_tag === undefined) {
+                    new_tag = priceTags[i].cloneNode(true);
+                }
+
+                console.log(new_tag);
+
+                new_tag.classList.add("old-price");
+                new_tag.innerHTML = o_price.toFixed(2);
+                priceTags[i].classList.add("discounted-price");
+                priceTags[i].before(new_tag);
+                // priceTags[i].parentElement.parentElement.insertBefore(new_tag_parent, priceTags[i].parentElement);
+            }
+            console.log(priceTags);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
 
 }
 
@@ -217,7 +252,7 @@ function selectMaterial(trigger){
 
 async function submitToCart (trigger) {
 	trigger.classList.add("loading");
-	
+
     const theForm = document.getElementById("form");
     const missingInfo = document.getElementById("missing-info");
     const formData = new FormData(theForm);
@@ -254,7 +289,7 @@ async function submitToCart (trigger) {
     }
 	trigger.classList.remove("loading");
 	document.documentElement.style.cursor = "";
-	
+
 }
 
 async function reloadCart(){
@@ -375,7 +410,7 @@ function enlargeImg(img, all=true){
 		root: newContainer,
 		threshold: enlargedObserverThreshold,
 	});
-	
+
 
     newContainer.classList.add("enlarged-container");
     if (window.innerWidth > desktopThreshold) {
@@ -397,7 +432,7 @@ function enlargeImg(img, all=true){
             newObserver.disconnect();
             document.documentElement.style.overflow = "";
             document.documentElement.removeEventListener("keydown", closeWithEscape);
-	    
+
 
         }
     }
@@ -454,7 +489,7 @@ function enlargeImg(img, all=true){
 	leftArrow.addEventListener("click", slideshowScroll);
 	rightArrow.addEventListener("click", slideshowScroll);
 
-	
+
 	newArrows.appendChild(leftArrow);
 	newArrows.appendChild(rightArrow);
 
@@ -557,7 +592,7 @@ let initialSlideshowObserver = new IntersectionObserver(initialBubbleChange, {
 function initialBubbleChange(triggers, opts){
 	const triggerContainer = document.getElementById("producte-images");
 	const bubbleContainer = triggerContainer.nextElementSibling.firstElementChild;
-	
+
 	for (let i = 0; i < triggers.length; i++){
 		const trigger = triggers[i].target;
 		const targetIndex = [...triggerContainer.children].indexOf(trigger);
@@ -602,7 +637,7 @@ function slideshowScroll(container, mode=undefined, axis="both"){
     if (container instanceof Event) {
 	    trigger = container.target;
 	    container = trigger.parentElement.parentElement.querySelector(".slideshow");
-    
+
     	    if (trigger.classList.contains("left")){mode="prev";} else if (trigger.classList.contains("right")){mode="next";}
     }
     let containerWidth = container.offsetWidth;
