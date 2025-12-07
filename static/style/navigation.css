@@ -198,7 +198,7 @@ video {
     min-width: fit-content;
     position: fixed;
     bottom: var(--header-height);
-    z-index: 100;
+    z-index: 30;
     padding: var(--padding);
 }
 

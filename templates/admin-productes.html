@@ -21,9 +21,9 @@
         {{ new_container("productes") }}
         <div class="productes-titol-col">Actualitzar tot</div>
             <div class="global-discount">
-                <input type="number"> % (num del 0 al 100 / 0 = no descompte / 100 = gratis)<br>
-                <input type="checkbox"> (si: totes / no: nomes les que tinguin un descompte)<br>
-                <button class="discount-update">Actualitzar</button>
+                <input class="discount-input" type="number"> % (num del 0 al 100 / 0 = no descompte / 100 = gratis)<br>
+                <input class="change-all" type="checkbox"> (si: totes / no: nomes les que tinguin un descompte)<br>
+                <button class="discount-update" onclick="updateMultipleDiscounts(this)">Actualitzar</button>
             </div>
         </div>
 

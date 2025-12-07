@@ -1073,6 +1073,24 @@ def get_file_list():
 
 
 
+@app.post("/admin/update/multiple/discount")
+def update_discounts():
+    use(0.01)
+    if admin_check():
+        data = request.get_json()
+        print(data)
+        prods = Products()
+        for prod in prods.products.values():
+            if prod.descompte == 0 and not data["changeAll"]:
+                continue
+            prod.descompte = data["newDiscount"]
+            prod.update_db()
+
+
+        return "", 200
+
+
+
 @app.post("/<lan>/send_email/<target>/")
 def send_contact_email(lan, target="contacte"):
     use(10)

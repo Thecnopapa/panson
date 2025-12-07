@@ -265,6 +265,10 @@ class Localisation2:
     def create_empty_text(self, page, name):
         doc = self.texts.document(page).get()
         #print(doc.__dict__)
+        if page is None or page == "":
+            return
+        if name is None or name == "":
+            return
         if not doc.exists:
             self.create_empy_page(page)
         try:

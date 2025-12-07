@@ -748,6 +748,36 @@ function changeLang(trigger){
 }
 
 
+async function updateMultipleDiscounts(trigger){
+
+	let changeAll = trigger.parentElement.querySelector(".change-all").checked;
+	let newDiscount = Number(trigger.parentElement.querySelector(".discount-input").value);
+	console.log({newDiscount, changeAll})
+	let resp = await fetch("/admin/update/multiple/discount", {
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+		method: "POST",
+		body: JSON.stringify({changeAll, newDiscount})
+	});
+	console.log(resp);
+	if (resp.status == 200){
+		trigger.parentElement.style.backgroundColor ="lightgreen";
+	} else{
+		trigger.parentElement.style.backgroundColor = "red";
+	}
+                
+}
+
+
+
+
+
+
+
+
+
 
 
 
