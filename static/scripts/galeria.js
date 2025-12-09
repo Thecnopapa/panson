@@ -317,9 +317,12 @@ function changeProduct(element, product, bucket) {
             [...element.getElementsByClassName("preu-inline")].forEach(e => {
 				let t = "";
 				if (Number(info.descompte.value > 0)){
-					t = "<span class='strikethrough'>"+info.preu_antic.value+"</span>&nbsp;"
+					t = "<span class='strikethrough grayed'>"+info.preu_antic.value+"</span>&nbsp;"
+					e.innerHTML = t + "<span class='bold'>" + info.preu.value + "</span>";
+				} else{
+					e.innerHTML = t + info.preu.value;
+
 				}
-				e.innerHTML = t+info.preu.value;
 			});
 	}
 

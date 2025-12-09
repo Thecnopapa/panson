@@ -21,9 +21,9 @@
         </div>
     {% endif %}
 {% if loc.banner_text != "" and show_banner%}
-    <div class="banner" style="background-color: {{ loc.banner_color_fons }}; font-size: {{ loc.banner_font_size }}">
+    <div class="banner" style="background-color: {{ loc.banner_color_fons }};">
         <div class="banner-text loc" loc="banner_text">{{ loc.banner_text | safe}}</div>
-        <div class="banner-cross hidden" onclick="this.parentElement.remove();closeBanner();">&#10005;</div>
+        <div class="banner-cross" onclick="this.parentElement.remove();closeBanner();">&#10005;</div>
     </div>
 {% endif %}
 

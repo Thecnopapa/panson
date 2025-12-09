@@ -105,6 +105,9 @@ html {
 .bold{
     font-weight: bold;
 }
+.grayed{
+    color: gray;
+}
 .strikethrough{
     text-decoration: line-through;
 }
@@ -197,9 +200,18 @@ video {
     justify-content: center;
     min-width: fit-content;
     position: fixed;
-    bottom: var(--header-height);
+    bottom: 0;
     z-index: 30;
+    margin: var(--padding);
     padding: var(--padding);
+    font-size: var(--font-size-medium);
+    border-radius: var(--padding);
+    box-shadow: 8px 0px 24px rgba(0, 0, 0, 0.15);
+}
+.banner-cross{
+    right: 0;
+    margin-left: var(--padding);
+    cursor: pointer;
 }
 
 
@@ -679,5 +691,9 @@ video {
     .cookies-popup > .tic-subtitle{
         font-size: var(--font-size-medium);
     }
-
+    .banner{
+        width: calc(100% - (var(--padding) * 4));
+        bottom: var(--padding);
+        font-size: var(--font-size-medium);
+    }
 }
