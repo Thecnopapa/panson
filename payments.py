@@ -325,6 +325,7 @@ def init_checkout(lan, force_new=False):
             phone_number_collection={
                 "enabled": True,
             },
+            allow_promotion_codes = True,
 
             #success_url= request.url_root+"{}/checkout/success".format(lan),
             #cancel_url=request.headers["Referer"],

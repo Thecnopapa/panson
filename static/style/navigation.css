@@ -195,12 +195,13 @@ video {
 
 .banner{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     min-width: fit-content;
     position: fixed;
-    bottom: 0;
+    bottom: var(--padding);
+
     z-index: 45;
     margin: var(--padding);
     padding: var(--padding);
@@ -209,9 +210,22 @@ video {
     box-shadow: 8px 0px 24px rgba(0, 0, 0, 0.15);
 }
 .banner-cross{
-    right: 0;
+    position: absolute;
+    top: calc(var(--padding) / 2);
+    right: calc(var(--padding) / 2);
     margin-left: var(--padding);
     cursor: pointer;
+}
+
+.banner-title{
+    font-size: var(--font-size-extra-large);
+    font-weight: bold;
+    text-align: center;
+    padding-left: var(--padding);
+    padding-right: var(--padding);
+}
+.banner-text{
+    text-align: center;
 }
 
 
@@ -696,5 +710,8 @@ video {
         bottom: unset;
         top: var(--header-height);
         font-size: var(--font-size-small);
+    }
+    .banner-title{
+        font-size: var(--font-size-large);
     }
 }

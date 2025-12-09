@@ -22,7 +22,9 @@
     {% endif %}
 {% if loc.banner_text != "" and show_banner%}
     <div class="banner" style="background-color: {{ loc.banner_color_fons }};">
+        <div class="banner-title loc" loc="banner_title">{{ loc.banner_title | safe}}</div>
         <div class="banner-text loc" loc="banner_text">{{ loc.banner_text | safe}}</div>
+        <div class="banner-text loc" loc="banner_text2">{{ loc.banner_text2 | safe}}</div>
         <div class="banner-cross" onclick="this.parentElement.remove();closeBanner();">&#10005;</div>
     </div>
 {% endif %}
