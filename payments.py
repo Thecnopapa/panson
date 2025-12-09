@@ -348,7 +348,7 @@ def init_checkout(lan, force_new=False):
 
 def process_payment(lan):
     user = get_current_user()
-    session = stripe.checkout.Session.retrieve(user.last_checkout, expand=["line_items", "payment_intent", "shipping_rate"])
+    session = stripe.checkout.Session.retrieve(user.last_checkout, expand=["line_items", "payment_intent", "shipping_rate", "invoice"])
     line_items = session["line_items"]
     print(session)
     print(line_items)
@@ -469,7 +469,7 @@ def process_payment(lan):
             session = stripe.checkout.Session.retrieve(user.last_checkout)
             time.sleep(1)
         #print(session["invoice"])
-        invoice = stripe.Invoice.send_invoice(session["invoice"])
+        invoice = session["invoice"]
         #print("invoice:")
         #print(invoice)
         # send_email(
