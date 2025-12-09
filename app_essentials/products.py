@@ -65,10 +65,10 @@ class Product(firebaseObject):
                     p += min([data["preu"] for color, data in self.opcions["colors"].items()]) * self.opcions.get("n_colors", 1)
                 except:
                     pass
-        print("before:", p)
+        #print("before:", p)
         if discount and self.descompte > 0 and p > 0:
             p = ceil(p * (1 - (self.descompte / 100)))
-            print("after:", p)
+            #print("after:", p)
         return p
 
     def calculate_price(self, material = None, variacio = None, color = None, **kwargs):
