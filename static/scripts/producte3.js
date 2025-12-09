@@ -76,7 +76,9 @@ function updatePrice(){
                 console.log(new_tag);
 
                 new_tag.classList.add("old-price");
+                new_tag.classList.add("grayed")
                 new_tag.innerHTML = o_price.toFixed(2)+"&nbsp;&#8364;";
+                priceTags[i].parentElement.classList.add("bold")
                 priceTags[i].classList.add("discounted-price");
                 priceTags[i].before(new_tag);
                 // priceTags[i].parentElement.parentElement.insertBefore(new_tag_parent, priceTags[i].parentElement);

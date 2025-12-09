@@ -442,6 +442,7 @@ body {
 .old-price{
     text-decoration-line: line-through !important;
     margin-right: 1em;
+    font-weight: normal !important;
 }
 .discounted-price{
     font-weight: bold;
