@@ -212,7 +212,7 @@ video {
 .banner-cross{
     position: absolute;
     top: calc(var(--padding) / 2);
-    right: calc(var(--padding) / 2);
+    right: calc(var(--padding) / 1.5);
     margin-left: var(--padding);
     cursor: pointer;
 }
