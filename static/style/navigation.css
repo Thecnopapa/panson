@@ -201,7 +201,7 @@ video {
     min-width: fit-content;
     position: fixed;
     bottom: 0;
-    z-index: 30;
+    z-index: 45;
     margin: var(--padding);
     padding: var(--padding);
     font-size: var(--font-size-medium);
@@ -693,7 +693,8 @@ video {
     }
     .banner{
         width: calc(100% - (var(--padding) * 4));
-        bottom: var(--padding);
-        font-size: var(--font-size-medium);
+        bottom: unset;
+        top: var(--header-height);
+        font-size: var(--font-size-small);
     }
 }
