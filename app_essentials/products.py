@@ -105,7 +105,10 @@ class Product(firebaseObject):
         if color is None:
             if self.opcions["colors"] is not None:
                 incomplet = True
-                p += min([data["preu"] for color,data in self.opcions["colors"].items()])* self.opcions.get("n_colors",1)
+                try:
+                    p += min([data["preu"] for color,data in self.opcions["colors"].items()])* self.opcions.get("n_colors",1)
+                except:
+                    pass
         else:
             #print(color, type(color))
             if "[" in color:
