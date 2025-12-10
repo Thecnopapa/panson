@@ -199,6 +199,8 @@ def use(amount=1.0):
         print("IP:", req_ip, "Using:", amount, "Total:", usage_ips[req_ip]["usage"], "Delta:", usage_ips[req_ip]["delta"])
     except:
         print("IP:", req_ip, "error checking IP")
+        abort(418)
+        
     #session["usage"] += amount
 
     print(request.path)
