@@ -3,6 +3,7 @@ import os
 import uuid
 import time
 import datetime
+from importlib.metadata import metadata
 
 import requests
 import json
@@ -326,6 +327,13 @@ def init_checkout(lan, force_new=False):
                 "enabled": True,
             },
             allow_promotion_codes = True,
+            payment_method_options = {
+                "card": {"request_three_d_secure": "any"}
+            },
+            metadata={
+                "trello_created": False,
+                "email_sent": False,
+            },
 
             #success_url= request.url_root+"{}/checkout/success".format(lan),
             #cancel_url=request.headers["Referer"],
@@ -349,15 +357,16 @@ def init_checkout(lan, force_new=False):
 
 def process_payment(lan):
     user = get_current_user()
-    session = stripe.checkout.Session.retrieve(user.last_checkout, expand=["line_items", "payment_intent", "shipping_rate", "invoice"])
+    session = stripe.checkout.Session.retrieve(user.last_checkout, expand=["line_items", "payment_intent", "shipping_rate", "invoice", "metadata"])
     line_items = session["line_items"]
-    print(session)
-    print(line_items)
+    #print(session)
+    #print(line_items)
 
 
     #payment=session["payment"]
     if session["status"] == "complete" and session["payment_status"] == "paid":
         new_items =[]
+        session_id = session["id"]
         customer_name = session["customer_details"]["name"]
         customer_email = session["customer_details"]["email"]
         customer_tel = session["customer_details"]["phone"]
@@ -375,129 +384,128 @@ def process_payment(lan):
                                    }
         else:
             pi = session["payment_intent"]
-        print(pi)
+        #print(pi)
+
+        print("TRELLO:",session["metadata"]["trello_created"], session["metadata"]["trello_created"] in ["false", False])
+        if session["metadata"]["trello_created"] in ["false", False]:
+            for line_item in line_items["data"]:
+                #print(line_item)
+                auto_product = stripe.Product.retrieve(line_item["price"]["product"])
+                #print(auto_product)
+                old_metadata = auto_product["metadata"]
+                #print("old_metadata", old_metadata)
+                new_metadata = old_metadata
+                new_metadata.update(dict(
+                    order_id=session["id"],
+                    customer_id=session["customer"],
+                    payment_id=pi["id"],
+                    status=session["payment_status"],
+                    line_id=line_item["id"],
+                    auto_id=auto_product["id"],
+                    adress=address,
+                    recipient=recipient,
+                    quantity=line_item["quantity"],
+                    email = customer_email,
+                    client_name = customer_name,
+                    details = auto_product["description"],
+                )),
+
+                new_data = dict(
+                    id="product_" + auto_product["id"],
+                    name=line_item["description"],
+                    description="Client: {} ({} - {}) \n Detalls peca: {}".format(
+                        customer_name,
+                        customer_email,
+                        customer_tel,
+                        auto_product["description"],
+
+                    ),
+                    metadata=new_metadata,
+                    images=auto_product["images"],
+                )
+                new_items.append(new_data)
+
+                try:
+                    stripe.Product.create(**new_data)
+                except:
+                    stripe.Product.modify(**new_data)
 
 
+            card_name = "{} ({})".format(customer_name, len(new_items))
 
-        for line_item in line_items["data"]:
-            #print(line_item)
-            auto_product = stripe.Product.retrieve(line_item["price"]["product"])
-            #print(auto_product)
-            old_metadata = auto_product["metadata"]
-            #print("old_metadata", old_metadata)
-            new_metadata = old_metadata
-            new_metadata.update(dict(
-                order_id=session["id"],
-                customer_id=session["customer"],
-                payment_id=pi["id"],
-                status=session["payment_status"],
-                line_id=line_item["id"],
-                auto_id=auto_product["id"],
-                adress=address,
-                recipient=recipient,
-                quantity=line_item["quantity"],
-                email = customer_email,
-                client_name = customer_name,
-                details = auto_product["description"],
-            )),
-
-            new_data = dict(
-                id="product_" + auto_product["id"],
-                name=line_item["description"],
-                description="Client: {} ({} - {}) \n Detalls peca: {}".format(
-                    customer_name,
-                    customer_email,
-                    customer_tel,
-                    auto_product["description"],
-
-                ),
-                metadata=new_metadata,
-                images=auto_product["images"],
+            card_description="""
+            ----- Dades client -------------
+            Client: {}
+            Email: {}
+            Telefon: {}
+            
+            ----- Enviament ----------------
+            Adreça: 
+            {}
+            {}
+            
+            --- Pagament -------------------
+            Preu: {} {}
+            Enviament: {} + {} = {} {}
+            Total: {} + {} + {} = {} {}
+            
+            --- Stripe ---------------------
+            customer_id: {}
+            payment_id: {}
+            product_id: {}
+            
+            --- {} ----------------
+            """.format(
+                customer_name,
+                customer_email,
+                customer_tel,
+                recipient,
+                address,
+                session["amount_subtotal"]/100,
+                pi["currency"],
+                session["shipping_cost"]["amount_subtotal"]/100, session["shipping_cost"]["amount_tax"]/100,session["shipping_cost"]["amount_total"]/100, pi["currency"],
+                session["amount_subtotal"]/100, pi["amount_details"]["shipping"]["amount"]/100, pi["amount_details"]["tax"]["total_tax_amount"]/100, pi["amount_received"]/100, pi["currency"],
+                session["customer"], pi["id"], ", ".join(str(d["id"]) for d in new_items),
+                datetime.date.today()
             )
-            new_items.append(new_data)
+            #[print(i) for i in new_items]
+            card_items = [ "{} ({}) x{}".format(i["name"], i["metadata"]["details"], i["metadata"]["quantity"]) for i in new_items]
 
-            try:
-                stripe.Product.create(**new_data)
-            except:
-                stripe.Product.modify(**new_data)
-
-
-        card_name = "{} ({})".format(customer_name, len(new_items))
-
-        card_description="""
-        ----- Dades client -------------
-        Client: {}
-        Email: {}
-        Telefon: {}
-        
-        ----- Enviament ----------------
-        Adreça: 
-        {}"
-        {}
-        
-        --- Pagament -------------------
-        Preu: {} {}
-        Enviament: {} + {} = {} {}
-        Total: {} + {} + {} = {} {}
-        
-        --- Stripe ---------------------
-        customer_id: {}
-        payment_id: {}
-        product_id: {}
-        
-        --- {} ----------------
-        """.format(
-            customer_name,
-            customer_email,
-            customer_tel,
-            recipient,
-            address,
-            session["amount_subtotal"]/100,
-            pi["currency"],
-            session["shipping_cost"]["amount_subtotal"]/100, session["shipping_cost"]["amount_tax"]/100,session["shipping_cost"]["amount_total"]/100, pi["currency"],
-            session["amount_subtotal"]/100, pi["amount_details"]["shipping"]["amount"]/100, pi["amount_details"]["tax"]["total_tax_amount"]/100, pi["amount_received"]/100, pi["currency"],
-            session["customer"], pi["id"], ", ".join(str(d["id"]) for d in new_items),
-            datetime.date.today()
-        )
-        [print(i) for i in new_items]
-        card_items = [ "{} ({}) x{}".format(i["name"], i["metadata"]["details"], i["metadata"]["quantity"]) for i in new_items]
-        trello = Trello()
-        trello.card_create(card_name, card_description, card_items)
-
+            trello = Trello()
+            trello.card_create(card_name, card_description, card_items)
+            print(session["metadata"])
+            new_meta = {**session["metadata"], **{"trello_created": True}}
+            print(new_meta)
+            stripe.checkout.Session.modify(session_id, metadata=new_meta)
+        print(session_id)
+        session = stripe.checkout.Session.retrieve(session_id, expand=["line_items", "payment_intent", "shipping_rate", "invoice", "metadata"])
 
         while session["invoice"] is None:
-            print(session["invoice"])
-            session = stripe.checkout.Session.retrieve(user.last_checkout)
+            #print(session["invoice"])
+            session = stripe.checkout.Session.retrieve(session_id, expand=["line_items", "payment_intent", "shipping_rate", "invoice", "metadata"])
             time.sleep(1)
-        #print(session["invoice"])
+        print(session["metadata"])
         invoice = session["invoice"]
-        #print("invoice:")
-        #print(invoice)
-        # send_email(
-        #         recipient="info_compra",
-        #         sender="ventes",
-        #         subject="Detalls de compra realitzada",
-        #         temp="email_compra_internal",
-        #         internal_recipient=True,
-        #         details=session,
-        #         items=line_items,
-        #         )
-        # send_email(
-        #     recipient="{}".format(session["customer_details"]["email"]),
-        #     subject="Compra realitzada amb exit",
-        #     sender="ventes",
-        #     temp="email_compra",
-        #     name="{}".format(session["customer_details"]["name"]),
-        #     cc="a_client",
-        #     details=session,
-        #     items = line_items,
-        # )
+        if session["metadata"]["email_sent"] in ["false", False]:
+            send_email(
+                recipient=session["customer_details"]["email"],
+                recipient_name=session["customer_details"]["name"],
+                subject="Confirmació de la teva comanda #{}".format(invoice["number"]),
+                sender="ventes",
+                temp="email_compra",
+                name=session["customer_details"]["name"],
+                cc="a_client",
+                session=session,
+                card_items=card_items,
+                invoice=invoice,
+                address=address
+            )
+            new_meta = {**session["metadata"], **{"email_sent": True}}
+            print(new_meta)
+            stripe.checkout.Session.modify(session_id, metadata=new_meta)
 
+        user.move_to_favourites()
 
-
-
-        #user.move_to_favourites()
-        pass
     else:
         return None
     return dict(session=session, invoice=invoice, items=line_items)

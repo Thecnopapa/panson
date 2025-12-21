@@ -200,7 +200,7 @@ def use(amount=1.0):
     except:
         print("IP:", req_ip, "error checking IP")
         abort(418)
-        
+
     #session["usage"] += amount
 
     print(request.path)
@@ -226,22 +226,27 @@ def admin_check():
 
 @app.route("/blank")
 def return_blank():
-    from payments import create_card, card_add_checklist
-    card = create_card("test", "this is a test", ["item1", "item2"])
-    return card
+    use(0.1)
+    if admin_check():
+        return ""
+    return None
 
 @app.route("/ips")
 def return_ips():
     use(0.1)
-    return usage_ips
+    if admin_check():
+        return usage_ips
+    return None
 
 @app.route("/mailgun")
 def mailgun():
     use(0.1)
-    from app_essentials.mail import send_email
-    m = send_email("iainvisa@gmail.com", "Configuracio d'email", "Que et sembla aquest email automatic?\n\nEs podia fins i tot enviar desde:\n<el-que-tu-vulguis>@pansonjoieria.com")
-    print(m)
-    return str(m)
+    if admin_check():
+        from app_essentials.mail import send_email
+        m = send_email("iainvisa@gmail.com", "Configuracio d'email", "Que et sembla aquest email automatic?\n\nEs podia fins i tot enviar desde:\n<el-que-tu-vulguis>@pansonjoieria.com")
+        print(m)
+        return str(m)
+    return None
 
 
 @app.route("/size/calculator/", methods=["POST", "GET"])
@@ -321,6 +326,19 @@ def get_script(file):
 def get_font(file):
     use(0.01)
     return redirect("/static/scripts/"+secure_filename(file))
+
+
+
+@app.route("/media/logo/gran")
+def logo_gran():
+    imgs = Images()
+    return redirect(imgs.get_url("imatges", imgs.get_fixed("logos").imatges[0]))
+
+@app.route("/media/logo/petit")
+def logo_petit():
+    imgs = Images()
+    return imgs.get_url("imatges", imgs.get_fixed("logos").imatges[1])
+
 
 
 @app.route("/")
@@ -590,7 +608,8 @@ def stripe_success(lan):
         if payment_data is None:
             return redirect("/{}".format(lan))
         html = template(lan=lan, templates="success", **payment_data)
-    except:
+    except Exception as e:
+        raise e
         return """<div style='width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;'>
         <p>Your payment has been processed correctly and your order has been placed.<br>
         You should recive an email with your order soon.<br>
