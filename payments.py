@@ -291,7 +291,7 @@ def update_shipping_options(shipping_details, checkout_session_id):
 
 
 
-def init_checkout(lan, force_new=False, force_new_customer=False):
+def init_checkout(lan, force_new=True, force_new_customer=False):
     shipping_areas=get_areas()
     user = get_current_user()
     items = create_items(user)
