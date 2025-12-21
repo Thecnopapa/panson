@@ -562,13 +562,20 @@ def close_banner():
 def checkout(lan):
     use(0.1)
     from payments import init_checkout
-    return init_checkout(lan, force_new=False)
+    return init_checkout(lan)
+
+@app.post("/<lan>/checkout/init/force_new_customer")
+def checkout_force_customer(lan):
+    use(0.1)
+    from payments import init_checkout
+    return init_checkout(lan, force_new_customer=True)
 
 @app.post("/<lan>/checkout/init/force_new")
 def checkout_force(lan):
     use(0.1)
     from payments import init_checkout
     return init_checkout(lan, force_new=True)
+
 
 
 @app.route("/<lan>/checkout/stripe")

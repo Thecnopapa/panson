@@ -291,13 +291,23 @@ def update_shipping_options(shipping_details, checkout_session_id):
 
 
 
-def init_checkout(lan, force_new=False):
+def init_checkout(lan, force_new=False, force_new_customer=False):
     shipping_areas=get_areas()
     user = get_current_user()
     items = create_items(user)
     has_email = False
     print("force_new", force_new)
-    if force_new:
+    print("force_new_customer", force_new_customer)
+    if user.last_checkout is not None:
+        try:
+            old_session = stripe.checkout.Session.retrieve(user.last_checkout)
+            if old_session["status"] != "complete":
+                checkout_session = old_session
+                return jsonify(clientSecret=checkout_session.client_secret, has_email=has_email)
+        except:
+            pass
+
+    if force_new_customer:
         print("Forcing new customer")
         customer = {"customer_creation": "always"}
     else:
@@ -331,6 +341,9 @@ def init_checkout(lan, force_new=False):
                 "trello_created": False,
                 "email_sent": False,
             },
+            payment_method_options = {
+                "card":{"request_three_d_secure": "automatic"}
+            },
 
             #success_url= request.url_root+"{}/checkout/success".format(lan),
             #cancel_url=request.headers["Referer"],
@@ -342,6 +355,7 @@ def init_checkout(lan, force_new=False):
         return str(e)
     user.last_checkout = checkout_session.id
     user.update_db()
+    print(checkout_session["payment_intent"])
     return jsonify(clientSecret=checkout_session.client_secret, has_email=has_email)
     #return redirect(checkout_session.url, code=303)
     #return "<br>".join([str(user), str(items), str(customer)])

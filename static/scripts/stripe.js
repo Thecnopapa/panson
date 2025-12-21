@@ -4,6 +4,7 @@
 
 console.log("Stripe");
 // This is your test publishable API key.
+// MUST match Stripe used eg. test/live
 const stripe = Stripe("pk_live_51ROMKsIKAV226aJa9s80bLSqIXA5iusweI3iQx7P2b56ZYiywYQvA02QpAfRfFBzhHGgZeYONB9wjKYzNMnRVIHU00fpwHcyDL");
 
 console.log(stripe);
@@ -16,9 +17,12 @@ async function initialize() {
   const fetchClientSecret = async () => {
       let serverUrl = "/"+document.documentElement.lang+"/checkout/init";
       console.log(location.pathname);
-      if (location.pathname.endsWith("/force_new")) {
+      if (location.pathname.endsWith("/force_new_customer")) {
+          serverUrl = serverUrl + "/force_new_customer";
+      } else if(location.pathname.endsWith("/force_new")) {
           serverUrl = serverUrl + "/force_new";
-      }
+    }
+      console.log(serverUrl)
     const response = await fetch(serverUrl, {
       method: "POST",
     });
@@ -57,7 +61,7 @@ async function initialize() {
       return r;
     }
   };
-  
+
   const checkout = await stripe.initEmbeddedCheckout({
       fetchClientSecret,
       onShippingDetailsChange,
