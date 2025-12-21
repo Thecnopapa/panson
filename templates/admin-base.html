@@ -73,7 +73,9 @@
 
 	    <div class="product-snapshot normal-image" background='{{ imgs.get_url(product.bucket, product.imatges[0]) }}'>
             <div class="product-prio">({{product.prio}})</div>
-            <div class="product-discount {{ "bold" if product.descompte > 0 }}">{{ product.descompte }}%</div>
+            {% if product.bucket == "productes" %}
+                <div class="product-discount {{ "bold" if product.descompte > 0 }}">{{ product.descompte }}%</div>
+            {% endif %}
         </div>
         </div>
 
@@ -224,10 +226,12 @@
                 </div>
             </div>
             <div class="horizontal wrapper">
-            <div class="product-element descompte">Descompte:
-                <input class="product-input" dataType="int" value={{product.descompte}} product="{{product._id}}" field="descompte" oninput="productUpdate(this);">
+            {% if product.bucket == "productes" %}
+                <div class="product-element descompte">Descompte:
+                    <input class="product-input" dataType="int" value={{product.descompte}} product="{{product._id}}" field="descompte" oninput="productUpdate(this);">
 
-            </div>
+                </div>
+            {% endif %}
             </div>
             <div class="horizontal wrapper">
                 <div class="product-element totes-talles">Talles Predefinides:
