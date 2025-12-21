@@ -609,10 +609,11 @@ def stripe_success(lan):
             return redirect("/{}".format(lan))
         html = template(lan=lan, templates="success", **payment_data)
     except Exception as e:
-        raise e
+        if admin_check():
+            raise e
         return """<div style='width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;'>
         <p>Your payment has been processed correctly and your order has been placed.<br>
-        You should recive an email with your order soon.<br>
+        You should receive an email with your order soon.<br>
         <br>
         If you are seeing this is due to some technical issues on our side.<br>
         If you have any doubts please contact us at <b>help@pansonjoieria.com</b></p>

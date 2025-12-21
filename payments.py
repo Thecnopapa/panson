@@ -327,9 +327,6 @@ def init_checkout(lan, force_new=False):
                 "enabled": True,
             },
             allow_promotion_codes = True,
-            payment_method_options = {
-                "card": {"request_three_d_secure": "any"}
-            },
             metadata={
                 "trello_created": False,
                 "email_sent": False,
@@ -386,7 +383,6 @@ def process_payment(lan):
             pi = session["payment_intent"]
         #print(pi)
 
-        print("TRELLO:",session["metadata"]["trello_created"], session["metadata"]["trello_created"] in ["false", False])
         if session["metadata"]["trello_created"] in ["false", False]:
             for line_item in line_items["data"]:
                 #print(line_item)

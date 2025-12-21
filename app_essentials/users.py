@@ -30,6 +30,7 @@ class User(firebaseObject):
         self.sessions = []
         self.username = None
         self.password = None
+        self.last_checkout = None
 
         super().__init__(data, id)
         if self._id not in self.sessions:
