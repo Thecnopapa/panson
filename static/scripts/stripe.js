@@ -4,7 +4,7 @@
 
 console.log("Stripe");
 // This is your test publishable API key.
-const stripe = Stripe("pk_test_51RQARFCeEnHFH7noKa1gmDHslTH4Qj7CsUTERUhmsydcWJ1MMW8npVtsim9mUPhCDsKVyKzDoBxHZ2dd7yXLza4T00DLMnmedO");
+const stripe = Stripe("pk_live_51ROMKsIKAV226aJa9s80bLSqIXA5iusweI3iQx7P2b56ZYiywYQvA02QpAfRfFBzhHGgZeYONB9wjKYzNMnRVIHU00fpwHcyDL");
 
 console.log(stripe);
 
