@@ -4,13 +4,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 93vh;
+    min-height: 86vh;
     margin-top: 7vh;
     width: 50%;
     padding-bottom: 7vh;
 }
 .content-success > * {
-        width:100%
+        width:100%;
 }
 .success-titol, .success-home{
     font-size: var(--font-size-large);
@@ -62,5 +62,8 @@
     .success-titol, .success-home{
         font-size: var(--font-size-small);
 
+    }
+    .content-success > * {
+        /*text-align: center !important;*/
     }
 }
