@@ -298,7 +298,7 @@ def init_checkout(lan, force_new=True, force_new_customer=False):
     has_email = False
     print("force_new", force_new)
     print("force_new_customer", force_new_customer)
-    if user.last_checkout is not None:
+    if user.last_checkout is not None and not force_new:
         try:
             old_session = stripe.checkout.Session.retrieve(user.last_checkout)
             if old_session["status"] != "complete":
