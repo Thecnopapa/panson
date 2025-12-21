@@ -18,17 +18,17 @@ window.onload = function(){
     showInvoice("{{ invoice['hosted_invoice_url'] }}");
 }
 </script>
+    <div id="nav-color" navColor="opaque"></div>
   <div class="content-success">
-      <h4 class="loc" loc="conf_titol">{{ loc.conf_titol }}</h4>
-      <span class="selectable"><span class="loc" loc="conf_id_pagament">{{ loc.conf_id_pagament | safe}}</span> <a class="selectable under-hover" target="_blank" href="{{ invoice['hosted_invoice_url'] }}">{{ invoice["number"] }} </a><span class="loc" loc="conf_id_pagament_2">{{ loc.conf_id_pagament_2 | safe}}</span></span>
-      <span><span class="loc" loc="conf_text_email">{{ loc.conf_text_email | safe}}</span> {{ session["customer_details"]["email"] }} <span class="loc" loc="conf_text_email_2">{{ loc.conf_text_email_2 | safe}}</span></span>
+      <span class="success-titol loc" loc="conf_titol">{{ loc.conf_titol | safe}}</span>
+      <span class="selectable"><span class="loc" loc="conf_id_pagament">{{ loc.conf_id_pagament | safe}}</span> <a class="selectable under-hover underlined" target="_blank" href="{{ invoice['hosted_invoice_url'] }}">{{ invoice["number"] }} </a><span class="loc" loc="conf_id_pagament_2">{{ loc.conf_id_pagament_2 | safe}}</span></span>
+      <span><span class="loc" loc="conf_text_email">{{ loc.conf_text_email | safe}}</span> <span class="underlined"> {{ session["customer_details"]["email"] }}</span> <span class="loc" loc="conf_text_email_2">{{ loc.conf_text_email_2 | safe}}</span></span>
       <span><span class="loc" loc="conf_text_1">{{ loc.conf_text_1 | safe}}</span><a class="selectable underlined" href="mailto:{{ loc.email_sales }}">{{ loc.email_sales }}</a><span class="loc" loc="conf_text_2">{{ loc.conf_text_2 | safe}}</span></span>
-      <br><br>
+      <br><br><br>
 
-      <h4 class="underlined"><a href="/{{ loc.lan }}/productes/">{{ loc.conf_tornar }}</a></h4>
+      <div class="underlined success-home"><a href="/{{ loc.lan }}/productes/">{{ loc.conf_tornar }}</a></div>
 
   </div>
-    {{ session["metadata"] }}
 
 
 {% endblock %}

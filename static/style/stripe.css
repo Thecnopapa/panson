@@ -4,14 +4,18 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100dvh;
+    min-height: 93vh;
+    margin-top: 7vh;
     width: 50%;
+    padding-bottom: 7vh;
 }
 .content-success > * {
         width:100%
 }
-h4{
+.success-titol, .success-home{
+    font-size: var(--font-size-large);
     text-align: center;
+    font-weight: bold;
 }
 
 .checkout-container{
@@ -53,5 +57,10 @@ h4{
 @media only screen and (max-width: 1025px) {
     .content-success, .content-cancel{
         width: var(--padded-width);
+        font-size: var(--font-size-small);
+    }
+    .success-titol, .success-home{
+        font-size: var(--font-size-small);
+
     }
 }
