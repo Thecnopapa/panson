@@ -3,7 +3,7 @@
 
 {% block content %}
     <script defer type="text/javascript" src="/scripts/admin-newsletter.js"></script>
-    {% set current_file = "email_newsletter.html" %}
+    {% set current_file = utils.download_file("newsletters/email_newsletter.html" , template=True) %}
 
     <link href='/style/admin-newsletter.css' rel='stylesheet'>
     <div id="newsletter-content" class="admin-content">
@@ -19,7 +19,7 @@
         <br>
         <div class="newsletter-editor">
             {{ utils.render_template(current_file) |safe}}
-{#            {{ utils.render_template(utils.download_file("newsletters/email_newsletter.html" ,template=True)) |safe}}#}
+{#            {{ utils.render_template() |safe}}#}
         </div>
 
     </div>

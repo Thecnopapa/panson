@@ -65,11 +65,12 @@ async function saveNewsletter(trigger) {
     })
     if (resp.ok){
             trigger.style.backgroundColor = "lightgreen";
+            sendButton.classList.remove('hidden');
+            sendButton.style.backgroundColor = "lightblue";
     } else {
         trigger.style.backgroundColor = "red";
     }
-    sendButton.classList.remove('hidden');
-    sendButton.style.backgroundColor = "lightblue";
+
 
 }
 

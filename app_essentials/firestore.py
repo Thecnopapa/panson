@@ -135,21 +135,22 @@ def download_file(fname, folder="files", template=False):
 
 def upload_file(fname, folder="files", template=False):
     print1("Uploading file: ", fname)
+    if fname.endswith(".temp"):
+        dbname = fname[:-5]
     try:
         if template:
-
-            d_path = f"templates/{fname}.temp"
-            r_path = f"{fname}.temp"
+            d_path = f"templates/{fname}"
+            r_path = f"{fname}"
         else:
             d_path = f"downloads/{fname}"
             r_path = f"downloads/{fname}"
-        os.makedirs(os.path.dirname(d_path), exist_ok=True)
 
-        blob = db.blob(f"{folder}/{fname}")
-        blob.download_to_filename(d_path)
-        return r_path
+
+        blob = db.blob(f"{folder}/{dbname}")
+        blob.upload_from_filename(d_path)
+        return dbname
     except Exception as e:
-        print("Download failed")
+        print("Upload failed")
         raise e
         return None
 

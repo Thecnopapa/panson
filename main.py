@@ -100,7 +100,7 @@ storage_url_single = "https://firebasestorage.googleapis.com/v0/b/panson.firebas
 from app_essentials.session import get_current_user, get_session_id
 from app_essentials.products import Products, Product, get_talla_es
 from app_essentials.firebase import get_user_data, get_cols, check_if_admin
-from app_essentials.firestore import list_blobs, upload_images, load_files, download_file
+from app_essentials.firestore import list_blobs, upload_images, load_files, download_file, upload_file
 from app_essentials.html_builder import template
 from app_essentials.utils import get_opcions
 from app_essentials.localisation import Images
@@ -1112,11 +1112,13 @@ def save_newsletter():
         print(request)
         html = str(request.data.decode("utf-8"))
         fname = request.headers["filename"]
+        print("FNAME",fname)
 
         with open(f"templates/{fname}", "w") as f:
             html = "<!DOCTYPE html>\n"+html
-            print(html)
+            #print(html)
             f.write(html)
+        upload_file(f"{fname}", template=True)
 
         return "", 200
     return "", 405
@@ -1128,6 +1130,8 @@ def send_newsletter():
         from app_essentials.mail import send_newsletter
         filename = request.get_json()["filename"]
         subject = request.get_json()["subject"]
+        if subject == "":
+            subject = "PANSON newsletter"
         m = send_newsletter("newsletter", temp=filename, test=True, subject=subject)
         print(m)
         return "", 200
