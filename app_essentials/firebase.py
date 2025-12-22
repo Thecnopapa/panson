@@ -96,7 +96,7 @@ def check_if_admin(username, password):
         return False
     username = "".join([l for l in username if (l.isalpha() or l.isdigit() or l in ["-","_"])])
     password = "".join([l for l in password if (l.isalpha() or l.isdigit() or l in ["-","_"])])
-    print(username, password)
+    #print(username, password)
     raw = admins.where(filter=FieldFilter("username", "==", username )).where(filter=FieldFilter("password", "==", password )).stream()
     match = [a for a in raw]
     if len(match) == 1:

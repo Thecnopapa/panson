@@ -35,8 +35,8 @@
                 <button onclick="window.location.href='/admin/imatges'"  class="loc" loc="admin-menu-imatges">{{ loc.admin_menu_imatges }}</button>
                 <button onclick="window.location.href='/admin/uploads'"  class="loc" loc="admin-menu-uploads">{{ loc.admin_menu_uploads }}</button>
                 <button onclick="window.location.href='/admin/trello'" class="loc" loc="admin-menu-trello">{{ loc.admin_menu_trello }}</button>
+                <button onclick="window.location.href='/admin/newsletter'" class="loc" loc="admin-menu-newsletter">{{ loc.admin_menu_newsletter }}</button>
                 <button onclick="window.location.href='/admin/misc'" class="loc" loc="admin-menu-avancat">{{ loc.admin_menu_avancat }}</button>
-
                 {% if user.super %}
                 {% endif %}
 			</div>
@@ -64,7 +64,7 @@
             <button type="button" class="product-button product-hide {{ "hide" if product.amagat }}" product="{{product._id}}" field="amagat" value="True" dataType="bool" onclick="event.stopPropagation(productUpdate(this)); this.style.display='none'; this.nextElementSibling.style.display = 'block'; this.parentElement.getElementsByClassName('product-title')[0].innerHTML = this.parentElement.parentElement.getElementsByClassName('name')[0].firstElementChild.value + ' (Amagat)'">Amagar</button>
             <button type="button" class="product-button product-show {{ "hide" if not product.amagat }}" product="{{product._id}}" field="amagat" value="False" dataType="bool" onclick="event.stopPropagation(productUpdate(this)); this.style.display='none'; this.previousElementSibling.style.display = 'block'; this.parentElement.getElementsByClassName('product-title')[0].innerHTML = this.parentElement.parentElement.getElementsByClassName('name')[0].firstElementChild.value">Mostrar</button>
             <button type="button" class="product-button product-delete {{ "hide" if product.esborrat }}" product="{{product._id}}" field="esborrat" value="True" dataType="bool" onclick="event.stopPropagation(productUpdate(this)); this.parentElement.parentElement.remove()">ESBORRAR</button>
-	        	    <button type="button" class="product-button go-to-product" onclick="window.open('/{{loc.lan}}/{{product.bucket}}/{{product._id}}', '_blank')">Veure a la botiga</button>
+            <button type="button" class="product-button go-to-product" onclick="window.open('/{{loc.lan}}/{{product.bucket}}/{{product._id}}', '_blank')">Veure a la botiga</button>
 
         {% endif%}
 

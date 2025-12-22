@@ -100,7 +100,7 @@ storage_url_single = "https://firebasestorage.googleapis.com/v0/b/panson.firebas
 from app_essentials.session import get_current_user, get_session_id
 from app_essentials.products import Products, Product, get_talla_es
 from app_essentials.firebase import get_user_data, get_cols, check_if_admin
-from app_essentials.firestore import list_blobs, upload_images, load_files
+from app_essentials.firestore import list_blobs, upload_images, load_files, download_file
 from app_essentials.html_builder import template
 from app_essentials.utils import get_opcions
 from app_essentials.localisation import Images
@@ -238,15 +238,18 @@ def return_ips():
         return usage_ips
     return None
 
-@app.route("/mailgun")
-def mailgun():
+
+@app.route("/newsletter")
+def view_newsletter():
     use(0.1)
     if admin_check():
-        from app_essentials.mail import send_email
-        m = send_email("iainvisa@gmail.com", "Configuracio d'email", "Que et sembla aquest email automatic?\n\nEs podia fins i tot enviar desde:\n<el-que-tu-vulguis>@pansonjoieria.com")
-        print(m)
-        return str(m)
+        template_path = download_file("newsletters/email_newsletter.html" ,template=True)
+        print(template_path)
+
+        return render_template(template_path)
     return None
+
+
 
 
 @app.route("/size/calculator/", methods=["POST", "GET"])
@@ -1100,6 +1103,37 @@ def get_file_list():
         bucket = data["bucket"]
         print("Fetching list from bucket: " ,bucket)
         return json.dumps(dict(filenames=imgs.get_names(bucket)))
+
+
+@app.post("/admin/newsletter/save")
+def save_newsletter():
+    use(0.1)
+    if admin_check():
+        print(request)
+        html = str(request.data.decode("utf-8"))
+        fname = request.headers["filename"]
+
+        with open(f"templates/{fname}", "w") as f:
+            html = "<!DOCTYPE html>\n"+html
+            print(html)
+            f.write(html)
+
+        return "", 200
+    return "", 405
+
+@app.post("/admin/newsletter/send")
+def send_newsletter():
+    use(0.1)
+    if admin_check():
+        from app_essentials.mail import send_newsletter
+        filename = request.get_json()["filename"]
+        subject = request.get_json()["subject"]
+        m = send_newsletter("newsletter", temp=filename, test=True, subject=subject)
+        print(m)
+        return "", 200
+    return "", 405
+
+
 
 
 

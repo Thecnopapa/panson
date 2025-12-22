@@ -1,0 +1,20 @@
+
+
+input{
+    background-color: white;
+}
+#newsletter-content{
+    background-color: #a8a8a8;
+}
+.newsletter-menu{
+    display: flex;
+    flex-direction: row;
+}
+
+.newsletter-editor{
+    width: 80%
+}
+
+.editable{
+    background-color: rgba(135, 206, 250, 0.25);
+}

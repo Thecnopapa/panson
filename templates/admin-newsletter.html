@@ -1,0 +1,26 @@
+{% extends "admin-base.html" %}
+
+
+{% block content %}
+    <script defer type="text/javascript" src="/scripts/admin-newsletter.js"></script>
+    {% set current_file = "email_newsletter.html" %}
+
+    <link href='/style/admin-newsletter.css' rel='stylesheet'>
+    <div id="newsletter-content" class="admin-content">
+        <div class="hidden current-file" filename="{{ current_file }}"></div>
+        <div class="newsletter-menu">
+            <button class="edit-newsletter" onclick="editNewsletter(this)">Editar Newsletter</button>
+            <button class="save-newsletter" onclick="saveNewsletter(this)">Guardar Newsletter</button>
+            <button class="send-newsletter" onclick="sendNewsletter(this)">Enviar Newsletter</button>
+        </div>
+        <br>
+        <br>
+        <input type="text" name="subject" class="subject-input" value="{{ subject }}" placeholder="PANSON newsletter">
+        <br>
+        <div class="newsletter-editor">
+            {{ utils.render_template(current_file) |safe}}
+{#            {{ utils.render_template(utils.download_file("newsletters/email_newsletter.html" ,template=True)) |safe}}#}
+        </div>
+
+    </div>
+{% endblock %}

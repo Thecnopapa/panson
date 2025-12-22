@@ -113,6 +113,46 @@ def upload_images(path_dict, bucket):
     return fnames
 
 
+def download_file(fname, folder="files", template=False):
+    print1("Downloading file: ", fname)
+    try:
+        if template:
+
+            d_path = f"templates/{fname}.temp"
+            r_path = f"{fname}.temp"
+        else:
+            d_path = f"downloads/{fname}"
+            r_path = f"downloads/{fname}"
+        os.makedirs(os.path.dirname(d_path), exist_ok=True)
+
+        blob = db.blob(f"{folder}/{fname}")
+        blob.download_to_filename(d_path)
+        return r_path
+    except Exception as e:
+        print("Download failed")
+        raise e
+        return None
+
+def upload_file(fname, folder="files", template=False):
+    print1("Uploading file: ", fname)
+    try:
+        if template:
+
+            d_path = f"templates/{fname}.temp"
+            r_path = f"{fname}.temp"
+        else:
+            d_path = f"downloads/{fname}"
+            r_path = f"downloads/{fname}"
+        os.makedirs(os.path.dirname(d_path), exist_ok=True)
+
+        blob = db.blob(f"{folder}/{fname}")
+        blob.download_to_filename(d_path)
+        return r_path
+    except Exception as e:
+        print("Download failed")
+        raise e
+        return None
+
 
 class Storage:
     def __init__(self):

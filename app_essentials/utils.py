@@ -152,6 +152,14 @@ class Utils:
                 r.append(o)
         return r
 
+    def download_file(self, *args, **kwargs):
+        from app_essentials.firestore import download_file
+        return download_file(*args, **kwargs)
+
+    def render_template(self, *args, **kwargs):
+        from flask import render_template
+        return render_template(*args, **kwargs)
+
 
 
 
