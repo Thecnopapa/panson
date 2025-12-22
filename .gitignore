@@ -7,4 +7,4 @@ __pycache__/
 secure/
 uploads/
 downloads/
-templates/temp_*
+*.temp
