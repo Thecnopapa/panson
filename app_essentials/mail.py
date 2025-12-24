@@ -48,4 +48,4 @@ def send_email(recipient, subject=None, temp=None, message="", sender="no-reply"
 def send_newsletter(mailing_list, subject="PANSON newsletter", temp="email_newsletter", message="", test=False):
     if test:
         mailing_list += ".test"
-    send_email(mailing_list, subject=subject, temp=temp, sender=mailing_list, sender_name="PANSON newsletter", message=message, internal_recipient=True)
+    return send_email(mailing_list, subject=subject, temp=temp, sender=mailing_list, sender_name="PANSON newsletter", message=message, internal_recipient=True)

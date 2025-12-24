@@ -3,24 +3,30 @@
 
 let saveButton = document.querySelector('.save-newsletter');
 let sendButton = document.querySelector('.send-newsletter');
+let editButton = document.querySelector(".edit-newsletter");
+let editHTMLButton = document.querySelector(".edit-html-newsletter");
 
 function editNewsletter(trigger){
     let container = document.querySelector('.newsletter-editor');
     container.style.border = "1px solid black";
     let elements = container.querySelectorAll('span');
     elements.forEach(element => {
-        print(element.innerText);
+        print(element.innerHTML);
         if (element.classList.contains('non-editable')){return 0;}
         //if (element.children.length > 0){return 0;}
         if (element.innerText === ""){element.innerText = "$empty$"}
+	let html = element.innerHTML;
+	html = html.replace(/<br>/g, '<br>\n');
+	element.innerText = html;
         element.classList.add('editable');
         element.contentEditable = "true";
     })
-    console.log(trigger)
+    console.log(trigger);
     trigger.setAttribute("onclick", "stopEditingNewsletter(this)");
     trigger.innerText = "Previsualitzar";
     saveButton.classList.add('hidden');
     sendButton.classList.add('hidden');
+    editHTMLButton.classList.add("hidden");
 
 }
 
@@ -46,6 +52,7 @@ function stopEditingNewsletter(trigger){
     trigger.setAttribute("onclick","editNewsletter(this)");
     trigger.innerText = "Editar Newsletter";
     saveButton.classList.remove('hidden');
+    editHTMLButton.classList.remove("hidden");
     saveButton.style.backgroundColor = "lightblue";
 
 }
@@ -95,5 +102,36 @@ async function sendNewsletter(trigger) {
     } else {
         trigger.style.backgroundColor = "red";
     }
+
+}
+
+function editHTMLNewsletter(trigger){
+    let container = document.querySelector('.newsletter-editor');
+    container.style.border = "1px solid black";
+    let html = container.innerHTML;
+    //html = html.replace(/<br>/g, '<br>\n');
+    container.innerText = html;
+    container.contentEditable=true;
+    console.log(trigger);
+    trigger.setAttribute("onclick", "stopEditingHTMLNewsletter(this)");
+    trigger.innerText = "Previsualitzar";
+    saveButton.classList.add('hidden');
+    sendButton.classList.add('hidden');
+    editButton.classList.add("hidden");
+
+}
+
+function stopEditingHTMLNewsletter(trigger){
+    let container = document.querySelector('.newsletter-editor');
+    container.style.border = "1px solid orange";
+    let html = container.innerText;
+    container.innerHTML = html;
+    container.contentEditable = false;
+
+    trigger.setAttribute("onclick","editHTMLNewsletter(this)");
+    trigger.innerText = "Editar Newsletter";
+    saveButton.classList.remove('hidden');
+    editButton.classList.remove("hidden");
+    saveButton.style.backgroundColor = "lightblue";
 
 }

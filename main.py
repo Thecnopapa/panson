@@ -1132,7 +1132,7 @@ def send_newsletter():
         subject = request.get_json()["subject"]
         if subject == "":
             subject = "PANSON newsletter"
-        m = send_newsletter("newsletter", temp=filename, test=True, subject=subject)
+        m = send_newsletter("newsletter", temp=filename, test=False, subject=subject)
         print(m)
         return "", 200
     return "", 405
