@@ -63,6 +63,13 @@ if FETCH_SECRETS:
                 f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/trello_key/versions/3"}).payload.data.decode("UTF-8"))
         except:
             print(" * Failed to read trello key")
+        try:
+            with open("secure/seo_key.txt", "w") as f:
+                f.write(secret_client.access_secret_version(
+                    request={"name": "projects/746452924859/secrets/seo_key/versions/2"}).payload.data.decode(
+                    "UTF-8"))
+        except:
+            print(" * Failed to read seo key")
     except:
         print(" * Failed to initialise secret manager")
 
@@ -73,6 +80,7 @@ os.environ["STRIPE_KEY"] = "secure/stripe_key"
 os.environ["FLASK_KEY"] = "secure/flask_key"
 os.environ["MAILGUN_KEY"] = "secure/mailgun_key"
 os.environ["TRELLO_KEY"] = "secure/trello_key"
+os.environ["SEO_KEY"] = "secure/seo_key.txt"
 
 
 app = Flask(__name__)
@@ -411,6 +419,15 @@ def index(lan ="cat", favicon = True):
     elif lan == "sitemap" or lan=="sitemap.xml":
         use()
         return return_sitemap()
+    elif lan.startswith("key_"):
+        use()
+        with open(os.environ["SEO_KEY"]) as f:
+            print(repr(lan))
+            key = f.read()
+            print(repr(key))
+            print(repr(lan) == repr(key))
+            if lan == key:
+                return send_from_directory("secure", "seo_key.txt")
     ######################################################
     # TODO: Revisit firebase access
     use()
