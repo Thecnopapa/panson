@@ -3,6 +3,8 @@ import json
 import os
 import datetime
 
+import werkzeug.exceptions
+
 from utilities import *
 
 # WEB-RELATED IMPORTS
@@ -109,12 +111,28 @@ from payments import Trello
 
 
 from werkzeug.exceptions import HTTPException
+
+
+class PermanentRedirect(HTTPException):
+    code = 301
+
+    def __init__(self, *args, redirect=None, **kwargs):
+        self.redirect = redirect
+        super().__init__(*args, **kwargs)
+
+
+
+app.aborter.mapping.update({301: PermanentRedirect})
+
 @app.errorhandler(HTTPException)
 def handle_exception(e):
     """Return JSON instead of HTML for HTTP errors."""
 
     if e.code == 403:
         return redirect("/admin")
+    if e.code == 301:
+        print(e)
+        return redirect(e.redirect, 301)
 
     # start with the correct headers and status code from the error
     response = e.get_response()
@@ -126,7 +144,6 @@ def handle_exception(e):
     })
     response.content_type = "application/json"
     return render_template("ERROR.html", code=e.code, name=e.name, description=e.description, request=request), e.code
-
 
 
 
@@ -170,7 +187,7 @@ def use(amount=1.0):
     global usage_ips
     if "usage" not in session:
         session["usage"] = 0
-        print(" - Usage not in session")
+        #print(" - Usage not in session")
     req_ip = request.remote_addr
     #print(" - Request IP: ", req_ip)
     now = (datetime.datetime.now() - origin).total_seconds()
@@ -184,7 +201,7 @@ def use(amount=1.0):
             usage_ips[req_ip]["window"] = now
             usage_ips[req_ip]["usage"] = amount
     else:
-        print(" - IP not in dict")
+        #print(" - IP not in dict")
         usage_ips[req_ip] = dict(window=now, usage = amount, delta=0)
     session["usage"] = usage_ips[req_ip]["usage"]
     session["window"] = usage_ips[req_ip]["window"]
@@ -206,7 +223,6 @@ def use(amount=1.0):
     #session["usage"] += amount
 
     #print(request.path)
-    #print(request.host)
 
     if "test." in request.host:
         if request.path.split("/")[1] not in ["static", "style", "media", "scripts"]:
@@ -215,8 +231,8 @@ def use(amount=1.0):
                     pass
                 else:
                     abort(403)
-    elif "panson.thecnopapa" in request.host:
-        return redirect("https://pansonjoieria.com"+request.full_path, 301 )
+    if "panson.thecnopapa.com" in request.host:
+        abort(301, redirect="https://pansonjoieria.com"+request.full_path)
 
 
 
