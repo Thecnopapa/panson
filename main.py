@@ -213,6 +213,8 @@ def use(amount=1.0):
                     pass
                 else:
                     abort(403)
+    elif "panson.thecnopapa.com" in request.host:
+        return redirect("https://pansonjoieria.com"+request.full_path, 301 )
 
 
 
