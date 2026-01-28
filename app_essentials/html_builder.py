@@ -1,5 +1,5 @@
 import jinja2
-from flask import render_template, session
+from flask import render_template, session, request
 
 from app_essentials import products
 from app_essentials.localisation import Localisation2 as localisation, Images
@@ -12,6 +12,9 @@ from app_essentials.firestore import Storage
 
 
 def common_kwargs(**kwargs):
+    print(request.path, request.host)
+    kwargs["path"] = request.path
+    kwargs["host"] = request.host
     kwargs["loc"] = kwargs.get("loc", localisation(kwargs.get("lan", "cat")))
     kwargs["imgs"] = kwargs.get("imgs", Images())
     kwargs["stg"] = kwargs.get("stg", Storage())
