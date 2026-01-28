@@ -190,6 +190,10 @@ video {
     border: none;
     min-height: 0;
     padding: 0.75em 1em 0.75em 1em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -294,6 +298,7 @@ video {
         flex-direction:row;
         align-items:center;
 }
+
 
 
 
@@ -487,7 +492,9 @@ video {
     height: fit-content;
     max-height: calc(70% - var(--padding) * 2);
 }
-
+.popup-info:not(.actual-popup){
+    display: none !important;
+}
 
 .translucid-screen{
     display: flex;
@@ -558,6 +565,40 @@ video {
 
 }
 
+
+.newsletter-popup{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+}
+.newsletter-popup-titol{
+    width: 100%;
+    text-align: center;
+    font-size: var(--font-size-extra-large);
+}
+
+.newsletter-popup-text{
+    text-align: center;
+    width: 100%;
+    font-size: var(--font-size-medium);
+}
+.newsletter-popup-input{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: var(--padding);
+
+}
+.newsletter-popup-email, .newsletter-popup-name{
+    width: 100%;
+    padding: var(--padding);
+    margin-right: var(--padding);
+}
+.newsletter-popup-name {
+    width: 25%;
+}
 
 
 
@@ -668,8 +709,8 @@ video {
     .popup-info{
         width: calc(100% - 5vh - var(--padding) * 2);
         max-height: calc(95% - var(--padding) * 2);
-
     }
+
     .popup-cross{
         position: fixed;
         visibility: visible;

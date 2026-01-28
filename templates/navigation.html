@@ -2,24 +2,39 @@
 
 
 {% if not user.accepted_cookies %}
-	    <link href='/style/tic.css' rel='stylesheet'>
-        <div id=cookies class="request-cookies">
-            <span class="cookies-info"><span class="loc" loc="nav_cookie_banner">{{ loc.nav_cookie_banner }}</span><a href="/{{ loc.lan }}/tic/privacy" class="loc" loc="cookie_link">{{ loc.nav_cookie_link }}</a></span>
-            <div class="inputs">
-
-                <div class="preferences-button clickable underlined loc" onclick="showPopup(this.nextElementSibling)" loc="nav_cookies_preferencies">{{ loc.nav_cookies_preferencies }}</div>
-                <div class="popup-info cookies-popup">
-                    <div class="tic-subtitle loc" loc="tic_cookies_titol">{{ loc.tic_cookies_titol }}</div>
-                    <div class="tic-info loc" loc="tic_cookies_info">{{ loc.tic_cookies_info | safe }}</div>
-                    <div class="cookie-selector">
-                        <span class="cookie-span"><input type=checkbox checked  value=on class="analytic"><div class="cookie-label loc" loc="tic_cookie_analitica" onclick="this.previousElementSibling.click()">{{ loc.tic_cookie_analitica }}</div></span>
-                        <span class="cookie-span"><input type=checkbox checked value=on class="essential"><div class="cookie-label loc" loc="tic_cookie_essencial" onclick="this.previousElementSibling.click()">{{ loc.tic_cookie_essencial }}</div></span>
-                    </div>
+    <link href='/style/tic.css' rel='stylesheet'>
+    <div id=cookies class="request-cookies">
+        <span class="cookies-info"><span class="loc" loc="nav_cookie_banner">{{ loc.nav_cookie_banner }}</span><a href="/{{ loc.lan }}/tic/privacy" class="loc" loc="cookie_link">{{ loc.nav_cookie_link }}</a></span>
+        <div class="inputs">
+            <div class="preferences-button clickable underlined loc" onclick="showPopup(this.nextElementSibling)" loc="nav_cookies_preferencies">{{ loc.nav_cookies_preferencies }}</div>
+            <div class="popup-info cookies-popup">
+                <div class="tic-subtitle loc" loc="tic_cookies_titol">{{ loc.tic_cookies_titol }}</div>
+                <div class="tic-info loc" loc="tic_cookies_info">{{ loc.tic_cookies_info | safe }}</div>
+                <div class="cookie-selector">
+                    <span class="cookie-span"><input type=checkbox checked  value=on class="analytic"><div class="cookie-label loc" loc="tic_cookie_analitica" onclick="this.previousElementSibling.click()">{{ loc.tic_cookie_analitica }}</div></span>
+                    <span class="cookie-span"><input type=checkbox checked value=on class="essential"><div class="cookie-label loc" loc="tic_cookie_essencial" onclick="this.previousElementSibling.click()">{{ loc.tic_cookie_essencial }}</div></span>
                 </div>
-                <button class="accept-cookies black-button" onclick="updateCookiesTic(this.previousElementSibling);document.getElementById('cookies').remove();">{{ loc.nav_cookie_button }}</button>
             </div>
+            <button class="accept-cookies black-button" onclick="updateCookiesTic(this.previousElementSibling);document.getElementById('cookies').remove();">{{ loc.nav_cookie_button }}</button>
         </div>
-    {% endif %}
+    </div>
+{% endif %}
+
+
+<div class="popup-info newsletter-popup {{ "to-be-popped" if not user.no_newsletter and show_newsletter }}">
+    <div class="newsletter-popup-titol loc" loc="news_popup_titol">{{ loc.news_popup_titol |safe }}</div>
+    <div class="newsletter-popup-text loc" loc="news_popup_text">{{ loc.news_popup_text |safe }}</div>
+    <div class="newsletter-popup-input">
+        <input class="newsletter-popup-email" type="email" placeholder="Email" autocomplete="email" autofocus required>
+        <input class="newsletter-popup-name" type="text" placeholder="Nom" autocomplete="given-name" required>
+        <div class="newsletter-popup-signup black-button loc" loc="news_popup_registrarse" onclick="acceptNewsletter(this.parentElement)">{{ loc.news_popup_registrarse |safe }}</div>
+
+    </div>
+    <div class="newsletter-popup-cancel clickable underlined loc" loc="news_popup_cancel" onclick="ignoreNewsletter(); this.parentElement.parentElement.click()">{{ loc.news_popup_cancel |safe }}</div>
+
+</div>
+
+
 {% if loc.banner_text != "" and show_banner%}
     <div class="banner" style="background-color: {{ loc.banner_color_fons }};">
         <div class="banner-title loc" loc="banner_title">{{ loc.banner_title | safe}}</div>

@@ -80,6 +80,30 @@ async function acceptCookies(){
 
 
 
+async function ignoreNewsletter(){
+    let r = await fetch("/ignore-newsletter", {
+        method:"POST",
+    });
+}
+async function acceptNewsletter(target){
+    let email = target.querySelector(".newsletter-popup-email").value;
+    let name = target.querySelector(".newsletter-popup-name").value;
+    let r = await fetch("/subscribe-newsletter", {
+        method:"POST",
+        headers:{"content-type": "application/json"},
+        body: JSON.stringify({
+            name: name,
+            email: email,
+        })
+    });
+    if (r.status === 200){
+        target.parentNode.querySelector(".popup-cross").click();
+    } else {
+        target.querySelector(".newsletter-popup-signup").style.backgroundColor = "darkred";
+    }
+}
+
+
 async function updateCookiesTic(container){
         let inputAnalytic = container.getElementsByClassName("analytic")[0];
         let inputEssential = container.getElementsByClassName("essential")[0];
@@ -115,6 +139,7 @@ function showPopup(popupContent, cross=true, clone=true) {
 	console.log("Showing Popup");
     if (clone){
     	popupContent = popupContent.cloneNode(true);
+        popupContent.classList.add("actual-popup");
 	}
     popupContent.addEventListener("click", function(event) {event.stopPropagation()});
     function closePopupEscape(event){
@@ -278,8 +303,20 @@ async function detectHorizontal(){
 }
 
 
+function PopPopups(){
+    let popups = document.querySelectorAll(".to-be-popped");
+    popups.forEach(p => {
+        p.classList.remove("to-be-popped");
+        showPopup(p);
+    })
+}
+
+
+PopPopups()
+
 window.addEventListener('load', function () {
 	console.log(" * Page loaded!");
+    PopPopups()
     detectHorizontal();
     console.log(" * "+ String(camaleonElements.length) + "camaleon elements");
     loadAllImages();

@@ -104,6 +104,7 @@ from app_essentials.firestore import list_blobs, upload_images, load_files, down
 from app_essentials.html_builder import template
 from app_essentials.utils import get_opcions
 from app_essentials.localisation import Images
+from app_essentials.mail import send_email, send_newsletter, add_to_list
 from payments import Trello
 
 
@@ -286,6 +287,28 @@ def acceptar_cookies():
     print(user)
     return ""
 
+
+@app.post("/ignore-newsletter")
+def ignore_newsletter():
+    use(0.1)
+    print("Ignoring newsletter")
+    user = get_current_user()
+    user.no_newsletter = True
+    user.update_db()
+    return "", 200
+
+@app.post("/subscribe-newsletter")
+def subscribe_newsletter():
+    use(0.1)
+    print("Subsribing to newsletter")
+    r = request.get_json()
+    print(r)
+    email = r["email"]
+    name = r["name"]
+    resp_code = add_to_list(email, name, "newsletter")
+    return "", resp_code
+
+
 from werkzeug.utils import secure_filename
 from flask import url_for, send_from_directory
 
@@ -377,7 +400,8 @@ def index(lan ="cat", favicon = True):
     slide_list = [[slide, storage_url.format("portada", slide.split("/")[-1])] for slide in slides if
                   slide.split("/")[-1] != ""]
 
-    html = template(lan=lan, templates=["index", "galeria"], slides= slide_list, hide_title=True, title=False, max_gallery=8, show_banner=True)
+    html = template(lan=lan, templates=["index", "galeria"], slides= slide_list, hide_title=True, title=False, max_gallery=8,
+                    show_banner=True, show_newsletter=True)
     return html
 
 
@@ -397,7 +421,7 @@ def collections(lan,id):
 def productes(lan):
     use()
     filters = {"esborrat": False, "amagat": False}
-    html = template(lan=lan,templates="all_products")
+    html = template(lan=lan,templates="all_products", show_newsletter=True)
     return html
 
 @app.route("/<lan>/peces_uniques/")
@@ -1154,8 +1178,6 @@ def update_discounts():
                 continue
             prod.descompte = data["newDiscount"]
             prod.update_db()
-
-
         return "", 200
 
 

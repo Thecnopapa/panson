@@ -49,3 +49,25 @@ def send_newsletter(mailing_list, subject="PANSON newsletter", temp="email_newsl
     if test:
         mailing_list += ".test"
     return send_email(mailing_list, subject=subject, temp=temp, sender=mailing_list, sender_name="PANSON newsletter", message=message, internal_recipient=True)
+
+
+def add_to_list(email, name, list_id):
+    with open(os.environ["MAILGUN_KEY"]) as f:
+        mailgun_key = f.read()
+
+    data = {
+        "address": email,
+        "name": name,
+        "subscribed": True,
+        "upsert": True,
+    }
+
+    print(data)
+    resp = requests.post(
+        f"https://api.eu.mailgun.net/v3/{list_id}/messages",
+        auth=("api", mailgun_key),
+        data=data,
+    )
+    print(resp)
+    return resp.status_code
+

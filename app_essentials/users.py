@@ -27,6 +27,7 @@ class User(firebaseObject):
             'analytics_storage': 'denied'
         }
         self.closed_banner = False
+        self.no_newsletter = False
         self.sessions = []
         self.username = None
         self.password = None
