@@ -66,7 +66,7 @@ if FETCH_SECRETS:
         try:
             with open("secure/seo_key.txt", "w") as f:
                 f.write(secret_client.access_secret_version(
-                    request={"name": "projects/746452924859/secrets/seo_key/versions/2"}).payload.data.decode(
+                    request={"name": "projects/746452924859/secrets/seo_key/versions/3"}).payload.data.decode(
                     "UTF-8"))
         except:
             print(" * Failed to read seo key")
