@@ -5,27 +5,27 @@
         <loc>https://pansonjoieria.com/</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
-        <lastmod>2026-01-01</lastmod>
+        <lastmod>2026-01-28</lastmod>
     </url>
     <url>
         <loc>https://pansonjoieria.com/cat/</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
-        <lastmod>2026-01-01</lastmod>
+        <lastmod>2026-01-28</lastmod>
     </url>
 
     <url>
         <loc>https://pansonjoieria.com/cat/productes</loc>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
-        <lastmod>2026-01-01</lastmod>
+        <lastmod>2026-01-28</lastmod>
     </url>
 
     <url>
         <loc>https://pansonjoieria.com/cat/fetamida</loc>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2026-01-01</lastmod>
+        <lastmod>2026-01-28</lastmod>
     </url>
 
 </urlset>
