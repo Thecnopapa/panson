@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=300, height=600, initial-scale=1.0" />
-{% block head %}
-    <title>PANSON</title>
-{% endblock %}
+    <meta name="description" content="{{ loc.ind_subtitol }}">
+    {% block head %}
+        <title>PANSON</title>
+    {% endblock %}
     <link href='/style/base.css' as='style' rel='preload'>
     <link href='/style/menu.css' as='style' rel='preload'>
     <link href='/style/navigation.css' as='style' rel='preload'>
