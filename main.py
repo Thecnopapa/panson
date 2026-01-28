@@ -388,11 +388,9 @@ def index(lan ="cat", favicon = True):
         use()
         return redirect("/static/robots.txt")
 
-    elif lan == "sitemap":
+    elif lan == "sitemap" or lan=="sitemap.xml":
         use()
-        with open("static/sitemap.xml") as f:
-            sitemap = f.read()
-        return sitemap
+        return return_sitemap()
     ######################################################
     # TODO: Revisit firebase access
     use()
@@ -404,6 +402,11 @@ def index(lan ="cat", favicon = True):
                     show_banner=True, show_newsletter=True)
     return html
 
+@app.route("/<lan>/sitemap")
+@app.route("/<lan>/sitemap.xml")
+def return_sitemap(lan="cat"):
+    use()
+    return send_from_directory("static", "sitemap.xml")
 
 @app.route("/<lan>/collecio/<id>")
 def collections(lan,id):

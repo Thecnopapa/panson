@@ -34,10 +34,10 @@
                 this.nextElementSibling.classList.toggle('shown');
                 this.lastElementChild.classList.toggle('shown');
             ">
-				<div class="fetamida-subtitle loc" loc="fam_intro_titol">{{ loc.fam_intro_titol | safe }}</div>
+				<h1 class="fetamida-subtitle loc" loc="fam_intro_titol">{{ loc.fam_intro_titol | safe }}</h1>
 				<img class="main-arrow page-arrow down" src="/static/media/arrow.svg">
 			</div>
-			<div class="fetamida-info loc" loc="fam_intro_info">{{ loc.fam_intro_info | safe }}</div>
+			<h2 class="fetamida-info loc" loc="fam_intro_info">{{ loc.fam_intro_info | safe }}</h2>
 		</div>
 
 		<div class="fetamida-dropdown">
@@ -46,10 +46,10 @@
                 this.nextElementSibling.classList.toggle('shown');
                 this.lastElementChild.classList.toggle('shown');
                ">
-				<div class="fetamida-subtitle loc" loc="fam_proces_titol">{{ loc.fam_proces_titol | safe }}</div>
+				<h1 class="fetamida-subtitle loc" loc="fam_proces_titol">{{ loc.fam_proces_titol | safe }}</h1>
 				<img class="main-arrow page-arrow down" src="/static/media/arrow.svg">
 			</div>
-            <div class="fetamida-info loc" loc="fam_proces_info">{{ loc.fam_proces_info | safe }}</div>
+            <h2 class="fetamida-info loc" loc="fam_proces_info">{{ loc.fam_proces_info | safe }}</h2>
 		</div>
 
 		<div class="fetamida-dropdown">
@@ -59,10 +59,10 @@
                 this.nextElementSibling.nextElementSibling.classList.toggle('shown');
                 this.lastElementChild.classList.toggle('shown');
             ">
-				<div class="fetamida-subtitle loc" loc="fam_contacte_titol">{{ loc.fam_contacte_titol | safe }}</div>
+				<h1 class="fetamida-subtitle loc" loc="fam_contacte_titol">{{ loc.fam_contacte_titol | safe }}</h1>
 				<img class="main-arrow page-arrow down" src="/static/media/arrow.svg">
 			</div>
-            <div class="fetamida-info loc" loc="fam_contacte_info">{{ loc.fam_contacte_info | safe }}</div>
+            <h2 class="fetamida-info loc" loc="fam_contacte_info">{{ loc.fam_contacte_info | safe }}</h2>
 			{{ contact.contact_form(subject=False, prefix=False)}}
 		</div>
 
@@ -71,7 +71,7 @@
 	</div>
 	<div class="fetamida-galeria-titol loc" loc="fam_galeria_titol">{{ loc.fam_galeria_titol }}</div>
 	{{ galeria.galeria("bespoke", max_prods=None,min_row=4, min_prods=2, load_more=True, second_hover=False) }}
-	
+
 
 
 

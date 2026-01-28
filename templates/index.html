@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block head %}
-    <title>PANSON</title>
+    <title>PANSON Joieria</title>
 {% endblock %}
 
 {% block imports %}
@@ -37,7 +37,7 @@
 
     </div>
 
-<div id="index-subtitle">{{ loc.ind_subtitol }}</div>
+<div id="index-subtitle"><h1>{{ loc.ind_subtitol }}</h1></div>
     <div id="index-subtitle-more" class="clickable underlined" onclick="location.href='/{{ lan }}/productes/'">{{ loc.ind_veure_mes }}</div>
 
     {{ galeria.galeria("productes", max_prods=8, min_prods=8, min_row=4, go_to_shop=True) }}

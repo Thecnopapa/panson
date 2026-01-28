@@ -181,6 +181,15 @@ video {
 
 }
 
+
+
+h1, h2, h3, h4, h5, h6, p {
+    font-size: unset;
+    font-weight: unset;
+    padding: unset;
+    margin: unset;
+}
+
 .black-button{
     background-color: #000000;
     color: white;

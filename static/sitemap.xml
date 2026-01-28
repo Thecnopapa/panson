@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://pansonjoieria.com/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <lastmod>2026-01-01</lastmod>
+    </url>
+    <url>
+        <loc>https://pansonjoieria.com/cat/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <lastmod>2026-01-01</lastmod>
+    </url>
 
-   <url>
+    <url>
+        <loc>https://pansonjoieria.com/cat/productes</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+        <lastmod>2026-01-01</lastmod>
+    </url>
 
-      <loc>https://pansonjoieria.com/</loc>
+    <url>
+        <loc>https://pansonjoieria.com/cat/fetamida</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2026-01-01</lastmod>
+    </url>
 
-      <changefreq>monthly</changefreq>
-
-      <priority>0.8</priority>
-
-   </url>
-
-</urlset> 
+</urlset>
