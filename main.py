@@ -419,7 +419,7 @@ def index(lan ="cat", favicon = True):
     elif lan == "sitemap" or lan=="sitemap.xml":
         use()
         return return_sitemap()
-    elif lan.startswith("key_"):
+    elif lan.startswith("key-"):
         use()
         with open(os.environ["SEO_KEY"]) as f:
             print(repr(lan))
