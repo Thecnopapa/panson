@@ -197,14 +197,16 @@ def use(amount=1.0):
     if len(usage_ips.keys()) >100:
         usage_ips = {}
     try:
-        print("IP:", req_ip, "Using:", amount, "Total:", usage_ips[req_ip]["usage"], "Delta:", usage_ips[req_ip]["delta"])
+        #print("IP:", req_ip, "Using:", amount, "Total:", usage_ips[req_ip]["usage"], "Delta:", usage_ips[req_ip]["delta"])
+        pass
     except:
-        print("IP:", req_ip, "error checking IP")
+        #print("IP:", req_ip, "error checking IP")
         abort(418)
 
     #session["usage"] += amount
 
-    print(request.path)
+    #print(request.path)
+    #print(request.host)
 
     if "test." in request.host:
         if request.path.split("/")[1] not in ["static", "style", "media", "scripts"]:
@@ -213,7 +215,7 @@ def use(amount=1.0):
                     pass
                 else:
                     abort(403)
-    elif "panson.thecnopapa.com" in request.host:
+    elif "panson.thecnopapa" in request.host:
         return redirect("https://pansonjoieria.com"+request.full_path, 301 )
 
 
