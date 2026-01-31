@@ -13,16 +13,58 @@
         <priority>0.7</priority>
         <lastmod>2026-01-28</lastmod>
     </url>
-
     <url>
         <loc>https://pansonjoieria.com/cat/productes</loc>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
         <lastmod>2026-01-28</lastmod>
     </url>
-
     <url>
         <loc>https://pansonjoieria.com/cat/fetamida</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+        <lastmod>2026-01-28</lastmod>
+    </url>
+
+
+    <url>
+        <loc>https://pansonjoieria.com/es/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2026-01-28</lastmod>
+    </url>
+
+    <url>
+        <loc>https://pansonjoieria.com/es/productes</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2026-01-28</lastmod>
+    </url>
+
+    <url>
+        <loc>https://pansonjoieria.com/es/fetamida</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2026-01-28</lastmod>
+    </url>
+
+
+    <url>
+        <loc>https://pansonjoieria.com/en/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2026-01-28</lastmod>
+    </url>
+
+    <url>
+        <loc>https://pansonjoieria.com/en/productes</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2026-01-28</lastmod>
+    </url>
+
+    <url>
+        <loc>https://pansonjoieria.com/en/fetamida</loc>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
         <lastmod>2026-01-28</lastmod>
