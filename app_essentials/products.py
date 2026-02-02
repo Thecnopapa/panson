@@ -1,6 +1,7 @@
 from app_essentials.firebase import get_products, firebaseObject, get_cols, get_bespoke
 from app_essentials.utils import str_to_list
 from math import floor, ceil
+import time, datetime
 
 
 class Product(firebaseObject):
@@ -43,6 +44,11 @@ class Product(firebaseObject):
         if nimg != 0:
             self._imatges2 *= 4//nimg
             self._imatges2 += self._imatges2[:nimg%nimg]
+
+    def unanounced(self):
+        delta = datetime.datetime.now() < datetime.datetime.fromisoformat(self.start_date)
+        #print(delta)
+        return delta
 
 
     def generate_id2(self, options={}):
@@ -126,8 +132,9 @@ class Product(firebaseObject):
                 else:
                     #print(self.opcions["colors"], c)
                     p += self.opcions["colors"][c]["preu"]
-        print("before:", p)
+
         if self.descompte > 0 and p > 0:
+            print("before:", p)
             p = ceil(p*(1-(self.descompte/100)))
             print("after:", p)
         return p, incomplet

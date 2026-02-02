@@ -41,7 +41,7 @@ def common_kwargs(**kwargs):
     kwargs["productes_filtrats"] = kwargs["productes_filtrats"].get_all()
     kwargs["max_gallery"] = kwargs.get("max_gallery", len(kwargs["productes_filtrats"]))
     kwargs["user"] = get_current_user()
-    kwargs["cart"] = kwargs["user"].cart
+    kwargs["cart"] = kwargs["user"].get_cart(kwargs["productes"])
     # for k, v in kwargs["cart"].items():
     #     #print(v)
     #     v["producte"] = kwargs["productes"].get_single(v["product_id"])
@@ -54,7 +54,7 @@ def common_kwargs(**kwargs):
     return kwargs
 
 
-def template(html="", templates=None, navigation=True, **kwargs):
+def template(html="", templates=None, navigation=True, retry=True, reset=True, **kwargs):
 
     kwargs = common_kwargs(**kwargs)
 
@@ -66,7 +66,7 @@ def template(html="", templates=None, navigation=True, **kwargs):
             try:
                 html+= render_template(t+".html",no_head=n!=0, **kwargs)
             except Exception as e:
-                if False:
+                if reset:
                     print("#######################################")
                     print("Failed to render template: {}".format(t))
                     print(e)
@@ -74,8 +74,9 @@ def template(html="", templates=None, navigation=True, **kwargs):
                     session.pop("session_id")
                     session.pop("user_id")
                     kwargs["user"] = get_current_user()
-                    kwargs["cart"] = kwargs["user"].cart
-                html += render_template(t + ".html", no_head=n != 0, **kwargs)
+                    kwargs["cart"] = kwargs["user"].get_cart()
+                if retry:
+                    html += render_template(t + ".html", no_head=n != 0, retry=False, **kwargs)
 
 
     return html

@@ -648,12 +648,12 @@ def checkout_force(lan):
 @app.route("/<lan>/checkout/stripe")
 def stripe_checkout(lan):
     use()
-    return template(lan=lan, templates="stripe_checkout", force_new=False)
+    return template(lan=lan, templates="stripe_checkout", reset=False, force_new=False)
 
 @app.route("/<lan>/checkout/stripe/force_new")
 def stripe_checkout_force(lan):
     use()
-    return template(lan=lan, templates="stripe_checkout", force_new=True)
+    return template(lan=lan, templates="stripe_checkout", reset=False, force_new=True)
 
 
 

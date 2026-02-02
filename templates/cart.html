@@ -47,6 +47,7 @@
 
 
 {% for n, item in utils.enumerate(cart.values()) %}
+    {{ cart.values() }}
     {{ cart_item(item, n) }}
 {% endfor %}
 

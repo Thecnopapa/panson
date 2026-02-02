@@ -173,7 +173,7 @@ class Trello():
 
 
 def create_items(user):
-    cart = user.cart
+    cart = user.get_cart()
     items = []
     for item in cart.values():
         print(item["data"])

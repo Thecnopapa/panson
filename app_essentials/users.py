@@ -39,12 +39,12 @@ class User(firebaseObject):
         self.recalculate()
 
     def recalculate(self):
-        self._n_cart = sum([item["quantity"] for item in self.cart.values()])
-        self._total_cart = sum([item["quantity"] * item["price"] for item in self.cart.values()])
+        self._n_cart = sum([item["quantity"] for item in self.get_cart().values()])
+        self._total_cart = sum([item["quantity"] * item["price"] for item in self.get_cart().values()])
 
 
     def move_to_favourites(self):
-        self.favourites = list(set(self.favourites + [item["product_id"].split("&")[0] for item in self.cart.values()]))
+        self.favourites = list(set(self.favourites + [item["product_id"].split("&")[0] for item in self.get_cart().values()]))
         self.cart = {}
         self.update_db()
 
@@ -96,7 +96,6 @@ class User(firebaseObject):
         self.cart[id2] = dict(
             product_id=product_id,
             quantity=quantity,
-            price=price,
             options=options,
             data=data,
             extras=extras,
@@ -104,140 +103,34 @@ class User(firebaseObject):
         print(self.cart)
         self.update_db()
 
-
-
-
-
-
-
-
-
-
-class UserOld(firebaseObject):
-    bucket = "usuaris"
-    def __init__(self, data, id):
-        self.carret = {}
-        self.cart = {}
-        self.preferits = []
-        self.is_admin = False
-        self.super = False
-        self.accepted_cookies = False
-        self.cookies = {
-            'ad_user_data': 'denied',
-            'ad_personalization': 'denied',
-            'ad_storage': 'denied',
-            'analytics_storage': 'denied'
-        }
-        self.username = None
-        self.password = None
-
-        super().__init__(data, id)
-        self.n_carret = sum([item["quantity"] for item in self.carret.values()])
-        self.total_carret = sum([item["quantity"] * item["preu"][0] for item in self.carret.values()])
-
-    def create_product(id, options, quantity=1):
-        prod = Products().get_single(id)
-        return stripe.Product.create(
-                name=prod.nom,
-                metadata={k:str(v) for k,v in options.items()},
-                )
-    def delete_product(id):
-        return stripe.Product.delete(id)
-
-
-
-
-    def move_to_favourites(self):
-        self.preferits = list(set(self.preferits + [i["id"].split("&")[0] for i in self.carret.values()]))
-        self.carret = {}
-        self.update_db()
-
-    def add_producte_carret(self, id, opcions_seleccionades={}, quantitat = 1, delete=False):
-        if not delete:
-            print("Adding producte", id)
-            producte = Products().get_single(id)
-            new_producte = {"id":producte._id,
-                            "quantity":quantitat,}
-            id2 = producte._id
-            for key, value in sorted(opcions_seleccionades.items(), key=lambda item: item[0]):
-                new_producte[key] = value
-                id2 += "&{}:{}".format(key,value)
-            new_producte["id2"] = id2
-            if id2 in self.carret.keys():
-                print(self.carret[id2])
-                self.carret[id2]["quantity"] += quantitat
-            else:
-                self.carret[id2] = new_producte
-                #self.carret[id2]["checksum"] = hashlib.new("sha256").update(id2).hexdigest()
-            self.carret[id2]["preu"] = producte.calcular_preu(**opcions_seleccionades)
-        else:
-            print("Deleting producte", id)
-            if self.carret[id]["quantity"] > 0:
-                self.carret[id]["quantity"] -= quantitat
-            else:
-                self.carret.pop(id)
-        self.recalculate()
-        self.update_db()
-
-    def recalculate(self):
-        self.n_carret = sum([item["quantity"] for item in self.carret.values()])
-        self.total_carret = sum([item["quantity"] * item["preu"][0] for item in self.carret.values()])
-
-    def generate_items(self):
-        items = []
-        for id, item in self.carret.items():
-            print(item)
-            product = Products().get_single(item["id"])
-            if product is None:
+    def get_cart(self, prods=None):
+        print("getting cart")
+        new_cart = {}
+        if prods is None:
+            prods = Products()
+        for k, v in self.cart.items():
+            print(k)
+            target = prods.get_single(v["product_id"])
+            if target.esborrat or target.amagat:
+                print("hidden")
                 continue
-            material = item.get("material", None)
-            variacio = item.get("variacio", None)
-            color = item.get("color", None)
-            talla = item.get("talla", None)
-            talla_es = item.get("talla_es", None)
-            talla_country = item.get("talla_country", None)
+            if target.unanounced():
+                print("unanounced")
+                continue
+            v["price"], incomplete = target.calculate_price(**v["options"])
+            if not incomplete:
+                new_cart[k] = v
+        print(new_cart)
+        return new_cart
 
-            price = product.calcular_preu(material, variacio, color)[0]*100
 
-            description = ""
-            if talla is not None:
-                description += "Talla: {}/ ".format(talla)
-            if talla_es is not None:
-                description += "TallaES: {} /".format(talla_es)
-            if material is not None:
-                description += "Material: {} / ".format(material)
-            if variacio is not None:
-                description += "Variacio: {} / ".format(variacio)
-            if color is not None:
-                description += "Color: {} /".format(color)
-            if description[-1] == "/":
-                description = description[:-1]
 
-            i = {
-                "price_data": {
-                    "currency": "eur",
 
-                    "unit_amount": price,
-                    "product_data": {
-                        "name": item["id"],
-                        "description": description,
-                        "metadata": dict(
-                            talla=talla,
-                            talla_es=talla_es,
-                            material=material,
-                            color=str(color),
-                            variacio=variacio,
-                            talla_country=talla_country,
-                            ),
-                        }
-                },
-                "quantity": item["quantity"],
-                "adjustable_quantity": {
-                    "enabled": True,
-                },
 
-            }
-            items.append(i)
-        return items
+
+
+
+
+
 
 

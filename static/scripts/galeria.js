@@ -307,6 +307,7 @@ function changeProduct(element, product, bucket) {
 	    tElement.link = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value;
 
     } else {
+		element.querySelector(".launch-time-cover").remove();
     	element.onclick = function () { location.href = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value }
     }
 	if (bucket === "bespoke"){
