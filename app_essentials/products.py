@@ -46,9 +46,12 @@ class Product(firebaseObject):
             self._imatges2 += self._imatges2[:nimg%nimg]
 
     def unanounced(self):
-        delta = datetime.datetime.now() < datetime.datetime.fromisoformat(self.start_date)
-        #print(delta)
-        return delta
+        if self.start_date is None or self.start_date == "":
+            return False
+        else:
+            delta = datetime.datetime.now() < datetime.datetime.fromisoformat(self.start_date)
+            #print(delta)
+            return delta
 
 
     def generate_id2(self, options={}):
