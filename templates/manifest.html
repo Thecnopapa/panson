@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block head %}
+    <title>PANSON: {{ loc.man_manifest }}</title>
+{% endblock %}
+
+{% block imports %}
+    <link href='/style/manifest.css' as='style' rel='preload'>
+
+    <link href='/style/manifest.css' rel='stylesheet'>
+{% endblock %}
+
+{% block body %}
+<div class="manifest">
+    <div class="titol-manifest">MANIFEST</div>
+    <iframe class="video-manifest" width="1920" height="1080" src="{{ video_url |safe }}&amp;controls=1" title="PANSON Joieria: Manifest" frameborder="0" autoplay=1 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+{% endblock %}

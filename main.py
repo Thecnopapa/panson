@@ -109,7 +109,7 @@ storage_url_single = "https://firebasestorage.googleapis.com/v0/b/panson.firebas
 # GLOBALS SETUP
 from app_essentials.session import get_current_user, get_session_id
 from app_essentials.products import Products, Product, get_talla_es
-from app_essentials.firebase import get_user_data, get_cols, check_if_admin
+from app_essentials.firebase import get_user_data, get_cols, check_if_admin, get_static_images
 from app_essentials.firestore import list_blobs, upload_images, load_files, download_file, upload_file
 from app_essentials.html_builder import template
 from app_essentials.utils import get_opcions
@@ -728,6 +728,12 @@ def stripe_cancel(lan):
 def projecte(lan):
     use()
     html = template(lan=lan, templates="projecte")
+    return html
+
+@app.route("/<lan>/manifest/")
+def manifest(lan):
+    use()
+    html = template(lan=lan, templates="manifest", video_url=get_static_images("manifest").nom)
     return html
 
 @app.route("/<lan>/contacte/")

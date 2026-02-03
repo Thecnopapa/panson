@@ -21,7 +21,7 @@
 {% endif %}
 
 
-<div class="popup-info newsletter-popup {{ "to-be-popped" if not user.no_newsletter and show_newsletter and False }}">
+<div class="popup-info newsletter-popup {{ "to-be-popped" if not user.no_newsletter and show_newsletter }}">
     <div class="newsletter-popup-titol loc" loc="news_popup_titol">{{ loc.news_popup_titol |safe }}</div>
     <div class="newsletter-popup-text loc" loc="news_popup_text">{{ loc.news_popup_text |safe }}</div>
     <div class="newsletter-popup-input">
