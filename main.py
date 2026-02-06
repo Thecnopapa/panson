@@ -131,6 +131,7 @@ class PermanentRedirect(HTTPException):
 
 
 app.aborter.mapping.update({301: PermanentRedirect})
+app.aborter.mapping.update({492: HTTPException})
 
 @app.errorhandler(HTTPException)
 def handle_exception(e):
