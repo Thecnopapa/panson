@@ -67,6 +67,14 @@
         <div class="search">
             <input class="search-text" type="text" onfocusout="hideSearch()" oninput="resizeSearch()" placeholder="{{ loc.nav_text_buscar }}">
             <img class="search-icon" onclick="showSearch()" src="/static/media/search-icon.svg" alt="search">
+            <script>
+                let searchableItems = {
+                    "cats": {},
+                    "cols": {},
+                    "prods": {},
+                    "fam": {}
+                }
+            </script>
         </div>
 
         <div class="language-dropdown landscape">
