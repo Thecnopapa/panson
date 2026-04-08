@@ -731,7 +731,7 @@ def projecte(lan):
     html = template(lan=lan, templates="projecte")
     return html
 
-@app.route("/<lan>/manifest/")
+#@app.route("/<lan>/manifest/")
 def manifest(lan):
     use()
     html = template(lan=lan, templates="manifest", video_url=get_static_images("manifest").nom)
