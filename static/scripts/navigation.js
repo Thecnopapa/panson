@@ -12,12 +12,15 @@ const navLeft = document.getElementById('nav-left');
 const navButtons = [...document.getElementsByClassName('dropbtn')];
 const lanButtons = [...document.getElementsByClassName('language')];
 
+const searchIcon = document.getElementsByClassName('search-icon')[0];
+const searchInput = document.getElementsByClassName("search-text")[0];
+
 const cartIcon = document.getElementsByClassName('shopping-cart')[0];
 const cartCircle = document.getElementsByClassName('cercle-carret')[0];
 const navTitle = document.getElementById("title")
 
 
-camaleonElements.push(...navButtons, ...lanButtons, cartCircle, cartIcon)
+camaleonElements.push(...navButtons, ...lanButtons, cartCircle, cartIcon, searchIcon, searchInput)
 
 if (navTitle) {
     camaleonElements.push(navTitle)
@@ -207,8 +210,23 @@ function toggleLanguages(trigger){
 	}
 }
 
+function showSearch(){
+    searchIcon.style.display = "none";
+    searchInput.style.display = "block";
+    searchInput.focus();
+}
 
+function hideSearch(){
+    searchInput.style.display = "none";
+    searchIcon.style.display = "block";
+}
 
+function resizeSearch(){
+    let fontSize = Number(getComputedStyle(searchInput).fontSize.replace("px",""));
+    console.log(fontSize, (1+ searchInput.value.length), (1+searchInput.value.length) * fontSize);
+    const targetWidth =  (1+searchInput.value.length) * fontSize * 0.55;
+    searchInput.style.width =  String(targetWidth)+"px";
+}
 
 
 

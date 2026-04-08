@@ -435,6 +435,57 @@ h1, h2, h3, h4, h5, h6, p {
 .language.admin {
 }
 
+.search{
+    display: flex;
+    position: relative;
+    right: 0;
+    bottom: 0;
+    width: min-content;
+    height: var(--header-height);
+    min-height: var(--min-header-height);
+    align-items: center;
+    margin-left: var(--padding);
+    margin-right: var(--padding);
+    cursor: pointer;
+    z-index: 21;
+}
+.search-icon{
+    cursor: pointer;
+    position: relative;
+    display: block;
+    align-content: center;
+    text-align: center;
+    vertical-align: center;
+    height: calc(var(--header-height) / 3);
+    min-height: calc(var(--min-header-height) / 3);
+    width: calc(var(--header-height) / 3);
+    min-width: calc(var(--min-header-height) / 3);
+    transition: 1s;
+    transform: scaleX(-100%);
+}
+.search-icon:hover{
+    transform: scaleX(-100%) scale(1.2);
+}
+
+.search-text{
+    display:none;
+    border-color: transparent !important;
+    background-color: rgba(255, 255, 255, 0.3) !important;
+    color: black;
+    padding-left: 0.5em;
+    min-width: 5em;
+    width: 5em;
+    max-width: 10em;
+    border-radius: 0.4em;
+    transition: 1s;
+
+}
+
+.search-text.white{
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    color: white !important;
+}
+
 .cart {
     display: flex;
     position: relative;
