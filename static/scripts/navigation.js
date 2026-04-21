@@ -244,7 +244,7 @@ function hideSearch(){
 
 function resizeSearch(){
     let fontSize = Number(getComputedStyle(searchInput).fontSize.replace("px",""));
-    console.log(fontSize, (1+ searchInput.value.length), (1+searchInput.value.length) * fontSize);
+    //console.log(fontSize, (1+ searchInput.value.length), (1+searchInput.value.length) * fontSize);
     const targetWidth =  (1+searchInput.value.length) * fontSize * 0.55;
     searchInput.style.width =  String(targetWidth)+"px";
 }
@@ -271,7 +271,7 @@ function searchInDict(query, key, params=[undefined]){
                     target = target.normalize()
                     target = target.toLowerCase();
                     if (target.search(query) >= 0) {
-                        console.log(query, target, target.search(query));
+                        //console.log(query, target, target.search(query));
 
                         results.push({"name": searchableItems[key][el]["name"] , "url": searchableItems[key][el].url, "key": key, "id":el});
                         throw ResultFound;
@@ -298,9 +298,9 @@ function showResults(results){
             container.classList.add("search-results-group-" + cat);
             supercontainer.appendChild(container);
         }
-        console.log(container);
-        console.log(cat);
-        console.log(Object.keys(results[cat]));
+        //console.log(container);
+        //console.log(cat);
+        //console.log(Object.keys(results[cat]));
 
         if (Object.keys(results[cat]).length === 0) {
             supercontainer.removeChild(container);
@@ -311,23 +311,23 @@ function showResults(results){
             Object.keys(results[cat]).forEach(result => {
                 resultElements[results[cat][result].id] = results[cat][result];
             });
-            console.log(resultElements);
+            //console.log(resultElements);
 
             [...container.children].forEach(el => {
                 if (el.id in Object.keys(resultElements)){
-                    console.log("M", el.id);
+                    //console.log("M", el.id);
                     resultElements[cat].delete(el.id);
                 } else {
                     container.removeChild(el)
                     //container.removeChild(el);
                 }
             });
-            console.log(resultElements);
-            console.log("###")
+            //console.log(resultElements);
+            //console.log("###")
 
             Object.keys(resultElements).forEach(result => {
                 result = resultElements[result];
-                console.log("R", result);
+                //console.log("R", result);
                 let newElement = document.createElement("div");
                 newElement.id = result.id;
                 newElement.classList.add("search-result");
@@ -344,15 +344,15 @@ function showResults(results){
 function updateSearchResults(){
     let query = searchInput.value.normalize();
     query = query.toLowerCase();
-    console.log("QUERY:" + query);
+    //console.log("QUERY:" + query);
     let letters = query.split("");
-    console.log("LETTERS:" + letters);
+    //console.log("LETTERS:" + letters);
     let rx = ""
     letters.forEach(l => {
         rx = rx + l + ".*"
     })
     rx = rx.slice(0, rx.length-2) + "" //
-    console.log("RX:", rx);
+    //console.log("RX:", rx);
     query = rx
 
     let results = Object()
