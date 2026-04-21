@@ -69,10 +69,10 @@
             <img class="search-icon" onclick="showSearch()" src="/static/media/search-icon.svg" alt="search">
             <script>
                 let searchableItems = {
-                    "cats": {},
-                    "cols": {},
-                    "prods": {},
-                    "fam": {}
+                    "tipus": {{ tipus_json |safe}},
+                    "cols": {{ cols_json |safe}},
+                    "prods": {{ prods_json |safe}},
+                    "fam": {{ fam_json |safe}}
                 }
             </script>
         </div>

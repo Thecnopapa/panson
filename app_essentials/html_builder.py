@@ -1,7 +1,6 @@
-import jinja2
+import json
 from flask import render_template, session, request
 
-from app_essentials import products
 from app_essentials.localisation import Localisation2 as localisation, Images
 from app_essentials.products import Products
 from app_essentials.utils import Utils
@@ -13,13 +12,14 @@ from app_essentials.firestore import Storage
 
 def common_kwargs(**kwargs):
     print(request.path, request.host)
+    lan = localisation(kwargs.get("lan", "cat"))
     kwargs["path"] = request.path
     kwargs["host"] = request.host
-    kwargs["loc"] = kwargs.get("loc", localisation(kwargs.get("lan", "cat")))
+    kwargs["loc"] = kwargs.get("loc", lan)
     kwargs["imgs"] = kwargs.get("imgs", Images())
     kwargs["stg"] = kwargs.get("stg", Storage())
-    kwargs["productes"] = Products(lan=kwargs.get("lan", "cat"))
-    kwargs["productes_filtrats"] = Products(lan=kwargs.get("lan", "cat"))
+    kwargs["productes"] = Products(lan=lan)
+    kwargs["productes_filtrats"] = Products(lan=lan)
     #print("STARTING PRODUCTS:", len(kwargs["productes_filtrats"].get_all()))
     #print(kwargs["productes_filtrats"].products.keys())
     if not kwargs.get("esborrats", False):
@@ -29,6 +29,13 @@ def common_kwargs(**kwargs):
         kwargs["productes_filtrats"] = kwargs["productes_filtrats"].filter({"amagat": False}, return_products=False, inplace=True)
     #print(kwargs["productes_filtrats"].products.keys())
     #print("DEAULT FILTERS:", len(kwargs["productes_filtrats"].get_all()))
+    kwargs["prods_json"] = json.dumps({p._id: {"url": f"/{lan.lan}/productes/{p._id}", "name": p.nom, "col": p.collecio, "type": p.tipus} for p in kwargs["productes_filtrats"]})
+    kwargs["tipus_json"] = json.dumps({tipus: {"url": f"/{lan.lan}/productes/?filterKey=tipus&filterValue={tipus}"} for tipus in kwargs["productes_filtrats"].tipus})
+    kwargs["cols_json"] = json.dumps({col._id: {"url": f"/{lan.lan}/colleccio/{col._id}", "name": col.nom} for col in kwargs["productes_filtrats"].cols})
+    kwargs["fam_json"] = json.dumps({p._id: {"url": f"/{lan.lan}/bespoke/{p._id}", "name": p.nom, "per_a": p.per_a, "type": p.tipus} for p in kwargs["productes_filtrats"].bespoke})
+
+
+
     if "filters" in kwargs:
         #print(kwargs["filters"])
         kwargs["productes_filtrats"], kwargs["filters"] = kwargs["productes_filtrats"].filter(kwargs.get("filters", None),
@@ -50,6 +57,8 @@ def common_kwargs(**kwargs):
     #print(kwargs["user"])
     #print("##### USER ####")
     kwargs["utils"] = Utils()
+
+
 
     return kwargs
 

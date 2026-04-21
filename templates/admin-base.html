@@ -102,8 +102,8 @@
                     {% endif %}
                 </div>
 
-            {% if product.bucket == "productes" %}
-                <div class="product-element subtitle">Subtitol: <input product="{{product._id}}" field="subtitol" class="product-input" value="{{product.subtitol}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div>
+            {% if product.bucket in ["productes", "bespoke"] %}
+                <!-- div class="product-element subtitle">Subtitol: <input product="{{product._id}}" field="subtitol" class="product-input" value="{{product.subtitol}}" oninput="this.nextElementSibling.style.backgroundColor = 'yellow';"><button class="product-update" onclick="productUpdate(this.previousElementSibling)">&#10004;</button></div-->
                 <div class="horizontal wrapper">
                     <div class="product-element type">Tipus:
                         <select product="{{product._id}}" field="tipus" class="product-input" oninput="productUpdate(this)">
@@ -113,10 +113,14 @@
                                 {% endfor %}
                         </select><div></div>
                     </div>
+                {% if product.bucket == "productes" %}
 		    <div class="product-element start-date">Estrena:
 			    <input type="datetime-local" product="{{product._id}}" field="start_date" class="product-input" value="{{product.start_date}}" oninput="productUpdate(this)">
 		    </div>
+                    {% endif %}
                 </div>
+            {% endif %}
+                {% if product.bucket == "productes" %}
                 <div class="horizontal wrapper">
                     <div class="product-element collection">Collecio:
                         <select product="{{product._id}}" field="collecio" class="product-input" oninput="productUpdate(this)">
