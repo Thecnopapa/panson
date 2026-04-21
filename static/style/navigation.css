@@ -437,12 +437,14 @@ h1, h2, h3, h4, h5, h6, p {
 
 .search{
     display: flex;
+    flex-direction: column;
     position: relative;
     right: 0;
     bottom: 0;
     width: min-content;
     height: var(--header-height);
     min-height: var(--min-header-height);
+    justify-content: center;
     align-items: center;
     margin-left: var(--padding);
     margin-right: var(--padding);
@@ -470,7 +472,7 @@ h1, h2, h3, h4, h5, h6, p {
 .search-text{
     display:none;
     border-color: transparent !important;
-    background-color: rgba(255, 255, 255, 0.3) !important;
+    background-color: rgba(255, 255, 255, 0.4) !important;
     color: black;
     padding-left: 0.5em;
     min-width: 5em;
@@ -482,9 +484,35 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .search-text.white{
-    background-color: rgba(0, 0, 0, 0.3) !important;
+    background-color: rgba(0, 0, 0, 0.4) !important;
     color: white !important;
 }
+
+.search-result{
+    padding:0.2rem;
+    min-width: 100%;
+    width: 100%;
+
+
+}
+
+.search-results{
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.4) !important;
+    color: black;
+    position: absolute;
+    top: 75%;
+    width: 100%;
+    max-height: 30vh;
+    overflow-y: scroll;
+}
+.search-results.white{
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    color: white !important;
+
+}
+
 
 .cart {
     display: flex;
@@ -815,4 +843,17 @@ h1, h2, h3, h4, h5, h6, p {
     .banner-title{
         font-size: var(--font-size-large);
     }
+
+    .search.open{
+            height: calc(var(--header-height) * 2);
+            min-height: calc(var(--min-header-height) * 2);
+            position: fixed;
+        top: var(--padding);
+        right: 0;
+    }
+    .search-text{
+
+    }
+
+
 }

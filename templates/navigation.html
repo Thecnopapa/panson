@@ -64,8 +64,9 @@
     		<div class="language admin" onclick="location.href='/admin'" oncontextmenu="window.open('/admin/', '_blank')">{{ loc.nav_admin }}</div>
     		<div class="language admin" onclick="location.href='/admin/logout'">{{ loc.nav_tancar_sessio }}</div>
     	{% endif %}
-        <div class="search">
-            <input class="search-text" type="text" onfocusout="hideSearch()" oninput="resizeSearch()" placeholder="{{ loc.nav_text_buscar }}">
+        <div class="search" onclick="event.stopPropagation()">
+            <input class="search-text" type="text" onfocusout="hideSearch()" oninput="resizeSearch();updateSearchResults()" placeholder="{{ loc.nav_text_buscar }}">
+            <div class="search-results"></div>
             <img class="search-icon" onclick="showSearch()" src="/static/media/search-icon.svg" alt="search">
             <script>
                 let searchableItems = {

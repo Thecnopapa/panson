@@ -1,7 +1,7 @@
 from utilities import *
 from flask import request
 import os, sys
-import datetime
+import datetime, unidecode
 
 
 import firebase_admin
@@ -60,6 +60,7 @@ class firebaseObject(object):
                     continue
             setattr(self, key, value)
         self._id = id
+        self._clean_id = unidecode.unidecode(id)
 
     def __repr__(self):
         return "\n".join(["> {}:".format(self.__class__.__name__), *["    > {} ({}): {}".format(k,type(v).__name__, v) for k,v in self.__dict__.items() if k != "data"]])+"\n"

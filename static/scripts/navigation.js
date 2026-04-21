@@ -14,13 +14,14 @@ const lanButtons = [...document.getElementsByClassName('language')];
 
 const searchIcon = document.getElementsByClassName('search-icon')[0];
 const searchInput = document.getElementsByClassName("search-text")[0];
+const searchResults = document.getElementsByClassName("search-results")[0];
 
 const cartIcon = document.getElementsByClassName('shopping-cart')[0];
 const cartCircle = document.getElementsByClassName('cercle-carret')[0];
 const navTitle = document.getElementById("title")
 
 
-camaleonElements.push(...navButtons, ...lanButtons, cartCircle, cartIcon, searchIcon, searchInput)
+camaleonElements.push(...navButtons, ...lanButtons, cartCircle, cartIcon, searchIcon, searchInput, searchResults);
 
 if (navTitle) {
     camaleonElements.push(navTitle)
@@ -211,14 +212,34 @@ function toggleLanguages(trigger){
 }
 
 function showSearch(){
+
+    function closeSearchEsc(event){
+        if (event.key === "Escape"){
+            event.preventDefault();
+            hideSearch();
+            document.documentElement.removeEventListener("keydown", closeSearchEsc);
+        }
+    }
+    document.documentElement.addEventListener("keydown", closeSearchEsc);
+    searchIcon.parentElement.classList.remove("closed");
+    searchIcon.parentElement.classList.add("open");
     searchIcon.style.display = "none";
     searchInput.style.display = "block";
+    searchResults.style.display = "block";
+
     searchInput.focus();
 }
 
 function hideSearch(){
+    if (searchResults.matches(":hover")) {
+        return;
+    }
+    searchIcon.parentElement.classList.remove("open");
+    searchIcon.parentElement.classList.add("closed");
+
     searchInput.style.display = "none";
     searchIcon.style.display = "block";
+    searchResults.style.display = "none";
 }
 
 function resizeSearch(){
@@ -228,6 +249,124 @@ function resizeSearch(){
     searchInput.style.width =  String(targetWidth)+"px";
 }
 
+let ResultFound = {};
+function searchInDict(query, key, params=[undefined]){
+    let results = []
+    if (query.length === 0){
+        return results;
+    }
+
+
+
+    for (let el in searchableItems[key]) {
+        try{
+            params.forEach(p => {
+                let target = el
+                //console.log(el);
+                if (p !== undefined && p !== null) {
+                    //console.log("p", p);
+                    target = searchableItems[key][el][p];
+                }
+                if (target !== undefined) {
+                    target = target.normalize()
+                    target = target.toLowerCase();
+                    if (target.search(query) >= 0) {
+                        console.log(query, target, target.search(query));
+
+                        results.push({"name": searchableItems[key][el]["name"] , "url": searchableItems[key][el].url, "key": key, "id":el});
+                        throw ResultFound;
+                    }
+                }
+            });
+
+        } catch(e){
+            if (e !== ResultFound) throw e;
+        }
+    }
+    return results;
+}
+
+
+function showResults(results){
+    let supercontainer = document.querySelector(".search-results");
+
+    Object.keys(results).forEach(cat => {
+        let container = document.querySelector(".search-results-group-" + cat);
+        if (!container) {
+            container = document.createElement("div");
+            container.classList.add("search-results-group");
+            container.classList.add("search-results-group-" + cat);
+            supercontainer.appendChild(container);
+        }
+        console.log(container);
+        console.log(cat);
+        console.log(Object.keys(results[cat]));
+
+        if (Object.keys(results[cat]).length === 0) {
+            supercontainer.removeChild(container);
+
+        } else {
+
+            let resultElements = [];
+            Object.keys(results[cat]).forEach(result => {
+                resultElements[results[cat][result].id] = results[cat][result];
+            });
+            console.log(resultElements);
+
+            [...container.children].forEach(el => {
+                if (el.id in Object.keys(resultElements)){
+                    console.log("M", el.id);
+                    resultElements[cat].delete(el.id);
+                } else {
+                    container.removeChild(el)
+                    //container.removeChild(el);
+                }
+            });
+            console.log(resultElements);
+            console.log("###")
+
+            Object.keys(resultElements).forEach(result => {
+                result = resultElements[result];
+                console.log("R", result);
+                let newElement = document.createElement("div");
+                newElement.id = result.id;
+                newElement.classList.add("search-result");
+                newElement.innerText = result.name;
+                newElement.setAttribute("onclick", "window.location.href='" + result.url + "';");
+                container.appendChild(newElement);
+            })
+        }
+    });
+
+}
+
+
+function updateSearchResults(){
+    let query = searchInput.value.normalize();
+    query = query.toLowerCase();
+    console.log("QUERY:" + query);
+    let letters = query.split("");
+    console.log("LETTERS:" + letters);
+    let rx = ""
+    letters.forEach(l => {
+        rx = rx + l + ".*"
+    })
+    rx = rx.slice(0, rx.length-2) + "" //
+    console.log("RX:", rx);
+    query = rx
+
+    let results = Object()
+    results.tipus = searchInDict(query, "tipus", [undefined, "name"]);
+    results.cols = searchInDict(query, "cols", [undefined, "name"]);
+    results.prods = searchInDict(query, "prods", ["name", "tipus", "col"]);
+    results.fam = searchInDict(query, "fam", ["tipus", "per_a"]);
+    //console.log(results);
+    showResults(results);
+
+
+
+
+}
 
 
 
