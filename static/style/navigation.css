@@ -475,8 +475,8 @@ h1, h2, h3, h4, h5, h6, p {
     background-color: rgba(255, 255, 255, 0.4) !important;
     color: black;
     padding-left: 0.5em;
-    min-width: 5em;
-    width: 5em;
+    min-width: 6em;
+    width: 6em;
     max-width: 10em;
     border-radius: 0.4em;
     transition: 1s;
@@ -500,19 +500,24 @@ h1, h2, h3, h4, h5, h6, p {
 .search-results{
     display: flex;
     flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.4) !important;
+    background-color: rgba(255, 255, 255, 1) !important;
     color: black;
     position: absolute;
-    top: 75%;
+    top: calc(var(--header-height) - var(--padding));
     width: 100%;
     max-height: 30vh;
     overflow-y: scroll;
     border-radius: 0.4em;
+    overflow-x: hidden;
     scrollbar-width: thin !important;
+
 }
 .search-results.white{
     background-color: rgba(0, 0, 0, 0.4) !important;
     color: white !important;
+    scrollbar-width: none !important;
+
+
 
 }
 
@@ -847,6 +852,10 @@ h1, h2, h3, h4, h5, h6, p {
         font-size: var(--font-size-large);
     }
 
+    .search-icon{
+        transform: scaleX(-100%) scale(1.2);
+    }
+
     .search.open{
             height: calc(var(--header-height) * 2);
             min-height: calc(var(--min-header-height) * 2);
@@ -854,8 +863,8 @@ h1, h2, h3, h4, h5, h6, p {
         top: var(--padding);
         right: 0;
     }
-    .search-text{
-
+    .search-results{
+        top: calc(var(--header-height) + (var(--padding) * 2.5 ));
     }
 
 
