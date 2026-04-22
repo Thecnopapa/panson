@@ -492,9 +492,18 @@ h1, h2, h3, h4, h5, h6, p {
     padding:0.2rem;
     min-width: 100%;
     width: 100%;
+    transition: 0.2s;
+}
 
+.search-result.search-result-tipus{
+    font-style: italic;
+}
+.search-result.search-result-cols{
+    font-weight: bold;
+}
 
-
+.search-result:hover{
+    background-color: rgba(255, 255, 255, 0.2) !important;
 }
 
 .search-results{

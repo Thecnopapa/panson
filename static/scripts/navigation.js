@@ -331,6 +331,7 @@ function showResults(results){
                 let newElement = document.createElement("div");
                 newElement.id = result.id;
                 newElement.classList.add("search-result");
+                newElement.classList.add("search-result-"+result.key);
                 newElement.innerText = result.name;
                 newElement.setAttribute("onclick", "window.location.href='" + result.url + "';");
                 container.appendChild(newElement);
