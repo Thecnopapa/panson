@@ -118,7 +118,7 @@
     <div class="descompte-popup-text loc" loc="desc_popup_text">{{ loc.desc_popup_text |safe }}</div>
     <div class="descompte-popup-button black-button loc" loc="desc_popup_registrarse" onclick="location.href='/{{ loc.lan }}/productes/'">{{ loc.desc_popup_registrarse |safe }}</div>
 
-    <div class="descompte-popup-cancel clickable underlined loc" loc="desc_popup_cancel" onclick="ignoreDiscount(); this.parentElement.parentElement.click()">{{ loc.desc_popup_cancel |safe }}</div>
+    <div class="descompte-popup-cancel clickable underlined loc" loc="desc_popup_cancel" onclick="this.parentElement.parentElement.click()">{{ loc.desc_popup_cancel |safe }}</div>
 </div>
 {% endif %}
 
