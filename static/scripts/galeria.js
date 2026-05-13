@@ -123,7 +123,7 @@ function reverseProduct(trigger) {
     trigger.style.webkitTransform = 'scale(1)';
 }
 
-function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterValue=undefined) {
+function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterValue=undefined, invert=undefined) {
     console.log(" * Initialising galeria");
     console.log("To page: ", targetPage);
 	let galeriaElement = galeria.getElementsByClassName("galeria")[0];
@@ -146,11 +146,13 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
 	galeria.setAttribute("page", targetPage);
 	if (filterKey === undefined && galeria.hasAttribute("filterKey")){filterKey = galeria.attributes.filterKey.value;}
 	if (filterValue === undefined && galeria.hasAttribute("filterValue")){filterValue = galeria.attributes.filterValue.value}
+    if (invert === undefined && galeria.hasAttribute("invert")){invert = galeria.attributes.invert.value}
 
 	//console.log(filterKey, filterValue);
 
 	galeria.setAttribute("filterKey", filterKey);
 	galeria.setAttribute("filterValue", filterValue);
+    galeria.setAttribute("invert", invert);
 
 
 	//galeria.scrollTo(0,0);
@@ -172,16 +174,17 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
 
     const allProducts = galeria.getElementsByClassName("hidden-info-producte");
     if (filterKey === null || filterKey === "null"){filterKey = undefined;}
-    if (filterValue === null || filterValue ==="null"){filterValue = undefined;}
+    if (filterValue === null || filterValue === "null"){filterValue = undefined;}
     let filteredProducts = [];
     //console.log("filters: ", filterKey, filterValue);
     if (filterKey !== undefined  && filterValue !== undefined){
         for (let i = 0; i < allProducts.length; i++) {
 		try{
-
-            		if (allProducts[i].attributes[filterKey].value.includes(filterValue)){
-                		filteredProducts.push(allProducts[i]);
-            		}
+                if (allProducts[i].attributes[filterKey].value.includes(filterValue)){
+                    filteredProducts.push(allProducts[i]);
+                } else if (invert) {
+                    filteredProducts.push(allProducts[i]);
+                }
 		} catch (e){}
 
         }
@@ -251,7 +254,7 @@ function galeriaPrev(galeria){
 	initGaleria(galeria, Number(galeria.attributes.page.value)-1);
 }
 
-function filterGaleria(trigger){
+function filterGaleria(trigger, invert=false){
 	const galeria = trigger.parentElement.parentElement.parentElement;
     [...galeria.getElementsByClassName("galeria")[0].children].forEach((p) => {
         if (!p.classList.contains("template")) {p.remove();}
@@ -269,8 +272,13 @@ function filterGaleria(trigger){
 
 	const key = trigger.attributes.filterKey.value;
 	const value = trigger.attributes.filterValue.value;
-	window.history.replaceState(document.title, "", document.location.pathname+"?filterKey=" + key + "&filterValue=" + value);
-	initGaleria(galeria, 0, key, value);
+    if (invert){
+        window.history.replaceState(document.title, "", document.location.pathname+"?filterKey=" + key + "&filterValue=" + value + "&invert=true");
+
+    } else{
+        window.history.replaceState(document.title, "", document.location.pathname+"?filterKey=" + key + "&filterValue=" + value);
+    }
+	initGaleria(galeria, 0, key, value, invert);
 	trigger.classList.add("active");
 	}
 }

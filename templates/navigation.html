@@ -115,8 +115,8 @@
 {% if (loc.desc_mostrar == "si" or (loc.desc_mostrar == "test" and ("test" in host or "127" in host)) ) %}
 <div class="popup-info descompte-popup {{ "to-be-popped" if not user.no_descompte and show_descompte }}">
     <div class="descompte-popup-titol loc" loc="desc_popup_titol">{{ loc.desc_popup_titol |safe }}</div>
-    <div class="descompte-popup-text loc" loc="news_popup_text">{{ loc.desc_popup_text |safe }}</div>
-    <div class="descompte-popup-button black-button loc" loc="desc_popup_registrarse" onclick="goToDiscounts()">{{ loc.desc_popup_registrarse |safe }}</div>
+    <div class="descompte-popup-text loc" loc="desc_popup_text">{{ loc.desc_popup_text |safe }}</div>
+    <div class="descompte-popup-button black-button loc" loc="desc_popup_registrarse" onclick="location.href='/{{ loc.lan }}/productes/'">{{ loc.desc_popup_registrarse |safe }}</div>
 
     <div class="descompte-popup-cancel clickable underlined loc" loc="desc_popup_cancel" onclick="ignoreDiscount(); this.parentElement.parentElement.click()">{{ loc.desc_popup_cancel |safe }}</div>
 </div>

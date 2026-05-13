@@ -42,7 +42,7 @@ function goBlack(){
 
 function goWhite(){
     for (let i = 0; i < camaleonElements.length; i++) {
-        if (camaleonElements[i] !== null) {
+        if (camaleonElements[i] !== null && camaleonElements[i] !== undefined ) {
             camaleonElements[i].classList.add('white');
         }
     }
