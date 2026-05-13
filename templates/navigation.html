@@ -1,48 +1,6 @@
 
 
 
-{% if not user.accepted_cookies  %}
-    <link href='/style/tic.css' rel='stylesheet'>
-    <div id=cookies class="request-cookies">
-        <span class="cookies-info"><span class="loc" loc="nav_cookie_banner">{{ loc.nav_cookie_banner }}</span><a href="/{{ loc.lan }}/tic/privacy" class="loc" loc="cookie_link">{{ loc.nav_cookie_link }}</a></span>
-        <div class="inputs">
-            <div class="preferences-button clickable underlined loc" onclick="showPopup(this.nextElementSibling)" loc="nav_cookies_preferencies">{{ loc.nav_cookies_preferencies }}</div>
-            <div class="popup-info cookies-popup">
-                <div class="tic-subtitle loc" loc="tic_cookies_titol">{{ loc.tic_cookies_titol }}</div>
-                <div class="tic-info loc" loc="tic_cookies_info">{{ loc.tic_cookies_info | safe }}</div>
-                <div class="cookie-selector">
-                    <span class="cookie-span"><input type=checkbox checked  value=on class="analytic"><div class="cookie-label loc" loc="tic_cookie_analitica" onclick="this.previousElementSibling.click()">{{ loc.tic_cookie_analitica }}</div></span>
-                    <span class="cookie-span"><input type=checkbox checked value=on class="essential"><div class="cookie-label loc" loc="tic_cookie_essencial" onclick="this.previousElementSibling.click()">{{ loc.tic_cookie_essencial }}</div></span>
-                </div>
-            </div>
-            <button class="accept-cookies black-button" onclick="updateCookiesTic(this.previousElementSibling);document.getElementById('cookies').remove();">{{ loc.nav_cookie_button }}</button>
-        </div>
-    </div>
-{% endif %}
-
-
-<div class="popup-info newsletter-popup {{ "to-be-popped" if not user.no_newsletter and show_newsletter }}">
-    <div class="newsletter-popup-titol loc" loc="news_popup_titol">{{ loc.news_popup_titol |safe }}</div>
-    <div class="newsletter-popup-text loc" loc="news_popup_text">{{ loc.news_popup_text |safe }}</div>
-    <div class="newsletter-popup-input">
-        <input class="newsletter-popup-email" type="email" placeholder="Email" autocomplete="email" autofocus required>
-        <input class="newsletter-popup-name" type="text" placeholder="Nom" autocomplete="given-name" required>
-        <div class="newsletter-popup-signup black-button loc" loc="news_popup_registrarse" onclick="acceptNewsletter(this.parentElement)">{{ loc.news_popup_registrarse |safe }}</div>
-
-    </div>
-    <div class="newsletter-popup-cancel clickable underlined loc" loc="news_popup_cancel" onclick="ignoreNewsletter(); this.parentElement.parentElement.click()">{{ loc.news_popup_cancel |safe }}</div>
-
-</div>
-
-
-{% if (loc.banner_text != "" or (loc.banner_text == "test" and "test" in host) ) and show_banner %}
-    <div class="banner" style="background-color: {{ loc.banner_color_fons }};">
-        <div class="banner-title loc" loc="banner_title">{{ loc.banner_title | safe}}</div>
-        <div class="banner-text loc" loc="banner_text">{{ loc.banner_text | safe}}</div>
-        <div class="banner-text loc" loc="banner_text2">{{ loc.banner_text2 | safe}}</div>
-        <div class="banner-cross" onclick="this.parentElement.remove();closeBanner();">&#10005;</div>
-    </div>
-{% endif %}
 
 {% if hide_title %}
 {% else %}
@@ -64,6 +22,7 @@
     		<div class="language admin" onclick="location.href='/admin'" oncontextmenu="window.open('/admin/', '_blank')">{{ loc.nav_admin }}</div>
     		<div class="language admin" onclick="location.href='/admin/logout'">{{ loc.nav_tancar_sessio }}</div>
     	{% endif %}
+    {% if False %}
         <div class="search" onclick="event.stopPropagation()">
             <input class="search-text" type="text" onfocusout="hideSearch()" oninput="resizeSearch();updateSearchResults()" placeholder="{{ loc.nav_text_buscar }}">
             <div class="search-results"></div>
@@ -77,6 +36,7 @@
                 }
             </script>
         </div>
+    {% endif %}
 
         <div class="language-dropdown landscape">
             <div class="language current" onclick="toggleLanguages(this.parentElement)"><span class="loc" loc="{{'lans_'+loc.lan}}">{{ loc["lans_"+loc.lan] }}</span><img class="main-arrow page-arrow down" src="/static/media/arrow.svg"></div>
@@ -117,5 +77,59 @@
 
     </div>
 </div>
+
+
+{% if not user.accepted_cookies  %}
+    <link href='/style/tic.css' rel='stylesheet'>
+    <div id=cookies class="request-cookies">
+        <span class="cookies-info"><span class="loc" loc="nav_cookie_banner">{{ loc.nav_cookie_banner }}</span><a href="/{{ loc.lan }}/tic/privacy" class="loc" loc="cookie_link">{{ loc.nav_cookie_link }}</a></span>
+        <div class="inputs">
+            <div class="preferences-button clickable underlined loc" onclick="showPopup(this.nextElementSibling)" loc="nav_cookies_preferencies">{{ loc.nav_cookies_preferencies }}</div>
+            <div class="popup-info cookies-popup">
+                <div class="tic-subtitle loc" loc="tic_cookies_titol">{{ loc.tic_cookies_titol }}</div>
+                <div class="tic-info loc" loc="tic_cookies_info">{{ loc.tic_cookies_info | safe }}</div>
+                <div class="cookie-selector">
+                    <span class="cookie-span"><input type=checkbox checked  value=on class="analytic"><div class="cookie-label loc" loc="tic_cookie_analitica" onclick="this.previousElementSibling.click()">{{ loc.tic_cookie_analitica }}</div></span>
+                    <span class="cookie-span"><input type=checkbox checked value=on class="essential"><div class="cookie-label loc" loc="tic_cookie_essencial" onclick="this.previousElementSibling.click()">{{ loc.tic_cookie_essencial }}</div></span>
+                </div>
+            </div>
+            <button class="accept-cookies black-button" onclick="updateCookiesTic(this.previousElementSibling);document.getElementById('cookies').remove();">{{ loc.nav_cookie_button }}</button>
+        </div>
+    </div>
+{% endif %}
+
+{% if (loc.news_mostrar == "si" or (loc.news_mostrar == "test" and ("test" in host or "127" in host)) ) %}
+<div class="popup-info newsletter-popup {{ "to-be-popped" if not user.no_newsletter and show_newsletter }}">
+    <div class="newsletter-popup-titol loc" loc="news_popup_titol">{{ loc.news_popup_titol |safe }}</div>
+    <div class="newsletter-popup-text loc" loc="news_popup_text">{{ loc.news_popup_text |safe }}</div>
+    <div class="newsletter-popup-input">
+        <input class="newsletter-popup-email" type="email" placeholder="Email" autocomplete="email" autofocus required>
+        <input class="newsletter-popup-name" type="text" placeholder="Nom" autocomplete="given-name" required>
+        <div class="newsletter-popup-signup black-button loc" loc="news_popup_registrarse" onclick="acceptNewsletter(this.parentElement)">{{ loc.news_popup_registrarse |safe }}</div>
+
+    </div>
+    <div class="newsletter-popup-cancel clickable underlined loc" loc="news_popup_cancel" onclick="ignoreNewsletter(); this.parentElement.parentElement.click()">{{ loc.news_popup_cancel |safe }}</div>
+</div>
+{% endif %}
+
+{% if (loc.desc_mostrar == "si" or (loc.desc_mostrar == "test" and ("test" in host or "127" in host)) ) %}
+<div class="popup-info descompte-popup {{ "to-be-popped" if not user.no_descompte and show_descompte }}">
+    <div class="descompte-popup-titol loc" loc="desc_popup_titol">{{ loc.desc_popup_titol |safe }}</div>
+    <div class="descompte-popup-text loc" loc="news_popup_text">{{ loc.desc_popup_text |safe }}</div>
+    <div class="descompte-popup-button black-button loc" loc="desc_popup_registrarse" onclick="goToDiscounts()">{{ loc.desc_popup_registrarse |safe }}</div>
+
+    <div class="descompte-popup-cancel clickable underlined loc" loc="desc_popup_cancel" onclick="ignoreDiscount(); this.parentElement.parentElement.click()">{{ loc.desc_popup_cancel |safe }}</div>
+</div>
+{% endif %}
+
+{% if (loc.banner_mostrar == "si" or (loc.banner_mostrar == "test" and ("test" in host or "127" in host)) ) and show_banner %}
+    <div class="banner" style="background-color: {{ loc.banner_color_fons }};">
+        <div class="banner-title loc" loc="banner_title">{{ loc.banner_title | safe}}</div>
+        <div class="banner-text loc" loc="banner_text">{{ loc.banner_text | safe}}</div>
+        <div class="banner-text loc" loc="banner_text2">{{ loc.banner_text2 | safe}}</div>
+        <div class="banner-cross" onclick="this.parentElement.remove();closeBanner();">&#10005;</div>
+    </div>
+{% endif %}
+
 
 

@@ -437,7 +437,7 @@ def index(lan ="cat", favicon = True):
                   slide.split("/")[-1] != ""]
 
     html = template(lan=lan, templates=["index", "galeria"], slides= slide_list, hide_title=True, title=False, max_gallery=8,
-                    show_banner=True, show_newsletter=False)
+                    show_banner=True, show_newsletter=True, show_descompte=True)
     return html
 
 @app.route("/<lan>/sitemap")

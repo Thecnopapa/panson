@@ -269,7 +269,9 @@ h1, h2, h3, h4, h5, h6, p {
 
 
 
-
+#cookies{
+    z-index: 200;
+}
 
 .request-cookies{
     display: flex;
@@ -670,21 +672,23 @@ h1, h2, h3, h4, h5, h6, p {
 
 }
 
-
-.newsletter-popup{
+.descompte-popup-button{
+    margin: var(--padding);
+}
+.newsletter-popup, .descompte-popup{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 30%;
 }
-.newsletter-popup-titol{
+.newsletter-popup-titol, .descompte-popup-titol{
     width: 100%;
     text-align: center;
     font-size: var(--font-size-extra-large);
 }
 
-.newsletter-popup-text{
+.newsletter-popup-text, .descompte-popup-text{
     text-align: center;
     width: 100%;
     font-size: var(--font-size-medium);
