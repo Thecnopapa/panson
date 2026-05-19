@@ -266,7 +266,7 @@ async function submitToCart (trigger) {
                 method: "POST",
                 body: formData,
             });
-	fbq('track', 'AddToCart', formData );
+
         console.log(await response);
         console.log(response.status);
         console.log(response.headers.get("missing-val", undefined));
@@ -277,7 +277,7 @@ async function submitToCart (trigger) {
             targetFieldset.style.border = "1px solid red";
 
         } else {
-            console.log(document.documentElement.lang);
+                track('AddToCart', Object.fromEntries(formData.entries()));
             if (document.documentElement.lang === "cat"){
                 //alert("Producte afegit al carret!");
             } else if (document.documentElement.lang === "en") {

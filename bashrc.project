@@ -142,6 +142,7 @@ alias please="sudo"
 
 gcloud config set project $PROJECT_NAME
 gcloud auth application-default set-quota-project $PROJECT_NAME
+gcloud config set run/region europe-west1
 
 pull(){
 	GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)

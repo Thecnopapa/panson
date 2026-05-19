@@ -19,9 +19,9 @@ checkColor();
 
 
 
-async function openMenu() {
+async function openMenu(trackIt=true) {
     if (menuOpen) {return;}
-    closeCart();
+    closeCart(false);
     menuOpen = true;
     let targetWidth = undefined;
     if (window.innerWidth <= desktopThreshold){
@@ -54,14 +54,16 @@ async function openMenu() {
     menuContent.forEach(item => {
         item.classList.add('shown');
     });
+        if (trackIt){
+        track("OpenMenu")
+    }
 
 }
 
 
 
 
-function closeMenu(override=true) {
-    if (!override && menuOpen) {return;}
+function closeMenu(trackIt=false) {
     let targetWidth = undefined;
     if (window.innerWidth <= desktopThreshold){
         targetWidth =  window.innerWidth * 0.9;
@@ -99,6 +101,9 @@ function closeMenu(override=true) {
     });
     menuOpen = false;
     setTimeout(() => {menu.classList.add("closed");}, 1000)
+    if (trackIt){
+        track("CloseMenu")
+    }
 
 }
 

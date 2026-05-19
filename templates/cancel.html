@@ -12,9 +12,10 @@
 {% endblock %}
 
 {% block body %}
+    <script>window.addEventListener("load", () => {track('CompraCancellada')})</script>
 
   <div class="content-cancel">
-      Compra cance;lada, el carret s'ha guardat.
+      Compra cancel·lada, el carret s'ha guardat.
       <a href="/{{ lan }}/productes/">Tornar a la botiga</a>.
   </div>
 

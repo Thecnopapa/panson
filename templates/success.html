@@ -14,10 +14,13 @@
 
 {% block body %}
 <script>
+
 window.onload = function(){
     showInvoice("{{ invoice['hosted_invoice_url'] }}");
+    track('CompraRealitzada');
 }
 </script>
+
     <div id="nav-color" navColor="opaque"></div>
   <div class="content-success">
       <span class="success-titol loc" loc="conf_titol">{{ loc.conf_titol | safe}}</span>

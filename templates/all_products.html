@@ -16,6 +16,7 @@
 {% import 'galeria.html' as galeria with context%}
 
 {% block body %}
+    <script>window.addEventListener("load", () => {track('ViewAllProducts')});</script>
     <div id="nav-color" navColor="opaque"></div>
 {{ galeria.galeria("productes", filtres=True, max_prods=8, min_row=4, min_prods=8, load_more=True) }}
 {% endblock %}

@@ -18,6 +18,8 @@
 
 
 {% block body %}
+        <script>window.addEventListener("load", () => {track('ViewTermes', {"pagina":"{{ tic_page }}"})})</script>
+
     <div id="nav-color" navColor="opaque"></div>
     <div class="tic-title loc" loc="tic_titol"l>{{ loc.tic_titol }}</div>
 <div id=terms class="tic-content">

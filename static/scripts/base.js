@@ -47,6 +47,20 @@ function verticalToHorizontal(element){
 }
 
 
+function track(name, data){
+    try{
+        if (typeof name == 'object') {
+            console.log("No tracking name")
+            throw Error;
+        }
+        let new_data = {"url":location.href, "lan": document.documentElement.lang, "pantallaPetita":window.innerWidth <= 1025};
+        fbq('track', name, {...new_data, ...data});
+    } catch(err){
+        console.log(err);
+    }
+}
+
+
 
 
 async function acceptCookies(){

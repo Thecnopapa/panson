@@ -23,6 +23,8 @@
 {% import 'galeria.html' as galeria with context%}
 
 {% block body %}
+    <script>window.addEventListener("load", () => {track('ViewPortada')})</script>
+
     <div id="title-logo" class="white fast-image" onclick="scrollToTop()" background="{{ imgs.get_url("imatges", imgs.get_fixed("logos").imatges[0]) }}"></div>
     <div class="content-index">
         <div class = "slideshow">

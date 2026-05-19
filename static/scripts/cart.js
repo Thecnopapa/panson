@@ -7,8 +7,8 @@ const cartClosers = document.querySelectorAll('.cart-closer');
 
 
 
-function openCart(){
-    closeMenu()
+function openCart(trackIt=true) {
+    closeMenu(trackIt=false);
     //console.log("Opening Cart")
     cart.classList.add('open');
     for (let i = 0; i < cartItems.length; i++) {
@@ -30,10 +30,14 @@ function openCart(){
     cartClosers.forEach(closer => {
         closer.style.display = "block";
     });
+    if(trackIt){
+        track("OpenCart")
+
+    }
 }
 
 
-async function closeCart(){
+async function closeCart(trackIt=false) {
     console.log("Closing Cart");
     cart.classList.remove('open');
     for (let i = 0; i < cartItems.length; i++) {
@@ -44,6 +48,9 @@ async function closeCart(){
     cartClosers.forEach(closer => {
         closer.style.display = "none";
     });
+    if (trackIt){
+        track("CloseCart")
+    }
 }
 
 let deleting = false;
@@ -57,6 +64,7 @@ async function deleteItem(productElement, pos){
 		productElement.remove();
 		updateCartCounter();
 	}
+    track('RemoveFromCart');
     await reloadCart();
     deleting = false;
 
@@ -78,6 +86,7 @@ async function modifyItem(counterElement, pos, mode){
         console.log(link);
         let resp = await fetch(link, {method: "POST"});
 	    if (resp.ok){
+            track('ChangeCartAmount', {"mode": mode});
 		    counterElement.innerHTML = newQty;
         	updateCartCounter();
 		   

@@ -54,10 +54,13 @@
     <div id="main-details">
         <div id="titol_producte">{{ producte.nom }}</div>
     {% if producte.bucket == "bespoke" %}
+            <script>window.addEventListener("load", () => {track('ViewBespoke', {"id": "{{ producte._id }}", "per_a":"{{ producte.per_a }}"})})</script>
+
     <div class="pro-per-a"><span class="loc" loc="pro_per_a">{{ loc.pro_per_a }}</span>{{ producte.per_a }}</div>
     {% endif %}
 
     {% if producte.bucket == "productes" %}
+        <script>window.addEventListener("load", () => {track('ViewProducte', {"id": "{{ producte._id }}", "nom":"{{ producte.nom }}", "descompte":"{{ producte.descompte > 0 }}"})})</script>
 
         <div id="initial-price"> <span class="preu-producte"></span> &#8364;</div>
         <div id="extra-info" discount="{{ producte.descompte }}"></div>
