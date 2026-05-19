@@ -266,6 +266,7 @@ async function submitToCart (trigger) {
                 method: "POST",
                 body: formData,
             });
+	fbq('track', 'AddToCart', formData );
         console.log(await response);
         console.log(response.status);
         console.log(response.headers.get("missing-val", undefined));
