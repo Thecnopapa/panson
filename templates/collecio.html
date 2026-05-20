@@ -25,7 +25,7 @@
     <div id="nav-color" color="white"></div>
 {% endif %}
 
-    <script>window.addEventListener("load", () => {track('ViewColleccio', {"id":"{{ col._id }}", "nom": "{{ col.nom }}"})});</script>
+    <script>window.addEventListener("load", () => {track('ViewContent', {"id":"{{ col._id }}", "nom": "{{ col.nom }}", "bucket":"collecio"})});</script>
 
 <div class="collecio">
     <div class="imatge-collecio fast-image" background='{{ imgs.get_url("collecions", col.imatges[0]) }}'></div>

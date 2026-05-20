@@ -72,7 +72,7 @@
     <div class="footer-carret is-carret">
 
 	<div class="total-cart is-carret"><div class="total-cart-title is-carret">{{ loc.car_total }}</div><div class="total-cart-value is-carret">{{ user.total_carret }}&#8364</div></div>
-        <button class="checkout-button is-carret black-button loc" loc="car_checkout"  onclick="track('StartCheckout',{'num_items':'{{ utils.len(cart.values()) }}', 'preu_total':'{{ user.total_carret }}'});location.href='/{{ loc.lan }}/checkout/stripe'">{{ loc.car_checkout |safe }}</button>
+        <button class="checkout-button is-carret black-button loc" loc="car_checkout"  onclick="track('InitiateCheckout',{'num_items':'{{ utils.len(cart.values()) }}', 'preu_total':'{{ user.total_carret }}'});location.href='/{{ loc.lan }}/checkout/stripe'">{{ loc.car_checkout |safe }}</button>
         <div class="detalls_pagament is-carret loc" loc="car_detalls_pagament">{{ loc.car_detalls_pagament }}</div>
 
     </div>
@@ -93,7 +93,7 @@
                     <span class="cookie-span"><input type=checkbox checked value=on class="essential"><div class="cookie-label loc" loc="tic_cookie_essencial" onclick="this.previousElementSibling.click()">{{ loc.tic_cookie_essencial }}</div></span>
                 </div>
             </div>
-            <button class="accept-cookies black-button" onclick="updateCookiesTic(this.previousElementSibling);document.getElementById('cookies').remove();">{{ loc.nav_cookie_button }}</button>
+            <button class="accept-cookies black-button" onclick="track('ClosedCookiesBanner');updateCookiesTic(this.previousElementSibling);document.getElementById('cookies').remove();">{{ loc.nav_cookie_button }}</button>
         </div>
     </div>
 {% endif %}

@@ -6,11 +6,11 @@
 
 {% block imports %}
     <link href='/style/tic.css' as='style' rel='preload'>
-    <link href='/script/tic.js' as='script' rel='preload'>
+    <link href='/scripts/terms.js' as='script' rel='preload'>
 
 
     <link href='/style/tic.css' rel='stylesheet'>
-    <script defer type="text/javascript" src="/scripts/tic.js"></script>
+    <script defer type="text/javascript" src="/scripts/terms.js"></script>
 
 {% endblock %}
 
@@ -18,7 +18,7 @@
 
 
 {% block body %}
-        <script>window.addEventListener("load", () => {track('ViewTermes', {"pagina":"{{ tic_page }}"})})</script>
+        <script>window.addEventListener("load", () => {track('ViewTerms', {"page":"{{ tic_page }}"})})</script>
 
     <div id="nav-color" navColor="opaque"></div>
     <div class="tic-title loc" loc="tic_titol"l>{{ loc.tic_titol }}</div>
@@ -46,7 +46,18 @@
 			<div class="cookie-label loc" loc="tic_cookie_essencial">{{ loc.tic_cookie_essencial }}</div>
 			<div class="tic-info loc" loc="tic_cookies_info_essential">{{ loc.tic_cookies_info_essential | safe }}</div>
 		</div>
+        <div class="preferences-button clickable underlined loc" onclick="showPopup(this.nextElementSibling)" loc="nav_cookies_preferencies">{{ loc.nav_cookies_preferencies }}</div>
+            <div class="popup-info cookies-popup">
+                <div class="tic-subtitle loc" loc="tic_cookies_titol">{{ loc.tic_cookies_titol }}</div>
+                <div class="tic-info loc" loc="tic_cookies_info">{{ loc.tic_cookies_info | safe }}</div>
+                <div class="cookie-selector">
+                    <span class="cookie-span"><input type=checkbox checked  value=on class="analytic"><div class="cookie-label loc" loc="tic_cookie_analitica" onclick="this.previousElementSibling.click()">{{ loc.tic_cookie_analitica }}</div></span>
+                    <span class="cookie-span"><input type=checkbox checked value=on class="essential"><div class="cookie-label loc" loc="tic_cookie_essencial" onclick="this.previousElementSibling.click()">{{ loc.tic_cookie_essencial }}</div></span>
+                </div>
+                <button class="accept-cookies black-button" onclick="track('UpdatedCookiesTIC');updateCookiesTic(this.parentElement);this.parentElement.parentElement.click();">{{ loc.nav_cookie_button }}</button>
 
+            </div>
+        </div>
         <div class="cookie-label loc" loc="tic_cookies_desconfigurar">{{ loc.tic_cookies_desconfigurar | safe }}</div>
         <div class="tic-info loc" loc="tic_cookies_info_desconfigurar">{{ loc.tic_cookies_info_desconfigurar | safe }}</div>
         <div class="cookie-label loc" loc="tic_cookies_actualitzar">{{ loc.tic_cookies_actualitzar | safe }}</div>

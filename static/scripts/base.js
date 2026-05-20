@@ -61,43 +61,11 @@ function track(name, data){
 }
 
 
-
-
-async function acceptCookies(){
-    let acceptedAnalytics = "denied";
-    if(document.getElementById("accept-analytics").checked === true){
-        acceptedAnalytics = "granted";
-        consentAnalytics()
-    }
-    //console.log(acceptedAnalytics);
-
-
-	await fetch("/accept-cookies", {
-        	method:"POST",
-        	headers: {
-            		"content-type": "application/json"
-        	},
-       		body: JSON.stringify({
-			"cookies":{
-          			'ad_storage': 'denied',
-          			'ad_user_data': 'denied',
-          			'ad_personalization': 'denied',
-          			'analytics_storage': acceptedAnalytics
-        		},
-			"essential": true,
-		})
-    	});
-	const banner = document.getElementById("cookies");
-	banner.style.display = "none";
-    //window.location.reload()
-}
-
-
-
 async function ignoreNewsletter(){
     let r = await fetch("/ignore-newsletter", {
         method:"POST",
     });
+    track("IgnoredNewsletter");
 }
 async function acceptNewsletter(target){
     let email = target.querySelector(".newsletter-popup-email").value;
@@ -112,41 +80,42 @@ async function acceptNewsletter(target){
     });
     if (r.status === 200){
         target.parentNode.querySelector(".popup-cross").click();
+        track("AcceptedNewsletter", {"email": email, "name": name});
     } else {
         target.querySelector(".newsletter-popup-signup").style.backgroundColor = "darkred";
     }
-}
 
+}
 
 async function updateCookiesTic(container){
-        let inputAnalytic = container.getElementsByClassName("analytic")[0];
-        let inputEssential = container.getElementsByClassName("essential")[0];
-        let acceptedAnalytics = "denied";
-            if (inputAnalytic.checked === true){
-                acceptedAnalytics = "granted";
-                consentAnalytics()
-            }
-        console.log(inputAnalytic.checked, inputEssential.checked);
-        let r = await fetch("/accept-cookies", {
-                method:"POST",
-                headers: {
-                        "content-type": "application/json",
-                },
-                body: JSON.stringify({
-                        "cookies": {
-                                  'ad_storage': 'denied',
-                                  'ad_user_data': 'denied',
-                                  'ad_personalization': 'denied',
-                                  'analytics_storage': acceptedAnalytics,
-                        },
-                        "essential": inputEssential.checked,
-                })
-        });
-        //location.reload();
+	let inputAnalytic = container.getElementsByClassName("analytic")[0];
+	let inputEssential = container.getElementsByClassName("essential")[0];
+	let acceptedAnalytics = "denied";
+    	if (inputAnalytic.checked === true){
+        	acceptedAnalytics = "granted";
+        	consentAnalytics()
+    	}
+	console.log(inputAnalytic.checked, inputEssential.checked);
+    let body = {
+        "cookies": {
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'analytics_storage': acceptedAnalytics,
+            },
+        "essential": inputEssential.checked,
+    }
+    track("UpdatedCookies", {"essential":inputEssential.checked, "analytics":inputAnalytic.checked});
+	let r = await fetch("/accept-cookies", {
+		method:"POST",
+		headers: {
+			"content-type": "application/json",
+		},
+		body: JSON.stringify(body)
+	});
+	location.reload();
 
 }
-
-
 
 
 function showPopup(popupContent, cross=true, clone=true) {

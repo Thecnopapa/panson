@@ -6,7 +6,19 @@ let mainDetails = document.getElementById('main-details');
 let productImages = document.getElementById('producte-images');
 
 
-
+function trackProd(name, data){
+    let productTitle = document.getElementById('titol_producte');
+    let productInfo = document.getElementById('extra-info');
+    let prodData = {
+        "id":productTitle.getAttribute("prod_id"),
+        "nom":productTitle.innerText,
+        "descompte":productInfo.getAttribute("discount"),
+        "colleccio":productInfo.getAttribute("col"),
+        "tipus":productInfo.getAttribute("tipus"),
+        "bucket":productInfo.getAttribute("bucket"),
+    };
+    track(name, {...prodData, ...data});
+}
 
 
 function updatePrice(){
@@ -277,7 +289,7 @@ async function submitToCart (trigger) {
             targetFieldset.style.border = "1px solid red";
 
         } else {
-                track('AddToCart', Object.fromEntries(formData.entries()));
+                trackProd('AddToCart', Object.fromEntries(formData.entries()));
             if (document.documentElement.lang === "cat"){
                 //alert("Producte afegit al carret!");
             } else if (document.documentElement.lang === "en") {
@@ -385,7 +397,8 @@ function hideAllDetails(trigger){
 
 
 function enlargeImg(img, all=true){
-    print("Enlarging img, all: ", all);
+    console.log("Enlarging img, all: ", all);
+    trackProd("ProductImageZoom")
 	let images = undefined;
 	let targetImage = undefined
 	if (all){
@@ -396,9 +409,9 @@ function enlargeImg(img, all=true){
 		images = [img];
 		targetImage = 0;
 	}
-	print("N images: ", images.length, " target: ", targetImage);
+	console.log("N images: ", images.length, " target: ", targetImage);
     const productName = img.attributes["product"].value;
-    print(productName);
+    console.log(productName);
 
     document.documentElement.style.overflow = "hidden";
 
@@ -662,10 +675,13 @@ function slideshowScroll(container, mode=undefined, axis="both"){
     console.log("Increment:", incrementX, incrementY);
     if (mode === "prev"){
 		targetScrollX = targetScrollX - incrementX;
-        	targetScrollY = targetScrollY - incrementY;
+        targetScrollY = targetScrollY - incrementY;
+        trackProd("ProductFotoChange", {"mode": "prev"})
     } else if (mode === "next") {
 		targetScrollX = targetScrollX + incrementX;
-        	targetScrollY = targetScrollY + incrementY;
+        targetScrollY = targetScrollY + incrementY;
+        trackProd("ProductFotoChange", {"mode": "next"})
+
     } else{
     	try{
             mode = Number(mode);
@@ -673,6 +689,7 @@ function slideshowScroll(container, mode=undefined, axis="both"){
             targetScrollX = incrementX*mode - (containerWidth - childWidth) / 2;
             targetScrollY = incrementY*mode - (containerHeight - childHeight) / 2;
             console.log(mode, targetScrollX, targetScrollY);
+            trackProd("ProductFotoChange", {"mode": "scroll"})
     	} catch(e){console.log(e)}
     }
     console.log(axis, targetScrollX, targetScrollY);
