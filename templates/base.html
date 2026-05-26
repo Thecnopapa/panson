@@ -51,11 +51,14 @@
 
 
 {% block pixel %}
-
-    <!-- Meta Pixel Code -->
-    <!-- 962007410062327  test-->
-    <!-- 1020611407324018 panson -->
+        <!-- Meta Pixel Code -->
     <script>
+    {% if "test" in host or "127" in host %}
+        const pixelId = 962007410062327
+    {% else %}
+        const pixelId = 1020611407324018
+    {% endif %}
+
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -64,12 +67,12 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1020611407324018');
+    fbq('init', pixelId);
     fbq('track', 'PageView', {"url":location.href, "lan":"{{ loc.lan }}"} );
 
     </script>
     <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1020611407324018&ev=PageView&noscript=1"
+    src="https://www.facebook.com/tr?id={{ '962007410062327' if "test" in host or "127" in host else '1020611407324018'  }}&ev=PageView&noscript=1"
     /></noscript>
     <!-- End Meta Pixel Code -->
 {% endblock %}
