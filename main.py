@@ -35,38 +35,43 @@ if FETCH_SECRETS:
 
         try:
             with open("secure/firebase_service_account_info.json", "w") as f:
-                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firebase_credentials/versions/1"}).payload.data.decode("UTF-8"))
+                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firebase_credentials/versions/latest"}).payload.data.decode("UTF-8"))
         except:
             print(" * Failed to read firebase secret")
         try:
             with open("secure/firestore_service_account_info.json", "w") as f:
-                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firestore_credentials/versions/1"}).payload.data.decode("UTF-8"))
+                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firestore_credentials/versions/latest"}).payload.data.decode("UTF-8"))
         except:
             print(" * Failed to read firestore secret")
         try:
+            with open("secure/sheets_service_account_info.json", "w") as f:
+                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/sheets_client/versions/latest"}).payload.data.decode("UTF-8"))
+        except:
+            print(" * Failed to read sheets secret")
+        try:
             with open("secure/stripe_key", "w") as f:
-                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/stripe_key_thecnopapa_test/versions/3"}).payload.data.decode("UTF-8"))
+                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/stripe_key_thecnopapa_test/versions/latest"}).payload.data.decode("UTF-8"))
         except:
             print(" * Failed to read stripe key")
         try:
             with open("secure/flask_key", "w") as f:
-                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/flask_secret_key/versions/1"}).payload.data.decode("UTF-8"))
+                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/flask_secret_key/versions/latest"}).payload.data.decode("UTF-8"))
         except:
             print(" * Failed to read flask secret")
         try:
             with open("secure/mailgun_key", "w") as f:
-                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/mailgun_sending_key/versions/2"}).payload.data.decode("UTF-8"))
+                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/mailgun_sending_key/versions/latest"}).payload.data.decode("UTF-8"))
         except:
             print(" * Failed to read mailgun sending key")
         try:
             with open("secure/trello_key", "w") as f:
-                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/trello_key/versions/3"}).payload.data.decode("UTF-8"))
+                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/trello_key/versions/latest"}).payload.data.decode("UTF-8"))
         except:
             print(" * Failed to read trello key")
         try:
             with open("secure/seo_key.txt", "w") as f:
                 f.write(secret_client.access_secret_version(
-                    request={"name": "projects/746452924859/secrets/seo_key/versions/3"}).payload.data.decode(
+                    request={"name": "projects/746452924859/secrets/seo_key/versions/latest"}).payload.data.decode(
                     "UTF-8"))
         except:
             print(" * Failed to read seo key")
@@ -76,6 +81,7 @@ if FETCH_SECRETS:
 
 os.environ["FIREBASE_CREDENTIALS"] = "secure/firebase_service_account_info.json"
 os.environ["FIRESTORE_CREDENTIALS"] = "secure/firestore_service_account_info.json"
+os.environ["SHEETS_CREDENTIALS"] = "secure/sheets_service_account_info.json"
 os.environ["STRIPE_KEY"] = "secure/stripe_key"
 os.environ["FLASK_KEY"] = "secure/flask_key"
 os.environ["MAILGUN_KEY"] = "secure/mailgun_key"
@@ -1280,6 +1286,16 @@ def fetamida_intro(lan):
 
 
 
+@app.route("/test_sheets")
+def test_sheets():
+    data = [
+        "aaa@gmail.com",
+        "AAAA",
+        "anell",
+    ]
+    from app_essentials.sheets import append_purchase
+    resp = append_purchase(data)
+    return str(resp)
 
 
 
