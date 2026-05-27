@@ -319,7 +319,7 @@ def init_checkout(lan, force_new=True, force_new_customer=False):
     try:
         checkout_session = stripe.checkout.Session.create(
             mode='payment',
-            ui_mode="embedded",
+            ui_mode="embedded_page",
             **customer,
             #customer=customer,
             #customer_creation="if_required",
