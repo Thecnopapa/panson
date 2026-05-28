@@ -51,7 +51,7 @@ def common_kwargs(**kwargs):
     kwargs["user"].recalculate()
     kwargs["cart"] = kwargs["user"].get_cart(kwargs["productes"])
     kwargs["n_cart"] = sum([i["quantity"]for i in kwargs["cart"].values()])
-    print(json.dumps(kwargs["cart"], indent=4))
+    #print(json.dumps(kwargs["cart"], indent=4))
     kwargs["cart_contents"] = json.dumps([{"id":v["product_id"], "quantity":v["quantity"]} for k, v in kwargs["cart"].items()])
     # for k, v in kwargs["cart"].items():
     #     #print(v)
