@@ -53,7 +53,7 @@ async function track(name, data){
             console.log("No tracking name")
             throw Error;
         }
-        let new_data = {"lan": document.documentElement.lang, "pantallaPetita":window.innerWidth <= 1025};
+        let new_data = {"lan": document.documentElement.lang, "pantallaPetita":window.innerWidth <= 1025, "session":document.getElementById("session").getAttribute("session"), "user":document.getElementById("session").getAttribute("user") };
         fbq('track', name, {...new_data, ...data});
     } catch(err){
         console.log(err);

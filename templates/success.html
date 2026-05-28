@@ -17,7 +17,7 @@
 
 window.onload = function(){
     showInvoice("{{ invoice['hosted_invoice_url'] }}");
-    track('Purchase', {"invoice_id": '{{ invoice["number"]}}', "value": {{ session.get("amount_subtotal", 100)/100}} , "currency": '{{ session.get("payment_intent", {}).get("currency", "EUR") }}', "contents": {{ contents }} });
+    track('Purchase', {"invoice_id": '{{ invoice["number"]}}', "value": {{ session.get("amount_subtotal", 100)/100}} , "currency": '{{ session.get("payment_intent", {}).get("currency", "EUR") }}', "contents": {{ contents }}, "email":'{{session["customer_details"]["email"]}}' });
 }
 </script>
 

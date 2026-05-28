@@ -158,6 +158,10 @@ html{
 
 {% endblock %}
 {% include "footer.html" %}
+{% block session %}
+    <div id="session" session="{{ user._id }}" user="{{ user.sessions[0] }}"></div>
+{% endblock %}
 <div id=hidden-images class=hidden style="display:none; z-index:-999; overflow:hidden; max-height:0; max-width:0;"></div>
 </body>
 </html>
+
