@@ -712,7 +712,8 @@ def stripe_success_test(lan):
                 "hosted_invoice_url": "https://stripe.com",
                 "number": "12345"
     }
-    html = template(lan=lan, templates="success", invoice=invoice, session=session)
+    print(invoice)
+    html = template(lan=lan, templates="success", invoice=invoice, session=session, contents="[{}]")
     return html
 
 

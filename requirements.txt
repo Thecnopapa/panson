@@ -14,7 +14,7 @@ flask
 Flask-limiter
 gunicorn
 unidecode
-stripe
+stripe>=15.2
 
 
 requests

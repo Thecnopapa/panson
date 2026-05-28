@@ -137,7 +137,6 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
 		targetPage = currentPage;
 	} else{
 		//galeria.parentElement.scrollIntoView({block: "start"})
-        track("GaleriaPage", targetPage);
 	}
 
 	targetPage=Number(targetPage);
@@ -177,9 +176,9 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
     if (filterKey === null || filterKey === "null"){filterKey = undefined;}
     if (filterValue === null || filterValue === "null"){filterValue = undefined;}
     let filteredProducts = [];
-    //console.log("filters: ", filterKey, filterValue);
+    console.log("filters: ", filterKey, filterValue);
     if (filterKey !== undefined  && filterValue !== undefined){
-        track("FilterGaleria", {filterKey: filterKey, filterValue: filterValue});
+        //track("FilterGaleria", {filterKey: filterKey, filterValue: filterValue});
         for (let i = 0; i < allProducts.length; i++) {
 		try{
                 if (allProducts[i].attributes[filterKey].value.includes(filterValue)){
@@ -250,11 +249,11 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
 
 function galeriaNext(galeria){
 	//console.log(galeria);
-    track("GaleriaNext", {"page":Number(galeria.attributes.page.value)+1})
+    //track("GaleriaNext", {"page":Number(galeria.attributes.page.value)+1})
 	initGaleria(galeria, Number(galeria.attributes.page.value)+1);
 }
 function galeriaPrev(galeria){
-    track("GaleriaPrev", {"page":Number(galeria.attributes.page.value)-1})
+    //track("GaleriaPrev", {"page":Number(galeria.attributes.page.value)-1})
 
 	initGaleria(galeria, Number(galeria.attributes.page.value)-1);
 }

@@ -39,8 +39,9 @@ class User(firebaseObject):
         self.recalculate()
 
     def recalculate(self):
-        self._n_cart = sum([item["quantity"] for item in self.get_cart().values()])
-        self._total_cart = sum([item["quantity"] * item["price"] for item in self.get_cart().values()])
+        cart = self.get_cart().values()
+        self._n_cart = sum([item["quantity"] for item in cart])
+        self._total_cart = sum([item["quantity"] * item["price"] for item in cart])
 
 
     def move_to_favourites(self):
@@ -109,18 +110,18 @@ class User(firebaseObject):
         if prods is None:
             prods = Products()
         for k, v in self.cart.items():
-            print(k)
+            #print(k)
             target = prods.get_single(v["product_id"])
             if target.esborrat or target.amagat:
-                print("hidden")
+                #print("hidden")
                 continue
             if target.unanounced():
-                print("unanounced")
+                #print("unanounced")
                 continue
             v["price"], incomplete = target.calculate_price(**v["options"])
             if not incomplete:
                 new_cart[k] = v
-        print(new_cart)
+        #print(new_cart)
         return new_cart
 
 

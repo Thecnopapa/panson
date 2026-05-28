@@ -48,7 +48,11 @@ def common_kwargs(**kwargs):
     kwargs["productes_filtrats"] = kwargs["productes_filtrats"].get_all()
     kwargs["max_gallery"] = kwargs.get("max_gallery", len(kwargs["productes_filtrats"]))
     kwargs["user"] = get_current_user()
+    kwargs["user"].recalculate()
     kwargs["cart"] = kwargs["user"].get_cart(kwargs["productes"])
+    kwargs["n_cart"] = sum([i["quantity"]for i in kwargs["cart"].values()])
+    print(json.dumps(kwargs["cart"], indent=4))
+    kwargs["cart_contents"] = json.dumps([{"id":v["product_id"], "quantity":v["quantity"]} for k, v in kwargs["cart"].items()])
     # for k, v in kwargs["cart"].items():
     #     #print(v)
     #     v["producte"] = kwargs["productes"].get_single(v["product_id"])

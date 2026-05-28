@@ -31,8 +31,7 @@ function openCart(trackIt=true) {
         closer.style.display = "block";
     });
     if(trackIt){
-        track("OpenCart")
-
+        //track("OpenCart");
     }
 }
 
@@ -49,7 +48,7 @@ async function closeCart(trackIt=false) {
         closer.style.display = "none";
     });
     if (trackIt){
-        track("CloseCart")
+        //track("CloseCart")
     }
 }
 
@@ -86,7 +85,7 @@ async function modifyItem(counterElement, pos, mode){
         console.log(link);
         let resp = await fetch(link, {method: "POST"});
 	    if (resp.ok){
-            track('ChangeCartAmount', {"mode": mode});
+            //track('ChangeCartAmount', {"mode": mode});
 		    counterElement.innerHTML = newQty;
         	updateCartCounter();
 		   
@@ -113,6 +112,7 @@ function updateCartCounter(){
     }
     totalCartValue.innerHTML = String(priceSum)+ "&#8364";
     cartCounters.forEach(c => {c.innerHTML = itemSum});
+    totalCart.setAttribute("value", String(priceSum))
     if (itemSum <= 0){
         cartCounters.forEach(c => {c.style.display = "none"});
 	    cartInfo.style.display ="none";

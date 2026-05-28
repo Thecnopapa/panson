@@ -518,4 +518,6 @@ def process_payment(lan):
 
     else:
         return None
-    return dict(session=session, invoice=invoice, items=line_items)
+    n_items = sum([i["metadata"]["quantity"] for i in new_items])
+    contents = json.dumps([{"id":i["id"], "quantity":i["metadata"]["quantity"]} for i in new_items])
+    return dict(session=session, invoice=invoice, items=line_items, contents=contents, n_items=n_items)

@@ -55,7 +55,7 @@ async function openMenu(trackIt=true) {
         item.classList.add('shown');
     });
         if (trackIt){
-        track("OpenMenu")
+        //track("OpenMenu")
     }
 
 }
@@ -102,7 +102,7 @@ function closeMenu(trackIt=false) {
     menuOpen = false;
     setTimeout(() => {menu.classList.add("closed");}, 1000)
     if (trackIt){
-        track("CloseMenu")
+        //track("CloseMenu")
     }
 
 }

@@ -6,13 +6,15 @@ let mainDetails = document.getElementById('main-details');
 let productImages = document.getElementById('producte-images');
 
 
-function trackProd(name, data){
+async function trackProd(name, data){
     let productTitle = document.getElementById('titol_producte');
     let productInfo = document.getElementById('extra-info');
     let prodData = {
-        "id":productTitle.getAttribute("prod_id"),
-        "nom":productTitle.innerText,
-        "descompte":productInfo.getAttribute("discount"),
+        "content_ids":"['" + productTitle.getAttribute("prod_id") + "']",
+        "content_name":productTitle.innerText,
+        "discount":productInfo.getAttribute("discount"),
+        "content_category": "product",
+        "content_type":"product",
         "colleccio":productInfo.getAttribute("col"),
         "tipus":productInfo.getAttribute("tipus"),
         "bucket":productInfo.getAttribute("bucket"),
@@ -398,7 +400,7 @@ function hideAllDetails(trigger){
 
 function enlargeImg(img, all=true){
     console.log("Enlarging img, all: ", all);
-    trackProd("ProductImageZoom")
+    //trackProd("ProductImageZoom")
 	let images = undefined;
 	let targetImage = undefined
 	if (all){
@@ -676,11 +678,11 @@ function slideshowScroll(container, mode=undefined, axis="both"){
     if (mode === "prev"){
 		targetScrollX = targetScrollX - incrementX;
         targetScrollY = targetScrollY - incrementY;
-        trackProd("ProductFotoChange", {"mode": "prev"})
+        //trackProd("ProductFotoChange", {"mode": "prev"})
     } else if (mode === "next") {
 		targetScrollX = targetScrollX + incrementX;
         targetScrollY = targetScrollY + incrementY;
-        trackProd("ProductFotoChange", {"mode": "next"})
+        //trackProd("ProductFotoChange", {"mode": "next"})
 
     } else{
     	try{
@@ -689,7 +691,7 @@ function slideshowScroll(container, mode=undefined, axis="both"){
             targetScrollX = incrementX*mode - (containerWidth - childWidth) / 2;
             targetScrollY = incrementY*mode - (containerHeight - childHeight) / 2;
             console.log(mode, targetScrollX, targetScrollY);
-            trackProd("ProductFotoChange", {"mode": "scroll"})
+            //trackProd("ProductFotoChange", {"mode": "scroll"})
     	} catch(e){console.log(e)}
     }
     console.log(axis, targetScrollX, targetScrollY);

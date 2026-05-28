@@ -18,8 +18,6 @@
 
 
 {% block body %}
-        <script>window.addEventListener("load", () => {track('ViewTerms', {"page":"{{ tic_page }}"})})</script>
-
     <div id="nav-color" navColor="opaque"></div>
     <div class="tic-title loc" loc="tic_titol"l>{{ loc.tic_titol }}</div>
 <div id=terms class="tic-content">
@@ -54,7 +52,7 @@
                     <span class="cookie-span"><input type=checkbox checked  value=on class="analytic"><div class="cookie-label loc" loc="tic_cookie_analitica" onclick="this.previousElementSibling.click()">{{ loc.tic_cookie_analitica }}</div></span>
                     <span class="cookie-span"><input type=checkbox checked value=on class="essential"><div class="cookie-label loc" loc="tic_cookie_essencial" onclick="this.previousElementSibling.click()">{{ loc.tic_cookie_essencial }}</div></span>
                 </div>
-                <button class="accept-cookies black-button" onclick="track('UpdatedCookiesTIC');updateCookiesTic(this.parentElement);this.parentElement.parentElement.click();">{{ loc.nav_cookie_button }}</button>
+                <button class="accept-cookies black-button" onclick="updateCookiesTic(this.parentElement);this.parentElement.parentElement.click();">{{ loc.nav_cookie_button }}</button>
 
             </div>
         </div>

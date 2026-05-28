@@ -24,10 +24,10 @@
         </div>
         <div class="footer-col">
             <div class="footer-title loc" loc="foo_title_social">{{ loc.foo_title_social }}</div>
-            <div class="footer-element footer-button loc" onclick="track('FooterInstagram');window.open('https://www.instagram.com/panson.joieria/', '_blank')" loc="foo_instagram">{{ loc.foo_instagram}}</div>
-            <div class="footer-element footer-button loc" onclick="track('FooterEmail');"> <a href="mailto:{{ loc.email_general }}" loc="foo_email">{{ loc.foo_email }}</a></div>
+            <div class="footer-element footer-button loc" onclick="window.open('https://www.instagram.com/panson.joieria/', '_blank')" loc="foo_instagram">{{ loc.foo_instagram}}</div>
+            <div class="footer-element footer-button loc"> <a href="mailto:{{ loc.email_general }}" loc="foo_email">{{ loc.foo_email }}</a></div>
             {% if (loc.news_mostrar == "si" or (loc.news_mostrar == "test" and ("test" in host or "127" in host)) ) %}
-            <div class="footer-element footer-button loc" onclick="track('FooterNewsletter');showPopup(document.querySelector('.newsletter-popup'))" loc="foo_newsletter">{{ loc.foo_newsletter }}</div>
+            <div class="footer-element footer-button loc" onclick="showPopup(document.querySelector('.newsletter-popup'))" loc="foo_newsletter">{{ loc.foo_newsletter }}</div>
             {% endif %}
         </div>
     </div>

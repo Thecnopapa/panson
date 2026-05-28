@@ -47,13 +47,13 @@ function verticalToHorizontal(element){
 }
 
 
-function track(name, data){
+async function track(name, data){
     try{
         if (typeof name == 'object') {
             console.log("No tracking name")
             throw Error;
         }
-        let new_data = {"url":location.href, "lan": document.documentElement.lang, "pantallaPetita":window.innerWidth <= 1025};
+        let new_data = {"lan": document.documentElement.lang, "pantallaPetita":window.innerWidth <= 1025};
         fbq('track', name, {...new_data, ...data});
     } catch(err){
         console.log(err);
@@ -65,7 +65,7 @@ async function ignoreNewsletter(){
     let r = await fetch("/ignore-newsletter", {
         method:"POST",
     });
-    track("IgnoredNewsletter");
+    //track("IgnoredNewsletter");
 }
 async function acceptNewsletter(target){
     let email = target.querySelector(".newsletter-popup-email").value;
@@ -80,7 +80,7 @@ async function acceptNewsletter(target){
     });
     if (r.status === 200){
         target.parentNode.querySelector(".popup-cross").click();
-        track("AcceptedNewsletter", {"email": email, "name": name});
+        t//rack("AcceptedNewsletter", {"email": email, "name": name});
     } else {
         target.querySelector(".newsletter-popup-signup").style.backgroundColor = "darkred";
     }
@@ -105,7 +105,7 @@ async function updateCookiesTic(container){
             },
         "essential": inputEssential.checked,
     }
-    track("UpdatedCookies", {"essential":inputEssential.checked, "analytics":inputAnalytic.checked});
+    //track("UpdatedCookies", {"essential":inputEssential.checked, "analytics":inputAnalytic.checked});
 	let r = await fetch("/accept-cookies", {
 		method:"POST",
 		headers: {
