@@ -112,7 +112,8 @@ function updateCartCounter(){
     }
     totalCartValue.innerHTML = String(priceSum)+ "&#8364";
     cartCounters.forEach(c => {c.innerHTML = itemSum});
-    totalCart.setAttribute("value", String(priceSum))
+    totalCart.setAttribute("value", String(priceSum));
+    totalCart.setAttribute("n_items", String(itemSum));
     if (itemSum <= 0){
         cartCounters.forEach(c => {c.style.display = "none"});
 	    cartInfo.style.display ="none";
