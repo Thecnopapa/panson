@@ -6,6 +6,8 @@ let imagesToPreload = [];
 
 let desktopThreshold = 1025;
 
+let nGalleries = 0;
+let allGalleries = {};
 
 function print(...args){
     console.log(...args);
@@ -119,7 +121,7 @@ async function updateCookiesTic(container){
 
 
 function showPopup(popupContent, cross=true, clone=true) {
-	console.log("Showing Popup");
+	//console.log("Showing Popup");
     if (clone){
     	popupContent = popupContent.cloneNode(true);
         popupContent.classList.add("actual-popup");
@@ -154,8 +156,8 @@ function hidePopup(source, sourceElement) {
     }
     popupContent.style.display = "none";
     let template = document.getElementsByClassName(popupContent.className);
-	console.log(template);
-    console.log(template);
+	//console.log(template);
+    //console.log(template);
     popupContent.querySelectorAll(".popup-cross").forEach(c => {c.remove();});
     if (template.length === 2) {
 	    console.log("placing popup back to its place");
@@ -186,7 +188,7 @@ function addPopupCross(popupContent) {
     cross.innerHTML = "&#10005;";
     cross.type = "button";
     cross.setAttribute("onclick","hidePopup('cross', this)");
-	console.log(window.innerWidth - popupContent.offsetWidth);
+	//console.log(window.innerWidth - popupContent.offsetWidth);
     cross.style.right = String((window.innerWidth - popupContent.offsetWidth) / 2) + "px";
     cross.style.top = String((window.innerHeight - popupContent.offsetHeight) / 2) + "px";
     popupContent.appendChild(cross);

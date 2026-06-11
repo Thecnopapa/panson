@@ -147,6 +147,12 @@ html{
 </style>
 
 
+{% block product_list %}
+    <script>
+        let allItems = {{ prods_json | safe}}
+        console.log(allItems)
+    </script>
+{% endblock %}
 
 
 <body>

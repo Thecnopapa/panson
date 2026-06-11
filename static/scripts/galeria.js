@@ -81,40 +81,11 @@ async function hideScrollArrows(event){
 }
 
 
-function startScrolling(galeria, direction) {
-
-    if (galeria.attributes["intervalId"]) {
-        //console.log("current intervalId: " + galeria.attributes["intervalId"].value);
-
-    } else{
-        //console.log("startScrolling");
-        const intervalId = setInterval(scrollGallery, 1, galeria, direction, "2");
-        galeria.setAttribute("intervalId", intervalId);
-        //console.log("scrollId:", intervalId);
-    }
-}
-
-
-
-function stopScrolling(galeria) {
-
-    const currentInterval = galeria.attributes["intervalId"]
-    //console.log("stopping interval: ", currentInterval);
-    if (currentInterval) {
-        //console.log(`stopScrolling(${galeria.attributes["intervalId"].value})`);
-        clearInterval(Number(currentInterval.value));
-        galeria.removeAttribute("intervalId");
-    }
-
-}
-
 function highlightProduct(trigger) {
     if (window.innerWidth <= desktopThreshold) {return;}
     trigger.classList.add("active");
     trigger.children[0].style.visibility = "hidden";
     trigger.style.webkitTransform = 'scale(1)';
-
-
 }
 
 function reverseProduct(trigger) {
@@ -123,36 +94,96 @@ function reverseProduct(trigger) {
     trigger.style.webkitTransform = 'scale(1)';
 }
 
-function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterValue=undefined, invert=undefined) {
+
+
+class Product {
+    constructor(data) {
+        this.data = data;
+    }
+
+    writeTemplate(template){
+        let el = template.cloneNode(true);
+        let info = this.data
+        el.getElementsByClassName("imatge primera")[0].setAttribute("background", imageUrl(bucket, info.img1.value));
+        el.getElementsByClassName("imatge segona")[0].setAttribute("background", imageUrl(bucket, info.img2.value));
+        el.classList.remove("template");
+        el.classList.remove("empty");
+
+        let deltaLaunch = 0;
+        let launchTime = undefined;
+        if (info.startDate.value !== ""){
+            launchTime = Date.parse(info.startDate.value);
+            deltaLaunch = launchTime - now;
+        }
+        if (deltaLaunch > 0){
+            let tElement = el.querySelector(".launch-time-cover");
+            el.classList.remove("hidden");
+            el.setAttribute("launchTime", launchTime);
+            el.link = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value;
+
+        } else {
+            el.querySelector(".launch-time-cover").remove();
+            el.onclick = function () { location.href = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value }
+        }
+        if (bucket === "bespoke"){
+            el.getElementsByClassName("per-a")[0].innerHTML = info.per_a.value;
+        } else{
+            el.getElementsByClassName("nom")[0].innerHTML = info.nom.value;
+            [...el.getElementsByClassName("preu-inline")].forEach(e => {
+                let t = "";
+                if (Number(info.descompte.value > 0)){
+                    t = "<span class='strikethrough grayed'>"+info.preu_antic.value+"&#8364;</span>&nbsp;&nbsp;"
+                    e.innerHTML = t + "<span class='bold'>" + info.preu.value + "</span>";
+                } else{
+                    e.innerHTML = t + info.preu.value;
+
+                }
+            });
+        }
+        return el;
+    }
+
+}
+
+
+class Galeria {
+    constructor(element, bucket, maxItems, minRow, inline) {
+        this.element = element;
+        this.bucket = bucket;
+        this.maxItems = maxItems;
+        this.minRow = minRow;
+        this.inline = inline;
+        this.products = allItems.elements;
+        this.template = this.element.querySelector(".template");
+        this.nId = "gallery-" + String(nGalleries);
+        element.classList.add(this.nId);
+        element.setAttribute("galleryId", this.nId);
+        nGalleries += 1;
+        allGalleries[this.nId] = this;
+    }
+
+    addProduct(product){
+        let el = product.writeTemplate(product);
+
+    }
+
+}
+
+
+function initGaleria(element, bucket="products", maxItems, minRow, inline) {
+    let galeria = new Galeria(element, bucket, maxItems, minRow, inline);
+
+}
+
+
+function deprecatedInitGaleria(galeria, bucket) {
     console.log(" * Initialising galeria");
     console.log("To page: ", targetPage);
 	let galeriaElement = galeria.getElementsByClassName("galeria")[0];
 	if (galeriaElement.classList.contains("inline")){
 		galeriaElement.addEventListener("scroll", hideScrollArrows);
-
-	}
-	const currentPage = Number(galeria.attributes.page.value);
-	//console.log({currentPage, targetPage});
-	if (targetPage === undefined){
-		targetPage = currentPage;
-	} else{
-		//galeria.parentElement.scrollIntoView({block: "start"})
 	}
 
-	targetPage=Number(targetPage);
-	//console.log({targetPage});
-
-
-	galeria.setAttribute("page", targetPage);
-	if (filterKey === undefined && galeria.hasAttribute("filterKey")){filterKey = galeria.attributes.filterKey.value;}
-	if (filterValue === undefined && galeria.hasAttribute("filterValue")){filterValue = galeria.attributes.filterValue.value}
-    if (invert === undefined && galeria.hasAttribute("invert")){invert = galeria.attributes.invert.value}
-
-	//console.log(filterKey, filterValue);
-
-	galeria.setAttribute("filterKey", filterKey);
-	galeria.setAttribute("filterValue", filterValue);
-    galeria.setAttribute("invert", invert);
 
 
 	//galeria.scrollTo(0,0);
@@ -161,18 +192,8 @@ function initGaleria(galeria, targetPage=undefined, filterKey=undefined, filterV
     const minRow = Number(infoElement.attributes.minRow.value);
     maxProds += maxProds % minRow
 
-	const bucket = infoElement.attributes.bucket.value;
-	const key = infoElement.attributes.filterKey.value;
-	const value = infoElement.attributes.filterValue.value;
 
-	if (key !== "None" && value !== "None"){
-		//console.log("Filters from div")
-		filterKey = key;
-		filterValue = value;
-	}
-
-
-    const allProducts = galeria.getElementsByClassName("hidden-info-producte");
+    const allProducts = [...allItems];
     if (filterKey === null || filterKey === "null"){filterKey = undefined;}
     if (filterValue === null || filterValue === "null"){filterValue = undefined;}
     let filteredProducts = [];
@@ -363,12 +384,14 @@ for (let i = 0; i < galleryElements.length; i++) {
         }
     }
 	//console.log({page});
-	initGaleria(galeria, undefined, key, value);
-	if (page == "2"){
-		galeriaNext(galeria);
-		galeria.scrollIntoView({block: "center", inline: "center"});
-	}
+	initGaleria(galeria,
+        galeria.getAttribute("bucket", "productes"),
+        galeria.getAttribute("maxItems", 8),
+        galeria.getAttribute("bucket", 4),
+        galeria.getAttribute("inline", false),
+    );
 
+    //animation
     if (!galeria.classList.contains("inline")){
         const productElements = galeria.querySelectorAll(".producte.enabled:not(.inline)");
         for (let i = 0; i < productElements.length; i++) {
@@ -380,8 +403,6 @@ for (let i = 0; i < galleryElements.length; i++) {
 }
 
 
-
-
 function galleryAnimation(triggers, ops) {
     triggers.forEach(trigger => {
         if (trigger.boundingClientRect.top > 0) {
@@ -391,21 +412,26 @@ function galleryAnimation(triggers, ops) {
 }
 
 
+
+
 try{
 	let filterDiv = document.getElementsByClassName("filtre-buttons")[0];
-	let gradientDiv = document.getElementsByClassName("filtre-buttons-gradient")[0];
+    if (filterDiv !== undefined) {
+        let gradientDiv = document.getElementsByClassName("filtre-buttons-gradient")[0];
 
-	function displayGradient(){
-		console.log(filterDiv.scrollLeft, filterDiv.offsetWidth, filterDiv.scrollWidth);
-		gradientDiv.classList.toggle("end-right", filterDiv.scrollLeft + filterDiv.offsetWidth >= filterDiv.scrollWidth);
-		gradientDiv.classList.toggle("end-left", filterDiv.scrollLeft <= 0);
+        function displayGradient() {
+            console.log(filterDiv.scrollLeft, filterDiv.offsetWidth, filterDiv.scrollWidth);
+            gradientDiv.classList.toggle("end-right", filterDiv.scrollLeft + filterDiv.offsetWidth >= filterDiv.scrollWidth);
+            gradientDiv.classList.toggle("end-left", filterDiv.scrollLeft <= 0);
 
-	}
+        }
 
 
-	filterDiv.addEventListener("scroll", displayGradient, {passive: false});
-	displayGradient()
-} catch(e) {console.log(e);}
+        filterDiv.addEventListener("scroll", displayGradient, {passive: false});
+        displayGradient()
+    }
+    } catch(e) {console.log(e);}
+
 
 
 

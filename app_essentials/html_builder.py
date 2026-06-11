@@ -29,7 +29,24 @@ def common_kwargs(**kwargs):
         kwargs["productes_filtrats"] = kwargs["productes_filtrats"].filter({"amagat": False}, return_products=False, inplace=True)
     #print(kwargs["productes_filtrats"].products.keys())
     #print("DEAULT FILTERS:", len(kwargs["productes_filtrats"].get_all()))
-    kwargs["prods_json"] = json.dumps({p._clean_id: {"url": f"/{lan.lan}/productes/{p._id}", "name": p.nom, "col": p.collecio, "tipus": p.tipus} for p in kwargs["productes_filtrats"]})
+    kwargs["prods_json"] = json.dumps({
+        p._clean_id: {
+            "url": f"/{lan.lan}/productes/{p._id}",
+            "name": p.nom,
+            "col": p.collecio,
+            "tipus": p.tipus,
+            "material": "&".join(p.opcions["materials"].keys()) if p.opcions['materials'] is not None else "",
+            "preu": f"{p.calcular_preu_minim()}&#8364;",
+            "unica": p.unica,
+            "novetat": p.novetat,
+            "popular": p.popular,
+            "descompte": p.descompte,
+            "preu_antic": p.calcular_preu_minim(False),
+            "img1": p.imatges[0],
+            "img2": p.imatges[1],
+            "startDate": p.start_date,
+            "pre_a": f"{lan.fam_per_a} {p.per_a}" if p.bucket == "bespoke" else "",
+        } for p in kwargs["productes_filtrats"]})
     kwargs["tipus_json"] = json.dumps({tipus: {"url": f"/{lan.lan}/productes/?filterKey=tipus&filterValue={tipus}", "name":  lan["tip-"+tipus+"-plural"]} for tipus in kwargs["productes_filtrats"].tipus})
     kwargs["cols_json"] = json.dumps({col._clean_id: {"url": f"/{lan.lan}/collecio/{col._id}", "name": col.nom_menu} for col in kwargs["productes_filtrats"].cols})
     kwargs["fam_json"] = json.dumps({p._clean_id: {"url": f"/{lan.lan}/bespoke/{p._id}", "name": p.nom, "per_a": p.per_a, "tipus": p.tipus} for p in kwargs["productes_filtrats"].bespoke})
