@@ -99,43 +99,46 @@ function reverseProduct(trigger) {
 class Product {
     constructor(data) {
         this.data = data;
+        this.id = this.data.id;
     }
 
     writeTemplate(template){
+        console.log(template);
         let el = template.cloneNode(true);
         let info = this.data
-        el.getElementsByClassName("imatge primera")[0].setAttribute("background", imageUrl(bucket, info.img1.value));
-        el.getElementsByClassName("imatge segona")[0].setAttribute("background", imageUrl(bucket, info.img2.value));
+        console.log(info)
+        el.getElementsByClassName("imatge primera")[0].setAttribute("background", imageUrl(info.bucket, info.img1));
+        el.getElementsByClassName("imatge segona")[0].setAttribute("background", imageUrl(info.bucket, info.img2));
         el.classList.remove("template");
         el.classList.remove("empty");
 
         let deltaLaunch = 0;
         let launchTime = undefined;
         if (info.startDate.value !== ""){
-            launchTime = Date.parse(info.startDate.value);
+            launchTime = Date.parse(info.startDate);
             deltaLaunch = launchTime - now;
         }
         if (deltaLaunch > 0){
             let tElement = el.querySelector(".launch-time-cover");
             el.classList.remove("hidden");
             el.setAttribute("launchTime", launchTime);
-            el.link = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value;
+            el.link = "/"+document.documentElement.lang + "/"+info.bucket+"/"+info.id;
 
         } else {
             el.querySelector(".launch-time-cover").remove();
-            el.onclick = function () { location.href = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value }
+            el.onclick = function () { location.href = "/"+document.documentElement.lang + "/"+info.bucket+"/"+info.id }
         }
-        if (bucket === "bespoke"){
-            el.getElementsByClassName("per-a")[0].innerHTML = info.per_a.value;
+        if (info.bucket === "bespoke"){
+            el.getElementsByClassName("per-a")[0].innerHTML = info.per_a;
         } else{
-            el.getElementsByClassName("nom")[0].innerHTML = info.nom.value;
+            el.getElementsByClassName("nom")[0].innerHTML = info.name;
             [...el.getElementsByClassName("preu-inline")].forEach(e => {
                 let t = "";
                 if (Number(info.descompte.value > 0)){
-                    t = "<span class='strikethrough grayed'>"+info.preu_antic.value+"&#8364;</span>&nbsp;&nbsp;"
-                    e.innerHTML = t + "<span class='bold'>" + info.preu.value + "</span>";
+                    t = "<span class='strikethrough grayed'>"+info.preu_antic+"&#8364;</span>&nbsp;&nbsp;"
+                    e.innerHTML = t + "<span class='bold'>" + info.preu + "</span>";
                 } else{
-                    e.innerHTML = t + info.preu.value;
+                    e.innerHTML = t + info.preu;
 
                 }
             });
@@ -153,25 +156,36 @@ class Galeria {
         this.maxItems = maxItems;
         this.minRow = minRow;
         this.inline = inline;
-        this.products = allItems.elements;
+        this.products = Object.keys(allItems);
+        console.log(this.products);
         this.template = this.element.querySelector(".template");
         this.nId = "gallery-" + String(nGalleries);
         element.classList.add(this.nId);
         element.setAttribute("galleryId", this.nId);
         nGalleries += 1;
         allGalleries[this.nId] = this;
+        this.galeria = this.element.querySelector(".galeria");
     }
 
     addProduct(product){
-        let el = product.writeTemplate(product);
-
+        console.log("Adding product: ", product.id);
+        let el = product.writeTemplate(this.template);
+        console.log(el);
+        this.galeria.append(el);
     }
 
 }
 
 
-function initGaleria(element, bucket="products", maxItems, minRow, inline) {
+function initGaleria(element, bucket="products", maxItems=8, minRow=4, inline=false) {
+    console.log("Initializing Galeria", {bucket, maxItems, minRow, inline});
     let galeria = new Galeria(element, bucket, maxItems, minRow, inline);
+    console.log(Math.min(galeria.products.length, maxItems), galeria.products.length, maxItems);
+    for (let i = 0; i < Math.min(galeria.products.length, maxItems); i++) {
+        console.log(galeria.products[i]);
+        galeria.addProduct(new Product(allItems[galeria.products[i]]));
+    }
+
 
 }
 
@@ -271,12 +285,12 @@ function deprecatedInitGaleria(galeria, bucket) {
 function galeriaNext(galeria){
 	//console.log(galeria);
     //track("GaleriaNext", {"page":Number(galeria.attributes.page.value)+1})
-	initGaleria(galeria, Number(galeria.attributes.page.value)+1);
+	//initGaleria(galeria, Number(galeria.attributes.page.value)+1);
 }
 function galeriaPrev(galeria){
     //track("GaleriaPrev", {"page":Number(galeria.attributes.page.value)-1})
 
-	initGaleria(galeria, Number(galeria.attributes.page.value)-1);
+	//initGaleria(galeria, Number(galeria.attributes.page.value)-1);
 }
 
 function filterGaleria(trigger, invert=false){
@@ -303,7 +317,7 @@ function filterGaleria(trigger, invert=false){
     } else{
         window.history.replaceState(document.title, "", document.location.pathname+"?filterKey=" + key + "&filterValue=" + value);
     }
-	initGaleria(galeria, 0, key, value, invert);
+	//initGaleria(galeria, 0, key, value, invert);
 	trigger.classList.add("active");
 	}
 }
@@ -385,10 +399,10 @@ for (let i = 0; i < galleryElements.length; i++) {
     }
 	//console.log({page});
 	initGaleria(galeria,
-        galeria.getAttribute("bucket", "productes"),
-        galeria.getAttribute("maxItems", 8),
-        galeria.getAttribute("bucket", 4),
-        galeria.getAttribute("inline", false),
+        bucket=galeria.getAttribute("bucket", "productes"),
+        maxItems=galeria.getAttribute("maxProds", 8),
+        minRow=galeria.getAttribute("minRow", 4),
+        inline=galeria.getAttribute("inline", false),
     );
 
     //animation
@@ -399,6 +413,7 @@ for (let i = 0; i < galleryElements.length; i++) {
         }
 
     }
+    loadAllImages()
 
 }
 

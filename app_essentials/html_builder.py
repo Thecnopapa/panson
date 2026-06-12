@@ -31,6 +31,8 @@ def common_kwargs(**kwargs):
     #print("DEAULT FILTERS:", len(kwargs["productes_filtrats"].get_all()))
     kwargs["prods_json"] = json.dumps({
         p._clean_id: {
+            "id":p._id,
+            "bucket": p.bucket,
             "url": f"/{lan.lan}/productes/{p._id}",
             "name": p.nom,
             "col": p.collecio,
@@ -40,6 +42,7 @@ def common_kwargs(**kwargs):
             "unica": p.unica,
             "novetat": p.novetat,
             "popular": p.popular,
+            "prio": p.prio,
             "descompte": p.descompte,
             "preu_antic": p.calcular_preu_minim(False),
             "img1": p.imatges[0],

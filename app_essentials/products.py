@@ -147,7 +147,7 @@ class Product(firebaseObject):
 
 class Products():
     def __init__(self, lan="cat", filters=None):
-        self.products = {id:Product(data, id) for id, data in get_products().items()}
+        self.products = {id:Product(data, id) for id, data in sorted(get_products().items(), key=lambda x: x[1]["prio"])}
         if filters is not None:
             self.products = self.filter(filters, as_dict=True)
         self.bespoke = [Bespoke(data, id) for id, data in get_bespoke().items()]
