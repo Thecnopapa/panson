@@ -95,13 +95,36 @@ function reverseProduct(trigger) {
 }
 
 
+function galeriaAddRow(triggers, ops){
+	triggers.forEach(trigger => {
+		console.log(trigger.boundingClientRect.bottom, window.innerHeight*0.8);
+		return
+		if (trigger.boundingClientRect.bottom > (window.innerHeight*0.8)) {
+			trigger.target.classList.toggle("need-more", trigger.isIntersecting);
+		}
+	});
+}
+
+/*let galleryObserver = new IntersectionObserver(galleryAddRow, {
+	threshold: 0.9,
+});
+*/
+
+
+let animationObserver = new IntersectionObserver(galleryAnimation, {
+	threshold: 0.3,
+});
 
 class Product {
     constructor(data) {
         this.data = data;
         this.id = this.data.id;
     }
-
+    writeEmpty(template){
+	    let el = template.cloneNode(true);
+	    el.classList.remove("template");
+	    return el
+    }
     writeTemplate(template){
         console.log(template);
         let el = template.cloneNode(true);
@@ -167,12 +190,23 @@ class Galeria {
         this.galeria = this.element.querySelector(".galeria");
     }
 
-    addProduct(product){
-        console.log("Adding product: ", product.id);
-        let el = product.writeTemplate(this.template);
+    addProduct(product=undefined){
+	if (product === undefined){
+		let el = product.writeEmpty(this.template)
+	} else {
+        	console.log("Adding product: ", product.id);
+        	let el = product.writeTemplate(this.template);
+	}
         console.log(el);
         this.galeria.append(el);
+	animationObserver.observe(el);
     }
+    addRow(){
+	    let nCurrent = this.galeria.querySelectorAll(":not(template)").length;
+	    let nAvail = this.products.length - nCurrent;
+	for (let i = this.galeria.querySelectorAll(":not(template)").length; i < Math.min(galeria.products.length, maxItems); i++) {
+
+	    
 
 }
 
@@ -185,9 +219,12 @@ function initGaleria(element, bucket="products", maxItems=8, minRow=4, inline=fa
         console.log(galeria.products[i]);
         galeria.addProduct(new Product(allItems[galeria.products[i]]));
     }
-
-
+    for (let i = 0; i < Math.max(0, maxItems - galeria.products.length)){
+	    galeria.addProduct();
+    }
+	//galleryObserver.observe(galeria);
 }
+
 
 
 function deprecatedInitGaleria(galeria, bucket) {
@@ -378,11 +415,6 @@ function changeProduct(element, product, bucket) {
 
 
 
-let galleryObserver = new IntersectionObserver(galleryAnimation, {
-    threshold: 0.3,
-})
-
-
 
 const galleryElements = document.getElementsByClassName("content-galeria");
 for (let i = 0; i < galleryElements.length; i++) {
@@ -409,7 +441,7 @@ for (let i = 0; i < galleryElements.length; i++) {
     if (!galeria.classList.contains("inline")){
         const productElements = galeria.querySelectorAll(".producte.enabled:not(.inline)");
         for (let i = 0; i < productElements.length; i++) {
-            //galleryObserver.observe(productElements[i]);
+            //animationObserver.observe(productElements[i]);
         }
 
     }
@@ -421,7 +453,7 @@ for (let i = 0; i < galleryElements.length; i++) {
 function galleryAnimation(triggers, ops) {
     triggers.forEach(trigger => {
         if (trigger.boundingClientRect.top > 0) {
-            trigger.target.classList.toggle("inside", trigger.isIntersecting);
+            trigger.target.classList.toggle("outside", !trigger.isIntersecting);
         }
     })
 }
@@ -445,7 +477,7 @@ try{
         filterDiv.addEventListener("scroll", displayGradient, {passive: false});
         displayGradient()
     }
-    } catch(e) {console.log(e);}
+} catch(e) {console.log(e);}
 
 
 
