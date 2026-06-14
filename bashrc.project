@@ -224,6 +224,8 @@ checkout(){
 
 
 # PROJECT SPECIFIC AFTER THIS
+source ./gcloud.sh
+gcloud config set project panson
 
 test (){
     local title="Local Server"
