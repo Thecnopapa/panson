@@ -1232,7 +1232,7 @@ def update_discounts():
 
 @app.post("/<lan>/send_email/<target>/")
 def send_contact_email(lan, target="contacte"):
-    use(10)
+    use(2)
     from app_essentials.mail import send_email
     form = request.form
 
