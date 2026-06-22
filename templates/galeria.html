@@ -1,7 +1,7 @@
 
 
 
-{% macro galeria(bucket, double=False, filtres=False, max_prods=None, filterKey=None, filterValue=None, min_row=4, min_prods=4, exclude=None, filter_mode="&", pages=False, inline=False, load_more=False, go_to_shop=False, range=(0,1), second_hover=True, search=False) %}
+{% macro galeria(bucket, double=False, filtres=False, max_prods=0, filterKey=None, filterValue=None, min_row=4, min_prods=4, exclude=None, filter_mode="&", pages=False, inline=False, load_more=False, go_to_shop=False, range=(0,1), second_hover=True, search=False) %}
 
 
 {% set productes = productes.__getattribute__(bucket) %}
@@ -20,7 +20,7 @@
 
 
 
-<div class="content-galeria" bucket="{{ bucket }}" maxprods="{{ max_prods }}" minrow="{{ min_row }}" inline="{{ inline }}">
+<div class="content-galeria" bucket="{{ bucket }}" maxprods="{{ max_prods }}" minrow="{{ min_row }}" minprods="{{ min_prods }}" inline="{{ utils.int(inline) }}">
     {% if filtres %}
         <div class="gallery-filtres">
             <div class="filtre-buttons-gradient"></div>
@@ -82,7 +82,7 @@
 	{% elif load_more %}
 	    <div class="galeria-load-more galeria-nav-button black-button loc" loc="gal_carregar_mes" onclick="galeriaNext(this.parentElement.parentElement)">{{ loc.gal_carregar_mes}}</div>
 	{% elif go_to_shop %}
-	    <div class="galeria-go-to-shop galeria-nav-button black-button loc" loc="gal_anar_botiga" onclick="location.href='/{{ loc.lan }}/productes?page=2'">{{ loc.gal_anar_botiga}}</div>
+	    <div class="galeria-go-to-shop galeria-nav-button black-button loc" loc="gal_anar_botiga" onclick="location.href='/{{ loc.lan }}/productes'">{{ loc.gal_anar_botiga}}</div>
 	{% endif %}
     </div>
 </div>

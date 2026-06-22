@@ -90,6 +90,11 @@ class Utils:
         return list(l)
 
     @staticmethod
+    def bool(b):
+        return bool(b)
+
+
+    @staticmethod
     def try_catch(fun, error=None, *args, **kwargs):
         print("catching: {} with args: {} {}".format(fun, args, kwargs))
         try:

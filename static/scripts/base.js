@@ -240,7 +240,7 @@ async function loadImages(selection){
 		    selectedImages.classList.remove(selection-"-image");
 	    } catch(err){}
     }
-    console.log(" * "+ selection +" images loaded (" + changedImages + ") videos: "+changedVideos);
+    //console.log(" * "+ selection +" images loaded (" + changedImages + ") videos: "+changedVideos);
 
 }
 
@@ -250,7 +250,7 @@ function sourceToSrc(trigger){
 }
 
 async function preloadHiddenImages(){
-	console.log(" * Preloading "+imagesToPreload.length+" images");
+	//console.log(" * Preloading "+imagesToPreload.length+" images");
 	for (let i = 0; i < imagesToPreload.length; i++){
 		newImage = document.createElement("img");
 		newImage.classList.add("hidden");

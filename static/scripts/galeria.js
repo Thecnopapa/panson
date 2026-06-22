@@ -37,30 +37,30 @@ async function updateDeltas(){
 
 
 async function scrollGallery(galeria, direction, amount){
-    var targetScroll = galeria.scrollLeft;
-	console.log("scrolling", galeria);
+    let targetScroll = galeria.scrollLeft;
+	//console.log("scrolling", galeria);
 	if (amount.includes("%")){
 		amount = Number(amount.replace("%", ""));
-		console.log(amount, galeria.offsetWidth);
+		//console.log(amount, galeria.offsetWidth);
 		amount = amount * galeria.offsetWidth / 100;
-		console.log(amount);
+		//console.log(amount);
 	} else if (amount.includes("u")){
 		amount = Number(amount.replace("u", ""));
 		let refEl = galeria.querySelector(".producte:not(.template)");
 		let p_width = refEl.offsetWidth + parseFloat(window.getComputedStyle(refEl).marginRight);
-		console.log(p_width);
+		//console.log(p_width);
 		amount = amount * p_width;
 	} else {
 		amount = Number(amount);
 	}
-	console.log("Scrolling: ", targetScroll, amount);
+	//console.log("Scrolling: ", targetScroll, amount);
 
     if (direction === "right"){
         targetScroll += amount;
     } else if (direction === "left"){
         targetScroll -= amount;
     }
-	console.log("final:", targetScroll);
+	//console.log("final:", targetScroll);
 	galeria.scrollTo(targetScroll, 0);
 
 
@@ -68,14 +68,19 @@ async function scrollGallery(galeria, direction, amount){
 }
 
 async function hideScrollArrows(event){
-	galeria = event.target;
-	console.log("hiding arrows");
-	console.log(galeria.scrollLeft, galeria.scrollLeft <= 1);
-	let leftArrow = galeria.parentElement.getElementsByClassName("scroll-left-button")[0];
-	console.log(leftArrow);
-	leftArrow.classList.toggle("disabled", galeria.scrollLeft <= 1);
-	console.log((galeria.scrollLeft+galeria.offsetWidth), galeria.scrollWidth-1);
-	galeria.parentElement.getElementsByClassName("scroll-right-button")[0].classList.toggle("disabled",  (galeria.scrollLeft + galeria.offsetWidth) >= galeria.scrollWidth -1)
+	let galeria = event.target;
+	//console.log("Checking arrows...");
+    let hideLeft = galeria.scrollLeft <= 1;
+    let hideRight = (galeria.scrollLeft + galeria.offsetWidth) >= galeria.scrollWidth -1;
+	//console.log(galeria.scrollLeft, hideLeft, hideRight);
+
+
+	let leftArrow = galeria.parentElement.querySelector(".scroll-left-button");
+    let rightArrow = galeria.parentElement.querySelector(".scroll-right-button");
+	//console.log({leftArrow, rightArrow});
+
+	leftArrow.classList.toggle("disabled", hideLeft);
+    rightArrow.classList.toggle("disabled", hideRight);
 
 
 }
@@ -94,31 +99,53 @@ function reverseProduct(trigger) {
     trigger.style.webkitTransform = 'scale(1)';
 }
 
-
-function galeriaAddRow(triggers, ops){
-	triggers.forEach(trigger => {
-		console.log(trigger.boundingClientRect.bottom, window.innerHeight*0.8);
-		return
-		if (trigger.boundingClientRect.bottom > (window.innerHeight*0.8)) {
-			trigger.target.classList.toggle("need-more", trigger.isIntersecting);
-		}
-	});
-}
-
-/*let galleryObserver = new IntersectionObserver(galleryAddRow, {
-	threshold: 0.9,
+let galleryObserver = new IntersectionObserver(galleryAddRow, {
+    threshold: 0.9,
 });
-*/
-
 
 let animationObserver = new IntersectionObserver(galleryAnimation, {
 	threshold: 0.3,
 });
 
+
+
+function galleryAddRow(triggers, ops){
+	triggers.forEach(trigger => {
+        let condition = undefined;
+        let galleryID = trigger.target.getAttribute("galleryID")
+        let gallery = allGalleries[galleryID];
+
+        if (!gallery.inline){
+            condition = (trigger.boundingClientRect.top < window.innerHeight)
+        } else {
+            console.log(trigger.boundingClientRect.left < window.innerWidth, trigger.boundingClientRect.left,trigger.boundingClientRect.right, window.innerWidth)
+            condition = (trigger.boundingClientRect.left < window.innerWidth)
+        }
+
+
+        if (condition) {
+            console.log(trigger.boundingClientRect.top, window.innerHeight);
+
+            galleryObserver.unobserve(trigger.target);
+            trigger.target.classList.remove("observed");
+            gallery.galeria.classList.toggle("need-more", trigger.isIntersecting);
+            gallery.addRow();
+        }
+
+	});
+}
+
+
+
 class Product {
     constructor(data) {
         this.data = data;
-        this.id = this.data.id;
+        this.empty = true;
+
+        if (data !== undefined) {
+            this.id = this.data.id;
+            this.empty = false;
+        }
     }
     writeEmpty(template){
 	    let el = template.cloneNode(true);
@@ -126,10 +153,10 @@ class Product {
 	    return el
     }
     writeTemplate(template){
-        console.log(template);
+        //console.log(template);
         let el = template.cloneNode(true);
         let info = this.data
-        console.log(info)
+        //console.log(info)
         el.getElementsByClassName("imatge primera")[0].setAttribute("background", imageUrl(info.bucket, info.img1));
         el.getElementsByClassName("imatge segona")[0].setAttribute("background", imageUrl(info.bucket, info.img2));
         el.classList.remove("template");
@@ -173,12 +200,13 @@ class Product {
 
 
 class Galeria {
-    constructor(element, bucket, maxItems, minRow, inline) {
+    constructor(element, bucket, maxItems, minRow, minItems, inline) {
         this.element = element;
         this.bucket = bucket;
-        this.maxItems = maxItems;
-        this.minRow = minRow;
-        this.inline = inline;
+        this.maxItems = Number(maxItems);
+        this.minItems  = Number(minItems);
+        this.minRow = Number(minRow);
+        this.inline = Boolean(Number(inline));
         this.products = Object.keys(allItems);
         console.log(this.products);
         this.template = this.element.querySelector(".template");
@@ -190,39 +218,123 @@ class Galeria {
         this.galeria = this.element.querySelector(".galeria");
     }
 
-    addProduct(product=undefined){
-	if (product === undefined){
-		let el = product.writeEmpty(this.template)
-	} else {
-        	console.log("Adding product: ", product.id);
-        	let el = product.writeTemplate(this.template);
-	}
-        console.log(el);
-        this.galeria.append(el);
-	animationObserver.observe(el);
+    deleteEmpty(){
+        let emptyElements = this.galeria.querySelectorAll(".producte.empty:not(.template)");
+        //console.log({emptyElements});
+        emptyElements.forEach(e => {e.remove();});
     }
-    addRow(){
-	    let nCurrent = this.galeria.querySelectorAll(":not(template)").length;
-	    let nAvail = this.products.length - nCurrent;
-	for (let i = this.galeria.querySelectorAll(":not(template)").length; i < Math.min(galeria.products.length, maxItems); i++) {
 
-	    
+    addProduct(product=undefined){
+        this.deleteEmpty()
+        let el = undefined;
+        if (product === undefined){
+            //console.log("Adding empty..");
+            product = new Product();
+            el = product.writeEmpty(this.template);
+        } else {
+            if (product.empty){
+                el = product.writeEmpty(this.template)
+            } else{
+                //console.log("Adding product: ", product.id);
+            el = product.writeTemplate(this.template);
+            }
+        }
+        el.setAttribute("galleryId", this.nId);
+        //console.log(el);
+        this.galeria.append(el);
+        //animationObserver.observe(el);
+        loadAllImages()
+    }
 
+    length(){
+        return this.elements().length;
+    }
+    elements(){
+        return this.galeria.querySelectorAll(".producte:not(.template)");
+    }
+    last(){
+        let els = this.elements();
+        console.log(els);
+        console.log(this)
+        return els[els.length - 1];
+    }
+
+    addRow() {
+        console.log("Adding row...");
+
+        //console.log({current});
+        let all = this.products;
+        //console.log({all});
+
+        let maximum = all.length;
+        if (this.maxItems > 0){
+            maximum = Math.min(maximum, this.maxItems);
+        }
+
+        let nCurrent = this.length();
+        let nAvail = maximum - nCurrent;
+
+        console.log({nCurrent, nAvail, "current+": nCurrent + this.minRow, maximum});
+
+        for (let i = nCurrent; i < Math.min(nCurrent + this.minRow, maximum); i++) {
+            console.log(i, all[i]);
+            this.addProduct(new Product(allItems[all[i]]));
+        }
+        let paddingProds =  Math.max(0, ( this.length() % this.minRow));
+        //console.log({paddingProds});
+        if (paddingProds > 0 && !this.inline) {
+            for (let i = 0; i < paddingProds; i++) {
+                this.addProduct();
+            }
+        }
+        if (nAvail > 0){
+            this.last().classList.add("observed");
+            galleryObserver.observe(this.last())
+        } else {
+            console.log("All products displayed!")
+        }
+
+        loadAllImages()
+
+    }
 }
 
 
-function initGaleria(element, bucket="products", maxItems=8, minRow=4, inline=false) {
-    console.log("Initializing Galeria", {bucket, maxItems, minRow, inline});
-    let galeria = new Galeria(element, bucket, maxItems, minRow, inline);
+function initGaleria(element, bucket="products", maxItems=0, minRow=4, minItems=4, inline=0) {
+    console.log("Initializing Galeria", {bucket, maxItems, minRow, minItems, inline});
+    let galeria = new Galeria(element, bucket, maxItems, minRow, minItems, inline);
+    console.log(galeria);
+
     console.log(Math.min(galeria.products.length, maxItems), galeria.products.length, maxItems);
-    for (let i = 0; i < Math.min(galeria.products.length, maxItems); i++) {
+    for (let i = 0; i < Math.min(galeria.products.length, minItems); i++) {
         console.log(galeria.products[i]);
         galeria.addProduct(new Product(allItems[galeria.products[i]]));
     }
-    for (let i = 0; i < Math.max(0, maxItems - galeria.products.length)){
-	    galeria.addProduct();
+    let paddingProds =  galeria.minRow - Math.max(0, (galeria.length() % galeria.minRow));
+    console.log({paddingProds}, galeria.length(), galeria.minRow);
+    if (paddingProds < galeria.minRow && !this.inline) {
+        for (let i = 0; i < paddingProds; i++) {
+	        galeria.addProduct();
+        }
     }
-	//galleryObserver.observe(galeria);
+    if (galeria.inline){
+
+    }
+    console.log(galeria.last());
+	galleryObserver.observe(galeria.last());
+
+    if (!galeria.inline) {
+        //animation
+        const productElements = galeria.elements();
+        for (let i = 0; i < productElements.length; i++) {
+            //animationObserver.observe(productElements[i]);
+        }
+    } else {
+        galeria.galeria.addEventListener("scroll", hideScrollArrows)
+    }
+
+
+    return galeria;
 }
 
 
@@ -421,7 +533,6 @@ for (let i = 0; i < galleryElements.length; i++) {
 	let params = new URLSearchParams(document.location.search);
 	const key = params.get("filterKey", undefined);
 	const value = params.get("filterValue", undefined);
-	const page = params.get("page", undefined);
     const galeria = galleryElements[i];
     const filterElements= galeria.getElementsByClassName("filtre");
     for (let i = 0; i < filterElements.length; i++){
@@ -429,22 +540,15 @@ for (let i = 0; i < galleryElements.length; i++) {
             filterElements[i].classList.add("active");
         }
     }
-	//console.log({page});
 	initGaleria(galeria,
-        bucket=galeria.getAttribute("bucket", "productes"),
-        maxItems=galeria.getAttribute("maxProds", 8),
-        minRow=galeria.getAttribute("minRow", 4),
-        inline=galeria.getAttribute("inline", false),
+        galeria.getAttribute("bucket", "productes"),
+        galeria.getAttribute("maxProds", 0),
+        galeria.getAttribute("minRow", 4),
+        galeria.getAttribute("minProds", 4),
+        galeria.getAttribute("inline", 0),
     );
 
-    //animation
-    if (!galeria.classList.contains("inline")){
-        const productElements = galeria.querySelectorAll(".producte.enabled:not(.inline)");
-        for (let i = 0; i < productElements.length; i++) {
-            //animationObserver.observe(productElements[i]);
-        }
 
-    }
     loadAllImages()
 
 }
@@ -477,7 +581,7 @@ try{
         filterDiv.addEventListener("scroll", displayGradient, {passive: false});
         displayGradient()
     }
-} catch(e) {console.log(e);}
+} catch(e) {console.log(e);
 
 
 
@@ -494,4 +598,4 @@ setInterval(updateDeltas, 1000);
 
 
 
-print(" * Gallery JS ready")
+print(" * Gallery JS ready");}
