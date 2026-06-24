@@ -37,7 +37,7 @@ function openCart(trackIt=true) {
 
 
 async function closeCart(trackIt=false) {
-    console.log("Closing Cart");
+    //console.log("Closing Cart");
     cart.classList.remove('open');
     for (let i = 0; i < cartItems.length; i++) {
         cartItems[i].classList.remove('open');
@@ -57,7 +57,7 @@ async function deleteItem(productElement, pos){
     if (deleting){return;}
     deleting = true;
     let link = "/productes/carret/"+ pos+"/0";
-	console.log(link);
+	//console.log(link);
 	let resp = await fetch(link, {method: "POST"});
 	if (resp.ok){
 		productElement.remove();
@@ -82,7 +82,7 @@ async function modifyItem(counterElement, pos, mode){
         deleteItem(counterElement.parentElement.parentElement.parentElement, pos);
     } else{
         let link = "/productes/carret/"+ pos+"/"+newQty;
-        console.log(link);
+        //console.log(link);
         let resp = await fetch(link, {method: "POST"});
 	    if (resp.ok){
             //track('ChangeCartAmount', {"mode": mode});
@@ -101,7 +101,7 @@ function updateCartCounter(){
 	const emptyInfo = document.getElementsByClassName("no-cart-info")[0];
     const totalCart = document.getElementsByClassName("total-cart")[0];
     const totalCartValue = document.getElementsByClassName("total-cart-value")[0];
-	console.log(totalCart, totalCartValue);
+	//console.log(totalCart, totalCartValue);
     let itemSum = 0;
     let priceSum = 0;
     for (let i = 0; i < allCounters.length; i++){

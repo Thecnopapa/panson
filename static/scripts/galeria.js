@@ -1,7 +1,7 @@
 
 
 let now = Date.now()
-console.log("NOW: ", now);
+//console.log("NOW: ", now);
 
 function miliToTime(miliseconds){
 	let days = Math.floor(miliseconds /  86400000);
@@ -207,10 +207,10 @@ class Galeria {
         this.minItems  = Number(minItems);
         this.minRow = Number(minRow);
         this.inline = Boolean(Number(inline));
-	if (query === undefined){query=""}
-	this.query = query;
+        if (query === undefined){query=""}
+        this.query = query;
         this.products = Object.keys(allItems);
-	this.filter();
+        this.products = this.filter();
         //console.log(this.products);
         this.template = this.element.querySelector(".template");
         this.nId = "gallery-" + String(nGalleries);
@@ -223,17 +223,19 @@ class Galeria {
 
 
     filter(query=""){
-	console.log("Filtering...");
-	    console.log({query});
-	console.log(this.query);
+	//console.log("Filtering...");
+    //console.log({query});
+	//console.log({"oquery":this.query});
 	let queryDict = {};
 	[this.query, query].forEach(qq => {
-		console.log({qq});
+		//console.log({qq});
 	    if (qq !== ""){
 		let qSplit = undefined;
-		if (qq.includes("&")){qSplit = query.split("&");}
-		else { qSplit = [qq];}
-		console.log({qSplit});
+        let exclusive = true;
+		if (qq.includes("&")){qSplit = qq.split("&");}
+        else if (qq.includes("|")){qSplit = qq.split("|"); exclusive = false;}
+		else {qSplit = [qq];}
+		//console.log({qSplit});
 
 	        qSplit.forEach(q => {
 		        let kv = q.split("=");
@@ -242,26 +244,48 @@ class Galeria {
 		        if (["True", "true", "T", "Y"].includes(v)){v=true}
 		        else if (["False", "false", "F", "N"].includes(v)){v=false}
 		        queryDict[k] = v;
-			console.log({q,kv, k, v});
+			//console.log({q,kv, k, v});
 	        });
 	    }
 	});
-	console.log({queryDict});
-	filteredProds = [];
+	//console.log({queryDict});
+    //console.log(Object.keys(queryDict).length);
+    if (Object.keys(queryDict).length === 0){
+        return this.products;
+    }
+	let filteredProds = [];
 	this.products.forEach(pID => {
 		let data = allItems[pID];
+        //console.log(data);
+        let reqs = []
 		Object.keys(queryDict).forEach(k => {
+            //console.log(k);
 			let pVal = data[k];
 			let qVal = queryDict[k];
 			let negate = false;
 			if (qVal[0] === "!"){qVal = qVal.split("!")[1];negate=true}
+            //console.log({pVal, qVal, negate});
+            //console.log(pVal === qVal && !negate, pVal !== qVal && negate)
 			if ((pVal === qVal && !negate) || (pVal !== qVal && negate)){
-
-			}
-
+                reqs.push(true);
+			} else {
+                reqs.push(false);
+            }
 		});
+        //console.log({reqs});
+        if ((reqs.includes(true) && !reqs.includes(false))) {
+            filteredProds.push(pID);
+            //console.log("Adding", pID);
+        }
 	});
-	
+    //console.log(filteredProds);
+    return filteredProds;
+    // let filteredDict = {}
+    //     for (let i = 1; i < filteredProds.length; i++){
+    //         filteredDict[i] = filteredProds[i];
+    //     }
+    // console.log(filteredDict);
+	// return filteredDict;
     }
 
 
@@ -307,7 +331,7 @@ class Galeria {
     }
 
     addRow() {
-        console.log("Adding row...");
+        //console.log("Adding row...");
 
         //console.log({current});
         let all = this.products;
@@ -338,7 +362,7 @@ class Galeria {
             this.last().classList.add("observed");
             galleryObserver.observe(this.last())
         } else {
-            console.log("All products displayed!")
+            //console.log("All products displayed!")
         }
 
         loadAllImages()
@@ -348,11 +372,11 @@ class Galeria {
 
 
 function initGaleria(element, bucket="products", maxItems=0, minRow=4, minItems=4, inline=0, query="") {
-    console.log("Initializing Galeria", {bucket, maxItems, minRow, minItems, inline, query});
+    console.log("   > Initializing Galeria", {bucket, maxItems, minRow, minItems, inline, query});
     let galeria = new Galeria(element, bucket, maxItems, minRow, minItems, inline, query);
-    //console.log(galeria);
+    //console.log(galeria.products);
 
-    //console.log(Math.min(galeria.products.length, maxItems), galeria.products.length, maxItems);
+    //console.log(Math.min(galeria.products.length, minItems));
     for (let i = 0; i < Math.min(galeria.products.length, minItems); i++) {
         //console.log(galeria.products[i]);
         galeria.addProduct(new Product(allItems[galeria.products[i]]));
@@ -368,7 +392,11 @@ function initGaleria(element, bucket="products", maxItems=0, minRow=4, minItems=
 
     }
     //console.log(galeria.last());
-    galleryObserver.observe(galeria.last());
+    let last = galeria.last();
+    if (last !== undefined) {
+        galleryObserver.observe(galeria.last());
+
+    }
 
     if (!galeria.inline) {
         //animation
@@ -386,207 +414,11 @@ function initGaleria(element, bucket="products", maxItems=0, minRow=4, minItems=
 
 
 
-function deprecatedInitGaleria(galeria, bucket) {
-    console.log(" * Initialising galeria");
-    console.log("To page: ", targetPage);
-	let galeriaElement = galeria.getElementsByClassName("galeria")[0];
-	if (galeriaElement.classList.contains("inline")){
-		galeriaElement.addEventListener("scroll", hideScrollArrows);
-	}
-
-
-
-	//galeria.scrollTo(0,0);
-	const infoElement = galeria.getElementsByClassName("gallery-info")[0];
-	let maxProds = Number(infoElement.attributes.maxProds.value);
-    const minRow = Number(infoElement.attributes.minRow.value);
-    maxProds += maxProds % minRow
-
-
-    const allProducts = [...allItems];
-    if (filterKey === null || filterKey === "null"){filterKey = undefined;}
-    if (filterValue === null || filterValue === "null"){filterValue = undefined;}
-    let filteredProducts = [];
-    console.log("filters: ", filterKey, filterValue);
-    if (filterKey !== undefined  && filterValue !== undefined){
-        //track("FilterGaleria", {filterKey: filterKey, filterValue: filterValue});
-        for (let i = 0; i < allProducts.length; i++) {
-		try{
-                if (allProducts[i].attributes[filterKey].value.includes(filterValue)){
-                    filteredProducts.push(allProducts[i]);
-                } else if (invert) {
-                    filteredProducts.push(allProducts[i]);
-                }
-		} catch (e){}
-
-        }
-    } else {
-        filteredProducts = allProducts;
-    }
-    targetPage=Number(targetPage);
-    let maxPages = Math.round(Math.ceil(filteredProducts.length / maxProds));
-    //console.log({targetPage});
-    //console.log("MAX PAGES: ", maxPages);
-
-	const pageNav = galeria.getElementsByClassName("galeria-navigation")[0];
-	if (pageNav.attributes.pages.value === "True"){
-
-		const pageCounter = galeria.getElementsByClassName("galeria-counter")[0];
-		const leftArrow = galeria.getElementsByClassName("page-arrow left")[0];
-		const rightArrow = galeria.getElementsByClassName("page-arrow right")[0];
-
-		pageNav.classList.toggle("disabled", maxPages <=1);
-		pageCounter.innerHTML = String(targetPage+1)+" / "+String(maxPages);
-		leftArrow.classList.toggle("disabled", targetPage === 0);
-		rightArrow.classList.toggle("disabled", (targetPage + 1) === maxPages);
-
-	} else if (pageNav.attributes.more.value === "True"){
-
-        const moreButton = galeria.getElementsByClassName("galeria-load-more")[0];
-        moreButton.classList.toggle("disabled", (targetPage + 1) === maxPages);
-
-	} else if (pageNav.attributes.goToShop.value === "True"){
-
-	}else{
-		//console.log("disabled");
-		//console.log(pageNav);
-		pageNav.classList.add("disabled");
-	}
-
-
-
-    const templateElement = galeria.getElementsByClassName("producte template")[0];
-	const currentProducts = galeria.querySelectorAll(".producte:not(.template)").length;
-    //console.log("generating new Products: ", targetPage,maxProds,currentProducts);
-    for (let i = 0; i < maxProds; i++) {
-        const targetProductNo = i + targetPage*maxProds;
-        //console.log("producte producte: ", filteredProducts[targetProductNo], i % minRow);
-
-        if (filteredProducts[targetProductNo] === undefined){
-		if (i % minRow === 0 ){
-			break;
-		}
-	}
-        let newElement = templateElement.cloneNode(true);
-        templateElement.parentElement.appendChild(newElement);
-        changeProduct(newElement, filteredProducts[targetProductNo], bucket);
-
-    }
-	templateElement.parentElement.lastElementChild.classList.add("last");
-
-    loadAllImages()
-}
-
-
-function galeriaNext(galeria){
-	//console.log(galeria);
-    //track("GaleriaNext", {"page":Number(galeria.attributes.page.value)+1})
-	//initGaleria(galeria, Number(galeria.attributes.page.value)+1);
-}
-function galeriaPrev(galeria){
-    //track("GaleriaPrev", {"page":Number(galeria.attributes.page.value)-1})
-
-	//initGaleria(galeria, Number(galeria.attributes.page.value)-1);
-}
-
-function deprecatedfilterGaleria(trigger, invert=false){
-	const galeria = trigger.parentElement.parentElement.parentElement;
-    [...galeria.getElementsByClassName("galeria")[0].children].forEach((p) => {
-        if (!p.classList.contains("template")) {p.remove();}
-    })
-	if (trigger.classList.contains("active")){
-		galeria.removeAttribute("filterKey");
-		galeria.removeAttribute("filterValue");
-		trigger.classList.remove("active");
-		initGaleria(galeria);
-	}else{
-		const filterElements= galeria.getElementsByClassName("filtre");
-		for (let i = 0; i < filterElements.length; i++){
-			filterElements[i].classList.remove("active");
-		}
-
-	const key = trigger.attributes.filterKey.value;
-	const value = trigger.attributes.filterValue.value;
-    if (invert){
-        window.history.replaceState(document.title, "", document.location.pathname+"?filterKey=" + key + "&filterValue=" + value + "&invert=true");
-
-    } else{
-        window.history.replaceState(document.title, "", document.location.pathname+"?filterKey=" + key + "&filterValue=" + value);
-    }
-	//initGaleria(galeria, 0, key, value, invert);
-	trigger.classList.add("active");
-	}
-}
-
-
-function changeProduct(element, product, bucket) {
-    console.log("changing product");
-    element.classList.remove("template");
-    let info = undefined;
-    try {
-        info = product.attributes;
-    } catch (e){
-        //print(e);
-        element.classList.add("empty");
-        return}
-    //print(element);
-    //print(info);
-    element.classList.remove("empty");
-    let deltaLaunch = 0;
-    let launchTime = undefined;
-    if (info.startDate.value !== ""){
-	//console.log(info.startDate.value);
-    	launchTime = Date.parse(info.startDate.value);
-	//console.log(launchTime);
-	deltaLaunch = launchTime - now;
-    }
-    //console.log(deltaLaunch);
-    element.getElementsByClassName("imatge primera")[0].setAttribute("background", imageUrl(bucket, info.img1.value));
-    element.getElementsByClassName("imatge segona")[0].setAttribute("background", imageUrl(bucket, info.img2.value));
-    if (deltaLaunch > 0){
-	    let tElement = element.querySelector(".launch-time-cover");
-	    tElement.classList.remove("hidden");
-	    tElement.setAttribute("launchTime", launchTime);
-	    tElement.link = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value;
-
-    } else {
-		element.querySelector(".launch-time-cover").remove();
-    	element.onclick = function () { location.href = "/"+document.documentElement.lang + "/"+bucket+"/"+info.id.value }
-    }
-	if (bucket === "bespoke"){
-		element.getElementsByClassName("per-a")[0].innerHTML = info.per_a.value;
-	} else{
-
-    		element.getElementsByClassName("nom")[0].innerHTML = info.nom.value;
-            [...element.getElementsByClassName("preu-inline")].forEach(e => {
-				let t = "";
-				if (Number(info.descompte.value > 0)){
-					t = "<span class='strikethrough grayed'>"+info.preu_antic.value+"&#8364;</span>&nbsp;&nbsp;"
-					e.innerHTML = t + "<span class='bold'>" + info.preu.value + "</span>";
-				} else{
-					e.innerHTML = t + info.preu.value;
-
-				}
-			});
-	}
-
-}
-
-
-
-
 const galleryElements = document.getElementsByClassName("content-galeria");
 for (let i = 0; i < galleryElements.length; i++) {
     //let params = new URLSearchParams(document.location.search);
-    //const key = params.get("filterKey", undefined);
-    //const value = params.get("filterValue", undefined);
+    //let URLQuery = params.get("query", undefined);
     const galeria = galleryElements[i];
-    //const filterElements= galeria.getElementsByClassName("filtre");
-    //for (let i = 0; i < filterElements.length; i++){
-    //    if (filterElements[i].attributes.filterKey.value === key && filterElements[i].attributes.filterValue.value === value){
-    //        filterElements[i].classList.add("active");
-    //    }
-    //}
     initGaleria(galeria,
         galeria.getAttribute("bucket", "productes"),
         galeria.getAttribute("maxProds", 0),
@@ -595,7 +427,6 @@ for (let i = 0; i < galleryElements.length; i++) {
         galeria.getAttribute("inline", 0),
 	galeria.getAttribute("query", ""),
     );
-
 
     loadAllImages()
 
@@ -611,30 +442,21 @@ function galleryAnimation(triggers, ops) {
 }
 
 
+let gradientDiv = document.getElementsByClassName("filtre-buttons-gradient")[0];
+function displayGradient() {
+    console.log(filterDiv.scrollLeft, filterDiv.offsetWidth, filterDiv.scrollWidth);
+    gradientDiv.classList.toggle("end-right", filterDiv.scrollLeft + filterDiv.offsetWidth >= filterDiv.scrollWidth);
+    gradientDiv.classList.toggle("end-left", filterDiv.scrollLeft <= 0);
 
+}
 
 try{
 	let filterDiv = document.getElementsByClassName("filtre-buttons")[0];
     if (filterDiv !== undefined) {
-        let gradientDiv = document.getElementsByClassName("filtre-buttons-gradient")[0];
-
-        function displayGradient() {
-            console.log(filterDiv.scrollLeft, filterDiv.offsetWidth, filterDiv.scrollWidth);
-            gradientDiv.classList.toggle("end-right", filterDiv.scrollLeft + filterDiv.offsetWidth >= filterDiv.scrollWidth);
-            gradientDiv.classList.toggle("end-left", filterDiv.scrollLeft <= 0);
-
-        }
-
-
         filterDiv.addEventListener("scroll", displayGradient, {passive: false});
         displayGradient()
     }
-} catch(e) {console.log(e);
-
-
-
-
-
+} catch(e) {console.log(e);}
 
 
 
@@ -642,8 +464,7 @@ try{
 
 setInterval(updateDeltas, 1000);
 
+print(" * Gallery JS ready");
 
 
 
-
-print(" * Gallery JS ready");}
