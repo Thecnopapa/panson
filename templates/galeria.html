@@ -19,8 +19,7 @@
 {% endif %}
 
 
-
-<div class="content-galeria" bucket="{{ bucket }}" maxprods="{{ max_prods }}" minrow="{{ min_row }}" minprods="{{ min_prods }}" inline="{{ utils.int(inline) }}" query="{{ query }}">
+<div class="content-galeria" bucket="{{ bucket }}" maxprods="{{ max_prods }}" minrow="{{ min_row }}" minprods="{{ min_prods }}" inline="{{ utils.int(inline) }}" query="{{ query }}" exclude="{{ exclude }}" range="{{ range[0] }}-{{ range[1] }}">
     {% if filtres %}
         <div class="gallery-filtres">
             <div class="filtre-buttons-gradient"></div>

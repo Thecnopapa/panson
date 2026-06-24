@@ -278,12 +278,12 @@
 <div class="subtitol-galeria loc" loc="pro_titol_galeria">{{ loc.pro_tiol_galeria }}</div>
 
     <div class="producte-galeria galeries-landscape">
-        {{ galeria.galeria("productes", filtres=False, filterKey="collecio;tipus", filterValue=utils.str(producte.collecio)+";"+utils.str(producte.tipus), min_row=4, min_prods=4, exclude=producte._id, filter_mode="|", inline=True) }}
+        {{ galeria.galeria("productes", filtres=False, query="col="+utils.str(producte.collecio)+"|tipus="+utils.str(producte.tipus), min_row=4, min_prods=4, exclude=producte._id, filter_mode="|", inline=True) }}
     </div>
 
     <div class="producte-galeria galeries-portrait">
-        {{ galeria.galeria("productes", filtres=False, query="col="+utils.str(producte.collecio), min_row=2, min_prods=2, exclude=producte._id, inline=True, range=(0,0.5), second_hover=False) }}
-        {{ galeria.galeria("productes", filtres=False, query="tipus="+utils.str(producte.tipus) , min_row=2, min_prods=2, exclude=producte._id, inline=True, range=(0.5,1), second_hover=False) }}
+        {{ galeria.galeria("productes", filtres=False, query="col="+utils.str(producte.collecio)+"|tipus="+utils.str(producte.tipus), min_row=2, min_prods=2, exclude=producte._id, inline=True, range=(0,0.5), second_hover=False) }}
+        {{ galeria.galeria("productes", filtres=False, query="col="+utils.str(producte.collecio)+"|tipus="+utils.str(producte.tipus), min_row=2, min_prods=2, exclude=producte._id, inline=True, range=(0.5,1), second_hover=False) }}
     </div>
     {% endif %}
 
