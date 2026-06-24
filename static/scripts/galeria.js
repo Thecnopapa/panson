@@ -300,7 +300,6 @@ class Galeria {
                             //console.log({reqs});
                             if ((reqs.includes(true) && !reqs.includes(false))) {
                                 filteredProds.push(pID);
-                                //console.log("Adding", pID);
                             }
                         }
                     });
@@ -309,9 +308,20 @@ class Galeria {
             }
 
         });
+        console.log(filteredProds);
 
-    console.log(filteredProds);
-    return filteredProds;
+        if (this.query.range !== undefined) {
+            let range = this.query.range.split("-");
+            console.log({range});
+            let n = filteredProds.length;
+            let shifts = Math.ceil(n*Number(range[0]));
+            let pops = Math.floor(n*(1-Number(range[1])));
+            console.log({shifts, pops});
+            for (let i = 0; i < shifts; i++) {filteredProds.shift()}
+            for (let i = 0; i < pops; i++) {filteredProds.pop()}
+        }
+        console.log(filteredProds);
+        return filteredProds;
     // let filteredDict = {}
     //     for (let i = 1; i < filteredProds.length; i++){
     //         filteredDict[i] = filteredProds[i];
@@ -483,23 +493,20 @@ function galleryAnimation(triggers, ops) {
 }
 
 
-let gradientDiv = document.getElementsByClassName("filtre-buttons-gradient")[0];
+let filterDivs = document.querySelectorAll(".filtre-buttons");
+filterDivs.forEach(fd => {
+    fd.addEventListener("scroll", displayGradient, {passive: false});
+    displayGradient()
+});
+
+
 function displayGradient() {
-    console.log(filterDiv.scrollLeft, filterDiv.offsetWidth, filterDiv.scrollWidth);
-    gradientDiv.classList.toggle("end-right", filterDiv.scrollLeft + filterDiv.offsetWidth >= filterDiv.scrollWidth);
-    gradientDiv.classList.toggle("end-left", filterDiv.scrollLeft <= 0);
+    let fd = event.target;
+    console.log(fd.scrollLeft, fd.offsetWidth, fd.scrollWidth);
+    fd.previousElementSibling.classList.toggle("end-right", fd.scrollLeft + fd.offsetWidth >= fd.scrollWidth);
+    fd.previousElementSibling.classList.toggle("end-left", fd.scrollLeft <= 0);
 
 }
-
-try{
-	let filterDiv = document.getElementsByClassName("filtre-buttons")[0];
-    if (filterDiv !== undefined) {
-        filterDiv.addEventListener("scroll", displayGradient, {passive: false});
-        displayGradient()
-    }
-} catch(e) {console.log(e);}
-
-
 
 
 

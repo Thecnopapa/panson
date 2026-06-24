@@ -282,8 +282,8 @@
     </div>
 
     <div class="producte-galeria galeries-portrait">
-        {{ galeria.galeria("productes", filtres=False, query="col="+utils.str(producte.collecio)+"|tipus="+utils.str(producte.tipus), min_row=2, min_prods=2, exclude=producte._id, inline=True, range=(0,0.5), second_hover=False) }}
-        {{ galeria.galeria("productes", filtres=False, query="col="+utils.str(producte.collecio)+"|tipus="+utils.str(producte.tipus), min_row=2, min_prods=2, exclude=producte._id, inline=True, range=(0.5,1), second_hover=False) }}
+        {{ galeria.galeria("productes", filtres=False, query="col="+utils.str(producte.collecio)+"|tipus="+utils.str(producte.tipus), min_row=2, min_prods=2, exclude=producte._id, inline=True, range="0-0.5", second_hover=False) }}
+        {{ galeria.galeria("productes", filtres=False, query="col="+utils.str(producte.collecio)+"|tipus="+utils.str(producte.tipus), min_row=2, min_prods=2, exclude=producte._id, inline=True, range="0.5-1", second_hover=False) }}
     </div>
     {% endif %}
 

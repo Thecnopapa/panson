@@ -1310,7 +1310,8 @@ if app.config['START_NGROK']:
 
 
 def main():
-    app.run(port=4242, host="0.0.0.0", debug=False) # Not used if run from bash
+    from sys import argv
+    app.run(port=4242, host="0.0.0.0", debug="debug" in argv) # Not used if run from bash
 
 if __name__ == "__main__":
     main()

@@ -1,25 +1,10 @@
 
 
 
-{% macro galeria(bucket, double=False, filtres=False, max_prods=0, filterKey=None, filterValue=None, min_row=4, min_prods=4, exclude=None, filter_mode="&", pages=False, inline=False, load_more=False, go_to_shop=False, range=(0,1), second_hover=True, search=False, query="") %}
+{% macro galeria(bucket, filtres=False, max_prods=0, min_row=4, min_prods=4, exclude=None, filter_mode="&", inline=False, go_to_shop=False, range="0-1", second_hover=True, search=False, query="") %}
 
 
-{% set productes = productes.__getattribute__(bucket) %}
-
-
-{% set prods = utils.filter_by_attr(productes, filterKey, filterValue, mode=filter_mode) %}
-{% set prods = utils.filter_by_attr(prods, "_id", exclude, mode="!&") %}
-
-
-{% set initial_prods_length = utils.len(prods) %}
-{% set final_prods_length = utils.len(prods[utils.int(initial_prods_length*range[0]):utils.int(initial_prods_length*range[1])]) %}
-
-{% if max_prods == None %}
-	{% set max_prods = utils.len(prods[utils.int(initial_prods_length*range[0]):utils.int(initial_prods_length*range[1])]) %}
-{% endif %}
-
-
-<div class="content-galeria" bucket="{{ bucket }}" maxprods="{{ max_prods }}" minrow="{{ min_row }}" minprods="{{ min_prods }}" inline="{{ utils.int(inline) }}" query="{{ query }}" exclude="{{ exclude }}" range="{{ range[0] }}-{{ range[1] }}">
+<div class="content-galeria" bucket="{{ bucket }}" maxprods="{{ max_prods }}" minrow="{{ min_row }}" minprods="{{ min_prods }}" inline="{{ utils.int(inline) }}" query="{{ query }}" exclude="{{ exclude }}" range="{{ range }}">
     {% if filtres %}
         <div class="gallery-filtres">
             <div class="filtre-buttons-gradient"></div>
@@ -33,10 +18,10 @@
     {% endif %}
 
     <div class="galeria-scroll scroll-left {{ 'inline' if inline }}" >
-	    <div class="galeria-scroll-button scroll-left-button disabled {{"invisible" if final_prods_length <= min_row }}" onclick="scrollGallery(this.parentElement.nextElementSibling.nextElementSibling, 'left', '1u')"><img class="main-arrow left" src="/static/media/arrow.svg"></div>
+	    <div class="galeria-scroll-button scroll-left-button disabled" onclick="scrollGallery(this.parentElement.nextElementSibling.nextElementSibling, 'left', '1u')"><img class="main-arrow left" src="/static/media/arrow.svg"></div>
     </div>
     <div class="galeria-scroll scroll-right {{ 'inline' if inline }}" >
-	    <div class="galeria-scroll-button scroll-right-button {{ "invisible" if final_prods_length <= min_row }}" onclick="scrollGallery(this.parentElement.nextElementSibling, 'right', '1u')"><img class="main-arrow right" src="/static/media/arrow.svg"></div>
+	    <div class="galeria-scroll-button scroll-right-button" onclick="scrollGallery(this.parentElement.nextElementSibling, 'right', '1u')"><img class="main-arrow right" src="/static/media/arrow.svg"></div>
     </div>
     <div class="galeria {{ 'inline' if inline }}">
 	    <div class="producte template empty {{ 'inline' if inline }}" onmouseover={{"highlightProduct(this)"  if second_hover }} onmouseout={{ "reverseProduct(this)" if second_hover }}>
@@ -70,13 +55,7 @@
     </div>
 
     <div class="galeria-navigation" pages="{{pages}}" more="{{load_more }}" goToShop="{{go_to_shop}}">
-	{% if pages %}
-	    <img class="main-arrow page-arrow left" src="/static/media/arrow.svg" onclick="galeriaPrev(this.parentElement.parentElement)">
-	    <div class="galeria-counter"></div>
-	    <img class="main-arrow page-arrow right" src="/static/media/arrow.svg" onclick="galeriaNext(this.parentElement.parentElement)">
-	{% elif load_more %}
-	    <div class="galeria-load-more galeria-nav-button black-button loc" loc="gal_carregar_mes" onclick="galeriaNext(this.parentElement.parentElement)">{{ loc.gal_carregar_mes}}</div>
-	{% elif go_to_shop %}
+    {% if go_to_shop %}
 	    <div class="galeria-go-to-shop galeria-nav-button black-button loc" loc="gal_anar_botiga" onclick="location.href='/{{ loc.lan }}/productes'">{{ loc.gal_anar_botiga}}</div>
 	{% endif %}
     </div>
