@@ -303,7 +303,7 @@ window.addEventListener('load', function () {
 	console.log(" * Page loaded!");
     PopPopups()
     detectHorizontal();
-    console.log(" * "+ String(camaleonElements.length) + "camaleon elements");
+    console.log(" * "+ String(camaleonElements.length) + " chamaleon elements");
     loadAllImages();
 })
 

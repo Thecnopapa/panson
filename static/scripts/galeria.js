@@ -118,13 +118,13 @@ function galleryAddRow(triggers, ops){
         if (!gallery.inline){
             condition = (trigger.boundingClientRect.top < window.innerHeight)
         } else {
-            console.log(trigger.boundingClientRect.left < window.innerWidth, trigger.boundingClientRect.left,trigger.boundingClientRect.right, window.innerWidth)
+            //console.log(trigger.boundingClientRect.left < window.innerWidth, trigger.boundingClientRect.left,trigger.boundingClientRect.right, window.innerWidth)
             condition = (trigger.boundingClientRect.left < window.innerWidth)
         }
 
 
         if (condition) {
-            console.log(trigger.boundingClientRect.top, window.innerHeight);
+            //console.log(trigger.boundingClientRect.top, window.innerHeight);
 
             galleryObserver.unobserve(trigger.target);
             trigger.target.classList.remove("observed");
@@ -200,15 +200,18 @@ class Product {
 
 
 class Galeria {
-    constructor(element, bucket, maxItems, minRow, minItems, inline) {
+    constructor(element, bucket, maxItems, minRow, minItems, inline, query) {
         this.element = element;
         this.bucket = bucket;
         this.maxItems = Number(maxItems);
         this.minItems  = Number(minItems);
         this.minRow = Number(minRow);
         this.inline = Boolean(Number(inline));
+	if (query === undefined){query=""}
+	this.query = query;
         this.products = Object.keys(allItems);
-        console.log(this.products);
+	this.filter();
+        //console.log(this.products);
         this.template = this.element.querySelector(".template");
         this.nId = "gallery-" + String(nGalleries);
         element.classList.add(this.nId);
@@ -217,6 +220,50 @@ class Galeria {
         allGalleries[this.nId] = this;
         this.galeria = this.element.querySelector(".galeria");
     }
+
+
+    filter(query=""){
+	console.log("Filtering...");
+	    console.log({query});
+	console.log(this.query);
+	let queryDict = {};
+	[this.query, query].forEach(qq => {
+		console.log({qq});
+	    if (qq !== ""){
+		let qSplit = undefined;
+		if (qq.includes("&")){qSplit = query.split("&");}
+		else { qSplit = [qq];}
+		console.log({qSplit});
+
+	        qSplit.forEach(q => {
+		        let kv = q.split("=");
+		        let k = kv[0];
+		        let v = kv[1];
+		        if (["True", "true", "T", "Y"].includes(v)){v=true}
+		        else if (["False", "false", "F", "N"].includes(v)){v=false}
+		        queryDict[k] = v;
+			console.log({q,kv, k, v});
+	        });
+	    }
+	});
+	console.log({queryDict});
+	filteredProds = [];
+	this.products.forEach(pID => {
+		let data = allItems[pID];
+		Object.keys(queryDict).forEach(k => {
+			let pVal = data[k];
+			let qVal = queryDict[k];
+			let negate = false;
+			if (qVal[0] === "!"){qVal = qVal.split("!")[1];negate=true}
+			if ((pVal === qVal && !negate) || (pVal !== qVal && negate)){
+
+			}
+
+		});
+	});
+	
+    }
+
 
     deleteEmpty(){
         let emptyElements = this.galeria.querySelectorAll(".producte.empty:not(.template)");
@@ -254,8 +301,8 @@ class Galeria {
     }
     last(){
         let els = this.elements();
-        console.log(els);
-        console.log(this)
+        //console.log(els);
+        //console.log(this)
         return els[els.length - 1];
     }
 
@@ -274,10 +321,10 @@ class Galeria {
         let nCurrent = this.length();
         let nAvail = maximum - nCurrent;
 
-        console.log({nCurrent, nAvail, "current+": nCurrent + this.minRow, maximum});
+        //console.log({nCurrent, nAvail, "current+": nCurrent + this.minRow, maximum});
 
         for (let i = nCurrent; i < Math.min(nCurrent + this.minRow, maximum); i++) {
-            console.log(i, all[i]);
+            //console.log(i, all[i]);
             this.addProduct(new Product(allItems[all[i]]));
         }
         let paddingProds =  Math.max(0, ( this.length() % this.minRow));
@@ -300,18 +347,18 @@ class Galeria {
 }
 
 
-function initGaleria(element, bucket="products", maxItems=0, minRow=4, minItems=4, inline=0) {
-    console.log("Initializing Galeria", {bucket, maxItems, minRow, minItems, inline});
-    let galeria = new Galeria(element, bucket, maxItems, minRow, minItems, inline);
-    console.log(galeria);
+function initGaleria(element, bucket="products", maxItems=0, minRow=4, minItems=4, inline=0, query="") {
+    console.log("Initializing Galeria", {bucket, maxItems, minRow, minItems, inline, query});
+    let galeria = new Galeria(element, bucket, maxItems, minRow, minItems, inline, query);
+    //console.log(galeria);
 
-    console.log(Math.min(galeria.products.length, maxItems), galeria.products.length, maxItems);
+    //console.log(Math.min(galeria.products.length, maxItems), galeria.products.length, maxItems);
     for (let i = 0; i < Math.min(galeria.products.length, minItems); i++) {
-        console.log(galeria.products[i]);
+        //console.log(galeria.products[i]);
         galeria.addProduct(new Product(allItems[galeria.products[i]]));
     }
     let paddingProds =  galeria.minRow - Math.max(0, (galeria.length() % galeria.minRow));
-    console.log({paddingProds}, galeria.length(), galeria.minRow);
+    //console.log({paddingProds}, galeria.length(), galeria.minRow);
     if (paddingProds < galeria.minRow && !this.inline) {
         for (let i = 0; i < paddingProds; i++) {
 	        galeria.addProduct();
@@ -320,8 +367,8 @@ function initGaleria(element, bucket="products", maxItems=0, minRow=4, minItems=
     if (galeria.inline){
 
     }
-    console.log(galeria.last());
-	galleryObserver.observe(galeria.last());
+    //console.log(galeria.last());
+    galleryObserver.observe(galeria.last());
 
     if (!galeria.inline) {
         //animation
@@ -442,7 +489,7 @@ function galeriaPrev(galeria){
 	//initGaleria(galeria, Number(galeria.attributes.page.value)-1);
 }
 
-function filterGaleria(trigger, invert=false){
+function deprecatedfilterGaleria(trigger, invert=false){
 	const galeria = trigger.parentElement.parentElement.parentElement;
     [...galeria.getElementsByClassName("galeria")[0].children].forEach((p) => {
         if (!p.classList.contains("template")) {p.remove();}
@@ -530,22 +577,23 @@ function changeProduct(element, product, bucket) {
 
 const galleryElements = document.getElementsByClassName("content-galeria");
 for (let i = 0; i < galleryElements.length; i++) {
-	let params = new URLSearchParams(document.location.search);
-	const key = params.get("filterKey", undefined);
-	const value = params.get("filterValue", undefined);
+    //let params = new URLSearchParams(document.location.search);
+    //const key = params.get("filterKey", undefined);
+    //const value = params.get("filterValue", undefined);
     const galeria = galleryElements[i];
-    const filterElements= galeria.getElementsByClassName("filtre");
-    for (let i = 0; i < filterElements.length; i++){
-        if (filterElements[i].attributes.filterKey.value === key && filterElements[i].attributes.filterValue.value === value){
-            filterElements[i].classList.add("active");
-        }
-    }
-	initGaleria(galeria,
+    //const filterElements= galeria.getElementsByClassName("filtre");
+    //for (let i = 0; i < filterElements.length; i++){
+    //    if (filterElements[i].attributes.filterKey.value === key && filterElements[i].attributes.filterValue.value === value){
+    //        filterElements[i].classList.add("active");
+    //    }
+    //}
+    initGaleria(galeria,
         galeria.getAttribute("bucket", "productes"),
         galeria.getAttribute("maxProds", 0),
         galeria.getAttribute("minRow", 4),
         galeria.getAttribute("minProds", 4),
         galeria.getAttribute("inline", 0),
+	galeria.getAttribute("query", ""),
     );
 
 

@@ -42,10 +42,10 @@
 <div class="galeria-subtitle loc" loc="col_subtitol_galeria">{{ loc.col_subtitol_galeria }}</div>
 
 <div class=galeria-landscape>
-    {{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=col._id, min_row=4, min_prods=4, inline=False) }}
+    {{ galeria.galeria("productes", filtres=False, min_row=4, min_prods=4, inline=False, query="collecio="+col._id) }}
 </div>
 <div class=galeria-portrait>
-    {{ galeria.galeria("productes", filtres=False, filterKey="collecio", filterValue=col._id, min_row=2, min_prods=2, inline=False) }}
+    {{ galeria.galeria("productes", filtres=False, min_row=2, min_prods=2, inline=False, query="collecio="+col._id) }}
 </div>
 
 
