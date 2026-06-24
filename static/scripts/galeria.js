@@ -157,6 +157,8 @@ class Product {
         let el = template.cloneNode(true);
         let info = this.data
         //console.log(info)
+        imagesToPreload.push(imageUrl(info.bucket, info.img1))
+        preloadHiddenImages()
         el.getElementsByClassName("imatge primera")[0].setAttribute("background", imageUrl(info.bucket, info.img1));
         el.getElementsByClassName("imatge segona")[0].setAttribute("background", imageUrl(info.bucket, info.img2));
         el.classList.remove("template");
@@ -222,18 +224,18 @@ class Galeria {
 
 
     filter(query= {}){
-        console.log("Filtering...");
-        console.log(this.query);
-        console.log(query);
+        //console.log("Filtering...");
+        //console.log(this.query);
+        //console.log(query);
 
         let filteredProds = undefined;
 
         [this.query, query].forEach(qq => {
-            console.log({qq});
+            //console.log({qq});
 
             let queryDict = {};
             if (qq.query !== "" && qq.query !== undefined) {
-                console.log(qq.query);
+                //console.log(qq.query);
                 let qSplit = undefined;
                 let exclusive = true;
                 let exclude = [qq.exclude]; // TODO: implement multiple excluded
@@ -245,7 +247,7 @@ class Galeria {
                 } else {
                     qSplit = [qq.query];
                 }
-                console.log({qSplit});
+                //console.log({qSplit});
 
                 qSplit.forEach(q => {
                     let kv = q.split("=");
@@ -308,19 +310,20 @@ class Galeria {
             }
 
         });
-        console.log(filteredProds);
+        if (filteredProds === undefined){return this.products;}
+        //console.log(filteredProds);
 
-        if (this.query.range !== undefined) {
+        if (this.query.range !== undefined && this.query.range !== "0-1") {
             let range = this.query.range.split("-");
-            console.log({range});
+            //console.log({range});
             let n = filteredProds.length;
             let shifts = Math.ceil(n*Number(range[0]));
             let pops = Math.floor(n*(1-Number(range[1])));
-            console.log({shifts, pops});
+            //console.log({shifts, pops});
             for (let i = 0; i < shifts; i++) {filteredProds.shift()}
             for (let i = 0; i < pops; i++) {filteredProds.pop()}
         }
-        console.log(filteredProds);
+        //console.log(filteredProds);
         return filteredProds;
     // let filteredDict = {}
     //     for (let i = 1; i < filteredProds.length; i++){
@@ -430,7 +433,7 @@ function initGaleria(element) {
         exclusive: 	element.getAttribute("exclusive"),
     }
 
-    console.log("   > Initializing Galeria", options, query);
+    console.log("   > Initializing Galeria", {options}, {query});
     let galeria = new Galeria(element, options, query);
     //console.log(galeria.products);
 
@@ -496,13 +499,12 @@ function galleryAnimation(triggers, ops) {
 let filterDivs = document.querySelectorAll(".filtre-buttons");
 filterDivs.forEach(fd => {
     fd.addEventListener("scroll", displayGradient, {passive: false});
-    displayGradient()
 });
 
 
 function displayGradient() {
-    let fd = event.target;
-    console.log(fd.scrollLeft, fd.offsetWidth, fd.scrollWidth);
+    let fd = this;
+    //console.log(fd.scrollLeft, fd.offsetWidth, fd.scrollWidth);
     fd.previousElementSibling.classList.toggle("end-right", fd.scrollLeft + fd.offsetWidth >= fd.scrollWidth);
     fd.previousElementSibling.classList.toggle("end-left", fd.scrollLeft <= 0);
 
@@ -513,6 +515,3 @@ function displayGradient() {
 setInterval(updateDeltas, 1000);
 
 print(" * Gallery JS ready");
-
-
-

@@ -7,7 +7,7 @@
 <div class="content-galeria" bucket="{{ bucket }}" maxprods="{{ max_prods }}" minrow="{{ min_row }}" minprods="{{ min_prods }}" inline="{{ utils.int(inline) }}" query="{{ query }}" exclude="{{ exclude }}" range="{{ range }}">
     {% if filtres %}
         <div class="gallery-filtres">
-            <div class="filtre-buttons-gradient"></div>
+            <div class="filtre-buttons-gradient end-left"></div>
             <div class="filtre-buttons">
 
                 {% for n, filtre in utils.enumerate(loc.filtres) %}
