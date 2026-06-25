@@ -209,6 +209,7 @@ class Galeria {
         this.minItems  = Number(options.minItems);
         this.minRow = Number(options.minRow);
         this.inline = Boolean(Number(options.inline));
+	this.readUrl = Boolean(Number(options.readUrl));
         this.query = query;
         this.products = Object.keys(allItems);
         this.products = this.filter();
@@ -221,7 +222,15 @@ class Galeria {
         allGalleries[this.nId] = this;
         this.galeria = this.element.querySelector(".galeria");
     }
-
+    
+    update(query={}){
+	console.log("Updating", this.nId);
+	console.log(query);
+	let subset = this.filter(query);
+	console.log(subset.length);
+	this.deleteAll();
+	this.addRow(subset)
+    }
 
     filter(query= {}){
         //console.log("Filtering...");
@@ -332,7 +341,10 @@ class Galeria {
     // console.log(filteredDict);
 	// return filteredDict;
     }
-
+    
+    deleteAll(){
+	    this.elements().forEach(el => {el.remove()});
+    }
 
     deleteEmpty(){
         let emptyElements = this.galeria.querySelectorAll(".producte.empty:not(.template)");
@@ -375,11 +387,13 @@ class Galeria {
         return els[els.length - 1];
     }
 
-    addRow() {
+    addRow(subset=undefined) {
         //console.log("Adding row...");
 
         //console.log({current});
-        let all = this.products;
+	let all = undefined;
+	if (subset === undefined){all = this.products;}
+	else {all = subset}
         //console.log({all});
 
         let maximum = all.length;
@@ -424,6 +438,7 @@ function initGaleria(element) {
         minRow: element.getAttribute("minRow"),
         minItems: element.getAttribute("minProds"),
         inline: element.getAttribute("inline"),
+	readUrl: element.getAttribute("readUrl"),
     }
 
     let query = {
@@ -435,6 +450,22 @@ function initGaleria(element) {
 
     console.log("   > Initializing Galeria", {options}, {query});
     let galeria = new Galeria(element, options, query);
+
+
+    if (galeria.readUrl){
+	    let params = new URLSearchParams(document.location.search);
+	    let UrlQuery = params.get("query", undefined);
+	    let UrlTextQuery = params.get("q", undefined);
+	    console.log("Reading Url");
+	    console.log(params);
+	    if (UrlQuery === undefined){UrlQuery="";}
+	    query={
+		    query: UrlQuery.replace("*", "&").replace(" ", "&"),
+		    text: UrlTextQuery,
+	    }
+	    console.log(query.query);
+	    galeria.update(query);
+    }
     //console.log(galeria.products);
 
     //console.log(Math.min(galeria.products.length, minItems));
@@ -486,6 +517,17 @@ for (let i = 0; i < galleryElements.length; i++) {
 
 }
 
+
+function filterGaleria(trigger){
+	let galleryID = trigger.parentElement.parentElement.parentElement.getAttribute("galleryID");
+	let query ={
+		"query": trigger.getAttribute("query"),
+	}
+	let gallery = allGalleries[galleryID];
+	gallery.update(query);
+}
+	
+	
 
 function galleryAnimation(triggers, ops) {
     triggers.forEach(trigger => {

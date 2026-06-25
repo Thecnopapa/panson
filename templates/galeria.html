@@ -1,17 +1,17 @@
 
 
 
-{% macro galeria(bucket, filtres=False, max_prods=0, min_row=4, min_prods=4, exclude=None, filter_mode="&", inline=False, go_to_shop=False, range="0-1", second_hover=True, search=False, query="") %}
+{% macro galeria(bucket, filtres=False, max_prods=0, min_row=4, min_prods=4, exclude=None, filter_mode="&", inline=False, go_to_shop=False, range="0-1", second_hover=True, search=False, query="", read_url=0) %}
 
 
-<div class="content-galeria" bucket="{{ bucket }}" maxprods="{{ max_prods }}" minrow="{{ min_row }}" minprods="{{ min_prods }}" inline="{{ utils.int(inline) }}" query="{{ query }}" exclude="{{ exclude }}" range="{{ range }}">
+<div class="content-galeria" bucket="{{ bucket }}" maxprods="{{ max_prods }}" minrow="{{ min_row }}" minprods="{{ min_prods }}" inline="{{ utils.int(inline) }}" query="{{ query }}" exclude="{{ exclude }}" range="{{ range }}" readUrl="{{ read_url }}">
     {% if filtres %}
         <div class="gallery-filtres">
             <div class="filtre-buttons-gradient end-left"></div>
             <div class="filtre-buttons">
 
                 {% for n, filtre in utils.enumerate(loc.filtres) %}
-			<div class="filtre {{ "first" if n==0 }} {{ "last" if n+1 == utils.len(loc.filtres) }}" query="{{ filtre["query"] }}"  onclick="filterGaleria(this)">{{ loc[filtre["nom"]] }}</div>
+		<div class="filtre {{ "first" if n==0 }} {{ "last" if n+1 == utils.len(loc.filtres) }}" query="{{ filtre["query"] }}"  onclick="filterGaleria(this)">{{ loc[filtre["nom"]] }}</div>{{filtre["query"]}}
                 {% endfor %}
             </div>
 	</div>
@@ -53,6 +53,7 @@
 		</div>
            </div>
     </div>
+    <div class="galeria-no-prods hidden" loc="gal_no_productes">{{ loc.gal_no_productes }}</div>
 
     <div class="galeria-navigation" pages="{{pages}}" more="{{load_more }}" goToShop="{{go_to_shop}}">
     {% if go_to_shop %}
