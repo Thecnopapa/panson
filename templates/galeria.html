@@ -11,7 +11,7 @@
             <div class="filtre-buttons">
 
                 {% for n, filtre in utils.enumerate(loc.filtres) %}
-		<div class="filtre {{ "first" if n==0 }} {{ "last" if n+1 == utils.len(loc.filtres) }}" query="{{ filtre["query"] }}"  onclick="filterGaleria(this)">{{ loc[filtre["nom"]] }}</div>{{filtre["query"]}}
+		<div class="filtre {{ "first" if n==0 }} {{ "last" if n+1 == utils.len(loc.filtres) }}" query="{{ filtre["query"] }}"  onclick="filterGaleria(this)">{{ loc[filtre["nom"]] }}</div>
                 {% endfor %}
             </div>
 	</div>

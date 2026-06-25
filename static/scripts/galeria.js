@@ -209,10 +209,11 @@ class Galeria {
         this.minItems  = Number(options.minItems);
         this.minRow = Number(options.minRow);
         this.inline = Boolean(Number(options.inline));
-	this.readUrl = Boolean(Number(options.readUrl));
+	    this.readUrl = Boolean(Number(options.readUrl));
         this.query = query;
         this.products = Object.keys(allItems);
         this.products = this.filter();
+        this.subset = undefined;
         //console.log(this.products);
         this.template = this.element.querySelector(".template");
         this.nId = "gallery-" + String(nGalleries);
@@ -222,14 +223,15 @@ class Galeria {
         allGalleries[this.nId] = this;
         this.galeria = this.element.querySelector(".galeria");
     }
-    
+
     update(query={}){
-	console.log("Updating", this.nId);
-	console.log(query);
-	let subset = this.filter(query);
-	console.log(subset.length);
-	this.deleteAll();
-	this.addRow(subset)
+        console.log("Updating", this.nId);
+        console.log(query);
+        let subset = this.filter(query);
+        console.log({subset});
+        this.subset = subset
+        this.deleteAll();
+        this.addRow()
     }
 
     filter(query= {}){
@@ -341,9 +343,9 @@ class Galeria {
     // console.log(filteredDict);
 	// return filteredDict;
     }
-    
+
     deleteAll(){
-	    this.elements().forEach(el => {el.remove()});
+	    this.all_elements().forEach(el => {el.remove()});
     }
 
     deleteEmpty(){
@@ -378,6 +380,9 @@ class Galeria {
         return this.elements().length;
     }
     elements(){
+        return this.galeria.querySelectorAll(".producte:not(.template):not(.empty)");
+    }
+    all_elements(){
         return this.galeria.querySelectorAll(".producte:not(.template)");
     }
     last(){
@@ -387,13 +392,13 @@ class Galeria {
         return els[els.length - 1];
     }
 
-    addRow(subset=undefined) {
+    addRow() {
         //console.log("Adding row...");
 
         //console.log({current});
-	let all = undefined;
-	if (subset === undefined){all = this.products;}
-	else {all = subset}
+        let all = undefined;
+        if (this.subset === undefined){all = this.products;}
+        else {all = this.subset}
         //console.log({all});
 
         let maximum = all.length;
@@ -404,22 +409,28 @@ class Galeria {
         let nCurrent = this.length();
         let nAvail = maximum - nCurrent;
 
-        //console.log({nCurrent, nAvail, "current+": nCurrent + this.minRow, maximum});
-
-        for (let i = nCurrent; i < Math.min(nCurrent + this.minRow, maximum); i++) {
-            //console.log(i, all[i]);
+        console.log({nCurrent, maximum, nAvail, "minRow": this.minRow});
+        let nToAdd = Math.min(this.minRow, maximum, nAvail)
+        console.log(this.elements())
+        console.log({nToAdd});
+        for (let i = nCurrent; i < nCurrent+nToAdd; i++) {
+            console.log("Adding:", all[i]);
             this.addProduct(new Product(allItems[all[i]]));
         }
         let paddingProds =  Math.max(0, ( this.length() % this.minRow));
-        //console.log({paddingProds});
+        console.log({paddingProds});
         if (paddingProds > 0 && !this.inline) {
             for (let i = 0; i < paddingProds; i++) {
                 this.addProduct();
             }
         }
+        console.log(nAvail, this.length());
         if (nAvail > 0){
-            this.last().classList.add("observed");
-            galleryObserver.observe(this.last())
+            if (!this.last().classList.contains("observed")){
+                this.last().classList.add("observed");
+                galleryObserver.observe(this.last())
+            }
+
         } else {
             //console.log("All products displayed!")
         }
@@ -458,7 +469,7 @@ function initGaleria(element) {
 	    let UrlTextQuery = params.get("q", undefined);
 	    console.log("Reading Url");
 	    console.log(params);
-	    if (UrlQuery === undefined){UrlQuery="";}
+	    if (UrlQuery === undefined || UrlQuery === null){UrlQuery="";}
 	    query={
 		    query: UrlQuery.replace("*", "&").replace(" ", "&"),
 		    text: UrlTextQuery,
@@ -466,20 +477,21 @@ function initGaleria(element) {
 	    console.log(query.query);
 	    galeria.update(query);
     }
+    galeria.addRow()
     //console.log(galeria.products);
 
     //console.log(Math.min(galeria.products.length, minItems));
-    for (let i = 0; i < Math.min(galeria.products.length, galeria.minItems); i++) {
-        //console.log(galeria.products[i]);
-        galeria.addProduct(new Product(allItems[galeria.products[i]]));
-    }
-    let paddingProds =  galeria.minRow - Math.max(0, (galeria.length() % galeria.minRow));
-    //console.log({paddingProds}, galeria.length(), galeria.minRow);
-    if (paddingProds < galeria.minRow && !this.inline) {
-        for (let i = 0; i < paddingProds; i++) {
-	        galeria.addProduct();
-        }
-    }
+    // for (let i = 0; i < Math.min(galeria.products.length, galeria.minItems); i++) {
+    //     //console.log(galeria.products[i]);
+    //     galeria.addProduct(new Product(allItems[galeria.products[i]]));
+    // }
+    // let paddingProds =  galeria.minRow - Math.max(0, (galeria.length() % galeria.minRow));
+    // //console.log({paddingProds}, galeria.length(), galeria.minRow);
+    // if (paddingProds < galeria.minRow && !this.inline) {
+    //     for (let i = 0; i < paddingProds; i++) {
+	//         galeria.addProduct();
+    //     }
+    // }
     if (galeria.inline){
 
     }
@@ -526,8 +538,8 @@ function filterGaleria(trigger){
 	let gallery = allGalleries[galleryID];
 	gallery.update(query);
 }
-	
-	
+
+
 
 function galleryAnimation(triggers, ops) {
     triggers.forEach(trigger => {
