@@ -229,7 +229,7 @@ class Galeria {
         this.minRow = Number(options.minRow);
         this.inline = Boolean(Number(options.inline));
 	this.showSearch = Boolean(Number(options.showSearch));
-	this.shofFiltres = Boolean(Number(options.showFiltres));
+	this.showFiltres = Boolean(Number(options.showFiltres));
 	this.readUrl = Boolean(Number(options.readUrl));
         this.query = query;
         this.products = Object.keys(allItems);
@@ -499,16 +499,23 @@ function initGaleria(element) {
 	    console.log("Reading Url");
 	    console.log(params);
 	    if (UrlQuery === undefined || UrlQuery === null){UrlQuery="";}
+	    if (UrlTextQuery === undefined || UrlTextQuery === null){UrlTextQuery="";}
+	    if (UrlQuery !== "" || UrlTextQuery !== ""){
 	    query={
 		    query: UrlQuery.replace("*", "&").replace(" ", "&"),
 		    text: UrlTextQuery,
 	    }
 	    console.log(query.query);
 	    galeria.update(query);
+	    } else if (galeria.showFiltres) {
+		    galeria.element.querySelector(".filtre").classList.add("active");
+	    }
+    } else if (galeria.showFiltres) {
+	    galeria.element.querySelector(".filtre").classList.add("active");
     }
     if (galeria.showSearch){
 	let searchDiv = galeria.element.querySelector(".gallery-search");
-	if (galeria.showFilters){
+	if (galeria.showFiltres){
 		let filterDiv = galeria.element.querySelector(".gallery-filtres");
 		//filterObserver.observe(filterDiv);
 	} else {
@@ -575,6 +582,9 @@ function filterGaleria(trigger){
 	}
 	let gallery = allGalleries[galleryID];
 	gallery.update(query);
+	let filters = gallery.element.querySelectorAll(".filtre");
+	filters.forEach(f => {f.classList.remove("active");});
+	trigger.classList.add("active");
 }
 
 
