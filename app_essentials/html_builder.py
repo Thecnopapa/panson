@@ -45,8 +45,8 @@ def common_kwargs(**kwargs):
             "prio": p.prio,
             "descompte": p.descompte,
             "preu_antic": p.calcular_preu_minim(False),
-            "img1": p.imatges[0],
-            "img2": p.imatges[1],
+            "img1": p.imatges[0] if len(p.imatges) >= 1 else "",
+            "img2": p.imatges[1] if len(p.imatges) >= 2 else "",
             "startDate": p.start_date,
             "pre_a": f"{lan.fam_per_a} {p.per_a}" if p.bucket == "bespoke" else "",
         } for p in kwargs["productes_filtrats"]})
