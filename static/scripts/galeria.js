@@ -107,12 +107,31 @@ let animationObserver = new IntersectionObserver(galleryAnimation, {
 	threshold: 0.3,
 });
 
+let filterObserver = new IntersectionObserver(setFloatingSearch, {
+	threshold: 0,
+});
+
+function setFloatingSearch(){}
+
+function searchGalleria(trigger){
+	let galleryID = trigger.parentElement.parentElement.getAttribute("galleryID");
+	let gallery = allGalleries[galleryID];
+	let query = {
+		text: trigger.value,
+	}
+	console.log({query});
+	
+	gallery.update(query);
+}
+
+
+
 
 
 function galleryAddRow(triggers, ops){
 	triggers.forEach(trigger => {
         let condition = undefined;
-        let galleryID = trigger.target.getAttribute("galleryID")
+        let galleryID = trigger.target.getAttribute("galleryID");
         let gallery = allGalleries[galleryID];
 
         if (!gallery.inline){
@@ -209,7 +228,9 @@ class Galeria {
         this.minItems  = Number(options.minItems);
         this.minRow = Number(options.minRow);
         this.inline = Boolean(Number(options.inline));
-	    this.readUrl = Boolean(Number(options.readUrl));
+	this.showSearch = Boolean(Number(options.showSearch));
+	this.shofFiltres = Boolean(Number(options.showFiltres));
+	this.readUrl = Boolean(Number(options.readUrl));
         this.query = query;
         this.products = Object.keys(allItems);
         this.products = this.filter();
@@ -228,14 +249,14 @@ class Galeria {
         console.log("Updating", this.nId);
         console.log(query);
         let subset = this.filter(query);
-        console.log({subset});
+        console.log({subset}, subset.length);
         this.subset = subset
         this.deleteAll();
         this.addRow()
     }
 
     filter(query= {}){
-        //console.log("Filtering...");
+        console.log("Filtering...");
         //console.log(this.query);
         //console.log(query);
 
@@ -245,11 +266,11 @@ class Galeria {
             //console.log({qq});
 
             let queryDict = {};
+	    let exclude = [qq.exclude]; // TODO: implement multiple excluded
+	    let exclusive = true;
             if (qq.query !== "" && qq.query !== undefined) {
-                //console.log(qq.query);
+                console.log("Filtering by query:", qq.query);
                 let qSplit = undefined;
-                let exclusive = true;
-                let exclude = [qq.exclude]; // TODO: implement multiple excluded
                 if (qq.query.includes("&")) {
                     qSplit = qq.query.split("&");
                 } else if (qq.query.includes("|")) {
@@ -272,53 +293,59 @@ class Galeria {
                     queryDict[k] = v;
                     //console.log({q,kv, k, v});
                 });
+	    } else {console.log("query is empty")}
 
-
-                let availProds = undefined;
-                if (filteredProds === undefined) {
+            let availProds = undefined;
+            if (filteredProds === undefined) {
                     availProds = this.products;
-                    filteredProds = [];
-                } else {
+            } else {
                     availProds = filteredProds;
-                }
-
-                //console.log({queryDict});
-                //console.log(Object.keys(queryDict).length);
-                if (Object.keys(queryDict).length >= 0) {
-                    availProds.forEach(pID => {
-                        let data = allItems[pID];
-                        //console.log(data);
-                        let reqs = []
-                        if (!exclude.includes(pID)) {
-                            Object.keys(queryDict).forEach(k => {
-                                //console.log(k);
-                                let pVal = data[k];
-                                let qVal = queryDict[k];
-                                let negate = false;
-                                if (qVal[0] === "!") {
-                                    qVal = qVal.split("!")[1];
-                                    negate = true
-                                }
-                                //console.log({pVal, qVal, negate});
-                                //console.log(pVal === qVal && !negate, pVal !== qVal && negate)
-
-                                if ((pVal === qVal && !negate) || (pVal !== qVal && negate)) {
-                                    reqs.push(true);
-                                } else {
-                                    if (exclusive) {
-                                        reqs.push(false);
-                                    }
-                                }
-                            });
-                            //console.log({reqs});
-                            if ((reqs.includes(true) && !reqs.includes(false))) {
-                                filteredProds.push(pID);
-                            }
-                        }
-                    });
-
-                }
             }
+	    console.log("Available prods", availProds.length);
+            //console.log({queryDict});
+            //console.log(Object.keys(queryDict).length);
+            if (Object.keys(queryDict).length > 0) {
+		filteredProds = [];
+                availProds.forEach(pID => {
+                    let data = allItems[pID];
+                    //console.log(data);
+                    let reqs = []
+                    if (!exclude.includes(pID)) {
+                        Object.keys(queryDict).forEach(k => {
+                            //console.log(k);
+                            let pVal = data[k];
+                            let qVal = queryDict[k];
+                            let negate = false;
+                            if (qVal[0] === "!") {
+                                qVal = qVal.split("!")[1];
+                                negate = true
+                            }
+                            //console.log({pVal, qVal, negate});
+                            //console.log(pVal === qVal && !negate, pVal !== qVal && negate)
+
+                            if ((pVal === qVal && !negate) || (pVal !== qVal && negate)) {
+                                reqs.push(true);
+                            } else {
+                                if (exclusive) {
+                                    reqs.push(false);
+                                }
+                            }
+                        });
+                        //console.log({reqs});
+                        if ((reqs.includes(true) && !reqs.includes(false))) {
+                                filteredProds.push(pID);
+                        }
+                    }
+                });
+		availProds = filteredProds;
+            } else { console.log("queryDict is empty");}
+
+	    if (query.text !== undefined &&  query.text !== null && query.text !== ""){
+			console.log("Filtering by text...");
+			console.log(availProds.length);
+			filteredProds = searchInList(query.text, availProds);
+	    } else { console.log("query text is empty");}
+            
 
         });
         if (filteredProds === undefined){return this.products;}
@@ -450,6 +477,8 @@ function initGaleria(element) {
         minItems: element.getAttribute("minProds"),
         inline: element.getAttribute("inline"),
 	readUrl: element.getAttribute("readUrl"),
+	showSearch: element.getAttribute("showSearch"),
+	showFiltres: element.getAttribute("showFiltres"),
     }
 
     let query = {
@@ -476,6 +505,15 @@ function initGaleria(element) {
 	    }
 	    console.log(query.query);
 	    galeria.update(query);
+    }
+    if (galeria.showSearch){
+	let searchDiv = galeria.element.querySelector(".gallery-search");
+	if (galeria.showFilters){
+		let filterDiv = galeria.element.querySelector(".gallery-filtres");
+		//filterObserver.observe(filterDiv);
+	} else {
+		//searchDiv.classList.add("floating");
+	}
     }
     galeria.addRow()
     //console.log(galeria.products);
@@ -525,7 +563,7 @@ for (let i = 0; i < galleryElements.length; i++) {
     const galeria = galleryElements[i];
     initGaleria(galeria);
 
-    loadAllImages()
+    //loadAllImages()
 
 }
 

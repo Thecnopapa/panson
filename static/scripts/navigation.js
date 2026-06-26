@@ -249,8 +249,9 @@ function resizeSearch(){
     searchInput.style.width =  String(targetWidth)+"px";
 }
 
-let ResultFound = {};
+
 function searchInDict(query, key, params=[undefined]){
+    let ResultFound = {};
     let results = []
     if (query.length === 0){
         return results;

@@ -297,6 +297,83 @@ function PopPopups(){
 }
 
 
+
+
+
+function searchInList (query, list, params=["name", "tipus", "col", "material", "keywords"]){
+    let ResultFound = {};
+    query = query.normalize();
+    query = query.toLowerCase();
+
+    if (query.length === 0){
+        return list;
+    }
+    let letters = query.split("");
+    console.log("LETTERS:" + letters);
+    let rx = ""
+    letters.forEach(l => {
+        rx = rx + l + ".*"
+    })
+    rx = rx.slice(0, rx.length-2) + ""
+    console.log("RX:", rx);
+    query = rx
+    console.log(query);
+
+
+    let results = [];
+    list.forEach(el => {
+	try{
+            params.forEach(p => {
+		let elementID = el
+            	let target = el
+                //console.log(el);
+		let data =allItems[el]
+                if (p !== undefined && p !== null) {
+                    //console.log("p", p);
+                    target = data[p];
+                }
+                if (target !== undefined) {
+                    target = target.normalize()
+                    target = target.toLowerCase();
+                    if (target.search(query) >= 0) {
+                        //console.log(query, target, target.search(query));
+
+                        results.push(elementID);
+                        throw ResultFound;
+                    }
+                }
+            });
+
+        } catch(e){
+            if (e !== ResultFound) {throw e};
+        }
+    });
+    return results
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 PopPopups()
 
 window.addEventListener('load', function () {

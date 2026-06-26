@@ -74,6 +74,31 @@
 .filtre-buttons-gradient.end-left{
 	background: linear-gradient(to right,  transparent 90%, white 100%);
 }
+
+.gallery-search{
+	display: flex;
+	flex-direction: row;
+	background-color: cyan;
+	width: var(--padded-width);
+	padding: var(--padding);
+	justify-content: center;
+	align-items: center;
+}
+.gallery-search.floating{
+	position: fixed;
+	top:0;
+	left:0;
+}
+
+.gallery-search-text{
+	margin: var(--padding);
+	width: var(--padded-width);
+}
+
+.gallwry-search-icon{
+}
+
+
 .galeria {
     position: relative;
     display: flex;
