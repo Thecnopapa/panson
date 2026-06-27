@@ -9,6 +9,10 @@ let desktopThreshold = 1025;
 let nGalleries = 0;
 let allGalleries = {};
 
+let now = Date.now()
+//console.log("NOW: ", now);
+
+
 function print(...args){
     console.log(...args);
 }

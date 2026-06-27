@@ -1,8 +1,6 @@
 print(" * Initialising Gallery JS");
 
 
-let now = Date.now()
-//console.log("NOW: ", now);
 
 function miliToTime(miliseconds){
 	let days = Math.floor(miliseconds /  86400000);
@@ -283,6 +281,27 @@ class Galeria {
 
             }
         }
+        if (this.readUrl){
+            let params = {}
+            let string = ""
+            console.log(query.text);
+            if (query.text !== "" && query.text !== undefined && query.text !== null) {
+                params["q"] = query.text;
+                string = string + "q="+query.text+"&";
+            }
+
+            console.log(query.query);
+            if (query.query !== "" && query.query !== undefined && query.query !== null) {
+                params["query"] = query.query;
+                string = string + "query="+query.query+"&";
+            }
+            if (string.length != ""){
+                string = string.slice(0,-1);
+                let url = window.location.pathname;
+
+                window.history.pushState(params, null, url+"?"+string)
+            }
+        }
 
     }
 
@@ -550,26 +569,30 @@ function initGaleria(element) {
 	    if (UrlQuery === undefined || UrlQuery === null){UrlQuery="";}
 	    if (UrlTextQuery === undefined || UrlTextQuery === null){UrlTextQuery="";}
 	    if (UrlQuery !== "" || UrlTextQuery !== ""){
-	    query={
-		    query: UrlQuery.replace("*", "&").replace(" ", "&"),
-		    text: UrlTextQuery,
-	    }
-	   //console.log(query.query);
-	    galeria.update(query);
-	    } else if (galeria.showFiltres) {
-		    galeria.element.querySelector(".filtre").classList.add("active");
-	    }
+            query={
+                query: UrlQuery.replace("*", "&").replace(" ", "&"),
+                text: UrlTextQuery,
+            }
+           //console.log(query.query);
+            galeria.update(query);
+            let filtres = galeria.element.querySelectorAll(".filtre");
+            filtres.forEach( f => {
+                if (f.getAttribute("query", "") === UrlQuery){
+                    f.classList.add("active");
+                }
+            });
+        }
     } else if (galeria.showFiltres) {
 	    galeria.element.querySelector(".filtre").classList.add("active");
     }
     if (galeria.showSearch){
-	let searchDiv = galeria.element.querySelector(".gallery-search");
-	if (galeria.showFiltres){
-		let filterDiv = galeria.element.querySelector(".gallery-filtres");
-		//filterObserver.observe(filterDiv);
-	} else {
-		//searchDiv.classList.add("floating");
-	}
+        let searchDiv = galeria.element.querySelector(".gallery-search");
+        if (galeria.showFiltres){
+            let filterDiv = galeria.element.querySelector(".gallery-filtres");
+            //filterObserver.observe(filterDiv);
+        } else {
+            //searchDiv.classList.add("floating");
+        }
     }
     galeria.addRow()
     //console.log(galeria.products);

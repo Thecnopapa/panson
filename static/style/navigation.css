@@ -506,9 +506,9 @@ h1, h2, h3, h4, h5, h6, p {
     max-height: calc(100dvh - var(--header-height));
     overflow-y: scroll;
     z-index: 50;
-
-
+    box-shadow: 0px 24px 24px rgba(0, 0, 0, 0.15);
 }
+
 
 
 .search-result.search-result-tipus{

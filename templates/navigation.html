@@ -24,7 +24,7 @@
     {% if True %}
         <div class="search" onclick="event.stopPropagation()">
             <div class="search-over-page hidden" onfocusout="hideSearch(this)">
-            {{ galeria.galeria("productes", filtres=0, max_prods=0, min_row=4, min_prods=0, search=1, start_empty=1) }}
+            {{ galeria.galeria("productes", filtres=0, max_prods=0, min_row=4, min_prods=4, search=1, start_empty=1) }}
             </div>
             <img id="nav-search-icon" class="search-icon" onclick="showSearch(this)" src="/static/media/search-icon.svg" alt="search">
             <script>
