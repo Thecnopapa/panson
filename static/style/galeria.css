@@ -16,7 +16,26 @@
 }
 .search-over-page > .content-galeria{
     margin-top: 0;
+    margin-bottom: 0vh;
 }
+.gallery-erase-search{
+    cursor: pointer;
+    color: black;
+    transition-duration: 0.5s;
+}
+.gallery-erase-search:hover{
+    font-weight: bold;
+    transform: scale(1.2);
+}
+
+.empty-disclaimer{
+    display: flex;
+    flex-direction: row;
+    margin: var(--padding);
+    max-width: 60%;
+    margin-top: 4vh;
+}
+
 
 .gallery-filtres{
     display: flex;
@@ -103,6 +122,8 @@
 
 .gallery-search-icon{
 }
+
+
 
 
 .galeria {
@@ -431,6 +452,10 @@
     .launch-time-cover{
 	    height:49.5dvw;
         font-size: var(--font-size-extra-small);
+    }
+    .empty-disclaimer{
+        display: flex;
+        flex-direction: column;
     }
 
 

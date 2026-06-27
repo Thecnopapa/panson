@@ -19,7 +19,8 @@
     {% if search %}
     <div class="gallery-search">
 	    <img class="search-icon gallery-search-icon black"  src="/static/media/search-icon.svg" alt="search">
-	    <input class="gallery-search-text" type="text"  placeholder="{{ loc.nav_text_buscar }}" oninput="searchGalleria(this);">
+	    <input class="gallery-search-text" type="text"  placeholder="{{ loc.nav_text_buscar }}" oninput="searchGalleria(this);" onfocus="searchGalleria(this);">
+        <div class="gallery-erase-search" onclick="this.previousElementSibling.value = '';this.previousElementSibling.focus();">&#10005;</div>
     </div>
     {% endif %}
 
@@ -61,8 +62,7 @@
     </div>
     <div class="empty-disclaimer">
         <div class="galeria-no-filtre hidden loc" loc="gal_filtre_buit">{{ loc.gal_filtre_buit }}</div>
-        <div style="display: flex; flex-direction: row;"><div class="galeria-no-query hidden loc" loc="gal_query_buit">{{ loc.gal_query_buit }}</div>&nbsp;&nbsp;<div class="galeria-no-query-text" style="font-weight: bold"></div></div>
-
+        <div class="galeria-no-query hidden loc" loc="gal_query_buit">{{ loc.gal_query_buit }}</div>&nbsp;&nbsp;<div class="galeria-no-query-text" style="font-weight: bold"></div>
     </div>
     <div class="galeria-navigation" pages="{{pages}}" more="{{load_more }}" goToShop="{{go_to_shop}}">
     {% if go_to_shop %}

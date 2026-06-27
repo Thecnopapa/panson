@@ -221,7 +221,7 @@ function closeSearchEsc(event){
     if (event.key === "Escape"){
         //console.log("escaping search");
         event.preventDefault();
-        hideSearch();
+        hideSearch(true);
         document.documentElement.removeEventListener("keydown", closeSearchEsc);
     } else if (event.key === "Enter"){
         //console.log("escaping search");
@@ -231,11 +231,12 @@ function closeSearchEsc(event){
     }
 }
 
-function showSearch(trigger){
+function showSearch(){
     //console.log("Showing search");
+    let trigger = searchIcon;
     let resultsDiv = trigger.parentElement.querySelector(".search-over-page");
     let textDiv = resultsDiv.querySelector(".gallery-search-text")
-    trigger.setAttribute("onclick", "hideSearch(this)");
+    trigger.setAttribute("onclick", "hideSearch(true)");
 
 
     document.documentElement.addEventListener("keydown", closeSearchEsc);
@@ -254,18 +255,21 @@ function showSearch(trigger){
     textDiv.focus();
 }
 
-function hideSearch(trigger){
-    if (trigger === undefined){
-        trigger = searchIcon;
-    }
+function hideSearch(force=false){
+
+    let trigger = searchIcon;
+
     //console.log("hidingSearch");
+    let areaOfInterest = document.querySelector(".navigation-right");
     let resultsDiv = trigger.parentElement.querySelector(".search-over-page");
-    if (resultsDiv.matches(":hover")) {
+
+    if (areaOfInterest.matches(":hover") && !force) {
         return;
     }
+    trigger.setAttribute("onclick", "showSearch()");
+
     document.documentElement.addEventListener("keydown", closeSearchEsc);
 
-    trigger.setAttribute("onclick", "showSearch(this)");
 
     // searchIcon.parentElement.classList.remove("open");
     // searchIcon.parentElement.classList.add("closed");
@@ -428,7 +432,15 @@ function deprecatedUpdateSearchResults(){
 
 
 }
+function closeMenusEsc(event){
+    if (event.key === "Escape"){
+        closeMenu()
+        closeCart();
+    }
+}
 
+
+document.documentElement.addEventListener("keydown", closeMenusEsc);
 
 
 window.addEventListener("load", (e) =>{

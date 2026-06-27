@@ -453,11 +453,9 @@ h1, h2, h3, h4, h5, h6, p {
     align-items: center;
     margin-left: var(--padding);
     margin-right: var(--padding);
-    cursor: pointer;
     z-index: 21;
 }
 .search-icon{
-    cursor: pointer;
     position: relative;
     display: block;
     align-content: center;
@@ -471,23 +469,17 @@ h1, h2, h3, h4, h5, h6, p {
     transform: scaleX(-100%);
 }
 
-.search-icon:hover{
+
+.navigation-search-icon{
+    cursor: pointer;
+
+}
+
+.navigation-search-icon:hover{
     transform: scaleX(-100%) scale(1.2);
 }
 
-.search-text{
-    display:none;
-    border-color: transparent !important;
-    background-color: rgba(255, 255, 255, 0.4) !important;
-    color: black;
-    padding-left: 0.5em;
-    min-width: 6em;
-    width: 6em;
-    max-width: 10em;
-    border-radius: 0.4em;
-    transition: 1s;
 
-}
 
 .search-text.white{
     background-color: rgba(0, 0, 0, 0.4) !important;

@@ -143,9 +143,9 @@ window.addEventListener('orientationchange', function () {
 	console.log("Rotation change!");
 	closeCart();
     closeMenu();
+    hideSearch()
 })
 
 
 
 print(" * Cart JS initialised")
-

@@ -16,17 +16,17 @@
         <button class="dropbtn last" id="fetamida" onclick="location.href='/{{ loc.lan }}/fetamida'"> {{ loc.nav_fetamida }}</button>
     </div>
 
-    <div class = "navigation-right">
+    <div class = "navigation-right" onfocusout="hideSearch();console.log('focus out')">
     	{% if user.is_admin %}
     		<div class="language admin" onclick="location.href='/admin'" oncontextmenu="window.open('/admin/', '_blank')">{{ loc.nav_admin }}</div>
     		<div class="language admin" onclick="location.href='/admin/logout'">{{ loc.nav_tancar_sessio }}</div>
     	{% endif %}
     {% if True %}
-        <div class="search" onclick="event.stopPropagation()">
-            <div class="search-over-page hidden" onfocusout="hideSearch(this)">
+        <div class="search" onclick="event.stopPropagation()" >
+            <div class="search-over-page hidden" >
             {{ galeria.galeria("productes", filtres=0, max_prods=0, min_row=4, min_prods=4, search=1, start_empty=1) }}
             </div>
-            <img id="nav-search-icon" class="search-icon" onclick="showSearch(this)" src="/static/media/search-icon.svg" alt="search">
+            <img id="nav-search-icon" class="search-icon navigation-search-icon" onclick="showSearch()" src="/static/media/search-icon.svg" alt="search">
             <script>
                 let searchableItems = {
                     "tipus": {{ tipus_json |safe}},
