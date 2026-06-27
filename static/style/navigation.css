@@ -490,6 +490,16 @@ h1, h2, h3, h4, h5, h6, p {
     color: white !important;
 }
 
+
+
+.search-over-page{
+	width:100dvw;
+	padding: var(--padding);
+	background-color: cyan;
+
+}
+
+
 .search-result{
     padding:0.2rem;
     min-width: 100%;

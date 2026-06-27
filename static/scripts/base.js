@@ -1,6 +1,6 @@
 
 
-
+console.log(" * Initialising Base JS");
 let camaleonElements = [];
 let imagesToPreload = [];
 
@@ -384,3 +384,5 @@ window.addEventListener('load', function () {
     loadAllImages();
 })
 
+
+console.log(" * Base JS initialised");

@@ -1,7 +1,7 @@
 
 
 
-
+{% import 'galeria.html' as galeria with context%}
 {% if hide_title %}
 {% else %}
     <div id="title" class="fast-image" background="{{ imgs.get_url("imatges", imgs.get_fixed("logos").imatges[0]) }}" onclick="location.href='/{{ loc.lan }}/'"></div>
@@ -24,9 +24,12 @@
     	{% endif %}
     {% if True %}
         <div class="search" onclick="event.stopPropagation()">
-            <input class="search-text" type="text" onfocusout="hideSearch()" oninput="resizeSearch();updateSearchResults()" placeholder="{{ loc.nav_text_buscar }}">
-            <div class="search-results"></div>
-            <img class="search-icon" onclick="showSearch()" src="/static/media/search-icon.svg" alt="search">
+            <input class="search-text" type="text" onfocusout="hideSearch(this)" oninput="resizeSearch(this);globalSearch(this);" placeholder="{{ loc.nav_text_buscar }}">
+            <div class="search-over-page hidden">
+		{{ galeria.galeria("productes", filtres=0, max_prods=0, min_row=4, min_prods=0, search=0) }}
+	    </div>
+	    <div class=search-results"></div>
+            <img class="search-icon" onclick="showSearch(this)" src="/static/media/search-icon.svg" alt="search">
             <script>
                 let searchableItems = {
                     "tipus": {{ tipus_json |safe}},

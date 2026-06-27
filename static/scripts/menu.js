@@ -1,4 +1,4 @@
-
+console.log(" * Initialising Menu JS");
 
 
 
@@ -148,3 +148,5 @@ window.addEventListener('load', function(){
 	closeMenu();
 
 })
+
+console.log(" * Menu JS initialised");

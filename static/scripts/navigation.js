@@ -1,4 +1,4 @@
-
+console.log(" * Initialising Navigation JS");
 
 
 
@@ -21,7 +21,7 @@ const cartCircle = document.getElementsByClassName('cercle-carret')[0];
 const navTitle = document.getElementById("title")
 
 
-camaleonElements.push(...navButtons, ...lanButtons, cartCircle, cartIcon, searchIcon, searchInput, searchResults);
+camaleonElements.push(...navButtons, ...lanButtons, cartCircle, cartIcon, searchIcon, searchInput);
 
 if (navTitle) {
     camaleonElements.push(navTitle)
@@ -211,7 +211,9 @@ function toggleLanguages(trigger){
 	}
 }
 
-function showSearch(){
+function showSearch(trigger){
+    console.log("Showing search");
+    let resultsDiv = trigger.parentElement.querySelector(".search-over-page");
 
     function closeSearchEsc(event){
         if (event.key === "Escape"){
@@ -225,13 +227,15 @@ function showSearch(){
     searchIcon.parentElement.classList.add("open");
     searchIcon.style.display = "none";
     searchInput.style.display = "block";
-    searchResults.style.display = "block";
+    resultsDiv.classList.remove("hidden");
 
     searchInput.focus();
 }
 
-function hideSearch(){
-    if (searchResults.matches(":hover")) {
+function hideSearch(trigger){
+    console.log("hidingSearch");
+    let resultsDiv = trigger.parentElement.querySelector(".seatch-over-page");
+    if (resultsDiv.matches(":hover")) {
         return;
     }
     searchIcon.parentElement.classList.remove("open");
@@ -239,7 +243,7 @@ function hideSearch(){
 
     searchInput.style.display = "none";
     searchIcon.style.display = "block";
-    searchResults.style.display = "none";
+    resultsDiv.classList.add("hidden");
 }
 
 function resizeSearch(){
@@ -288,7 +292,24 @@ function searchInDict(query, key, params=[undefined]){
 }
 
 
-function showResults(results){
+
+function globalSearch(trigger) {
+	let resultsDiv = trigger.parentElement.querySelector(".seatch-over-page");
+	let galleryID = resultsDiv.querySelector(".content-galeria").getAttribute("galleryId");
+	let gallery = allGalleries[galleryID];
+
+	resultsDiv.classList.remove("hidden")
+
+	let query = {
+		text: trigger.value
+	}
+
+	gallery.update(query);
+}
+
+
+
+function deprecatedShowResults(results){
     let supercontainer = document.querySelector(".search-results");
 
     Object.keys(results).forEach(cat => {
@@ -343,7 +364,7 @@ function showResults(results){
 }
 
 
-function updateSearchResults(){
+function deprecatedUpdateSearchResults(){
     let query = searchInput.value.normalize();
     query = query.toLowerCase();
     //console.log("QUERY:" + query);
@@ -377,4 +398,4 @@ window.addEventListener("load", (e) =>{
 });
 
 
-console.log(" * Navigation JS ready")
+console.log(" * Navigation JS initialised")

@@ -1,4 +1,4 @@
-
+console.log(" * Imitialising Cart JS");
 const cartButton = document.getElementById('cart-button');
 const cartItems = document.getElementsByClassName('is-carret');
 const cart = document.getElementById("carret")
@@ -147,5 +147,5 @@ window.addEventListener('orientationchange', function () {
 
 
 
-print(" * Cart JS ready")
+print(" * Cart JS initialised")
 
