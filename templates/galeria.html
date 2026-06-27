@@ -23,6 +23,10 @@
         <div class="gallery-erase-search" onclick="this.previousElementSibling.value = '';this.previousElementSibling.focus();">&#10005;</div>
     </div>
     {% endif %}
+    <div class="empty-disclaimer hidden">
+        <div class="galeria-no-filtre hidden loc" loc="gal_filtre_buit">{{ loc.gal_filtre_buit }}</div>
+        <div class="galeria-no-query hidden loc" loc="gal_query_buit">{{ loc.gal_query_buit }}</div>&nbsp;&nbsp;<div class="galeria-no-query-text" style="font-weight: bold"></div>
+    </div>
 
     <div class="galeria-scroll scroll-left {{ 'inline' if inline }}" >
 	    <div class="galeria-scroll-button scroll-left-button disabled" onclick="scrollGallery(this.parentElement.nextElementSibling.nextElementSibling, 'left', '1u')"><img class="main-arrow left" src="/static/media/arrow.svg"></div>
@@ -60,10 +64,7 @@
 		</div>
            </div>
     </div>
-    <div class="empty-disclaimer">
-        <div class="galeria-no-filtre hidden loc" loc="gal_filtre_buit">{{ loc.gal_filtre_buit }}</div>
-        <div class="galeria-no-query hidden loc" loc="gal_query_buit">{{ loc.gal_query_buit }}</div>&nbsp;&nbsp;<div class="galeria-no-query-text" style="font-weight: bold"></div>
-    </div>
+
     <div class="galeria-navigation" pages="{{pages}}" more="{{load_more }}" goToShop="{{go_to_shop}}">
     {% if go_to_shop %}
 	    <div class="galeria-go-to-shop galeria-nav-button black-button loc" loc="gal_anar_botiga" onclick="location.href='/{{ loc.lan }}/productes'">{{ loc.gal_anar_botiga}}</div>

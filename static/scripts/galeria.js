@@ -246,6 +246,7 @@ class Galeria {
         nGalleries += 1;
         allGalleries[this.nId] = this;
         this.galeria = this.element.querySelector(".galeria");
+        this.emptyDisclaimer = this.element.querySelector(".empty-disclaimer");
         this.emptyQuery = this.element.querySelector(".galeria-no-query");
         this.emptyQueryText = this.element.querySelector(".galeria-no-query-text");
         this.emptyFiltre = this.element.querySelector(".galeria-no-filtre");
@@ -265,10 +266,13 @@ class Galeria {
         this.addRow();
 
         if (this.subset.length > 0) {
+            this.emptyDisclaimer.classList.add("hidden");
             this.emptyQuery.classList.add("hidden");
             this.emptyQueryText.innerText = "";
             this.emptyFiltre.classList.add("hidden");
         } else {
+            this.emptyDisclaimer.classList.remove("hidden");
+
             if (query.text === "" || query.text === undefined || query.text === null) {
                 this.emptyFiltre.classList.remove("hidden");
                 this.emptyQuery.classList.add("hidden");
@@ -510,7 +514,7 @@ class Galeria {
            //console.log("Adding:", all[i]);
             this.addProduct(new Product(allItems[all[i]]));
         }
-        let paddingProds =  Math.max(0, ( this.length() % this.minRow));
+        let paddingProds =  Math.max(0, ( this.length() % this.minRow), this.minItems - this.length());
        //console.log({paddingProds});
         if (paddingProds > 0 && !this.inline) {
             for (let i = 0; i < paddingProds; i++) {
@@ -575,12 +579,14 @@ function initGaleria(element) {
             }
            //console.log(query.query);
             galeria.update(query);
-            let filtres = galeria.element.querySelectorAll(".filtre");
-            filtres.forEach( f => {
-                if (f.getAttribute("query", "") === UrlQuery){
-                    f.classList.add("active");
-                }
-            });
+            if (UrlTextQuery === "") {
+                let filtres = galeria.element.querySelectorAll(".filtre");
+                filtres.forEach(f => {
+                    if (f.getAttribute("query", "") === UrlQuery) {
+                        f.classList.add("active");
+                    }
+                });
+            }
         }
     } else if (galeria.showFiltres) {
 	    galeria.element.querySelector(".filtre").classList.add("active");
@@ -595,20 +601,7 @@ function initGaleria(element) {
         }
     }
     galeria.addRow()
-    //console.log(galeria.products);
 
-    //console.log(Math.min(galeria.products.length, minItems));
-    // for (let i = 0; i < Math.min(galeria.products.length, galeria.minItems); i++) {
-    //     //console.log(galeria.products[i]);
-    //     galeria.addProduct(new Product(allItems[galeria.products[i]]));
-    // }
-    // let paddingProds =  galeria.minRow - Math.max(0, (galeria.length() % galeria.minRow));
-    // //console.log({paddingProds}, galeria.length(), galeria.minRow);
-    // if (paddingProds < galeria.minRow && !this.inline) {
-    //     for (let i = 0; i < paddingProds; i++) {
-	//         galeria.addProduct();
-    //     }
-    // }
     if (galeria.inline){
 
     }
