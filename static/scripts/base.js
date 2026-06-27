@@ -120,22 +120,27 @@ async function updateCookiesTic(container){
 }
 
 
-function showPopup(popupContent, cross=true, clone=true) {
-	//console.log("Showing Popup");
-    if (clone){
-    	popupContent = popupContent.cloneNode(true);
-        popupContent.classList.add("actual-popup");
-	}
-    popupContent.addEventListener("click", function(event) {event.stopPropagation()});
-    function closePopupEscape(event){
+function closePopupEscape(event){
         if (event.key === "Escape"){
             event.preventDefault();
-            hidePopup(popupContent);
+            document.querySelectorAll(".shown-popup").forEach(popupContent => {
+                hidePopup(popupContent);
+            });
             document.documentElement.style.overflow = "";
             document.documentElement.removeEventListener("keydown", closePopupEscape);
 
         }
     }
+
+function showPopup(popupContent, cross=true, clone=true) {
+	//console.log("Showing Popup");
+    popupContent.classList.add("shown-popup");
+    if (clone){
+    	popupContent = popupContent.cloneNode(true);
+        popupContent.classList.add("actual-popup");
+	}
+    popupContent.addEventListener("click", function(event) {event.stopPropagation()});
+
     document.documentElement.addEventListener("keydown", closePopupEscape);
     popupContent.style.display = "flex";
     popupContent.style.flexDirection = "column";
@@ -168,6 +173,7 @@ function hidePopup(source, sourceElement) {
         popupContent.parentElement.remove();
         popupContent.remove()
     }
+    document.documentElement.removeEventListener("keydown", closePopupEscape);
 
     document.documentElement.style.overflow = "";
 }
@@ -309,15 +315,15 @@ function searchInList (query, list, params=["name", "tipus", "col", "material", 
         return list;
     }
     let letters = query.split("");
-    console.log("LETTERS:" + letters);
+    //console.log("LETTERS:" + letters);
     let rx = ""
     letters.forEach(l => {
         rx = rx + l + ".*"
     })
     rx = rx.slice(0, rx.length-2) + ""
-    console.log("RX:", rx);
+    //console.log("RX:", rx);
     query = rx
-    console.log(query);
+    //console.log(query);
 
 
     let results = [];

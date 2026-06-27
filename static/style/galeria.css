@@ -78,11 +78,14 @@
 .gallery-search{
 	display: flex;
 	flex-direction: row;
-	background-color: cyan;
 	width: var(--padded-width);
 	padding: var(--padding);
 	justify-content: center;
 	align-items: center;
+    position: sticky;
+    top:0;
+    z-index: 50;
+    background-color: white;
 }
 .gallery-search.floating{
 	position: fixed;
@@ -95,7 +98,7 @@
 	width: var(--padded-width);
 }
 
-.gallwry-search-icon{
+.gallery-search-icon{
 }
 
 

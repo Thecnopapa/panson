@@ -326,6 +326,9 @@ h1, h2, h3, h4, h5, h6, p {
     z-index: 50;
     transition: 0.5s;
 }
+.navigation.force-opaque{
+    background-color: white !important;
+}
 .navigation.opaque{
     background-color: white;
 }
@@ -464,9 +467,10 @@ h1, h2, h3, h4, h5, h6, p {
     min-height: calc(var(--min-header-height) / 3);
     width: calc(var(--header-height) / 3);
     min-width: calc(var(--min-header-height) / 3);
-    transition: 1s;
+    transition: 0.5s;
     transform: scaleX(-100%);
 }
+
 .search-icon:hover{
     transform: scaleX(-100%) scale(1.2);
 }
@@ -493,19 +497,19 @@ h1, h2, h3, h4, h5, h6, p {
 
 
 .search-over-page{
-	width:100dvw;
-	padding: var(--padding);
-	background-color: cyan;
+    position: fixed;
+    top: var(--header-height);
+    left:0;
+	width:100%;
+	padding: 0;
+	background-color: white;
+    max-height: calc(100dvh - var(--header-height));
+    overflow-y: scroll;
+    z-index: 50;
+
 
 }
 
-
-.search-result{
-    padding:0.2rem;
-    min-width: 100%;
-    width: 100%;
-    transition: 0.2s;
-}
 
 .search-result.search-result-tipus{
     font-style: italic;

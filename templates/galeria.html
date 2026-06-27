@@ -1,10 +1,10 @@
 
 
 
-{% macro galeria(bucket, filtres=0, max_prods=0, min_row=4, min_prods=4, exclude=None, filter_mode="&", inline=False, go_to_shop=False, range="0-1", second_hover=True, search=0, query="", read_url=0) %}
+{% macro galeria(bucket, filtres=0, max_prods=0, min_row=4, min_prods=4, exclude=None, filter_mode="&", inline=False, go_to_shop=False, range="0-1", second_hover=True, search=0, query="", read_url=0, start_empty=0) %}
 
 
-<div class="content-galeria" bucket="{{ bucket }}" maxprods="{{ max_prods }}" minrow="{{ min_row }}" minprods="{{ min_prods }}" inline="{{ utils.int(inline) }}" query="{{ query }}" exclude="{{ exclude }}" range="{{ range }}" readUrl="{{ read_url }}" showFiltres="{{ filtres }}" showSearch="{{ search }}">
+<div class="content-galeria" bucket="{{ bucket }}" maxprods="{{ max_prods }}" minrow="{{ min_row }}" minprods="{{ min_prods }}" inline="{{ utils.int(inline) }}" query="{{ query }}" exclude="{{ exclude }}" range="{{ range }}" readUrl="{{ read_url }}" showFiltres="{{ filtres }}" showSearch="{{ search }}" startEmpty="{{ start_empty }}">
     {% if filtres %}
         <div class="gallery-filtres">
             <div class="filtre-buttons-gradient end-left"></div>
@@ -18,7 +18,7 @@
     {% endif %}
     {% if search %}
     <div class="gallery-search">
-	    <img class="search-icon gallery-search-icon"  src="/static/media/search-icon.svg" alt="search">
+	    <img class="search-icon gallery-search-icon black"  src="/static/media/search-icon.svg" alt="search">
 	    <input class="gallery-search-text" type="text"  placeholder="{{ loc.nav_text_buscar }}" oninput="searchGalleria(this);">
     </div>
     {% endif %}
@@ -59,8 +59,11 @@
 		</div>
            </div>
     </div>
-    <div class="galeria-no-prods hidden" loc="gal_no_productes">{{ loc.gal_no_productes }}</div>
+    <div class="empty-disclaimer">
+        <div class="galeria-no-filtre hidden loc" loc="gal_filtre_buit">{{ loc.gal_filtre_buit }}</div>
+        <div style="display: flex; flex-direction: row;"><div class="galeria-no-query hidden loc" loc="gal_query_buit">{{ loc.gal_query_buit }}</div>&nbsp;&nbsp;<div class="galeria-no-query-text" style="font-weight: bold"></div></div>
 
+    </div>
     <div class="galeria-navigation" pages="{{pages}}" more="{{load_more }}" goToShop="{{go_to_shop}}">
     {% if go_to_shop %}
 	    <div class="galeria-go-to-shop galeria-nav-button black-button loc" loc="gal_anar_botiga" onclick="location.href='/{{ loc.lan }}/productes'">{{ loc.gal_anar_botiga}}</div>

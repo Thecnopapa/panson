@@ -2,10 +2,9 @@
 
 
 {% import 'galeria.html' as galeria with context%}
-{% if hide_title %}
-{% else %}
-    <div id="title" class="fast-image" background="{{ imgs.get_url("imatges", imgs.get_fixed("logos").imatges[0]) }}" onclick="location.href='/{{ loc.lan }}/'"></div>
-{% endif %}
+
+<div id="title" class="fast-image {{ "hidden" if hide_title }} {{ "hidden-title" if hide_title }}" background="{{ imgs.get_url("imatges", imgs.get_fixed("logos").imatges[0]) }}" onclick="location.href='/{{ loc.lan }}/'"></div>
+
 <div class = "navigation">
     <div class = "navigation-left" id="nav-left">
         <button class="dropbtn" id="menu-button" onmouseover="openMenu()">{{ loc.nav_botiga }}</button>
@@ -24,12 +23,10 @@
     	{% endif %}
     {% if True %}
         <div class="search" onclick="event.stopPropagation()">
-            <input class="search-text" type="text" onfocusout="hideSearch(this)" oninput="resizeSearch(this);globalSearch(this);" placeholder="{{ loc.nav_text_buscar }}">
-            <div class="search-over-page hidden">
-		{{ galeria.galeria("productes", filtres=0, max_prods=0, min_row=4, min_prods=0, search=0) }}
-	    </div>
-	    <div class=search-results"></div>
-            <img class="search-icon" onclick="showSearch(this)" src="/static/media/search-icon.svg" alt="search">
+            <div class="search-over-page hidden" onfocusout="hideSearch(this)">
+            {{ galeria.galeria("productes", filtres=0, max_prods=0, min_row=4, min_prods=0, search=1, start_empty=1) }}
+            </div>
+            <img id="nav-search-icon" class="search-icon" onclick="showSearch(this)" src="/static/media/search-icon.svg" alt="search">
             <script>
                 let searchableItems = {
                     "tipus": {{ tipus_json |safe}},
@@ -101,7 +98,7 @@
     </div>
 {% endif %}
 
-{% if (loc.news_mostrar == "si" or (loc.news_mostrar == "test" and ("test" in host or "127" in host)) ) %}
+{% if (loc.news_mostrar == "si" or ((loc.news_mostrar == "test") and ("test" in host or "127" in host)) ) %}
 <div class="popup-info newsletter-popup {{ "to-be-popped" if not user.no_newsletter and show_newsletter }}">
     <div class="newsletter-popup-titol loc" loc="news_popup_titol">{{ loc.news_popup_titol |safe }}</div>
     <div class="newsletter-popup-text loc" loc="news_popup_text">{{ loc.news_popup_text |safe }}</div>
@@ -115,7 +112,7 @@
 </div>
 {% endif %}
 
-{% if (loc.desc_mostrar == "si" or (loc.desc_mostrar == "test" and ("test" in host or "127" in host)) ) %}
+{% if (loc.desc_mostrar == "si" or ((loc.desc_mostrar == "test") and ("test" in host or "127" in host)) ) %}
 <div class="popup-info descompte-popup {{ "to-be-popped" if not user.no_descompte and show_descompte }}">
     <div class="descompte-popup-titol loc" loc="desc_popup_titol">{{ loc.desc_popup_titol |safe }}</div>
     <div class="descompte-popup-text loc" loc="desc_popup_text">{{ loc.desc_popup_text |safe }}</div>
@@ -133,6 +130,3 @@
         <div class="banner-cross" onclick="this.parentElement.remove();closeBanner();">&#10005;</div>
     </div>
 {% endif %}
-
-
-

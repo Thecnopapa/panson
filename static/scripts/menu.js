@@ -20,6 +20,7 @@ checkColor();
 
 
 async function openMenu(trackIt=true) {
+    hideSearch();
     if (menuOpen) {return;}
     closeCart(false);
     menuOpen = true;

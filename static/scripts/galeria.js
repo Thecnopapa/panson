@@ -1,3 +1,4 @@
+print(" * Initialising Gallery JS");
 
 
 let now = Date.now()
@@ -228,12 +229,16 @@ class Galeria {
         this.minItems  = Number(options.minItems);
         this.minRow = Number(options.minRow);
         this.inline = Boolean(Number(options.inline));
-	this.showSearch = Boolean(Number(options.showSearch));
-	this.showFiltres = Boolean(Number(options.showFiltres));
-	this.readUrl = Boolean(Number(options.readUrl));
+        this.showSearch = Boolean(Number(options.showSearch));
+        this.showFiltres = Boolean(Number(options.showFiltres));
+        this.readUrl = Boolean(Number(options.readUrl));
+        this.startEmpty =  Boolean(Number(options.startEmpty));
         this.query = query;
         this.products = Object.keys(allItems);
-        this.products = this.filter();
+        console.log(this.startEmpty);
+        if (!this.startEmpty){
+            this.products = this.filter();
+        }
         this.subset = undefined;
         //console.log(this.products);
         this.template = this.element.querySelector(".template");
@@ -243,33 +248,65 @@ class Galeria {
         nGalleries += 1;
         allGalleries[this.nId] = this;
         this.galeria = this.element.querySelector(".galeria");
+        this.emptyQuery = this.element.querySelector(".galeria-no-query");
+        this.emptyQueryText = this.element.querySelector(".galeria-no-query-text");
+        this.emptyFiltre = this.element.querySelector(".galeria-no-filtre");
+
+        if (this.startEmpty){
+            this.update();
+        }
     }
 
-    update(query={}){
-        console.log("Updating", this.nId);
-        console.log(query);
+    update(query={}) {
+        //console.log("Updating", this.nId);
+        //console.log(query);
         let subset = this.filter(query);
-        console.log({subset}, subset.length);
+        //console.log({subset}, subset.length);
         this.subset = subset
         this.deleteAll();
-        this.addRow()
+        this.addRow();
+
+        if (this.subset.length > 0) {
+            this.emptyQuery.classList.add("hidden");
+            this.emptyQueryText.innerText = "";
+            this.emptyFiltre.classList.add("hidden");
+        } else {
+            if (query.text === "" || query.text === undefined || query.text === null) {
+                this.emptyFiltre.classList.remove("hidden");
+                this.emptyQuery.classList.add("hidden");
+                this.emptyQueryText.innerText = "";
+
+            } else {
+                this.emptyFiltre.classList.add("hidden");
+                this.emptyQuery.classList.remove("hidden");
+                this.emptyQueryText.innerText = query.text;
+
+            }
+        }
+
     }
 
     filter(query= {}){
-        console.log("Filtering...");
+       //console.log("Filtering...");
         //console.log(this.query);
         //console.log(query);
 
         let filteredProds = undefined;
 
+        if (this.startEmpty){
+            if ((query.query === "" || query.query === undefined || query.query === null) && (query.text === "" || query.text === undefined || query.text === null)){
+                return []
+            }
+        }
+
         [this.query, query].forEach(qq => {
             //console.log({qq});
 
             let queryDict = {};
-	    let exclude = [qq.exclude]; // TODO: implement multiple excluded
-	    let exclusive = true;
-            if (qq.query !== "" && qq.query !== undefined) {
-                console.log("Filtering by query:", qq.query);
+            let exclude = [qq.exclude]; // TODO: implement multiple excluded
+            let exclusive = true;
+            if (qq.query !== "" && qq.query !== undefined && query.query !== null) {
+               //console.log("Filtering by query:", qq.query);
                 let qSplit = undefined;
                 if (qq.query.includes("&")) {
                     qSplit = qq.query.split("&");
@@ -293,7 +330,9 @@ class Galeria {
                     queryDict[k] = v;
                     //console.log({q,kv, k, v});
                 });
-	    } else {console.log("query is empty")}
+	    } else {
+                //console.log("query is empty");
+            }
 
             let availProds = undefined;
             if (filteredProds === undefined) {
@@ -301,7 +340,7 @@ class Galeria {
             } else {
                     availProds = filteredProds;
             }
-	    console.log("Available prods", availProds.length);
+	   //console.log("Available prods", availProds.length);
             //console.log({queryDict});
             //console.log(Object.keys(queryDict).length);
             if (Object.keys(queryDict).length > 0) {
@@ -338,13 +377,21 @@ class Galeria {
                     }
                 });
 		availProds = filteredProds;
-            } else { console.log("queryDict is empty");}
+            } else {
+                //console.log("queryDict is empty");
+            }
 
 	    if (query.text !== undefined &&  query.text !== null && query.text !== ""){
-			console.log("Filtering by text...");
-			console.log(availProds.length);
-			filteredProds = searchInList(query.text, availProds);
-	    } else { console.log("query text is empty");}
+			//console.log("Filtering by text...");
+			//console.log(availProds.length);
+            if (query.text === "None"){
+                filteredProds = []
+            } else {
+                filteredProds = searchInList(query.text, availProds);
+            }
+	    } else {
+            //console.log("query text is empty");
+            }
             
 
         });
@@ -436,22 +483,22 @@ class Galeria {
         let nCurrent = this.length();
         let nAvail = maximum - nCurrent;
 
-        console.log({nCurrent, maximum, nAvail, "minRow": this.minRow});
+       //console.log({nCurrent, maximum, nAvail, "minRow": this.minRow});
         let nToAdd = Math.min(this.minRow, maximum, nAvail)
-        console.log(this.elements())
-        console.log({nToAdd});
+       //console.log(this.elements())
+       //console.log({nToAdd});
         for (let i = nCurrent; i < nCurrent+nToAdd; i++) {
-            console.log("Adding:", all[i]);
+           //console.log("Adding:", all[i]);
             this.addProduct(new Product(allItems[all[i]]));
         }
         let paddingProds =  Math.max(0, ( this.length() % this.minRow));
-        console.log({paddingProds});
+       //console.log({paddingProds});
         if (paddingProds > 0 && !this.inline) {
             for (let i = 0; i < paddingProds; i++) {
                 this.addProduct();
             }
         }
-        console.log(nAvail, this.length());
+       //console.log(nAvail, this.length());
         if (nAvail > 0){
             if (!this.last().classList.contains("observed")){
                 this.last().classList.add("observed");
@@ -476,9 +523,11 @@ function initGaleria(element) {
         minRow: element.getAttribute("minRow"),
         minItems: element.getAttribute("minProds"),
         inline: element.getAttribute("inline"),
-	readUrl: element.getAttribute("readUrl"),
-	showSearch: element.getAttribute("showSearch"),
-	showFiltres: element.getAttribute("showFiltres"),
+        readUrl: element.getAttribute("readUrl"),
+        showSearch: element.getAttribute("showSearch"),
+        showFiltres: element.getAttribute("showFiltres"),
+        startEmpty: element.getAttribute("startEmpty"),
+
     }
 
     let query = {
@@ -496,8 +545,8 @@ function initGaleria(element) {
 	    let params = new URLSearchParams(document.location.search);
 	    let UrlQuery = params.get("query", undefined);
 	    let UrlTextQuery = params.get("q", undefined);
-	    console.log("Reading Url");
-	    console.log(params);
+	   //console.log("Reading Url");
+	   //console.log(params);
 	    if (UrlQuery === undefined || UrlQuery === null){UrlQuery="";}
 	    if (UrlTextQuery === undefined || UrlTextQuery === null){UrlTextQuery="";}
 	    if (UrlQuery !== "" || UrlTextQuery !== ""){
@@ -505,7 +554,7 @@ function initGaleria(element) {
 		    query: UrlQuery.replace("*", "&").replace(" ", "&"),
 		    text: UrlTextQuery,
 	    }
-	    console.log(query.query);
+	   //console.log(query.query);
 	    galeria.update(query);
 	    } else if (galeria.showFiltres) {
 		    galeria.element.querySelector(".filtre").classList.add("active");
@@ -616,4 +665,4 @@ function displayGradient() {
 
 setInterval(updateDeltas, 1000);
 
-print(" * Gallery JS ready");
+print(" * Gallery JS initialised");
