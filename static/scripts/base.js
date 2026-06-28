@@ -1,10 +1,16 @@
 
 
-
+console.log(" * Initialising Base JS");
 let camaleonElements = [];
 let imagesToPreload = [];
 
 let desktopThreshold = 1025;
+
+let nGalleries = 0;
+let allGalleries = {};
+
+let now = Date.now()
+//console.log("NOW: ", now);
 
 
 function print(...args){
@@ -118,22 +124,27 @@ async function updateCookiesTic(container){
 }
 
 
-function showPopup(popupContent, cross=true, clone=true) {
-	console.log("Showing Popup");
-    if (clone){
-    	popupContent = popupContent.cloneNode(true);
-        popupContent.classList.add("actual-popup");
-	}
-    popupContent.addEventListener("click", function(event) {event.stopPropagation()});
-    function closePopupEscape(event){
+function closePopupEscape(event){
         if (event.key === "Escape"){
             event.preventDefault();
-            hidePopup(popupContent);
+            document.querySelectorAll(".shown-popup").forEach(popupContent => {
+                hidePopup(popupContent);
+            });
             document.documentElement.style.overflow = "";
             document.documentElement.removeEventListener("keydown", closePopupEscape);
 
         }
     }
+
+function showPopup(popupContent, cross=true, clone=true) {
+	//console.log("Showing Popup");
+    popupContent.classList.add("shown-popup");
+    if (clone){
+    	popupContent = popupContent.cloneNode(true);
+        popupContent.classList.add("actual-popup");
+	}
+    popupContent.addEventListener("click", function(event) {event.stopPropagation()});
+
     document.documentElement.addEventListener("keydown", closePopupEscape);
     popupContent.style.display = "flex";
     popupContent.style.flexDirection = "column";
@@ -154,8 +165,8 @@ function hidePopup(source, sourceElement) {
     }
     popupContent.style.display = "none";
     let template = document.getElementsByClassName(popupContent.className);
-	console.log(template);
-    console.log(template);
+	//console.log(template);
+    //console.log(template);
     popupContent.querySelectorAll(".popup-cross").forEach(c => {c.remove();});
     if (template.length === 2) {
 	    console.log("placing popup back to its place");
@@ -166,6 +177,7 @@ function hidePopup(source, sourceElement) {
         popupContent.parentElement.remove();
         popupContent.remove()
     }
+    document.documentElement.removeEventListener("keydown", closePopupEscape);
 
     document.documentElement.style.overflow = "";
 }
@@ -186,7 +198,7 @@ function addPopupCross(popupContent) {
     cross.innerHTML = "&#10005;";
     cross.type = "button";
     cross.setAttribute("onclick","hidePopup('cross', this)");
-	console.log(window.innerWidth - popupContent.offsetWidth);
+	//console.log(window.innerWidth - popupContent.offsetWidth);
     cross.style.right = String((window.innerWidth - popupContent.offsetWidth) / 2) + "px";
     cross.style.top = String((window.innerHeight - popupContent.offsetHeight) / 2) + "px";
     popupContent.appendChild(cross);
@@ -238,7 +250,7 @@ async function loadImages(selection){
 		    selectedImages.classList.remove(selection-"-image");
 	    } catch(err){}
     }
-    console.log(" * "+ selection +" images loaded (" + changedImages + ") videos: "+changedVideos);
+    //console.log(" * "+ selection +" images loaded (" + changedImages + ") videos: "+changedVideos);
 
 }
 
@@ -248,7 +260,7 @@ function sourceToSrc(trigger){
 }
 
 async function preloadHiddenImages(){
-	console.log(" * Preloading "+imagesToPreload.length+" images");
+	//console.log(" * Preloading "+imagesToPreload.length+" images");
 	for (let i = 0; i < imagesToPreload.length; i++){
 		newImage = document.createElement("img");
 		newImage.classList.add("hidden");
@@ -295,13 +307,92 @@ function PopPopups(){
 }
 
 
+
+
+
+function searchInList (query, list, params=["name", "tipus", "col", "material", "keywords"]){
+    let ResultFound = {};
+    query = query.normalize();
+    query = query.toLowerCase();
+
+    if (query.length === 0){
+        return list;
+    }
+    let letters = query.split("");
+    //console.log("LETTERS:" + letters);
+    let rx = ""
+    letters.forEach(l => {
+        rx = rx + l + ".*"
+    })
+    rx = rx.slice(0, rx.length-2) + ""
+    //console.log("RX:", rx);
+    query = rx
+    //console.log(query);
+
+
+    let results = [];
+    list.forEach(el => {
+	try{
+            params.forEach(p => {
+		let elementID = el
+            	let target = el
+                //console.log(el);
+		let data =allItems[el]
+                if (p !== undefined && p !== null) {
+                    //console.log("p", p);
+                    target = data[p];
+                }
+                if (target !== undefined) {
+                    target = target.normalize()
+                    target = target.toLowerCase();
+                    if (target.search(query) >= 0) {
+                        //console.log(query, target, target.search(query));
+
+                        results.push(elementID);
+                        throw ResultFound;
+                    }
+                }
+            });
+
+        } catch(e){
+            if (e !== ResultFound) {throw e};
+        }
+    });
+    return results
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 PopPopups()
 
 window.addEventListener('load', function () {
 	console.log(" * Page loaded!");
     PopPopups()
     detectHorizontal();
-    console.log(" * "+ String(camaleonElements.length) + "camaleon elements");
+    console.log(" * "+ String(camaleonElements.length) + " chamaleon elements");
     loadAllImages();
 })
 
+
+console.log(" * Base JS initialised");

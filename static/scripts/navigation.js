@@ -1,4 +1,4 @@
-
+console.log(" * Initialising Navigation JS");
 
 
 
@@ -12,27 +12,26 @@ const navLeft = document.getElementById('nav-left');
 const navButtons = [...document.getElementsByClassName('dropbtn')];
 const lanButtons = [...document.getElementsByClassName('language')];
 
-const searchIcon = document.getElementsByClassName('search-icon')[0];
+const searchIcon = document.querySelector("#nav-search-icon");
 const searchInput = document.getElementsByClassName("search-text")[0];
 const searchResults = document.getElementsByClassName("search-results")[0];
 
 const cartIcon = document.getElementsByClassName('shopping-cart')[0];
 const cartCircle = document.getElementsByClassName('cercle-carret')[0];
-const navTitle = document.getElementById("title")
+const navTitle = document.getElementById("title");
 
 
-camaleonElements.push(...navButtons, ...lanButtons, cartCircle, cartIcon, searchIcon, searchInput, searchResults);
-
-if (navTitle) {
-    camaleonElements.push(navTitle)
-}
+camaleonElements.push(...navButtons, ...lanButtons, cartCircle, cartIcon, searchIcon, searchInput, navTitle);
 
 
+
+let forceBlack = false
 
 
 
 
 function goBlack(){
+    //console.log("GoBlack");
     for (let i = 0; i < camaleonElements.length; i++) {
         if (camaleonElements[i] !== null && camaleonElements[i] !== undefined ) {
             camaleonElements[i].classList.remove('white');
@@ -41,6 +40,9 @@ function goBlack(){
 }
 
 function goWhite(){
+    //console.log("GoWhite");
+
+    if (forceBlack){return}
     for (let i = 0; i < camaleonElements.length; i++) {
         if (camaleonElements[i] !== null && camaleonElements[i] !== undefined ) {
             camaleonElements[i].classList.add('white');
@@ -49,7 +51,8 @@ function goWhite(){
 }
 
 function checkColor() {
-    const colorElement = document.getElementById("nav-color")
+    //console.log("Checking colour");
+    const colorElement = document.getElementById("nav-color");
     if (colorElement !== null) {
         try {
             let targetColour = colorElement.attributes.color.value;
@@ -66,8 +69,10 @@ function checkColor() {
             } else if (navColour === "opaque") {
                 navigation.classList.add("opaque");
             }
+            return navColour
         } catch {}
     }
+
 }
 
 const c = checkColor()
@@ -82,7 +87,7 @@ function background_to_url(background){
 
 
 function getImageBrightness(url) {
-    console.log(url)
+    //console.log(url)
     const newImg = document.createElement("img");
 
 
@@ -113,7 +118,7 @@ function getImageBrightness(url) {
         }
 
         let brightness = Math.floor(colorSum / (this.width*this.height));
-      console.log(brightness);
+      //console.log(brightness);
       newImg.setAttribute("brightness", brightness);
     }
     return newImg.getAttribute("brightness");
@@ -166,6 +171,7 @@ let blackObserver = new IntersectionObserver((triggers) => {colorScroll(triggers
 
 
 function colorScroll(triggers){
+    //console.log("Color scroll")
     if (!triggers[0].isIntersecting) {
         goBlack();
         navigation.classList.add("opaque");
@@ -211,35 +217,77 @@ function toggleLanguages(trigger){
 	}
 }
 
-function showSearch(){
-
-    function closeSearchEsc(event){
-        if (event.key === "Escape"){
-            event.preventDefault();
-            hideSearch();
-            document.documentElement.removeEventListener("keydown", closeSearchEsc);
-        }
+function closeSearchEsc(event){
+    if (event.key === "Escape"){
+        //console.log("escaping search");
+        event.preventDefault();
+        hideSearch(true);
+        document.documentElement.removeEventListener("keydown", closeSearchEsc);
+    } else if (event.key === "Enter"){
+        //console.log("escaping search");
+        let resultsDiv = searchIcon.parentElement.querySelector(".search-over-page");
+        let textDiv = resultsDiv.querySelector(".gallery-search-text")
+        window.location.href = "/"+document.documentElement.lang+"/productes/?q="+textDiv.value
     }
-    document.documentElement.addEventListener("keydown", closeSearchEsc);
-    searchIcon.parentElement.classList.remove("closed");
-    searchIcon.parentElement.classList.add("open");
-    searchIcon.style.display = "none";
-    searchInput.style.display = "block";
-    searchResults.style.display = "block";
-
-    searchInput.focus();
 }
 
-function hideSearch(){
-    if (searchResults.matches(":hover")) {
+function showSearch(){
+    //console.log("Showing search");
+    closeMenu();
+    closeCart();
+    let trigger = searchIcon;
+    let resultsDiv = trigger.parentElement.querySelector(".search-over-page");
+    let textDiv = resultsDiv.querySelector(".gallery-search-text")
+    trigger.setAttribute("onclick", "hideSearch(true)");
+
+
+    document.documentElement.addEventListener("keydown", closeSearchEsc);
+    // searchIcon.parentElement.classList.remove("closed");
+    // searchIcon.parentElement.classList.add("open");
+    // searchIcon.style.display = "none";
+    // searchInput.style.display = "block";
+    resultsDiv.classList.remove("hidden");
+    navigation.classList.add("force-opaque");
+    navTitle.classList.remove("hidden")
+    document.documentElement.style.overflow = "hidden";
+    forceBlack = true;
+    goBlack();
+
+
+    textDiv.focus();
+}
+
+function hideSearch(force=false){
+
+    let trigger = searchIcon;
+
+    //console.log("hidingSearch");
+    let areaOfInterest = document.querySelector(".navigation-right");
+    let resultsDiv = trigger.parentElement.querySelector(".search-over-page");
+
+    if (areaOfInterest.matches(":hover") && !force) {
         return;
     }
-    searchIcon.parentElement.classList.remove("open");
-    searchIcon.parentElement.classList.add("closed");
+    trigger.setAttribute("onclick", "showSearch()");
 
-    searchInput.style.display = "none";
-    searchIcon.style.display = "block";
-    searchResults.style.display = "none";
+    document.documentElement.addEventListener("keydown", closeSearchEsc);
+
+
+    // searchIcon.parentElement.classList.remove("open");
+    // searchIcon.parentElement.classList.add("closed");
+
+    // searchInput.style.display = "none";
+    // searchIcon.style.display = "block";
+    resultsDiv.classList.add("hidden");
+    navigation.classList.remove("force-opaque");
+    if (navTitle.classList.contains("hidden-title")){
+        navTitle.classList.add("hidden");
+    }
+    document.documentElement.style.overflow = "";
+    forceBlack = false;
+    checkColor();
+
+
 }
 
 function resizeSearch(){
@@ -249,8 +297,9 @@ function resizeSearch(){
     searchInput.style.width =  String(targetWidth)+"px";
 }
 
-let ResultFound = {};
+
 function searchInDict(query, key, params=[undefined]){
+    let ResultFound = {};
     let results = []
     if (query.length === 0){
         return results;
@@ -287,7 +336,24 @@ function searchInDict(query, key, params=[undefined]){
 }
 
 
-function showResults(results){
+
+function globalSearch(trigger) {
+	let resultsDiv = trigger.parentElement.querySelector(".search-over-page");
+	let galleryID = resultsDiv.querySelector(".content-galeria").getAttribute("galleryId");
+	let gallery = allGalleries[galleryID];
+
+	resultsDiv.classList.remove("hidden")
+
+	let query = {
+		text: trigger.value
+	}
+
+	gallery.update(query);
+}
+
+
+
+function deprecatedShowResults(results){
     let supercontainer = document.querySelector(".search-results");
 
     Object.keys(results).forEach(cat => {
@@ -342,7 +408,7 @@ function showResults(results){
 }
 
 
-function updateSearchResults(){
+function deprecatedUpdateSearchResults(){
     let query = searchInput.value.normalize();
     query = query.toLowerCase();
     //console.log("QUERY:" + query);
@@ -368,7 +434,15 @@ function updateSearchResults(){
 
 
 }
+function closeMenusEsc(event){
+    if (event.key === "Escape"){
+        closeMenu()
+        closeCart();
+    }
+}
 
+
+document.documentElement.addEventListener("keydown", closeMenusEsc);
 
 
 window.addEventListener("load", (e) =>{
@@ -376,4 +450,4 @@ window.addEventListener("load", (e) =>{
 });
 
 
-console.log(" * Navigation JS ready")
+console.log(" * Navigation JS initialised")

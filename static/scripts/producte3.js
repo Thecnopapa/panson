@@ -25,13 +25,13 @@ async function trackProd(name, data){
 
 function updatePrice(){
     let price = 0
-	console.log("Updating price");
+	//console.log("Updating price");
 
     const variationList = document.getElementsByClassName("variation-input");
 
     for (let i = 0; i < variationList.length; i++) {
         if (variationList[i].checked && variationList[i].attributes.price) {
-            console.log(variationList[i].attributes.price.value);
+            //console.log(variationList[i].attributes.price.value);
 		price += Number(variationList[i].attributes.price.value);
         }
     }
@@ -68,10 +68,10 @@ function updatePrice(){
         }
     } catch (error) {}
     const priceTags = document.getElementsByClassName("preu-producte");
-    console.log(priceTags, price, o_price);
+    //console.log(priceTags, price, o_price);
     try {
         for (let i = 0; i < priceTags.length; i++) {
-            console.log(priceTags);
+            //console.log(priceTags);
             if (priceTags[i].classList.contains("old-price")){
                 continue;
             }
@@ -87,7 +87,7 @@ function updatePrice(){
                     new_tag = priceTags[i].cloneNode(true);
                 }
 
-                console.log(new_tag);
+                //console.log(new_tag);
 
                 new_tag.classList.add("old-price");
                 new_tag.classList.add("grayed")
@@ -97,7 +97,7 @@ function updatePrice(){
                 priceTags[i].before(new_tag);
                 // priceTags[i].parentElement.parentElement.insertBefore(new_tag_parent, priceTags[i].parentElement);
             }
-            console.log(priceTags);
+            //console.log(priceTags);
         }
     } catch (error) {
         console.log(error);
@@ -130,7 +130,7 @@ function selectSize(trigger){
 	for (let i = 0; i < sizeList.length; i++) {
 		sizeList[i].removeAttribute("checked");
 		sizeList[i].parentElement.classList.remove("underlined");
-		console.log(sizeList[i]);
+		//console.log(sizeList[i]);
 	}
 	trigger.setAttribute("checked", true);
 	trigger.parentElement.classList.add("underlined");
@@ -163,18 +163,18 @@ function resizeSelector(trigger){
 function selectSizeTable(trigger) {
     var selectedVal = trigger.attributes.val.value;
     var selectedCol = trigger.attributes.col.value;
-    console.log(selectedVal, selectedCol);
+    //console.log(selectedVal, selectedCol);
     try {
         const targetContainer = document.getElementsByClassName("talles")[0]
         const targetInputs = [...targetContainer.getElementsByTagName("input")];
-	    console.log(targetInputs);
-	    console.log(["panson", "es"].includes(selectedCol));
+	    //console.log(targetInputs);
+	    //console.log(["panson", "es"].includes(selectedCol));
         if (["panson","es"].includes(selectedCol) && selectedVal !== "NA") {
             targetInputs.forEach(input => {
-                console.log(input.value, selectedVal, input.value === selectedVal)
+                //console.log(input.value, selectedVal, input.value === selectedVal)
                 if (input.value === selectedVal) {
                     input.setAttribute("checked", true);
-                    console.log(input.parentElement);
+                    //console.log(input.parentElement);
                     input.dispatchEvent(new Event("change"));
                     throw new Error("found");
                 }
@@ -185,11 +185,11 @@ function selectSizeTable(trigger) {
         print(error);
         if (error.message !== "found") {
             if (selectedVal === "NA" || selectedCol === "panson"){
-		    console.log("val is NA");
+		    //console.log("val is NA");
 		    selectedCol = "es";
 		    selectedVal = undefined;
 		[...trigger.parentElement.children].forEach(el => {if (el.getAttribute("col", undefined) === selectedCol){selectedVal = el.attributes.val.value;}});
-		    console.log("selected val: ", selectedVal);
+		    //console.log("selected val: ", selectedVal);
             }
             const multipleInput = document.getElementById("size-multiple-input");
             const customSize = document.getElementById("custom-size");
@@ -197,8 +197,8 @@ function selectSizeTable(trigger) {
             const countrySelector = document.getElementById("size-country");
             multipleInput.value = selectedVal;
             multipleInput.dispatchEvent(new Event("input"));
-		console.log("options");
-            console.log(countrySelector, selectedCol);
+		    //console.log("options");
+            //console.log(countrySelector, selectedCol);
             countrySelector.getElementsByClassName(selectedCol)[0].selected = true;
             countrySelector.dispatchEvent(new Event("change"));
         }
@@ -218,7 +218,7 @@ function selectColour(trigger, color=""){
 			color = trigger.getAttribute("color");
 		} catch{}
 	}
-    console.log(trigger);
+    //console.log(trigger);
 	let colourList = trigger.parentElement.getElementsByClassName("color-input");
 	for (let i = 0; i < colourList.length; i++) {
 		colourList[i].removeAttribute("checked");
@@ -232,13 +232,13 @@ function selectColour(trigger, color=""){
 
 
 function selectVariation(trigger){
-	console.log(trigger);
+	//console.log(trigger);
 	let link = trigger.firstElementChild.getAttribute("link", null);
 	if (link != "" && link != null){
 		location.href = "/"+document.documentElement.lang +link;
 	}
 	let varList = [...trigger.parentElement.parentElement.getElementsByTagName("input")];
-	console.log(varList);
+	//console.log(varList);
 	varList.forEach(v => {
         v.removeAttribute("checked");
         v.parentElement.removeAttribute("checked");
@@ -252,13 +252,13 @@ function selectVariation(trigger){
 }
 
 function selectMaterial(trigger){
-        console.log(trigger);
+        //console.log(trigger);
         let link = trigger.firstElementChild.getAttribute("link", null);
         if (link != "" && link != null){
                 location.href = "/"+document.documentElement.lang +link;
 	}
         let varList = [...trigger.parentElement.parentElement.getElementsByTagName("input")];
-        console.log(varList);
+        //console.log(varList);
 	varList.forEach(v => {v.removeAttribute("checked");});
         trigger.firstElementChild.setAttribute("checked", true);
         updatePrice();
@@ -274,16 +274,16 @@ async function submitToCart (trigger) {
     const formData = new FormData(theForm);
     const fieldsets = form.querySelectorAll("fieldset");
     document.documentElement.style.cursor = "progress !important";
-	console.log(formData);
+	//console.log(formData);
     try {
         let response = await fetch("/carret/add", {
                 method: "POST",
                 body: formData,
             });
-
-        console.log(await response);
-        console.log(response.status);
-        console.log(response.headers.get("missing-val", undefined));
+        await response;
+        //console.log(response);
+        //console.log(response.status);
+        //console.log(response.headers.get("missing-val", undefined));
         if (response.status == "206") {
             const missingField = response.headers.get("missing-val", undefined);
             const targetFieldset = document.getElementsByClassName(missingField)[0];
@@ -311,7 +311,7 @@ async function submitToCart (trigger) {
 
 async function reloadCart(){
 	let cartList = document.getElementsByClassName("llista-carret")[0];
-    console.log("Reloading cart");
+    //console.log("Reloading cart");
 	//console.log(cartList);
 	//console.log(cartList.innerHTML);
 	[...cartList.children].forEach(c => {c.remove()});
@@ -322,10 +322,10 @@ async function reloadCart(){
 	).then(response => {return response.text();}).then(text => {
 		const parser = new DOMParser();
 		let html = parser.parseFromString(text, "text/html").documentElement;
-		console.log(html);
+		//console.log(html);
 		return [...html.getElementsByClassName("producte-carret")];
 	});
-	console.log(newItems);
+	//console.log(newItems);
 	newItems.forEach(i => {cartList.appendChild(i)});
 	loadAllImages();
 	updateCartCounter();
@@ -399,7 +399,7 @@ function hideAllDetails(trigger){
 
 
 function enlargeImg(img, all=true){
-    console.log("Enlarging img, all: ", all);
+    //console.log("Enlarging img, all: ", all);
     //trackProd("ProductImageZoom")
 	let images = undefined;
 	let targetImage = undefined
@@ -411,9 +411,9 @@ function enlargeImg(img, all=true){
 		images = [img];
 		targetImage = 0;
 	}
-	console.log("N images: ", images.length, " target: ", targetImage);
+	//console.log("N images: ", images.length, " target: ", targetImage);
     const productName = img.attributes["product"].value;
-    console.log(productName);
+    //console.log(productName);
 
     document.documentElement.style.overflow = "hidden";
 
@@ -463,7 +463,7 @@ function enlargeImg(img, all=true){
 	function newBubbleChange(triggers, opts){
 		for (let i = 0; i < triggers.length; i++){
                 	const trigger = triggers[i].target;
-              		console.log(trigger);
+              		//console.log(trigger);
                 	const targetIndex = [...newSlideshow.children].indexOf(trigger);
                 	const targetBubble = newBubbles.children[targetIndex];
                 	targetBubble.classList.toggle("active", triggers[i].isIntersecting);
@@ -512,7 +512,7 @@ function enlargeImg(img, all=true){
 	newArrows.appendChild(rightArrow);
 
 	function scrollWithArrows(event){
-            console.log(event.key);
+            //console.log(event.key);
 	    if (event.key === "ArrowLeft"){
 		    event.preventDefault();
 		    leftArrow.click();
@@ -595,7 +595,7 @@ function moveImg(event){
     clickY = (1-(imgHeight -  event.clientY + pos.top)/imgHeight)*100;
     //console.log(clickX, clickY);
     image.style.backgroundPosition = String(clickX)+ "% "+String(clickY)+"%";
-    console.log(image.style.backgroundPosition);
+    //console.log(image.style.backgroundPosition);
 }
 
 
@@ -660,11 +660,11 @@ function slideshowScroll(container, mode=undefined, axis="both"){
     }
     let containerWidth = container.offsetWidth;
     let containerHeight = container.offsetHeight;
-    console.log(containerWidth, containerHeight);
+    //console.log(containerWidth, containerHeight);
     let childWidth = container.firstElementChild.offsetWidth;
     let childHeight = container.firstElementChild.offsetHeight;
-    console.log(childWidth, childHeight);
-    console.log(axis, mode);
+    //console.log(childWidth, childHeight);
+    //console.log(axis, mode);
 
     if (axis === "X" || axis === "both"){
 		targetScrollX = container.scrollLeft;
@@ -674,7 +674,7 @@ function slideshowScroll(container, mode=undefined, axis="both"){
 		targetScrollY = container.scrollTop;
 		incrementY = childHeight ;
 	}
-    console.log("Increment:", incrementX, incrementY);
+    //console.log("Increment:", incrementX, incrementY);
     if (mode === "prev"){
 		targetScrollX = targetScrollX - incrementX;
         targetScrollY = targetScrollY - incrementY;
@@ -687,19 +687,19 @@ function slideshowScroll(container, mode=undefined, axis="both"){
     } else{
     	try{
             mode = Number(mode);
-	    console.log("scrolling to: ", mode);
+	        //console.log("scrolling to: ", mode);
             targetScrollX = incrementX*mode - (containerWidth - childWidth) / 2;
             targetScrollY = incrementY*mode - (containerHeight - childHeight) / 2;
-            console.log(mode, targetScrollX, targetScrollY);
+            //console.log(mode, targetScrollX, targetScrollY);
             //trackProd("ProductFotoChange", {"mode": "scroll"})
     	} catch(e){console.log(e)}
     }
-    console.log(axis, targetScrollX, targetScrollY);
+    //console.log(axis, targetScrollX, targetScrollY);
     container.scrollTo(targetScrollX, targetScrollY);
 
 }
 let alwaysBlackInProduct = [...lanButtons, cartIcon, cartCircle]
-console.log(alwaysBlackInProduct);
+//console.log(alwaysBlackInProduct);
 alwaysBlackInProduct.forEach(el => {
 
     el.classList.add("black-landscape");

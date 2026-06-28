@@ -3,11 +3,14 @@ import requests
 from flask import render_template
 from app_essentials.utils import Utils
 
+
+
 def send_email(recipient, subject=None, temp=None, message="", sender="no-reply", sender_name="PANSON joieria",
                recipient_name=None, internal_recipient=False, cc=None, **kwargs):
+    print("Sending email..")
     assert subject is not None
     mail_server = "pansonjoieria.com"
-    with open(os.environ["MAILGUN_KEY"]) as f:
+    with open(os.environ["MAILGUN_KEY_PATH"]) as f:
         mailgun_key = f.read()
 
     if internal_recipient:
@@ -52,7 +55,7 @@ def send_newsletter(mailing_list, subject="PANSON newsletter", temp="email_newsl
 
 
 def add_to_list(email, name, list_id):
-    with open(os.environ["MAILGUN_KEY"]) as f:
+    with open(os.environ["MAILGUN_KEY_PATH"]) as f:
         mailgun_key = f.read()
 
     data = {

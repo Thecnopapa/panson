@@ -1,116 +1,74 @@
 
 
 
-{% macro galeria(bucket, double=False, filtres=False, max_prods=None, filterKey=None, filterValue=None, min_row=4, min_prods=4, exclude=None, filter_mode="&", pages=False, inline=False, load_more=False, go_to_shop=False, range=(0,1), second_hover=True) %}
+{% macro galeria(bucket, filtres=0, max_prods=0, min_row=4, min_prods=4, exclude=None, filter_mode="&", inline=False, go_to_shop=False, range="0-1", second_hover=True, search=0, query="", read_url=0, start_empty=0) %}
 
 
-{% set productes = productes.__getattribute__(bucket) %}
+<div class="content-galeria" bucket="{{ bucket }}" maxprods="{{ max_prods }}" minrow="{{ min_row }}" minprods="{{ min_prods }}" inline="{{ utils.int(inline) }}" query="{{ query }}" exclude="{{ exclude }}" range="{{ range }}" readUrl="{{ read_url }}" showFiltres="{{ filtres }}" showSearch="{{ search }}" startEmpty="{{ start_empty }}">
+    {% if filtres %}
+        <div class="gallery-filtres">
+            <div class="filtre-buttons-gradient end-left"></div>
+            <div class="filtre-buttons">
 
-
-{% set prods = utils.filter_by_attr(productes, filterKey, filterValue, mode=filter_mode) %}
-{% set prods = utils.filter_by_attr(prods, "_id", exclude, mode="!&") %}
-
-
-{% set initial_prods_length = utils.len(prods) %}
-{% set final_prods_length = utils.len(prods[utils.int(initial_prods_length*range[0]):utils.int(initial_prods_length*range[1])]) %}
-
-{% if max_prods == None %}
-	{% set max_prods = utils.len(prods[utils.int(initial_prods_length*range[0]):utils.int(initial_prods_length*range[1])]) %}
-{% endif %}
-
-
-
-
-<div class="content-galeria" page=0>
-<div class="hidden-product-list">
-	<div class="gallery-info" double="{{ doble_galeria }}" maxProds="{{ max_prods }}" minRow="{{ min_row }}" bucket="{{ bucket }}" filterKey="None" filterValue="None" nProds="{{final_prods_length}}"></div>
-
-    {% for n, producte in utils.enumerate(prods[utils.int(initial_prods_length*range[0]):utils.int(initial_prods_length*range[1])]) %}
-    <div class="hidden-info-producte"
-        id="{{ producte._id }}"
-        nom="{{ producte.nom }}"
-        preu="{{ producte.calcular_preu_minim() }}&#8364;"
-        col="{{ producte.collecio }}"
-        tipus="{{ producte.tipus }}"
-        unica="{{ producte.unica }}"
-        novetat="{{ producte.novetat }}"
-        popular="{{ producte.popular }}"
-         descompte="{{ producte.descompte }}"
-        preu_antic="{{ producte.calcular_preu_minim(False) }}"
-        material="{{ utils.join("&", producte.opcions["materials"].keys()) if producte.opcions['materials'] != None}}"
-        img1="{{ producte.imatges[0] }}"
-        img2="{{ producte.imatges[1] }}"
-        startDate="{{producte.start_date}}"
-	    {% if bucket == "bespoke" %}
-	    per_a="{{ loc.fam_per_a }} {{ producte.per_a }}"
-	    {% endif %}
-	    ></div>
-    {% endfor %}
-</div>
-
-        {% if filtres %}
-            <div class="gallery-filtres">
-                <div class="filtre-buttons-gradient"></div>
-                    <div class="filtre-buttons">
-
-                        {% for n, filtre in utils.enumerate(loc.filtres) %}
-                            {%  if filtre.get("inverted", False) %}
-                                <div class="filtre {{ "first" if n==0 }} {{ "last" if n+1 == utils.len(loc.filtres) }}" filterKey="{{ filtre["field"] }}" filterValue="{{ filtre["value"] }}" onclick="filterGaleria(this, invert=true)">{{ loc[filtre["nom"]] }}</div>
-                            {% else %}
-                                <div class="filtre {{ "first" if n==0 }} {{ "last" if n+1 == utils.len(loc.filtres) }}" filterKey="{{ filtre["field"] }}" filterValue="{{ filtre["value"] }}" onclick="filterGaleria(this)">{{ loc[filtre["nom"]] }}</div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
+                {% for n, filtre in utils.enumerate(loc.filtres) %}
+		<div class="filtre {{ "first" if n==0 }} {{ "last" if n+1 == utils.len(loc.filtres) }}" query="{{ filtre["query"] }}"  onclick="filterGaleria(this)">{{ loc[filtre["nom"]] }}</div>
+                {% endfor %}
             </div>
+	</div>
+    {% endif %}
+    {% if search %}
+    <div class="gallery-search">
+	    <img class="search-icon gallery-search-icon black"  src="/static/media/search-icon.svg" alt="search">
+	    <input class="gallery-search-text" type="text" autocomplete="off" placeholder="{{ loc.nav_text_buscar }}" oninput="searchGalleria(this);" onfocus="searchGalleria(this);">
+        <div class="gallery-erase-search" onclick="this.previousElementSibling.value = '';this.previousElementSibling.focus();">&#10005;</div>
+    </div>
+    {% endif %}
+    <div class="empty-disclaimer hidden">
+        <div class="galeria-no-filtre hidden loc" loc="gal_filtre_buit">{{ loc.gal_filtre_buit }}</div>
+        <div class="galeria-no-query hidden loc" loc="gal_query_buit">{{ loc.gal_query_buit }}</div>&nbsp;&nbsp;<div class="galeria-no-query-text" style="font-weight: bold"></div>
+    </div>
 
-        {% endif %}
     <div class="galeria-scroll scroll-left {{ 'inline' if inline }}" >
-	    <div class="galeria-scroll-button scroll-left-button disabled {{"invisible" if final_prods_length <= min_row }}" onclick="scrollGallery(this.parentElement.nextElementSibling.nextElementSibling, 'left', '1u')"><img class="main-arrow left" src="/static/media/arrow.svg"></div>
+	    <div class="galeria-scroll-button scroll-left-button disabled" onclick="scrollGallery(this.parentElement.nextElementSibling.nextElementSibling, 'left', '1u')"><img class="main-arrow left" src="/static/media/arrow.svg"></div>
     </div>
     <div class="galeria-scroll scroll-right {{ 'inline' if inline }}" >
-	    <div class="galeria-scroll-button scroll-right-button {{ "invisible" if final_prods_length <= min_row }}" onclick="scrollGallery(this.parentElement.nextElementSibling, 'right', '1u')"><img class="main-arrow right" src="/static/media/arrow.svg"></div>
+	    <div class="galeria-scroll-button scroll-right-button" onclick="scrollGallery(this.parentElement.nextElementSibling, 'right', '1u')"><img class="main-arrow right" src="/static/media/arrow.svg"></div>
     </div>
     <div class="galeria {{ 'inline' if inline }}">
 	    <div class="producte template empty {{ 'inline' if inline }}" onmouseover={{"highlightProduct(this)"  if second_hover }} onmouseout={{ "reverseProduct(this)" if second_hover }}>
-               <div class="imatge primera normal-image"></div>
-               <div class="imatge segona slow-image preload"></div>
-               <div class="detalls-galeria">
-                    <div class="detalls-principals">
-                        {% if bucket == "bespoke" %}
-                            <h2 class="per-a"></h2>
-                        {% else %}
-                            <h2 class="nom"></h2>
-                            <div class="preu-inline"></div>
-                           {# <div style="width:fit-content; display: flex;" class="preu-inline-slash portrait">&nbsp;/&nbsp;<div class="preu-inline"></div></div>#}
-                        {% endif %}
-                    </div>
+            <div class="imatge primera normal-image"></div>
+            <div class="imatge segona slow-image preload"></div>
+            <div class="detalls-galeria">
+                <div class="detalls-principals">
+                    {% if bucket == "bespoke" %}
+                        <h2 class="per-a"></h2>
+                    {% else %}
+                        <h2 class="nom"></h2>
+                        <div class="preu-inline"></div>
+                       {# <div style="width:fit-content; display: flex;" class="preu-inline-slash portrait">&nbsp;/&nbsp;<div class="preu-inline"></div></div>#}
+                    {% endif %}
                 </div>
-		<div class="launch-time-cover hidden">
-			<div class="launch-time-text loc" loc="gal_falta_temps">{{loc.gal_falta_temps}}</div>
-			<div class="launch-time-value">
-				<div class="launch-time days"></div>
-				<div class="launch-time-days loc" loc="gal_falta_dies">{{loc.gal_falta_dies |safe}}</div>
-				<div class="launch-time hours"></div>
-				<div class="launch-time-hours loc" loc="gal_falta_hores">{{loc.gal_falta_hores |safe}}</div>
-				<div class="launch-time minutes"></div>
-				<div class="launch-time-minutes loc" loc="gal_falta_minuts">{{loc.gal_falta_minuts |safe}}</div>
-				<div class="launch-time seconds"></div>
-				<div class="launch-time-seconds loc" loc="gal_falta_segons">{{loc.gal_falta_segons |safe}}</div>
-			</div>
-		</div>
-           </div>
+            </div>
+            <div class="launch-time-cover hidden">
+                <div class="launch-time-text loc" loc="gal_falta_temps">{{loc.gal_falta_temps |safe}}</div>
+                <div class="launch-time-value">
+                    <div class="launch-time days"></div>
+                    <div class="launch-time-days loc" loc="gal_falta_dies">{{loc.gal_falta_dies |safe}}</div>
+                    <div class="launch-time hours"></div>
+                    <div class="launch-time-hours loc" loc="gal_falta_hores">{{loc.gal_falta_hores |safe}}</div>
+                    <div class="launch-time minutes"></div>
+                    <div class="launch-time-minutes loc" loc="gal_falta_minuts">{{loc.gal_falta_minuts |safe}}</div>
+                    <div class="launch-time seconds"></div>
+                    <div class="launch-time-seconds loc" loc="gal_falta_segons">{{loc.gal_falta_segons |safe}}</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="galeria-navigation" pages="{{pages}}" more="{{load_more }}" goToShop="{{go_to_shop}}">
-	{% if pages %}
-	    <img class="main-arrow page-arrow left" src="/static/media/arrow.svg" onclick="galeriaPrev(this.parentElement.parentElement)">
-	    <div class="galeria-counter"></div>
-	    <img class="main-arrow page-arrow right" src="/static/media/arrow.svg" onclick="galeriaNext(this.parentElement.parentElement)">
-	{% elif load_more %}
-	    <div class="galeria-load-more galeria-nav-button black-button loc" loc="gal_carregar_mes" onclick="galeriaNext(this.parentElement.parentElement)">{{ loc.gal_carregar_mes}}</div>
-	{% elif go_to_shop %}
-	    <div class="galeria-go-to-shop galeria-nav-button black-button loc" loc="gal_anar_botiga" onclick="location.href='/{{ loc.lan }}/productes?page=2'">{{ loc.gal_anar_botiga}}</div>
-	{% endif %}
+        {% if go_to_shop %}
+            <div class="galeria-go-to-shop galeria-nav-button black-button loc" loc="gal_anar_botiga" onclick="location.href='/{{ loc.lan }}/productes'">{{ loc.gal_anar_botiga}}</div>
+        {% endif %}
     </div>
 </div>
 {% endmacro %}

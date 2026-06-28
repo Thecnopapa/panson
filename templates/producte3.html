@@ -7,15 +7,11 @@
 
 {% block imports %}
     <link href='/style/contacte.css' as='style' rel='preload'>
-    <link href='/style/galeria.css' as='style' rel='preload'>
-    <link href='/scripts/galeria.js' as='script' rel='preload'>
     <link href='/style/talles.css' as='style' rel='preload'>
     <link href='/style/producte3.css' as='style' rel='preload'>
     <link href='/scripts/producte3.js' as='script' rel='preload'>
 
     <link href='/style/contacte.css' rel='stylesheet'>
-    <link href='/style/galeria.css' rel='stylesheet'>
-    <script defer type="text/javascript" src="/scripts/galeria.js"></script>
     <link href='/style/talles.css' rel='stylesheet'>
     <link href='/style/producte3.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/scripts/producte3.js"></script>
@@ -269,7 +265,7 @@
     {% if producte.bucket == "bespoke" %}
     <div class="explicacio-contacte loc" loc="pro_explicacio_contacte">{{ loc.pro_explicacio_contacte }}</div>
     	{% import 'contacte.html' as contacte with context%}
-	{{ contacte.contact_form(prefix=False, subject=False) }}
+	{{ contacte.contact_form(prefix=False, subject=False, target="bespoke") }}
     {% endif %}
     </div>
 </div>
@@ -278,16 +274,13 @@
 <div class="subtitol-galeria loc" loc="pro_titol_galeria">{{ loc.pro_tiol_galeria }}</div>
 
     <div class="producte-galeria galeries-landscape">
-        {{ galeria.galeria("productes", filtres=False, filterKey="collecio;tipus", filterValue=utils.str(producte.collecio)+";"+utils.str(producte.tipus), min_row=4, min_prods=4, exclude=producte._id, filter_mode="|", inline=True) }}
+        {{ galeria.galeria("productes", query="col="+utils.str(producte.collecio)+"|tipus="+utils.str(producte.tipus), min_row=4, min_prods=4, exclude=producte._id, filter_mode="|", inline=True) }}
     </div>
 
     <div class="producte-galeria galeries-portrait">
-        {{ galeria.galeria("productes", filtres=False, filterKey="collecio;tipus", filterValue=utils.str(producte.collecio)+";"+utils.str(producte.tipus), filter_mode="|", min_row=2, min_prods=2, exclude=producte._id, inline=True, range=(0,0.5), second_hover=False) }}
-        {{ galeria.galeria("productes", filtres=False, filterKey="collecio;tipus", filterValue=utils.str(producte.collecio)+";"+utils.str(producte.tipus), filter_mode="|", min_row=2, min_prods=2, exclude=producte._id, inline=True, range=(0.5,1), second_hover=False) }}
+        {{ galeria.galeria("productes", query="col="+utils.str(producte.collecio)+"|tipus="+utils.str(producte.tipus), min_row=2, min_prods=2, exclude=producte._id, inline=True, range="0-0.5", second_hover=False) }}
+        {{ galeria.galeria("productes", query="col="+utils.str(producte.collecio)+"|tipus="+utils.str(producte.tipus), min_row=2, min_prods=2, exclude=producte._id, inline=True, range="0.5-1", second_hover=False) }}
     </div>
     {% endif %}
 
 {% endblock %}
-
-
-

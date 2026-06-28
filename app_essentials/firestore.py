@@ -37,7 +37,7 @@ try:
     # except:
     #    storage_client = storage.Client(project="panson")
 
-    credentials = service_account.Credentials.from_service_account_file(os.environ.get('FIRESTORE_CREDENTIALS'))
+    credentials = service_account.Credentials.from_service_account_file(os.environ.get('FIRESTORE_CREDENTIALS_PATH'))
     print(" * Firestore credentials loaded")
 
     storage_client = storage.Client(credentials=credentials, project="panson")

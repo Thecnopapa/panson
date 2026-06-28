@@ -14,12 +14,14 @@
     <link href='/style/navigation.css' as='style' rel='preload'>
     <link href='/style/carret.css' as='style' rel='preload'>
     <link href='/style/footer.css' as='style' rel='preload'>
+    <link href='/style/galeria.css' as='style' rel='preload'>
 
 
     <link href='/scripts/base.js' as='script' rel='preload'>
     <link href='/scripts/navigation.js' as='script' rel='preload'>
     <link href='/scripts/menu.js' as='script' rel='preload'>
     <link href='/scripts/cart.js' as='script' rel='preload'>
+    <link href='/scripts/galeria.js' as='script' rel='preload'>
 
 
 
@@ -28,12 +30,14 @@
     <link href='/style/menu.css' rel='stylesheet'>
     <link href='/style/carret.css' rel='stylesheet'>
     <link href='/style/footer.css' rel='stylesheet'>
+    <link href='/style/galeria.css' rel='stylesheet'>
 
 
     <script defer type="text/javascript" src="/scripts/base.js"></script>
     <script defer type="text/javascript" src="/scripts/navigation.js"></script>
     <script defer type="text/javascript" src="/scripts/menu.js"></script>
     <script defer type="text/javascript" src="/scripts/cart.js"></script>
+    <script defer type="text/javascript" src="/scripts/galeria.js"></script>
 
 
 
@@ -147,10 +151,18 @@ html{
 </style>
 
 
+{% block product_list %}
+    <script>
+    let allItems = {{ prods_json | safe }};
+	console.log(allItems);
+	let allBespoke = {{ bespoke_json | safe }};
+    console.log(allBespoke)
+    </script>
+{% endblock %}
 
 
 <body>
-	{% import 'cart.html' as cart_macros with context %}
+    {% import 'cart.html' as cart_macros with context %}
     {% import 'menu.html' as menu with context %}
 {% include "navigation.html" %}
 
@@ -158,10 +170,9 @@ html{
 
 {% endblock %}
 {% include "footer.html" %}
-{% block session %}
-    <div id="session" session="{{ user._id }}" user="{{ user.sessions[0] }}"></div>
-{% endblock %}
+
+{% block session %}<div id="session" session="{{ user._id }}" user="{{ user.sessions[0] }}"></div>{% endblock %}
+
 <div id=hidden-images class=hidden style="display:none; z-index:-999; overflow:hidden; max-height:0; max-width:0;"></div>
 </body>
 </html>
-

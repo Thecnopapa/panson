@@ -66,6 +66,8 @@ body{
     text-align: center;
     color: rgba(240, 248, 255, 0.9);
     position: fixed;
+    transition-duration: 0.1s;
+    transition-property: height, width, top, left;
     /*mix-blend-mode: difference;*/
 }
 #title-logo.white:not(.black){

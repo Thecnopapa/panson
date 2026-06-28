@@ -15,12 +15,12 @@
     <br>
     <h4>Un client ha enviat el seguent missatge:</h4>
     <div style="height:2px;background:#000000;width:100%;"></div>
-    <h4>{{ form["subject"] }}</h4>
+    <h4>{{ subject }}</h4>
     <div style="height:1px;background:#000000;width:100%;"></div>
     <p style="white-space: pre-line">{{ form["message"] }}</p>
     <div style="height:2px;background:#000000;width:100%;"></div>
     <br>
 
-    <a id="respondre" href='mailto:{{ form["sender-email"] }}?subject=RE:%20{{ utils.replace(form["subject"]," ", "%20")}}' style="border: black 1px solid; width: fit-content; height: fit-content; padding: 3%;">Respondre</a>
+    <a id="respondre" href='mailto:{{ form["sender-email"] }}?subject=RE:%20{{ utils.replace(subject," ", "%20")}}' style="border: black 1px solid; width: fit-content; height: fit-content; padding: 3%;">Respondre</a>
 
 </div>

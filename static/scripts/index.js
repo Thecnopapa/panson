@@ -1,3 +1,4 @@
+console.log(" * Initialising Index JS")
 
 const onClickLink = document.getElementById('title-logo').onclick
 const title = document.getElementById('title-logo');
@@ -7,11 +8,16 @@ function scrollToTop() {
   window.scrollTo(0, 0, {behavior: 'smooth'});
 }
 
+let maxIndexScrolls = 100;
+let alreadyScrolling = false;
 function updateScroll() {
+    if (alreadyScrolling){return}
+    alreadyScrolling = true;
+
 	let windowHeight = window.innerHeight;
 	const maxScroll = windowHeight * 0.35;
     let scroll = document.documentElement.scrollTop;
-	//print("Scroll detected", scroll);
+	//console.log("Scroll detected");
 	const oscroll = scroll;
     if (scroll >= maxScroll) {
         scroll = maxScroll;
@@ -39,26 +45,53 @@ function updateScroll() {
     //print(oscroll, windowHeight*0.97);
     if (oscroll >= windowHeight*0.35) {
         title.style.zIndex = 60;
-    } else {
-        title.style.zIndex = 40;
-    }
-    if ((oscroll >= windowHeight*0.94) && (window.innerWidth > desktopThreshold) || (oscroll >= windowHeight*0.69) && (window.innerWidth <= desktopThreshold)) {
-        goBlack();
-        title.classList.remove('white');
-        //title.style.backgroundImage = "url(\"/static/media/logo-complet.png\")";
-        navigation.classList.add("opaque");
+        title.classList.add("hidden");
+        navTitle.classList.remove("hidden");
+
 
     } else {
-        goWhite();
-        title.classList.add('white');
-        //title.style.backgroundImage = "url(\"/static/media/logo-complet-blanc.png\")";
-        navigation.classList.remove("opaque");
+        title.style.zIndex = 60;
+        if (navTitle.classList.contains("hidden-title")){
+            navTitle.classList.add("hidden");
+        }
+        title.classList.remove("hidden");
+
+    }
+    // if ((oscroll >= windowHeight*0.94) && (window.innerWidth > desktopThreshold) || (oscroll >= windowHeight*0.69) && (window.innerWidth <= desktopThreshold)) {
+    //     goBlack();
+    //     title.classList.remove('white');
+    //     //title.style.backgroundImage = "url(\"/static/media/logo-complet.png\")";
+    //     navigation.classList.add("opaque");
+    //
+    // } else {
+    //     goWhite();
+    //     title.classList.add('white');
+    //     //title.style.backgroundImage = "url(\"/static/media/logo-complet-blanc.png\")";
+    //     navigation.classList.remove("opaque");
+    // }
+    alreadyScrolling = false
+
+    if (maxIndexScrolls > 0) {
+        maxIndexScrolls = maxIndexScrolls -1;
+        //setTimeout(updateScroll, 0.01);
+    } else {
     }
 
 }
 
+try{
+    blackObserver.observe(document.querySelector(".slideshow"));
 
+} catch {}
 
-setInterval(updateScroll, 0.1);
+function resetScrollMax(){
+    maxIndexScrolls = 100;
+}
+
+document.addEventListener("scroll", resetScrollMax)
+
+document.addEventListener("scroll", updateScroll)
+//setInterval(updateScroll, 0.01);
+updateScroll()
 goWhite();
-print(" * Index JS ready")
+console.log(" * Index JS initialised")

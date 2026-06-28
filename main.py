@@ -17,70 +17,83 @@ from google.oauth2 import service_account
 ### START APP CONFIG ###################################################################################################
 print(" * Initiatlising...")
 project_id = "panson"
-FETCH_SECRETS = True
+FETCH_SECRETS = False
+
+secret_client = None
+os.makedirs(".secure", exist_ok=True)
+
 
 
 if "SECRETS" in os.environ:
-    if os.environ["SECRETS"] in [0, "0", False]:
-        FETCH_SECRETS = False
-        print(" * NOT Updating secrets (SECRETS={})".format(os.environ["SECRETS"]))
+    if os.environ["SECRETS"] in ["y", "Y", "1", "True"]:
+        FETCH_SECRETS = True
+        print(" * Fetching secrets (SECRETS={})".format(os.environ["SECRETS"]))
 
-if FETCH_SECRETS:
-    print(" * Updating secrets")
-    os.makedirs("secure", exist_ok=True)
-    try:
-        secret_client = secretmanager.SecretManagerServiceClient()
+
+def get_secret(name, version="latest", to_environ:str|None=None, to_file:str|None=None):
+    global secret_client
+    if secret_client is None:
+        print(" * Initialisimg secret manager...")
+        try:
+            secret_client = secretmanager.SecretManagerServiceClient()
+        except:
+            print(" * Failed to initialise secret manager")
+            raise
         print(" * Secret manager initialised")
-
-
-        try:
-            with open("secure/firebase_service_account_info.json", "w") as f:
-                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firebase_credentials/versions/1"}).payload.data.decode("UTF-8"))
-        except:
-            print(" * Failed to read firebase secret")
-        try:
-            with open("secure/firestore_service_account_info.json", "w") as f:
-                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/firestore_credentials/versions/1"}).payload.data.decode("UTF-8"))
-        except:
-            print(" * Failed to read firestore secret")
-        try:
-            with open("secure/stripe_key", "w") as f:
-                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/stripe_key_thecnopapa_test/versions/3"}).payload.data.decode("UTF-8"))
-        except:
-            print(" * Failed to read stripe key")
-        try:
-            with open("secure/flask_key", "w") as f:
-                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/flask_secret_key/versions/1"}).payload.data.decode("UTF-8"))
-        except:
-            print(" * Failed to read flask secret")
-        try:
-            with open("secure/mailgun_key", "w") as f:
-                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/mailgun_sending_key/versions/2"}).payload.data.decode("UTF-8"))
-        except:
-            print(" * Failed to read mailgun sending key")
-        try:
-            with open("secure/trello_key", "w") as f:
-                f.write(secret_client.access_secret_version(request={"name": "projects/746452924859/secrets/trello_key/versions/3"}).payload.data.decode("UTF-8"))
-        except:
-            print(" * Failed to read trello key")
-        try:
-            with open("secure/seo_key.txt", "w") as f:
-                f.write(secret_client.access_secret_version(
-                    request={"name": "projects/746452924859/secrets/seo_key/versions/3"}).payload.data.decode(
-                    "UTF-8"))
-        except:
-            print(" * Failed to read seo key")
+    print(" * Fetching secret:", name)
+    try:
+        secret = secret_client.access_secret_version(request={
+            "name": f"projects/746452924859/secrets/{name}/versions/{version}"
+            }).payload.data.decode("UTF-8")
     except:
-        print(" * Failed to initialise secret manager")
+        print(f" * Failed to fetch secret: {name}:{version}")
+        raise
+    r = []
+    if to_file is not None:
+        fpath = to_file
+        with open(fpath, "w") as sf:
+            sf.write(secret)
+        r.append(fpath)
+    if to_environ is not None:
+        os.environ[to_environ] = secret
+        r.append(to_environ)
+    del secret
+    return None
 
 
-os.environ["FIREBASE_CREDENTIALS"] = "secure/firebase_service_account_info.json"
-os.environ["FIRESTORE_CREDENTIALS"] = "secure/firestore_service_account_info.json"
-os.environ["STRIPE_KEY"] = "secure/stripe_key"
-os.environ["FLASK_KEY"] = "secure/flask_key"
-os.environ["MAILGUN_KEY"] = "secure/mailgun_key"
-os.environ["TRELLO_KEY"] = "secure/trello_key"
-os.environ["SEO_KEY"] = "secure/seo_key.txt"
+
+
+expected_secrets = {
+        "FLASK_KEY":"flask_secret_key",
+        "FIREBASE_CREDENTIALS": "firebase_credentials",
+        "FIRESTORE_CREDENTIALS": "firestore_credentials",
+        "STRIPE_KEY": "stripe_key",
+        "TRELLO_KEY": "trello_key",
+        "MAILGUN_KEY": "mailgun_sending_key",
+        "SEO_KEY": "seo_key",
+    }
+
+for secret_name, resource_name  in expected_secrets.items():
+    print(" * Checking secret:", secret_name)
+    secret = os.environ.pop(secret_name, None)
+    secret_path = os.path.join(".secure", secret_name+".secret")
+    if os.path.exists(secret_path):
+        print(" * Secret already loaded")
+    elif FETCH_SECRETS:
+        get_secret(resource_name, to_file=secret_path)
+    else:
+        print(" * Reading from environ")
+        assert secret is not None
+        with open(secret_path, "w") as sf:
+            sf.write(secret)
+
+    os.environ[secret_name+"_PATH"] = secret_path
+    del secret
+    del secret_path
+
+del expected_secrets
+
+
 
 
 app = Flask(__name__)
@@ -91,10 +104,12 @@ app.config['PREFERRED_URL_SCHEME'] = 'https'
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
 
 try:
-    with open("secure/flask_key", "r") as f:
+    with open(os.environ["FLASK_KEY_PATH"], "r") as f:
         app.secret_key = bytes(str(f.read()), 'utf-8')
+    print(f" * Flask secret is set and has len={len(app.secret_key)}")
 except:
     print(" * Failed to read flask key")
+    raise
 
 
 base_url = "https://firestore.googleapis.com/v1/"
@@ -422,13 +437,13 @@ def index(lan ="cat", favicon = True):
         return return_sitemap()
     elif lan.startswith("key-"):
         use()
-        with open(os.environ["SEO_KEY"]) as f:
+        with open(os.environ["SEO_KEY_PATH"]) as f:
             print(repr(lan))
             key = f.read()
             print(repr(key))
             print(repr(lan) == repr(key))
             if lan == key:
-                return send_from_directory("secure", "seo_key.txt")
+                return send_from_directory(".secure", "SEO_KEY.secret")
     ######################################################
     # TODO: Revisit firebase access
     use()
@@ -1232,39 +1247,65 @@ def update_discounts():
 
 @app.post("/<lan>/send_email/<target>/")
 def send_contact_email(lan, target="contacte"):
-    use(2)
-    from app_essentials.mail import send_email
-    form = request.form
 
-    if target == "contacte":
-        recipient = "contacte"
-        sender_name = "Formulari Contacte"
-        temp = "email_contacte"
-        subject = form["subject"]
-    elif target == "bespoke":
-        recipient = "fetamida"
-        sender_name = "Formulari Fet a Mida"
-        temp = "email_fetamida"
-        subject = "PANSON: Fet a mida"
-    else:
-        recipient = "general"
-        sender_name = "Formulari Desconegut"
-        temp = "email_contacte"
-        subject = form["subject"]
+    use(5)
+    try:
+        from app_essentials.mail import send_email
+
+        print("sending contact email...")
+
+        form = request.form
 
 
-    print(form)
-    r = send_email(
-        recipient=recipient,
-        sender="web",
-        sender_name=sender_name,
-        internal_recipient=True,
-        subject=subject,
-        temp=temp,
-        form = form,
-    )
-    print(r)
-    return "Missatge Enviat!", 200
+        if target == "contacte":
+            recipient = "contacte"
+            sender_name = "Formulari Contacte"
+            temp = "email_contacte"
+            subject = form.get("subject", "Formulari Contacte (pansonjoieria.com)")
+        elif target == "bespoke":
+            recipient = "fetamida"
+            sender_name = "Formulari Fet a Mida"
+            temp = "email_fetamida"
+            subject = form.get("subject", "Formulari Fet a mida (pansonjoieria.com)")
+        else:
+            recipient = "general"
+            sender_name = "Formulari Desconegut"
+            temp = "email_contacte"
+            subject = form.get("subject", "No Subject")
+
+        r = send_email(
+            recipient=recipient,
+            sender="web",
+            sender_name=sender_name,
+            internal_recipient=True,
+            subject=subject,
+            temp=temp,
+            form = form,
+        )
+        print("Internal email return code:", r)
+        if str(r) != "200":
+            raise Exception("Internal email not sent")
+
+        if form.get("sender-email", None) is not None:
+            customer_r = send_email(
+                    recipient = form.get("sender-email"),
+                    sender="web",
+                    sender_name=sender_name,
+                    internal_recipient=False,
+                    subject=subject,
+                    temp="email_confirmation_contact",
+                    form=form,
+                    real_recipient=recipient,
+            )
+            print("Confirmation email code:", customer_r)
+            if str(customer_r) != "200":
+                raise Exception("Customer email not sent")
+
+        return f"Missatge enviat correctament!<br>Podeu tancar aquesta pestanya.<br>Un correu de confirmaci&oacute; s'enviar&agrave; a: <b>{form.get('sender-email', 'ningú')}</b>", 200
+    except:
+        print("Error sending emails!")
+        raise
+        return "Missatge <b>NO</b> enviat.<br>Disculpeu les molesties, envieu el correu directament a les adr&ccedil;es mostrades a la web si us plau", 200
 
 @app.route("/<lan>/fetamida/")
 def fetamida(lan):
@@ -1310,7 +1351,8 @@ if app.config['START_NGROK']:
 
 
 def main():
-    app.run(port=4242, host="0.0.0.0", debug=False) # Not used if run from bash
+    from sys import argv
+    app.run(port=4242, host="0.0.0.0", debug="debug" in argv) # Not used if run from bash
 
 if __name__ == "__main__":
     main()

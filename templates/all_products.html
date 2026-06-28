@@ -6,17 +6,11 @@
 {% endblock %}
 
 {% block imports %}
-    <link href='/style/galeria.css' as='style' rel='preload'>
-    <link href='/scripts/galeria.js' as='script' rel='preload'>
-
-    <link href='/style/galeria.css' rel='stylesheet'>
-    <script defer type="text/javascript" src="/scripts/galeria.js"></script>
 {% endblock %}
 
 {% import 'galeria.html' as galeria with context%}
 
 {% block body %}
-    <script>window.addEventListener("load", () => {track('ViewAllProducts')});</script>
     <div id="nav-color" navColor="opaque"></div>
-{{ galeria.galeria("productes", filtres=True, max_prods=8, min_row=4, min_prods=8, load_more=True) }}
+{{ galeria.galeria("productes", filtres=1, max_prods=0, min_row=4, min_prods=8, search=0, read_url=1) }}
 {% endblock %}

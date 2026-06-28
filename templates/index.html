@@ -4,16 +4,12 @@
 {% endblock %}
 
 {% block imports %}
-    <link href='/style/galeria.css' as='style' rel='preload'>
-    <link href='/scripts/galeria.js' as='script' rel='preload'>
     <link href='/style/index.css' as='style' rel='preload'>
     <link href='/scripts/index.js' as='script' rel='preload'>
     <link href='/style/slideshow.css' as='style' rel='preload'>
     <link href='/scripts/slideshow.js' as='script' rel='preload'>
 
 
-    <link href='/style/galeria.css' rel='stylesheet'>
-    <script defer type="text/javascript" src="/scripts/galeria.js"></script>
     <link href='/style/index.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/scripts/index.js"></script>
     <link href='/style/slideshow.css' rel='stylesheet'>
@@ -24,6 +20,7 @@
 
 {% block body %}
     <script>window.addEventListener("load", () => {track('ViewPortada')})</script>
+     <div id="nav-color" color="white"></div>
 
     <div id="title-logo" class="white fast-image" onclick="scrollToTop()" background="{{ imgs.get_url("imatges", imgs.get_fixed("logos").imatges[0]) }}"></div>
     <div class="content-index">
@@ -39,8 +36,8 @@
 
     </div>
 
-<div id="index-subtitle"><h1>{{ loc.ind_subtitol }}</h1></div>
-    <div id="index-subtitle-more" class="clickable underlined" onclick="location.href='/{{ lan }}/productes/'">{{ loc.ind_veure_mes }}</div>
+<div id="index-subtitle"><h1 class="loc" loc="ind_subtitol">{{ loc.ind_subtitol }}</h1></div>
+    <div id="index-subtitle-more" class="clickable underlined loc" onclick="location.href='/{{ lan }}/productes/'" loc="ind_veure_mes">{{ loc.ind_veure_mes }}</div>
 
     {{ galeria.galeria("productes", max_prods=8, min_prods=8, min_row=4, go_to_shop=True) }}
 {% endblock %}
@@ -62,4 +59,3 @@
 
 
 </html>
-

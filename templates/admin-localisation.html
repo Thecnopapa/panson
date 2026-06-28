@@ -6,7 +6,7 @@
 <link href='/style/admin-loc.css' rel='stylesheet'>
 <div id=localisation class="admin-content">
 	{% set all_data = loc.get_all_values_by_page(get_hidden=True) %}
-	{% for category in ["common", "page", "dynamic", "config", "options", "other"] %}
+	{% for category in ["popups", "common", "page", "dynamic", "config", "options", "other"] %}
 	<div class="loc-category">
 		<div class="loc-category-title loc" loc="{{"categories_"+category}}">{{ loc["categories_"+category] }}</div>
 	{% for page, data in all_data.items() if data.get("_category", "other") == category%}
@@ -39,4 +39,3 @@
 	
 </div>
 {% endblock %}
-

@@ -1,4 +1,4 @@
-
+console.log(" * Initialising Menu JS");
 
 
 
@@ -20,6 +20,7 @@ checkColor();
 
 
 async function openMenu(trackIt=true) {
+    hideSearch();
     if (menuOpen) {return;}
     closeCart(false);
     menuOpen = true;
@@ -148,3 +149,5 @@ window.addEventListener('load', function(){
 	closeMenu();
 
 })
+
+console.log(" * Menu JS initialised");
