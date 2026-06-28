@@ -36,39 +36,39 @@
     </div>
     <div class="galeria {{ 'inline' if inline }}">
 	    <div class="producte template empty {{ 'inline' if inline }}" onmouseover={{"highlightProduct(this)"  if second_hover }} onmouseout={{ "reverseProduct(this)" if second_hover }}>
-               <div class="imatge primera normal-image"></div>
-               <div class="imatge segona slow-image preload"></div>
-               <div class="detalls-galeria">
-                    <div class="detalls-principals">
-                        {% if bucket == "bespoke" %}
-                            <h2 class="per-a"></h2>
-                        {% else %}
-                            <h2 class="nom"></h2>
-                            <div class="preu-inline"></div>
-                           {# <div style="width:fit-content; display: flex;" class="preu-inline-slash portrait">&nbsp;/&nbsp;<div class="preu-inline"></div></div>#}
-                        {% endif %}
-                    </div>
+            <div class="imatge primera normal-image"></div>
+            <div class="imatge segona slow-image preload"></div>
+            <div class="detalls-galeria">
+                <div class="detalls-principals">
+                    {% if bucket == "bespoke" %}
+                        <h2 class="per-a"></h2>
+                    {% else %}
+                        <h2 class="nom"></h2>
+                        <div class="preu-inline"></div>
+                       {# <div style="width:fit-content; display: flex;" class="preu-inline-slash portrait">&nbsp;/&nbsp;<div class="preu-inline"></div></div>#}
+                    {% endif %}
                 </div>
-		<div class="launch-time-cover hidden">
-			<div class="launch-time-text loc" loc="gal_falta_temps">{{loc.gal_falta_temps |safe}}</div>
-			<div class="launch-time-value">
-				<div class="launch-time days"></div>
-				<div class="launch-time-days loc" loc="gal_falta_dies">{{loc.gal_falta_dies |safe}}</div>
-				<div class="launch-time hours"></div>
-				<div class="launch-time-hours loc" loc="gal_falta_hores">{{loc.gal_falta_hores |safe}}</div>
-				<div class="launch-time minutes"></div>
-				<div class="launch-time-minutes loc" loc="gal_falta_minuts">{{loc.gal_falta_minuts |safe}}</div>
-				<div class="launch-time seconds"></div>
-				<div class="launch-time-seconds loc" loc="gal_falta_segons">{{loc.gal_falta_segons |safe}}</div>
-			</div>
-		</div>
-           </div>
+            </div>
+            <div class="launch-time-cover hidden">
+                <div class="launch-time-text loc" loc="gal_falta_temps">{{loc.gal_falta_temps |safe}}</div>
+                <div class="launch-time-value">
+                    <div class="launch-time days"></div>
+                    <div class="launch-time-days loc" loc="gal_falta_dies">{{loc.gal_falta_dies |safe}}</div>
+                    <div class="launch-time hours"></div>
+                    <div class="launch-time-hours loc" loc="gal_falta_hores">{{loc.gal_falta_hores |safe}}</div>
+                    <div class="launch-time minutes"></div>
+                    <div class="launch-time-minutes loc" loc="gal_falta_minuts">{{loc.gal_falta_minuts |safe}}</div>
+                    <div class="launch-time seconds"></div>
+                    <div class="launch-time-seconds loc" loc="gal_falta_segons">{{loc.gal_falta_segons |safe}}</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="galeria-navigation" pages="{{pages}}" more="{{load_more }}" goToShop="{{go_to_shop}}">
-    {% if go_to_shop %}
-	    <div class="galeria-go-to-shop galeria-nav-button black-button loc" loc="gal_anar_botiga" onclick="location.href='/{{ loc.lan }}/productes'">{{ loc.gal_anar_botiga}}</div>
-	{% endif %}
+        {% if go_to_shop %}
+            <div class="galeria-go-to-shop galeria-nav-button black-button loc" loc="gal_anar_botiga" onclick="location.href='/{{ loc.lan }}/productes'">{{ loc.gal_anar_botiga}}</div>
+        {% endif %}
     </div>
 </div>
 {% endmacro %}

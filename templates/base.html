@@ -153,10 +153,10 @@ html{
 
 {% block product_list %}
     <script>
-        let allItems = {{ prods_json | safe }};
+    let allItems = {{ prods_json | safe }};
 	console.log(allItems);
 	let allBespoke = {{ bespoke_json | safe }};
-        console.log(allBespoke)
+    console.log(allBespoke)
     </script>
 {% endblock %}
 

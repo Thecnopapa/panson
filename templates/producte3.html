@@ -265,7 +265,7 @@
     {% if producte.bucket == "bespoke" %}
     <div class="explicacio-contacte loc" loc="pro_explicacio_contacte">{{ loc.pro_explicacio_contacte }}</div>
     	{% import 'contacte.html' as contacte with context%}
-	{{ contacte.contact_form(prefix=False, subject=False) }}
+	{{ contacte.contact_form(prefix=False, subject=False, target="bespoke") }}
     {% endif %}
     </div>
 </div>

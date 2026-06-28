@@ -119,7 +119,7 @@ function searchGalleria(trigger){
 		text: trigger.value,
 	}
 	console.log({query});
-	
+
 	gallery.update(query);
 }
 
@@ -163,6 +163,7 @@ class Product {
         if (data !== undefined) {
             this.id = this.data.id;
             this.empty = false;
+            this.bucket = this.data.bucket;
         }
     }
     writeEmpty(template){
@@ -177,14 +178,17 @@ class Product {
         //console.log(info)
         imagesToPreload.push(imageUrl(info.bucket, info.img1))
         preloadHiddenImages()
-        el.getElementsByClassName("imatge primera")[0].setAttribute("background", imageUrl(info.bucket, info.img1));
-        el.getElementsByClassName("imatge segona")[0].setAttribute("background", imageUrl(info.bucket, info.img2));
+        el.getElementsByClassName("imatge primera")[0].setAttribute("background", imageUrl(this.bucket, info.img1));
+        el.getElementsByClassName("imatge segona")[0].setAttribute("background", imageUrl(this.bucket, info.img2));
         el.classList.remove("template");
         el.classList.remove("empty");
 
+        if (this.bucket === "productes"){
+
+        }
         let deltaLaunch = 0;
         let launchTime = undefined;
-        if (info.startDate.value !== ""){
+        if (this.bucket === "productes" && info.startDate.value !== "" ){
             launchTime = Date.parse(info.startDate);
             deltaLaunch = launchTime - now;
         }
@@ -209,7 +213,6 @@ class Product {
                     e.innerHTML = t + "<span class='bold'>" + info.preu + "</span>";
                 } else{
                     e.innerHTML = t + info.preu;
-
                 }
             });
         }
@@ -419,7 +422,7 @@ class Galeria {
 	    } else {
             //console.log("query text is empty");
             }
-            
+
 
         });
         if (filteredProds === undefined){return this.products;}

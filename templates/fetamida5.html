@@ -42,8 +42,8 @@
                 this.nextElementSibling.classList.toggle('shown');
                 this.lastElementChild.classList.toggle('shown');
                ">
-				<h1 class="fetamida-subtitle loc" loc="fam_proces_titol">{{ loc.fam_proces_titol | safe }}</h1>
-				<img class="main-arrow page-arrow down" src="/static/media/arrow.svg">
+				    <h1 class="fetamida-subtitle loc" loc="fam_proces_titol">{{ loc.fam_proces_titol | safe }}</h1>
+				    <img class="main-arrow page-arrow down" src="/static/media/arrow.svg">
 			</div>
             <h2 class="fetamida-info loc" loc="fam_proces_info">{{ loc.fam_proces_info | safe }}</h2>
 		</div>
@@ -68,10 +68,6 @@
 	<div class="fetamida-galeria-titol loc" loc="fam_galeria_titol">{{ loc.fam_galeria_titol }}</div>
 	{{ galeria.galeria("bespoke", max_prods=0,min_row=4, min_prods=2, second_hover=False) }}
 
-
-
-
 </div>
-
 
 {% endblock %}

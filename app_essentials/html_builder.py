@@ -56,10 +56,12 @@ def common_kwargs(**kwargs):
         p._clean_id: {
             "id": p._id,
             "bucket": p.bucket,
-            "url": f"/{lan.lan}/bespoke/{p._id}", 
-            "name": p.nom, 
-            "per_a": p.per_a, 
+            "url": f"/{lan.lan}/bespoke/{p._id}",
+            "name": p.nom,
+            "per_a": p.per_a,
             "tipus": p.tipus,
+            "img1": p.imatges[0] if len(p.imatges) >= 1 else "",
+            "img2": p.imatges[1] if len(p.imatges) >= 2 else "",
             } for p in kwargs["productes_filtrats"].bespoke})
 
 
