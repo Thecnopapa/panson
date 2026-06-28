@@ -232,7 +232,11 @@ class Galeria {
         this.readUrl = Boolean(Number(options.readUrl));
         this.startEmpty =  Boolean(Number(options.startEmpty));
         this.query = query;
-        this.products = Object.keys(allItems);
+	if (this.bucket === "bespoke"){
+		this.products = Object.keys(allBespoke);
+	} else {
+        	this.products = Object.keys(allItems);
+	}
         console.log(this.startEmpty);
         if (!this.startEmpty){
             this.products = this.filter();
@@ -512,7 +516,11 @@ class Galeria {
        //console.log({nToAdd});
         for (let i = nCurrent; i < nCurrent+nToAdd; i++) {
            //console.log("Adding:", all[i]);
-            this.addProduct(new Product(allItems[all[i]]));
+	    if (this.bucket === "bespoke"){
+		    this.addProduct(new Product(allBespoke[all[i]]));
+	    } else {
+            	this.addProduct(new Product(allItems[all[i]]));
+	    }
         }
         let paddingProds =  Math.max(0, ( this.length() % this.minRow), this.minItems - this.length());
        //console.log({paddingProds});

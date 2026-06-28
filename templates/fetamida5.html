@@ -6,14 +6,10 @@
 {% block imports %}
 
     <link href='/style/contacte.css' as='style' rel='preload'>
-    <link href='/style/galeria.css' as='style' rel='preload'>
-    <link href='/scripts/galeria.js' as='script' rel='preload'>
     <link href='/style/fetamida5.css' as='style' rel='preload'>
     <link href='/scripts/fetamida5.js' as='script' rel='preload'>
 
     <link href='/style/contacte.css' rel='stylesheet'>
-    <link href='/style/galeria.css' rel='stylesheet'>
-    <script defer type="text/javascript" src="/scripts/galeria.js"></script>
     <link href='/style/fetamida5.css' rel='stylesheet'>
     <script defer type="text/javascript" src="/scripts/fetamida5.js"></script>
 
@@ -63,14 +59,14 @@
 				<img class="main-arrow page-arrow down" src="/static/media/arrow.svg">
 			</div>
             <h2 class="fetamida-info loc" loc="fam_contacte_info">{{ loc.fam_contacte_info | safe }}</h2>
-			{{ contact.contact_form(subject=False, prefix=False)}}
+			{{ contact.contact_form(subject=False, prefix=False, target="bespoke")}}
 		</div>
 
 
 
 	</div>
 	<div class="fetamida-galeria-titol loc" loc="fam_galeria_titol">{{ loc.fam_galeria_titol }}</div>
-	{{ galeria.galeria("bespoke", max_prods=0,min_row=4, min_prods=2, load_more=True, second_hover=False) }}
+	{{ galeria.galeria("bespoke", max_prods=0,min_row=4, min_prods=2, second_hover=False) }}
 
 
 

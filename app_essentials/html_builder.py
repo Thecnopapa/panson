@@ -52,7 +52,15 @@ def common_kwargs(**kwargs):
         } for p in kwargs["productes_filtrats"]})
     kwargs["tipus_json"] = json.dumps({tipus: {"url": f"/{lan.lan}/productes/?filterKey=tipus&filterValue={tipus}", "name":  lan["tip-"+tipus+"-plural"]} for tipus in kwargs["productes_filtrats"].tipus})
     kwargs["cols_json"] = json.dumps({col._clean_id: {"url": f"/{lan.lan}/collecio/{col._id}", "name": col.nom_menu} for col in kwargs["productes_filtrats"].cols})
-    kwargs["fam_json"] = json.dumps({p._clean_id: {"url": f"/{lan.lan}/bespoke/{p._id}", "name": p.nom, "per_a": p.per_a, "tipus": p.tipus} for p in kwargs["productes_filtrats"].bespoke})
+    kwargs["bespoke_json"] = json.dumps({
+        p._clean_id: {
+            "id": p._id,
+            "bucket": p.bucket,
+            "url": f"/{lan.lan}/bespoke/{p._id}", 
+            "name": p.nom, 
+            "per_a": p.per_a, 
+            "tipus": p.tipus,
+            } for p in kwargs["productes_filtrats"].bespoke})
 
 
 
