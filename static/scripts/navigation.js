@@ -233,6 +233,8 @@ function closeSearchEsc(event){
 
 function showSearch(){
     //console.log("Showing search");
+    closeMenu();
+    closeCart();
     let trigger = searchIcon;
     let resultsDiv = trigger.parentElement.querySelector(".search-over-page");
     let textDiv = resultsDiv.querySelector(".gallery-search-text")
