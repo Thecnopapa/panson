@@ -8,7 +8,7 @@ function scrollToTop() {
   window.scrollTo(0, 0, {behavior: 'smooth'});
 }
 
-let maxIndexScrolls = 10;
+let maxIndexScrolls = 100;
 let alreadyScrolling = false;
 function updateScroll() {
     if (alreadyScrolling){return}
@@ -73,7 +73,7 @@ function updateScroll() {
 
     if (maxIndexScrolls > 0) {
         maxIndexScrolls = maxIndexScrolls -1;
-        setTimeout(updateScroll, 0.01);
+        //setTimeout(updateScroll, 0.01);
     } else {
     }
 
@@ -85,7 +85,7 @@ try{
 } catch {}
 
 function resetScrollMax(){
-    maxIndexScrolls = 10;
+    maxIndexScrolls = 100;
 }
 
 document.addEventListener("scroll", resetScrollMax)
