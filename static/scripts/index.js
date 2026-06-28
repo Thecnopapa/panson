@@ -45,8 +45,17 @@ function updateScroll() {
     //print(oscroll, windowHeight*0.97);
     if (oscroll >= windowHeight*0.35) {
         title.style.zIndex = 60;
+        title.classList.add("hidden");
+        navTitle.classList.remove("hidden");
+
+
     } else {
-        title.style.zIndex = 40;
+        title.style.zIndex = 60;
+        if (navTitle.classList.contains("hidden-title")){
+            navTitle.classList.add("hidden");
+        }
+        title.classList.remove("hidden");
+
     }
     // if ((oscroll >= windowHeight*0.94) && (window.innerWidth > desktopThreshold) || (oscroll >= windowHeight*0.69) && (window.innerWidth <= desktopThreshold)) {
     //     goBlack();
@@ -64,7 +73,7 @@ function updateScroll() {
 
     if (maxIndexScrolls > 0) {
         maxIndexScrolls = maxIndexScrolls -1;
-        //setTimeout(updateScroll, 0.01);
+        setTimeout(updateScroll, 0.01);
     } else {
     }
 
