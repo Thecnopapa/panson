@@ -15,7 +15,7 @@ credentials = service_account.Credentials.from_service_account_file(
         SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 
 try:
-    cred = credentials.Certificate("secure/firebase_service_account_info.json")
+    cred = credentials.Certificate(os.environ["FIREBASE_CREDENTIALS_PATH"])
     print(" * Firebase credentials loaded (secret)")
 except:
     cred = credentials.Certificate(os.environ.get('FIREBASE_CREDENTIALS'))

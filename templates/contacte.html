@@ -29,7 +29,7 @@
 
 {% macro contact_form(target="contacte", name=True, email=True, prefix=True, phone=True, subject=True, message=True) %}
 
-<form class=email-form method=POST action="/{{ loc.lan }}/send_email/{{ target }}/">
+<form class=email-form method=POST action="/{{ loc.lan }}/send_email/{{ target }}/" target="_blank">
     <div class=sender-details>
         {% if name %}
         <label for=sender-name class="email-label sender-name-label"><span class="loc" loc="con_nom">{{ loc.con_nom }}</span>

@@ -20,7 +20,7 @@ currency="EUR"
 
 
 try:
-    with open(os.environ["STRIPE_KEY"]) as f:
+    with open(os.environ["STRIPE_KEY_PATH"]) as f:
         stripe.api_key = f.read()
 
 except:
@@ -43,7 +43,7 @@ class Trello():
     def setup(self):
         from app_essentials.firebase import db
         try:
-            with open(os.environ["TRELLO_KEY"]) as f:
+            with open(os.environ["TRELLO_KEY_PATH"]) as f:
                 self._token = f.read()
         except:
             print("Trello key could not be read")

@@ -30,7 +30,7 @@ _scopes = [
 
 
 
-cred = credentials.Certificate("secure/firebase_service_account_info.json")
+cred = credentials.Certificate(os.environ["FIREBASE_CREDENTIALS_PATH"])
 print(" * Firebase credentials loaded")
 
 app = firebase_admin.initialize_app(cred)

@@ -5,6 +5,7 @@ __pycache__/
 */__pycache__/*
 
 secure/
+.secure/
 uploads/
 downloads/
 *.temp
