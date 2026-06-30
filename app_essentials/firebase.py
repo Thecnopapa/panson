@@ -10,24 +10,6 @@ from firebase_admin import credentials, firestore
 from werkzeug.utils import secure_filename
 
 from google.oauth2 import service_account
-#if "FIREBASE_CREDENTIALS" in os.environ:
-_scopes = [
-    'https://www.googleapis.com/auth/cloud-platform',
-    'https://www.googleapis.com/auth/datastore',
-    'https://www.googleapis.com/auth/devstorage.read_write',
-    'https://www.googleapis.com/auth/firebase',
-    'https://www.googleapis.com/auth/identitytoolkit',
-    'https://www.googleapis.com/auth/userinfo.email'
-]
-#print(os.environ.get('FIREBASE_CREDENTIALS'))
-#try:
-#    credentials.Certificate(os.environ.get('FIREBASE_CREDENTIALS'))
-#except:
-#    cred = service_account.Credentials.from_service_account_info(os.environ.get('FIREBASE_CREDENTIALS'), scopes=_scopes)
-#app = firebase_admin.initialize_app(cred)
-#else:
-#cred = credentials.ApplicationDefault()
-
 
 
 cred = credentials.Certificate(os.environ["FIREBASE_CREDENTIALS_PATH"])
@@ -45,7 +27,7 @@ bespoke = db.collection("bespoke")
 images = db.collection("imatges")
 ips = db.collection("ips")
 
-print(" * Firebase initialized")
+print(" * Firebase buckets initialized")
 
 
 
