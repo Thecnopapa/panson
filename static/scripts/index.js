@@ -27,7 +27,7 @@ function updateScroll() {
     }
 
 
-    if (window.innerWidth <= 1025){
+    if (isMobile()){
         title.style.top = String(26.5 - (25.75 * scroll / maxScroll)).concat("vh");
         title.style.height = String(20 - (14.5 * scroll / maxScroll)).concat("vh");
         title.style.width = String(50 - (0 * scroll / maxScroll)).concat("vw");
@@ -44,18 +44,10 @@ function updateScroll() {
     //title.style.paddingTop = String(5 - (5 * scroll / maxScroll)).concat("vh");
     //print(oscroll, windowHeight*0.97);
     if (oscroll >= windowHeight*0.35) {
-        title.style.zIndex = 60;
-        title.classList.add("hidden");
-        navTitle.classList.remove("hidden");
-
+        forceNavTitle("index")
 
     } else {
-        title.style.zIndex = 60;
-        if (navTitle.classList.contains("hidden-title")){
-            navTitle.classList.add("hidden");
-        }
-        title.classList.remove("hidden");
-
+        unforceNavTitle("index")
     }
     // if ((oscroll >= windowHeight*0.94) && (window.innerWidth > desktopThreshold) || (oscroll >= windowHeight*0.69) && (window.innerWidth <= desktopThreshold)) {
     //     goBlack();
@@ -79,6 +71,8 @@ function updateScroll() {
 
 }
 
+
+
 try{
     blackObserver.observe(document.querySelector(".slideshow"));
 
@@ -92,6 +86,9 @@ document.addEventListener("scroll", resetScrollMax)
 
 document.addEventListener("scroll", updateScroll)
 //setInterval(updateScroll, 0.01);
-updateScroll()
-goWhite();
+window.addEventListener("load", (e) =>{
+	checkColor();
+    updateScroll();
+
+});
 console.log(" * Index JS initialised")

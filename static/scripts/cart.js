@@ -7,8 +7,8 @@ const cartClosers = document.querySelectorAll('.cart-closer');
 
 
 
-function openCart(trackIt=true) {
-    closeMenu(trackIt=false);
+function openCart() {
+    closeMenu();
     //console.log("Opening Cart")
     cart.classList.add('open');
     for (let i = 0; i < cartItems.length; i++) {
@@ -30,13 +30,10 @@ function openCart(trackIt=true) {
     cartClosers.forEach(closer => {
         closer.style.display = "block";
     });
-    if(trackIt){
-        //track("OpenCart");
-    }
 }
 
 
-async function closeCart(trackIt=false) {
+async function closeCart() {
     //console.log("Closing Cart");
     cart.classList.remove('open');
     for (let i = 0; i < cartItems.length; i++) {
@@ -47,9 +44,6 @@ async function closeCart(trackIt=false) {
     cartClosers.forEach(closer => {
         closer.style.display = "none";
     });
-    if (trackIt){
-        //track("CloseCart")
-    }
 }
 
 let deleting = false;
@@ -139,12 +133,7 @@ function updateCartCounter(){
 closeCart();
 updateCartCounter();
 
-window.addEventListener('orientationchange', function () {
-	console.log("Rotation change!");
-	closeCart();
-    closeMenu();
-    hideSearch()
-})
+
 
 
 

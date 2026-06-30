@@ -6,11 +6,29 @@ let imagesToPreload = [];
 
 let desktopThreshold = 1025;
 
+const mediaQuery = matchMedia("screen and (orientation:portrait)");
+
+function isMobile(){
+    return mediaQuery.matches
+}
+
+
 let nGalleries = 0;
 let allGalleries = {};
 
 let now = Date.now()
 //console.log("NOW: ", now);
+
+
+let targetColour = undefined;
+let originalTargetColour = undefined;
+let colorElement = document.getElementById("nav-color");
+
+if ((colorElement !== undefined) && (colorElement !== null)){
+    targetColour = colorElement.getAttribute("color", undefined);
+    originalTargetColour = colorElement.getAttribute("color", undefined);
+}
+
 
 
 function print(...args){
@@ -59,7 +77,7 @@ async function track(name, data){
             console.log("No tracking name")
             throw Error;
         }
-        let new_data = {"lan": document.documentElement.lang, "pantallaPetita":window.innerWidth <= 1025, "session":document.getElementById("session").getAttribute("session"), "user":document.getElementById("session").getAttribute("user") };
+        let new_data = {"lan": document.documentElement.lang, "pantallaPetita":window.innerWidth <= desktopThreshold, "session":document.getElementById("session").getAttribute("session"), "user":document.getElementById("session").getAttribute("user") };
         fbq('track', name, {...new_data, ...data});
     } catch(err){
         console.log(err);
@@ -364,8 +382,31 @@ function searchInList (query, list, params=["name", "tipus", "col", "material", 
 
 
 
+function forceNavTitle(trigger=undefined){
+    if (title !== undefined) {
+        title.classList.add("hidden");
+    }
+
+    if (trigger !== undefined){
+        navTitle.classList.add("shown-by-"+trigger);
+    }
+    navTitle.classList.remove("hidden");
 
 
+
+}
+
+function unforceNavTitle(trigger) {
+    if (title !== undefined){
+        title.classList.remove("hidden");
+    }
+    navTitle.classList.remove("shown-by-"+trigger);
+    if (navTitle.classList.contains("hidden-title")){
+        if (!(navTitle.classList.contains("shown-by-index") || navTitle.classList.contains("shown-by-menu"))) {
+            navTitle.classList.add("hidden");
+        }
+    }
+}
 
 
 
@@ -385,6 +426,14 @@ function searchInList (query, list, params=["name", "tipus", "col", "material", 
 
 
 PopPopups()
+
+mediaQuery.onchange = e =>{
+    	console.log("Orientation change!");
+        closeCart();
+        closeMenu();
+        hideSearch()
+}
+
 
 window.addEventListener('load', function () {
 	console.log(" * Page loaded!");

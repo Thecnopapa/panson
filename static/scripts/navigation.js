@@ -25,7 +25,7 @@ camaleonElements.push(...navButtons, ...lanButtons, cartCircle, cartIcon, search
 
 
 
-let forceBlack = false
+let forceBlack = {search:false, menu:false, scroll:false}
 
 
 
@@ -39,29 +39,25 @@ function goBlack(){
     }
 }
 
-function goWhite(){
+function goWhite() {
     //console.log("GoWhite");
-
-    if (forceBlack){return}
     for (let i = 0; i < camaleonElements.length; i++) {
-        if (camaleonElements[i] !== null && camaleonElements[i] !== undefined ) {
+        if (camaleonElements[i] !== null && camaleonElements[i] !== undefined) {
             camaleonElements[i].classList.add('white');
         }
     }
 }
 
 function checkColor() {
-    //console.log("Checking colour");
-    const colorElement = document.getElementById("nav-color");
-    if (colorElement !== null) {
-        try {
-            let targetColour = colorElement.attributes.color.value;
-            if (targetColour === "white") {
-                goWhite();
-            } else if (targetColour === "black") {
-                goBlack();
-            }
-        } catch {}
+    //console.log("Checking colour:", targetColour);
+    let forceNot = Object.values(forceBlack).some((x) => x)
+    //console.log("force black=", Object.values(forceBlack), forceNot);
+        if (targetColour === "white" && !forceNot) {
+            goWhite();
+        } else if (targetColour === "black" || forceNot) {
+            goBlack();
+        }
+
         try{
             let navColour = colorElement.attributes.navColor.value;
             if (navColour === "translucid") {
@@ -71,14 +67,8 @@ function checkColor() {
             }
             return navColour
         } catch {}
-    }
-
 }
 
-const c = checkColor()
-if (c != null) {
-   console.log(" * Nav colour: ", c);
-}
 
 
 function background_to_url(background){
@@ -173,11 +163,14 @@ let blackObserver = new IntersectionObserver((triggers) => {colorScroll(triggers
 function colorScroll(triggers){
     //console.log("Color scroll")
     if (!triggers[0].isIntersecting) {
+        forceBlack["scroll"] = true;
         goBlack();
         navigation.classList.add("opaque");
     } else {
+        forceBlack["scroll"] = false;
         checkColor();
         navigation.classList.remove("opaque");
+
     }
 }
 
@@ -248,10 +241,10 @@ function showSearch(){
     // searchInput.style.display = "block";
     resultsDiv.classList.remove("hidden");
     navigation.classList.add("force-opaque");
-    navTitle.classList.remove("hidden")
+    forceNavTitle()
     document.documentElement.style.overflow = "hidden";
-    forceBlack = true;
-    goBlack();
+    forceBlack["search"] = true;
+    checkColor();
 
 
     textDiv.focus();
@@ -280,11 +273,9 @@ function hideSearch(force=false){
     // searchIcon.style.display = "block";
     resultsDiv.classList.add("hidden");
     navigation.classList.remove("force-opaque");
-    if (navTitle.classList.contains("hidden-title")){
-        navTitle.classList.add("hidden");
-    }
+    unforceNavTitle()
     document.documentElement.style.overflow = "";
-    forceBlack = false;
+    forceBlack["search"] = false;
     checkColor();
 
 
@@ -446,7 +437,7 @@ document.documentElement.addEventListener("keydown", closeMenusEsc);
 
 
 window.addEventListener("load", (e) =>{
-	checkColor()
+	checkColor();
 });
 
 

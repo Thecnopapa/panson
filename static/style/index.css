@@ -68,6 +68,7 @@ body{
     position: fixed;
     transition-duration: 0.1s;
     transition-property: height, width, top, left;
+    z-index: 40;
     /*mix-blend-mode: difference;*/
 }
 #title-logo.white:not(.black){
@@ -110,5 +111,3 @@ body{
 
     }
 }
-
-

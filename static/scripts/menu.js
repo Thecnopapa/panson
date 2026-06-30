@@ -14,25 +14,25 @@ const submenus = [...document.getElementsByClassName('submenu')];
 
 
 camaleonElements.push(menu, botoMenuSimple);
-checkColor();
 
 
 
 
-async function openMenu(trackIt=true) {
+async function openMenu() {
     hideSearch();
     if (menuOpen) {return;}
-    closeCart(false);
+    closeCart();
     menuOpen = true;
     let targetWidth = undefined;
-    if (window.innerWidth <= desktopThreshold){
+    console.log(isMobile());
+    if (isMobile()){
+        forceNavTitle("menu")
         targetWidth =  window.innerWidth * 0.9;
         menu.style.width = String(targetWidth) + "px";
         try{
-            navTitle.classList.add("black");
+            navTitle.classList.add("force-black");
         } catch {}
         document.documentElement.style.overflow = "hidden";
-        goBlack()
     } else {
         targetWidth = navLeft.offsetWidth;
         menu.style.width = String(targetWidth) + "px";
@@ -42,39 +42,36 @@ async function openMenu(trackIt=true) {
             closer.style.display = "flex";
         });
         navButtons.forEach(button => {
-            button.classList.add("black");
+            button.classList.add("force-black");
         });
     
     menu.style.left = "0";
     menu.classList.add('open');
     menu.classList.remove('closed');
     botoMenuSimple.classList.add('open');
-    botoMenuSimple.classList.add("black");
+    botoMenuSimple.classList.add("force-black");
 
 
     menuContent.forEach(item => {
         item.classList.add('shown');
     });
-        if (trackIt){
-        //track("OpenMenu")
-    }
 
 }
 
 
 
 
-function closeMenu(trackIt=false) {
+function closeMenu() {
     let targetWidth = undefined;
-    if (window.innerWidth <= desktopThreshold){
+    unforceNavTitle("menu")
+    if (isMobile()){
         targetWidth =  window.innerWidth * 0.9;
         menu.style.width = String(targetWidth) + "px";
-        checkColor()
     } else {
         targetWidth = navLeft.offsetWidth;
         menu.style.width = String(targetWidth) + "px";
         navButtons.forEach(button => {
-            button.classList.remove("black");
+            button.classList.remove("force-black");
         });
     }
     //console.log('Close menu');
@@ -82,12 +79,12 @@ function closeMenu(trackIt=false) {
 
 
 	try{
-        navTitle.classList.remove("black");
+        navTitle.classList.remove("force-black");
 	} catch {}
 
     menu.classList.remove('open');
     botoMenuSimple.classList.remove('open');
-    botoMenuSimple.classList.remove("black");
+    botoMenuSimple.classList.remove("force-black");
     document.documentElement.style.overflow = "";
 
 
@@ -101,10 +98,7 @@ function closeMenu(trackIt=false) {
         hideDropdown(submenu);
     });
     menuOpen = false;
-    setTimeout(() => {menu.classList.add("closed");}, 1000)
-    if (trackIt){
-        //track("CloseMenu")
-    }
+    setTimeout(() => {menu.classList.add("closed");}, 1000);
 
 }
 
@@ -132,17 +126,6 @@ function hideDropdown (submenu) {
     submenuContent.forEach(submenuItem => {submenuItem.classList.remove('dropdown-show');})
     submenuIndicators.forEach(submenuIndicator => {submenuIndicator.classList.remove('dropdown-show');})
 }
-
-
-
-if (window.innerWidth <= desktopThreshold){
-    targetWidth =  window.innerWidth;
-    menu.style.width = String(targetWidth) + "px";
-} else {
-    targetWidth = navLeft.offsetWidth;
-    menu.style.width = String(targetWidth) + "px";
-}
-menu.style.left = String(-targetWidth-1) + "px";
 
 
 window.addEventListener('load', function(){
