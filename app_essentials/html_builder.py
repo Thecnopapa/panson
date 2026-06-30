@@ -11,7 +11,6 @@ from app_essentials.firestore import Storage
 
 
 def common_kwargs(**kwargs):
-    print(request.path, request.host)
     lan = localisation(kwargs.get("lan", "cat"))
     kwargs["path"] = request.path
     kwargs["host"] = request.host
@@ -98,6 +97,8 @@ def common_kwargs(**kwargs):
 
 
 def template(html="", templates=None, navigation=True, retry=True, reset=True, **kwargs):
+
+    print(request.host, request.path, "-->", templates)
 
     kwargs = common_kwargs(**kwargs)
 
