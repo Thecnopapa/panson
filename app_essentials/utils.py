@@ -93,6 +93,10 @@ class Utils:
     def bool(b):
         return bool(b)
 
+    @staticmethod
+    def any(iterable):
+        return any(iterable)
+
 
     @staticmethod
     def try_catch(fun, error=None, *args, **kwargs):
@@ -224,5 +228,3 @@ def table_to_html(path, onclick_row="", onclick_cell="", skip_rows=[], ref_row=N
         html += "</tr>"
     html += "</table>"
     return html
-
-

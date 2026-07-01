@@ -119,7 +119,6 @@ function searchGalleria(trigger){
 		text: trigger.value,
 	}
 	console.log({query});
-
 	gallery.update(query);
 }
 
@@ -183,9 +182,6 @@ class Product {
         el.classList.remove("template");
         el.classList.remove("empty");
 
-        if (this.bucket === "productes"){
-
-        }
         let deltaLaunch = 0;
         let launchTime = undefined;
         if (this.bucket === "productes" && info.startDate.value !== "" ){
@@ -216,6 +212,7 @@ class Product {
                 }
             });
         }
+        console.log(el)
         return el;
     }
 
@@ -234,6 +231,7 @@ class Galeria {
         this.showFiltres = Boolean(Number(options.showFiltres));
         this.readUrl = Boolean(Number(options.readUrl));
         this.startEmpty =  Boolean(Number(options.startEmpty));
+        this.closeWhenEmpty = Boolean(Number(options.closeWhenEmpty));
         this.query = query;
 	if (this.bucket === "bespoke"){
 		this.products = Object.keys(allBespoke);
@@ -242,7 +240,7 @@ class Galeria {
 	}
         console.log(this.startEmpty);
         if (!this.startEmpty){
-            this.products = this.filter();
+            this.products = this.filter(this.query);
         }
         this.subset = undefined;
         //console.log(this.products);
@@ -257,6 +255,7 @@ class Galeria {
         this.emptyQuery = this.element.querySelector(".galeria-no-query");
         this.emptyQueryText = this.element.querySelector(".galeria-no-query-text");
         this.emptyFiltre = this.element.querySelector(".galeria-no-filtre");
+        this.textInput = this.element.querySelector(".gallery-search-text");
 
         if (this.startEmpty){
             this.update();
@@ -266,8 +265,20 @@ class Galeria {
     update(query={}) {
         //console.log("Updating", this.nId);
         //console.log(query);
+        if (this.textInput && this.textInput.value !== ""){
+            if (query.text === undefined || query.text === null || query.text === ""){
+                query.text = this.textInput.value;
+            }
+        }
+        if (this.showFiltres && this.query.query !== ""){
+            if (query.query === undefined || query.query === null || query.query === ""){
+                query.query = this.query.query;
+            }
+        }
+
+
         let subset = this.filter(query);
-        //console.log({subset}, subset.length);
+        console.log("subset", subset.length);
         this.subset = subset
         this.deleteAll();
         this.addRow();
@@ -277,7 +288,13 @@ class Galeria {
             this.emptyQuery.classList.add("hidden");
             this.emptyQueryText.innerText = "";
             this.emptyFiltre.classList.add("hidden");
+            if (this.closeWhenEmpty){
+                this.element.classList.remove("empty");
+            }
         } else {
+            if (this.closeWhenEmpty){
+                this.element.classList.add("empty");
+            }
             this.emptyDisclaimer.classList.remove("hidden");
 
             if (query.text === "" || query.text === undefined || query.text === null) {
@@ -292,6 +309,13 @@ class Galeria {
 
             }
         }
+        this.query = query
+        let filtres = this.element.querySelectorAll(".filtre");
+        filtres.forEach(f => {
+            if (f.getAttribute("query", "") === query.query) {
+                f.classList.add("active");
+            }
+        });
         if (this.readUrl){
             let params = {}
             let string = ""
@@ -306,30 +330,31 @@ class Galeria {
                 params["query"] = query.query;
                 string = string + "query="+query.query+"&";
             }
-            if (string.length != ""){
+            if (string.length !== ""){
                 string = string.slice(0,-1);
                 let url = window.location.pathname;
 
-                window.history.pushState(params, null, url+"?"+string)
+                window.history.replaceState(window.history.state, null, url+"?"+string)
             }
         }
 
     }
 
     filter(query= {}){
-       //console.log("Filtering...");
-        //console.log(this.query);
-        //console.log(query);
+        console.log("Filtering...");
+        console.log(this.query);
+        console.log(query);
 
         let filteredProds = undefined;
 
         if (this.startEmpty){
             if ((query.query === "" || query.query === undefined || query.query === null) && (query.text === "" || query.text === undefined || query.text === null)){
+                console.log("Starting empty",this.startEmpty )
                 return []
             }
         }
 
-        [this.query, query].forEach(qq => {
+        [query].forEach(qq => {
             //console.log({qq});
 
             let queryDict = {};
@@ -458,11 +483,10 @@ class Galeria {
         emptyElements.forEach(e => {e.remove();});
     }
 
-    addProduct(product=undefined){
-        this.deleteEmpty()
+    addProduct(product=undefined, extraClass=undefined){
         let el = undefined;
         if (product === undefined){
-            //console.log("Adding empty..");
+            console.log("Adding empty..");
             product = new Product();
             el = product.writeEmpty(this.template);
         } else {
@@ -470,14 +494,20 @@ class Galeria {
                 el = product.writeEmpty(this.template)
             } else{
                 //console.log("Adding product: ", product.id);
-            el = product.writeTemplate(this.template);
+                this.deleteEmpty()
+                el = product.writeTemplate(this.template);
+
             }
         }
         el.setAttribute("galleryId", this.nId);
-        //console.log(el);
-        this.galeria.append(el);
+        if (extraClass !== undefined){
+            el.classList.add(extraClass);
+
+        }
+
+        this.galeria.appendChild(el);
         //animationObserver.observe(el);
-        loadAllImages()
+        loadAllImages();
     }
 
     length(){
@@ -491,56 +521,68 @@ class Galeria {
     }
     last(){
         let els = this.elements();
+        if (els.length === 0){
+            console.log({els})
+            return undefined
+        }
         //console.log(els);
         //console.log(this)
         return els[els.length - 1];
     }
 
     addRow() {
-        //console.log("Adding row...");
-
-        //console.log({current});
-        let all = undefined;
-        if (this.subset === undefined){all = this.products;}
-        else {all = this.subset}
-        //console.log({all});
-
-        let maximum = all.length;
-        if (this.maxItems > 0){
-            maximum = Math.min(maximum, this.maxItems);
+        this.deleteEmpty()
+        console.log(this)
+        console.log(this.last())
+        if (gal === 1){
+            //throw new Error("Stop: "+String(gal))
         }
+        if ((this.last() === undefined)|| (!this.last().classList.contains("empty"))){
+            console.log("Adding row...");
+            let all = undefined;
+            if (this.subset === undefined){all = this.products;}
+            else {all = this.subset}
+            //console.log({all});
 
-        let nCurrent = this.length();
-        let nAvail = maximum - nCurrent;
+            let maximum = all.length;
+            if (this.maxItems > 0){
+                maximum = Math.min(maximum, this.maxItems);
+            }
 
-       //console.log({nCurrent, maximum, nAvail, "minRow": this.minRow});
-        let nToAdd = Math.min(this.minRow, maximum, nAvail)
-       //console.log(this.elements())
-       //console.log({nToAdd});
-        for (let i = nCurrent; i < nCurrent+nToAdd; i++) {
-           //console.log("Adding:", all[i]);
-	    if (this.bucket === "bespoke"){
-		    this.addProduct(new Product(allBespoke[all[i]]));
-	    } else {
-            	this.addProduct(new Product(allItems[all[i]]));
-	    }
-        }
-        let paddingProds =  Math.max(0, ( this.length() % this.minRow), this.minItems - this.length());
-       //console.log({paddingProds});
-        if (paddingProds > 0 && !this.inline) {
-            for (let i = 0; i < paddingProds; i++) {
-                this.addProduct();
+            let nCurrent = this.length();
+            let nAvail = maximum - nCurrent;
+
+            //console.log({nCurrent, maximum, nAvail, "minRow": this.minRow});
+            let nToAdd = Math.max(Math.min(this.minRow, maximum, nAvail), this.minItems - this.length());
+            //console.log(this.elements())
+            console.log({nToAdd});
+            for (let i = nCurrent; i < nCurrent+nToAdd; i++) {
+               //console.log("Adding:", all[i]);
+                if (this.bucket === "bespoke"){
+                    this.addProduct(new Product(allBespoke[all[i]]), "bespoke-"+String(i));
+                } else {
+                    this.addProduct(new Product(allItems[all[i]]), "product-"+String(i));
+                }
             }
         }
-       //console.log(nAvail, this.length());
-        if (nAvail > 0){
-            if (!this.last().classList.contains("observed")){
+
+        let paddingProds =  Math.max(0, this.minRow - (Math.max(this.length(), this.minItems) % this.minRow),  this.minItems- this.length());
+        console.log({paddingProds}, 0, this.minRow - (Math.max(this.length(), this.minItems) % this.minRow), this.minItems- this.length(), this.length(), this.minItems);
+
+        if (paddingProds > 0 && !this.inline && (paddingProds !== this.minRow) || (this.minItems - this.length() > 0)) {
+            for (let i = 0; i < paddingProds; i++) {
+                console.log(i)
+                console.log({paddingProds}, 0, this.length(), this.minRow);
+
+                this.addProduct(undefined, "padding-"+String(i));
+            }
+        } else if (((this.maxItems - this.length()) > 0 || this.maxItems <= 0)){
+            console.log((this.maxItems - this.length()) > 0,  this.length(), this.maxItems)
+            if ( (this.last() !== undefined) && (!this.last().classList.contains("empty")) && !this.last().classList.contains("observed")){
                 this.last().classList.add("observed");
                 galleryObserver.observe(this.last())
+                console.log("adding observer")
             }
-
-        } else {
-            //console.log("All products displayed!")
         }
 
         loadAllImages()
@@ -548,7 +590,7 @@ class Galeria {
     }
 }
 
-
+let gal = 0
 function initGaleria(element) {
 
     let options = {
@@ -561,6 +603,7 @@ function initGaleria(element) {
         showSearch: element.getAttribute("showSearch"),
         showFiltres: element.getAttribute("showFiltres"),
         startEmpty: element.getAttribute("startEmpty"),
+        closeWhenEmpty: element.getAttribute("closeWhenEmpty"),
 
     }
 
@@ -572,8 +615,9 @@ function initGaleria(element) {
     }
 
     console.log("   > Initializing Galeria", {options}, {query});
-    let galeria = new Galeria(element, options, query);
 
+    let galeria = new Galeria(element, options, query);
+    console.log(galeria)
 
     if (galeria.readUrl){
 	    let params = new URLSearchParams(document.location.search);
@@ -591,17 +635,15 @@ function initGaleria(element) {
            //console.log(query.query);
             galeria.update(query);
             if (UrlTextQuery === "") {
-                let filtres = galeria.element.querySelectorAll(".filtre");
-                filtres.forEach(f => {
-                    if (f.getAttribute("query", "") === UrlQuery) {
-                        f.classList.add("active");
-                    }
-                });
+
+            } else if (galeria.showSearch){
+                galeria.element.querySelector(".gallery-search-text").value = UrlTextQuery
             }
         }
     } else if (galeria.showFiltres) {
 	    galeria.element.querySelector(".filtre").classList.add("active");
     }
+
     if (galeria.showSearch){
         let searchDiv = galeria.element.querySelector(".gallery-search");
         if (galeria.showFiltres){
@@ -611,17 +653,10 @@ function initGaleria(element) {
             //searchDiv.classList.add("floating");
         }
     }
+
     galeria.addRow()
 
-    if (galeria.inline){
-
-    }
-    //console.log(galeria.last());
     let last = galeria.last();
-    if (last !== undefined) {
-        galleryObserver.observe(galeria.last());
-
-    }
 
     if (!galeria.inline) {
         //animation
@@ -633,6 +668,8 @@ function initGaleria(element) {
         galeria.galeria.addEventListener("scroll", hideScrollArrows)
     }
 
+
+    gal = gal+1;
 
     return galeria;
 }

@@ -12,5 +12,9 @@
 
 {% block body %}
     <div id="nav-color" navColor="opaque"></div>
-{{ galeria.galeria("productes", filtres=1, max_prods=0, min_row=4, min_prods=8, search=0, read_url=1) }}
+    {% if search_page %}
+        {{ galeria.galeria("productes", filtres=1, max_prods=0, min_row=4, min_prods=8, search=1, read_url=1) }}
+    {% else %}
+        {{ galeria.galeria("productes", filtres=1, max_prods=0, min_row=4, min_prods=8, search=0, read_url=1) }}
+    {% endif %}
 {% endblock %}

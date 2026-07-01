@@ -13,7 +13,16 @@
     margin-top: 10vh;
     margin-bottom: 8vh;
     z-index: 10;
+    height: fit-content;
+
 }
+
+
+
+
+
+
+
 .search-over-page > .content-galeria{
     margin-top: 0;
     margin-bottom: 0vh;
@@ -31,9 +40,11 @@
 .empty-disclaimer{
     display: flex;
     flex-direction: row;
-    margin: var(--padding);
-    max-width: 60%;
-    margin-top: 4vh;
+    padding-left: var(--padding);
+    padding-right: var(--padding);
+    /*max-width: 60%;*/
+    /*margin-top: 4vh;*/
+    margin-bottom: -1rem;
 }
 
 
@@ -102,12 +113,13 @@
 	flex-direction: row;
 	width: var(--padded-width);
 	padding: var(--padding);
+    padding-bottom: 0;
+
 	justify-content: center;
 	align-items: center;
     position: sticky;
     top:0;
     z-index: 50;
-    background-color: white;
 }
 .gallery-search.floating{
 	position: fixed;
@@ -116,13 +128,18 @@
 }
 
 .gallery-search-text{
+    background-color: inherit;
 	margin: var(--padding);
 	width: var(--padded-width);
+    border: none;
+    outline: none !important;
 }
 
 .gallery-search-icon{
 }
-
+.galeria-no-query-text{
+    line-break: anywhere;
+}
 
 
 
@@ -135,7 +152,26 @@
     overflow-y: hidden;
     width: 100%;
     scroll-behavior: smooth;
+    transition: 1s;
+    transition-property: margin-top, height;
 }
+
+
+
+.content-galeria.closed > .galeria{
+    margin-top: -100dvh;
+    max-height: calc(100dvh - var(--header-height) * 4);
+    transition-property: margin-top, max-height, background-color;
+}
+.content-galeria:not(.closed) > .galeria{
+    max-height: calc(110dvh - var(--header-height) * 4);
+    transition-property: margin-top, max-height, background-color;
+}
+.content-galeria.fully-open > .galeria {
+    background-color: white !important;
+    max-height: max-content;
+}
+
 
 .producte{
     display: flex;
@@ -316,9 +352,24 @@
     margin-top: 2rem;
 }
 
+
+.content-galeria.empty > .empty-disclaimer{
+    display: none !important;
+}
+
+.content-galeria.empty > .galeria-navigation{
+    display: none !important;
+}
+.content-galeria.fully-open > .galeria-navigation{
+    margin: var(--padding);
+}
+
+
 .galeria-navigation.disabled{
 	display:none;
+    margin:0;
 }
+
 
 .galeria-counter{
     margin: 1rem;
@@ -456,6 +507,8 @@
     .empty-disclaimer{
         display: flex;
         flex-direction: column;
+        margin-bottom: -1.5rem;
+
     }
 
 

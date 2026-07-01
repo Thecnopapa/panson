@@ -6,7 +6,7 @@ let imagesToPreload = [];
 
 let desktopThreshold = 1025;
 
-const mediaQuery = matchMedia("screen and (orientation:portrait)");
+const mediaQuery = matchMedia("screen and (max-width: 1025px)");
 
 function isMobile(){
     return mediaQuery.matches
@@ -137,7 +137,7 @@ async function updateCookiesTic(container){
 		},
 		body: JSON.stringify(body)
 	});
-	location.reload();
+	//location.reload();
 
 }
 
@@ -439,8 +439,9 @@ window.addEventListener('load', function () {
 	console.log(" * Page loaded!");
     PopPopups()
     detectHorizontal();
-    console.log(" * "+ String(camaleonElements.length) + " chamaleon elements");
+    console.log(" * "+ String(camaleonElements.length) + " chameleon elements");
     loadAllImages();
+    hideSearch()
 })
 
 

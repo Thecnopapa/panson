@@ -220,7 +220,28 @@ function closeSearchEsc(event){
         //console.log("escaping search");
         let resultsDiv = searchIcon.parentElement.querySelector(".search-over-page");
         let textDiv = resultsDiv.querySelector(".gallery-search-text")
-        window.location.href = "/"+document.documentElement.lang+"/productes/?q="+textDiv.value
+        window.location.href = "/"+document.documentElement.lang+"/search/?q="+textDiv.value
+    }
+}
+
+async function documentClickCatcher(event){
+    if (event.approved === true){
+        return
+    }
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    event.preventDefault();
+    console.log(`preventing event... (${event.type})`)
+
+    await new Promise(r => setTimeout(r, 100));
+    console.log(`timeout finished (${event.type})`)
+
+
+    if (!hideSearch()){
+        console.log("resuming event...")
+        let newEvent = new event.constructor(event.type, event)
+        newEvent.approved = true;
+        event.target.dispatchEvent(newEvent);
     }
 }
 
@@ -230,8 +251,20 @@ function showSearch(){
     closeCart();
     let trigger = searchIcon;
     let resultsDiv = trigger.parentElement.querySelector(".search-over-page");
-    let textDiv = resultsDiv.querySelector(".gallery-search-text")
-    trigger.setAttribute("onclick", "hideSearch(true)");
+    let textDiv = resultsDiv.querySelector(".gallery-search-text");
+    let galleryDiv = resultsDiv.querySelector(".content-galeria");
+    galleryDiv.classList.remove("closed");
+    galleryDiv.classList.remove("fully-closed");
+    function setFullyOpen(g) {
+        if (!g.classList.contains("closed")){
+            g.classList.add("fully-open");
+            trigger.setAttribute("onclick", "hideSearch(true)");
+            textDiv.focus();
+        }
+    }
+    setTimeout( setFullyOpen, 1000,galleryDiv);
+
+
 
 
     document.documentElement.addEventListener("keydown", closeSearchEsc);
@@ -240,14 +273,22 @@ function showSearch(){
     // searchIcon.style.display = "none";
     // searchInput.style.display = "block";
     resultsDiv.classList.remove("hidden");
+    resultsDiv.classList.add("open");
     navigation.classList.add("force-opaque");
     forceNavTitle()
-    document.documentElement.style.overflow = "hidden";
+    //document.documentElement.style.overflow = "hidden";
+    document.documentElement.classList.add("blocked");
+
     forceBlack["search"] = true;
     checkColor();
 
 
-    textDiv.focus();
+    window.addEventListener("click", documentClickCatcher, true )
+    window.addEventListener("scroll", documentClickCatcher, true )
+    window.addEventListener("mousedown", documentClickCatcher, true )
+    window.addEventListener("mouseup", documentClickCatcher, true )
+
+
 }
 
 function hideSearch(force=false){
@@ -258,26 +299,43 @@ function hideSearch(force=false){
     let areaOfInterest = document.querySelector(".navigation-right");
     let resultsDiv = trigger.parentElement.querySelector(".search-over-page");
 
+
     if (areaOfInterest.matches(":hover") && !force) {
-        return;
+        return false;
     }
+
+    window.removeEventListener("click", documentClickCatcher, true)
+    window.removeEventListener("scroll", documentClickCatcher, true)
+    window.removeEventListener("mousedown", documentClickCatcher, true)
+    window.removeEventListener("mouseup", documentClickCatcher, true)
+
+
     trigger.setAttribute("onclick", "showSearch()");
 
-    document.documentElement.addEventListener("keydown", closeSearchEsc);
+    document.documentElement.removeEventListener("keydown", closeSearchEsc);
 
+
+    let galleryDiv = resultsDiv.querySelector(".content-galeria");
+    galleryDiv.classList.add("closed");
+    galleryDiv.classList.remove("fully-open");
+
+    function setFullyClosed(g) {if(g.classList.contains("closed")){g.classList.add("fully-closed");}}
+    setTimeout(setFullyClosed, 1000, galleryDiv);
 
     // searchIcon.parentElement.classList.remove("open");
     // searchIcon.parentElement.classList.add("closed");
 
     // searchInput.style.display = "none";
     // searchIcon.style.display = "block";
-    resultsDiv.classList.add("hidden");
+    //resultsDiv.classList.add("hidden");
+    resultsDiv.classList.remove("open");
     navigation.classList.remove("force-opaque");
     unforceNavTitle()
     document.documentElement.style.overflow = "";
+    document.documentElement.classList.remove("blocked");
     forceBlack["search"] = false;
     checkColor();
-
+    return true
 
 }
 

@@ -472,11 +472,15 @@ def collections(lan,id):
         return ""
 
 
+@app.route("/<lan>/search/")
+def search_all(lan):
+    use()
+    html = template(lan=lan,templates="all_products", search_page=True)
+    return html
 
 @app.route("/<lan>/productes/")
 def productes(lan):
     use()
-    filters = {"esborrat": False, "amagat": False}
     html = template(lan=lan,templates="all_products")
     return html
 

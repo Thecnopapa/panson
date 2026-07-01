@@ -341,12 +341,12 @@ async function reloadCart(){
 
 function showInfoDropdown(trigger, popupContent, arrow=undefined) {
     popupContent.style.display = "block";
-    oldTrigger = String(trigger.attributes.onclick.value).split("(")[1];
+    let oldTrigger = String(trigger.attributes.onclick.value).split("(")[1];
     trigger.setAttribute("onclick","hideInfoDropdown("+oldTrigger);
     if (arrow) {
         arrow.innerHTML = "-";
     }
-    var topPos = popupContent.offsetTop;
+    let topPos = popupContent.offsetTop;
     //popupContent.scrollIntoView({behavior: "smooth"});
     //console.log(trigger.parentElement.parentElement.parentElement, trigger.parentElement.offsetHeight);
     trigger.parentElement.parentElement.parentElement.scrollBy(0, trigger.parentElement.offsetHeight, {behavior: "smooth"});
@@ -355,7 +355,7 @@ function showInfoDropdown(trigger, popupContent, arrow=undefined) {
 
 function hideInfoDropdown(trigger, popupContent, arrow=undefined) {
     popupContent.style.display = "none";
-    oldTrigger = String(trigger.attributes.onclick.value).split("(")[1];
+    let oldTrigger = String(trigger.attributes.onclick.value).split("(")[1];
     trigger.setAttribute("onclick","showInfoDropdown("+oldTrigger);
     if (arrow) {
         arrow.innerHTML = "+";
@@ -438,6 +438,8 @@ function enlargeImg(img, all=true){
             newContainer.remove();
             document.documentElement.style.overflow = "";
             newObserver.disconnect();});
+            document.documentElement.removeEventListener("keydown", closeWithEscape);
+
     }
     newContainer.addEventListener("scroll", function (event){event.stopPropagation();});
     newContainer.addEventListener("touchmove", function (event){event.stopPropagation();});
@@ -627,7 +629,10 @@ function initialBubbleChange(triggers, opts){
 
 
 function updateProductSlideshow(target=undefined, arrows=undefined){
-	//console.log("scrolling images");
+    if (document.documentElement.classList.contains("blocked")){
+        return
+    }
+	console.log("scrolling images");
 	if (target instanceof Event){
 		target = target.target;
 		arrows = target.parentElement.querySelector(".arrows, .enlarged-arrows");
@@ -646,6 +651,9 @@ function updateProductSlideshow(target=undefined, arrows=undefined){
 
 
 function slideshowScroll(container, mode=undefined, axis="both"){
+    if (document.documentElement.classList.contains("blocked")){
+        return
+    }
     event.stopPropagation();
     let targetScrollX = 0;
     let targetScrollY = 0;

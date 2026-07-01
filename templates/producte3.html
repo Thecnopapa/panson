@@ -233,7 +233,7 @@
     {% if producte.bucket == "productes" %}
     <div class="product-info">
             <div class="desplegable">
-                <div class="titol-desplegable" onclick="track('MesInfoProducte', {'apartat':'{{ loc.pro_info_titol }}'});showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover loc" loc="pro_info_titol">{{ loc.pro_info_titol }}</div><div class="desplegable-indicator">+</div></div>
+                <div class="titol-desplegable" onclick="showInfoDropdown(this, this.nextElementSibling, this.lastElementChild)"><div class="clickable under-hover loc" loc="pro_info_titol">{{ loc.pro_info_titol }}</div><div class="desplegable-indicator">+</div></div>
                 <div class="info-desplegable">
                     {% if loc.lan == "cat" %}
                         <p class="extra-info"> {{ producte.info | safe }}</p>

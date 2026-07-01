@@ -4,7 +4,7 @@
 {% macro render_menu() %}
 
 <div class="menu closed" id="menu">
-	<div class="menu-element menu-content under-hover clickable loc" loc="nav_novetats"  onclick="location.href='/{{ loc.lan }}/productes/?filterKey=novetat&filterValue=True'">{{ loc.nav_novetats}}</div>
+	<div class="menu-element menu-content under-hover clickable loc" loc="nav_novetats"  onclick="location.href='/{{ loc.lan }}/productes/?query=novetat=true'">{{ loc.nav_novetats}}</div>
 	<div class="menu-element menu-content under-hover clickable loc" loc="nav_peces" onclick="location.href='/{{ loc.lan }}/productes'">{{ loc.nav_peces}}</div>
 
         <div class="menu-subtitol menu-content loc" loc="nav_collecions">{{ loc.nav_collecions }}</div>
@@ -18,7 +18,7 @@
         <div class="menu-subtitol menu-content loc" loc="nav_categories">{{ loc.nav_categories }}</div>
         {% if productes %}
             {% for tipus in productes.tipus %}
-                <div class="menu-element menu-content under-hover clickable"  onclick="location.href='/{{ loc.lan }}/productes/?filterKey=tipus&filterValue={{ tipus }}'">{{ loc["tip-"+tipus+"-plural"]}}</div>
+                <div class="menu-element menu-content under-hover clickable"  onclick="location.href='/{{ loc.lan }}/productes/?query=tipus={{ tipus }}'">{{ loc["tip-"+tipus+"-plural"]}}</div>
             {% endfor %}
         {% endif %}
 
