@@ -244,18 +244,23 @@ class Galeria {
         }
         this.subset = undefined;
         //console.log(this.products);
-        this.template = this.element.querySelector(".product.template");
-        this.nId = "gallery-" + String(nGalleries);
-        element.classList.add(this.nId);
-        element.setAttribute("galleryId", this.nId);
-        nGalleries += 1;
-        allGalleries[this.nId] = this;
+
         this.galeria = this.element.querySelector(".galeria");
+        this.template = this.galeria.querySelector(".producte.template");
+        //console.log("TEMPLATE", this.template);
+
         this.emptyDisclaimer = this.element.querySelector(".empty-disclaimer");
         this.emptyQuery = this.element.querySelector(".galeria-no-query");
         this.emptyQueryText = this.element.querySelector(".galeria-no-query-text");
         this.emptyFiltre = this.element.querySelector(".galeria-no-filtre");
         this.textInput = this.element.querySelector(".gallery-search-text");
+
+        this.nId = "gallery-" + String(nGalleries);
+        this.element.classList.add(this.nId);
+        this.element.setAttribute("galleryId", this.nId);
+        nGalleries += 1;
+        allGalleries[this.nId] = this;
+
 
         if (this.startEmpty){
             this.update();
@@ -485,8 +490,9 @@ class Galeria {
 
     addProduct(product=undefined, extraClass=undefined){
         let el = undefined;
+        //console.log("template", this.template);
         if (product === undefined){
-            console.log("Adding empty..");
+            //console.log("Adding empty..");
             product = new Product();
             el = product.writeEmpty(this.template);
         } else {
