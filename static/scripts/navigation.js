@@ -262,7 +262,11 @@ function showSearch(){
             textDiv.focus();
         }
     }
-    setTimeout( setFullyOpen, 1000,galleryDiv);
+    let timeout = 1000;
+    if (oldSafari){
+        timeout = 0;
+    }
+    setTimeout( setFullyOpen, timeout ,galleryDiv);
 
 
 
@@ -320,7 +324,11 @@ function hideSearch(force=false){
     galleryDiv.classList.remove("fully-open");
 
     function setFullyClosed(g) {if(g.classList.contains("closed")){g.classList.add("fully-closed");}}
-    setTimeout(setFullyClosed, 1000, galleryDiv);
+    let timeout = 1000;
+    if (oldSafari){
+        timeout = 0;
+    }
+    setTimeout(setFullyClosed, timeout, galleryDiv);
 
     // searchIcon.parentElement.classList.remove("open");
     // searchIcon.parentElement.classList.add("closed");

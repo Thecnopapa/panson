@@ -80,7 +80,7 @@ body {
     padding-right: var(--padding);
     background-color: white;
     overflow-y: scroll;
-    justify-content:start;
+    justify-content: flex-start;
 
 
 
@@ -562,7 +562,7 @@ body {
     	overflow-x: scroll;
     	overflow-y:hidden;
 	align-items: center;
-	justify-content: start;
+	justify-content: flex-start;
 
 }
 .enlarged-img{
@@ -622,7 +622,7 @@ body {
 	height:fit-content;
 	display:flex;
 	flex-direction: column;
-	justify-content: end;
+	justify-content: flex-end;
 	align-content: center;
 	margin-left: var(--padding);
 }

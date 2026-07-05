@@ -23,10 +23,11 @@
 
 
 
-.search-over-page > .content-galeria{
+.search-over-page .content-galeria{
     margin-top: 0;
     margin-bottom: 0vh;
 }
+
 .gallery-erase-search{
     cursor: pointer;
     color: black;
@@ -108,7 +109,7 @@
 	background: linear-gradient(to right,  transparent 90%, white 100%);
 }
 
-.old-safari .filtre-buttons{
+.old-safari .filtre-buttons-gradient{
     background: transparent !important;
 }
 
@@ -162,27 +163,27 @@
 
 
 
-.content-galeria.closed > .galeria{
+.search-over-page .content-galeria.closed .galeria{
     margin-top: -100vh;
     max-height: calc(100vh - var(--header-height) * 4);
     transition-property: margin-top, max-height, background-color;
 }
-.content-galeria:not(.closed) > .galeria{
+.search-over-page .content-galeria:not(.closed) .galeria{
     max-height: calc(110vh - var(--header-height) * 4);
     transition-property: margin-top, max-height, background-color;
 }
-.content-galeria.fully-open > .galeria {
+.search-over-page .content-galeria.fully-open .galeria {
     background-color: white !important;
     max-height: max-content;
 }
 
-.old-safari  .content-galeria .galeria {
+.old-safari .search-over-page .content-galeria .galeria {
     max-height: calc(100vh - var(--header-height) * 4) !important;
 }
-.old-safari .content-galeria.closed .galeria {
+.old-safari .search-over-page .content-galeria.closed .galeria {
     display: none !important;
 }
-.old-safari  .content-galeria.open .galeria {
+.old-safari .search-over-page .content-galeria.open .galeria {
     display: flex !important;
 }
 
@@ -199,7 +200,7 @@
     user-select: none;
     align-content: center;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
     cursor: pointer;
     overflow: hidden;
     transition: 0.5s;
@@ -324,11 +325,11 @@
 }
 
 .scroll-left{
-    justify-content: start;
+    justify-content: flex-start;
     left:0;
 }
 .scroll-right{
-    justify-content: end;
+    justify-content: flex-end;
     right:0;
 }
 .galeria-scroll:hover .galeria-scroll-button{
@@ -349,7 +350,7 @@
 	flex-direction:row;
 	flex-wrap:nowrap;
 	overflow-x: scroll;
-	justify-content: start;
+	justify-content: flex-start;
 	
 }
 
@@ -443,7 +444,7 @@
     .filtre-buttons{
 
         margin-bottom: calc(var(--padding) * 3);
-        justify-content: start;
+        justify-content: flex-start;
     }
     .filtre{
 
@@ -503,7 +504,7 @@
         width: var(--padded-width);
     }
     /*.detalls-principals{
-        justify-content: start;
+        justify-content: flex-start;
 	width: fit-content;
     }*/
 

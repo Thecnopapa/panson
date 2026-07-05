@@ -86,7 +86,7 @@ body {
     display:flex;
     flex-direction: column;
     width:fit-content;
-    justify-content: start;
+    justify-content: flex-start;
     height:fit-content;
 }
 .productes-titol-col{
@@ -112,7 +112,7 @@ body {
 
 .vertical.wrapper{
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
 }
 
 .spacer{

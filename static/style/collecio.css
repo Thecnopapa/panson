@@ -8,7 +8,7 @@
     width: 100%;
     height: fit-content;
     min-height: 100vh;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     background-position: center;
     background-size: cover;

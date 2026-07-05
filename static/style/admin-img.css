@@ -25,7 +25,7 @@
     flex-direction: row;
     width: 100%;
     flex-wrap: wrap;
-    justify-content: start;
+    justify-content: flex-start;
 }
 .bucket-image{
     display: flex;
@@ -85,7 +85,7 @@
     height: 96%;
     max-height: 96%;
     overflow: scroll;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
 
 
@@ -181,7 +181,7 @@
     max-width: var(--padded-width);
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
     flex-wrap: wrap;
     margin-top: 0.1rem;
     .image-name {
