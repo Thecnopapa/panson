@@ -4,7 +4,7 @@
 .content-index {
     position: relative;
     display: block;
-    width: 100dvw;
+    width: 100vw;
     height: 100vh;
     min-height:100vh;
     align-content: center;
@@ -49,8 +49,8 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    width: 100dvw;
-    height: 100dvh;
+    width: 100vw;
+    height: 100vh;
     background-color:white;
 
 }

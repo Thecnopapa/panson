@@ -18,8 +18,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 30dvw;
-    right: -31dvw;
+    width: 30vw;
+    right: -31vw;
     top: 0;
     background-color: white;
     z-index: 100;
@@ -253,7 +253,7 @@
         width: 90%;
         min-width: 90%;
         max-width: 90%;
-        right: -91dvw;
+        right: -91vw;
     }
     .llista-carret {
 

@@ -24,7 +24,7 @@
     justify-content: center;
     align-items: center;
     height: fit-content;
-    min-height: calc(100dvh - 10vh);
+    min-height: calc(100vh - 10vh);
     width: 100%;
 }
 

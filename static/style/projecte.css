@@ -2,8 +2,8 @@
     display: flex;
     font-size: var(--font-size-extra-large);
     text-align: center;
-    width: 100dvw;
-    height: 100dvh;
+    width: 100vw;
+    height: 100vh;
     align-content: center;
     align-items: center;
     justify-content: center;

@@ -61,11 +61,11 @@
     align-items: center;
 }
 .lan-name{
-	padding-left:3dvw;
+	padding-left:3vw;
     font-weight: bold;
 }
 .lan-value{
-    margin: 1dvh;
+    margin: 1vh;
     height: fit-content;
     min-height: 0;
     padding: 0;
