@@ -28,13 +28,15 @@
         <div class="galeria-no-query hidden">{{ loc.gal_query_buit }}  <span class="galeria-no-query-text" style="font-weight: bold"></span></div>
     </div>
 
-    <div class="galeria-scroll scroll-left {{ 'inline' if inline }}" >
-	    <div class="galeria-scroll-button scroll-left-button disabled" onclick="scrollGallery(this.parentElement.nextElementSibling.nextElementSibling, 'left', '1u')"><img class="main-arrow left" src="/static/media/arrow.svg"></div>
-    </div>
-    <div class="galeria-scroll scroll-right {{ 'inline' if inline }}" >
-	    <div class="galeria-scroll-button scroll-right-button" onclick="scrollGallery(this.parentElement.nextElementSibling, 'right', '1u')"><img class="main-arrow right" src="/static/media/arrow.svg"></div>
-    </div>
     <div class="galeria {{ 'inline' if inline }}">
+
+        <div class="galeria-scroll scroll-left {{ 'inline' if inline }}" >
+            <div class="galeria-scroll-button scroll-left-button disabled" onclick="scrollGallery(this.parentElement.parentElement, 'left', '1u')"><img class="main-arrow left" src="/static/media/arrow.svg"></div>
+        </div>
+        <div class="galeria-scroll scroll-right {{ 'inline' if inline }}" >
+            <div class="galeria-scroll-button scroll-right-button" onclick="scrollGallery(this.parentElement.parentElement, 'right', '1u')"><img class="main-arrow right" src="/static/media/arrow.svg"></div>
+        </div>
+
 	    <div class="producte template empty {{ 'inline' if inline }}" onmouseover="{{'highlightProduct(this)'  if second_hover }}" onmouseout="{{ 'reverseProduct(this)' if second_hover }}">
             <div class="imatge primera normal-image"></div>
             <div class="imatge segona slow-image preload"></div>

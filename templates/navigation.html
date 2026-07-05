@@ -24,7 +24,7 @@
     {% if True %}
         <div class="search" onclick="event.stopPropagation()" >
             <div class="search-over-page" >
-            {{ galeria.galeria("productes", filtres=0, max_prods=4, min_row=4, min_prods=0, search=1, start_empty=1, close_when_empty=1, start_closed=1, go_to_search=1) }}
+            {{ galeria.galeria("productes", filtres=0, max_prods=8, min_row=4, min_prods=0, search=1, start_empty=1, close_when_empty=1, start_closed=1, go_to_search=1, inline=1) }}
             </div>
             <img id="nav-search-icon" class="search-icon navigation-search-icon" onclick="showSearch()" src="/static/media/search-icon.svg" alt="search">
         </div>
@@ -74,7 +74,7 @@
 {% if not user.accepted_cookies %}
     <link href='/style/tic.css' rel='stylesheet'>
     <div id=cookies class="request-cookies">
-        <span class="cookies-info"><span class="loc" loc="nav_cookie_banner">{{ loc.nav_cookie_banner }}</span><a href="/{{ loc.lan }}/tic/privacy" class="loc" loc="cookie_link">{{ loc.nav_cookie_link }}</a></span>
+        <span class="cookies-info"><span class="loc" loc="nav_cookie_banner">{{ loc.nav_cookie_banner }}</span>&nbsp&nbsp<a href="/{{ loc.lan }}/tic/cookies" class="loc" loc="cookie_link">{{ loc.nav_cookie_link }}</a></span>
         <div class="inputs">
             <div class="preferences-button clickable underlined loc" onclick="showPopup(this.nextElementSibling)" loc="nav_cookies_preferencies">{{ loc.nav_cookies_preferencies }}</div>
             <div class="popup-info cookies-popup">

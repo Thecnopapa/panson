@@ -231,14 +231,14 @@ async function documentClickCatcher(event){
     event.stopImmediatePropagation();
     event.stopPropagation();
     event.preventDefault();
-    console.log(`preventing event... (${event.type})`)
+    //console.log(`preventing event... (${event.type})`)
 
     await new Promise(r => setTimeout(r, 100));
-    console.log(`timeout finished (${event.type})`)
+    //console.log(`timeout finished (${event.type})`)
 
 
     if (!hideSearch()){
-        console.log("resuming event...")
+        //console.log("resuming event...")
         let newEvent = new event.constructor(event.type, event)
         newEvent.approved = true;
         event.target.dispatchEvent(newEvent);

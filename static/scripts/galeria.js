@@ -135,7 +135,7 @@ function galleryAddRow(triggers, ops){
         if (!gallery.inline){
             condition = (trigger.boundingClientRect.top < window.innerHeight)
         } else {
-            //console.log(trigger.boundingClientRect.left < window.innerWidth, trigger.boundingClientRect.left,trigger.boundingClientRect.right, window.innerWidth)
+            console.log(trigger.boundingClientRect.left < window.innerWidth, trigger.boundingClientRect.left, trigger.boundingClientRect.right, window.innerWidth)
             condition = (trigger.boundingClientRect.left < window.innerWidth)
         }
 
@@ -244,7 +244,7 @@ class Galeria {
         }
         this.subset = undefined;
         //console.log(this.products);
-        this.template = this.element.querySelector(".template");
+        this.template = this.element.querySelector(".product.template");
         this.nId = "gallery-" + String(nGalleries);
         element.classList.add(this.nId);
         element.setAttribute("galleryId", this.nId);
@@ -566,10 +566,15 @@ class Galeria {
             }
         }
 
-        let paddingProds =  Math.max(0, this.minRow - (Math.max(this.length(), this.minItems) % this.minRow),  this.minItems- this.length());
+        let paddingProds =  Math.max(0, this.minItems- this.length());
+        
+        if (!this.inline){
+            paddingProds =  Math.max(this.minRow - (Math.max(this.length(), this.minItems) % this.minRow),  paddingProds);
+
+        }
         console.log({paddingProds}, 0, this.minRow - (Math.max(this.length(), this.minItems) % this.minRow), this.minItems- this.length(), this.length(), this.minItems);
 
-        if (paddingProds > 0 && !this.inline && (paddingProds !== this.minRow) || (this.minItems - this.length() > 0)) {
+        if (paddingProds > 0  && (paddingProds !== this.minRow) || (this.minItems - this.length() > 0)) {
             for (let i = 0; i < paddingProds; i++) {
                 console.log(i)
                 console.log({paddingProds}, 0, this.length(), this.minRow);
