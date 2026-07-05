@@ -148,15 +148,15 @@ function selectSize(trigger){
 }
 
 function resizeSelector(trigger){
-    //print("TRIGGER: ", trigger);
+    //console.log("TRIGGER: ", trigger);
     const selectedOption = trigger.selectedOptions[0];
     const targetWidth =  ((1.7+selectedOption.text.length) * 1.7 * window.innerHeight / 100);
-    //print("TARGET: ", targetWidth, "CURRENT: ", trigger.offsetWidth);
+    //console.log("TARGET: ", targetWidth, "CURRENT: ", trigger.offsetWidth);
     trigger.style.width =  String(targetWidth)+"px";
-    //print(trigger.style);
+    //console.log(trigger.style);
     //trigger.style.minWidth = String(targetWidth)+"px !important";
     //trigger.style.maxWidth = String(targetWidth)+"px !important";
-    //print("NEW: ", trigger.offsetWidth, trigger.offsetWidth);
+    //console.log("NEW: ", trigger.offsetWidth, trigger.offsetWidth);
 }
 
 
@@ -182,7 +182,7 @@ function selectSizeTable(trigger) {
         }
         throw new Error("Size not found on displayed options");
     } catch (error) {
-        print(error);
+        console.log(error);
         if (error.message !== "found") {
             if (selectedVal === "NA" || selectedCol === "panson"){
 		    //console.log("val is NA");
@@ -203,7 +203,7 @@ function selectSizeTable(trigger) {
             countrySelector.dispatchEvent(new Event("change"));
         }
     }
-    print("done")
+    console.log("done")
     const popups = document.getElementsByClassName("translucid-screen");
         for (let p = 0; p < popups.length; p++) {
             hidePopup("backdrop", popups[p]);
@@ -530,7 +530,7 @@ function enlargeImg(img, all=true){
 
     for (let i = 0; i < images.length; i++){
         //const productName = img.attributes["product"].value;
-        //print(productName);
+        //console.log(productName);
     	const newImg = document.createElement("div");
     	newImg.classList.add("enlarged-img");
     	//newImg.src = imgUrl;
@@ -548,11 +548,11 @@ function enlargeImg(img, all=true){
         newBubbles.appendChild(newBubble);
     }
 
-	print("Scrolling to: ", images[targetImage])
+	console.log("Scrolling to: ", images[targetImage])
 	newSlideshow.children[targetImage].scrollIntoView({block: "center", behavior: "instant"});
 
 
-    print("Enlarged img ready!")
+    console.log("Enlarged img ready!")
 }
 
 
@@ -560,8 +560,8 @@ function startZoom(event){
     let image = event.target;
     event.stopPropagation();
     if (window.innerWidth <= desktopThreshold) {image.scrollIntoView({block: "center", inline: "center"});return;}
-    print("Starting zoom");
-    //print("image", image);
+    console.log("Starting zoom");
+    //console.log("image", image);
     if (image.classList.contains("visible")) {
         image.classList.add("zoomed");
         image.removeEventListener("click", startZoom);
@@ -578,8 +578,8 @@ function startZoom(event){
 function stopZoom(event) {
     let image = event.target;
     event.stopPropagation();
-    print("Ending zoom");
-    //print("image", image);
+    console.log("Ending zoom");
+    //console.log("image", image);
     image.classList.remove("zoomed");
     image.addEventListener("click", startZoom);
     image.removeEventListener("click", stopZoom);
@@ -821,4 +821,4 @@ if (colorSels != undefined){
 
 
 
-print(" * Product JS ready")
+console.log(" * Product JS ready")

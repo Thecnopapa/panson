@@ -137,4 +137,4 @@ updateCartCounter();
 
 
 
-print(" * Cart JS initialised")
+console.log(" * Cart JS initialised")

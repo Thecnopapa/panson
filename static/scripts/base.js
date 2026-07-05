@@ -72,9 +72,7 @@ if ((colorElement !== undefined) && (colorElement !== null)){
 
 
 
-function print(...args){
-    console.log(...args);
-}
+
 function imageUrl(bucket, filename){
     return "https://firebasestorage.googleapis.com/v0/b/panson.firebasestorage.app/o/media%2F"+bucket+"%2F"+filename+"?alt=media"
 }
@@ -153,22 +151,32 @@ async function acceptNewsletter(target){
 }
 
 async function updateCookiesTic(container){
-	let inputAnalytic = container.getElementsByClassName("analytic")[0];
-	let inputEssential = container.getElementsByClassName("essential")[0];
+	let inputAnalytic = container.querySelector(".analytic");
+	let inputEssential = container.querySelector(".essential");
+    let inputAds = container.querySelector(".ads");
+
 	let acceptedAnalytics = "denied";
-    	if (inputAnalytic.checked === true){
-        	acceptedAnalytics = "granted";
-        	consentAnalytics()
-    	}
-	console.log(inputAnalytic.checked, inputEssential.checked);
+    let acceptedAds = "denied";
+
+	if (inputAnalytic.checked === true || inputAds.checked === true){
+    	acceptedAnalytics = "granted";
+    	consentAnalytics();
+	}
+    if (inputAds.checked === true){
+        acceptedAds = "granted";
+        consentAds();
+    }
+	console.log(inputEssential.checked, inputAnalytic.checked, inputAds.checked);
     let body = {
         "cookies": {
-                'ad_storage': 'denied',
-                'ad_user_data': 'denied',
-                'ad_personalization': 'denied',
+                'ad_storage': acceptedAds,
+                'ad_user_data': acceptedAds,
+                'ad_personalization': acceptedAds,
                 'analytics_storage': acceptedAnalytics,
             },
-        "essential": inputEssential.checked,
+        "essential": true,
+        "analytic": inputAnalytic.checked,
+        "ads": inputAds.checked,
     }
     //track("UpdatedCookies", {"essential":inputEssential.checked, "analytics":inputAnalytic.checked});
 	let r = await fetch("/accept-cookies", {
@@ -200,8 +208,9 @@ function showPopup(popupContent, cross=true, clone=true) {
     popupContent.classList.add("shown-popup");
     if (clone){
     	popupContent = popupContent.cloneNode(true);
-        popupContent.classList.add("actual-popup");
+        popupContent.classList.add("is-clone");
 	}
+    popupContent.classList.add("actual-popup");
     popupContent.addEventListener("click", function(event) {event.stopPropagation()});
 
     document.documentElement.addEventListener("keydown", closePopupEscape);
@@ -222,16 +231,19 @@ function hidePopup(source, sourceElement) {
     } else {
         popupContent = source;
     }
+    popupContent.classList.remove("actual-popup");
+    popupContent.classList.remove("is-clone");
     popupContent.style.display = "none";
-    let template = document.getElementsByClassName(popupContent.className);
-	//console.log(template);
-    //console.log(template);
+    let templates = document.getElementsByClassName(popupContent.className);
+	console.log(templates);
     popupContent.querySelectorAll(".popup-cross").forEach(c => {c.remove();});
-    if (template.length === 2) {
+    if (templates.length === 2) {
 	    console.log("placing popup back to its place");
         popupContent.parentElement.remove();
-        template[0].after(popupContent);
-        template[0].remove();
+
+        templates[0].after(popupContent);
+        templates[0].remove();
+
     } else {
         popupContent.parentElement.remove();
         popupContent.remove()

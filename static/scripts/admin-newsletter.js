@@ -11,7 +11,7 @@ function editNewsletter(trigger){
     container.style.border = "1px solid black";
     let elements = container.querySelectorAll('span');
     elements.forEach(element => {
-        print(element.innerHTML);
+        console.log(element.innerHTML);
         if (element.classList.contains('non-editable')){return 0;}
         //if (element.children.length > 0){return 0;}
         if (element.innerText === ""){element.innerText = "$empty$"}
@@ -35,7 +35,7 @@ function stopEditingNewsletter(trigger){
     container.style.border = "1px solid orange";
     let elements = container.querySelectorAll('span');
     elements.forEach(element => {
-        print(element.innerText);
+        console.log(element.innerText);
         if (element.classList.contains('non-editable')){return 0;}
         //if (element.children.length > 0){return 0;}
         if (element.innerText === "$empty$"){element.innerText = ""}

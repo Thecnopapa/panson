@@ -153,7 +153,7 @@ async function updateField(target){
 function deleteField(trigger){
 	const pageValue = trigger.attributes.page.value;
 	const keyValue = trigger.attributes.key.value;
-	print("deleting: ", pageValue, "-", keyValue);
+	console.log("deleting: ", pageValue, "-", keyValue);
 	fetch("/admin/loc/delete-field",
 		{
 			headers: {
@@ -245,7 +245,7 @@ async function uploadFiles(trigger, clone=undefined){
 	let uploadedFiles = []
 	for (let i = 0; i < files.length; i++){
 		const file = files[i];
-		print("Uploading: ", file.name, "("+file.type+") to: "+bucket);
+		console.log("Uploading: ", file.name, "("+file.type+") to: "+bucket);
 		let newFname = await fetch("/admin/images/upload/"+bucket,
 			{
 				headers: {
@@ -264,14 +264,14 @@ async function uploadFiles(trigger, clone=undefined){
         }
 
         if (clone !== undefined && clone !== null){
-            print("Cloning: ", clone)
-            print(imageUrl(bucket, await newFname))
+            console.log("Cloning: ", clone)
+            console.log(imageUrl(bucket, await newFname))
             let clonedElement = clone.cloneNode(true);
             clonedElement.style = "background-image: url('" + imageUrl(bucket, await newFname) + "')";
 
             clonedElement.setAttribute("filename", await newFname);
             clone.after(clonedElement);
-            print("Clone: ", clonedElement);
+            console.log("Clone: ", clonedElement);
 
         }
 	}
@@ -298,7 +298,7 @@ function productImageMove(image, moveRight){
             image.previousElementSibling.before(image);
         }
     }
-    print("Moved image: ",oldPosition, "->", newPosition)
+    console.log("Moved image: ",oldPosition, "->", newPosition)
     productUpdate(image, oldPosition, "list:int", "sort", newPosition);
     image.scrollIntoView({block: "center"});
 }
@@ -326,11 +326,11 @@ async function productUpdate(trigger, value=undefined, type=undefined, mode="add
 
     
     bucket = bucket[bucket.length - 2];
-    print("BUCKET: " + bucket);
-    print(bucket);
-	print("Trigger: ", trigger, value);
+    console.log("BUCKET: " + bucket);
+    console.log(bucket);
+	console.log("Trigger: ", trigger, value);
 	if (value === undefined) {
-        print("Value undefined: " + value);
+        console.log("Value undefined: " + value);
         if (trigger.value) {
             value = trigger.value;
         }else {
@@ -347,10 +347,10 @@ async function productUpdate(trigger, value=undefined, type=undefined, mode="add
         }
 
 	}
-	print("Updating field: ", field, "("+mode+")");
+	console.log("Updating field: ", field, "("+mode+")");
 
 
-	print("With value: ", value);
+	console.log("With value: ", value);
 	if (dry){
 		console.log("dry");
 	}
@@ -788,4 +788,4 @@ loadAllImages()
 
 
 
-print(" * Admin JS ready")
+console.log(" * Admin JS ready")

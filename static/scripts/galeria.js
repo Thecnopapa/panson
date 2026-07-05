@@ -1,4 +1,4 @@
-print(" * Initialising Gallery JS");
+console.log(" * Initialising Gallery JS");
 
 
 
@@ -729,4 +729,4 @@ function displayGradient() {
 
 setInterval(updateDeltas, 1000);
 
-print(" * Gallery JS initialised");
+console.log(" * Gallery JS initialised");

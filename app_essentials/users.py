@@ -20,6 +20,9 @@ class User(firebaseObject):
         self.is_admin = False
         self.accepted_cookies = False
         self.essential_cookies = False
+        self.analytic_cookies = False
+        self.ads_cookies = False
+
         self.cookies = {
             'ad_user_data': 'denied',
             'ad_personalization': 'denied',

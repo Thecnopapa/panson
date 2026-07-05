@@ -44,4 +44,4 @@ function showSlides() {
 
 
 
-print(" * Slideshow JS ready")
+console.log(" * Slideshow JS ready")

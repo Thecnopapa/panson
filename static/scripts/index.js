@@ -42,7 +42,7 @@ function updateScroll() {
 
     //title.style.paddingBottom = String(5 - (5 * scroll / maxScroll)).concat("vh");
     //title.style.paddingTop = String(5 - (5 * scroll / maxScroll)).concat("vh");
-    //print(oscroll, windowHeight*0.97);
+    //console.log(oscroll, windowHeight*0.97);
     if (oscroll >= windowHeight*0.35) {
         forceNavTitle("index")
 

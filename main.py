@@ -320,11 +320,18 @@ def acceptar_cookies():
     print("Accepting cookies")
     user = get_current_user()
     r = request.get_json()
-    print(r["essential"])
+    print(r["essential"], r["analytic"], r["ads"])
+
     user.accepted_cookies = True
     user.essential_cookies = r["essential"]
+    user.analytic_cookies = r["analytic"]
+    user.ads_cookies = r["ads"]
     user.cookies = r["cookies"]
+
     print("essential: ", user.essential_cookies)
+    print("analytic: ", user.analytic_cookies)
+    print("ads: ", user.ads_cookies)
+
     print("cookies: \n", user.cookies)
     user.update_db()
     session.permanent = r["essential"]
