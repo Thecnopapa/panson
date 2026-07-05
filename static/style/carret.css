@@ -30,7 +30,14 @@
 #carret.open {
     right: 0;
     box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+}
 
+.old-safari #carret {
+    display: none !important;
+    rigth: 0 !important;
+}
+.old-safari #carret.open {
+    display: flex !important;
 }
 
 #close-carret {

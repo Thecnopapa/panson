@@ -1,6 +1,43 @@
 
 
 console.log(" * Initialising Base JS");
+
+//console.log(" > Navigator:", window.navigator);
+let userAgent = window.navigator.userAgent;
+let oldSafari = false;
+let version = undefined;
+let mainVersion = undefined;
+let vendor = window.navigator.vendor;
+
+
+console.log(" > UserAgent:", userAgent);
+
+if (userAgent){
+    userAgent.split(" ").forEach(s => {
+        //console.log(s);
+        if (s.includes("Version/")){
+            let version = s.split("/")[1];
+            mainVersion = version.split(".")[0];
+            mainVersion = Number(mainVersion);
+            console.log(" > Version", mainVersion);
+        }
+    });
+
+    if (userAgent.includes("Safari/") && vendor.includes("Apple")){
+        console.log(" > Running in Safari");
+        if (mainVersion !== undefined){
+            console.log(mainVersion, mainVersion <= 15);
+            if (mainVersion <= 15){
+                oldSafari = true;
+            }
+        }
+        console.log(" > Safari is old:", oldSafari)
+    }
+}
+if (oldSafari){
+    document.documentElement.classList.add("old-safari");
+}
+
 let camaleonElements = [];
 let imagesToPreload = [];
 

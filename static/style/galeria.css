@@ -172,6 +172,16 @@
     max-height: max-content;
 }
 
+.old-safari  .content-galeria .galeria {
+    max-height: calc(100dvh - var(--header-height) * 4) !important;
+}
+.old-safari .content-galeria.closed .galeria {
+    display: none !important;
+}
+.old-safari  .content-galeria.open .galeria {
+    display: flex !important;
+}
+
 
 .producte{
     display: flex;

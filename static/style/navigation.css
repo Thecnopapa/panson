@@ -514,9 +514,19 @@ h1, h2, h3, h4, h5, h6, p {
 }
 .search-over-page.open{
     top: var(--header-height);
-        background-color: white;
-
+    background-color: white;
 }
+
+.old-safari .search-over-page{
+    display: none !important;
+    top: var(--header-height) !important;
+}
+.old-safari .search-over-page.open{
+    display: block !important;
+    top: var(--header-height) !important;
+}
+
+
 
 
 

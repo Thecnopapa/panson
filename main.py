@@ -1342,7 +1342,9 @@ def fetamida_intro(lan):
 
 def start_ngrok():
     from pyngrok import ngrok
-    url = ngrok.connect(8080, name="tunnel1", url="https://funny-constantly-peacock.ngrok-free.app").public_url
+    #url = ngrok.connect(8080, name="tunnel1", url="https://funny-constantly-peacock.ngrok-free.app").public_url
+    url = ngrok.connect(8080, name="tunnel1", url="https://vertebrae-rely-presume.ngrok-free.dev").public_url
+
     print(' * Tunnel URL:', url)
 
 app.config["START_NGROK"] = os.environ.get('START_NGROK') == "1" and os.environ.get('WERKZEUG_RUN_MAIN') != 'true'
@@ -1357,6 +1359,7 @@ if app.config['START_NGROK']:
 def main():
     from sys import argv
     app.run(port=8080, host="0.0.0.0", debug="debug" in argv) # Not used if run from bash
+    os.environ["OLD_SAFARI"] = int("--old-safari" in sys.argv)
 
 if __name__ == "__main__":
     main()

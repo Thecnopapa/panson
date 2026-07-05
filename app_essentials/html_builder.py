@@ -1,4 +1,4 @@
-import json
+import json, os
 from flask import render_template, session, request
 
 from app_essentials.localisation import Localisation2 as localisation, Images
@@ -12,6 +12,7 @@ from app_essentials.firestore import Storage
 
 def common_kwargs(**kwargs):
     lan = localisation(kwargs.get("lan", "cat"))
+    kwargs["old_safari"] = int(os.environ.get("OLD_SAFARI", 0))
     kwargs["path"] = request.path
     kwargs["host"] = request.host
     kwargs["loc"] = lan

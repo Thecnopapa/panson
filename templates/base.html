@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ loc.lan }}">
+<html lang="{{ loc.lan }}" class="{{ 'old-safari' if old_safari }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=300, height=600, initial-scale=1.0" />
@@ -57,26 +57,29 @@
 {% block pixel %}
         <!-- Meta Pixel Code -->
     <script>
-    {% if "test" in host or "127" in host %}
-        const pixelId = 962007410062327
-    {% else %}
-        const pixelId = 1020611407324018
-    {% endif %}
+    try{
+        {% if ("test" in host or "127" in host or "ngrok" in host) %}
+            const pixelId = 962007410062327
+        {% else %}
+            const pixelId = 1020611407324018
+        {% endif %}
 
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', pixelId);
-    fbq('track', 'PageView', {"url":location.href, "lan":"{{ loc.lan }}"} );
-
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', pixelId);
+        fbq('track', 'PageView', {"url":location.href, "lan":"{{ loc.lan }}"} );
+    } catch (e){
+        console.log(e);
+    }
     </script>
     <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id={{ '962007410062327' if "test" in host or "127" in host else '1020611407324018'  }}&ev=PageView&noscript=1"
+    src="https://www.facebook.com/tr?id={{ '962007410062327' if ('test' in host or '127' in host or 'ngrok' in host) else '1020611407324018'  }}&ev=PageView&noscript=1"
     /></noscript>
     <!-- End Meta Pixel Code -->
 {% endblock %}
