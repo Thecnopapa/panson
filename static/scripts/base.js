@@ -5,6 +5,9 @@ console.log(" * Initialising Base JS");
 //console.log(" > Navigator:", window.navigator);
 let userAgent = window.navigator.userAgent;
 let oldSafari = false;
+if (document.documentElement.classList.contains("old-safari")){
+    oldSafari = true;
+}
 let version = undefined;
 let mainVersion = undefined;
 let vendor = window.navigator.vendor;
@@ -31,10 +34,11 @@ if (userAgent){
                 oldSafari = true;
             }
         }
-        console.log(" > Safari is old:", oldSafari)
+        //console.log(" > Safari is old:", oldSafari)
     }
 }
 if (oldSafari){
+    console.log(" > Safari is old:", oldSafari)
     document.documentElement.classList.add("old-safari");
 }
 

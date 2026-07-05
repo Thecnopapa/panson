@@ -101,7 +101,7 @@ html {
 }
 
 .hidden{
-	display: none !important;
+    display: none !important;
 }
 .invisible{
     visibility: hidden !important;
@@ -130,6 +130,11 @@ body {
     border-radius: 0;
 }
 
+input {
+    -moz-user-select: text;
+    -webkit-user-select: text; /* Safari */
+    -ms-user-select: text; /* IE 10 and IE 11 */
+}
 input, textarea, select {
     border-radius: 0;
     border-color: black;

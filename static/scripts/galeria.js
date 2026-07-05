@@ -67,18 +67,18 @@ async function scrollGallery(galeria, direction, amount){
 }
 
 async function hideScrollArrows(event){
-	let galeria = event.target;
-	//console.log("Checking arrows...");
+    let galeria = event.target;
+    //console.log("Checking arrows...");
     let hideLeft = galeria.scrollLeft <= 1;
     let hideRight = (galeria.scrollLeft + galeria.offsetWidth) >= galeria.scrollWidth -1;
-	//console.log(galeria.scrollLeft, hideLeft, hideRight);
+    //console.log(galeria.scrollLeft, hideLeft, hideRight);
 
 
-	let leftArrow = galeria.parentElement.querySelector(".scroll-left-button");
+    let leftArrow = galeria.parentElement.querySelector(".scroll-left-button");
     let rightArrow = galeria.parentElement.querySelector(".scroll-right-button");
-	//console.log({leftArrow, rightArrow});
+    //console.log({leftArrow, rightArrow});
 
-	leftArrow.classList.toggle("disabled", hideLeft);
+    leftArrow.classList.toggle("disabled", hideLeft);
     rightArrow.classList.toggle("disabled", hideRight);
 
 
@@ -127,7 +127,7 @@ function searchGalleria(trigger){
 
 
 function galleryAddRow(triggers, ops){
-	triggers.forEach(trigger => {
+    triggers.forEach(trigger => {
         let condition = undefined;
         let galleryID = trigger.target.getAttribute("galleryID");
         let gallery = allGalleries[galleryID];
@@ -149,7 +149,7 @@ function galleryAddRow(triggers, ops){
             gallery.addRow();
         }
 
-	});
+    });
 }
 
 
@@ -166,9 +166,9 @@ class Product {
         }
     }
     writeEmpty(template){
-	    let el = template.cloneNode(true);
-	    el.classList.remove("template");
-	    return el
+        let el = template.cloneNode(true);
+        el.classList.remove("template");
+        return el
     }
     writeTemplate(template){
         //console.log(template);
