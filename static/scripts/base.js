@@ -34,14 +34,14 @@ if (userAgent){
             mainVersion = Number(mainVersion);
         }
     });
-    if (userAgent.includes("iPhone")){
+    if (userAgent.includes("iPhone") || userAgent.includes("iPad") || userAgent.includes("iPod")){
             console.log(" > You should buy a Samsung...")
             isIphone = true;
     }
     if (userAgent.includes("Mobile")){
             mobileAgent = true;
     }
-    if (userAgent.includes("Safari/") && vendor.includes("Apple")){
+    if ((userAgent.includes("Safari/") && vendor.includes("Apple")) || userAgent.includes("Mac")){
         console.log(" > Running in Safari");
         isSafari = true;
         if (mainVersion !== undefined){

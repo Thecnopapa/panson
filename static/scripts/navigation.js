@@ -506,6 +506,7 @@ document.documentElement.addEventListener("keydown", closeMenusEsc);
 window.addEventListener("load", (e) =>{
 	checkColor();
     searchIcon.addEventListener("click", () => {showSearch()});
+    searchIcon.classList.remove("translucid");
 });
 
 

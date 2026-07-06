@@ -24,9 +24,9 @@
     {% if True %}
         <div class="search" onclick="event.stopPropagation()" >
             <div class="search-over-page" >
-            {{ galeria.galeria("productes", filtres=0, max_prods=8, min_row=4, min_prods=0, search=1, start_empty=1, close_when_empty=1, start_closed=1, go_to_search=1, inline=1) }}
+            {{ galeria.galeria("productes", filtres=0, max_prods=8, min_row=4, min_prods=4, search=1, start_empty=1, close_when_empty=1, start_closed=1, go_to_search=1, inline=1) }}
             </div>
-            <img id="nav-search-icon" class="search-icon navigation-search-icon" src="/static/media/search-icon.svg" alt="search">
+            <img id="nav-search-icon" class="search-icon navigation-search-icon translucid" src="/static/media/search-icon.svg" alt="search">
         </div>
     {% endif %}
 

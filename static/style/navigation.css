@@ -112,6 +112,10 @@ html {
 .grayed{
     color: gray;
 }
+
+.translucid{
+    opacity: 0.5;
+}
 .strikethrough{
     text-decoration: line-through;
 }

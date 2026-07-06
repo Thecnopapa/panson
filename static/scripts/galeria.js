@@ -484,6 +484,8 @@ class Galeria {
 
     deleteEmpty(){
         let emptyElements = this.galeria.querySelectorAll(".producte.empty:not(.template)");
+        console.log(`Deleting ${emptyElements.length} elements...`)
+
         //console.log({emptyElements});
         emptyElements.forEach(e => {e.remove();});
     }
@@ -499,7 +501,7 @@ class Galeria {
             if (product.empty){
                 el = product.writeEmpty(this.template)
             } else{
-                //console.log("Adding product: ", product.id);
+                console.log("Adding product: ", product.id);
                 this.deleteEmpty()
                 el = product.writeTemplate(this.template);
 
@@ -540,7 +542,6 @@ class Galeria {
         if (!this.element.checkVisibility()){
             return
         }
-        this.deleteEmpty()
         console.log(this)
         console.log(this.last())
         if (gal === 1){
@@ -548,6 +549,8 @@ class Galeria {
         }
         if ((this.last().classList.contains("template")) || (!this.last().classList.contains("empty"))){
             console.log("Adding row...");
+            //this.deleteEmpty()
+
             let all = undefined;
             if (this.subset === undefined){all = this.products;}
             else {all = this.subset}
@@ -569,7 +572,10 @@ class Galeria {
             //console.log(this.elements())
             console.log({nToAdd});
             for (let i = nCurrent; i < nCurrent+nToAdd; i++) {
-               console.log("Adding:", all[i]);
+                console.log("Adding:", all[i]);
+                if (all[i] === undefined){
+                    //this.addEmpty()
+                }
                 if (this.bucket === "bespoke"){
                     this.addProduct(new Product(allBespoke[all[i]]), "bespoke-"+String(i));
                 } else {
@@ -578,15 +584,19 @@ class Galeria {
             }
         }
 
-        let paddingProds =  Math.max(0, this.minItems- this.length());
+        console.log( this.minItems,  this.all_elements().length,  this.minItems - this.all_elements().length)
+        let paddingProds =  Math.max(0, this.minItems - this.all_elements().length);
         
         if (!this.inline){
-            paddingProds =  Math.max(this.minRow - (Math.max(this.length(), this.minItems) % this.minRow),  paddingProds);
+            console.log(this.minRow - (Math.max(this.all_elements().length, this.minItems) % this.minRow), paddingProds)
+            console.log(`${ Math.max(this.minRow - (Math.max(this.all_elements().length, this.minItems) % this.minRow),  paddingProds)} = max( ${this.minRow } - (max(${this.all_elements().length}, ${this.minItems}) % ${this.minRow}), ${paddingProds})`)
+
+            paddingProds =  Math.max(this.minRow - (this.all_elements().length % this.minRow),  paddingProds, this.minItems - this.all_elements().length);
 
         }
-        console.log({paddingProds}, 0, this.minRow - (Math.max(this.length(), this.minItems) % this.minRow), this.minItems- this.length(), this.length(), this.minItems);
+        console.log({paddingProds});
 
-        if (paddingProds > 0  && (paddingProds !== this.minRow) || (this.minItems - this.length() > 0)) {
+        if (paddingProds > 0  && (paddingProds !== this.minRow)) {
             for (let i = 0; i < paddingProds; i++) {
                 console.log(i)
                 console.log({paddingProds}, 0, this.length(), this.minRow);
