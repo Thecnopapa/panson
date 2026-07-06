@@ -33,9 +33,7 @@
         <div class="galeria-scroll scroll-left {{ 'inline' if inline }}" >
             <div class="galeria-scroll-button scroll-left-button disabled" onclick="scrollGallery(this.parentElement.parentElement, 'left', '1u')"><img class="main-arrow left" src="/static/media/arrow.svg"></div>
         </div>
-        <div class="galeria-scroll scroll-right {{ 'inline' if inline }}" >
-            <div class="galeria-scroll-button scroll-right-button" onclick="scrollGallery(this.parentElement.parentElement, 'right', '1u')"><img class="main-arrow right" src="/static/media/arrow.svg"></div>
-        </div>
+
 
 	    <div class="producte template empty {{ 'inline' if inline }}" onmouseover="{{'highlightProduct(this)'  if second_hover }}" onmouseout="{{ 'reverseProduct(this)' if second_hover }}">
             <div class="imatge primera normal-image"></div>
@@ -65,6 +63,11 @@
                 </div>
             </div>
         </div>
+    
+        <div class="galeria-scroll scroll-right {{ 'inline' if inline }}" >
+            <div class="galeria-scroll-button scroll-right-button" onclick="scrollGallery(this.parentElement.parentElement, 'right', '1u')"><img class="main-arrow right" src="/static/media/arrow.svg"></div>
+        </div>
+
     </div>
 
     <div class="galeria-navigation {{ 'disabled' if not utils.any([go_to_search, more, go_to_shop]) }}"  more="{{load_more }}" goToShop="{{go_to_shop}}">

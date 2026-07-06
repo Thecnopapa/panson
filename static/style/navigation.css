@@ -131,9 +131,9 @@ body {
 }
 
 input {
-    -moz-user-select: text;
-    -webkit-user-select: text; /* Safari */
-    -ms-user-select: text; /* IE 10 and IE 11 */
+    -moz-user-select: all !important;;
+    -webkit-user-select: all !important;; /* Safari */
+    -ms-user-select: all !important; /* IE 10 and IE 11 */
 }
 input, textarea, select {
     border-radius: 0;

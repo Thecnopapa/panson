@@ -511,7 +511,7 @@ class Galeria {
 
         }
 
-        this.galeria.appendChild(el);
+        this.last().after(el);
         //animationObserver.observe(el);
         loadAllImages();
     }
@@ -529,7 +529,7 @@ class Galeria {
         let els = this.elements();
         if (els.length === 0){
             console.log({els})
-            return undefined
+            return this.template
         }
         //console.log(els);
         //console.log(this)
@@ -537,13 +537,16 @@ class Galeria {
     }
 
     addRow() {
+        if (!this.element.checkVisibility()){
+            return
+        }
         this.deleteEmpty()
         console.log(this)
         console.log(this.last())
         if (gal === 1){
             //throw new Error("Stop: "+String(gal))
         }
-        if ((this.last() === undefined)|| (!this.last().classList.contains("empty"))){
+        if ((this.last().classList.contains("template")) || (!this.last().classList.contains("empty"))){
             console.log("Adding row...");
             let all = undefined;
             if (this.subset === undefined){all = this.products;}
@@ -557,13 +560,16 @@ class Galeria {
 
             let nCurrent = this.length();
             let nAvail = maximum - nCurrent;
+            if ((nAvail) <= 0){
+                return;
+            }
 
-            //console.log({nCurrent, maximum, nAvail, "minRow": this.minRow});
+            console.log({nCurrent, maximum, nAvail, "minRow": this.minRow});
             let nToAdd = Math.max(Math.min(this.minRow, maximum, nAvail), this.minItems - this.length());
             //console.log(this.elements())
             console.log({nToAdd});
             for (let i = nCurrent; i < nCurrent+nToAdd; i++) {
-               //console.log("Adding:", all[i]);
+               console.log("Adding:", all[i]);
                 if (this.bucket === "bespoke"){
                     this.addProduct(new Product(allBespoke[all[i]]), "bespoke-"+String(i));
                 } else {
@@ -587,14 +593,18 @@ class Galeria {
 
                 this.addProduct(undefined, "padding-"+String(i));
             }
-        } else if (((this.maxItems - this.length()) > 0 || this.maxItems <= 0)){
-            console.log((this.maxItems - this.length()) > 0,  this.length(), this.maxItems)
+        } else if ((this.maxItems - this.length() >= 0 || this.maxItems <= 0)){
+            console.log((this.maxItems - this.length()) > 0, this.maxItems, this.length(),  (this.maxItems - this.length()))
             if ( (this.last() !== undefined) && (!this.last().classList.contains("empty")) && !this.last().classList.contains("observed")){
+                console.log(this.last() !== undefined, !this.last().classList.contains("empty"), !this.last().classList.contains("observed"))
                 this.last().classList.add("observed");
                 galleryObserver.observe(this.last())
-                console.log("adding observer")
+                console.log("adding observer");
             }
         }
+        this.all_elements().forEach(e => {e.classList.remove("first"); e.classList.remove("last");});
+        this.elements()[0].classList.add("first");
+        this.all_elements()[this.all_elements().length-1].classList.add("last");
 
         loadAllImages()
 
@@ -656,13 +666,7 @@ function initGaleria(element) {
     }
 
     if (galeria.showSearch){
-        let searchDiv = galeria.element.querySelector(".gallery-search");
-        if (galeria.showFiltres){
-            let filterDiv = galeria.element.querySelector(".gallery-filtres");
-            //filterObserver.observe(filterDiv);
-        } else {
-            //searchDiv.classList.add("floating");
-        }
+
     }
 
     galeria.addRow()

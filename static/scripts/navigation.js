@@ -225,7 +225,7 @@ function closeSearchEsc(event){
 }
 
 async function documentClickCatcher(event){
-    if (event.approved === true){
+    if (event.approved === true || isIphone){
         return
     }
     event.stopImmediatePropagation();
@@ -307,7 +307,8 @@ function hideSearch(force=false){
     if (areaOfInterest.matches(":hover") && !force) {
         return false;
     }
-
+    let textBox = resultsDiv.querySelector(".search-over-page .gallery-search-text");
+    textBox.blur()
     window.removeEventListener("click", documentClickCatcher, true)
     window.removeEventListener("scroll", documentClickCatcher, true)
     window.removeEventListener("mousedown", documentClickCatcher, true)
@@ -504,6 +505,7 @@ document.documentElement.addEventListener("keydown", closeMenusEsc);
 
 window.addEventListener("load", (e) =>{
 	checkColor();
+    searchIcon.addEventListener("click", () => {showSearch()});
 });
 
 

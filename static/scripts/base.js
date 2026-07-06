@@ -2,8 +2,16 @@
 
 console.log(" * Initialising Base JS");
 
-//console.log(" > Navigator:", window.navigator);
+console.log(" > Navigator:", window.navigator);
 let userAgent = window.navigator.userAgent;
+
+if (document.querySelector("#userAgent")){
+   document.querySelector("#userAgent").innerText = userAgent;
+}
+
+let isSafari = false;
+let isIphone = false;
+let mobileAgent = false;
 let oldSafari = false;
 if (document.documentElement.classList.contains("old-safari")){
     oldSafari = true;
@@ -14,20 +22,28 @@ let vendor = window.navigator.vendor;
 
 
 console.log(" > UserAgent:", userAgent);
+console.log(vendor)
 
 if (userAgent){
     userAgent.split(" ").forEach(s => {
         //console.log(s);
+
         if (s.includes("Version/")){
-            let version = s.split("/")[1];
+            version = s.split("/")[1];
             mainVersion = version.split(".")[0];
             mainVersion = Number(mainVersion);
-            console.log(" > Version", mainVersion);
         }
     });
-
+    if (userAgent.includes("iPhone")){
+            console.log(" > You should buy a Samsung...")
+            isIphone = true;
+    }
+    if (userAgent.includes("Mobile")){
+            mobileAgent = true;
+    }
     if (userAgent.includes("Safari/") && vendor.includes("Apple")){
         console.log(" > Running in Safari");
+        isSafari = true;
         if (mainVersion !== undefined){
             console.log(mainVersion, mainVersion <= 15);
             if (mainVersion <= 15){
@@ -37,9 +53,13 @@ if (userAgent){
         //console.log(" > Safari is old:", oldSafari)
     }
 }
+console.log(" > Version", version);
 if (oldSafari){
-    console.log(" > Safari is old:", oldSafari)
+    console.log(" > Safari is old:", mainVersion)
     document.documentElement.classList.add("old-safari");
+}
+if (isSafari && mobileAgent){
+    isIphone = true;
 }
 
 let camaleonElements = [];
