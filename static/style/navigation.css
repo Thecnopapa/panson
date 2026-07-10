@@ -494,7 +494,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .navigation-search-icon:hover{
-    transform: scaleX(-100%) scale(1.2);
+    transform: scaleX(-100%);
 }
 
 

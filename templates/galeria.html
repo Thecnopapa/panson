@@ -1,7 +1,7 @@
 
 
 
-{% macro galeria(bucket, filtres=0, max_prods=0, min_row=4, min_prods=4, exclude=None, filter_mode="&", inline=False, go_to_shop=False, range="0-1", second_hover=True, search=0, query="", read_url=0, start_empty=0, close_when_empty=0, start_closed=0, go_to_search=0) %}
+{% macro galeria(bucket, filtres=0, max_prods=0, min_row="auto", min_prods="auto", exclude=None, filter_mode="&", inline=False, go_to_shop=False, range="0-1", second_hover=True, search=0, query="", read_url=0, start_empty=0, close_when_empty=0, start_closed=0, go_to_search=0) %}
 
 
 <div class="content-galeria {{ 'closed' if start_closed  }}" bucket="{{ bucket }}" maxprods="{{ max_prods }}" minrow="{{ min_row }}" minprods="{{ min_prods }}" inline="{{ utils.int(inline) }}" query="{{ query }}" exclude="{{ exclude }}" range="{{ range }}" readUrl="{{ read_url }}" showFiltres="{{ filtres }}" showSearch="{{ search }}" startEmpty="{{ start_empty }}" closeWhenEmpty="{{ close_when_empty }}">

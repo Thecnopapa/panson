@@ -3,64 +3,64 @@ console.log(" * Initialising Gallery JS");
 
 
 function miliToTime(miliseconds){
-	let days = Math.floor(miliseconds /  86400000);
-	miliseconds -= days * 86400000;
-	let hours = Math.floor(miliseconds / 3600000);
-	miliseconds -= hours * 3600000;
-	let minutes = Math.floor(miliseconds / 60000);
-	miliseconds -= minutes * 60000;
-	let seconds = Math.floor(miliseconds / 1000);
-	return [days, hours, minutes, seconds]
+    let days = Math.floor(miliseconds /  86400000);
+    miliseconds -= days * 86400000;
+    let hours = Math.floor(miliseconds / 3600000);
+    miliseconds -= hours * 3600000;
+    let minutes = Math.floor(miliseconds / 60000);
+    miliseconds -= minutes * 60000;
+    let seconds = Math.floor(miliseconds / 1000);
+    return [days, hours, minutes, seconds]
 }
 
 
 
 async function updateDeltas(){
-	deltaElements = document.querySelectorAll(".launch-time-cover:not(.hidden)");
-	now = Date.now();
-	deltaElements.forEach(element => {
-		let deltaLaunch = Number(element.getAttribute("launchTime")) - now;
-		if (deltaLaunch < 0){
-			element.classList.add("hidden");
-			element.parentElement.onclick = function () {location.href = element.getAttribute("link");}
-		}
-		let deltaTime = miliToTime(deltaLaunch);
-		let timeElements = element.querySelectorAll(".launch-time");
-		for (let i=0; i < timeElements.length; i++){
-			let t = String(deltaTime[i]);
-			if (t.length === 1){t="0"+t;}
-			timeElements[i].innerText = t;
-		}
-	});
+    deltaElements = document.querySelectorAll(".launch-time-cover:not(.hidden)");
+    now = Date.now();
+    deltaElements.forEach(element => {
+        let deltaLaunch = Number(element.getAttribute("launchTime")) - now;
+        if (deltaLaunch < 0){
+            element.classList.add("hidden");
+            element.parentElement.onclick = function () {location.href = element.getAttribute("link");}
+        }
+        let deltaTime = miliToTime(deltaLaunch);
+        let timeElements = element.querySelectorAll(".launch-time");
+        for (let i=0; i < timeElements.length; i++){
+            let t = String(deltaTime[i]);
+            if (t.length === 1){t="0"+t;}
+            timeElements[i].innerText = t;
+        }
+    });
 }
 
 
 async function scrollGallery(galeria, direction, amount){
     let targetScroll = galeria.scrollLeft;
-	//console.log("scrolling", galeria);
-	if (amount.includes("%")){
-		amount = Number(amount.replace("%", ""));
-		//console.log(amount, galeria.offsetWidth);
-		amount = amount * galeria.offsetWidth / 100;
-		//console.log(amount);
-	} else if (amount.includes("u")){
-		amount = Number(amount.replace("u", ""));
-		let refEl = galeria.querySelector(".producte:not(.template)");
-		let p_width = refEl.offsetWidth + parseFloat(window.getComputedStyle(refEl).marginRight);
-		//console.log(p_width);
-		amount = amount * p_width;
-	} else {
-		amount = Number(amount);
-	}
-	//console.log("Scrolling: ", targetScroll, amount);
+    //console.log("scrolling", galeria);
+    if (amount.includes("%")){
+        amount = Number(amount.replace("%", ""));
+        //console.log(amount, galeria.offsetWidth);
+        amount = amount * galeria.offsetWidth / 100;
+        //console.log(amount);
+    } else if (amount.includes("u")){
+        amount = Number(amount.replace("u", ""));
+        let refEl = galeria.querySelector(".producte:not(.template)");
+        let p_width = refEl.offsetWidth + parseFloat(window.getComputedStyle(refEl).marginRight);
+        //console.log(p_width);
+        amount = amount * p_width;
+    } else {
+        amount = Number(amount);
+    }
+    //console.log("Scrolling: ", targetScroll, amount);
 
     if (direction === "right"){
         targetScroll += amount;
     } else if (direction === "left"){
         targetScroll -= amount;
     }
-	//console.log("final:", targetScroll);
-	galeria.scrollTo(targetScroll, 0);
+    //console.log("final:", targetScroll);
+    galeria.scrollTo(targetScroll, 0);
 
 
 
@@ -70,8 +70,8 @@ async function hideScrollArrows(event){
     let galeria = event.target;
     //console.log("Checking arrows...");
     let hideLeft = galeria.scrollLeft <= 1;
-    let hideRight = (galeria.scrollLeft + galeria.offsetWidth) >= galeria.scrollWidth -1;
-    //console.log(galeria.scrollLeft, hideLeft, hideRight);
+    let hideRight = (galeria.scrollLeft + galeria.offsetWidth) >= galeria.scrollWidth-(galeria.offsetWidth*0.1);
+    console.log(galeria.scrollLeft, galeria.offsetWidth, galeria.scrollLeft + galeria.offsetWidth, galeria.scrollWidth, hideRight);
 
 
     let leftArrow = galeria.parentElement.querySelector(".scroll-left-button");
@@ -103,23 +103,23 @@ let galleryObserver = new IntersectionObserver(galleryAddRow, {
 });
 
 let animationObserver = new IntersectionObserver(galleryAnimation, {
-	threshold: 0.3,
+    threshold: 0.3,
 });
 
 let filterObserver = new IntersectionObserver(setFloatingSearch, {
-	threshold: 0,
+    threshold: 0,
 });
 
 function setFloatingSearch(){}
 
 function searchGalleria(trigger){
-	let galleryID = trigger.parentElement.parentElement.getAttribute("galleryID");
-	let gallery = allGalleries[galleryID];
-	let query = {
-		text: trigger.value,
-	}
-	console.log({query});
-	gallery.update(query);
+    let galleryID = trigger.parentElement.parentElement.getAttribute("galleryID");
+    let gallery = allGalleries[galleryID];
+    let query = {
+        text: trigger.value,
+    }
+    console.log({query});
+    gallery.update(query);
 }
 
 
@@ -224,8 +224,25 @@ class Galeria {
         this.element = element;
         this.bucket = options.bucket;
         this.maxItems = Number(options.maxItems);
-        this.minItems  = Number(options.minItems);
-        this.minRow = Number(options.minRow);
+        if (options.minRow == "auto"){
+            if (isMobile()){
+                this.minRow = 2;
+            } else {
+                this.minRow = 4;
+            }
+        } else {
+            this.minRow = Number(options.minRow);
+        }
+        if (options.minItems == "auto"){
+            if (isMobile()){
+                this.minItems = 2;
+            } else {
+                this.minItems = 4;
+            }
+        } else {
+            this.minItems = Number(options.minItems);
+        }
+        
         this.inline = Boolean(Number(options.inline));
         this.showSearch = Boolean(Number(options.showSearch));
         this.showFiltres = Boolean(Number(options.showFiltres));
@@ -233,11 +250,11 @@ class Galeria {
         this.startEmpty =  Boolean(Number(options.startEmpty));
         this.closeWhenEmpty = Boolean(Number(options.closeWhenEmpty));
         this.query = query;
-	if (this.bucket === "bespoke"){
-		this.products = Object.keys(allBespoke);
-	} else {
-        	this.products = Object.keys(allItems);
-	}
+    if (this.bucket === "bespoke"){
+        this.products = Object.keys(allBespoke);
+    } else {
+            this.products = Object.keys(allItems);
+    }
         console.log(this.startEmpty);
         if (!this.startEmpty){
             this.products = this.filter(this.query);
@@ -342,6 +359,9 @@ class Galeria {
                 window.history.replaceState(window.history.state, null, url+"?"+string)
             }
         }
+        if (this.inline){
+            this.galeria.dispatchEvent(new Event("scroll"))
+        }
 
     }
 
@@ -390,7 +410,7 @@ class Galeria {
                     queryDict[k] = v;
                     //console.log({q,kv, k, v});
                 });
-	    } else {
+        } else {
                 //console.log("query is empty");
             }
 
@@ -400,11 +420,11 @@ class Galeria {
             } else {
                     availProds = filteredProds;
             }
-	   //console.log("Available prods", availProds.length);
+       //console.log("Available prods", availProds.length);
             //console.log({queryDict});
             //console.log(Object.keys(queryDict).length);
             if (Object.keys(queryDict).length > 0) {
-		filteredProds = [];
+        filteredProds = [];
                 availProds.forEach(pID => {
                     let data = allItems[pID];
                     //console.log(data);
@@ -436,20 +456,20 @@ class Galeria {
                         }
                     }
                 });
-		availProds = filteredProds;
+        availProds = filteredProds;
             } else {
                 //console.log("queryDict is empty");
             }
 
-	    if (query.text !== undefined &&  query.text !== null && query.text !== ""){
-			//console.log("Filtering by text...");
-			//console.log(availProds.length);
+        if (query.text !== undefined &&  query.text !== null && query.text !== ""){
+            //console.log("Filtering by text...");
+            //console.log(availProds.length);
             if (query.text === "None"){
                 filteredProds = []
             } else {
                 filteredProds = searchInList(query.text, availProds);
             }
-	    } else {
+        } else {
             //console.log("query text is empty");
             }
 
@@ -475,11 +495,11 @@ class Galeria {
     //         filteredDict[i] = filteredProds[i];
     //     }
     // console.log(filteredDict);
-	// return filteredDict;
+    // return filteredDict;
     }
 
     deleteAll(){
-	    this.all_elements().forEach(el => {el.remove()});
+        this.all_elements().forEach(el => {el.remove()});
     }
 
     deleteEmpty(){
@@ -639,10 +659,10 @@ function initGaleria(element) {
     }
 
     let query = {
-        query: 	element.getAttribute("query"),
-        range: 	element.getAttribute("range"),
-        exclude: 	element.getAttribute("exclude"),
-        exclusive: 	element.getAttribute("exclusive"),
+        query:  element.getAttribute("query"),
+        range:  element.getAttribute("range"),
+        exclude:    element.getAttribute("exclude"),
+        exclusive:  element.getAttribute("exclusive"),
     }
 
     console.log("   > Initializing Galeria", {options}, {query});
@@ -651,14 +671,14 @@ function initGaleria(element) {
     console.log(galeria)
 
     if (galeria.readUrl){
-	    let params = new URLSearchParams(document.location.search);
-	    let UrlQuery = params.get("query", undefined);
-	    let UrlTextQuery = params.get("q", undefined);
-	   //console.log("Reading Url");
-	   //console.log(params);
-	    if (UrlQuery === undefined || UrlQuery === null){UrlQuery="";}
-	    if (UrlTextQuery === undefined || UrlTextQuery === null){UrlTextQuery="";}
-	    if (UrlQuery !== "" || UrlTextQuery !== ""){
+        let params = new URLSearchParams(document.location.search);
+        let UrlQuery = params.get("query", undefined);
+        let UrlTextQuery = params.get("q", undefined);
+       //console.log("Reading Url");
+       //console.log(params);
+        if (UrlQuery === undefined || UrlQuery === null){UrlQuery="";}
+        if (UrlTextQuery === undefined || UrlTextQuery === null){UrlTextQuery="";}
+        if (UrlQuery !== "" || UrlTextQuery !== ""){
             query={
                 query: UrlQuery.replace("*", "&").replace(" ", "&"),
                 text: UrlTextQuery,
@@ -672,7 +692,7 @@ function initGaleria(element) {
             }
         }
     } else if (galeria.showFiltres) {
-	    galeria.element.querySelector(".filtre").classList.add("active");
+        galeria.element.querySelector(".filtre").classList.add("active");
     }
 
     if (galeria.showSearch){
@@ -714,15 +734,15 @@ for (let i = 0; i < galleryElements.length; i++) {
 
 
 function filterGaleria(trigger){
-	let galleryID = trigger.parentElement.parentElement.parentElement.getAttribute("galleryID");
-	let query ={
-		"query": trigger.getAttribute("query"),
-	}
-	let gallery = allGalleries[galleryID];
-	gallery.update(query);
-	let filters = gallery.element.querySelectorAll(".filtre");
-	filters.forEach(f => {f.classList.remove("active");});
-	trigger.classList.add("active");
+    let galleryID = trigger.parentElement.parentElement.parentElement.getAttribute("galleryID");
+    let query ={
+        "query": trigger.getAttribute("query"),
+    }
+    let gallery = allGalleries[galleryID];
+    gallery.update(query);
+    let filters = gallery.element.querySelectorAll(".filtre");
+    filters.forEach(f => {f.classList.remove("active");});
+    trigger.classList.add("active");
 }
 
 

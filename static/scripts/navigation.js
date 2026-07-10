@@ -194,20 +194,20 @@ try{
 
 
 function toggleLanguages(trigger){
-	let notCurrent = [...trigger.getElementsByClassName("not-current")];
-	if (trigger.classList.contains("open")) {
-		trigger.classList.remove("open");
-		notCurrent.forEach(el => {
-			//el.style.visibility = "hidden";
-			el.style.display = "none";
-		});
-	} else {
-		trigger.classList.add("open");
-		notCurrent.forEach(el => {
-			//el.style.visibility = "visible";
-			el.style.display = "flex";
-		});
-	}
+    let notCurrent = [...trigger.getElementsByClassName("not-current")];
+    if (trigger.classList.contains("open")) {
+        trigger.classList.remove("open");
+        notCurrent.forEach(el => {
+            //el.style.visibility = "hidden";
+            el.style.display = "none";
+        });
+    } else {
+        trigger.classList.add("open");
+        notCurrent.forEach(el => {
+            //el.style.visibility = "visible";
+            el.style.display = "flex";
+        });
+    }
 }
 
 function closeSearchEsc(event){
@@ -396,17 +396,17 @@ function searchInDict(query, key, params=[undefined]){
 
 
 function globalSearch(trigger) {
-	let resultsDiv = trigger.parentElement.querySelector(".search-over-page");
-	let galleryID = resultsDiv.querySelector(".content-galeria").getAttribute("galleryId");
-	let gallery = allGalleries[galleryID];
+    let resultsDiv = trigger.parentElement.querySelector(".search-over-page");
+    let galleryID = resultsDiv.querySelector(".content-galeria").getAttribute("galleryId");
+    let gallery = allGalleries[galleryID];
 
-	resultsDiv.classList.remove("hidden")
+    resultsDiv.classList.remove("hidden")
 
-	let query = {
-		text: trigger.value
-	}
+    let query = {
+        text: trigger.value
+    }
 
-	gallery.update(query);
+    gallery.update(query);
 }
 
 
@@ -504,7 +504,7 @@ document.documentElement.addEventListener("keydown", closeMenusEsc);
 
 
 window.addEventListener("load", (e) =>{
-	checkColor();
+    checkColor();
     searchIcon.addEventListener("click", () => {showSearch()});
     searchIcon.classList.remove("translucid");
 });

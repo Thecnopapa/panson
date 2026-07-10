@@ -9,22 +9,22 @@
     <div class = "navigation-left" id="nav-left">
         <button class="dropbtn" id="menu-button" onmouseover="openMenu()">{{ loc.nav_botiga }}</button>
         <button class="menu-simple" id="menu-button-simple" onclick="switchMenu()"><img class="icon-menu-simple" src="/static/media/menu-black.svg" alt="cart"><br> </button>
-	<div class="menu-closer landscape" id=menu-closer-landscape onmouseover="event.stopPropagation(closeMenu())"></div>
-	<div class="menu-closer portrait" id=menu-closer-portrait onclick="event.stopPropagation(closeMenu())"></div>
+    <div class="menu-closer landscape" id=menu-closer-landscape onmouseover="event.stopPropagation(closeMenu())"></div>
+    <div class="menu-closer portrait" id=menu-closer-portrait onclick="event.stopPropagation(closeMenu())"></div>
         {{ menu.render_menu() }}
-	<button class="dropbtn hidden" id="projecte" onclick="location.href='/{{ loc.lan }}/projecte/'"> {{ loc.nav_projecte}}</button>
+    <button class="dropbtn hidden" id="projecte" onclick="location.href='/{{ loc.lan }}/projecte/'"> {{ loc.nav_projecte}}</button>
         <button class="dropbtn last" id="fetamida" onclick="location.href='/{{ loc.lan }}/fetamida'"> {{ loc.nav_fetamida }}</button>
     </div>
 
     <div class = "navigation-right" onfocusout="hideSearch();console.log('focus out')">
-    	{% if user.is_admin %}
-    		<div class="language admin" onclick="location.href='/admin'" oncontextmenu="window.open('/admin/', '_blank')">{{ loc.nav_admin }}</div>
-    		<div class="language admin" onclick="location.href='/admin/logout'">{{ loc.nav_tancar_sessio }}</div>
-    	{% endif %}
+        {% if user.is_admin %}
+            <div class="language admin" onclick="location.href='/admin'" oncontextmenu="window.open('/admin/', '_blank')">{{ loc.nav_admin }}</div>
+            <div class="language admin" onclick="location.href='/admin/logout'">{{ loc.nav_tancar_sessio }}</div>
+        {% endif %}
     {% if True %}
-        <div class="search" onclick="event.stopPropagation()" >
+        <div class="search">
             <div class="search-over-page" >
-            {{ galeria.galeria("productes", filtres=0, max_prods=8, min_row=4, min_prods=4, search=1, start_empty=1, close_when_empty=1, start_closed=1, go_to_search=1, inline=1) }}
+            {{ galeria.galeria("productes", filtres=0, max_prods=8, min_row="auto", min_prods="auto", search=1, start_empty=1, close_when_empty=1, start_closed=1, go_to_search=0, inline=1) }}
             </div>
             <img id="nav-search-icon" class="search-icon navigation-search-icon translucid" src="/static/media/search-icon.svg" alt="search">
         </div>
@@ -57,13 +57,13 @@
     <div class="is-carret no-cart-info">{{loc.car_info_buit |safe}}<a class="is-carret" href="/{{lan}}/productes">{{loc.car_info_buit_boto}}</a></div>
     <div class="llista-carret is-carret" onscroll="event.stopPropagation()" onwheel="event.stopPropagation()" >
         {% for n, item in utils.enumerate(cart.values()) if item.producte != None%}
-		{{ cart_macros.cart_item(item, n) }}
+        {{ cart_macros.cart_item(item, n) }}
         {% endfor %}
     </div>
 
     <div class="footer-carret is-carret">
 
-	<div class="total-cart is-carret"><div class="total-cart-title is-carret">{{ loc.car_total }}</div><div class="total-cart-value is-carret">{{ user.total_carret }}&#8364</div></div>
+    <div class="total-cart is-carret"><div class="total-cart-title is-carret">{{ loc.car_total }}</div><div class="total-cart-value is-carret">{{ user.total_carret }}&#8364</div></div>
         <button class="checkout-button is-carret black-button loc" loc="car_checkout"  onclick="updateCartCounter();console.log(this.previousElementSibling);track('InitiateCheckout',{'num_items':Number(this.previousElementSibling.getAttribute('n_items')), 'value':Number(this.previousElementSibling.getAttribute('value')), 'currency': 'EUR', 'contents':'{{ cart_contents}}'});location.href='/{{ loc.lan }}/checkout/stripe'">{{ loc.car_checkout |safe }}</button>
         <div class="detalls_pagament is-carret loc" loc="car_detalls_pagament">{{ loc.car_detalls_pagament }}</div>
 
