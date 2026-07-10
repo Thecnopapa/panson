@@ -8,6 +8,7 @@ console.log(" * Initialising Navigation JS");
 
 const navigation = document.getElementsByClassName("navigation")[0];
 const navLeft = document.getElementById('nav-left');
+const navRight = document.querySelector('.navigation-right');
 
 const navButtons = [...document.getElementsByClassName('dropbtn')];
 const lanButtons = [...document.getElementsByClassName('language')];
@@ -20,6 +21,8 @@ const cartIcon = document.getElementsByClassName('shopping-cart')[0];
 const cartCircle = document.getElementsByClassName('cercle-carret')[0];
 const navTitle = document.getElementById("title");
 
+let searchClosing=false;
+let searchOpening=false
 
 camaleonElements.push(...navButtons, ...lanButtons, cartCircle, cartIcon, searchIcon, searchInput, navTitle);
 
@@ -246,7 +249,16 @@ async function documentClickCatcher(event){
 }
 
 function showSearch(){
-    //console.log("Showing search");
+    console.log("Showing search");
+    if (searchClosing){
+        console.log("Search still closing")
+        return false;
+    }
+    if (searchOpening){
+        console.log("Search still opening")
+        return false;
+    }
+    searchOpening=true;
     closeMenu();
     closeCart();
     let trigger = searchIcon;
@@ -260,11 +272,13 @@ function showSearch(){
             g.classList.add("fully-open");
             trigger.setAttribute("onclick", "hideSearch(true)");
             textDiv.focus();
+            navRight.addEventListener("mouseleave", hideSearch);
+            searchOpening=false;
         }
     }
     let timeout = 1000;
     if (oldSafari){
-        timeout = 0;
+        timeout = 10;
     }
     setTimeout( setFullyOpen, timeout ,galleryDiv);
 
@@ -299,14 +313,27 @@ function hideSearch(force=false){
 
     let trigger = searchIcon;
 
-    //console.log("hidingSearch");
+    console.log("hidingSearch", force);
     let areaOfInterest = document.querySelector(".navigation-right");
     let resultsDiv = trigger.parentElement.querySelector(".search-over-page");
+    let galleryDiv = resultsDiv.querySelector(".content-galeria");
+    navRight.removeEventListener("mouseleave", hideSearch);
 
+    console.log("Nav hovered", areaOfInterest.matches(":hover") );
+    console.log("Open", galleryDiv.classList.contains("open"));
+    console.log("Fully-open", galleryDiv.classList.contains("fully-open"))
 
-    if (areaOfInterest.matches(":hover") && !force) {
-        return false;
+    if (!force){
+        if (areaOfInterest.matches(":hover") || searchOpening){
+            console.log("Still on search area, not closing yet");
+            return false; 
+            
+        }
     }
+    searchClosing=true;
+    searchOpening=false;
+
+
     let textBox = resultsDiv.querySelector(".search-over-page .gallery-search-text");
     textBox.blur()
     window.removeEventListener("click", documentClickCatcher, true)
@@ -315,19 +342,19 @@ function hideSearch(force=false){
     window.removeEventListener("mouseup", documentClickCatcher, true)
 
 
-    trigger.setAttribute("onclick", "showSearch()");
+    
 
     document.documentElement.removeEventListener("keydown", closeSearchEsc);
 
 
-    let galleryDiv = resultsDiv.querySelector(".content-galeria");
+    
     galleryDiv.classList.add("closed");
     galleryDiv.classList.remove("fully-open");
 
-    function setFullyClosed(g) {if(g.classList.contains("closed")){g.classList.add("fully-closed");}}
+    function setFullyClosed(g) {if(g.classList.contains("closed")){g.classList.add("fully-closed");searchClosing=false;}}
     let timeout = 1000;
     if (oldSafari){
-        timeout = 0;
+        timeout = 10;
     }
     setTimeout(setFullyClosed, timeout, galleryDiv);
 
@@ -344,6 +371,7 @@ function hideSearch(force=false){
     document.documentElement.classList.remove("blocked");
     forceBlack["search"] = false;
     checkColor();
+    trigger.setAttribute("onclick", "showSearch()");
     return true
 
 }
