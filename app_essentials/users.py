@@ -12,7 +12,7 @@ from app_essentials.localisation import Images
 class User(firebaseObject):
     bucket = "usuaris"
 
-    def __init__(self, data, id):
+    def __init__(self, data, id, load_cart=True):
         self.cart = {}
         self._n_cart = 0
         self._total_cart = 0
@@ -39,7 +39,8 @@ class User(firebaseObject):
         super().__init__(data, id)
         if self._id not in self.sessions:
             self.sessions.append(self._id)
-        self.recalculate()
+        if load_cart:
+            self.recalculate()
 
     def recalculate(self):
         cart = self.get_cart().values()

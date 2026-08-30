@@ -10,7 +10,7 @@ from app_essentials.firestore import Storage
 
 
 
-def common_kwargs(**kwargs):
+def common_kwargs(admin=False, **kwargs):
     lan = localisation(kwargs.get("lan", "cat"))
     kwargs["old_safari"] = int(os.environ.get("OLD_SAFARI", 0))
     kwargs["path"] = request.path
@@ -19,77 +19,80 @@ def common_kwargs(**kwargs):
     kwargs["imgs"] = kwargs.get("imgs", Images())
     kwargs["stg"] = kwargs.get("stg", Storage())
     kwargs["productes"] = Products(lan=lan)
-    kwargs["productes_filtrats"] = Products(lan=lan)
-    #print("STARTING PRODUCTS:", len(kwargs["productes_filtrats"].get_all()))
-    #print(kwargs["productes_filtrats"].products.keys())
-    if not kwargs.get("esborrats", False):
-        kwargs["productes_filtrats"] = kwargs["productes_filtrats"].filter({"esborrat":False}, return_products=False, inplace=True)
-    #print(kwargs["productes_filtrats"].products.keys())
-    if not kwargs.get("amagats", False):
-        kwargs["productes_filtrats"] = kwargs["productes_filtrats"].filter({"amagat": False}, return_products=False, inplace=True)
-    #print(kwargs["productes_filtrats"].products.keys())
-    #print("DEAULT FILTERS:", len(kwargs["productes_filtrats"].get_all()))
-    kwargs["prods_json"] = json.dumps({
-        p._clean_id: {
-            "id":p._id,
-            "bucket": p.bucket,
-            "url": f"/{lan.lan}/productes/{p._id}",
-            "name": p.nom,
-            "col": p.collecio,
-            "tipus": p.tipus,
-            "material": "&".join(p.opcions["materials"].keys()) if p.opcions['materials'] is not None else "",
-            "preu": f"{p.calcular_preu_minim()}&#8364;",
-            "unica": p.unica,
-            "novetat": p.novetat,
-            "popular": p.popular,
-            "prio": p.prio,
-            "descompte": p.descompte,
-            "preu_antic": p.calcular_preu_minim(False),
-            "img1": p.imatges[0] if len(p.imatges) >= 1 else "",
-            "img2": p.imatges[1] if len(p.imatges) >= 2 else "",
-            "startDate": p.start_date,
-            "pre_a": f"{lan.fam_per_a} {p.per_a}" if p.bucket == "bespoke" else "",
-        } for p in kwargs["productes_filtrats"]})
-    kwargs["tipus_json"] = json.dumps({tipus: {"url": f"/{lan.lan}/productes/?filterKey=tipus&filterValue={tipus}", "name":  lan["tip-"+tipus+"-plural"]} for tipus in kwargs["productes_filtrats"].tipus})
-    kwargs["cols_json"] = json.dumps({col._clean_id: {"url": f"/{lan.lan}/collecio/{col._id}", "name": col.nom_menu} for col in kwargs["productes_filtrats"].cols})
-    kwargs["bespoke_json"] = json.dumps({
-        p._clean_id: {
-            "id": p._id,
-            "bucket": p.bucket,
-            "url": f"/{lan.lan}/bespoke/{p._id}",
-            "name": p.nom,
-            "per_a": p.per_a,
-            "tipus": p.tipus,
-            "img1": p.imatges[0] if len(p.imatges) >= 1 else "",
-            "img2": p.imatges[1] if len(p.imatges) >= 2 else "",
-            } for p in kwargs["productes_filtrats"].bespoke})
+    print("ADMIN", admin)
+    if not admin:
+        kwargs["productes_filtrats"] = Products(lan=lan)
+        #print("STARTING PRODUCTS:", len(kwargs["productes_filtrats"].get_all()))
+        #print(kwargs["productes_filtrats"].products.keys())
+        if not kwargs.get("esborrats", False):
+            kwargs["productes_filtrats"] = kwargs["productes_filtrats"].filter({"esborrat":False}, return_products=False, inplace=True)
+        #print(kwargs["productes_filtrats"].products.keys())
+        if not kwargs.get("amagats", False):
+            kwargs["productes_filtrats"] = kwargs["productes_filtrats"].filter({"amagat": False}, return_products=False, inplace=True)
+        #print(kwargs["productes_filtrats"].products.keys())
+        #print("DEAULT FILTERS:", len(kwargs["productes_filtrats"].get_all()))
+        kwargs["prods_json"] = json.dumps({
+            p._clean_id: {
+                "id":p._id,
+                "bucket": p.bucket,
+                "url": f"/{lan.lan}/productes/{p._id}",
+                "name": p.nom,
+                "col": p.collecio,
+                "tipus": p.tipus,
+                "material": "&".join(p.opcions["materials"].keys()) if p.opcions['materials'] is not None else "",
+                "preu": f"{p.calcular_preu_minim()}&#8364;",
+                "unica": p.unica,
+                "novetat": p.novetat,
+                "popular": p.popular,
+                "prio": p.prio,
+                "descompte": p.descompte,
+                "preu_antic": p.calcular_preu_minim(False),
+                "img1": p.imatges[0] if len(p.imatges) >= 1 else "",
+                "img2": p.imatges[1] if len(p.imatges) >= 2 else "",
+                "startDate": p.start_date,
+                "pre_a": f"{lan.fam_per_a} {p.per_a}" if p.bucket == "bespoke" else "",
+            } for p in kwargs["productes_filtrats"]})
+        kwargs["tipus_json"] = json.dumps({tipus: {"url": f"/{lan.lan}/productes/?filterKey=tipus&filterValue={tipus}", "name":  lan["tip-"+tipus+"-plural"]} for tipus in kwargs["productes_filtrats"].tipus})
+        kwargs["cols_json"] = json.dumps({col._clean_id: {"url": f"/{lan.lan}/collecio/{col._id}", "name": col.nom_menu} for col in kwargs["productes_filtrats"].cols})
+        kwargs["bespoke_json"] = json.dumps({
+            p._clean_id: {
+                "id": p._id,
+                "bucket": p.bucket,
+                "url": f"/{lan.lan}/bespoke/{p._id}",
+                "name": p.nom,
+                "per_a": p.per_a,
+                "tipus": p.tipus,
+                "img1": p.imatges[0] if len(p.imatges) >= 1 else "",
+                "img2": p.imatges[1] if len(p.imatges) >= 2 else "",
+                } for p in kwargs["productes_filtrats"].bespoke})
 
 
 
-    if "filters" in kwargs:
-        #print(kwargs["filters"])
-        kwargs["productes_filtrats"], kwargs["filters"] = kwargs["productes_filtrats"].filter(kwargs.get("filters", None),
-                                                                                              custom = True,
-                                                                                              return_products=False,
-                                                                                              return_new_filters=True,
-                                                                                              inplace=True)
-    #print("CUSTOM FILTERS:", len(kwargs["productes_filtrats"].get_all()))
-    #print(kwargs["productes_filtrats"].products.keys())
-    kwargs["productes_filtrats"] = kwargs["productes_filtrats"].get_all()
-    kwargs["max_gallery"] = kwargs.get("max_gallery", len(kwargs["productes_filtrats"]))
+        if "filters" in kwargs:
+            #print(kwargs["filters"])
+            kwargs["productes_filtrats"], kwargs["filters"] = kwargs["productes_filtrats"].filter(kwargs.get("filters", None),
+                                                                                                  custom = True,
+                                                                                                  return_products=False,
+                                                                                                  return_new_filters=True,
+                                                                                                  inplace=True)
+        #print("CUSTOM FILTERS:", len(kwargs["productes_filtrats"].get_all()))
+        #print(kwargs["productes_filtrats"].products.keys())
+        kwargs["productes_filtrats"] = kwargs["productes_filtrats"].get_all()
+        kwargs["max_gallery"] = kwargs.get("max_gallery", len(kwargs["productes_filtrats"]))
     kwargs["user"] = get_current_user()
-    kwargs["user"].recalculate()
-    kwargs["cart"] = kwargs["user"].get_cart(kwargs["productes"])
-    kwargs["n_cart"] = sum([i["quantity"]for i in kwargs["cart"].values()])
-    #print(json.dumps(kwargs["cart"], indent=4))
-    kwargs["cart_contents"] = json.dumps([{"id":v["product_id"], "quantity":v["quantity"]} for k, v in kwargs["cart"].items()])
-    # for k, v in kwargs["cart"].items():
-    #     #print(v)
-    #     v["producte"] = kwargs["productes"].get_single(v["product_id"])
+    if not admin:
+        kwargs["user"].recalculate()
+        kwargs["cart"] = kwargs["user"].get_cart(kwargs["productes"])
+        kwargs["n_cart"] = sum([i["quantity"]for i in kwargs["cart"].values()])
+        #print(json.dumps(kwargs["cart"], indent=4))
+        kwargs["cart_contents"] = json.dumps([{"id":v["product_id"], "quantity":v["quantity"]} for k, v in kwargs["cart"].items()])
+        # for k, v in kwargs["cart"].items():
+        #     #print(v)
+        #     v["producte"] = kwargs["productes"].get_single(v["product_id"])
 
-    #print("##### USER ####")
-    #print(kwargs["user"])
-    #print("##### USER ####")
+        #print("##### USER ####")
+        #print(kwargs["user"])
+        #print("##### USER ####")
     kwargs["utils"] = Utils()
 
 
@@ -97,11 +100,11 @@ def common_kwargs(**kwargs):
     return kwargs
 
 
-def template(html="", templates=None, navigation=True, retry=True, reset=True, **kwargs):
+def template(html="", templates=None, navigation=True, retry=True, reset=True, admin=False, **kwargs):
 
     print(request.host, request.path, "-->", templates)
 
-    kwargs = common_kwargs(**kwargs)
+    kwargs = common_kwargs(admin=admin, **kwargs)
 
     if templates is not None:
         if type(templates) is str:
@@ -109,9 +112,9 @@ def template(html="", templates=None, navigation=True, retry=True, reset=True, *
         for n, t in enumerate(templates):
             print("Rendering template: {}.html".format(t))
             try:
-                html+= render_template(t+".html",no_head=n!=0, **kwargs)
+                html+= render_template(t+".html",no_head=n!=0, admin=admin, **kwargs)
             except Exception as e:
-                if reset:
+                if reset and not admin:
                     print("#######################################")
                     print("Failed to render template: {}".format(t))
                     print(e)
@@ -121,7 +124,7 @@ def template(html="", templates=None, navigation=True, retry=True, reset=True, *
                     kwargs["user"] = get_current_user()
                     kwargs["cart"] = kwargs["user"].get_cart()
                 if retry:
-                    html += render_template(t + ".html", no_head=n != 0, retry=False, **kwargs)
+                    html += render_template(t + ".html", no_head=n != 0, retry=False, admin=admin, **kwargs)
 
 
     return html

@@ -7,18 +7,18 @@
             <div class="col_col product-list {{ col._id }}">
                 <div class="productes-titol-col">{{ col.nom }}</div>
                 {% for product in productes.filter({"collecio":col._id}) %}
-                    {{ admin_container(product) }}
+                    {{ admin_macros.admin_container(product) }}
                 {% endfor %}
             </div>
         {% endfor %}
         <div class="col_col product-list {{ "altres" }}">
         <div class="productes-titol-col">Altres</div>
                 {% for product in productes.filter({"collecio":None}) %}
-                    {{ admin_container(product) }}
+                    {{ admin_macros.admin_container(product) }}
                 {% endfor %}
         </div>
 
-        {{ new_container("productes") }}
+        {{ admin_macros.new_container("productes") }}
         <div class="productes-titol-col">Actualitzar tot</div>
             <div class="global-discount">
                 <input class="discount-input" type="number"> % (num del 0 al 100 / 0 = no descompte / 100 = gratis)<br>

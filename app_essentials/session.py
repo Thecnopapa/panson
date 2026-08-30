@@ -6,7 +6,7 @@ from app_essentials.users import User
 from app_essentials.firebase import get_user_data
 
 
-def get_current_user():
+def get_current_user(load_cart=True):
     from app_essentials.firebase import usuaris
     from google.cloud.firestore import FieldFilter
     print("getting current user")
@@ -17,7 +17,7 @@ def get_current_user():
         if user_data is None:
             print("user_id not found in database")
             user_data = {}
-        return User(user_data, session["user_id"])
+        return User(user_data, session["user_id"], load_cart=load_cart)
     if "session_id" not in session.keys():
         print("getting from new session_id")
         new_id = str(uuid.uuid4())
@@ -30,7 +30,7 @@ def get_current_user():
         session["session_id"] = new_id
         session["user_id"] = session["session_id"]
         print(session["session_id"], session)
-        return User({}, session["session_id"])
+        return User({}, session["session_id"], load_cart=load_cart)
     else:
         print("getting from session_id")
         print("current id", session["session_id"])
@@ -40,11 +40,11 @@ def get_current_user():
             print("user found")
             target_id = matching_user[0].id
             session["user_id"] = session["session_id"]
-            return User(usuaris.document(target_id).get().to_dict(), target_id)
+            return User(usuaris.document(target_id).get().to_dict(), target_id, load_cart=load_cart)
         else:
             print("user not found")
             session["user_id"] = session["session_id"]
-            return User({}, session["session_id"])
+            return User({}, session["session_id"], load_cart=load_cart)
 
 
 

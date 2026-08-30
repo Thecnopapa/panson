@@ -4,10 +4,10 @@
 
     <div id="collecions" class="admin-content product-list">
         {% for product in collecions %}
-            {{ admin_container(product) }}
+            {{ admin_macros.admin_container(product) }}
         {% endfor %}
 
-        {{ new_container("collecions") }}
+        {{ admin_macros.new_container("collecions") }}
 
     </div>
 {% endblock %}

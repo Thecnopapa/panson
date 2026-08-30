@@ -265,7 +265,7 @@ def use(amount=1.0):
 
 
 def admin_check():
-    user = get_current_user()
+    user = get_current_user(load_cart=False)
     return check_if_admin(user.username, user.password)
 
 
@@ -318,7 +318,7 @@ def get_talla():
 def acceptar_cookies():
     use(0.1)
     print("Accepting cookies")
-    user = get_current_user()
+    user = get_current_user(load_cart=False)
     r = request.get_json()
     print(r["essential"], r["analytic"], r["ads"])
 
@@ -343,7 +343,7 @@ def acceptar_cookies():
 def ignore_newsletter():
     use(0.1)
     print("Ignoring newsletter")
-    user = get_current_user()
+    user = get_current_user(load_cart=False)
     user.no_newsletter = True
     user.update_db()
     return "", 200
@@ -782,23 +782,24 @@ def info_talles(lan):
 @app.route("/admin/")
 @app.route("/admin/<page>/")
 def admin(lan="cat", page="base"):
-    use()
+    #use()
+    print("admin")
     from payments import Trello
     if admin_check():
-        return template(lan=lan, imgs=Images().load(), templates="admin-{}".format(page), amagats=True, footer=False, collecions = get_cols(amagats=True), trello=Trello())
+        return template(lan=lan, imgs=Images().load(), templates="admin-{}".format(page), amagats=True, footer=False, collecions = get_cols(amagats=True), trello=Trello(), admin=True)
     else:
-        return template(lan=lan, templates="login")
+        return template(lan=lan, admin=True, templates="login")
 
 
 @app.post("/login")
 def login():
-    use()
+    #use()
     print("loging in...")
     from app_essentials.firebase import check_if_admin
     #print(request.form["username"], request.form["password"])
 
     if check_if_admin(request.form["username"], request.form["password"]):
-        user = get_current_user()
+        user = get_current_user(load_cart=False)
         user.username = request.form["username"]
         user.password = request.form["password"]
         user.is_admin = True
@@ -806,13 +807,14 @@ def login():
         print("login succesfull")
     else:
         print("login failed")
+        return "Login failed", 403
     return redirect("/admin/")
 
 
 @app.route("/admin/logout")
 def logout():
     use(0.01)
-    user = get_current_user()
+    user = get_current_user(load_cart=False)
     user.username = None
     user.password = None
     user.is_admin = False
@@ -941,7 +943,7 @@ def update_loc():
 @app.post("/admin/loc/delete-field")
 def delete_field():
     use(0.01)
-    user = get_current_user()
+    user = get_current_user(load_cart=False)
     if check_if_admin(user.username, user.password):
         print(request.json)
         data = request.json
@@ -960,7 +962,7 @@ def delete_field():
 @app.post("/admin/create/<bucket>")
 def create_product(bucket):
     use(0.01)
-    user = get_current_user()
+    user = get_current_user(load_cart=False)
     if check_if_admin(user.username, user.password):
         print(request.form)
 
@@ -985,7 +987,7 @@ def create_product(bucket):
 @app.post("/admin/update/<bucket>")
 def update_product(bucket):
     use(0.01)
-    user = get_current_user()
+    user = get_current_user(load_cart=False)
     if check_if_admin(user.username, user.password):
         try:
             print(request.json)
@@ -1119,7 +1121,7 @@ def update_product(bucket):
 @app.post("/admin/images/upload/<bucket>")
 def upload_image(bucket):
     use(0.01)
-    user = get_current_user()
+    user = get_current_user(load_cart=False)
     if check_if_admin(user.username, user.password):
         from app_essentials.localisation import Images
         imgs = Images()
