@@ -1,4 +1,4 @@
-
+{% extends "base.html" %}
 
 {% block head %}
     <title>PANSON: ADMIN</title>
@@ -9,9 +9,11 @@
     <link href='/style/admin-img.css' as='style' rel='preload'>
     <link href='/style/admin-trello.css' as='style' rel='preload'>
     <link href='/scripts/admin.js' as='script' rel='preload'>
+    <link href='/scripts/admin-base.js' as='script' rel='preload'>
     <link href='/scripts/admin-trello.js' as='script' rel='preload'>
 
     <script defer type="text/javascript" src="/scripts/admin.js"></script>
+    <script defer type="text/javascript" src="/scripts/admin-base.js"></script>
     <script defer type="text/javascript" src="/scripts/admin-trello.js"></script>
     <link href='/style/admin.css' rel='stylesheet'>
     <link href='/style/admin-img.css' rel='stylesheet'>
