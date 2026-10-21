@@ -41,8 +41,8 @@ class firebaseObject(object):
                     value = self.__getattribute__(key).update(value)
                     continue
             setattr(self, key, value)
-        self._id = id
-        self._clean_id = unidecode.unidecode(id)
+        self._id = id.strip()
+        self._clean_id = unidecode.unidecode(id.strip())
 
     def __repr__(self):
         return "\n".join(["> {}:".format(self.__class__.__name__), *["    > {} ({}): {}".format(k,type(v).__name__, v) for k,v in self.__dict__.items() if k != "data"]])+"\n"
@@ -120,7 +120,7 @@ def get_static_images(img_id=None):
 def get_cols(as_dict=False, amagats=False, esborrats=False, collabs_only=False, collabs=False):
     from app_essentials.products import Collection
     raw = collections.stream()
-    cols = {c.id:c.to_dict() for c in raw}
+    cols = {c.id.strip():c.to_dict() for c in raw}
     #print("COLS:", cols)
     if as_dict:
         return cols

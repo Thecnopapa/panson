@@ -472,14 +472,17 @@ def return_sitemap(lan="cat"):
 def collections(lan,id):
     use()
     try:
+        print([c for c in get_cols(collabs=True)])
         col = [c for c in get_cols(collabs=True) if c._id == id][0]
         if col.collab:
             html = template(lan=lan, templates=["collab"], col=col)
         else:
             html = template(lan=lan, templates=["collecio"], col=col)
         return html
-    except:
-        return ""
+    except Exception as e:
+        raise e
+        print(e)
+        return "Collection not found", 404
 
 
 @app.route("/<lan>/search/")
