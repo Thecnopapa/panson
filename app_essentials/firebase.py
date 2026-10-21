@@ -117,7 +117,7 @@ def get_static_images(img_id=None):
 
 
 
-def get_cols(as_dict=False, amagats=False, esborrats=False):
+def get_cols(as_dict=False, amagats=False, esborrats=False, collabs_only=False, collabs=False):
     from app_essentials.products import Collection
     raw = collections.stream()
     cols = {c.id:c.to_dict() for c in raw}
@@ -126,6 +126,10 @@ def get_cols(as_dict=False, amagats=False, esborrats=False):
         return cols
     else:
         cols = [Collection(data, id) for id, data in cols.items()]
+        if collabs_only:
+            cols = [c for c in cols if getattr(c, "collab", False)]
+        elif not collabs:
+            cols = [c for c in cols if not getattr(c, "collab", False)]
         if not esborrats:
             cols = [c for c in cols if not c.esborrat]
         if not amagats:

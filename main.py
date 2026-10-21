@@ -472,8 +472,11 @@ def return_sitemap(lan="cat"):
 def collections(lan,id):
     use()
     try:
-        col = [c for c in get_cols() if c._id == id][0]
-        html = template(lan=lan, templates=["collecio"], col=col)
+        col = [c for c in get_cols(collabs=True) if c._id == id][0]
+        if col.collab:
+            html = template(lan=lan, templates=["collab"], col=col)
+        else:
+            html = template(lan=lan, templates=["collecio"], col=col)
         return html
     except:
         return ""
@@ -786,7 +789,7 @@ def admin(lan="cat", page="base"):
     print("admin")
     from payments import Trello
     if admin_check():
-        return template(lan=lan, imgs=Images().load(), templates="admin-{}".format(page), amagats=True, footer=False, collecions = get_cols(amagats=True), trello=Trello(), admin=True)
+        return template(lan=lan, imgs=Images().load(), templates="admin-{}".format(page), amagats=True, footer=False, collecions = get_cols(amagats=True, collabs=True), trello=Trello(), admin=True)
     else:
         return template(lan=lan, admin=True, templates="login")
 

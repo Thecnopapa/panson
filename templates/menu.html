@@ -14,6 +14,12 @@
             {% endfor %}
         {% endif %}
    
+        <div class="menu-subtitol menu-content loc" loc="nav_collabs">{{ loc.nav_collabs}}</div>
+        {% if productes %}
+            {% for col in productes.collabs %}
+                <div class="menu-element menu-content under-hover clickable"  onclick="location.href='/{{ loc.lan }}/collecio/{{ col._id }}'">{{ col.nom_menu }}</div>
+            {% endfor %}
+        {% endif %}
 
         <div class="menu-subtitol menu-content loc" loc="nav_categories">{{ loc.nav_categories }}</div>
         {% if productes %}
