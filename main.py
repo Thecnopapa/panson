@@ -472,7 +472,7 @@ def return_sitemap(lan="cat"):
 def collections(lan,id):
     use()
     try:
-        print([c for c in get_cols(collabs=True)])
+        #print([c for c in get_cols(collabs=True)])
         col = [c for c in get_cols(collabs=True) if c._id == id][0]
         if col.collab:
             html = template(lan=lan, templates=["collab"], col=col)
@@ -983,7 +983,7 @@ def create_product(bucket):
         else:
             return "Unknown bucket", 500
 
-        new = P({"nom": request.form["name"]}, request.form["id"])
+        new = P({"nom": request.form["name"]}, request.form["id"].strip())
         new.update_db()
 
         return redirect("/admin/{}/".format(bucket))

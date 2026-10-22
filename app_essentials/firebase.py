@@ -33,7 +33,7 @@ print(" * Firebase buckets initialized")
 
 class firebaseObject(object):
     bucket = None
-    def __init__(self,data, id = None):
+    def __init__(self, data, id = None):
         self._data = data
         for key, value in data.items():
             if type(value) is dict and hasattr(self, key):
