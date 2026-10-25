@@ -11,7 +11,7 @@ from utilities import *
 from flask import Flask, render_template, redirect, request, make_response, session, jsonify, abort
 import requests
 from werkzeug.middleware.proxy_fix import ProxyFix
-from google.cloud import secretmanager
+
 from google.oauth2 import service_account
 
 ### START APP CONFIG ###################################################################################################
@@ -35,6 +35,7 @@ def get_secret(name, version="latest", to_environ:str|None=None, to_file:str|Non
     if secret_client is None:
         print(" * Initialisimg secret manager...")
         try:
+            from google.cloud import secretmanager
             secret_client = secretmanager.SecretManagerServiceClient()
         except:
             print(" * Failed to initialise secret manager")
