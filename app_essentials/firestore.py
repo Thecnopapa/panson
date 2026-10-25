@@ -1,6 +1,5 @@
 import os.path
 
-from firebase_admin.project_management import list_ios_apps
 from google.cloud import storage
 from utilities import *
 from google.oauth2 import service_account
@@ -11,32 +10,6 @@ from werkzeug.utils import secure_filename
 
 
 try:
-    '''SCOPES = ['https://www.googleapis.com/auth/sqlservice.admin']
-    SERVICE_ACCOUNT_FILE = '/path/to/service.json'
-
-    credentials = service_account.Credentials.from_service_account_file(
-        SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-
-
-    print("Service account json")
-    print(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
-    #try:
-    service_account_info = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
-    print("Service account info")
-    print(service_account_info)
-
-    credentials = service_account.Credentials.from_service_account_info(service_account_info, scopes=SCOPES)
-    service_account.Credentials()
-    #except:
-        #credentials = service_account.Credentials.from_service_account_file(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
-
-    print(credentials)'''
-    #try:
-        #credentials = service_account.Credentials.from_service_account_file(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
-        #storage_client = storage.Client(credentials=credentials, project="panson")
-    # except:
-    #    storage_client = storage.Client(project="panson")
-
     credentials = service_account.Credentials.from_service_account_file(os.environ.get('FIRESTORE_CREDENTIALS_PATH'))
     print(" * Firestore credentials loaded")
 
