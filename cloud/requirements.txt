@@ -1,0 +1,20 @@
+# Databases
+firebase-admin
+google-cloud-storage
+google-cloud-firestore
+
+# App
+requests
+flask
+gunicorn
+werkzeug
+
+# Payments
+stripe>=15.2
+
+# Utilities
+unidecode
+pillow
+pandas
+
+
