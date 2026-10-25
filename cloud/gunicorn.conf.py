@@ -1,4 +1,4 @@
-loglevel="info"
+loglevel="debug"
 
 workers=2
 worker_connections=20

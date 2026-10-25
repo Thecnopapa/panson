@@ -24,7 +24,7 @@ RUN pip3 cache purge
 RUN rm ./requirements.txt
 
 COPY ./cloud/run-server.sh ./run-server.sh
-COPY ./cloud/gunicorn.conf.json ./gunicorn.conf.json
+COPY ./cloud/gunicorn.conf.py ./gunicorn.conf.py
 
 COPY ./main.py ./main.py
 COPY ./app_essentials ./app_essentials
@@ -34,6 +34,9 @@ COPY ./static ./static
 COPY ./templates ./templates
 
 RUN mkdir .secure
+
+# For debugging
+#COPY ./.secure ./.secure
 
 RUN chmod +x ./run-server.sh
 
