@@ -153,7 +153,7 @@
     position: relative;
     display: flex;
     height: max-content;
-    min-height: 50vh;
+    /*min-height: 50vh;*/
     flex-wrap: wrap;
     justify-content: space-between;
     overflow-y: hidden;
