@@ -150,7 +150,7 @@ class Products():
         self.products = {id:Product(data, id) for id, data in sorted(get_products().items(), key=lambda x: x[1]["prio"])}
         if filters is not None:
             self.products = self.filter(filters, as_dict=True)
-        self.bespoke = [Bespoke(data, id) for id, data in get_bespoke().items()]
+        self.bespoke = sorted([Bespoke(data, id) for id, data in get_bespoke().items()], key=lambda x: x.prio)
         self.setup()
 
 
@@ -159,7 +159,7 @@ class Products():
         self.collabs = get_cols(collabs_only=True)
         self.tipus = sorted(set([c.tipus for c in self.products.values() if c.tipus is not None]))
         self.productes = sorted([p for p in  self.get_all() if not (p.esborrat or p.amagat)], key=lambda p: p.prio)
-        self.bespoke = [p for p in self.bespoke if not (p.esborrat or p.amagat)]
+        self.bespoke = sorted([p for p in self.bespoke if not (p.esborrat or p.amagat)], key=lambda p: p.prio)
 
 
 
