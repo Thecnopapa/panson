@@ -1,6 +1,6 @@
 
 source $PROJECT_PATH/gcloud.sh
-gcloud config set project panson
+gcloud config set project panson || echo "gcloud failed"
 
 test (){
     local title="Local Server"
