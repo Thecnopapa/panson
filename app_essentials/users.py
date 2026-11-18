@@ -31,6 +31,7 @@ class User(firebaseObject):
         }
         self.closed_banner = False
         self.no_newsletter = False
+        self.no_prom = False
         self.sessions = []
         self.username = None
         self.password = None

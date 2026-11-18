@@ -163,9 +163,35 @@ async function acceptNewsletter(target){
     });
     if (r.status === 200){
         target.parentNode.querySelector(".popup-cross").click();
-        t//rack("AcceptedNewsletter", {"email": email, "name": name});
+        //track("AcceptedNewsletter", {"email": email, "name": name});
     } else {
         target.querySelector(".newsletter-popup-signup").style.backgroundColor = "darkred";
+    }
+
+}
+
+async function ignorePromotion(){
+    let r = await fetch("/ignore-newsletter", {
+        method:"POST",
+    });
+    //track("IgnoredNewsletter");
+}
+async function goToPromotionSignup(target){
+    let email = target.querySelector(".prom-popup-email").value;
+    //let name = target.querySelector(".prom-popup-name").value;
+    let r = await fetch("/promotion/signup", {
+        method:"POST",
+        headers:{"content-type": "application/json"},
+        body: JSON.stringify({
+            //name: name,
+            email: email,
+        })
+    });
+    if (r.status === 200){
+        target.parentNode.querySelector(".popup-cross").click();
+        //track("AcceptedNewsletter", {"email": email, "name": name});
+    } else {
+        target.querySelector(".prom-popup-signup").style.backgroundColor = "darkred";
     }
 
 }

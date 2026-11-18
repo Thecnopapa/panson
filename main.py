@@ -348,6 +348,15 @@ def ignore_newsletter():
     user.update_db()
     return "", 200
 
+@app.post("/ignore-promotion")
+def ignore_promotion():
+    use(0.1)
+    print("Ignoring promotion")
+    user = get_current_user(load_cart=False)
+    user.no_promotion = True
+    user.update_db()
+    return "", 200
+
 @app.post("/subscribe-newsletter")
 def subscribe_newsletter():
     use(0.1)
@@ -459,7 +468,7 @@ def index(lan ="cat", favicon = True):
                   slide.split("/")[-1] != ""]
 
     html = template(lan=lan, templates=["index", "galeria"], slides= slide_list, hide_title=True, title=False, max_gallery=8,
-                    show_banner=True, show_newsletter=True, show_descompte=True)
+                    show_banner=True, show_newsletter=True, show_prom=True,  show_descompte=True)
     return html
 
 @app.route("/<lan>/sitemap")
@@ -675,6 +684,10 @@ def checkout_force(lan):
     use(0.1)
     from payments import init_checkout
     return init_checkout(lan, force_new=True)
+
+
+
+
 
 
 
@@ -1244,6 +1257,9 @@ def send_newsletter():
     return "", 405
 
 
+@app.post("/promotion/signup")
+def send_promotion_code():
+    return "Promotion sent!", 200
 
 
 

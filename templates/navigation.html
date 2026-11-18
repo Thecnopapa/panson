@@ -105,6 +105,20 @@
 </div>
 {% endif %}
 
+{% if (loc.prom_mostrar == "si" or ((loc.prom_mostrar == "test") and ("test" in host or "127" in host)) ) %}
+<div class="popup-info prom-popup {{ "to-be-popped" if not user.no_prom and show_prom }}">
+    <div class="prom-popup-titol loc" loc="prom_popup_titol">{{ loc.prom_popup_titol |safe }}</div>
+    <div class="prom-popup-text loc" loc="prom_popup_text">{{ loc.prom_popup_text |safe }}</div>
+    <div class="prom-popup-input">
+        <input class="prom-popup-email" type="email" placeholder="Email" autocomplete="email" autofocus required>
+        <!input class="prom-popup-name" type="text" placeholder="Nom" autocomplete="given-name" required>
+        <div class="prom-popup-signup black-button loc" loc="prom_popup_registrarse" onclick="goToPromotionSignup(this.parentElement)">{{ loc.prom_popup_registrarse |safe }}</div>
+
+    </div>
+    <div class="prom-popup-cancel clickable underlined loc" loc="prom_popup_cancel" onclick="ignorePromotion(); this.parentElement.parentElement.click()">{{ loc.prom_popup_cancel |safe }}</div>
+</div>
+{% endif %}
+
 {% if (loc.desc_mostrar == "si" or ((loc.desc_mostrar == "test") and ("test" in host or "127" in host)) ) %}
 <div class="popup-info descompte-popup {{ "to-be-popped" if not user.no_descompte and show_descompte }}">
     <div class="descompte-popup-titol loc" loc="desc_popup_titol">{{ loc.desc_popup_titol |safe }}</div>
