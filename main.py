@@ -1257,9 +1257,50 @@ def send_newsletter():
     return "", 405
 
 
+@app.get("/promotion/code")
+def generate_promotion_code():
+    use(1)
+    if admin_check():
+        from payments import generate_promotion_code, AlreadyGeneratedError, get_current_coupon
+        try:
+            code = generate_promotion_code(get_current_coupon(), email="iainvisa@gmail.com")
+        except AlreadyGeneratedError:
+            return "Customer already has requested code", 401
+        except:
+            return "Error generating promotion code", 500
+
+        return code, 200
+
 @app.post("/promotion/signup")
 def send_promotion_code():
-    return "Promotion sent!", 200
+    use(1)
+    from payments import generate_promotion_code, AlreadyGeneratedError, get_current_coupon
+    from app_essentials.mail import send_email
+    email = request.get_json().get("email", None)
+    print(email)
+    coupon, subject = get_current_coupon()
+    if coupon is None:
+        return "No current discount", 418
+    print (coupon, subject)
+    if email is None:
+        return "No email provided to generate code", 400
+    try:
+        code = generate_promotion_code(coupon, email=email)
+    except AlreadyGeneratedError as e:
+        code = e.code
+        # return "Customer already has requested code", 401
+    except:
+        raise
+        return "Error generating promotion code", 500
+
+
+    email_code = send_email(email, subject=subject, code=code, temp="email_black_friday", return_response=False)
+    # print(email_code.json())
+    # return
+    if email_code == 200:
+        return "Promotion sent!", 200
+    else:
+        return "Email not sent!", email_code
 
 
 

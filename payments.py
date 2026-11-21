@@ -205,14 +205,19 @@ def create_items(user):
     print("items", items)
     return items
 
-def create_customer(user):
+
+
+def create_customer(user, email=None):
     user_id = user._id
     try:
         customer = stripe.Customer.retrieve(user_id)
     except:
-        customer = stripe.Customer.create(
-            id=user_id,
-        )
+        customer_info = {
+            "id": user_id
+        }
+        if email is not None:
+            customer_info["email"] = email
+        customer = stripe.Customer.create(**customer_info)
     return customer["id"], customer["email"]
 
 
@@ -521,3 +526,63 @@ def process_payment(lan):
     n_items = sum([i["metadata"]["quantity"] for i in new_items])
     contents = json.dumps([{"id":i["id"], "quantity":i["metadata"]["quantity"]} for i in new_items])
     return dict(session=session, invoice=invoice, items=line_items, contents=contents, n_items=n_items)
+
+
+class AlreadyGeneratedError(Exception):
+    def __init__(self, *args, **kwargs):
+        super().__init__()
+        self.code = kwargs.get("code", None)
+
+
+def get_current_coupon():
+    from app_essentials.firebase import db
+    data = db.collection("localisation").document("stripe").get().to_dict()
+    coupon_id = data.get("coupon_id", None)
+    if coupon_id is None or coupon_id.strip() == "":
+        return None, None
+    subject = data.get("subject", None)
+    return coupon_id, subject
+
+
+
+def generate_promotion_code(coupon, code=None, email=None, max_redemptions=1):
+
+    customer_id = None
+    if email is not None:
+        customers = stripe.Customer.list(email=email)
+        if len(customers.data) > 0:
+            customer = customers.data[0]
+            customer_id = customer["id"]
+            print("Customer found with this email:", email, len(customers.data))
+        else:
+            print("No customer email found with this email:", email, len(customers.data))
+
+    if customer_id is None:
+        print("Creating new customer:", email)
+        customer_id, _ = create_customer(get_current_user(), email=email)
+
+    previous_codes = stripe.PromotionCode.list(customer=customer_id, coupon=coupon)
+    print(previous_codes)
+    if len(previous_codes) > 0:
+
+        raise AlreadyGeneratedError(code=previous_codes.data[0]["code"])
+
+    code_info = {
+        "promotion": {
+            "type":"coupon",
+            "coupon":coupon,
+        },
+        "max_redemptions": max_redemptions,
+        "customer": customer_id,
+        "restrictions": {
+            "first_time_transaction": False,
+            # "minimum_amount": None,
+            # "minimum_amount_currency": currency
+          },
+    }
+    if code is not None:
+        code_info["promotion"]["code"] = code
+    code = stripe.PromotionCode.create(**code_info)
+    print(code)
+    print(f"CODE: {code['code']} for {email} ({customer_id})")
+    return code["code"]

@@ -5,8 +5,8 @@ from app_essentials.utils import Utils
 
 
 
-def send_email(recipient, subject=None, temp=None, message="", sender="no-reply", sender_name="PANSON joieria",
-               recipient_name=None, internal_recipient=False, cc=None, **kwargs):
+def send_email(recipient, subject="PANSON joieria", temp=None, message="", sender="no-reply", sender_name="PANSON joieria",
+               recipient_name=None, internal_recipient=False, cc=None, return_response=False, **kwargs):
     print("Sending email..")
     assert subject is not None
     mail_server = "pansonjoieria.com"
@@ -45,6 +45,8 @@ def send_email(recipient, subject=None, temp=None, message="", sender="no-reply"
 		"https://api.eu.mailgun.net/v3/{}/messages".format(mail_server),
 		auth=("api", mailgun_key),
 		data=data)
+    if return_response:
+        return m
     return m.status_code
 
 

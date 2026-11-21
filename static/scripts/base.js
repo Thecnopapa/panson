@@ -190,6 +190,14 @@ async function goToPromotionSignup(target){
     if (r.status === 200){
         target.parentNode.querySelector(".popup-cross").click();
         //track("AcceptedNewsletter", {"email": email, "name": name});
+    } else if (r.status === 401){
+        target.querySelector(".prom-popup-signup").style.backgroundColor = "darkred";
+        target.querySelector(".prom-popup-signup").innerText = "Email already applied for discount!";
+
+    } else if (r.status === 418){
+        target.querySelector(".prom-popup-signup").style.backgroundColor = "darkred";
+        target.querySelector(".prom-popup-signup").innerText = "Discount not longer redeemable!";
+
     } else {
         target.querySelector(".prom-popup-signup").style.backgroundColor = "darkred";
     }
