@@ -47,6 +47,8 @@ def common_kwargs(admin=False, **kwargs):
             "prio": p.prio,
             "descompte": p.descompte,
             "is_discounted": p.is_discounted,
+            "is_discounted_20": p.is_discounted_20,
+            "is_discounted_30": p.is_discounted_30,
             "gold": p.gold,
             "preu_antic": p.calcular_preu_minim(False),
             "img1": p.imatges[0] if len(p.imatges) >= 1 else "",

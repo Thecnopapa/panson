@@ -45,6 +45,8 @@ class Product(firebaseObject):
             self._imatges2 *= 4//nimg
             self._imatges2 += self._imatges2[:nimg%nimg]
         self.is_discounted = self.descompte > 0
+        self.is_discounted_20 = self.descompte < 30 and self.descompte >= 20
+        self.is_discounted_30 = self.descompte >= 30
         self.gold = False
         if self.opcions["materials"] is not None:
             if "or" in self.opcions.get("materials", {}).keys():

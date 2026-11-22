@@ -4,6 +4,9 @@
 {% macro render_menu() %}
 
 <div class="menu closed" id="menu">
+        {% if (loc.ofertes_black_friday == "si" or ((loc.ofertes_black_friday == "test") and ("test" in host or "127" in host or "192" in host)) ) %}
+            <div class="menu-element menu-content under-hover clickable loc bold" loc="nav_black_friday_menu"  onclick="location.href='/{{ loc.lan }}/productes/?query=is_discounted=true'">{{ loc.nav_black_friday_menu}}</div>
+        {% endif %}
 	<div class="menu-element menu-content under-hover clickable loc" loc="nav_novetats"  onclick="location.href='/{{ loc.lan }}/productes/?query=novetat=true'">{{ loc.nav_novetats}}</div>
 	<div class="menu-element menu-content under-hover clickable loc" loc="nav_peces" onclick="location.href='/{{ loc.lan }}/productes'">{{ loc.nav_peces}}</div>
 

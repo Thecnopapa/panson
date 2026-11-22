@@ -2,18 +2,28 @@
 /* Add styles here */
 
 @font-face {
-    font-family: myFont;
+    font-family: grotesk;
     font-weight: normal;
     src: url('/static/fonts/AlteHaasGroteskRegular.ttf');
 }
 @font-face {
-    font-family: myFont;
+    font-family: grotesk;
     font-weight: bold;
     src: url('/static/fonts/AlteHaasGroteskBold.ttf');
 }
+@font-face {
+    font-family: oracle;
+    font-weight: normal;
+    src: url('/static/fonts/ABCOracle-Regular-Trial.otf');
+}
+@font-face {
+    font-family: oracle;
+    font-weight: bold;
+    src: url('/static/fonts/ABCOracle-Medium-Trial.otf');
+}
 
 * {
-    font-family: myFont;
+    font-family: grotesk;
 }
 
 
@@ -722,32 +732,46 @@ h1, h2, h3, h4, h5, h6, p {
 .descompte-popup-button{
     margin: var(--padding);
 }
-.newsletter-popup, .descompte-popup{
+.newsletter-popup, .descompte-popup, .prom-popup, .prom2-popup{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 30%;
-}
-.newsletter-popup-titol, .descompte-popup-titol{
-    width: 100%;
-    text-align: center;
-    font-size: var(--font-size-extra-large);
+    width: 35%;
 }
 
-.newsletter-popup-text, .descompte-popup-text{
+.prom-popup {
+    width: 35%;
+}
+.prom-popup2-ok {
+    margin-top: 2em;
+}
+
+.newsletter-popup-titol, .descompte-popup-titol, .prom-popup-titol{
+    width: 100%;
+    text-align: center;
+    font-size: var(--font-size-extra-extra-large);
+    font-family: oracle;
+    margin-bottom: 0.5em;
+}
+
+.newsletter-popup-text, .descompte-popup-text, .prom-popup-text, .prom-popup-text2{
     text-align: center;
     width: 100%;
-    font-size: var(--font-size-medium);
+    font-size: var(--font-size-large);
 }
-.newsletter-popup-input{
+.prom-popup-text2 {
+    margin-top: 1rem;
+}
+
+.newsletter-popup-input, .prom-popup-input{
     display: flex;
     flex-direction: row;
     width: 100%;
     margin: var(--padding);
 
 }
-.newsletter-popup-email, .newsletter-popup-name{
+.newsletter-popup-email, .newsletter-popup-name, .prom-popup-email, .prom-popup-name {
     width: 100%;
     padding: var(--padding);
     margin-right: var(--padding);
@@ -756,7 +780,13 @@ h1, h2, h3, h4, h5, h6, p {
     width: 25%;
 }
 
+#black-friday {
+    font-weight: bold;
+}
 
+.bold {
+    font-weight: bold;
+}
 .black{
     filter: unset;
 }
@@ -928,5 +958,21 @@ h1, h2, h3, h4, h5, h6, p {
         top: calc(var(--header-height) + (var(--padding) * 2.5 ));
     }
 
+    .prom-popup-titol {
+        font-size: var(--font-size-extra-large);
+    }
+    .prom-popup-text, .prom-popup-text2{
+        font-size: var(--font-size-small);
+    }
+    .prom-popup-cancel {
+        font-size: var(--font-size-small);
+    }
+    .prom-popup-signup, .prom-popup-email {
+        font-size: var(--font-size-small);
+    }
+    .prom-popup-input {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
 
 }

@@ -22,7 +22,12 @@
     <script>window.addEventListener("load", () => {track('ViewPortada')})</script>
      <div id="nav-color" color="white"></div>
 
-    <div id="title-logo" class="white fast-image" onclick="scrollToTop()" background="{{ imgs.get_url("imatges", imgs.get_fixed("logos").imatges[0]) }}"></div>
+
+    {% if (loc.ofertes_black_friday == "si" or ((loc.ofertes_black_friday == "test") and ("test" in host or "127" in host or "192" in host)) ) %}
+        <div id="promo-image" class="white fast-image" background="{{ imgs.get_url("imatges", imgs.get_fixed("promos").imatges[0]) }}"></div>
+    {% else %}
+        <div id="title-logo" class="white fast-image" onclick="scrollToTop()" background="{{ imgs.get_url("imatges", imgs.get_fixed("logos").imatges[0]) }}"></div>
+    {% endif %}
     <div class="content-index">
         <div class = "slideshow">
             {% for n, (image) in utils.enumerate(imgs.get_fixed("portada").imatges)  %}

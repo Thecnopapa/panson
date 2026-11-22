@@ -1,7 +1,11 @@
 console.log(" * Initialising Index JS")
 
-const onClickLink = document.getElementById('title-logo').onclick
-const title = document.getElementById('title-logo');
+try {
+    let onClickLink = document.getElementById('title-logo').onclick
+} catch {
+    let onClickLink = undefined;
+}
+let title = document.querySelector('#title-logo');
 
 
 function scrollToTop() {
@@ -12,6 +16,7 @@ let maxIndexScrolls = 100;
 let alreadyScrolling = false;
 function updateScroll() {
     if (alreadyScrolling){return}
+    if (title === undefined || title === null ) {return}
     alreadyScrolling = true;
 
 	let windowHeight = window.innerHeight;

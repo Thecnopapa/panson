@@ -466,9 +466,10 @@ def index(lan ="cat", favicon = True):
     slides = list_blobs("portada")
     slide_list = [[slide, storage_url.format("portada", slide.split("/")[-1])] for slide in slides if
                   slide.split("/")[-1] != ""]
-
-    html = template(lan=lan, templates=["index", "galeria"], slides= slide_list, hide_title=True, title=False, max_gallery=8,
-                    show_banner=True, show_newsletter=True, show_prom=True,  show_descompte=True)
+    html = template(lan=lan, templates=["index", "galeria"], slides= slide_list, hide_title=False,
+                    title=False, # TODO: Enable title after promo
+                    max_gallery=8,
+                    show_banner=True, show_newsletter=False, show_prom=True,  show_descompte=True)
     return html
 
 @app.route("/<lan>/sitemap")
@@ -1295,11 +1296,12 @@ def generate_promotion_code():
 
         return code, 200
 
-@app.post("/promotion/signup")
-def send_promotion_code():
+@app.post("/promotion/<name>")
+def send_promotion_code(name):
     use(1)
     from payments import generate_promotion_code, AlreadyGeneratedError, get_current_coupon
     from app_essentials.mail import send_email
+    name = secure_filename(name)
     email = request.get_json().get("email", None)
     print(email)
     coupon, subject = get_current_coupon()
@@ -1318,7 +1320,7 @@ def send_promotion_code():
         return "Error generating promotion code", 500
 
 
-    email_code = send_email(email, subject=subject, code=code, temp="email_black_friday", return_response=False)
+    email_code = send_email(email, subject=subject, code=code, temp=f"email_{name}", return_response=False)
     # print(email_code.json())
     # return
     if email_code == 200:

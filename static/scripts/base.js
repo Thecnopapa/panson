@@ -179,7 +179,7 @@ async function ignorePromotion(){
 async function goToPromotionSignup(target){
     let email = target.querySelector(".prom-popup-email").value;
     //let name = target.querySelector(".prom-popup-name").value;
-    let r = await fetch("/promotion/signup", {
+    let r = await fetch("/promotion/presave_ona", {
         method:"POST",
         headers:{"content-type": "application/json"},
         body: JSON.stringify({
@@ -189,7 +189,7 @@ async function goToPromotionSignup(target){
     });
     if (r.status === 200){
         target.parentNode.querySelector(".popup-cross").click();
-        //track("AcceptedNewsletter", {"email": email, "name": name});
+        showPopup(document.documentElement.querySelector(".prom2-popup"));
     } else if (r.status === 401){
         target.querySelector(".prom-popup-signup").style.backgroundColor = "darkred";
         target.querySelector(".prom-popup-signup").innerText = "Email already applied for discount!";
@@ -427,7 +427,8 @@ function PopPopups(){
     let popups = document.querySelectorAll(".to-be-popped");
     popups.forEach(p => {
         p.classList.remove("to-be-popped");
-        showPopup(p);
+        showCross = !p.classList.contains("no-cross") && !isMobile()
+        showPopup(p, showCross);
     })
 }
 
@@ -490,7 +491,7 @@ function searchInList (query, list, params=["name", "tipus", "col", "material", 
 
 
 function forceNavTitle(trigger=undefined){
-    if (title !== undefined) {
+    if (title !== undefined && title !== null ) {
         title.classList.add("hidden");
     }
 
@@ -504,7 +505,7 @@ function forceNavTitle(trigger=undefined){
 }
 
 function unforceNavTitle(trigger) {
-    if (title !== undefined){
+    if (title !== undefined && title !== null ){
         title.classList.remove("hidden");
     }
     navTitle.classList.remove("shown-by-"+trigger);

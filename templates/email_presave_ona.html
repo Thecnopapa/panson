@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=300, height=600, initial-scale=1.0" />
+    <meta name="color-scheme" content="light">
+    <meta name="supported-color-schemes" content="light">
+</head>
+
+<style>
+
+    @media (prefers-color-scheme: dark) {
+
+        body {
+            background: linear-gradient(lightgray, #121212) !important;
+            color: whitesmoke !important;
+        }
+        .logo {
+            filter: invert(90%);
+        }
+        .hline {
+            background-color: whitesmoke !important;
+        }
+    }
+</style>
+<body style="background: linear-gradient(lightgray, white); color: #121212; display: block; width: 100%; height:100vh; color-scheme: only light;">
+    <div class="email-body" style="display: block; width: 100%; height:100%;">
+        <div class="email-content" style="display: block; width: 90%; margin:auto; padding-top: 2rem; padding-bottom: 2rem;">
+            <div class="logo" style="background-image: url(https://pansonjoieria.com/media/logo/gran); width:100%; height:3rem; background-position: center; background-size: contain; background-repeat: no-repeat;"></div>
+            <div class="hline" style="width: 100%; height: 1px; background-color: #121212; margin-top: 1rem"></div>
+            <br>
+            Hola!<br>
+            <br>
+            Gràcies per voler formar part del que estem preparant a Panson.<br>
+            <br>
+            La nova col·lecció està a punt de veure la llum i tenim un petit detall per a tu: un 5% de descompte per descobrir i estrenar les noves peces.<br>
+            <br>
+            El teu codi de descompte: <b>{{code}}</b><br>
+            <br>
+            La col·lecció estarà disponible a partir del 30 de novembre i podràs utilitzar el teu codi fins al 7 de desembre (inclòs).<br>
+            <br>
+            Guarda'l i prepara't per descobrir tot el que hem creat.<br>
+            <br>
+            Ens fa molta il·lusió compartir-ho amb tu.<br>
+            <br>
+            Atentament,<br>
+            L'equip de Panson<br>
+
+        </div>
+    </div>
+</body>

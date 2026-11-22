@@ -14,7 +14,8 @@
     <div class="menu-closer portrait" id=menu-closer-portrait onclick="event.stopPropagation(closeMenu())"></div>
         {{ menu.render_menu() }}
     <button class="dropbtn hidden" id="projecte" onclick="location.href='/{{ loc.lan }}/projecte/'"> {{ loc.nav_projecte}}</button>
-        <button class="dropbtn last" id="fetamida" onclick="location.href='/{{ loc.lan }}/fetamida'"> {{ loc.nav_fetamida }}</button>
+        <button class="dropbtn" id="fetamida" onclick="location.href='/{{ loc.lan }}/fetamida'"> {{ loc.nav_fetamida }}</button>
+        <button class="dropbtn last" id="black-friday" onclick="location.href='/{{ loc.lan }}/productes?query=is_discounted=true'"> {{ loc.nav_black_friday }}</button>
     </div>
 
     <div class = "navigation-right">
@@ -92,7 +93,7 @@
     </div>
 {% endif %}
 
-{% if (loc.news_mostrar == "si" or ((loc.news_mostrar == "test") and ("test" in host or "127" in host)) ) %}
+{% if (loc.news_mostrar == "si" or ((loc.news_mostrar == "test") and ("test" in host or "127" in host or "192" in host)) ) %}
 <div class="popup-info newsletter-popup {{ "to-be-popped" if not user.no_newsletter and show_newsletter }}">
     <div class="newsletter-popup-titol loc" loc="news_popup_titol">{{ loc.news_popup_titol |safe }}</div>
     <div class="newsletter-popup-text loc" loc="news_popup_text">{{ loc.news_popup_text |safe }}</div>
@@ -106,7 +107,7 @@
 </div>
 {% endif %}
 
-{% if (loc.prom_mostrar == "si" or ((loc.prom_mostrar == "test") and ("test" in host or "127" in host)) ) %}
+{% if (loc.prom_mostrar == "si" or ((loc.prom_mostrar == "test") and ("test" in host or "127" in host or "192" in host)) ) %}
 <div class="popup-info prom-popup {{ "to-be-popped" if not user.no_prom and show_prom }}">
     <div class="prom-popup-titol loc" loc="prom_popup_titol">{{ loc.prom_popup_titol |safe }}</div>
     <div class="prom-popup-text loc" loc="prom_popup_text">{{ loc.prom_popup_text |safe }}</div>
@@ -117,20 +118,26 @@
 
     </div>
     <div class="prom-popup-cancel clickable underlined loc" loc="prom_popup_cancel" onclick="ignorePromotion(); this.parentElement.parentElement.click()">{{ loc.prom_popup_cancel |safe }}</div>
+    <!-- <div class="prom-popup-text2 loc" loc="prom_popup_text2">{{ loc.prom_popup_text2 |safe }}</div> -->
+</div>
+<div class="popup-info prom2-popup">
+    <div class="prom-popup-titol loc" loc="prom_popup2_titol">{{ loc.prom_popup2_titol |safe }}</div>
+    <div class="prom-popup-text loc" loc="prom_popup2_text">{{ loc.prom_popup2_text |safe }}</div>
+    <div class="prom-popup2-ok black-button loc" loc="prom_popup2_ok" onclick="location.href='/{{ loc.lan }}/productes/'">{{ loc.prom_popup2_ok |safe }}</div>
 </div>
 {% endif %}
 
-{% if (loc.desc_mostrar == "si" or ((loc.desc_mostrar == "test") and ("test" in host or "127" in host)) ) %}
+{% if (loc.desc_mostrar == "si" or ((loc.desc_mostrar == "test") and ("test" in host or "127" in host or "192" in host)) ) %}
 <div class="popup-info descompte-popup {{ "to-be-popped" if not user.no_descompte and show_descompte }}">
     <div class="descompte-popup-titol loc" loc="desc_popup_titol">{{ loc.desc_popup_titol |safe }}</div>
     <div class="descompte-popup-text loc" loc="desc_popup_text">{{ loc.desc_popup_text |safe }}</div>
-    <div class="descompte-popup-button black-button loc" loc="desc_popup_registrarse" onclick="location.href='/{{ loc.lan }}/productes/?query=is_descompte=true'">{{ loc.desc_popup_registrarse |safe }}</div>
+    <div class="descompte-popup-button black-button loc" loc="desc_popup_registrarse" onclick="location.href='/{{ loc.lan }}/productes/?query=is_discounted=true'">{{ loc.desc_popup_registrarse |safe }}</div>
 
     <div class="descompte-popup-cancel clickable underlined loc" loc="desc_popup_cancel" onclick="this.parentElement.parentElement.click()">{{ loc.desc_popup_cancel |safe }}</div>
 </div>
 {% endif %}
 
-{% if (loc.banner_mostrar == "si" or (loc.banner_mostrar == "test" and ("test" in host or "127" in host)) ) and show_banner %}
+{% if (loc.banner_mostrar == "si" or (loc.banner_mostrar == "test" and ("test" in host or "127" in host or "192" in host)) ) and show_banner %}
     <div class="banner" style="background-color: {{ loc.banner_color_fons }};">
         <div class="banner-title loc" loc="banner_title">{{ loc.banner_title | safe}}</div>
         <div class="banner-text loc" loc="banner_text">{{ loc.banner_text | safe}}</div>
