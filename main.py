@@ -477,12 +477,13 @@ def return_sitemap(lan="cat"):
     use()
     return send_from_directory("static", "sitemap.xml")
 
+@app.route("/<lan>/collecions/<id>")
 @app.route("/<lan>/collecio/<id>")
 def collections(lan,id):
     use()
     try:
         #print([c for c in get_cols(collabs=True)])
-        col = [c for c in get_cols(collabs=True) if c._id == id][0]
+        col = [c for c in get_cols(collabs=True, amagats=admin_check()) if c._id == id][0]
         if col.collab:
             html = template(lan=lan, templates=["collab"], col=col)
         else:
@@ -521,7 +522,7 @@ def mostrar_peca(lan, id):
     return html
 
 @app.route("/<lan>/bespoke/<id>/")
-def mostrar_bedpoke(lan, id):
+def mostrar_bespoke(lan, id):
     use()
     from app_essentials.firebase import bespoke
     from app_essentials.products import Bespoke
