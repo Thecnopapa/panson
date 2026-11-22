@@ -3,7 +3,6 @@ import os
 import uuid
 import time
 import datetime
-from importlib.metadata import metadata
 
 import requests
 import json
@@ -206,21 +205,56 @@ def create_items(user):
     return items
 
 
-
-def create_customer(user, email=None):
+def retrieve_customer(user):
     user_id = user._id
+    print("Retrieveing customer:", user_id)
     try:
         customer = stripe.Customer.retrieve(user_id)
     except:
+        print("Customer not found")
+        return None, None
+    return customer["id"], customer.to_dict().get("email", None)
+
+def create_customer(user, email=None):
+    if email is not None:
+        customer_id = find_customer(email)
+        if customer_id is not None:
+            return customer_id, email
+    else:
+        customer_id, customer_email = retrieve_customer(user)
+        if customer_id is not None:
+            return customer_id, customer_email
+
+    if customer_id is None:
+        print(f"Creating new customer with email: {email}")
         customer_info = {
-            "id": user_id
+            "id": user._id
         }
         if email is not None:
             customer_info["email"] = email
-        customer = stripe.Customer.create(**customer_info)
-    return customer["id"], customer["email"]
+        try:
+            customer = stripe.Customer.create(**customer_info)
+        except stripe._error.InvalidRequestError:
+            print("User with two emails detected, creating new session")
+            from app_essentials.session import set_new_session
+            customer_info["id"] = set_new_session()
+            customer = stripe.Customer.create(**customer_info)
+        print(f"Customer {customer['id']} created! (with email:{email})")
 
+        return customer["id"], customer.to_dict().get("email", None)
+    return None, None
 
+def find_customer(email):
+    print(f"Finding customer with email: {email}")
+    customers = stripe.Customer.list(email=email)
+    if len(customers.data) > 0:
+        customer = customers.data[0]
+        customer_id = customer["id"]
+        print("Customer found with this email:", email, len(customers.data))
+        return customer_id
+    else:
+        print("No customer email found with this email:", email, len(customers.data))
+        return None
 
 
 
@@ -401,6 +435,8 @@ def process_payment(lan):
         else:
             pi = session["payment_intent"]
         #print(pi)
+        print(session["metadata"]["trello_created"])
+        card_items = [ "{} ({}) x{}".format(i["name"], i["metadata"]["details"], i["metadata"]["quantity"]) for i in new_items]
 
         if session["metadata"]["trello_created"] in ["false", False]:
             for line_item in line_items["data"]:
@@ -425,8 +461,8 @@ def process_payment(lan):
                     details = auto_product["description"],
                 )),
 
+                new_id = "product_" + auto_product["id"]
                 new_data = dict(
-                    id="product_" + auto_product["id"],
                     name=line_item["description"],
                     description="Client: {} ({} - {}) \n Detalls peca: {}".format(
                         customer_name,
@@ -440,10 +476,13 @@ def process_payment(lan):
                 )
                 new_items.append(new_data)
 
-                try:
-                    stripe.Product.create(**new_data)
-                except:
-                    stripe.Product.modify(**new_data)
+                # try:
+                #     stripe.Product.create(**new_data)
+                # except:
+                #     raise
+                print(new_data)
+                stripe.Product.modify(new_id, **new_data)
+                new_data["id"] = new_id
 
 
             card_name = "{} ({})".format(customer_name, len(new_items))
@@ -484,12 +523,11 @@ def process_payment(lan):
                 datetime.date.today()
             )
             #[print(i) for i in new_items]
-            card_items = [ "{} ({}) x{}".format(i["name"], i["metadata"]["details"], i["metadata"]["quantity"]) for i in new_items]
 
             trello = Trello()
             trello.card_create(card_name, card_description, card_items)
             print(session["metadata"])
-            new_meta = {**session["metadata"], **{"trello_created": True}}
+            new_meta = {**session["metadata"].to_dict(), **{"trello_created": True}}
             print(new_meta)
             stripe.checkout.Session.modify(session_id, metadata=new_meta)
         print(session_id)
@@ -515,7 +553,7 @@ def process_payment(lan):
                 invoice=invoice,
                 address=address
             )
-            new_meta = {**session["metadata"], **{"email_sent": True}}
+            new_meta = {**session["metadata"].to_dict(), **{"email_sent": True}}
             print(new_meta)
             stripe.checkout.Session.modify(session_id, metadata=new_meta)
 
@@ -545,21 +583,13 @@ def get_current_coupon():
 
 
 
+
+
+
 def generate_promotion_code(coupon, code=None, email=None, max_redemptions=1):
 
-    customer_id = None
-    if email is not None:
-        customers = stripe.Customer.list(email=email)
-        if len(customers.data) > 0:
-            customer = customers.data[0]
-            customer_id = customer["id"]
-            print("Customer found with this email:", email, len(customers.data))
-        else:
-            print("No customer email found with this email:", email, len(customers.data))
 
-    if customer_id is None:
-        print("Creating new customer:", email)
-        customer_id, _ = create_customer(get_current_user(), email=email)
+    customer_id, _ = create_customer(get_current_user(), email=email)
 
     previous_codes = stripe.PromotionCode.list(customer=customer_id, coupon=coupon)
     print(previous_codes)
@@ -573,7 +603,7 @@ def generate_promotion_code(coupon, code=None, email=None, max_redemptions=1):
             "coupon":coupon,
         },
         "max_redemptions": max_redemptions,
-        "customer": customer_id,
+        #"customer": customer_id,
         "restrictions": {
             "first_time_transaction": False,
             # "minimum_amount": None,

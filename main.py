@@ -697,11 +697,11 @@ def stripe_checkout(lan):
     use()
     return template(lan=lan, templates="stripe_checkout", reset=False, force_new=False)
 
+@app.route("/<lan>/checkout/stripe/force_new_customer")
 @app.route("/<lan>/checkout/stripe/force_new")
 def stripe_checkout_force(lan):
     use()
     return template(lan=lan, templates="stripe_checkout", reset=False, force_new=True)
-
 
 
 @app.post("/<lan>/checkout/update/shipping")
@@ -1258,13 +1258,34 @@ def send_newsletter():
     return "", 405
 
 
+@app.get("/whoami")
+def whoami():
+    use(1)
+    if admin_check():
+        from payments import retrieve_customer
+        user = get_current_user(load_cart=False)
+        customer_id, customer_email = retrieve_customer(user)
+        ret = f"\
+        USER: {user._id}<br>\
+        ADMIN: {user.is_admin}<br>\
+        SESSIONS:<br>\
+        CUSTOMER: {customer_id}<br>\
+        EMAIL: {customer_email}<br>\
+        "
+
+        for ses in user.sessions:
+            ret += f" - {ses}<br>"
+        return ret, 200
+
+
+
 @app.get("/promotion/code")
 def generate_promotion_code():
     use(1)
     if admin_check():
         from payments import generate_promotion_code, AlreadyGeneratedError, get_current_coupon
         try:
-            code = generate_promotion_code(get_current_coupon(), email="iainvisa@gmail.com")
+            code = generate_promotion_code("test-coupon", email="iainvisa@gmail.com")
         except AlreadyGeneratedError:
             return "Customer already has requested code", 401
         except:
@@ -1281,7 +1302,7 @@ def send_promotion_code():
     print(email)
     coupon, subject = get_current_coupon()
     if coupon is None:
-        return "No current discount", 418
+        return "No current promotion", 418
     print (coupon, subject)
     if email is None:
         return "No email provided to generate code", 400

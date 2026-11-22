@@ -4,11 +4,26 @@ from flask import session
 from app_essentials.users import User
 
 from app_essentials.firebase import get_user_data
+from google.cloud.firestore import FieldFilter
 
+
+
+def set_new_session():
+    from app_essentials.firebase import usuaris
+    new_id = str(uuid.uuid4())
+    print("new id", new_id)
+    matching_ids = usuaris.where(filter=FieldFilter("sessions", "array_contains", new_id)).stream()
+    print("matching_ids", matching_ids)
+    while len(list(matching_ids)) > 0:
+        new_id = str(uuid.uuid4())
+        matching_ids = usuaris.where(filter=FieldFilter("sessions", "array_contains", new_id)).stream()
+    session["session_id"] = new_id
+    session["user_id"] = session["session_id"]
+    print(session["session_id"], session)
+    return session["session_id"]
 
 def get_current_user(load_cart=True):
     from app_essentials.firebase import usuaris
-    from google.cloud.firestore import FieldFilter
     print("getting current user")
     #print(session)
     if "user_id" in session.keys():
@@ -20,16 +35,7 @@ def get_current_user(load_cart=True):
         return User(user_data, session["user_id"], load_cart=load_cart)
     if "session_id" not in session.keys():
         print("getting from new session_id")
-        new_id = str(uuid.uuid4())
-        print("new id", new_id)
-        matching_ids = usuaris.where(filter=FieldFilter("sessions", "array_contains", new_id)).stream()
-        print("matching_ids", matching_ids)
-        while len(list(matching_ids)) > 0:
-            new_id = str(uuid.uuid4())
-            matching_ids = usuaris.where(filter=FieldFilter("sessions", "array_contains", new_id)).stream()
-        session["session_id"] = new_id
-        session["user_id"] = session["session_id"]
-        print(session["session_id"], session)
+        set_new_session()
         return User({}, session["session_id"], load_cart=load_cart)
     else:
         print("getting from session_id")
