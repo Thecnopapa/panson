@@ -253,11 +253,11 @@ class Galeria {
         this.startEmpty =  Boolean(Number(options.startEmpty));
         this.closeWhenEmpty = Boolean(Number(options.closeWhenEmpty));
         this.query = query;
-    if (this.bucket === "bespoke"){
-        this.products = Object.keys(allBespoke);
-    } else {
-            this.products = Object.keys(allItems);
-    }
+        if (this.bucket === "bespoke"){
+            this.products = Object.keys(allBespoke);
+        } else {
+                this.products = Object.keys(allItems);
+        }
         //console.log(this.startEmpty);
         if (!this.startEmpty){
             this.products = this.filter(this.query);
@@ -371,10 +371,12 @@ class Galeria {
     filter(query= {}){
         //console.log("Filtering...");
         //console.log(this.query);
-        //console.log(query);
+        //console.log(query.query,query.query === "all" );
 
         let filteredProds = undefined;
-
+        if (query.query === "all") {
+            return this.products
+        }
         if (this.startEmpty){
             if ((query.query === "" || query.query === undefined || query.query === null) && (query.text === "" || query.text === undefined || query.text === null)){
                 //console.log("Starting empty",this.startEmpty )

@@ -44,6 +44,15 @@ class Product(firebaseObject):
         if nimg != 0:
             self._imatges2 *= 4//nimg
             self._imatges2 += self._imatges2[:nimg%nimg]
+        self.is_discounted = self.descompte > 0
+        self.gold = False
+        if self.opcions["materials"] is not None:
+            if "or" in self.opcions.get("materials", {}).keys():
+                self.gold = True
+        if self.opcions["variacions"] is not None:
+            if "xapat-or" in self.opcions.get("variacions", {}).keys():
+                if self.opcions["variacions"]["xapat-or"]["link"] in ("", None):
+                    self.gold = True
 
     def unanounced(self):
         if self.start_date is None or self.start_date == "":

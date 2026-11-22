@@ -4,7 +4,8 @@
 {% import 'galeria.html' as galeria with context%}
 
 <div id="title" class="fast-image {{ "hidden" if hide_title }} {{ "hidden-title" if hide_title }}" background="{{ imgs.get_url("imatges", imgs.get_fixed("logos").imatges[0]) }}" onclick="location.href='/{{ loc.lan }}/'"></div>
-
+<!-- <div class="navigation-banner">
+</div> -->
 <div class = "navigation">
     <div class = "navigation-left" id="nav-left">
         <button class="dropbtn" id="menu-button" onmouseover="openMenu()">{{ loc.nav_botiga }}</button>
@@ -123,7 +124,7 @@
 <div class="popup-info descompte-popup {{ "to-be-popped" if not user.no_descompte and show_descompte }}">
     <div class="descompte-popup-titol loc" loc="desc_popup_titol">{{ loc.desc_popup_titol |safe }}</div>
     <div class="descompte-popup-text loc" loc="desc_popup_text">{{ loc.desc_popup_text |safe }}</div>
-    <div class="descompte-popup-button black-button loc" loc="desc_popup_registrarse" onclick="location.href='/{{ loc.lan }}/productes/'">{{ loc.desc_popup_registrarse |safe }}</div>
+    <div class="descompte-popup-button black-button loc" loc="desc_popup_registrarse" onclick="location.href='/{{ loc.lan }}/productes/?query=is_descompte=true'">{{ loc.desc_popup_registrarse |safe }}</div>
 
     <div class="descompte-popup-cancel clickable underlined loc" loc="desc_popup_cancel" onclick="this.parentElement.parentElement.click()">{{ loc.desc_popup_cancel |safe }}</div>
 </div>
