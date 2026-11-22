@@ -236,8 +236,8 @@ def create_customer(user, email=None):
             customer = stripe.Customer.create(**customer_info)
         except stripe._error.InvalidRequestError:
             print("User with two emails detected, creating new session")
-            from app_essentials.session import set_new_session
-            customer_info["id"] = set_new_session()
+            from app_essentials.session import generate_unused_id
+            customer_info["id"] = generate_unused_id()
             customer = stripe.Customer.create(**customer_info)
         print(f"Customer {customer['id']} created! (with email:{email})")
 
@@ -563,7 +563,11 @@ def process_payment(lan):
         return None
     n_items = sum([i["metadata"]["quantity"] for i in new_items])
     contents = json.dumps([{"id":i["id"], "quantity":i["metadata"]["quantity"]} for i in new_items])
-    return dict(session=session, invoice=invoice, items=line_items, contents=contents, n_items=n_items)
+    session_dict = session.to_dict()
+    if session_dict["payment_intent"] is None:
+        session_dict["payment_intent"] = {}
+    
+    return dict(session=session_dict, invoice=invoice, items=line_items, contents=contents, n_items=n_items)
 
 
 class AlreadyGeneratedError(Exception):

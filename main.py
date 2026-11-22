@@ -728,7 +728,8 @@ def stripe_success(lan):
         payment_data = process_payment(lan=lan)
         if payment_data is None:
             return redirect("/{}".format(lan))
-        html = template(lan=lan, templates="success", **payment_data)
+        print(payment_data["session"])
+        html = template(lan=lan, templates="success", reset=False, **payment_data)
     except Exception as e:
         if admin_check():
             raise e
@@ -1268,9 +1269,10 @@ def whoami():
         ret = f"\
         USER: {user._id}<br>\
         ADMIN: {user.is_admin}<br>\
-        SESSIONS:<br>\
         CUSTOMER: {customer_id}<br>\
         EMAIL: {customer_email}<br>\
+        LAST CHECKOUT: {user.last_checkout}<br>\
+        SESSIONS:<br>\
         "
 
         for ses in user.sessions:

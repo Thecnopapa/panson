@@ -7,8 +7,7 @@ from app_essentials.firebase import get_user_data
 from google.cloud.firestore import FieldFilter
 
 
-
-def set_new_session():
+def generate_unused_id():
     from app_essentials.firebase import usuaris
     new_id = str(uuid.uuid4())
     print("new id", new_id)
@@ -17,6 +16,10 @@ def set_new_session():
     while len(list(matching_ids)) > 0:
         new_id = str(uuid.uuid4())
         matching_ids = usuaris.where(filter=FieldFilter("sessions", "array_contains", new_id)).stream()
+    return new_id
+
+def set_new_session():
+    new_id = generate_unused_id()
     session["session_id"] = new_id
     session["user_id"] = session["session_id"]
     print(session["session_id"], session)
