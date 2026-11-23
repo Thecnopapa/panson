@@ -211,6 +211,19 @@ class Product {
                 if (Number(info.descompte) > 0){
                     t = "<span class='strikethrough grayed'>"+info.preu_antic+"&#8364;</span>&nbsp;&nbsp;"
                     e.innerHTML = t + "<span class='bold'>" + info.preu + "</span>";
+
+                    let badge = document.createElement("div");
+                    badge.classList.add("discount-badge");
+                    if (Number(info.descompte) >= 30){
+                        badge.classList.add("discount-30");
+                    } else if (Number(info.descompte) >= 20) {
+                        badge.classList.add("discount-20");
+                    } else {
+                        badge.classList.add("discount-10");
+                    }
+                    badge.innerText="-" + info.descompte + "%";
+                    el.appendChild(badge);
+
                 } else{
                     e.innerHTML = t + info.preu;
                 }

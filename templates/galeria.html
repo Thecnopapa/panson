@@ -10,9 +10,9 @@
             <div class="filtre-buttons-gradient end-left"></div>
             <div class="filtre-buttons">
                 {% if  (loc.desc_mostrar == "si" or ((loc.desc_mostrar == "test") and ("test" in host or "127" in host or "192" in host)) or loc.ofertes_black_friday == "si" or ((loc.ofertes_black_friday == "test") and ("test" in host or "127" in host or "192" in host))) %}
-                    <div class="filtre first" query="is_discounted=true" onclick="filterGaleria(this)">{{ loc.gal_filtre_descomptes }}</div>
-                    <div class="filtre" query="is_discounted_20=true" onclick="filterGaleria(this)">{{ loc.gal_filtre_descomptes_20 }}</div>
-                    <div class="filtre" query="is_discounted_30=true" onclick="filterGaleria(this)">{{ loc.gal_filtre_descomptes_30 }}</div>
+                    <div class="filtre first filtre-discounted" query="is_discounted=true" onclick="filterGaleria(this)">{{ loc.gal_filtre_descomptes }}</div>
+                    <div class="filtre filtre-discounted filtre-discounted-20" query="is_discounted_20=true" onclick="filterGaleria(this)">{{ loc.gal_filtre_descomptes_20 }}</div>
+                    <div class="filtre filtre-discounted filtre-discounted-30" query="is_discounted_30=true" onclick="filterGaleria(this)">{{ loc.gal_filtre_descomptes_30 }}</div>
                 {% endif %}
                 {% for n, filtre in utils.enumerate(loc.filtres) %}
                     <div class="filtre {{ "first" if n==0 and not (loc.desc_mostrar == "si" or ((loc.desc_mostrar == "test") and ("test" in host or "127" in host or "192" in host)) or loc.ofertes_black_friday == "si" or ((loc.ofertes_black_friday == "test") and ("test" in host or "127" in host or "192" in host)) ) }} {{ "last" if n+1 == utils.len(loc.filtres) }}" query="{{ filtre["query"] }}" onclick="filterGaleria(this)">{{ loc[filtre["nom"]] }}</div>

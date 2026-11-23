@@ -296,6 +296,48 @@
     width: fit-content;
 }
 
+/*.filtre-discounted {
+    background-color: #F6F5F3;
+    color: black;
+    padding: 0.4em;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10%;
+    font-weight: bold;
+    font-family: oracle;
+}*/
+
+
+.discount-badge {
+    display: flex;
+    position: absolute;
+    z-index: 20;
+    top: var(--padding);
+    left: var(--padding);
+    background-color: #F6F5F3;
+    background-color: #FFFFFF;
+    color: black;
+    padding: 0.4em;
+    /*height: 1.5em;
+    width: 3em;*/
+    justify-content: center;
+    align-items: center;
+    border-radius: 10%;
+    font-weight: bold;
+    font-family: oracle;
+}
+.discount-20{
+    background-color: #EAC87C;
+    background-color: #F2F3F7;
+    color:white;
+    color: black;
+}
+.discount-30{
+    background-color: #CD9854;
+    background-color: #868A96;
+    color:white;
+}
+
 
 .view-more {
     position: relative;
@@ -553,6 +595,8 @@
         margin-bottom: -1.5rem;
 
     }
-
+    .discount-badge {
+        font-size: var(--font-size-small);
+    }
 
 }
