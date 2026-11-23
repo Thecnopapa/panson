@@ -207,7 +207,8 @@ class Product {
             el.getElementsByClassName("nom")[0].innerHTML = info.name;
             [...el.getElementsByClassName("preu-inline")].forEach(e => {
                 let t = "";
-                if (Number(info.descompte.value > 0)){
+                console.log(info.descompte);
+                if (Number(info.descompte) > 0){
                     t = "<span class='strikethrough grayed'>"+info.preu_antic+"&#8364;</span>&nbsp;&nbsp;"
                     e.innerHTML = t + "<span class='bold'>" + info.preu + "</span>";
                 } else{
