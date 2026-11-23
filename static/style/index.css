@@ -37,12 +37,12 @@
 
 
 #promo-image {
-    width: 100%;
-    height:15vh;
+    width: 90%;
+    height:20vh;
     position: absolute;
-    top: 80vh;
-    left: var(--paddingx);
+    top: 75vh;
     z-index: 40;
+    left: 0;
     background-position: left;
     background-size: contain;
 }
@@ -122,7 +122,7 @@ body{
     }
     #promo-image {
         width: 100%;
-        top: 50vh;
-        height: 8vh;
+        top: 48vh;
+        height: 10vh;
     }
 }
