@@ -476,17 +476,20 @@ def process_payment(lan):
                 )
                 new_items.append(new_data)
 
-                # try:
-                #     stripe.Product.create(**new_data)
-                # except:
-                #     raise
-                print(new_data)
-                stripe.Product.modify(new_id, **new_data)
-                new_data["id"] = new_id
+                try:
+                    print(f"Creating new Stripe product: {new_id}")
+                    stripe.Product.create(**new_data)
+                except Exception as e:
+                    print(f"Failed to create new Stripe product: {new_id}")
+                    print(e)
+                    print(new_data)
+                    print("Modifying existing Stripe product:")
+                    stripe.Product.modify(new_id, **new_data)
+                    new_data["id"] = new_id
 
 
             card_name = "{} ({})".format(customer_name, len(new_items))
-
+            print(new_items)
             card_description="""
             ----- Dades client -------------
             Client: {}
@@ -516,10 +519,10 @@ def process_payment(lan):
                 recipient,
                 address,
                 session["amount_subtotal"]/100,
-                pi["currency"],
-                session["shipping_cost"]["amount_subtotal"]/100, session["shipping_cost"]["amount_tax"]/100,session["shipping_cost"]["amount_total"]/100, pi["currency"],
-                session["amount_subtotal"]/100, pi["amount_details"]["shipping"]["amount"]/100, pi["amount_details"]["tax"]["total_tax_amount"]/100, pi["amount_received"]/100, pi["currency"],
-                session["customer"], pi["id"], ", ".join(str(d["id"]) for d in new_items),
+                pi.get("currency", "None"),
+                session["shipping_cost"]["amount_subtotal"]/100, session["shipping_cost"]["amount_tax"]/100,session["shipping_cost"]["amount_total"]/100, pi.get("currency", "None"),
+                session["amount_subtotal"]/100, pi["amount_details"]["shipping"]["amount"]/100, pi.get("amount_details", {}).get("tax", {}).get("total_tax_amount", 0)/100, pi.get("amount_received", 0)/100, pi.get("currency", "None"),
+                session["customer"], pi.get("id", "None"), ", ".join(str(d.get("id", "None")) for d in new_items),
                 datetime.date.today()
             )
             #[print(i) for i in new_items]
