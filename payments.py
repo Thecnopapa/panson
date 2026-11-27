@@ -565,7 +565,7 @@ def process_payment(lan):
     else:
         return None
     n_items = sum([i["metadata"]["quantity"] for i in new_items])
-    contents = json.dumps([{"id":i["id"], "quantity":i["metadata"]["quantity"]} for i in new_items])
+    contents = json.dumps([{"id":i.get("id", "None"), "quantity":i["metadata"]["quantity"]} for i in new_items])
     session_dict = session.to_dict()
     if session_dict["payment_intent"] is None:
         session_dict["payment_intent"] = {}
