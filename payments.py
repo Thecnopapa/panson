@@ -19,6 +19,7 @@ currency="EUR"
 
 
 try:
+    print(os.environ["STRIPE_KEY_PATH"])
     with open(os.environ["STRIPE_KEY_PATH"]) as f:
         stripe.api_key = f.read()
 
@@ -433,7 +434,7 @@ def process_payment(lan):
                                        }
                                    }
         else:
-            pi = session["payment_intent"]
+            pi = session["payment_intent"].to_dict()
         #print(pi)
         print(session["metadata"]["trello_created"])
         card_items = [ "{} ({}) x{}".format(i["name"], i["metadata"]["details"], i["metadata"]["quantity"]) for i in new_items]

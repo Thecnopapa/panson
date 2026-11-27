@@ -1,6 +1,6 @@
 # ESSENTIAL IMPORTS
 import json
-import os
+import os, sys
 import datetime
 
 import werkzeug.exceptions
@@ -21,6 +21,8 @@ FETCH_SECRETS = False
 
 secret_client = None
 os.makedirs(".secure", exist_ok=True)
+
+STRIPE_TEST = bool(os.environ.get("STRIPE_TEST", False))
 
 
 
@@ -68,10 +70,15 @@ expected_secrets = {
         "FIREBASE_CREDENTIALS": "firebase_credentials",
         "FIRESTORE_CREDENTIALS": "firestore_credentials",
         "STRIPE_KEY": "stripe_key",
+        "STRIPE_PUB_KEY": "stripe_pub_key",
         "TRELLO_KEY": "trello_key",
         "MAILGUN_KEY": "mailgun_sending_key",
         "SEO_KEY": "seo_key",
     }
+
+if STRIPE_TEST:
+    expected_secrets["STRIPE_TEST_KEY"] = "stripe_test"
+    expected_secrets["STRIPE_TEST_PUB_KEY"] = "stripe_pub_test"
 
 for secret_name, resource_name  in expected_secrets.items():
     print(" * Checking secret:", secret_name)
@@ -90,6 +97,11 @@ for secret_name, resource_name  in expected_secrets.items():
     os.environ[secret_name+"_PATH"] = secret_path
     del secret
     del secret_path
+
+if STRIPE_TEST:
+    os.environ["STRIPE_KEY_PATH"] = os.environ["STRIPE_TEST_KEY_PATH"]
+    os.environ["STRIPE_PUB_KEY_PATH"] = os.environ["STRIPE_TEST_PUB_KEY_PATH"]
+    #os.environ["STRIPE_KEY"] = os.environ["STRIPE_TEST_KEY"]
 
 del expected_secrets
 
@@ -696,7 +708,9 @@ def checkout_force(lan):
 @app.route("/<lan>/checkout/stripe")
 def stripe_checkout(lan):
     use()
-    return template(lan=lan, templates="stripe_checkout", reset=False, force_new=False)
+    pub_key = open(os.environ["STRIPE_PUB_KEY_PATH"]).read()
+    print(pub_key)
+    return template(lan=lan, templates="stripe_checkout", reset=False, force_new=False, pub_key=pub_key)
 
 @app.route("/<lan>/checkout/stripe/force_new_customer")
 @app.route("/<lan>/checkout/stripe/force_new")
@@ -1281,7 +1295,7 @@ def whoami():
         return ret, 200
 
 
-
+@app.get("/promotion/code")
 @app.get("/promotion/code/<name>")
 def generate_promotion_code(name="test-coupon"):
     use(1)

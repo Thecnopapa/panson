@@ -5,11 +5,13 @@
 console.log("Stripe");
 // This is your test publishable API key.
 // MUST match Stripe used eg. test/live
-const stripe = Stripe("pk_live_51ROMKsIKAV226aJa9s80bLSqIXA5iusweI3iQx7P2b56ZYiywYQvA02QpAfRfFBzhHGgZeYONB9wjKYzNMnRVIHU00fpwHcyDL");
+// const stripe = Stripe("pk_live_51ROMKsIKAV226aJa9s80bLSqIXA5iusweI3iQx7P2b56ZYiywYQvA02QpAfRfFBzhHGgZeYONB9wjKYzNMnRVIHU00fpwHcyDL");
 
-console.log(stripe);
+// if (new URLSearchParams(document.location.href).get("stripe-test") === "true"){
+//     console.log("Test stripe detected") // Sandbox 1
+//     const stripe = Stripe("pk_test_51UgRSjIdfTK9FsvRxHJgS4MAHTQgxPuWIWojXn1xQHRhzzN7ZYBYkoIIHFp2vOOFEPzy5x5DrjGlGJN8Y6OtcfBi00xvPGSBKA");
+// }
 
-initialize();
 
 // Create a Checkout Session
 async function initialize() {
@@ -49,15 +51,15 @@ async function initialize() {
         shipping_details: shippingDetails,
       })
     })
-	console.log(response);
+    console.log(response);
     if (response.type === 'error') {
       return Promise.resolve({type: "reject", errorMessage: response.message});
     } else {
-	    checkoutElement = document.getElementById("checkout");
-	    //checkoutElement.scrollIntoView({"block": "start"});
-	    document.documentElement.scrollTo({top:0});
-	    r = Promise.resolve({type: "accept"});
-	    console.log(r);
+        checkoutElement = document.getElementById("checkout");
+        //checkoutElement.scrollIntoView({"block": "start"});
+        document.documentElement.scrollTo({top:0});
+        r = Promise.resolve({type: "accept"});
+        console.log(r);
       return r;
     }
   };
@@ -71,4 +73,6 @@ async function initialize() {
   checkout.mount('#checkout');
 
 }
+
+initialize();
 

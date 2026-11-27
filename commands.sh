@@ -27,6 +27,14 @@ test (){
       export OLD_SAFARI=0
     fi
 
+    if [[ "$*" == *"stripe-test"* ]]; then
+      echo " * Using Stripe sandbox"
+      export STRIPE_TEST=1
+      local title="$title --stripe-test"
+    else
+      export STRIPE_TEST=0
+    fi
+
     if [[ "$*" == *"debug"* ]]; then
       echo " * Debug mode activated"
         local title="$title --debug"

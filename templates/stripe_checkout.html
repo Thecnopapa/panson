@@ -5,18 +5,25 @@
     <link href='/style/stripe.css' as='style' rel='preload'>
     <link href='/style/stripe.css' rel='stylesheet'>
     <script src="https://js.stripe.com/basil/stripe.js"></script>
+    <script>
+        const stripe = Stripe("{{ pub_key }}");
+        //console.log("Stripe pub key:", "{{pub_key}}");
+    </script>
     <script src="/scripts/stripe.js" defer></script>
 
 {% endblock %}
 
 
 {% block body %}
+
     <div id="nav-color" navColor="opaque"></div>
     <div class="checkout-container">
     <div id="checkout">
             <!-- Checkout will insert the payment form here -->
     </div>
     <a style="display: none" id=change_email href="/checkout/checkout/stripe/force_new_customer">Use another Email</a>
+
+
 </div>
 
 {% endblock %}
