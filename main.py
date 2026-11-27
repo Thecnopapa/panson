@@ -1282,13 +1282,13 @@ def whoami():
 
 
 
-@app.get("/promotion/code")
-def generate_promotion_code():
+@app.get("/promotion/code/<name>")
+def generate_promotion_code(name="test-coupon"):
     use(1)
     if admin_check():
         from payments import generate_promotion_code, AlreadyGeneratedError, get_current_coupon
         try:
-            code = generate_promotion_code("test-coupon", email="iainvisa@gmail.com")
+            code = generate_promotion_code(name, email="iainvisa@gmail.com")
         except AlreadyGeneratedError:
             return "Customer already has requested code", 401
         except:
